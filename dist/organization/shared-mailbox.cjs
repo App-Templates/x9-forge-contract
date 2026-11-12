@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SHARED_MAILBOX_REFUSAL_REASONS = exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxAudienceSchema = exports.SHARED_MAILBOX_AUDIENCES = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
+exports.SHARED_MAILBOX_REFUSAL_REASONS = exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxAudienceSchema = exports.SHARED_MAILBOX_AUDIENCES = exports.DIRECTORS_MAILBOX_AUDIENCE = exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
 exports.sharedMailboxAudience = sharedMailboxAudience;
 exports.parseSharedMailboxesFile = parseSharedMailboxesFile;
 exports.parseSharedMailboxSubjectLabel = parseSharedMailboxSubjectLabel;
@@ -21,7 +21,11 @@ exports.SharedMailboxHolderSchema = zod_1.z.strictObject({
     label: exports.SharedMailboxLabelSchema,
     displayName: zod_1.z.string().min(1).max(120),
 });
-exports.SHARED_MAILBOX_AUDIENCES = ['business_unit_leads', 'directors'];
+/** Audience of the company mailbox shared by the business unit leads, also what an absent `audience` means. */
+exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE = 'business_unit_leads';
+/** Audience of the company mailbox shared by the project Directors. */
+exports.DIRECTORS_MAILBOX_AUDIENCE = 'directors';
+exports.SHARED_MAILBOX_AUDIENCES = [exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE, exports.DIRECTORS_MAILBOX_AUDIENCE];
 exports.SharedMailboxAudienceSchema = zod_1.z.enum(exports.SHARED_MAILBOX_AUDIENCES);
 /** One company inbox, shared by the Director and business unit leads, or by the project Directors. */
 exports.SharedMailboxSchema = zod_1.z.strictObject({
@@ -35,7 +39,7 @@ exports.SharedMailboxSchema = zod_1.z.strictObject({
     /** Absent means `business_unit_leads`. */
     audience: exports.SharedMailboxAudienceSchema.optional(),
 }).superRefine((mailbox, ctx) => {
-    if (mailbox.audience !== 'directors' && mailbox.holders.length < 2) {
+    if (mailbox.audience !== exports.DIRECTORS_MAILBOX_AUDIENCE && mailbox.holders.length < 2) {
         ctx.addIssue({ code: 'custom', path: ['holders'], message: 'A business unit leads mailbox needs at least 2 holders' });
     }
     const agentIds = new Set();
@@ -56,7 +60,7 @@ exports.SharedMailboxSchema = zod_1.z.strictObject({
     }
 });
 function sharedMailboxAudience(mailbox) {
-    return mailbox.audience ?? exports.SHARED_MAILBOX_AUDIENCES[0];
+    return mailbox.audience ?? exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE;
 }
 /** Relative to the contexts directory shared by Forge and cap-email. */
 exports.SHARED_MAILBOXES_FILE = 'companies/shared-mailboxes.json';
@@ -137,7 +141,7 @@ function decideSharedMailboxRoute(input) {
             remaining = remaining.slice(group[0].length).trimStart();
             continue;
         }
-        if (sharedMailboxAudience(mailbox) === 'directors') {
+        if (sharedMailboxAudience(mailbox) === exports.DIRECTORS_MAILBOX_AUDIENCE) {
             return { via: 'refused', reason: exports.SHARED_MAILBOX_REFUSAL_REASONS[0], label: text.slice(0, REFUSED_LABEL_MAX_LENGTH) };
         }
         break;

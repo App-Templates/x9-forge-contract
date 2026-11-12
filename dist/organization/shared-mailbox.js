@@ -10,7 +10,11 @@ export const SharedMailboxHolderSchema = z.strictObject({
     label: SharedMailboxLabelSchema,
     displayName: z.string().min(1).max(120),
 });
-export const SHARED_MAILBOX_AUDIENCES = ['business_unit_leads', 'directors'];
+/** Audience of the company mailbox shared by the business unit leads, also what an absent `audience` means. */
+export const BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE = 'business_unit_leads';
+/** Audience of the company mailbox shared by the project Directors. */
+export const DIRECTORS_MAILBOX_AUDIENCE = 'directors';
+export const SHARED_MAILBOX_AUDIENCES = [BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE, DIRECTORS_MAILBOX_AUDIENCE];
 export const SharedMailboxAudienceSchema = z.enum(SHARED_MAILBOX_AUDIENCES);
 /** One company inbox, shared by the Director and business unit leads, or by the project Directors. */
 export const SharedMailboxSchema = z.strictObject({
@@ -24,7 +28,7 @@ export const SharedMailboxSchema = z.strictObject({
     /** Absent means `business_unit_leads`. */
     audience: SharedMailboxAudienceSchema.optional(),
 }).superRefine((mailbox, ctx) => {
-    if (mailbox.audience !== 'directors' && mailbox.holders.length < 2) {
+    if (mailbox.audience !== DIRECTORS_MAILBOX_AUDIENCE && mailbox.holders.length < 2) {
         ctx.addIssue({ code: 'custom', path: ['holders'], message: 'A business unit leads mailbox needs at least 2 holders' });
     }
     const agentIds = new Set();
@@ -45,7 +49,7 @@ export const SharedMailboxSchema = z.strictObject({
     }
 });
 export function sharedMailboxAudience(mailbox) {
-    return mailbox.audience ?? SHARED_MAILBOX_AUDIENCES[0];
+    return mailbox.audience ?? BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE;
 }
 /** Relative to the contexts directory shared by Forge and cap-email. */
 export const SHARED_MAILBOXES_FILE = 'companies/shared-mailboxes.json';
@@ -126,7 +130,7 @@ export function decideSharedMailboxRoute(input) {
             remaining = remaining.slice(group[0].length).trimStart();
             continue;
         }
-        if (sharedMailboxAudience(mailbox) === 'directors') {
+        if (sharedMailboxAudience(mailbox) === DIRECTORS_MAILBOX_AUDIENCE) {
             return { via: 'refused', reason: SHARED_MAILBOX_REFUSAL_REASONS[0], label: text.slice(0, REFUSED_LABEL_MAX_LENGTH) };
         }
         break;

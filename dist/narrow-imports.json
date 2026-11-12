@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.200.0",
+  "versione": "1.201.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2434,6 +2434,7 @@
       "AuthoritativeDecisionExperienceEventSchema": "@x9-forge/contracts/organization/experience",
       "AuthoritativeDecisionStatusSchema": "@x9-forge/contracts/organization/experience",
       "BUSINESS_UNIT_DELIVERY_EMAIL_DEFAULTS": "@x9-forge/contracts/organization/business-unit-type",
+      "BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE": "@x9-forge/contracts/organization/shared-mailbox",
       "BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX": "@x9-forge/contracts/organization/business-unit-lead",
       "BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE": "@x9-forge/contracts/organization/business-unit-lead",
       "BUSINESS_UNIT_LEAD_ROLE": "@x9-forge/contracts/organization/agent-role",
@@ -2486,6 +2487,7 @@
       "DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_PREVIEW_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_PROBLEM_CODES": "@x9-forge/contracts/organization/delivery-package",
+      "DIRECTORS_MAILBOX_AUDIENCE": "@x9-forge/contracts/organization/shared-mailbox",
       "DIRECTOR_ROLE": "@x9-forge/contracts/organization/agent-role",
       "DecisionAlternativeSchema": "@x9-forge/contracts/organization/decision-response",
       "DecisionApproverSchema": "@x9-forge/contracts/organization/experience",

@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.201.0 — named audiences of the shared mailbox (task 6732)
+
+- New constants `BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE` (`'business_unit_leads'`, also what an absent `audience` means) and `DIRECTORS_MAILBOX_AUDIENCE` (`'directors'`).
+- `SHARED_MAILBOX_AUDIENCES` is built from them, same values and order.
+- No schema changes; consumers should name the audience, never read it by position.
+- Consumers: Forge (6733), X9 no obligation.
+
 ## v1.200.0 — stack decision tag is not a holder label (task 6728)
 
 - New `isStackSubjectTag(group: string): boolean` recognizes the decision request tag using the shared subject label and request ID schema.

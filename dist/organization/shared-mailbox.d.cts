@@ -8,6 +8,10 @@ export declare const SharedMailboxHolderSchema: z.ZodObject<{
     displayName: z.ZodString;
 }, z.core.$strict>;
 export type SharedMailboxHolder = z.infer<typeof SharedMailboxHolderSchema>;
+/** Audience of the company mailbox shared by the business unit leads, also what an absent `audience` means. */
+export declare const BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE = "business_unit_leads";
+/** Audience of the company mailbox shared by the project Directors. */
+export declare const DIRECTORS_MAILBOX_AUDIENCE = "directors";
 export declare const SHARED_MAILBOX_AUDIENCES: readonly ["business_unit_leads", "directors"];
 export declare const SharedMailboxAudienceSchema: z.ZodEnum<{
     business_unit_leads: "business_unit_leads";
