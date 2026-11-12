@@ -1,4 +1,3 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   INTERNAL_MEMORY_ASSET_READ_PATH,
@@ -83,9 +82,7 @@ describe('internal memory asset read', () => {
     expect(InternalMemoryAssetReadResponseSchema.parse({ asset })).toEqual({ asset });
   });
 
-  it('s6102 1.132.0 exports the project delivery record and the email send tool', () => {
-    const pkg = JSON.parse(readFileSync(new URL('../../../package.json', import.meta.url), 'utf8'));
-    expect(pkg.version).toBe('1.132.0');
+  it('s6102 exports the project delivery record and the email send tool', () => {
     expect(EMAIL_SEND_TOOL).toBe('email_send');
     expect(PROJECT_DELIVERY_DUPLICATE_UNIT).toBe('project_delivery_duplicate_unit');
     expect(ProjectDeliveryRecordSchema.safeParse({

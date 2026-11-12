@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import {
-  PAPERCLIP_NATIVE_WAIT_TOOLS, PAPERCLIP_TOOLS, PaperclipCheckLaterInputSchema as CheckLater,
+  PAPERCLIP_CHECK_LATER_MAX_SECONDS, PAPERCLIP_NATIVE_WAIT_TOOLS, PAPERCLIP_TOOLS, PaperclipCheckLaterInputSchema as CheckLater,
   PaperclipCheckLaterOutputSchema as CheckLaterOutput, PaperclipCreateIssueInputSchema as Create,
   PaperclipNativeCreateIssueInputSchema as NativeCreate, PaperclipNativeReviewInputSchema as NativeReview,
   PaperclipReviewInputSchema as Review,
@@ -89,9 +89,10 @@ describe('check later: a one-shot Paperclip monitor (P-15)', () => {
   it('accepts a bounded delay and Paperclip-sized notes', () => {
     const input = { issueId, afterSeconds: 120, notes: 'Controllo lo stato della ricerca', serviceName: 'cap-ricerca' };
     expect(CheckLater.parse(input)).toEqual(input);
+    expect(CheckLater.parse({ ...input, afterSeconds: 3601 })).toEqual({ ...input, afterSeconds: 3601 });
   });
-  it('refuses delays outside 30..3600 s, oversized notes or service names, extra keys', () => {
-    for (const afterSeconds of [29, 3601, 1.5]) {
+  it('refuses delays outside 30..PAPERCLIP_CHECK_LATER_MAX_SECONDS s, oversized notes or service names, extra keys', () => {
+    for (const afterSeconds of [29, PAPERCLIP_CHECK_LATER_MAX_SECONDS + 1, 1.5]) {
       expect(CheckLater.safeParse({ issueId, afterSeconds, notes: 'x' }).success).toBe(false);
     }
     expect(CheckLater.safeParse({ issueId, afterSeconds: 60, notes: 'x'.repeat(501) }).success).toBe(false);
