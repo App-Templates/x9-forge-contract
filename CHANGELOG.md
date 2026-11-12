@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.171.0 — il riepilogo di reparto è derivato dai fatti registrati; additivo (scheda 6343)
+
+- `organization/business-unit-state` aggiunge `BusinessUnitStateScopeSchema`, `BusinessUnitStateSummarySchema` e `deriveBusinessUnitStateSummary`, funzione pura senza orologio: per un reparto, ultima versione e stato di ogni chiave (solo via `deriveAssetVersionStates`), ultima approvata, decisioni di consegna aperte (anche doppie), materiali ricevuti (asset non nati da una sessione) ed esito dell'ultimo tentativo di ogni sessione. I fatti di altri perimetri sono ignorati. Nessuna forma salvata cambia.
+- Consumatori: agent-core lo compone a ogni turno di capo e del Director, da Memoria e cap-dev. Serve il registro delle versioni in Memoria e gli esiti di sessione scritti dall'esecutore (6342).
+
 ## v1.170.0 — structured session outcomes and lead answers; additive (task 6342)
 
 - `capability/dev/session-outcome` adds strict `DevSessionOutcomeSchema` and `DevSessionAnswerSchema`, state/reason constants, full Git reference validation, canonical JSON and shared marker-block rendering/parsing. Non-delivered outcomes require a fixed tool error disposition; material failures name missing references; every outcome declares the executor version. Existing assignments, deliveries, verified results and persisted forms are unchanged.

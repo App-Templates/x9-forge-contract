@@ -24,6 +24,7 @@ export * from "./agent-role.cjs";
 export * from "./decision-request.cjs";
 export * from "./asset.cjs";
 export * from "./asset-version.cjs";
+export * from "./business-unit-state.cjs";
 export * from "./shared-mailbox.cjs";
 export * from "./business-unit-type.cjs";
 export * from "./action-plan.cjs";

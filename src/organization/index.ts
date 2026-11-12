@@ -24,6 +24,7 @@ export * from './agent-role.js';
 export * from './decision-request.js';
 export * from './asset.js';
 export * from './asset-version.js';
+export * from './business-unit-state.js';
 export * from './shared-mailbox.js';
 export * from './business-unit-type.js';
 export * from './action-plan.js';

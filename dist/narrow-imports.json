@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.170.0",
+  "versione": "1.171.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2407,6 +2407,8 @@
       "BusinessUnitLeadProfileTemplateSchema": "@x9-forge/contracts/organization/business-unit-lead",
       "BusinessUnitLeadReferentSchema": "@x9-forge/contracts/organization/business-unit-lead",
       "BusinessUnitLeadTypeIdSchema": "@x9-forge/contracts/organization/business-unit-type",
+      "BusinessUnitStateScopeSchema": "@x9-forge/contracts/organization/business-unit-state",
+      "BusinessUnitStateSummarySchema": "@x9-forge/contracts/organization/business-unit-state",
       "BusinessUnitTypeCardSchema": "@x9-forge/contracts/organization/business-unit-type",
       "COMPANY_MAP_CONFIRM_OPTIONS": "@x9-forge/contracts/organization/company-map",
       "COMPANY_MAP_ENTRY_KINDS": "@x9-forge/contracts/organization/company-map",
@@ -2613,6 +2615,7 @@
       "deliveryPackagePaths": "@x9-forge/contracts/organization/delivery-package",
       "deliveryPackageProblems": "@x9-forge/contracts/organization/delivery-package",
       "deriveAssetVersionStates": "@x9-forge/contracts/organization/asset-version",
+      "deriveBusinessUnitStateSummary": "@x9-forge/contracts/organization/business-unit-state",
       "isExperienceReceiptForEvent": "@x9-forge/contracts/organization/experience",
       "isLaterDecisionRequest": "@x9-forge/contracts/organization/asset-version",
       "isPublishMaterialResponseForRequest": "@x9-forge/contracts/organization/publication-operations",
