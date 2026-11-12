@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.179.0 — seat wake errors have a body in the bridge and tell `wake_timeout` from `paperclip_unavailable`; additive (task 6351)
+
+- `http/endpoints/internal-paperclip-seats` adds `PAPERCLIP_SEAT_WAKE_ERROR_CODES` (`paperclip_unavailable`, `wake_timeout`), `PaperclipSeatWakeErrorCodeSchema` / `PaperclipSeatWakeErrorCode` and the strict `InternalPaperclipSeatWakeErrorResponseSchema` (`{ ok: false, error }`). The reply-wake and native-wake contracts gain `errorResponseSchema`; method, path, auth, body and success responses are unchanged, and the 502 body written today still parses.
+- Consumers: cap-paperclip writes the right code (task D3-X2); cap-email and the other wake callers read it. Which HTTP status carries it is cap-paperclip's choice.
+
 ## v1.178.0 — a limit stop during a turn schedules a re-check; additive (task 6350)
 
 - `capability/paperclip/turn-disposition` adds `TURN_STOP_CODES`, `TurnStopCodeSchema` / `TurnStopCode` and a strict `stopped` turn end for `budget_exhausted` or `run_expired`, with optional retry seconds. Its disposition is `check_later` with a succeeding run, a fixed note preserving work already done, a one-hour default and a 60-second minimum. All six existing turn ends are unchanged; `failed` still fails the run even with a limit failure code. No persisted shape narrows and the Paperclip body builder is unchanged.

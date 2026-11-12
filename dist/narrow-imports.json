@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.178.0",
+  "versione": "1.179.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1765,6 +1765,7 @@
       "InternalPaperclipSeatSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "InternalPaperclipSeatSearchQuerySchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "InternalPaperclipSeatSearchResponseSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
+      "InternalPaperclipSeatWakeErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "InternalPaperclipSeatsQuerySchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "InternalPaperclipSeatsResponseSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "InternalParticipantBindingApplyRequestSchema": "@x9-forge/contracts/http/endpoints/internal-participant-binding",
@@ -1829,11 +1830,13 @@
       "PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_REPLY_WAKE_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
+      "PAPERCLIP_SEAT_WAKE_ERROR_CODES": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_TURNO_SEGRETO_HEADER": "@x9-forge/contracts/http/endpoints/paperclip-protocollo-turno",
       "PaperclipSeatNativeWakeEventSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatNativeWakeResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatReplyWakeResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatResearchDoneDossierEntrySchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
+      "PaperclipSeatWakeErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "ParticipantBindingErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-participant-binding",
       "PostCallErrorResponseSchema": "@x9-forge/contracts/http/endpoints/webhook-post-call",
       "PostCallPayloadSchema": "@x9-forge/contracts/http/endpoints/webhook-post-call",

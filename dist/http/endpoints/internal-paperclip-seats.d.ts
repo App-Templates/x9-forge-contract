@@ -294,6 +294,25 @@ export declare const InternalPaperclipSeatReplyWakeResponseSchema: z.ZodObject<{
         }, z.core.$strict>;
     }, z.core.$strict>], "outcome">>;
 }, z.core.$strict>;
+/**
+ * Error codes of a failed seat wake. They name whose fault the failure is.
+ * - `paperclip_unavailable`: Paperclip answered with an error or could not be reached.
+ * - `wake_timeout`: OUR time limit ran out while Paperclip was answering; Paperclip is not in error.
+ */
+export declare const PAPERCLIP_SEAT_WAKE_ERROR_CODES: readonly ["paperclip_unavailable", "wake_timeout"];
+export declare const PaperclipSeatWakeErrorCodeSchema: z.ZodEnum<{
+    paperclip_unavailable: "paperclip_unavailable";
+    wake_timeout: "wake_timeout";
+}>;
+export type PaperclipSeatWakeErrorCode = z.infer<typeof PaperclipSeatWakeErrorCodeSchema>;
+export declare const InternalPaperclipSeatWakeErrorResponseSchema: z.ZodObject<{
+    ok: z.ZodLiteral<false>;
+    error: z.ZodEnum<{
+        paperclip_unavailable: "paperclip_unavailable";
+        wake_timeout: "wake_timeout";
+    }>;
+}, z.core.$strict>;
+export type InternalPaperclipSeatWakeErrorResponse = z.infer<typeof InternalPaperclipSeatWakeErrorResponseSchema>;
 export declare const internalPaperclipSeatReplyWakeContract: {
     readonly method: "POST";
     readonly path: "/internal/paperclip/seats/reply-wake";
@@ -366,6 +385,13 @@ export declare const internalPaperclipSeatReplyWakeContract: {
                 }>;
             }, z.core.$strict>;
         }, z.core.$strict>], "outcome">>;
+    }, z.core.$strict>;
+    readonly errorResponseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodEnum<{
+            paperclip_unavailable: "paperclip_unavailable";
+            wake_timeout: "wake_timeout";
+        }>;
     }, z.core.$strict>;
 };
 export type InternalPaperclipSeatReplyWakeRequest = z.infer<typeof InternalPaperclipSeatReplyWakeRequestSchema>;
@@ -888,6 +914,13 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 }>;
             }, z.core.$strict>;
         }, z.core.$strict>], "outcome">>;
+    }, z.core.$strict>;
+    readonly errorResponseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodEnum<{
+            paperclip_unavailable: "paperclip_unavailable";
+            wake_timeout: "wake_timeout";
+        }>;
     }, z.core.$strict>;
 };
 export type InternalPaperclipSeatNativeWakeRequest = z.infer<typeof InternalPaperclipSeatNativeWakeRequestSchema>;

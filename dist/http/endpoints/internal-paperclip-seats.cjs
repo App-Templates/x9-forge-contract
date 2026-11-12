@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
+exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatWakeErrorResponseSchema = exports.PaperclipSeatWakeErrorCodeSchema = exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
 const zod_1 = require("zod");
 const inbound_event_js_1 = require("../../capability/paperclip/inbound-event.cjs");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
@@ -144,12 +144,24 @@ exports.InternalPaperclipSeatReplyWakeResponseSchema = zod_1.z.strictObject({
         ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
     }
 });
+/**
+ * Error codes of a failed seat wake. They name whose fault the failure is.
+ * - `paperclip_unavailable`: Paperclip answered with an error or could not be reached.
+ * - `wake_timeout`: OUR time limit ran out while Paperclip was answering; Paperclip is not in error.
+ */
+exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES = ['paperclip_unavailable', 'wake_timeout'];
+exports.PaperclipSeatWakeErrorCodeSchema = zod_1.z.enum(exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES);
+exports.InternalPaperclipSeatWakeErrorResponseSchema = zod_1.z.strictObject({
+    ok: zod_1.z.literal(false),
+    error: exports.PaperclipSeatWakeErrorCodeSchema,
+});
 exports.internalPaperclipSeatReplyWakeContract = {
     method: 'POST',
     path: exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH,
     authType: 'secret',
     bodySchema: exports.InternalPaperclipSeatReplyWakeRequestSchema,
     responseSchema: exports.InternalPaperclipSeatReplyWakeResponseSchema,
+    errorResponseSchema: exports.InternalPaperclipSeatWakeErrorResponseSchema,
 };
 exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = '/internal/paperclip/seats/native-wake';
 exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = ['request', 'reply', 'decision'];
@@ -307,5 +319,6 @@ exports.internalPaperclipSeatNativeWakeContract = {
     authType: 'secret',
     bodySchema: exports.InternalPaperclipSeatNativeWakeRequestSchema,
     responseSchema: exports.InternalPaperclipSeatNativeWakeResponseSchema,
+    errorResponseSchema: exports.InternalPaperclipSeatWakeErrorResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map

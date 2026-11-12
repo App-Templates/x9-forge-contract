@@ -182,12 +182,28 @@ export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
   }
 });
 
+/**
+ * Error codes of a failed seat wake. They name whose fault the failure is.
+ * - `paperclip_unavailable`: Paperclip answered with an error or could not be reached.
+ * - `wake_timeout`: OUR time limit ran out while Paperclip was answering; Paperclip is not in error.
+ */
+export const PAPERCLIP_SEAT_WAKE_ERROR_CODES = ['paperclip_unavailable', 'wake_timeout'] as const;
+export const PaperclipSeatWakeErrorCodeSchema = z.enum(PAPERCLIP_SEAT_WAKE_ERROR_CODES);
+export type PaperclipSeatWakeErrorCode = z.infer<typeof PaperclipSeatWakeErrorCodeSchema>;
+
+export const InternalPaperclipSeatWakeErrorResponseSchema = z.strictObject({
+  ok: z.literal(false),
+  error: PaperclipSeatWakeErrorCodeSchema,
+});
+export type InternalPaperclipSeatWakeErrorResponse = z.infer<typeof InternalPaperclipSeatWakeErrorResponseSchema>;
+
 export const internalPaperclipSeatReplyWakeContract = {
   method: 'POST' as const,
   path: INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH,
   authType: 'secret' as const,
   bodySchema: InternalPaperclipSeatReplyWakeRequestSchema,
   responseSchema: InternalPaperclipSeatReplyWakeResponseSchema,
+  errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
 } as const;
 
 export type InternalPaperclipSeatReplyWakeRequest = z.infer<typeof InternalPaperclipSeatReplyWakeRequestSchema>;
@@ -365,6 +381,7 @@ export const internalPaperclipSeatNativeWakeContract = {
   authType: 'secret' as const,
   bodySchema: InternalPaperclipSeatNativeWakeRequestSchema,
   responseSchema: InternalPaperclipSeatNativeWakeResponseSchema,
+  errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
 } as const;
 
 export type InternalPaperclipSeatNativeWakeRequest = z.infer<typeof InternalPaperclipSeatNativeWakeRequestSchema>;

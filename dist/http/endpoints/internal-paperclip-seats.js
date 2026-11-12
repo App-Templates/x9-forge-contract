@@ -141,12 +141,24 @@ export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
         ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
     }
 });
+/**
+ * Error codes of a failed seat wake. They name whose fault the failure is.
+ * - `paperclip_unavailable`: Paperclip answered with an error or could not be reached.
+ * - `wake_timeout`: OUR time limit ran out while Paperclip was answering; Paperclip is not in error.
+ */
+export const PAPERCLIP_SEAT_WAKE_ERROR_CODES = ['paperclip_unavailable', 'wake_timeout'];
+export const PaperclipSeatWakeErrorCodeSchema = z.enum(PAPERCLIP_SEAT_WAKE_ERROR_CODES);
+export const InternalPaperclipSeatWakeErrorResponseSchema = z.strictObject({
+    ok: z.literal(false),
+    error: PaperclipSeatWakeErrorCodeSchema,
+});
 export const internalPaperclipSeatReplyWakeContract = {
     method: 'POST',
     path: INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH,
     authType: 'secret',
     bodySchema: InternalPaperclipSeatReplyWakeRequestSchema,
     responseSchema: InternalPaperclipSeatReplyWakeResponseSchema,
+    errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
 };
 export const INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = '/internal/paperclip/seats/native-wake';
 export const PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = ['request', 'reply', 'decision'];
@@ -304,5 +316,6 @@ export const internalPaperclipSeatNativeWakeContract = {
     authType: 'secret',
     bodySchema: InternalPaperclipSeatNativeWakeRequestSchema,
     responseSchema: InternalPaperclipSeatNativeWakeResponseSchema,
+    errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map
