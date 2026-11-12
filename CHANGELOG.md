@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.204.0 — reply and forward prefixes stripped in one place (task 6746)
+
+- New function `stripSharedMailboxReplyPrefixes(subject): { prefix, rest }`, used by `parseSharedMailboxSubjectLabel` and `decideSharedMailboxRoute` (the two copies of the expression are gone).
+- Recognised prefixes (case-insensitive, repeatable, optional `[n]` counter of 1-3 digits, colon with optional spaces): `re`, `r`, `fwd`, `fw`, `i`, `aw`, `wg`, `rif`.
+- A forwarded email labelled with a project reaches its Director.
+- On the Directors mailbox an unknown label after `Fw:` is refused like any unknown label; on the chiefs mailbox it still goes to the default.
+- No schema changes.
+- Consumers: X9 (6747), Forge none.
+
 ## v1.203.0 — light tool error module and import budgets re-measured (tasks 6711, 6718)
 
 - New module `capability/tool-error-disposition` holds the fixed tool-error schemas; same names, still exported from `capability/tool-call`. In `dist/narrow-imports.json` the three tool-error schema names now point to `capability/tool-error-disposition` (old import paths keep working).

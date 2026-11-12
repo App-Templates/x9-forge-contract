@@ -101,6 +101,11 @@ export type SharedMailboxRoute = {
     agentId: AgentId;
     via: SharedMailboxRouteVia;
 };
+/** Splits the leading reply/forward prefixes from the rest of the subject; `prefix` keeps its spaces, `rest` has none in front. */
+export declare function stripSharedMailboxReplyPrefixes(subject: string): {
+    prefix: string;
+    rest: string;
+};
 export declare function parseSharedMailboxSubjectLabel(subject: string): string | null;
 export declare const SHARED_MAILBOX_REFUSAL_REASONS: readonly ["label_unknown"];
 export type SharedMailboxRouteRefusal = {

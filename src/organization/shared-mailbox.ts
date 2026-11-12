@@ -116,8 +116,17 @@ export const SHARED_MAILBOX_ROUTE_VIAS = ['thread', 'label', 'default'] as const
 export type SharedMailboxRouteVia = (typeof SHARED_MAILBOX_ROUTE_VIAS)[number];
 export type SharedMailboxRoute = { agentId: AgentId; via: SharedMailboxRouteVia };
 
+// reply and forward prefixes of the common mail clients (it, en, de), each with an optional counter such as `Re[2]:`
+const REPLY_PREFIXES = /^(?:\s*(?:re|r|fwd|fw|i|aw|wg|rif)(?:\[\d{1,3}\])?\s*:\s*)*/i;
+
+/** Splits the leading reply/forward prefixes from the rest of the subject; `prefix` keeps its spaces, `rest` has none in front. */
+export function stripSharedMailboxReplyPrefixes(subject: string): { prefix: string; rest: string } {
+  const prefix = REPLY_PREFIXES.exec(subject)![0];
+  return { prefix, rest: subject.slice(prefix.length).trimStart() };
+}
+
 export function parseSharedMailboxSubjectLabel(subject: string): string | null {
-  const unprefixed = subject.replace(/^(?:\s*(?:re|r|fwd|i):\s*)*/i, '').trimStart();
+  const unprefixed = stripSharedMailboxReplyPrefixes(subject).rest;
   const match = /^\[([^\]]+)\]/u.exec(unprefixed);
   if (!match) return null;
   const label = SharedMailboxLabelSchema.safeParse(match[1]);
@@ -161,7 +170,7 @@ export function decideSharedMailboxRoute(input: SharedMailboxRouteInput): Shared
     && mailbox.holders.some((holder) => holder.agentId === candidate.agentId));
   if (thread) return { agentId: thread.agentId, via: SHARED_MAILBOX_ROUTE_VIAS[0] };
 
-  let remaining = subject.replace(/^(?:\s*(?:re|r|fwd|i):\s*)*/i, '').trimStart();
+  let remaining = stripSharedMailboxReplyPrefixes(subject).rest;
   for (let group = /^\[([^\]]*)\]/u.exec(remaining); group; group = /^\[([^\]]*)\]/u.exec(remaining)) {
     const text = group[1]!;
     const label = SharedMailboxLabelSchema.safeParse(text);

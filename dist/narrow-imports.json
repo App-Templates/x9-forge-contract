@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.203.0",
+  "versione": "1.204.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2689,6 +2689,7 @@
       "routeSharedMailboxMessage": "@x9-forge/contracts/organization/shared-mailbox",
       "sharedMailboxAudience": "@x9-forge/contracts/organization/shared-mailbox",
       "sharedMailboxLabelFromName": "@x9-forge/contracts/organization/shared-mailbox",
+      "stripSharedMailboxReplyPrefixes": "@x9-forge/contracts/organization/shared-mailbox",
       "summarizeEvaluationItems": "@x9-forge/contracts/organization/simulation-evaluation",
       "verticalPlanCanonicalJson": "@x9-forge/contracts/organization/vertical-plan",
       "verticalPlanDecisionSubject": "@x9-forge/contracts/organization/vertical-plan",
