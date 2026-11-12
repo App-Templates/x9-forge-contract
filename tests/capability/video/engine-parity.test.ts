@@ -30,6 +30,16 @@ const job = {
   budgetUsd: 12.5, mode: 'approval', name: 'Product introduction',
   brief: 'Create a short video introducing the new product.', externalRef: 'campaign-4',
 };
+const portraitRef = { engineProjectId: ID, fileName: 'ritratto-1.png', sha256: 'b'.repeat(64) };
+const episode = {
+  seriesId: '123e4567-e89b-42d3-a456-426614174000', seriesTitle: 'Notte a Roma', logline: 'Una notte, tre segreti.',
+  language: 'it', episodeNumber: 2, totalEpisodes: 30, paywallEpisode: 10,
+  previousEnding: { type: 'incoming-threat', text: 'La porta si apre.' },
+  hooks: [{ id: 'chiave', description: 'La chiave sparita.', plantedEpisode: 1, lastTouchedEpisode: 1,
+    status: 'open', isMain: true, paidEpisode: null }],
+  characters: [{ id: 'anna', name: 'Anna', description: 'Fotografa di strada.', portrait: portraitRef }],
+};
+const episodeEstimate = { framesUsd: 0.5, clipsUsd: 3, totalUsd: 3.5, availableUsd: 12.5, fitsBudget: true, source: 'plan' };
 const estimate = {
   estimateUsd: 1.2, voiceUsd: 0.2, lipSyncUsd: 1, estimatedSeconds: 30,
   characters: 250, availableUsd: 12.5, serverAvailableUsd: null,
@@ -79,6 +89,23 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
       'zero revision': { ...project, revision: 0 },
       'frame outside media': { ...project, scenes: [{ id: 'scene-1', frame_url: '/tmp/frame.png' }] },
       'unknown story status': { ...project, story: { status: 'done' } },
+      'episode outcome and portraits': {
+        ...project,
+        episode_outcome: {
+          phase: 'golden_three', cycleBeat: null, ending: { type: 'incoming-threat', text: 'La porta si apre.' },
+          hooksOpened: [{ id: 'chiave', description: 'La chiave sparita.' }], hooksTouched: [], hooksClosed: [],
+        },
+        episode_estimate: episodeEstimate,
+        episode_portraits: [{ characterId: 'anna', portrait: portraitRef }],
+      },
+      'unknown ending type': {
+        ...project,
+        episode_outcome: {
+          phase: 'golden_three', cycleBeat: null, ending: { type: 'cliffhanger', text: 'x' },
+          hooksOpened: [], hooksTouched: [], hooksClosed: [],
+        },
+      },
+      'null episode fields': { ...project, episode_outcome: null, episode_estimate: null, episode_portraits: null },
     },
   },
   videoEnginePlanRequest: {
@@ -186,6 +213,9 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
     schema: VideoEngineJobSchema, minimum: 1,
     cases: {
       'decided production job': job,
+      'episode job': { ...job, episode },
+      'episode with extra field': { ...job, episode: { ...episode, extra: true } },
+      'episode without characters': { ...job, episode: { ...episode, characters: [] } },
       'extra field': { ...job, extra: true },
       'missing settings': Object.fromEntries(Object.entries(job).filter(([key]) => key !== 'settings')),
     },

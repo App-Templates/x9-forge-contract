@@ -1,6 +1,13 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
 import { VideoAspectRatioSchema, VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema } from './brief.js';
+import {
+  VIDEO_SERIES_MAX_CHARACTERS,
+  VideoEpisodeContextSchema,
+  VideoEpisodeEstimateSchema,
+  VideoEpisodeOutcomeSchema,
+  VideoEpisodePortraitSchema,
+} from './episode.js';
 
 export const VideoEngineErrorSchema = z.object({
   error: z.string().min(1).max(2000),
@@ -44,6 +51,7 @@ export const VideoEngineJobSchema = z.object({
   name: z.string().min(1).max(200),
   brief: VideoBriefRequestSchema.shape.brief,
   externalRef: VideoBriefRequestSchema.shape.externalRef,
+  episode: VideoEpisodeContextSchema.optional(),
 }).strict();
 export type VideoEngineJob = z.infer<typeof VideoEngineJobSchema>;
 
@@ -158,5 +166,9 @@ export const VideoEngineProjectSchema = z.object({
   subtitles_url: VideoEngineSubtitlesPathSchema.nullish(),
   spent_usd: z.number().nonnegative().optional(),
   story: VideoEngineStoryStateSchema.nullish(),
+  // Written by the engine: outcome and estimate with the episode plan, portraits at the approved frames.
+  episode_outcome: VideoEpisodeOutcomeSchema.nullish(),
+  episode_estimate: VideoEpisodeEstimateSchema.nullish(),
+  episode_portraits: z.array(VideoEpisodePortraitSchema).max(VIDEO_SERIES_MAX_CHARACTERS).nullish(),
 }).passthrough();
 export type VideoEngineProject = z.infer<typeof VideoEngineProjectSchema>;
