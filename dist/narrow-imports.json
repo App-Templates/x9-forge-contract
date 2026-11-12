@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.183.0",
+  "versione": "1.184.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1634,6 +1634,7 @@
       "INTERNAL_MEMORY_ASSETS_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "INTERNAL_MEMORY_ASSET_CONTENT_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "INTERNAL_MEMORY_ASSET_READ_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
+      "INTERNAL_MEMORY_ASSET_REFUSAL_CODES": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "INTERNAL_MEMORY_ASSET_VERSIONS_LATEST_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
       "INTERNAL_MEMORY_ASSET_VERSIONS_LIST_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
       "INTERNAL_MEMORY_ASSET_VERSIONS_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
@@ -1718,6 +1719,7 @@
       "InternalMemoryAssetListResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "InternalMemoryAssetReadRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "InternalMemoryAssetReadResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
+      "InternalMemoryAssetRefusalCodeSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "InternalMemoryAssetVersionLatestRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
       "InternalMemoryAssetVersionLatestResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
       "InternalMemoryAssetVersionListRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.184.0 — the refusal of another department's business unit is a bridge code for the memory asset routes (task 6463)
+
+- `http/endpoints/internal-memory-assets` adds `INTERNAL_MEMORY_ASSET_REFUSAL_CODES` (`['asset_foreign_business_unit']`), `InternalMemoryAssetRefusalCodeSchema` and `InternalMemoryAssetRefusalCode`. Additive; no existing schema changes.
+- Consumers: memory (ec-x9/6466) and agent-core (draft ec-x9/6445) import the code instead of writing it by hand.
+
 ## v1.183.0 — the department summary takes lead reviews and session outcomes paired with their scope and ignores other departments' (task 6355)
 
 - `organization/business-unit-state` adds `BusinessUnitStateLeadReview` (`{ scope, review }`) and `BusinessUnitStateSessionOutcome` (`{ scope, outcome }`); `deriveBusinessUnitStateSummary` now takes `leadReviews` and `sessionOutcomes` in those forms and ignores every entry whose tenant, organization, project or business unit differs from the requested scope (a review whose own `buSlug` differs is ignored too). The input change is incompatible for callers; no service calls the function today. No saved schema changes.
