@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { InboundEventDispositionSchema } from '../../capability/paperclip/inbound-event.js';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
 import { CapabilityAgentScopeSchema } from '../../capability/capability-call-identity.js';
 import { AgentRequestSchema } from '../../organization/agent-request.js';
@@ -150,6 +151,7 @@ export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
   result: PaperclipSeatReplyWakeResultSchema,
   issueId: z.uuid().optional(),
   runId: z.uuid().optional(),
+  disposition: InboundEventDispositionSchema.optional(),
 }).superRefine((value, ctx) => {
   if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
     ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
@@ -162,6 +164,21 @@ export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
   }
   if ((value.result === 'no_mandate' || value.result === 'ambiguous') && value.issueId !== undefined) {
     ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+  }
+  const disposition = value.disposition;
+  if (disposition?.outcome === 'commented' && disposition.woke) {
+    if (value.result !== 'woken') {
+      ctx.addIssue({ code: 'custom', message: 'A woken disposition requires result woken', path: ['result'] });
+    }
+    if (value.issueId !== disposition.issueId) {
+      ctx.addIssue({ code: 'custom', message: 'Disposition issueId must match the response', path: ['disposition', 'issueId'] });
+    }
+    if (value.runId !== undefined && disposition.runId !== undefined && value.runId !== disposition.runId) {
+      ctx.addIssue({ code: 'custom', message: 'Disposition runId must match the response', path: ['disposition', 'runId'] });
+    }
+  }
+  if (disposition?.outcome === 'duplicate' && value.result !== 'duplicate') {
+    ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
   }
 });
 
@@ -302,6 +319,7 @@ export const InternalPaperclipSeatNativeWakeResponseSchema = z.strictObject({
   issueId: z.uuid().optional(),
   commentId: z.uuid().optional(),
   runId: z.uuid().optional(),
+  disposition: InboundEventDispositionSchema.optional(),
 }).superRefine((value, ctx) => {
   if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
     ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
@@ -323,6 +341,21 @@ export const InternalPaperclipSeatNativeWakeResponseSchema = z.strictObject({
     && value.issueId !== undefined
   ) {
     ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+  }
+  const disposition = value.disposition;
+  if (disposition?.outcome === 'commented' && disposition.woke) {
+    if (value.result !== 'woken') {
+      ctx.addIssue({ code: 'custom', message: 'A woken disposition requires result woken', path: ['result'] });
+    }
+    if (value.issueId !== disposition.issueId) {
+      ctx.addIssue({ code: 'custom', message: 'Disposition issueId must match the response', path: ['disposition', 'issueId'] });
+    }
+    if (value.runId !== undefined && disposition.runId !== undefined && value.runId !== disposition.runId) {
+      ctx.addIssue({ code: 'custom', message: 'Disposition runId must match the response', path: ['disposition', 'runId'] });
+    }
+  }
+  if (disposition?.outcome === 'duplicate' && value.result !== 'duplicate') {
+    ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
   }
 });
 

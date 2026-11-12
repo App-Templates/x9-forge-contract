@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
 const zod_1 = require("zod");
+const inbound_event_js_1 = require("../../capability/paperclip/inbound-event.cjs");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
 const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
 const agent_request_js_1 = require("../../organization/agent-request.cjs");
@@ -113,6 +114,7 @@ exports.InternalPaperclipSeatReplyWakeResponseSchema = zod_1.z.strictObject({
     result: exports.PaperclipSeatReplyWakeResultSchema,
     issueId: zod_1.z.uuid().optional(),
     runId: zod_1.z.uuid().optional(),
+    disposition: inbound_event_js_1.InboundEventDispositionSchema.optional(),
 }).superRefine((value, ctx) => {
     if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
         ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
@@ -125,6 +127,21 @@ exports.InternalPaperclipSeatReplyWakeResponseSchema = zod_1.z.strictObject({
     }
     if ((value.result === 'no_mandate' || value.result === 'ambiguous') && value.issueId !== undefined) {
         ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+    }
+    const disposition = value.disposition;
+    if (disposition?.outcome === 'commented' && disposition.woke) {
+        if (value.result !== 'woken') {
+            ctx.addIssue({ code: 'custom', message: 'A woken disposition requires result woken', path: ['result'] });
+        }
+        if (value.issueId !== disposition.issueId) {
+            ctx.addIssue({ code: 'custom', message: 'Disposition issueId must match the response', path: ['disposition', 'issueId'] });
+        }
+        if (value.runId !== undefined && disposition.runId !== undefined && value.runId !== disposition.runId) {
+            ctx.addIssue({ code: 'custom', message: 'Disposition runId must match the response', path: ['disposition', 'runId'] });
+        }
+    }
+    if (disposition?.outcome === 'duplicate' && value.result !== 'duplicate') {
+        ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
     }
 });
 exports.internalPaperclipSeatReplyWakeContract = {
@@ -249,6 +266,7 @@ exports.InternalPaperclipSeatNativeWakeResponseSchema = zod_1.z.strictObject({
     issueId: zod_1.z.uuid().optional(),
     commentId: zod_1.z.uuid().optional(),
     runId: zod_1.z.uuid().optional(),
+    disposition: inbound_event_js_1.InboundEventDispositionSchema.optional(),
 }).superRefine((value, ctx) => {
     if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
         ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
@@ -266,6 +284,21 @@ exports.InternalPaperclipSeatNativeWakeResponseSchema = zod_1.z.strictObject({
     if ((value.result === 'no_task' || value.result === 'ambiguous' || value.result === 'not_enabled' || value.result === 'rate_limited')
         && value.issueId !== undefined) {
         ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+    }
+    const disposition = value.disposition;
+    if (disposition?.outcome === 'commented' && disposition.woke) {
+        if (value.result !== 'woken') {
+            ctx.addIssue({ code: 'custom', message: 'A woken disposition requires result woken', path: ['result'] });
+        }
+        if (value.issueId !== disposition.issueId) {
+            ctx.addIssue({ code: 'custom', message: 'Disposition issueId must match the response', path: ['disposition', 'issueId'] });
+        }
+        if (value.runId !== undefined && disposition.runId !== undefined && value.runId !== disposition.runId) {
+            ctx.addIssue({ code: 'custom', message: 'Disposition runId must match the response', path: ['disposition', 'runId'] });
+        }
+    }
+    if (disposition?.outcome === 'duplicate' && value.result !== 'duplicate') {
+        ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
     }
 });
 exports.internalPaperclipSeatNativeWakeContract = {

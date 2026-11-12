@@ -245,6 +245,54 @@ export declare const InternalPaperclipSeatReplyWakeResponseSchema: z.ZodObject<{
     }>;
     issueId: z.ZodOptional<z.ZodUUID>;
     runId: z.ZodOptional<z.ZodUUID>;
+    disposition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        outcome: z.ZodLiteral<"commented">;
+        issueId: z.ZodUUID;
+        commentId: z.ZodUUID;
+        assigneeAgentId: z.ZodUUID;
+        authorAgentId: z.ZodNullable<z.ZodUUID>;
+        woke: z.ZodBoolean;
+        runId: z.ZodOptional<z.ZodUUID>;
+        notWokenReason: z.ZodOptional<z.ZodEnum<{
+            unknown: "unknown";
+            issue_closed: "issue_closed";
+            run_alive: "run_alive";
+            daily_run_limit: "daily_run_limit";
+            daily_cost_limit: "daily_cost_limit";
+        }>>;
+    }, z.core.$strict>, z.ZodObject<{
+        outcome: z.ZodLiteral<"duplicate">;
+        dedupeKey: z.ZodString;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        commentId: z.ZodOptional<z.ZodUUID>;
+    }, z.core.$strict>, z.ZodObject<{
+        outcome: z.ZodLiteral<"refused">;
+        disposition: z.ZodObject<{
+            nature: z.ZodEnum<{
+                cancelled: "cancelled";
+                invalid_request: "invalid_request";
+                technical_failure: "technical_failure";
+                permission_refused: "permission_refused";
+                limit_reached: "limit_reached";
+                missing_data: "missing_data";
+            }>;
+            retry: z.ZodEnum<{
+                never: "never";
+                next_turn: "next_turn";
+                after_delay: "after_delay";
+            }>;
+            retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+            nextMove: z.ZodEnum<{
+                stop: "stop";
+                retry_same: "retry_same";
+                fix_input: "fix_input";
+                ask_director: "ask_director";
+                ask_referent: "ask_referent";
+                ask_owner: "ask_owner";
+                wait_event: "wait_event";
+            }>;
+        }, z.core.$strict>;
+    }, z.core.$strict>], "outcome">>;
 }, z.core.$strict>;
 export declare const internalPaperclipSeatReplyWakeContract: {
     readonly method: "POST";
@@ -270,6 +318,54 @@ export declare const internalPaperclipSeatReplyWakeContract: {
         }>;
         issueId: z.ZodOptional<z.ZodUUID>;
         runId: z.ZodOptional<z.ZodUUID>;
+        disposition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            outcome: z.ZodLiteral<"commented">;
+            issueId: z.ZodUUID;
+            commentId: z.ZodUUID;
+            assigneeAgentId: z.ZodUUID;
+            authorAgentId: z.ZodNullable<z.ZodUUID>;
+            woke: z.ZodBoolean;
+            runId: z.ZodOptional<z.ZodUUID>;
+            notWokenReason: z.ZodOptional<z.ZodEnum<{
+                unknown: "unknown";
+                issue_closed: "issue_closed";
+                run_alive: "run_alive";
+                daily_run_limit: "daily_run_limit";
+                daily_cost_limit: "daily_cost_limit";
+            }>>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"duplicate">;
+            dedupeKey: z.ZodString;
+            issueId: z.ZodOptional<z.ZodUUID>;
+            commentId: z.ZodOptional<z.ZodUUID>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"refused">;
+            disposition: z.ZodObject<{
+                nature: z.ZodEnum<{
+                    cancelled: "cancelled";
+                    invalid_request: "invalid_request";
+                    technical_failure: "technical_failure";
+                    permission_refused: "permission_refused";
+                    limit_reached: "limit_reached";
+                    missing_data: "missing_data";
+                }>;
+                retry: z.ZodEnum<{
+                    never: "never";
+                    next_turn: "next_turn";
+                    after_delay: "after_delay";
+                }>;
+                retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+                nextMove: z.ZodEnum<{
+                    stop: "stop";
+                    retry_same: "retry_same";
+                    fix_input: "fix_input";
+                    ask_director: "ask_director";
+                    ask_referent: "ask_referent";
+                    ask_owner: "ask_owner";
+                    wait_event: "wait_event";
+                }>;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "outcome">>;
     }, z.core.$strict>;
 };
 export type InternalPaperclipSeatReplyWakeRequest = z.infer<typeof InternalPaperclipSeatReplyWakeRequestSchema>;
@@ -551,6 +647,54 @@ export declare const InternalPaperclipSeatNativeWakeResponseSchema: z.ZodObject<
     issueId: z.ZodOptional<z.ZodUUID>;
     commentId: z.ZodOptional<z.ZodUUID>;
     runId: z.ZodOptional<z.ZodUUID>;
+    disposition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        outcome: z.ZodLiteral<"commented">;
+        issueId: z.ZodUUID;
+        commentId: z.ZodUUID;
+        assigneeAgentId: z.ZodUUID;
+        authorAgentId: z.ZodNullable<z.ZodUUID>;
+        woke: z.ZodBoolean;
+        runId: z.ZodOptional<z.ZodUUID>;
+        notWokenReason: z.ZodOptional<z.ZodEnum<{
+            unknown: "unknown";
+            issue_closed: "issue_closed";
+            run_alive: "run_alive";
+            daily_run_limit: "daily_run_limit";
+            daily_cost_limit: "daily_cost_limit";
+        }>>;
+    }, z.core.$strict>, z.ZodObject<{
+        outcome: z.ZodLiteral<"duplicate">;
+        dedupeKey: z.ZodString;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        commentId: z.ZodOptional<z.ZodUUID>;
+    }, z.core.$strict>, z.ZodObject<{
+        outcome: z.ZodLiteral<"refused">;
+        disposition: z.ZodObject<{
+            nature: z.ZodEnum<{
+                cancelled: "cancelled";
+                invalid_request: "invalid_request";
+                technical_failure: "technical_failure";
+                permission_refused: "permission_refused";
+                limit_reached: "limit_reached";
+                missing_data: "missing_data";
+            }>;
+            retry: z.ZodEnum<{
+                never: "never";
+                next_turn: "next_turn";
+                after_delay: "after_delay";
+            }>;
+            retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+            nextMove: z.ZodEnum<{
+                stop: "stop";
+                retry_same: "retry_same";
+                fix_input: "fix_input";
+                ask_director: "ask_director";
+                ask_referent: "ask_referent";
+                ask_owner: "ask_owner";
+                wait_event: "wait_event";
+            }>;
+        }, z.core.$strict>;
+    }, z.core.$strict>], "outcome">>;
 }, z.core.$strict>;
 export declare const internalPaperclipSeatNativeWakeContract: {
     readonly method: "POST";
@@ -696,6 +840,54 @@ export declare const internalPaperclipSeatNativeWakeContract: {
         issueId: z.ZodOptional<z.ZodUUID>;
         commentId: z.ZodOptional<z.ZodUUID>;
         runId: z.ZodOptional<z.ZodUUID>;
+        disposition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            outcome: z.ZodLiteral<"commented">;
+            issueId: z.ZodUUID;
+            commentId: z.ZodUUID;
+            assigneeAgentId: z.ZodUUID;
+            authorAgentId: z.ZodNullable<z.ZodUUID>;
+            woke: z.ZodBoolean;
+            runId: z.ZodOptional<z.ZodUUID>;
+            notWokenReason: z.ZodOptional<z.ZodEnum<{
+                unknown: "unknown";
+                issue_closed: "issue_closed";
+                run_alive: "run_alive";
+                daily_run_limit: "daily_run_limit";
+                daily_cost_limit: "daily_cost_limit";
+            }>>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"duplicate">;
+            dedupeKey: z.ZodString;
+            issueId: z.ZodOptional<z.ZodUUID>;
+            commentId: z.ZodOptional<z.ZodUUID>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"refused">;
+            disposition: z.ZodObject<{
+                nature: z.ZodEnum<{
+                    cancelled: "cancelled";
+                    invalid_request: "invalid_request";
+                    technical_failure: "technical_failure";
+                    permission_refused: "permission_refused";
+                    limit_reached: "limit_reached";
+                    missing_data: "missing_data";
+                }>;
+                retry: z.ZodEnum<{
+                    never: "never";
+                    next_turn: "next_turn";
+                    after_delay: "after_delay";
+                }>;
+                retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+                nextMove: z.ZodEnum<{
+                    stop: "stop";
+                    retry_same: "retry_same";
+                    fix_input: "fix_input";
+                    ask_director: "ask_director";
+                    ask_referent: "ask_referent";
+                    ask_owner: "ask_owner";
+                    wait_event: "wait_event";
+                }>;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "outcome">>;
     }, z.core.$strict>;
 };
 export type InternalPaperclipSeatNativeWakeRequest = z.infer<typeof InternalPaperclipSeatNativeWakeRequestSchema>;

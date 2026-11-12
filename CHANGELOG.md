@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.176.0 — fixed inbound event disposition; additive (task 6348)
+
+- `capability/paperclip/inbound-event` adds strict `InboundEventDispositionSchema`, outcome and not-woken reason constants, and `inboundEmailDedupeKey(messageId: string): string` using the shared email message code. A comment requires an author distinct from the assignee and either a wake or a fixed not-woken reason; duplicates carry their deduplication key and refusals carry `ToolErrorDispositionSchema`.
+- Reply-wake and native-wake responses gain optional `disposition`. Woken comments must match the response result, issue and run; duplicates require the duplicate result. Existing result lists and responses without disposition are unchanged.
+- Consumers: cap-paperclip writes the comment and reads the wake outcome; cap-email sends a receipt only for `commented`. Strict readers of both wake responses must adopt 1.176.0 before cap-paperclip writes the field. Runtime availability requires the X9 consumer tasks.
+
 ## v1.175.0 — one rule to find the referent of a unit, and the project in the birth request; additive (task 6347)
 
 - `organization/company-map` adds `referentForUnit({ entries, scope, referent })` and `REFERENT_FOR_UNIT_REFUSALS` (`referent_not_in_map`, `referent_superseded`): business unit level, then project, then client; the first level with an entry wins, highest version inside it; never crosses tenant, organization, client or project.
