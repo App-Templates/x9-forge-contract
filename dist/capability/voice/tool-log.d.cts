@@ -17,9 +17,9 @@ import { z } from 'zod';
 /** Named enum for the source column (no inline `z.enum`). */
 export declare const VoiceToolCallSourceSchema: z.ZodEnum<{
     system: "system";
+    retry: "retry";
     elevenlabs: "elevenlabs";
     openai_live: "openai_live";
-    retry: "retry";
     admin: "admin";
 }>;
 export type VoiceToolCallSource = z.infer<typeof VoiceToolCallSourceSchema>;
@@ -43,9 +43,9 @@ export declare const VoiceCallToolLogSchema: z.ZodObject<{
     }>;
     tool_call_source: z.ZodEnum<{
         system: "system";
+        retry: "retry";
         elevenlabs: "elevenlabs";
         openai_live: "openai_live";
-        retry: "retry";
         admin: "admin";
     }>;
     authorized: z.ZodBoolean;

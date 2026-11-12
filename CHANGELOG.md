@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.168.0 — l'errore di uno strumento porta un esito a forma fissa (natura, ripetibilità, mossa) e una frase fissa per il modello; additivo (scheda 6340)
+
+- `capability/tool-call` aggiunge `TOOL_ERROR_NATURES`, `TOOL_ERROR_RETRIES`, `TOOL_ERROR_NEXT_MOVES`, `ToolErrorDispositionSchema` (stretto; `retryAfterSeconds` se e solo se `after_delay`; `never` se e solo se la mossa non è `retry_same`; un permesso rifiutato non si ripete), `renderToolErrorDisposition` (una riga, sempre la stessa per lo stesso esito) e `toolErrorDispositionOf`. `ToolCallErrorResponseSchema` riceve `disposition` facoltativo; `modelReason` e i codici `TOOL_*` non cambiano.
+- Consumatori: ogni capacità X9 che risponde errore e agent-core che lo porta al modello. Ordine di rilascio: chi legge con `InternalAgentToolDispatchResponseSchema` (stretto) adotta la 1.168.0 prima che chi scrive riempia il campo.
+
 ## v1.167.0 — il Director ha sempre la capacità `dev`, solo in lettura; additivo per i dati salvati (scheda 6325)
 
 - `AGENT_ROLE_BASE_CAPABILITIES.director` aggiunge `dev`; nuova `AGENT_ROLE_READ_ONLY_CAPABILITIES` (`director: ['dev']`, gli altri ruoli vuoti). `roleScopePolicy` mette `{ read: 'allow', write: 'deny' }` sulle capacità di sola lettura del ruolo; il capo-bu mantiene le scritture di `dev`. `toolsForRole` e i manifesti non cambiano.
