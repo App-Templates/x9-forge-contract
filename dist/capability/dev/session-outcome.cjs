@@ -8,7 +8,7 @@ exports.devSessionAnswerCanonicalJson = devSessionAnswerCanonicalJson;
 exports.renderDevSessionAnswerBlock = renderDevSessionAnswerBlock;
 exports.parseDevSessionAnswerBlock = parseDevSessionAnswerBlock;
 const zod_1 = require("zod");
-const tool_call_js_1 = require("../tool-call.cjs");
+const tool_error_disposition_js_1 = require("../tool-error-disposition.cjs");
 const session_assignment_js_1 = require("./session-assignment.cjs");
 exports.DEV_SESSION_OUTCOME_BLOCK_MARKER = 'x9:dev-session-outcome:v1';
 exports.DEV_SESSION_OUTCOME_STATES = ['delivered', 'failed', 'discarded', 'waiting_materials', 'waiting_answer'];
@@ -35,7 +35,7 @@ exports.DevSessionOutcomeSchema = zod_1.z.strictObject({
         ]),
         text: zod_1.z.string().min(1).max(500).refine((text) => !/[\r\n\u2028\u2029]/.test(text), { message: 'Reason text must be a single line' }),
     }),
-    disposition: tool_call_js_1.ToolErrorDispositionSchema.optional(),
+    disposition: tool_error_disposition_js_1.ToolErrorDispositionSchema.optional(),
     missingMaterials: zod_1.z.array(zod_1.z.strictObject({
         ref: zod_1.z.string().min(1).max(512),
         error: zod_1.z.string().min(1).max(300),

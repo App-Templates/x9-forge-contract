@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ToolErrorDispositionSchema } from "../tool-call.js";
+import { ToolErrorDispositionSchema } from "../tool-error-disposition.js";
 import { DEV_SESSION_MAX_MATERIALS, DevSessionCommitSchema, DevSessionMaterialSchema, DevSessionRepoSchema, DevSessionResultSchema, } from "./session-assignment.js";
 export const DEV_SESSION_OUTCOME_BLOCK_MARKER = 'x9:dev-session-outcome:v1';
 export const DEV_SESSION_OUTCOME_STATES = ['delivered', 'failed', 'discarded', 'waiting_materials', 'waiting_answer'];

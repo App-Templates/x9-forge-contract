@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { DevSessionOutcomeSchema, type DevSessionOutcome } from '../capability/dev/session-outcome.js';
-import { ToolErrorNatureSchema, ToolErrorNextMoveSchema } from '../capability/tool-call.js';
+import { ToolErrorNatureSchema, ToolErrorNextMoveSchema } from '../capability/tool-error-disposition.js';
 import { AssetRefSchema, type AssetRef } from './asset.js';
 import {
   AssetVersionRecordSchema,

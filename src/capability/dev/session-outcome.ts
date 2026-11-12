@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ToolErrorDispositionSchema } from '../tool-call.js';
+import { ToolErrorDispositionSchema } from '../tool-error-disposition.js';
 import {
   DEV_SESSION_MAX_MATERIALS,
   DevSessionCommitSchema,

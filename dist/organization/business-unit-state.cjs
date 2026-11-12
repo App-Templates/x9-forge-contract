@@ -4,7 +4,7 @@ exports.BusinessUnitStateSummarySchema = exports.BusinessUnitStateScopeSchema = 
 exports.deriveBusinessUnitStateSummary = deriveBusinessUnitStateSummary;
 const zod_1 = require("zod");
 const session_outcome_js_1 = require("../capability/dev/session-outcome.cjs");
-const tool_call_js_1 = require("../capability/tool-call.cjs");
+const tool_error_disposition_js_1 = require("../capability/tool-error-disposition.cjs");
 const asset_js_1 = require("./asset.cjs");
 const asset_version_js_1 = require("./asset-version.cjs");
 const decision_request_js_1 = require("./decision-request.cjs");
@@ -48,8 +48,8 @@ exports.BusinessUnitStateSummarySchema = zod_1.z.strictObject({
         attempt: session_outcome_js_1.DevSessionOutcomeSchema.shape.attempt,
         state: session_outcome_js_1.DevSessionOutcomeSchema.shape.state,
         reasonCode: session_outcome_js_1.DevSessionOutcomeSchema.shape.reason.shape.code,
-        nature: tool_call_js_1.ToolErrorNatureSchema.optional(),
-        nextMove: tool_call_js_1.ToolErrorNextMoveSchema.optional(),
+        nature: tool_error_disposition_js_1.ToolErrorNatureSchema.optional(),
+        nextMove: tool_error_disposition_js_1.ToolErrorNextMoveSchema.optional(),
         executorVersion: session_outcome_js_1.DevSessionOutcomeSchema.shape.executorVersion,
         createdAt: session_outcome_js_1.DevSessionOutcomeSchema.shape.createdAt,
     })),
