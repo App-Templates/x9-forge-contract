@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.185.0 — recall tool error codes and one rule for refused organization recall (task 6464)
+
+- `http/endpoints/internal-memory-recall-bundle` adds `MEMORY_RECALL_TOOL_ERROR_CODES`, `MemoryRecallToolErrorCodeSchema` / `MemoryRecallToolErrorCode`, `MEMORY_RECALL_REFUSED_HTTP_STATUSES` (`[403]`), `MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR` (`organization recall not configured`) and pure `memoryRecallToolErrorCodeOf({ status?, organizationRecallNotConfigured? })`. A 403 gives `richiamo_rifiutato` (never retry the same call); a 503 with organization recall not configured keeps `richiamo_aziendale_non_attivo` (not retried); other failures or no answer give `richiamo_non_riuscito` (retry later). A 2xx answer throws `RangeError`.
+- Additive; request, response and saved schemas are unchanged, and both existing model reason codes remain valid. Consumers: memory (ec-x9/6467), with adoption in ec-x9/6465; runtime behaviour requires those tasks.
+
 ## v1.184.0 — the refusal of another department's business unit is a bridge code for the memory asset routes (task 6463)
 
 - `http/endpoints/internal-memory-assets` adds `INTERNAL_MEMORY_ASSET_REFUSAL_CODES` (`['asset_foreign_business_unit']`), `InternalMemoryAssetRefusalCodeSchema` and `InternalMemoryAssetRefusalCode`. Additive; no existing schema changes.

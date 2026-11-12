@@ -86,6 +86,38 @@ export const InternalMemoryRecallBundleResponseSchema = z.object({
     organizationReferences: z.array(OrganizationRecallReferenceSchema).max(50).optional(),
 });
 export const INTERNAL_MEMORY_RECALL_BUNDLE_PATH = '/internal/memory/recall/bundle';
+/**
+ * Fixed codes the memory_recall tool gives the model when the recall bundle
+ * does not answer 2xx; these codes are never the response body.
+ * richiamo_aziendale_non_attivo: organization recall is not configured; not retried.
+ * richiamo_rifiutato: the bundle refused the organization context, not a fault;
+ * the same call is never retried.
+ * richiamo_non_riuscito: any other answer or no answer, a fault; retry later.
+ */
+export const MEMORY_RECALL_TOOL_ERROR_CODES = [
+    'richiamo_aziendale_non_attivo',
+    'richiamo_non_riuscito',
+    'richiamo_rifiutato',
+];
+export const MemoryRecallToolErrorCodeSchema = z.enum(MEMORY_RECALL_TOOL_ERROR_CODES);
+export const MEMORY_RECALL_REFUSED_HTTP_STATUSES = [403];
+/** The error field of the route's 503 response when organization recall is not configured. */
+export const MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR = 'organization recall not configured';
+export function memoryRecallToolErrorCodeOf(answer) {
+    const { status, organizationRecallNotConfigured } = answer;
+    if (status === undefined)
+        return 'richiamo_non_riuscito';
+    if (status >= 200 && status < 300) {
+        throw new RangeError('A successful recall bundle answer has no tool error code');
+    }
+    if (status === 503 && organizationRecallNotConfigured) {
+        return 'richiamo_aziendale_non_attivo';
+    }
+    if (MEMORY_RECALL_REFUSED_HTTP_STATUSES.some((refusedStatus) => refusedStatus === status)) {
+        return 'richiamo_rifiutato';
+    }
+    return 'richiamo_non_riuscito';
+}
 export const internalMemoryRecallBundleContract = {
     method: 'POST',
     path: INTERNAL_MEMORY_RECALL_BUNDLE_PATH,

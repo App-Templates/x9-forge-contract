@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.184.0",
+  "versione": "1.185.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1815,11 +1815,15 @@
       "ListAgentsResponseSchema": "@x9-forge/contracts/http/endpoints/internal-agents-list",
       "ListVaultConnectionsParamsSchema": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
       "ListVaultConnectionsResponseSchema": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
+      "MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
+      "MEMORY_RECALL_REFUSED_HTTP_STATUSES": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
+      "MEMORY_RECALL_TOOL_ERROR_CODES": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
       "MandateObservationErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-memory-mandate-observations",
       "MandateObservationErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-mandate-observations",
       "MandateReconcileRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-mandate-reconcile",
       "MandateReconcileResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-mandate-reconcile",
       "MemoryConsoleKindSchema": "@x9-forge/contracts/http/endpoints/memory-console",
+      "MemoryRecallToolErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
       "ModelConfigVersionResponseSchema": "@x9-forge/contracts/http/endpoints/internal-model-config-version",
       "ModelPushRequestSchema": "@x9-forge/contracts/model-router/model-push",
       "ModelPushResponseSchema": "@x9-forge/contracts/model-router/model-push",
@@ -2224,6 +2228,7 @@
       "memoryConsoleListContract": "@x9-forge/contracts/http/endpoints/memory-console",
       "memoryConsoleParamsSchema": "@x9-forge/contracts/http/endpoints/memory-console",
       "memoryCorrectContract": "@x9-forge/contracts/http/endpoints/memory-correct",
+      "memoryRecallToolErrorCodeOf": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
       "modelConfigVersionContract": "@x9-forge/contracts/http/endpoints/internal-model-config-version",
       "modelConsumerReportPath": "@x9-forge/contracts/http/endpoints/internal-models-batch",
       "modelsApplyJobPath": "@x9-forge/contracts/http/endpoints/internal-models-apply",

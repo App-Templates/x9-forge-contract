@@ -205,6 +205,28 @@ export declare const InternalMemoryRecallBundleResponseSchema: z.ZodObject<{
 }, z.core.$strip>;
 export type InternalMemoryRecallBundleResponse = z.infer<typeof InternalMemoryRecallBundleResponseSchema>;
 export declare const INTERNAL_MEMORY_RECALL_BUNDLE_PATH: "/internal/memory/recall/bundle";
+/**
+ * Fixed codes the memory_recall tool gives the model when the recall bundle
+ * does not answer 2xx; these codes are never the response body.
+ * richiamo_aziendale_non_attivo: organization recall is not configured; not retried.
+ * richiamo_rifiutato: the bundle refused the organization context, not a fault;
+ * the same call is never retried.
+ * richiamo_non_riuscito: any other answer or no answer, a fault; retry later.
+ */
+export declare const MEMORY_RECALL_TOOL_ERROR_CODES: readonly ["richiamo_aziendale_non_attivo", "richiamo_non_riuscito", "richiamo_rifiutato"];
+export declare const MemoryRecallToolErrorCodeSchema: z.ZodEnum<{
+    richiamo_aziendale_non_attivo: "richiamo_aziendale_non_attivo";
+    richiamo_non_riuscito: "richiamo_non_riuscito";
+    richiamo_rifiutato: "richiamo_rifiutato";
+}>;
+export type MemoryRecallToolErrorCode = z.infer<typeof MemoryRecallToolErrorCodeSchema>;
+export declare const MEMORY_RECALL_REFUSED_HTTP_STATUSES: readonly [403];
+/** The error field of the route's 503 response when organization recall is not configured. */
+export declare const MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR: "organization recall not configured";
+export declare function memoryRecallToolErrorCodeOf(answer: {
+    status?: number;
+    organizationRecallNotConfigured?: boolean;
+}): MemoryRecallToolErrorCode;
 export declare const internalMemoryRecallBundleContract: {
     readonly method: "POST";
     readonly path: "/internal/memory/recall/bundle";
