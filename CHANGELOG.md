@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.170.0 — structured session outcomes and lead answers; additive (task 6342)
+
+- `capability/dev/session-outcome` adds strict `DevSessionOutcomeSchema` and `DevSessionAnswerSchema`, state/reason constants, full Git reference validation, canonical JSON and shared marker-block rendering/parsing. Non-delivered outcomes require a fixed tool error disposition; material failures name missing references; every outcome declares the executor version. Existing assignments, deliveries, verified results and persisted forms are unchanged.
+- Consumers: the laptop executor writes outcomes and reads lead answers; X9 cap-dev reads outcomes and writes answers. The executor must adopt 1.170.0 before cap-dev writes answer blocks. Runtime availability requires both consumer tasks.
+
 ## v1.169.0 — canonical issue references and email message codes; additive (task 6341)
 
 - `capability/paperclip/tools` adds `PaperclipIssueIdentifierSchema`, `PaperclipIssueRefSchema`, `paperclipIssueRefKind` and five strict reference input schemas derived from the existing inputs. References accept UUIDs or bounded identifiers such as `GOO-104`; existing UUID-only inputs and persisted forms are unchanged.

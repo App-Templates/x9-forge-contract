@@ -23,6 +23,7 @@ __exportStar(require("./production-config-match.cjs"), exports);
 __exportStar(require("./production-progress.cjs"), exports);
 __exportStar(require("./production-artifact-content.cjs"), exports);
 __exportStar(require("./session-assignment.cjs"), exports);
+__exportStar(require("./session-outcome.cjs"), exports);
 var session_assignment_js_1 = require("./session-assignment.cjs");
 Object.defineProperty(exports, "DEV_SESSION_EXECUTOR_LABEL_PREFIX", { enumerable: true, get: function () { return session_assignment_js_1.DEV_SESSION_EXECUTOR_LABEL_PREFIX; } });
 Object.defineProperty(exports, "DEV_SESSION_SERVER_EXECUTOR_LABEL", { enumerable: true, get: function () { return session_assignment_js_1.DEV_SESSION_SERVER_EXECUTOR_LABEL; } });

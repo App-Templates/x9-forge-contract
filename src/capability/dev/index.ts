@@ -6,6 +6,7 @@ export * from './production-config-match.js';
 export * from './production-progress.js';
 export * from './production-artifact-content.js';
 export * from './session-assignment.js';
+export * from './session-outcome.js';
 export {
   DEV_SESSION_EXECUTOR_LABEL_PREFIX,
   DEV_SESSION_SERVER_EXECUTOR_LABEL,
