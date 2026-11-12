@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.182.0 — mismatched delivery outcomes keep the existing decision pending (task 6354)
+
+- `organization/decision-request` tightens `deliveryDecisionDuplicate` so a missing outcome, an outcome for another request, or an approval by someone other than a referent or for a different subject keeps the existing request pending and returns `decision_already_pending`. A matching rejection permits another request, and a sound approval returns `decision_already_approved`, following the twin rule in `assetVersionDecisionState`.
+- The function signature and saved shapes are unchanged. Memoria will check before opening a request, with integration still pending. Runtime availability requires that consumer task.
+
 ## v1.181.0 — research results carry the source admission count and a fixed explanation; additive (task 6353)
 
 - `capability/ricerca` adds strict `ResearchAdmissionSchema` / `ResearchAdmission`, `RESEARCH_NOT_OPENED_REASONS`, `ResearchNotOpenedReasonSchema` / `ResearchNotOpenedReason`, and pure `renderResearchAdmission(admission)`, one fixed Italian line. The count records the source rule, cited addresses, opened pages, admitted sources, dropped findings and an optional reason pages were not opened. Under `opened_only`, admitted sources cannot exceed opened pages; dropped findings with no opened pages require a reason, and no dropped findings forbids a reason.

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { assetVersionDecisionState } from '../../src/organization/asset-version.js';
 import {
   DELIVERY_DECISION_DUPLICATE_CODES,
   DecisionOutcomeSchema,
@@ -90,6 +91,55 @@ describe('s6344 decisione-unica: duplicate delivery decision request', () => {
     expect(deliveryDecisionDuplicate(req('dec_8c1f1501', { createdAt: '2026-11-11T12:00:00Z' }),
       [{ request: newer, outcome: null }, { request: older, outcome: null }]))
       .toEqual({ code: 'decision_already_pending', requestId: 'dec_00000008' });
+  });
+});
+
+describe('s6354 esito-di-altra-richiesta: existing delivery decision state', () => {
+  const request = req('dec_a2cdf8c3');
+  const other = req('dec_ef223ebd', { ref: file('b') });
+  const candidate = req('dec_8c1f1501', { createdAt: '2026-11-11T12:00:00Z' });
+  const ownerApproval = {
+    ...outcomeOf(request, 'approved'), decidedBy: { kind: 'owner', ownerId: 'stefano' },
+  } as DecisionOutcome;
+  const otherSubjectApproval = DecisionOutcomeSchema.parse({
+    ...outcomeOf(request, 'approved'), subject: other.subject,
+  });
+
+  it.each(['rejected', 'approved'] as const)(
+    's6354 esito-di-altra-richiesta: keeps pending when paired with another request’s %s outcome',
+    (kind) => {
+      expect(deliveryDecisionDuplicate(candidate, [{ request, outcome: outcomeOf(other, kind) }]))
+        .toEqual({ code: 'decision_already_pending', requestId: 'dec_a2cdf8c3' });
+    },
+  );
+
+  it.each([
+    { name: 'owner approval', outcome: ownerApproval },
+    { name: 'approval of another file', outcome: otherSubjectApproval },
+  ])('keeps pending with $name', ({ outcome }) => {
+    expect(deliveryDecisionDuplicate(candidate, [{ request, outcome }]))
+      .toEqual({ code: 'decision_already_pending', requestId: 'dec_a2cdf8c3' });
+  });
+
+  it.each([
+    { name: 'another request rejected', outcome: outcomeOf(other, 'rejected'), state: 'awaiting_decision' },
+    { name: 'another request approved', outcome: outcomeOf(other, 'approved'), state: 'awaiting_decision' },
+    { name: 'owner approval', outcome: ownerApproval, state: null },
+    { name: 'approval of another file', outcome: otherSubjectApproval, state: null },
+    { name: 'matching approval', outcome: outcomeOf(request, 'approved'), state: 'approved' },
+    { name: 'matching rejection', outcome: outcomeOf(request, 'rejected'), state: 'changes_requested' },
+    { name: 'no outcome', outcome: null, state: 'awaiting_decision' },
+  ] as const)('follows assetVersionDecisionState for $name', ({ outcome, state }) => {
+    const decisionState = assetVersionDecisionState(request, outcome);
+    expect(decisionState).toBe(state);
+    const expected = {
+      awaiting_decision: { code: 'decision_already_pending', requestId: request.requestId },
+      null: { code: 'decision_already_pending', requestId: request.requestId },
+      changes_requested: null,
+      approved: { code: 'decision_already_approved', requestId: request.requestId },
+    };
+    expect(deliveryDecisionDuplicate(candidate, [{ request, outcome }]))
+      .toEqual(expected[decisionState ?? 'null']);
   });
 });
 

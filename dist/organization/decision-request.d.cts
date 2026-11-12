@@ -467,6 +467,7 @@ export type DeliveryDecisionDuplicateCode = (typeof DELIVERY_DECISION_DUPLICATE_
 /**
  * Names the oldest existing request that makes `candidate` a duplicate, or null. A rejected request
  * does not block a new one; plans and confirmation sets never pass through here.
+ * Missing, unrelated or unsound outcomes stay pending, matching the twin rule in `assetVersionDecisionState`.
  */
 export declare function deliveryDecisionDuplicate(candidate: DecisionRequest, existing: readonly {
     request: DecisionRequest;

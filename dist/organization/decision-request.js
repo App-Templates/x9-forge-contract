@@ -303,9 +303,19 @@ function sameDeliveryPiece(a, b) {
     }
     return a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
 }
+function deliveryDecisionState(request, outcome) {
+    if (outcome === null || outcome.requestId !== request.requestId)
+        return 'pending';
+    if (outcome.outcome === 'rejected')
+        return 'rejected';
+    if (outcome.decidedBy.kind !== 'referent' || !decisionOutcomeMatchesSubject(request, outcome))
+        return 'pending';
+    return 'approved';
+}
 /**
  * Names the oldest existing request that makes `candidate` a duplicate, or null. A rejected request
  * does not block a new one; plans and confirmation sets never pass through here.
+ * Missing, unrelated or unsound outcomes stay pending, matching the twin rule in `assetVersionDecisionState`.
  */
 export function deliveryDecisionDuplicate(candidate, existing) {
     const wanted = candidate.subject;
@@ -321,11 +331,10 @@ export function deliveryDecisionDuplicate(candidate, existing) {
             continue;
         if (!sameDeliveryPiece(wanted, subject))
             continue;
-        if (outcome !== null && outcome.requestId !== request.requestId)
+        const state = deliveryDecisionState(request, outcome);
+        if (state === 'rejected')
             continue;
-        if (outcome?.outcome === 'rejected')
-            continue;
-        const code = outcome === null ? 'decision_already_pending' : 'decision_already_approved';
+        const code = state === 'pending' ? 'decision_already_pending' : 'decision_already_approved';
         if (found === undefined || isOlderRequest(request, found.request))
             found = { request, code };
     }
