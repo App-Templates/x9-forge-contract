@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.188.0 — spend cap waits carry a fixed Paperclip monitor name (task 6518)
+
+- `capability/paperclip/turn-disposition` adds `LIMIT_WAIT_SERVICE_NAME` (`X9 company spend cap`) and `waitsOnLimit(policy: unknown): boolean`, which reads only that exact monitor name and tolerates Paperclip's additional and nullable stored fields. Budget refusals and budget stops carry the name through `check_later.serviceName` into `executionPolicy.monitor.serviceName`; other waits keep no name and the default retry remains 3600 seconds.
+- Additive: `check_later` reuses the optional `PaperclipControlloSchema` service name rule; existing unnamed dispositions and write bodies remain valid. Consumers follow in tasks 6523 and 6519; automatic resumption requires the release chain including 6526, 6524 and 6520. No live behaviour changes from this contract release alone.
+
 ## v1.187.0 — the Paperclip board key stays internal to the platform (task 6525)
 
 - `vault` adds `PAPERCLIP_ADMIN_TOKEN` to `PLATFORM_INTERNAL_CREDENTIAL_KEYS`: it is stripped from credential maps, rejected when writing agent contexts and forbidden in capability credential requirements. `PAPERCLIP_API_KEY` remains an ordinary agent credential.

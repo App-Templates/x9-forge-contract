@@ -28,6 +28,7 @@ export declare const ADMISSION_REFUSAL_CLASS: {
     readonly rd_paused: "not_now";
 };
 export declare const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+export declare const LIMIT_WAIT_SERVICE_NAME = "X9 company spend cap";
 export declare const TURN_STOP_CODES: readonly ["budget_exhausted", "run_expired"];
 export declare const TurnStopCodeSchema: z.ZodEnum<{
     budget_exhausted: "budget_exhausted";
@@ -91,6 +92,7 @@ export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject
     runSucceeds: z.ZodLiteral<true>;
     afterSeconds: z.ZodNumber;
     notes: z.ZodString;
+    serviceName: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"close_not_executed">;
     runSucceeds: z.ZodLiteral<true>;
@@ -106,6 +108,8 @@ export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject
 export type TurnDisposition = z.infer<typeof TurnDispositionSchema>;
 /** Only failed, uncertain and unavailable ends fail the run; refusals and limit stops never do. */
 export declare function dispositionForTurnEnd(end: TurnEnd): TurnDisposition;
+/** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */
+export declare function waitsOnLimit(policy: unknown): boolean;
 /** The write to make on the Paperclip issue, or null when nothing is written. The time enters only from `ctx.now`. */
 export declare function paperclipBodyForDisposition(d: TurnDisposition, ctx: {
     now: Date;

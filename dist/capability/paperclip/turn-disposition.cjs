@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TurnDispositionSchema = exports.TurnEndSchema = exports.TURN_DISPOSITION_TEXT = exports.TurnStopCodeSchema = exports.TURN_STOP_CODES = exports.NOT_NOW_DEFAULT_RETRY_SECONDS = exports.ADMISSION_REFUSAL_CLASS = void 0;
+exports.TurnDispositionSchema = exports.TurnEndSchema = exports.TURN_DISPOSITION_TEXT = exports.TurnStopCodeSchema = exports.TURN_STOP_CODES = exports.LIMIT_WAIT_SERVICE_NAME = exports.NOT_NOW_DEFAULT_RETRY_SECONDS = exports.ADMISSION_REFUSAL_CLASS = void 0;
 exports.dispositionForTurnEnd = dispositionForTurnEnd;
+exports.waitsOnLimit = waitsOnLimit;
 exports.paperclipBodyForDisposition = paperclipBodyForDisposition;
 const zod_1 = require("zod");
 const internal_agent_turn_js_1 = require("../../http/endpoints/internal-agent-turn.cjs");
@@ -27,6 +28,7 @@ exports.ADMISSION_REFUSAL_CLASS = {
     rd_paused: 'not_now',
 };
 exports.NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+exports.LIMIT_WAIT_SERVICE_NAME = 'X9 company spend cap';
 const MIN_CHECK_SECONDS = 60;
 const MAX_CHECK_SECONDS = 86_400 * 7;
 exports.TURN_STOP_CODES = ['budget_exhausted', 'run_expired'];
@@ -62,6 +64,7 @@ exports.TurnDispositionSchema = zod_1.z.discriminatedUnion('kind', [
         runSucceeds: zod_1.z.literal(true),
         afterSeconds: zod_1.z.number().int().min(MIN_CHECK_SECONDS).max(MAX_CHECK_SECONDS),
         notes: zod_1.z.string().min(1).max(500),
+        serviceName: wire_scritture_js_1.PaperclipControlloSchema.shape.serviceName,
     }),
     zod_1.z.strictObject({ kind: zod_1.z.literal('close_not_executed'), runSucceeds: zod_1.z.literal(true), comment: zod_1.z.string().min(1) }),
     zod_1.z.strictObject({
@@ -89,6 +92,7 @@ function dispositionForTurnEnd(end) {
                 runSucceeds: true,
                 afterSeconds: Math.max(MIN_CHECK_SECONDS, end.retryAfterSeconds ?? exports.NOT_NOW_DEFAULT_RETRY_SECONDS),
                 notes: exports.TURN_DISPOSITION_TEXT.checkNote(end.code),
+                ...(end.code === 'budget_exhausted' ? { serviceName: exports.LIMIT_WAIT_SERVICE_NAME } : {}),
             };
         }
         case 'stopped':
@@ -97,12 +101,19 @@ function dispositionForTurnEnd(end) {
                 runSucceeds: true,
                 afterSeconds: Math.max(MIN_CHECK_SECONDS, end.retryAfterSeconds ?? exports.NOT_NOW_DEFAULT_RETRY_SECONDS),
                 notes: exports.TURN_DISPOSITION_TEXT.stoppedNote(end.code),
+                ...(end.code === 'budget_exhausted' ? { serviceName: exports.LIMIT_WAIT_SERVICE_NAME } : {}),
             };
         case 'failed':
         case 'uncertain':
         case 'unavailable':
             return { kind: 'fail_run', runSucceeds: false };
     }
+}
+/** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */
+function waitsOnLimit(policy) {
+    return typeof policy === 'object' && policy !== null && 'monitor' in policy
+        && typeof policy.monitor === 'object' && policy.monitor !== null && 'serviceName' in policy.monitor
+        && policy.monitor.serviceName === exports.LIMIT_WAIT_SERVICE_NAME;
 }
 /** The write to make on the Paperclip issue, or null when nothing is written. The time enters only from `ctx.now`. */
 function paperclipBodyForDisposition(d, ctx) {
@@ -119,6 +130,7 @@ function paperclipBodyForDisposition(d, ctx) {
                     monitor: {
                         nextCheckAt: new Date(ctx.now.getTime() + d.afterSeconds * 1000).toISOString(),
                         notes: d.notes,
+                        ...(d.serviceName !== undefined ? { serviceName: d.serviceName } : {}),
                     },
                 },
             };

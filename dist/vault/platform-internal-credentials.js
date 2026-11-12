@@ -29,6 +29,7 @@
  * - `CONNECT_FIGMA_CLIENT_SECRET` — Figma OAuth client secret, only Connessioni; never projected into an agent.
  * - `CONNECT_VAULT_SECRET` — segreto del servizio Connessioni verso il Vault; mai proiettato in un agente.
  * - `RICERCA_DATABASE_URL` — connessione Postgres di cap-ricerca, solo quel servizio; mai proiettata in un agente.
+ * - `PAPERCLIP_ADMIN_TOKEN` — Paperclip board key, read only by platform services from a file; never projected into an agent.
  */
 export const PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING',
     'APPROVALS_SIGNING_KEY',
@@ -42,6 +43,8 @@ export const PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING',
     // segreto della porta Vault delle chiavi agente; mai proiettato in un agente
     'AGENT_CREDENTIAL_VAULT_SECRET',
     'RICERCA_DATABASE_URL',
+    // The Paperclip board key (the value of the `admin_token` file); only cap-paperclip's event comment signer and the enroll process read it, by file (`PAPERCLIP_ADMIN_TOKEN_FILE`); never projected into an agent.
+    'PAPERCLIP_ADMIN_TOKEN',
 ];
 export function isPlatformInternalCredentialKey(key) {
     return PLATFORM_INTERNAL_CREDENTIAL_KEYS.includes(key);

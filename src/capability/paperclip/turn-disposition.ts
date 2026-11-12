@@ -4,6 +4,7 @@ import {
   type OrganizationAdmissionRefusalCode,
 } from '../../http/endpoints/internal-agent-turn.js';
 import {
+  PaperclipControlloSchema,
   PaperclipDisposizioneCorpoSchema,
   type PaperclipDisposizioneCorpo,
 } from '../paperclip-protocollo/wire-scritture.js';
@@ -38,6 +39,7 @@ export const ADMISSION_REFUSAL_CLASS = {
 } as const satisfies Record<OrganizationAdmissionRefusalCode, AdmissionRefusalClass>;
 
 export const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+export const LIMIT_WAIT_SERVICE_NAME = 'X9 company spend cap';
 const MIN_CHECK_SECONDS = 60;
 const MAX_CHECK_SECONDS = 86_400 * 7;
 
@@ -81,6 +83,7 @@ export const TurnDispositionSchema = z.discriminatedUnion('kind', [
     runSucceeds: z.literal(true),
     afterSeconds: z.number().int().min(MIN_CHECK_SECONDS).max(MAX_CHECK_SECONDS),
     notes: z.string().min(1).max(500),
+    serviceName: PaperclipControlloSchema.shape.serviceName,
   }),
   z.strictObject({ kind: z.literal('close_not_executed'), runSucceeds: z.literal(true), comment: z.string().min(1) }),
   z.strictObject({
@@ -110,6 +113,7 @@ export function dispositionForTurnEnd(end: TurnEnd): TurnDisposition {
         runSucceeds: true,
         afterSeconds: Math.max(MIN_CHECK_SECONDS, end.retryAfterSeconds ?? NOT_NOW_DEFAULT_RETRY_SECONDS),
         notes: TURN_DISPOSITION_TEXT.checkNote(end.code),
+        ...(end.code === 'budget_exhausted' ? { serviceName: LIMIT_WAIT_SERVICE_NAME } : {}),
       };
     }
     case 'stopped':
@@ -118,12 +122,20 @@ export function dispositionForTurnEnd(end: TurnEnd): TurnDisposition {
         runSucceeds: true,
         afterSeconds: Math.max(MIN_CHECK_SECONDS, end.retryAfterSeconds ?? NOT_NOW_DEFAULT_RETRY_SECONDS),
         notes: TURN_DISPOSITION_TEXT.stoppedNote(end.code),
+        ...(end.code === 'budget_exhausted' ? { serviceName: LIMIT_WAIT_SERVICE_NAME } : {}),
       };
     case 'failed':
     case 'uncertain':
     case 'unavailable':
       return { kind: 'fail_run', runSucceeds: false };
   }
+}
+
+/** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */
+export function waitsOnLimit(policy: unknown): boolean {
+  return typeof policy === 'object' && policy !== null && 'monitor' in policy
+    && typeof policy.monitor === 'object' && policy.monitor !== null && 'serviceName' in policy.monitor
+    && policy.monitor.serviceName === LIMIT_WAIT_SERVICE_NAME;
 }
 
 /** The write to make on the Paperclip issue, or null when nothing is written. The time enters only from `ctx.now`. */
@@ -144,6 +156,7 @@ export function paperclipBodyForDisposition(
           monitor: {
             nextCheckAt: new Date(ctx.now.getTime() + d.afterSeconds * 1000).toISOString(),
             notes: d.notes,
+            ...(d.serviceName !== undefined ? { serviceName: d.serviceName } : {}),
           },
         },
       };
