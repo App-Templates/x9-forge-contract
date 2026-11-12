@@ -159,7 +159,7 @@ describe('DevSessionAssignmentSchema', () => {
       return result.success ? 'accepted' : result.error.issues.map((issue) => issue.message).join(',');
     };
 
-    it('accepts an asset of the same tenant, company and project, with no BU or with the same BU', () => {
+    it('accepts an asset of the same tenant, company and project, with no BU, with the same BU or another BU', () => {
       expect(reasonOf({})).toBe('accepted');
       expect(reasonOf({ buSlug: 'sviluppo' })).toBe('accepted');
     });
@@ -167,14 +167,14 @@ describe('DevSessionAssignmentSchema', () => {
     it('rejects a foreign tenant', () => expect(reasonOf({ tenantId: 'tenant-2' })).toBe('material_foreign_tenant'));
     it('rejects a foreign company', () => expect(reasonOf({ companyId: 'altra-azienda' })).toBe('material_foreign_company'));
     it('rejects a foreign project', () => expect(reasonOf({ projectId: 'altro-progetto' })).toBe('material_foreign_project'));
-    it('rejects the material of another business unit', () => expect(reasonOf({ buSlug: 'design' })).toBe('material_foreign_business_unit'));
+    it('accepts the material of another business unit of the same project', () => expect(reasonOf({ buSlug: 'design' })).toBe('accepted'));
 
     it('names the offending material by its index', () => {
       const result = DevSessionAssignmentSchema.safeParse({
         ...assignment,
         materials: [
           { kind: 'github_link', url: 'https://github.com/a/b' },
-          { kind: 'asset', asset: { ...asset, buSlug: 'design' } },
+          { kind: 'asset', asset: { ...asset, projectId: 'altro-progetto' } },
         ],
       });
       expect(result.success).toBe(false);
@@ -186,6 +186,61 @@ describe('DevSessionAssignmentSchema', () => {
       const foreign = { ...assignment, materials: [{ kind: 'asset', asset: { ...asset, tenantId: 'tenant-2', buSlug: 'design' } }] };
       expect(mutant.safeParse(foreign).success).toBe(true);
       expect(DevSessionAssignmentSchema.safeParse(foreign).success).toBe(false);
+    });
+  });
+
+  describe('s6533 materiali-altri-reparti: an assignment of orto-web accepts an asset of orto-design of the same tenant, company and project, and still refuses an asset of another project, company or tenant with the reason of the first mismatch', () => {
+    const designAsset: AssetRef = {
+      assetId: 'asset-orto-design-r22',
+      sha256: 'b'.repeat(64),
+      name: 'orto-facile.pdf',
+      mediaType: 'application/pdf',
+      sizeBytes: 90210,
+      origin: { kind: 'session', sessionId: 'R22', repo: 'App-Templates/goodchoice-backtest', commit: COMMIT, path: 'output/orto-facile.pdf' },
+      tenantId: '1',
+      companyId: 'good-choice',
+      projectId: 'orto-facile',
+      buSlug: 'orto-design',
+      createdAt: '2026-11-11T20:10:00+01:00',
+    };
+    const ortoWeb = {
+      ...assignment,
+      tenantId: '1',
+      ownerId: '1',
+      organizationId: 'good-choice',
+      companyId: 'good-choice',
+      projectId: 'orto-facile',
+      businessUnit: { slug: 'orto-web' },
+      requestedBy: { managementAgentId: 'capo-orto-web', runtimeAgentId: 'capo-orto-web', vaultAgentId: 74 },
+      materials: [{ kind: 'asset' as const, asset: designAsset }],
+    };
+    const check = (override: Partial<AssetRef>) =>
+      DevSessionAssignmentSchema.safeParse({ ...ortoWeb, materials: [{ kind: 'asset', asset: { ...designAsset, ...override } }] });
+    const reasons = (override: Partial<AssetRef>) => {
+      const result = check(override);
+      return result.success ? 'accepted' : result.error.issues.map((issue) => `${issue.message}@${issue.path.join('.')}`).join(',');
+    };
+
+    it('(a) is valid and survives the issue block round trip', () => {
+      expect(DevSessionAssignmentSchema.safeParse(ortoWeb).success).toBe(true);
+      const parsed = parseDevSessionBlock(renderDevSessionBlock(ortoWeb, sha(devSessionAssignmentCanonicalJson(ortoWeb))));
+      expect(parsed.ok).toBe(true);
+      if (parsed.ok) expect(parsed.assignment).toEqual(ortoWeb);
+    });
+
+    it('(b) refuses another project, company or tenant with the first mismatch', () => {
+      expect(reasons({ projectId: 'altro-progetto' })).toBe('material_foreign_project@materials.0.asset');
+      expect(reasons({ companyId: 'altra-azienda' })).toBe('material_foreign_company@materials.0.asset');
+      expect(reasons({ tenantId: '2' })).toBe('material_foreign_tenant@materials.0.asset');
+    });
+
+    it('(c) an asset of another unit and of another project is refused for the project', () => {
+      expect(reasons({ buSlug: 'orto-design', projectId: 'altro-progetto' })).toBe('material_foreign_project@materials.0.asset');
+    });
+
+    it.each([['orto-web'], [undefined], ['orto-design']])('(d) never names the business unit as a reason (buSlug %s)', (buSlug) => {
+      expect(reasons({ buSlug })).toBe('accepted');
+      expect(reasons({ buSlug, projectId: 'altro-progetto' })).not.toContain('material_foreign_business_unit');
     });
   });
 });
