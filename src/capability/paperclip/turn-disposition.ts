@@ -11,6 +11,7 @@ import {
 /**
  * What stays written on Paperclip when an organization turn ends is decided here and only here: a «not now» refusal
  * (spend cap, R&D pause, infrastructure not ready) is a wait Paperclip re-checks by itself, never a failed run.
+ * A turn stopped by a limit while working also schedules a re-check and succeeds, preserving work already done.
  */
 
 export type AdmissionRefusalClass = 'definitive' | 'not_now';
@@ -40,8 +41,14 @@ export const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
 const MIN_CHECK_SECONDS = 60;
 const MAX_CHECK_SECONDS = 86_400 * 7;
 
+export const TURN_STOP_CODES = ['budget_exhausted', 'run_expired'] as const;
+export const TurnStopCodeSchema = z.enum(TURN_STOP_CODES);
+export type TurnStopCode = z.infer<typeof TurnStopCodeSchema>;
+
 export const TURN_DISPOSITION_TEXT = {
   checkNote: (code: OrganizationAdmissionRefusalCode): string => `Non adesso: ${code}. Ricontrollo automatico.`,
+  stoppedNote: (code: TurnStopCode): string =>
+    `Fermato a metà turno: ${code}. Il lavoro già fatto resta. Ricontrollo automatico.`,
   notExecutedComment: (): string => 'Non eseguito: R&D in pausa.',
   unblockAction: (code: OrganizationAdmissionRefusalCode): string =>
     `Turno rifiutato: ${code}. Correggere il legame o l'identità dell'agente, poi commentare qui per riaprire.`,
@@ -59,6 +66,11 @@ export const TurnEndSchema = z.discriminatedUnion('kind', [
   z.strictObject({ kind: z.literal('uncertain') }),
   z.strictObject({ kind: z.literal('unavailable') }),
   z.strictObject({ kind: z.literal('cancelled') }),
+  z.strictObject({
+    kind: z.literal('stopped'),
+    code: TurnStopCodeSchema,
+    retryAfterSeconds: z.number().int().min(1).max(MAX_CHECK_SECONDS).optional(),
+  }),
 ]);
 export type TurnEnd = z.infer<typeof TurnEndSchema>;
 
@@ -80,7 +92,7 @@ export const TurnDispositionSchema = z.discriminatedUnion('kind', [
 ]);
 export type TurnDisposition = z.infer<typeof TurnDispositionSchema>;
 
-/** Only failed, uncertain and unavailable ends fail the run; a refusal never does. */
+/** Only failed, uncertain and unavailable ends fail the run; refusals and limit stops never do. */
 export function dispositionForTurnEnd(end: TurnEnd): TurnDisposition {
   switch (end.kind) {
     case 'succeeded':
@@ -100,6 +112,13 @@ export function dispositionForTurnEnd(end: TurnEnd): TurnDisposition {
         notes: TURN_DISPOSITION_TEXT.checkNote(end.code),
       };
     }
+    case 'stopped':
+      return {
+        kind: 'check_later',
+        runSucceeds: true,
+        afterSeconds: Math.max(MIN_CHECK_SECONDS, end.retryAfterSeconds ?? NOT_NOW_DEFAULT_RETRY_SECONDS),
+        notes: TURN_DISPOSITION_TEXT.stoppedNote(end.code),
+      };
     case 'failed':
     case 'uncertain':
     case 'unavailable':

@@ -4,6 +4,7 @@ import { type PaperclipDisposizioneCorpo } from "../paperclip-protocollo/wire-sc
 /**
  * What stays written on Paperclip when an organization turn ends is decided here and only here: a «not now» refusal
  * (spend cap, R&D pause, infrastructure not ready) is a wait Paperclip re-checks by itself, never a failed run.
+ * A turn stopped by a limit while working also schedules a re-check and succeeds, preserving work already done.
  */
 export type AdmissionRefusalClass = 'definitive' | 'not_now';
 /** A code added to ORGANIZATION_ADMISSION_REFUSAL_CODES without a class here does not compile. */
@@ -27,8 +28,15 @@ export declare const ADMISSION_REFUSAL_CLASS: {
     readonly rd_paused: "not_now";
 };
 export declare const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+export declare const TURN_STOP_CODES: readonly ["budget_exhausted", "run_expired"];
+export declare const TurnStopCodeSchema: z.ZodEnum<{
+    budget_exhausted: "budget_exhausted";
+    run_expired: "run_expired";
+}>;
+export type TurnStopCode = z.infer<typeof TurnStopCodeSchema>;
 export declare const TURN_DISPOSITION_TEXT: {
     readonly checkNote: (code: OrganizationAdmissionRefusalCode) => string;
+    readonly stoppedNote: (code: TurnStopCode) => string;
     readonly notExecutedComment: () => string;
     readonly unblockAction: (code: OrganizationAdmissionRefusalCode) => string;
 };
@@ -66,6 +74,13 @@ export declare const TurnEndSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"unavailable">;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"cancelled">;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"stopped">;
+    code: z.ZodEnum<{
+        budget_exhausted: "budget_exhausted";
+        run_expired: "run_expired";
+    }>;
+    retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>], "kind">;
 export type TurnEnd = z.infer<typeof TurnEndSchema>;
 export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -89,7 +104,7 @@ export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject
     runSucceeds: z.ZodLiteral<false>;
 }, z.core.$strict>], "kind">;
 export type TurnDisposition = z.infer<typeof TurnDispositionSchema>;
-/** Only failed, uncertain and unavailable ends fail the run; a refusal never does. */
+/** Only failed, uncertain and unavailable ends fail the run; refusals and limit stops never do. */
 export declare function dispositionForTurnEnd(end: TurnEnd): TurnDisposition;
 /** The write to make on the Paperclip issue, or null when nothing is written. The time enters only from `ctx.now`. */
 export declare function paperclipBodyForDisposition(d: TurnDisposition, ctx: {

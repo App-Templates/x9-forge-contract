@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.178.0 — a limit stop during a turn schedules a re-check; additive (task 6350)
+
+- `capability/paperclip/turn-disposition` adds `TURN_STOP_CODES`, `TurnStopCodeSchema` / `TurnStopCode` and a strict `stopped` turn end for `budget_exhausted` or `run_expired`, with optional retry seconds. Its disposition is `check_later` with a succeeding run, a fixed note preserving work already done, a one-hour default and a 60-second minimum. All six existing turn ends are unchanged; `failed` still fails the run even with a limit failure code. No persisted shape narrows and the Paperclip body builder is unchanged.
+- Consumers: cap-paperclip constructs `stopped` when agent-core reports a limit stop and executes the disposition and report as for a successful turn; agent-core provides that outcome in task N32. Runtime behaviour requires both consumers and the limit notice consumers from 1.177.0.
+
 ## v1.177.0 — one fixed shape and sentence for a limit notice; additive (task 6349)
 
 - New `capability/paperclip/limit-notice`: strict `LimitNoticeSchema` (which cap, its value, the observed value, the threshold, what happened, when it resets, who is told) with six coherence rules, `nextUtcMidnight(iso)` and `renderLimitNotice(notice)`, one fixed Italian line. No cap value lives in the bridge; the barrel is untouched and no existing shape changes.

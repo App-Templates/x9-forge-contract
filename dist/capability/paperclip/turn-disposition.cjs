@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TurnDispositionSchema = exports.TurnEndSchema = exports.TURN_DISPOSITION_TEXT = exports.NOT_NOW_DEFAULT_RETRY_SECONDS = exports.ADMISSION_REFUSAL_CLASS = void 0;
+exports.TurnDispositionSchema = exports.TurnEndSchema = exports.TURN_DISPOSITION_TEXT = exports.TurnStopCodeSchema = exports.TURN_STOP_CODES = exports.NOT_NOW_DEFAULT_RETRY_SECONDS = exports.ADMISSION_REFUSAL_CLASS = void 0;
 exports.dispositionForTurnEnd = dispositionForTurnEnd;
 exports.paperclipBodyForDisposition = paperclipBodyForDisposition;
 const zod_1 = require("zod");
@@ -29,8 +29,11 @@ exports.ADMISSION_REFUSAL_CLASS = {
 exports.NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
 const MIN_CHECK_SECONDS = 60;
 const MAX_CHECK_SECONDS = 86_400 * 7;
+exports.TURN_STOP_CODES = ['budget_exhausted', 'run_expired'];
+exports.TurnStopCodeSchema = zod_1.z.enum(exports.TURN_STOP_CODES);
 exports.TURN_DISPOSITION_TEXT = {
     checkNote: (code) => `Non adesso: ${code}. Ricontrollo automatico.`,
+    stoppedNote: (code) => `Fermato a metà turno: ${code}. Il lavoro già fatto resta. Ricontrollo automatico.`,
     notExecutedComment: () => 'Non eseguito: R&D in pausa.',
     unblockAction: (code) => `Turno rifiutato: ${code}. Correggere il legame o l'identità dell'agente, poi commentare qui per riaprire.`,
 };
@@ -46,6 +49,11 @@ exports.TurnEndSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.strictObject({ kind: zod_1.z.literal('uncertain') }),
     zod_1.z.strictObject({ kind: zod_1.z.literal('unavailable') }),
     zod_1.z.strictObject({ kind: zod_1.z.literal('cancelled') }),
+    zod_1.z.strictObject({
+        kind: zod_1.z.literal('stopped'),
+        code: exports.TurnStopCodeSchema,
+        retryAfterSeconds: zod_1.z.number().int().min(1).max(MAX_CHECK_SECONDS).optional(),
+    }),
 ]);
 exports.TurnDispositionSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.strictObject({ kind: zod_1.z.literal('leave'), runSucceeds: zod_1.z.literal(true) }),
@@ -63,7 +71,7 @@ exports.TurnDispositionSchema = zod_1.z.discriminatedUnion('kind', [
     }),
     zod_1.z.strictObject({ kind: zod_1.z.literal('fail_run'), runSucceeds: zod_1.z.literal(false) }),
 ]);
-/** Only failed, uncertain and unavailable ends fail the run; a refusal never does. */
+/** Only failed, uncertain and unavailable ends fail the run; refusals and limit stops never do. */
 function dispositionForTurnEnd(end) {
     switch (end.kind) {
         case 'succeeded':
@@ -83,6 +91,13 @@ function dispositionForTurnEnd(end) {
                 notes: exports.TURN_DISPOSITION_TEXT.checkNote(end.code),
             };
         }
+        case 'stopped':
+            return {
+                kind: 'check_later',
+                runSucceeds: true,
+                afterSeconds: Math.max(MIN_CHECK_SECONDS, end.retryAfterSeconds ?? exports.NOT_NOW_DEFAULT_RETRY_SECONDS),
+                notes: exports.TURN_DISPOSITION_TEXT.stoppedNote(end.code),
+            };
         case 'failed':
         case 'uncertain':
         case 'unavailable':
