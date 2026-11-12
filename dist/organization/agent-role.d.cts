@@ -17,6 +17,8 @@ export declare const AgentRoleSchema: z.ZodEnum<{
 export type AgentRole = z.infer<typeof AgentRoleSchema>;
 /** Capabilities every role is born with; the role fixes them, nobody can remove them. */
 export declare const AGENT_ROLE_BASE_CAPABILITIES: Readonly<Record<AgentRole, readonly string[]>>;
+/** Base capabilities the role only reads: the role reads, the writes stay with the lead. */
+export declare const AGENT_ROLE_READ_ONLY_CAPABILITIES: Readonly<Record<AgentRole, readonly string[]>>;
 /** Base capabilities of the role followed by the extras, without duplicates. */
 export declare function roleCapabilities(role: AgentRole, extra?: readonly string[]): string[];
 //# sourceMappingURL=agent-role.d.ts.map

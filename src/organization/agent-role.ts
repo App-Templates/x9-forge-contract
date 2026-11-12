@@ -15,10 +15,18 @@ export type AgentRole = z.infer<typeof AgentRoleSchema>;
 
 /** Capabilities every role is born with; the role fixes them, nobody can remove them. */
 export const AGENT_ROLE_BASE_CAPABILITIES: Readonly<Record<AgentRole, readonly string[]>> = {
-  [DIRECTOR_ROLE]: ['email', 'memory', 'lab', 'ricerca', 'paperclip'],
+  [DIRECTOR_ROLE]: ['email', 'memory', 'lab', 'ricerca', 'paperclip', 'dev'],
   [BUSINESS_UNIT_LEAD_ROLE]: ['email', 'memory', 'lab', 'qa', 'ricerca', 'paperclip'],
   [LAB_ROLE]: ['ricerca', 'lab', 'email', 'memory'],
   [RICERCA_ROLE]: ['ricerca', 'lab', 'email', 'memory'],
+};
+
+/** Base capabilities the role only reads: the role reads, the writes stay with the lead. */
+export const AGENT_ROLE_READ_ONLY_CAPABILITIES: Readonly<Record<AgentRole, readonly string[]>> = {
+  [DIRECTOR_ROLE]: ['dev'],
+  [BUSINESS_UNIT_LEAD_ROLE]: [],
+  [LAB_ROLE]: [],
+  [RICERCA_ROLE]: [],
 };
 
 /** Base capabilities of the role followed by the extras, without duplicates. */

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.167.0 — il Director ha sempre la capacità `dev`, solo in lettura; additivo per i dati salvati (scheda 6325)
+
+- `AGENT_ROLE_BASE_CAPABILITIES.director` aggiunge `dev`; nuova `AGENT_ROLE_READ_ONLY_CAPABILITIES` (`director: ['dev']`, gli altri ruoli vuoti). `roleScopePolicy` mette `{ read: 'allow', write: 'deny' }` sulle capacità di sola lettura del ruolo; il capo-bu mantiene le scritture di `dev`. `toolsForRole` e i manifesti non cambiano.
+- Consumatori: Forge factory (scheda 6335) applica la politica alla nascita; X9 non legge le capacità di base. I Director già nati non cambiano.
+
 ## v1.166.0 — una sola regola di accesso all'organizzazione, a due livelli; additivo (scheda 6324)
 
 - `organization/organization-access` aggiunge `organizationAccess({ actor, resource, need, bindings })`, funzione pura: `read` per ogni membro attivo dell'organizzazione della risorsa (livello 1, come `allow_company_agent` di Paperclip), `manage` solo se tutti i legami attivi sono `director` (livello 2). Rifiuti: `foreign_tenant`, `foreign_owner`, `foreign_organization`, `not_member`, `role_unknown`, `role_ambiguous`, `director_only`. Più `ORGANIZATION_ACCESS_NEEDS`, `ORGANIZATION_ACCESS_REFUSALS` e `OrganizationAccessDecisionSchema`. Nessuna forma salvata, nessun contratto HTTP cambia.
