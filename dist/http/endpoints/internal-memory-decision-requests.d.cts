@@ -334,14 +334,24 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
     }, z.core.$strict>], "outcome">;
 }, z.core.$strict>], "state">;
 export type InternalMemoryDecisionRequestReadResponse = z.infer<typeof InternalMemoryDecisionRequestReadResponseSchema>;
+export declare const InternalMemoryDecisionRequestStateSchema: z.ZodEnum<{
+    decided: "decided";
+    open: "open";
+}>;
+export type InternalMemoryDecisionRequestState = z.infer<typeof InternalMemoryDecisionRequestStateSchema>;
 /**
  * List (1.66.0, stage probes T3/T7 and readers that do not know the request id): the requests opened by one agent,
- * optionally only those whose subject is one plan, newest first. Same scope rule as the read: tenant and agent.
+ * optionally restricted to one subject plan and to one state, newest first.
+ * Same scope rule as the read: tenant and agent.
  */
 export declare const InternalMemoryDecisionRequestListQuerySchema: z.ZodObject<{
     tenantId: z.ZodString;
     agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
     planId: z.ZodOptional<z.ZodString>;
+    state: z.ZodOptional<z.ZodEnum<{
+        decided: "decided";
+        open: "open";
+    }>>;
     limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
 }, z.core.$strict>;
 export type InternalMemoryDecisionRequestListQuery = z.infer<typeof InternalMemoryDecisionRequestListQuerySchema>;
@@ -1624,7 +1634,10 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
         }>;
     }, z.core.$strict>;
 };
-/** List: 200 with the agent's requests (newest first); an unknown agent answers an empty list, never another's. */
+/**
+ * List: 200 with the agent's requests, restricted to the requested state when
+ * state is provided, always newest first. An unknown agent answers an empty list, never another's.
+ */
 export declare const internalMemoryDecisionRequestListContract: {
     readonly method: "GET";
     readonly path: "/internal/memory/decision-requests";
@@ -1633,6 +1646,10 @@ export declare const internalMemoryDecisionRequestListContract: {
         tenantId: z.ZodString;
         agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         planId: z.ZodOptional<z.ZodString>;
+        state: z.ZodOptional<z.ZodEnum<{
+            decided: "decided";
+            open: "open";
+        }>>;
         limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{

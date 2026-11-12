@@ -4,18 +4,20 @@ import { z } from 'zod';
  * cap without telling anyone, and the spend cap refuses a turn without a notice: this is the fixed shape and the fixed
  * sentence both are told with. Cap VALUES are never written here; whoever writes the notice supplies them.
  */
-export declare const LIMIT_NOTICE_LIMITS: readonly ["daily_runs", "daily_cost", "company_spend"];
+export declare const LIMIT_NOTICE_LIMITS: readonly ["daily_runs", "daily_cost", "company_spend", "business_unit_spend"];
 export declare const LimitNoticeLimitSchema: z.ZodEnum<{
     company_spend: "company_spend";
     daily_runs: "daily_runs";
     daily_cost: "daily_cost";
+    business_unit_spend: "business_unit_spend";
 }>;
 export type LimitNoticeLimit = z.infer<typeof LimitNoticeLimitSchema>;
-/** Paperclip's units for the two daily caps; the company spend uses the unit of InternalCompanySpendResponseSchema. */
+/** Paperclip's units for the two daily caps; spend uses the unit of InternalCompanySpendResponseSchema. */
 export declare const LIMIT_NOTICE_UNITS: {
     readonly daily_runs: "runs";
     readonly daily_cost: "usd_cents";
     readonly company_spend: "usd_micros";
+    readonly business_unit_spend: "usd_micros";
 };
 export declare const LIMIT_NOTICE_THRESHOLDS: readonly ["warning_80", "reached"];
 export declare const LimitNoticeThresholdSchema: z.ZodEnum<{
@@ -42,6 +44,7 @@ export declare const LimitNoticeSchema: z.ZodObject<{
         company_spend: "company_spend";
         daily_runs: "daily_runs";
         daily_cost: "daily_cost";
+        business_unit_spend: "business_unit_spend";
     }>;
     limitValue: z.ZodNumber;
     observedValue: z.ZodNumber;
@@ -64,6 +67,11 @@ export declare const LimitNoticeSchema: z.ZodObject<{
     issueId: z.ZodOptional<z.ZodUUID>;
     observedAt: z.ZodISODateTime;
     resetsAt: z.ZodOptional<z.ZodISODateTime>;
+    spend: z.ZodOptional<z.ZodObject<{
+        scopeName: z.ZodString;
+        windowStart: z.ZodISODateTime;
+        usdPerEur: z.ZodNumber;
+    }, z.core.$strict>>;
     recipients: z.ZodArray<z.ZodEnum<{
         owner: "owner";
         director: "director";

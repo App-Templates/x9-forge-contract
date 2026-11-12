@@ -1,4 +1,14 @@
 import { z } from 'zod';
+/** Maximum query length for recall callers and tool descriptions. */
+export declare const MEMORY_RECALL_QUERY_MAX_CHARS = 4096;
+/** Minimum result count for recall callers and tool descriptions. */
+export declare const MEMORY_RECALL_TOP_K_MIN = 1;
+/** Maximum result count for recall callers and tool descriptions. */
+export declare const MEMORY_RECALL_TOP_K_MAX = 20;
+/** Route default when a recall bundle request omits topK. */
+export declare const MEMORY_RECALL_TOP_K_DEFAULT = 8;
+/** Model tool default when the model omits topK. */
+export declare const MEMORY_RECALL_TOOL_TOP_K_DEFAULT = 5;
 export declare const InternalMemoryRecallBundleRequestSchema: z.ZodObject<{
     tenantId: z.ZodString;
     ownerId: z.ZodString;

@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.192.0",
+  "versione": "1.193.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1739,6 +1739,7 @@
       "InternalMemoryDecisionRequestQuerySchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "InternalMemoryDecisionRequestReadResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "InternalMemoryDecisionRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decisions",
+      "InternalMemoryDecisionRequestStateSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "InternalMemoryDecisionResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decisions",
       "InternalMemoryExperienceQueryResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-experience",
       "InternalMemoryExperienceQuerySchema": "@x9-forge/contracts/http/endpoints/internal-memory-experience",
@@ -1816,8 +1817,13 @@
       "ListVaultConnectionsParamsSchema": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
       "ListVaultConnectionsResponseSchema": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
       "MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
+      "MEMORY_RECALL_QUERY_MAX_CHARS": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
       "MEMORY_RECALL_REFUSED_HTTP_STATUSES": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
       "MEMORY_RECALL_TOOL_ERROR_CODES": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
+      "MEMORY_RECALL_TOOL_TOP_K_DEFAULT": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
+      "MEMORY_RECALL_TOP_K_DEFAULT": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
+      "MEMORY_RECALL_TOP_K_MAX": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
+      "MEMORY_RECALL_TOP_K_MIN": "@x9-forge/contracts/http/endpoints/internal-memory-recall-bundle",
       "MandateObservationErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-memory-mandate-observations",
       "MandateObservationErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-mandate-observations",
       "MandateReconcileRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-mandate-reconcile",

@@ -1,17 +1,19 @@
 import { z } from 'zod';
+import { CompanySpendSourceSchema } from "../../http/endpoints/internal-company-spend.js";
 import { ParticipantAgentIdentitySchema } from "../../organization/participant-binding.js";
 /**
  * The one message that says a cap stopped (or is about to stop) an agent. Paperclip skips a wake over its daily run
  * cap without telling anyone, and the spend cap refuses a turn without a notice: this is the fixed shape and the fixed
  * sentence both are told with. Cap VALUES are never written here; whoever writes the notice supplies them.
  */
-export const LIMIT_NOTICE_LIMITS = ['daily_runs', 'daily_cost', 'company_spend'];
+export const LIMIT_NOTICE_LIMITS = ['daily_runs', 'daily_cost', 'company_spend', 'business_unit_spend'];
 export const LimitNoticeLimitSchema = z.enum(LIMIT_NOTICE_LIMITS);
-/** Paperclip's units for the two daily caps; the company spend uses the unit of InternalCompanySpendResponseSchema. */
+/** Paperclip's units for the two daily caps; spend uses the unit of InternalCompanySpendResponseSchema. */
 export const LIMIT_NOTICE_UNITS = {
     daily_runs: 'runs',
     daily_cost: 'usd_cents',
     company_spend: 'usd_micros',
+    business_unit_spend: 'usd_micros',
 };
 export const LIMIT_NOTICE_THRESHOLDS = ['warning_80', 'reached'];
 export const LimitNoticeThresholdSchema = z.enum(LIMIT_NOTICE_THRESHOLDS);
@@ -28,6 +30,7 @@ export function nextUtcMidnight(iso) {
     return new Date(Date.UTC(at.getUTCFullYear(), at.getUTCMonth(), at.getUTCDate() + 1)).toISOString();
 }
 const isDailyLimit = (limit) => limit === 'daily_runs' || limit === 'daily_cost';
+const isSpendLimit = (limit) => limit === 'company_spend' || limit === 'business_unit_spend';
 export const LimitNoticeSchema = z
     .strictObject({
     limit: LimitNoticeLimitSchema,
@@ -41,6 +44,11 @@ export const LimitNoticeSchema = z
     issueId: z.uuid().optional(),
     observedAt: Timestamp,
     resetsAt: Timestamp.optional(),
+    spend: z.strictObject({
+        scopeName: z.string().min(1).max(120).refine((name) => !/[\r\n\u2028\u2029]/.test(name), 'scopeName must not contain line breaks'),
+        windowStart: Timestamp,
+        usdPerEur: z.number().positive().finite(),
+    }).optional(),
     recipients: z.array(LimitNoticeRecipientSchema).min(1).max(2),
 })
     .superRefine((n, ctx) => {
@@ -65,8 +73,8 @@ export const LimitNoticeSchema = z
     // (c) which event belongs to which cap
     if (n.event === 'wake_skipped' && !isDailyLimit(n.limit))
         add('event', 'wake_skipped belongs to a daily limit');
-    if (n.event === 'turn_refused' && n.limit !== 'company_spend')
-        add('event', 'turn_refused belongs to company_spend');
+    if (n.event === 'turn_refused' && !isSpendLimit(n.limit))
+        add('event', 'turn_refused belongs to a spend limit');
     // (d) the daily caps name the agent and reset at the next UTC midnight
     if (isDailyLimit(n.limit)) {
         if (n.agent === undefined)
@@ -81,9 +89,14 @@ export const LimitNoticeSchema = z
     if (n.wakeupRequestId !== undefined && n.event !== 'wake_skipped') {
         add('wakeupRequestId', 'wakeupRequestId belongs to wake_skipped');
     }
-    // (f) the spend cap belongs to the company, not to an agent
-    if (n.limit === 'company_spend' && n.agent !== undefined)
-        add('agent', 'company_spend carries no agent');
+    // (f) spend caps belong to a company or business unit, not to an agent
+    if (isSpendLimit(n.limit) && n.agent !== undefined)
+        add('agent', 'a spend limit carries no agent');
+    // (g) only spend caps carry spend details; business unit caps must name their scope
+    if (n.spend !== undefined && !isSpendLimit(n.limit))
+        add('spend', 'spend belongs to a spend limit');
+    if (n.limit === 'business_unit_spend' && n.spend === undefined)
+        add('spend', 'business_unit_spend requires spend');
     if (new Set(n.recipients).size !== n.recipients.length)
         add('recipients', 'recipients must not repeat');
 });
@@ -91,6 +104,7 @@ const LIMIT_TEXT = {
     daily_runs: 'Tetto di corse del giorno',
     daily_cost: 'Tetto di costo del giorno',
     company_spend: "Tetto di spesa dell'azienda",
+    business_unit_spend: 'Tetto di spesa del reparto',
 };
 const THRESHOLD_TEXT = {
     reached: 'raggiunto',
@@ -107,9 +121,37 @@ const EVENT_TEXT = {
     warning: 'Nessun lavoro è stato fermato.',
 };
 const RESET_TEXT = 'Si azzera a mezzanotte UTC.';
+const SPEND_SCOPE_TEXT = {
+    company_spend: "dell'azienda",
+    business_unit_spend: 'del reparto',
+};
+const SPEND_SOURCE_TEXT = {
+    model: 'modelli',
+    tool: 'strumenti',
+    ricerca: 'ricerche',
+    lab: 'Lab',
+};
+const SPEND_SOURCES = CompanySpendSourceSchema.options.map((source) => SPEND_SOURCE_TEXT[source]);
+const SPEND_SOURCES_TEXT = `${SPEND_SOURCES.slice(0, -1).join(', ')} e ${SPEND_SOURCES.at(-1)}`;
+const SPEND_REACHED_TEXT = 'Finché il tetto non è alzato i turni nuovi restano fermi.';
 /** One fixed Italian line for a notice. Pure: same notice, same string; throws if the notice is not valid. */
 export function renderLimitNotice(notice) {
     const n = LimitNoticeSchema.parse(notice);
+    const spend = n.spend;
+    if (spend !== undefined && isSpendLimit(n.limit)) {
+        const euros = (micros) => `${(micros / 1_000_000 / spend.usdPerEur).toFixed(2).replace('.', ',')} €`;
+        const start = new Date(spend.windowStart);
+        const date = `${String(start.getUTCDate()).padStart(2, '0')}/${String(start.getUTCMonth() + 1).padStart(2, '0')}/${String(start.getUTCFullYear()).padStart(4, '0')}`;
+        const parts = [
+            `${LIMIT_TEXT[n.limit]} «${spend.scopeName}» ${THRESHOLD_TEXT[n.threshold]}: ${euros(n.observedValue)} su ${euros(n.limitValue)}.`,
+            `Resta ${euros(Math.max(n.limitValue - n.observedValue, 0))}.`,
+            `Conta la spesa di ${SPEND_SOURCES_TEXT} di tutti gli agenti ${SPEND_SCOPE_TEXT[n.limit]} dal ${date}.`,
+            EVENT_TEXT[n.event],
+        ];
+        if (n.threshold === 'reached')
+            parts.push(SPEND_REACHED_TEXT);
+        return parts.join(' ');
+    }
     const head = `${LIMIT_TEXT[n.limit]} ${THRESHOLD_TEXT[n.threshold]}${n.agent ? ` per ${n.agent.runtimeAgentId}` : ''}`;
     const numbers = `${n.observedValue} su ${n.limitValue} ${UNIT_TEXT[LIMIT_NOTICE_UNITS[n.limit]]}`;
     const parts = [`${head}: ${numbers}.`, EVENT_TEXT[n.event]];

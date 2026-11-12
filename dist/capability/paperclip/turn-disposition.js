@@ -24,11 +24,13 @@ export const ADMISSION_REFUSAL_CLASS = {
 export const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
 export const LIMIT_WAIT_SERVICE_NAME = 'X9 company spend cap';
 const MIN_CHECK_SECONDS = 60;
+const CHECK_NOTE_MAX = 500;
 const MAX_CHECK_SECONDS = 86_400 * 7;
 export const TURN_STOP_CODES = ['budget_exhausted', 'run_expired'];
 export const TurnStopCodeSchema = z.enum(TURN_STOP_CODES);
 export const TURN_DISPOSITION_TEXT = {
     checkNote: (code) => `Non adesso: ${code}. Ricontrollo automatico.`,
+    checkNoteWithReason: (code, message, afterSeconds) => `Non adesso: ${code}. ${message} Ricontrollo automatico tra ${Math.round(afterSeconds / 60)} minuti.`,
     stoppedNote: (code) => `Fermato a metà turno: ${code}. Il lavoro già fatto resta. Ricontrollo automatico.`,
     notExecutedComment: () => 'Non eseguito: R&D in pausa.',
     unblockAction: (code) => `Turno rifiutato: ${code}. Correggere il legame o l'identità dell'agente, poi commentare qui per riaprire.`,
@@ -57,7 +59,7 @@ export const TurnDispositionSchema = z.discriminatedUnion('kind', [
         kind: z.literal('check_later'),
         runSucceeds: z.literal(true),
         afterSeconds: z.number().int().min(MIN_CHECK_SECONDS).max(MAX_CHECK_SECONDS),
-        notes: z.string().min(1).max(500),
+        notes: z.string().min(1).max(CHECK_NOTE_MAX),
         serviceName: PaperclipControlloSchema.shape.serviceName,
     }),
     z.strictObject({ kind: z.literal('close_not_executed'), runSucceeds: z.literal(true), comment: z.string().min(1) }),
@@ -81,11 +83,15 @@ export function dispositionForTurnEnd(end) {
             if (end.code === 'rd_paused') {
                 return { kind: 'close_not_executed', runSucceeds: true, comment: TURN_DISPOSITION_TEXT.notExecutedComment() };
             }
+            const afterSeconds = Math.max(MIN_CHECK_SECONDS, end.retryAfterSeconds ?? NOT_NOW_DEFAULT_RETRY_SECONDS);
+            const withReason = end.code === 'budget_exhausted' && end.message !== undefined
+                ? TURN_DISPOSITION_TEXT.checkNoteWithReason(end.code, end.message, afterSeconds)
+                : undefined;
             return {
                 kind: 'check_later',
                 runSucceeds: true,
-                afterSeconds: Math.max(MIN_CHECK_SECONDS, end.retryAfterSeconds ?? NOT_NOW_DEFAULT_RETRY_SECONDS),
-                notes: TURN_DISPOSITION_TEXT.checkNote(end.code),
+                afterSeconds,
+                notes: withReason !== undefined && withReason.length <= CHECK_NOTE_MAX ? withReason : TURN_DISPOSITION_TEXT.checkNote(end.code),
                 ...(end.code === 'budget_exhausted' ? { serviceName: LIMIT_WAIT_SERVICE_NAME } : {}),
             };
         }

@@ -37,6 +37,7 @@ export declare const TurnStopCodeSchema: z.ZodEnum<{
 export type TurnStopCode = z.infer<typeof TurnStopCodeSchema>;
 export declare const TURN_DISPOSITION_TEXT: {
     readonly checkNote: (code: OrganizationAdmissionRefusalCode) => string;
+    readonly checkNoteWithReason: (code: OrganizationAdmissionRefusalCode, message: string, afterSeconds: number) => string;
     readonly stoppedNote: (code: TurnStopCode) => string;
     readonly notExecutedComment: () => string;
     readonly unblockAction: (code: OrganizationAdmissionRefusalCode) => string;

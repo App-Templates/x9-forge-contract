@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalMemoryRecallBundleContract = exports.MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR = exports.MEMORY_RECALL_REFUSED_HTTP_STATUSES = exports.MemoryRecallToolErrorCodeSchema = exports.MEMORY_RECALL_TOOL_ERROR_CODES = exports.INTERNAL_MEMORY_RECALL_BUNDLE_PATH = exports.InternalMemoryRecallBundleResponseSchema = exports.RecallBundleAuditSchema = exports.RecallBundleEntrySchema = exports.InternalMemoryRecallBundleRequestSchema = void 0;
+exports.internalMemoryRecallBundleContract = exports.MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR = exports.MEMORY_RECALL_REFUSED_HTTP_STATUSES = exports.MemoryRecallToolErrorCodeSchema = exports.MEMORY_RECALL_TOOL_ERROR_CODES = exports.INTERNAL_MEMORY_RECALL_BUNDLE_PATH = exports.InternalMemoryRecallBundleResponseSchema = exports.RecallBundleAuditSchema = exports.RecallBundleEntrySchema = exports.InternalMemoryRecallBundleRequestSchema = exports.MEMORY_RECALL_TOOL_TOP_K_DEFAULT = exports.MEMORY_RECALL_TOP_K_DEFAULT = exports.MEMORY_RECALL_TOP_K_MAX = exports.MEMORY_RECALL_TOP_K_MIN = exports.MEMORY_RECALL_QUERY_MAX_CHARS = void 0;
 exports.memoryRecallToolErrorCodeOf = memoryRecallToolErrorCodeOf;
 const zod_1 = require("zod");
 const temporal_js_1 = require("../../memory/temporal.cjs");
@@ -26,6 +26,16 @@ const RECALL_PRIVACY_LEVELS = [
     'third_party',
     'voice_biometric',
 ];
+/** Maximum query length for recall callers and tool descriptions. */
+exports.MEMORY_RECALL_QUERY_MAX_CHARS = 4096;
+/** Minimum result count for recall callers and tool descriptions. */
+exports.MEMORY_RECALL_TOP_K_MIN = 1;
+/** Maximum result count for recall callers and tool descriptions. */
+exports.MEMORY_RECALL_TOP_K_MAX = 20;
+/** Route default when a recall bundle request omits topK. */
+exports.MEMORY_RECALL_TOP_K_DEFAULT = 8;
+/** Model tool default when the model omits topK. */
+exports.MEMORY_RECALL_TOOL_TOP_K_DEFAULT = 5;
 exports.InternalMemoryRecallBundleRequestSchema = zod_1.z.object({
     tenantId: zod_1.z.string().min(1).max(256),
     ownerId: zod_1.z.string().min(1).max(256),
@@ -33,8 +43,11 @@ exports.InternalMemoryRecallBundleRequestSchema = zod_1.z.object({
     userId: zod_1.z.string().min(1).max(256).optional(),
     mode: zod_1.z.enum(['fast', 'standard', 'deep']).default('standard'),
     taskType: zod_1.z.string().min(1).max(64).default('text'),
-    query: zod_1.z.string().min(1).max(4096),
-    topK: zod_1.z.number().int().min(1).max(20).default(8),
+    query: zod_1.z.string().min(1).max(exports.MEMORY_RECALL_QUERY_MAX_CHARS),
+    topK: zod_1.z.number().int()
+        .min(exports.MEMORY_RECALL_TOP_K_MIN)
+        .max(exports.MEMORY_RECALL_TOP_K_MAX)
+        .default(exports.MEMORY_RECALL_TOP_K_DEFAULT),
     latencyBudgetMs: zod_1.z.number().int().min(50).max(2000).default(300),
     privacyLevelAllow: zod_1.z.array(zod_1.z.enum(RECALL_PRIVACY_LEVELS)).optional(),
     sourceTypeFilter: zod_1.z.string().max(64).optional(),

@@ -5,8 +5,10 @@ import {
   type OrganizationAdmissionRefusalCode,
 } from '../../src/http/endpoints/internal-agent-turn.js';
 import { PaperclipDisposizioneCorpoSchema } from '../../src/capability/paperclip-protocollo/wire-scritture.js';
+import { LimitNoticeSchema, renderLimitNotice } from '../../src/capability/paperclip/limit-notice.js';
 import {
   ADMISSION_REFUSAL_CLASS,
+  LIMIT_WAIT_SERVICE_NAME,
   NOT_NOW_DEFAULT_RETRY_SECONDS,
   TurnDispositionSchema,
   TurnEndSchema,
@@ -144,3 +146,57 @@ function OrgCode(code: string | undefined): OrganizationAdmissionRefusalCode {
   if (found === undefined) throw new Error(`not an admission refusal code: ${String(code)}`);
   return found;
 }
+
+const capSentence = renderLimitNotice(
+  LimitNoticeSchema.parse({
+    limit: 'company_spend',
+    limitValue: 108_000_000,
+    observedValue: 108_450_000,
+    threshold: 'reached',
+    event: 'turn_refused',
+    organizationId: 'good-choice',
+    observedAt: '2026-11-11T19:40:00.000Z',
+    recipients: ['owner'],
+    spend: { scopeName: 'Good Choice', windowStart: '2026-11-10T13:00:00.000Z', usdPerEur: 1.08 },
+  }),
+);
+const withMessage = (code: OrganizationAdmissionRefusalCode, message: string, retryAfterSeconds?: number): TurnEnd =>
+  retryAfterSeconds === undefined
+    ? { kind: 'refused', code, message }
+    : { kind: 'refused', code, message, retryAfterSeconds };
+
+it('s6543 nota-con-la-frase-del-tetto: a spend-cap refusal with its sentence leaves it on the note with the minutes to the next check', () => {
+  const d = dispositionForTurnEnd(withMessage('budget_exhausted', capSentence));
+  expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
+  expect(d).toMatchObject({
+    kind: 'check_later',
+    afterSeconds: 3600,
+    serviceName: LIMIT_WAIT_SERVICE_NAME,
+    notes: `Non adesso: budget_exhausted. ${capSentence} Ricontrollo automatico tra 60 minuti.`,
+  });
+  expect(PaperclipDisposizioneCorpoSchema.safeParse(paperclipBodyForDisposition(d, { now: NOW, agentId: AGENT_ID })).success).toBe(true);
+});
+
+it('s6543 the minutes follow retryAfterSeconds', () => {
+  const d = dispositionForTurnEnd(withMessage('budget_exhausted', capSentence, 7200));
+  expect(d).toMatchObject({ afterSeconds: 7200 });
+  expect(d.kind === 'check_later' && d.notes.endsWith('Ricontrollo automatico tra 120 minuti.')).toBe(true);
+});
+
+it('s6543 without a sentence the note is the old one, and the stored body still parses', () => {
+  const d = dispositionForTurnEnd(refused('budget_exhausted'));
+  expect(d).toMatchObject({ notes: 'Non adesso: budget_exhausted. Ricontrollo automatico.' });
+  expect(PaperclipDisposizioneCorpoSchema.safeParse(paperclipBodyForDisposition(d, { now: NOW, agentId: AGENT_ID })).success).toBe(true);
+});
+
+it('s6543 no other refusal code uses the sentence', () => {
+  for (const code of ['organization_binding_unavailable', 'rd_paused', 'organization_admission_unavailable'] as const) {
+    expect(dispositionForTurnEnd(withMessage(code, capSentence))).toEqual(dispositionForTurnEnd(refused(code)));
+  }
+});
+
+it('s6543 a sentence too long for the note falls back to the old note', () => {
+  const d = dispositionForTurnEnd(withMessage('budget_exhausted', 'x'.repeat(480)));
+  expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
+  expect(d).toMatchObject({ notes: 'Non adesso: budget_exhausted. Ricontrollo automatico.' });
+});

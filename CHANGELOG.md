@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.193.0 — the note on an issue stopped by the spend cap carries the refusal sentence and the minutes to the next check (task 6543)
+
+- `TURN_DISPOSITION_TEXT.checkNoteWithReason(code, message, afterSeconds)`; `dispositionForTurnEnd` uses it only for a `budget_exhausted` refusal that carries a `message`, when the whole note fits the 500 characters of the field. Every other code, a refusal without message and a stop mid-turn keep today's note.
+- Additive: no schema changes. Consumers: X9 adoption (ec-x9/6544) and agent-core (ec-x9/6545), which composes the sentence with the 6542 notice; this version alone changes no note in production.
+
 ## v1.192.0 — cap-dev answers with the outcomes and open sessions of the requested departments (task 6564)
 
 - New narrow subpath `http/endpoints/internal-dev-session-outcomes`: `devSessionOutcomesContract` posts the agent scope, the organization and 1–20 departments (project and unit), never a session number. The answer pairs every `DevSessionOutcome` and every open session (`queued` or `working`) with the scope of its own assignment, and reports `unreadable` (closed or discarded sessions without a valid block) and `omitted` (older sessions not read because of the service cap). Limits: 200 outcomes and 200 open sessions; nothing is cut silently.
