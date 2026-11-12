@@ -33,7 +33,84 @@ const spend = {
   recipients: ['owner'],
 };
 
+const namedSpend = {
+  ...spend,
+  limitValue: 108_000_000,
+  observedValue: 108_450_000,
+  threshold: 'reached',
+  event: 'turn_refused',
+  spend: {
+    scopeName: 'Good Choice',
+    windowStart: '2026-11-10T13:00:00.000Z',
+    usdPerEur: 1.08,
+  },
+};
+
 describe('limit notice', () => {
+  it('s6542 avviso-spesa-con-nome: renders the named company cap in euros deterministically', () => {
+    const notice = LimitNoticeSchema.parse(namedSpend);
+    const expected = "Tetto di spesa dell'azienda «Good Choice» raggiunto: 100,42 € su 100,00 €. Resta 0,00 €. Conta la spesa di modelli, strumenti, ricerche e Lab di tutti gli agenti dell'azienda dal 10/11/2026. Un turno è stato rifiutato. Finché il tetto non è alzato i turni nuovi restano fermi.";
+    expect(renderLimitNotice(notice)).toBe(expected);
+    expect(renderLimitNotice(notice)).toBe(expected);
+  });
+
+  it('s6542 renders a business unit cap with its own name and scope', () => {
+    const notice = LimitNoticeSchema.parse({
+      ...namedSpend,
+      limit: 'business_unit_spend',
+      limitValue: 43_200_000,
+      observedValue: 45_360_000,
+      spend: { ...namedSpend.spend, scopeName: 'Orto Web' },
+    });
+    expect(renderLimitNotice(notice)).toBe('Tetto di spesa del reparto «Orto Web» raggiunto: 42,00 € su 40,00 €. Resta 0,00 €. Conta la spesa di modelli, strumenti, ricerche e Lab di tutti gli agenti del reparto dal 10/11/2026. Un turno è stato rifiutato. Finché il tetto non è alzato i turni nuovi restano fermi.');
+  });
+
+  it('s6542 renders remaining euros at 80% without stopping work', () => {
+    const notice = LimitNoticeSchema.parse({
+      ...namedSpend,
+      observedValue: 91_800_000,
+      threshold: 'warning_80',
+      event: 'warning',
+    });
+    const text = renderLimitNotice(notice);
+    expect(text).toBe("Tetto di spesa dell'azienda «Good Choice» oltre l'80%: 85,00 € su 100,00 €. Resta 15,00 €. Conta la spesa di modelli, strumenti, ricerche e Lab di tutti gli agenti dell'azienda dal 10/11/2026. Nessun lavoro è stato fermato.");
+    expect(text).not.toContain('Finché il tetto');
+  });
+
+  it('s6542 preserves the company warning without spend byte for byte', () => {
+    expect(renderLimitNotice(LimitNoticeSchema.parse(spend))).toBe("Tetto di spesa dell'azienda oltre l'80%: 85000000 su 100000000 milionesimi di dollaro. Nessun lavoro è stato fermato.");
+  });
+
+  it('s6542 uses the UTC date of the spend window', () => {
+    const notice = LimitNoticeSchema.parse({
+      ...namedSpend,
+      spend: { ...namedSpend.spend, windowStart: '2026-11-11T00:30:00+02:00' },
+    });
+    expect(renderLimitNotice(notice)).toContain('dal 10/11/2026.');
+  });
+
+  const spendRefusals: Array<[string, Record<string, unknown>, string[]]> = [
+    ['business unit without spend', { ...spend, limit: 'business_unit_spend' }, ['spend']],
+    ['spend on daily runs', { ...daily, spend: namedSpend.spend }, ['spend']],
+    ['spend on daily cost', { ...daily, limit: 'daily_cost', spend: namedSpend.spend }, ['spend']],
+    ['empty scope name', { ...namedSpend, spend: { ...namedSpend.spend, scopeName: '' } }, ['spend', 'scopeName']],
+    ['newline in scope name', { ...namedSpend, spend: { ...namedSpend.spend, scopeName: 'Good\nChoice' } }, ['spend', 'scopeName']],
+    ['trailing newline in scope name', { ...namedSpend, spend: { ...namedSpend.spend, scopeName: 'Good Choice\n' } }, ['spend', 'scopeName']],
+    ['carriage return in scope name', { ...namedSpend, spend: { ...namedSpend.spend, scopeName: 'Good\rChoice' } }, ['spend', 'scopeName']],
+    ['Unicode line separator in scope name', { ...namedSpend, spend: { ...namedSpend.spend, scopeName: 'Good\u2028Choice' } }, ['spend', 'scopeName']],
+    ['scope name over 120 characters', { ...namedSpend, spend: { ...namedSpend.spend, scopeName: 'x'.repeat(121) } }, ['spend', 'scopeName']],
+    ['zero exchange rate', { ...namedSpend, spend: { ...namedSpend.spend, usdPerEur: 0 } }, ['spend', 'usdPerEur']],
+    ['negative exchange rate', { ...namedSpend, spend: { ...namedSpend.spend, usdPerEur: -1 } }, ['spend', 'usdPerEur']],
+    ['invalid window start', { ...namedSpend, spend: { ...namedSpend.spend, windowStart: '2026-11-10' } }, ['spend', 'windowStart']],
+    ['business unit with agent', { ...namedSpend, limit: 'business_unit_spend', agent }, ['agent']],
+    ['business unit with skipped wake', { ...namedSpend, limit: 'business_unit_spend', event: 'wake_skipped' }, ['event']],
+  ];
+  it.each(spendRefusals)('s6542 refuses %s at its own path', (_name, input, path) => {
+    const result = LimitNoticeSchema.safeParse(input);
+    expect(result.success).toBe(false);
+    if (!result.success) expect(result.error.issues.map((issue) => issue.path)).toContainEqual(path);
+  });
+
   it('s6349 avviso-di-limite: a skipped wake over the daily run cap renders one fixed sentence', () => {
     const notice = LimitNoticeSchema.parse(daily);
     const text = renderLimitNotice(notice);
