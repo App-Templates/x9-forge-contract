@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.196.0 — project Director rule, project create and project Director enrollment contracts (tasks 6666-6668)
+
+- `organization/project-director`: `projectDirector` decides who is the Director of a project, with four fixed refusals.
+- `http/endpoints/internal-project-create`: `internalProjectCreateContract` (create a project and its Director), `ProjectIdSchema` (at most 55 characters), `projectDirectorAgentId`, `contact.mailboxKind` (`own` | `shared`) and the optional `routingKey`.
+- `http/endpoints/internal-project-director-enrollment`: `internalProjectDirectorEnrollmentContract` posts the project and the Director (named after the project) to `/internal/paperclip/project-director-enrollment`; the answer is `enrolled` with both Paperclip ids or `in_corso` with the step, and failures are one of seven fixed errors.
+- Additive: no existing schema changes. Consumers: X9 (adoption X0), Forge (F0).
+
 ## v1.195.0 — daily run limit notice delivery to the owner (task 6592)
 
 - New narrow subpath `http/endpoints/internal-limit-notice`: `internalLimitNoticeContract` posts `{ tenantId, ownerId, notice }` to `/internal/limit-notice`. The notice must be a `daily_runs` or `daily_cost` one, name its agent and include `owner` among its recipients; spend notices keep their own path and are refused.
