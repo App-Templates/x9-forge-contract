@@ -3,6 +3,13 @@ import { CapabilityAgentScopeSchema } from "../capability-call-context.js";
 import { BusinessUnitLeadBirthRequestSchema, BusinessUnitLeadBirthResultSchema } from "../../organization/business-unit-lead.js";
 import { DecisionRequestIdSchema } from "../../organization/decision-request.js";
 const Text = z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
+export const PAPERCLIP_ISSUE_IDENTIFIER_PATTERN = /^[A-Z][A-Z0-9]{0,15}-[0-9]{1,9}$/;
+export const PaperclipIssueIdentifierSchema = z.string().regex(PAPERCLIP_ISSUE_IDENTIFIER_PATTERN);
+export const PaperclipIssueRefSchema = z.union([z.uuid(), PaperclipIssueIdentifierSchema]);
+export function paperclipIssueRefKind(ref) {
+    const value = PaperclipIssueRefSchema.parse(ref);
+    return PaperclipIssueIdentifierSchema.safeParse(value).success ? 'identifier' : 'uuid';
+}
 export const PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
@@ -89,6 +96,12 @@ export const PaperclipCommentsOutputSchema = z.strictObject({ comments: z.array(
 export const PaperclipReviewInputSchema = z.strictObject({
     issueId: z.uuid(), status: z.enum(['in_review', 'done', 'blocked']), comment: Text.optional(),
 });
+// Tool boundaries accept references; persisted inputs retain native UUIDs.
+export const PaperclipIssueRefInputSchema = PaperclipIssueInputSchema.extend({ issueId: PaperclipIssueRefSchema });
+export const PaperclipTakeRefInputSchema = PaperclipTakeInputSchema.extend({ issueId: PaperclipIssueRefSchema });
+export const PaperclipAssignRefInputSchema = PaperclipAssignInputSchema.extend({ issueId: PaperclipIssueRefSchema });
+export const PaperclipCommentsRefInputSchema = PaperclipCommentsInputSchema.extend({ issueId: PaperclipIssueRefSchema });
+export const PaperclipReviewRefInputSchema = PaperclipReviewInputSchema.extend({ issueId: PaperclipIssueRefSchema });
 export const PaperclipIssueViewSchema = z.strictObject({
     id: z.uuid(), companyId: z.uuid(), identifier: Text, title: Text,
     description: z.string().nullable(), status: PaperclipIssueStatusSchema, assigneeAgentId: z.uuid().nullable(),

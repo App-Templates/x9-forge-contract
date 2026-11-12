@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.169.0 — canonical issue references and email message codes; additive (task 6341)
+
+- `capability/paperclip/tools` adds `PaperclipIssueIdentifierSchema`, `PaperclipIssueRefSchema`, `paperclipIssueRefKind` and five strict reference input schemas derived from the existing inputs. References accept UUIDs or bounded identifiers such as `GOO-104`; existing UUID-only inputs and persisted forms are unchanged.
+- `messaging/message-code` adds `EmailMessageCodeSchema`, `emailMessageCode` and `sameEmailMessage`. Bare message IDs receive angle brackets; surrounding whitespace is trimmed. The messaging barrel is unchanged.
+- Consumers: X9 cap-paperclip adopts reference inputs at tool boundaries and resolves identifiers to UUIDs; cap-email imports the shared message-code rule instead of its local module. Consumer adoption is required for runtime availability.
+
 ## v1.168.0 — l'errore di uno strumento porta un esito a forma fissa (natura, ripetibilità, mossa) e una frase fissa per il modello; additivo (scheda 6340)
 
 - `capability/tool-call` aggiunge `TOOL_ERROR_NATURES`, `TOOL_ERROR_RETRIES`, `TOOL_ERROR_NEXT_MOVES`, `ToolErrorDispositionSchema` (stretto; `retryAfterSeconds` se e solo se `after_delay`; `never` se e solo se la mossa non è `retry_same`; un permesso rifiutato non si ripete), `renderToolErrorDisposition` (una riga, sempre la stessa per lo stesso esito) e `toolErrorDispositionOf`. `ToolCallErrorResponseSchema` riceve `disposition` facoltativo; `modelReason` e i codici `TOOL_*` non cambiano.

@@ -1,11 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateApprovedBusinessUnitsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipActivityOutputSchema = exports.PaperclipActivityInputSchema = exports.PaperclipSearchOutputSchema = exports.PaperclipSearchInputSchema = exports.PaperclipSearchKindSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PaperclipCreateGoalOutputSchema = exports.PaperclipGoalViewSchema = exports.PaperclipCreateGoalInputSchema = exports.PaperclipCreateProjectOutputSchema = exports.PaperclipProjectViewSchema = exports.PaperclipCreateProjectInputSchema = exports.PaperclipGoalLevelSchema = exports.PAPERCLIP_TOOLS = void 0;
+exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewRefInputSchema = exports.PaperclipCommentsRefInputSchema = exports.PaperclipAssignRefInputSchema = exports.PaperclipTakeRefInputSchema = exports.PaperclipIssueRefInputSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateApprovedBusinessUnitsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipActivityOutputSchema = exports.PaperclipActivityInputSchema = exports.PaperclipSearchOutputSchema = exports.PaperclipSearchInputSchema = exports.PaperclipSearchKindSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PaperclipCreateGoalOutputSchema = exports.PaperclipGoalViewSchema = exports.PaperclipCreateGoalInputSchema = exports.PaperclipCreateProjectOutputSchema = exports.PaperclipProjectViewSchema = exports.PaperclipCreateProjectInputSchema = exports.PaperclipGoalLevelSchema = exports.PAPERCLIP_TOOLS = exports.PaperclipIssueRefSchema = exports.PaperclipIssueIdentifierSchema = exports.PAPERCLIP_ISSUE_IDENTIFIER_PATTERN = void 0;
+exports.paperclipIssueRefKind = paperclipIssueRefKind;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const business_unit_lead_js_1 = require("../../organization/business-unit-lead.cjs");
 const decision_request_js_1 = require("../../organization/decision-request.cjs");
 const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
+exports.PAPERCLIP_ISSUE_IDENTIFIER_PATTERN = /^[A-Z][A-Z0-9]{0,15}-[0-9]{1,9}$/;
+exports.PaperclipIssueIdentifierSchema = zod_1.z.string().regex(exports.PAPERCLIP_ISSUE_IDENTIFIER_PATTERN);
+exports.PaperclipIssueRefSchema = zod_1.z.union([zod_1.z.uuid(), exports.PaperclipIssueIdentifierSchema]);
+function paperclipIssueRefKind(ref) {
+    const value = exports.PaperclipIssueRefSchema.parse(ref);
+    return exports.PaperclipIssueIdentifierSchema.safeParse(value).success ? 'identifier' : 'uuid';
+}
 exports.PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
@@ -92,6 +100,12 @@ exports.PaperclipCommentsOutputSchema = zod_1.z.strictObject({ comments: zod_1.z
 exports.PaperclipReviewInputSchema = zod_1.z.strictObject({
     issueId: zod_1.z.uuid(), status: zod_1.z.enum(['in_review', 'done', 'blocked']), comment: Text.optional(),
 });
+// Tool boundaries accept references; persisted inputs retain native UUIDs.
+exports.PaperclipIssueRefInputSchema = exports.PaperclipIssueInputSchema.extend({ issueId: exports.PaperclipIssueRefSchema });
+exports.PaperclipTakeRefInputSchema = exports.PaperclipTakeInputSchema.extend({ issueId: exports.PaperclipIssueRefSchema });
+exports.PaperclipAssignRefInputSchema = exports.PaperclipAssignInputSchema.extend({ issueId: exports.PaperclipIssueRefSchema });
+exports.PaperclipCommentsRefInputSchema = exports.PaperclipCommentsInputSchema.extend({ issueId: exports.PaperclipIssueRefSchema });
+exports.PaperclipReviewRefInputSchema = exports.PaperclipReviewInputSchema.extend({ issueId: exports.PaperclipIssueRefSchema });
 exports.PaperclipIssueViewSchema = zod_1.z.strictObject({
     id: zod_1.z.uuid(), companyId: zod_1.z.uuid(), identifier: Text, title: Text,
     description: zod_1.z.string().nullable(), status: exports.PaperclipIssueStatusSchema, assigneeAgentId: zod_1.z.uuid().nullable(),

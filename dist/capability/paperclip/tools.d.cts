@@ -1,4 +1,9 @@
 import { z } from 'zod';
+export declare const PAPERCLIP_ISSUE_IDENTIFIER_PATTERN: RegExp;
+export declare const PaperclipIssueIdentifierSchema: z.ZodString;
+export declare const PaperclipIssueRefSchema: z.ZodUnion<readonly [z.ZodUUID, z.ZodString]>;
+export type PaperclipIssueRef = z.infer<typeof PaperclipIssueRefSchema>;
+export declare function paperclipIssueRefKind(ref: string): 'uuid' | 'identifier';
 export declare const PAPERCLIP_TOOLS: {
     readonly queue: "paperclip_queue";
     readonly issue: "paperclip_issue";
@@ -270,6 +275,44 @@ export declare const PaperclipReviewInputSchema: z.ZodObject<{
     }>;
     comment: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
+export declare const PaperclipIssueRefInputSchema: z.ZodObject<{
+    issueId: z.ZodUnion<readonly [z.ZodUUID, z.ZodString]>;
+}, z.core.$strict>;
+export declare const PaperclipTakeRefInputSchema: z.ZodObject<{
+    expectedStatuses: z.ZodArray<z.ZodEnum<{
+        cancelled: "cancelled";
+        done: "done";
+        blocked: "blocked";
+        backlog: "backlog";
+        todo: "todo";
+        in_progress: "in_progress";
+        in_review: "in_review";
+    }>>;
+    issueId: z.ZodUnion<readonly [z.ZodUUID, z.ZodString]>;
+}, z.core.$strict>;
+export declare const PaperclipAssignRefInputSchema: z.ZodObject<{
+    roleRef: z.ZodString;
+    comment: z.ZodOptional<z.ZodString>;
+    issueId: z.ZodUnion<readonly [z.ZodUUID, z.ZodString]>;
+}, z.core.$strict>;
+export declare const PaperclipCommentsRefInputSchema: z.ZodObject<{
+    limit: z.ZodOptional<z.ZodNumber>;
+    issueId: z.ZodUnion<readonly [z.ZodUUID, z.ZodString]>;
+}, z.core.$strict>;
+export declare const PaperclipReviewRefInputSchema: z.ZodObject<{
+    status: z.ZodEnum<{
+        done: "done";
+        blocked: "blocked";
+        in_review: "in_review";
+    }>;
+    comment: z.ZodOptional<z.ZodString>;
+    issueId: z.ZodUnion<readonly [z.ZodUUID, z.ZodString]>;
+}, z.core.$strict>;
+export type PaperclipIssueRefInput = z.infer<typeof PaperclipIssueRefInputSchema>;
+export type PaperclipTakeRefInput = z.infer<typeof PaperclipTakeRefInputSchema>;
+export type PaperclipAssignRefInput = z.infer<typeof PaperclipAssignRefInputSchema>;
+export type PaperclipCommentsRefInput = z.infer<typeof PaperclipCommentsRefInputSchema>;
+export type PaperclipReviewRefInput = z.infer<typeof PaperclipReviewRefInputSchema>;
 export declare const PaperclipIssueViewSchema: z.ZodObject<{
     id: z.ZodUUID;
     companyId: z.ZodUUID;
