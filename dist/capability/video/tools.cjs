@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoStudioOpenResponseSchema = exports.VIDEO_STUDIO_SESSION_TTL_SECONDS = exports.VIDEO_STUDIO_ACCESS_TTL_SECONDS = exports.VideoStudioOpenToolInputSchema = exports.VideoFootageSyncResponseSchema = exports.VideoFootageSyncFileSchema = exports.VideoFootageSyncReasonSchema = exports.VideoFootageSyncFileStatusSchema = exports.VideoDriveFileIdSchema = exports.VideoFootageSyncToolInputSchema = exports.VideoDriveFolderRefSchema = exports.VideoProjectViewSchema = exports.VideoScriptReviseResponseSchema = exports.VideoProjectStepSchema = exports.VideoScriptReviseToolInputSchema = exports.VideoScriptRevisionSchema = exports.VideoProjectGetToolInputSchema = exports.VideoPresetsListResponseSchema = exports.VideoPresetSummarySchema = exports.VideoPresetFootageShotsSchema = exports.VideoPresetsListToolInputSchema = exports.VideoBriefToolInputSchema = void 0;
+exports.VideoStudioOpenResponseSchema = exports.VIDEO_STUDIO_SESSION_TTL_SECONDS = exports.VIDEO_STUDIO_ACCESS_TTL_SECONDS = exports.VideoStudioOpenToolInputSchema = exports.VideoFootageSyncResponseSchema = exports.VideoFootageSyncFileSchema = exports.VideoFootageSyncReasonSchema = exports.VideoFootageSyncFileStatusSchema = exports.VideoDriveFileIdSchema = exports.VideoFootageSyncToolInputSchema = exports.VideoDriveFolderRefSchema = exports.VideoProjectViewSchema = exports.VideoScriptReviseResponseSchema = exports.VideoProjectStepSchema = exports.VideoScriptReviseToolInputSchema = exports.VideoScriptRevisionSchema = exports.VideoProjectGetToolInputSchema = exports.VideoPresetsListResponseSchema = exports.VideoPresetSummarySchema = exports.VideoPresetFootageShotsSchema = exports.VideoPresetsListToolInputSchema = exports.VideoBriefToolInputSchema = exports.VideoEpisodeCreateResponseSchema = exports.VideoEpisodeCreateToolInputSchema = exports.VideoSeriesResponseSchema = exports.VideoSeriesGetToolInputSchema = exports.VideoSeriesCreateToolInputSchema = exports.VIDEO_EPISODE_CREATE_TOOL = exports.VIDEO_SERIES_GET_TOOL = exports.VIDEO_SERIES_CREATE_TOOL = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const story_js_1 = require("./story.cjs");
@@ -8,6 +8,46 @@ const index_js_1 = require("../connect/index.cjs");
 const internal_connect_js_1 = require("../../http/endpoints/internal-connect.cjs");
 const footage_js_1 = require("./footage.cjs");
 const brief_js_1 = require("./brief.cjs");
+const episode_js_1 = require("./episode.cjs");
+exports.VIDEO_SERIES_CREATE_TOOL = 'video_series_create';
+exports.VIDEO_SERIES_GET_TOOL = 'video_series_get';
+exports.VIDEO_EPISODE_CREATE_TOOL = 'video_episode_create';
+/** Identity comes only from the admitted tool envelope (R-33). */
+exports.VideoSeriesCreateToolInputSchema = zod_1.z.strictObject({
+    title: zod_1.z.string().min(1).max(120).describe('Titolo della serie.'),
+    logline: zod_1.z.string().min(1).max(600).describe('Premessa narrativa della serie.'),
+    language: episode_js_1.VideoSeriesLanguageSchema.optional().describe('Lingua della serie.'),
+    totalEpisodes: zod_1.z.number().int().min(5).max(episode_js_1.VIDEO_SERIES_MAX_EPISODES).describe('Numero totale di episodi della serie.'),
+    paywallEpisode: zod_1.z.number().int().min(4).max(episode_js_1.VIDEO_SERIES_MAX_EPISODES - 1).optional()
+        .describe('episodio del muro a pagamento; assente: 8 o il penultimo'),
+    mainSecret: zod_1.z.string().min(1).max(300).optional().describe('il segreto principale, svelato al climax'),
+    characters: zod_1.z.array(zod_1.z.strictObject({
+        id: episode_js_1.VideoSeriesItemIdSchema.describe('Identificativo del personaggio in minuscolo.'),
+        name: zod_1.z.string().min(1).max(80).describe('Nome del personaggio.'),
+        description: zod_1.z.string().min(1).max(600).describe('Descrizione del personaggio.'),
+    })).min(1).max(episode_js_1.VIDEO_SERIES_MAX_CHARACTERS).describe('Personaggi principali della serie.'),
+});
+exports.VideoSeriesGetToolInputSchema = zod_1.z.strictObject({
+    seriesId: episode_js_1.VideoSeriesIdSchema.describe('Identificativo della serie.'),
+});
+exports.VideoSeriesResponseSchema = episode_js_1.VideoSeriesViewSchema;
+/** Identity comes only from the admitted tool envelope (R-33). */
+exports.VideoEpisodeCreateToolInputSchema = zod_1.z.strictObject({
+    seriesId: episode_js_1.VideoSeriesIdSchema,
+    brief: zod_1.z.string().min(1).max(2000).optional()
+        .describe('cosa deve succedere in questo episodio; assente: lo decide il copione dalla serie'),
+    approverEmail: brief_js_1.VideoBriefRequestSchema.shape.approverEmail,
+    mode: brief_js_1.VideoModeSchema,
+    budgetUsd: brief_js_1.VideoBriefRequestSchema.shape.budgetUsd,
+    durationSeconds: brief_js_1.VideoDurationSecondsSchema.optional(),
+});
+exports.VideoEpisodeCreateResponseSchema = zod_1.z.strictObject({
+    seriesId: episode_js_1.VideoSeriesIdSchema,
+    episodeNumber: zod_1.z.number().int().min(1).max(episode_js_1.VIDEO_SERIES_MAX_EPISODES),
+    phase: episode_js_1.VideoSeriesPhaseSchema,
+    projectId: brief_js_1.VideoProjectIdSchema,
+    state: brief_js_1.VideoProjectStateSchema,
+});
 /**
  * What the model writes when an agent calls `video_brief_create`: the brief without identity.
  * Tenant, owner and agent come only from the tool envelope agent-core admitted (R-33), never from the model.

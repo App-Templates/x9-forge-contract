@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.104.0 — Officina video: serie a episodi, additivo
+
+- `episode.ts`: fasi, 7 finali, 4 battute, ganci, personaggi con ritratto, contesto ed esito dell'episodio, vista della serie.
+- `VideoEngineJobSchema.episode`, `VideoEngineProjectSchema.episode_outcome`, `episode_estimate` ed `episode_portraits` facoltativi.
+- Strumenti `video_series_create`, `video_series_get`, `video_episode_create`.
+- Consumer: motore (ov-motore 3491-3497, 3507) e cap-video (ov-x9 3498-3506).
+
+Nessuno schema zod si stringe.
+
 ## v1.103.0 — Officina video: strumento per aprire lo studio, additivo
 
 - `video_studio_open`: `VideoStudioOpenToolInputSchema` (vuoto, identità dalla busta).

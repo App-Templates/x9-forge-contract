@@ -9,7 +9,66 @@ import {
   VideoFootagePersonSchema,
   VideoFootageRejectionReasonSchema,
 } from './footage.js';
-import { VideoBriefRequestSchema, VideoModeSchema, VideoRequestChoicesSchema, VideoPresetIdSchema, VideoProjectIdSchema, VideoProjectStateSchema } from './brief.js';
+import { VideoBriefRequestSchema, VideoDurationSecondsSchema, VideoModeSchema, VideoRequestChoicesSchema, VideoPresetIdSchema, VideoProjectIdSchema, VideoProjectStateSchema } from './brief.js';
+import {
+  VIDEO_SERIES_MAX_CHARACTERS,
+  VIDEO_SERIES_MAX_EPISODES,
+  VideoSeriesIdSchema,
+  VideoSeriesItemIdSchema,
+  VideoSeriesLanguageSchema,
+  VideoSeriesPhaseSchema,
+  VideoSeriesViewSchema,
+} from './episode.js';
+
+export const VIDEO_SERIES_CREATE_TOOL = 'video_series_create';
+export const VIDEO_SERIES_GET_TOOL = 'video_series_get';
+export const VIDEO_EPISODE_CREATE_TOOL = 'video_episode_create';
+
+/** Identity comes only from the admitted tool envelope (R-33). */
+export const VideoSeriesCreateToolInputSchema = z.strictObject({
+  title: z.string().min(1).max(120).describe('Titolo della serie.'),
+  logline: z.string().min(1).max(600).describe('Premessa narrativa della serie.'),
+  language: VideoSeriesLanguageSchema.optional().describe('Lingua della serie.'),
+  totalEpisodes: z.number().int().min(5).max(VIDEO_SERIES_MAX_EPISODES).describe('Numero totale di episodi della serie.'),
+  paywallEpisode: z.number().int().min(4).max(VIDEO_SERIES_MAX_EPISODES - 1).optional()
+    .describe('episodio del muro a pagamento; assente: 8 o il penultimo'),
+  mainSecret: z.string().min(1).max(300).optional().describe('il segreto principale, svelato al climax'),
+  characters: z.array(z.strictObject({
+    id: VideoSeriesItemIdSchema.describe('Identificativo del personaggio in minuscolo.'),
+    name: z.string().min(1).max(80).describe('Nome del personaggio.'),
+    description: z.string().min(1).max(600).describe('Descrizione del personaggio.'),
+  })).min(1).max(VIDEO_SERIES_MAX_CHARACTERS).describe('Personaggi principali della serie.'),
+});
+export type VideoSeriesCreateToolInput = z.infer<typeof VideoSeriesCreateToolInputSchema>;
+
+export const VideoSeriesGetToolInputSchema = z.strictObject({
+  seriesId: VideoSeriesIdSchema.describe('Identificativo della serie.'),
+});
+export type VideoSeriesGetToolInput = z.infer<typeof VideoSeriesGetToolInputSchema>;
+
+export const VideoSeriesResponseSchema = VideoSeriesViewSchema;
+export type VideoSeriesResponse = z.infer<typeof VideoSeriesResponseSchema>;
+
+/** Identity comes only from the admitted tool envelope (R-33). */
+export const VideoEpisodeCreateToolInputSchema = z.strictObject({
+  seriesId: VideoSeriesIdSchema,
+  brief: z.string().min(1).max(2000).optional()
+    .describe('cosa deve succedere in questo episodio; assente: lo decide il copione dalla serie'),
+  approverEmail: VideoBriefRequestSchema.shape.approverEmail,
+  mode: VideoModeSchema,
+  budgetUsd: VideoBriefRequestSchema.shape.budgetUsd,
+  durationSeconds: VideoDurationSecondsSchema.optional(),
+});
+export type VideoEpisodeCreateToolInput = z.infer<typeof VideoEpisodeCreateToolInputSchema>;
+
+export const VideoEpisodeCreateResponseSchema = z.strictObject({
+  seriesId: VideoSeriesIdSchema,
+  episodeNumber: z.number().int().min(1).max(VIDEO_SERIES_MAX_EPISODES),
+  phase: VideoSeriesPhaseSchema,
+  projectId: VideoProjectIdSchema,
+  state: VideoProjectStateSchema,
+});
+export type VideoEpisodeCreateResponse = z.infer<typeof VideoEpisodeCreateResponseSchema>;
 
 /**
  * What the model writes when an agent calls `video_brief_create`: the brief without identity.

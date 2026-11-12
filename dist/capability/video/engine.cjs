@@ -4,6 +4,7 @@ exports.VideoEngineProjectSchema = exports.VideoEngineStoryStateSchema = exports
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const brief_js_1 = require("./brief.cjs");
+const episode_js_1 = require("./episode.cjs");
 exports.VideoEngineErrorSchema = zod_1.z.object({
     error: zod_1.z.string().min(1).max(2000),
     operation_state: zod_1.z.enum(['rejected', 'pending', 'uncertain']).nullish(),
@@ -38,6 +39,7 @@ exports.VideoEngineJobSchema = zod_1.z.object({
     name: zod_1.z.string().min(1).max(200),
     brief: brief_js_1.VideoBriefRequestSchema.shape.brief,
     externalRef: brief_js_1.VideoBriefRequestSchema.shape.externalRef,
+    episode: episode_js_1.VideoEpisodeContextSchema.optional(),
 }).strict();
 exports.VideoEngineJobResponseSchema = zod_1.z.object({
     engineProjectId: zod_1.z.string().min(1).max(100),
@@ -123,5 +125,9 @@ exports.VideoEngineProjectSchema = zod_1.z.object({
     subtitles_url: exports.VideoEngineSubtitlesPathSchema.nullish(),
     spent_usd: zod_1.z.number().nonnegative().optional(),
     story: exports.VideoEngineStoryStateSchema.nullish(),
+    // Written by the engine: outcome and estimate with the episode plan, portraits at the approved frames.
+    episode_outcome: episode_js_1.VideoEpisodeOutcomeSchema.nullish(),
+    episode_estimate: episode_js_1.VideoEpisodeEstimateSchema.nullish(),
+    episode_portraits: zod_1.z.array(episode_js_1.VideoEpisodePortraitSchema).max(episode_js_1.VIDEO_SERIES_MAX_CHARACTERS).nullish(),
 }).passthrough();
 //# sourceMappingURL=engine.js.map
