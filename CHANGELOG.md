@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.174.0 — the plan and the mandate carry the gap rule, sign-off points, keyed exchanges, addressed questions and source coverage; additive (task 6346)
+
+- `organization/action-plan` adds `ActionPlanGapRuleSchema` (`mark_and_proceed` | `stop_and_ask`) and `ActionPlanSignOffSchema` (key, signer `referent` | `director` | `owner`, form `decision_request` only), optional on each business unit as `gapRule` and `signOffs` (1-20, unique keys). The inline exchange and question shapes are now exported as `ActionPlanExchangeSchema` (new optional `key`) and `ActionPlanQuestionSchema` (new optional `askTo`: referent, owner, director or business unit), and the plan gains optional `sourceCoverage` (`ActionPlanSourceCoverageSchema`: topic, covered | partial | missing, dossier pages). `ActionPlanSubmissionSchema` checks, only when present, that sign-off keys belong to the unit (its section or an owned work breakdown item), exchange keys exist, `askTo.buSlug` is a plan unit and coverage pages are in the dossier.
+- `organization/business-unit-mandate`: `planSection` optionally carries `exchanges`, `questions` and `sourceCoverage`; every exchange in a mandate starts from or arrives at the mandate unit. `gapRule` and `signOffs` arrive with the unit already inside the plan section.
+- Nothing becomes required; plans and mandates saved before this version parse with the same canonical text and digest.
+- Consumers: Forge (Director profile and schema), cap-paperclip (composes the mandate), Memoria (saves plan and observations), agent-core. Strict readers must adopt 1.174.0 before the Director writes these fields.
+
 ## v1.173.0 — mandate workplace and execution tools; additive (task 6345)
 
 - `organization/business-unit-mandate` adds `MandateWorkplaceSchema` / `MandateWorkplace` and `MandateWorkModeSchema` / `MandateWorkMode`. The reconciled mandate optionally carries the repository, relative folder, GitHub session board, plan executor and unique, disjoint allowed/excluded tool lists. Development sessions require a GitHub repository and a session board. These fields are service-owned and filled from unit configuration. Mandates and reconciled observations saved before this version remain valid with both fields absent.

@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.173.0",
+  "versione": "1.174.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2350,6 +2350,10 @@
     "@x9-forge/contracts/organization": {
       "ACTION_PLAN_BU_EXECUTORS": "@x9-forge/contracts/organization/action-plan",
       "ACTION_PLAN_DELIVERY_SHAPES": "@x9-forge/contracts/organization/action-plan",
+      "ACTION_PLAN_GAP_RULES": "@x9-forge/contracts/organization/action-plan",
+      "ACTION_PLAN_SIGN_OFF_FORMS": "@x9-forge/contracts/organization/action-plan",
+      "ACTION_PLAN_SIGN_OFF_SIGNERS": "@x9-forge/contracts/organization/action-plan",
+      "ACTION_PLAN_SOURCE_COVERAGE_STATUSES": "@x9-forge/contracts/organization/action-plan",
       "ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS": "@x9-forge/contracts/organization/action-plan",
       "AGENT_REQUEST_TARGET_KINDS": "@x9-forge/contracts/organization/agent-request",
       "AGENT_ROLES": "@x9-forge/contracts/organization/agent-role",
@@ -2368,12 +2372,18 @@
       "ActionPlanDeliveryShapeSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDossierPageSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDraftSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanExchangeSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanGapRuleSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanObjectiveSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanProjectObjectiveSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanQuestionAddresseeSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanQuestionSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanReferentProposalSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanReferentRefSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanRoleAgentSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanSignOffSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanSourceCoverageSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanSubmissionSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanWorkBreakdownSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanWorkItemOwnerSchema": "@x9-forge/contracts/organization/action-plan",

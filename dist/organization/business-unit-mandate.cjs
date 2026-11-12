@@ -79,6 +79,12 @@ exports.ReconciledMandateSchema = zod_1.z.strictObject({
         deliveryShape: action_plan_js_1.ActionPlanDeliveryShapeSchema.optional(),
         /** The whole project breakdown (product plans): the unit sees its items and where they sit. */
         workBreakdown: action_plan_js_1.ActionPlanWorkBreakdownSchema.optional(),
+        /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+        exchanges: zod_1.z.array(action_plan_js_1.ActionPlanExchangeSchema).optional(),
+        /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+        questions: zod_1.z.array(action_plan_js_1.ActionPlanQuestionSchema).optional(),
+        /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+        sourceCoverage: zod_1.z.array(action_plan_js_1.ActionPlanSourceCoverageSchema).max(50).optional(),
     }),
     decision: zod_1.z.strictObject({
         requestId: decision_request_js_1.DecisionRequestIdSchema,
@@ -141,6 +147,16 @@ exports.ReconciledMandateSchema = zod_1.z.strictObject({
             path: ['planSection', 'workBreakdown'],
         });
     }
+    const unitSlug = mandate.planSection.businessUnit.buSlug;
+    mandate.planSection.exchanges?.forEach((exchange, index) => {
+        if (exchange.fromBu !== unitSlug && exchange.toBu !== unitSlug) {
+            ctx.addIssue({
+                code: 'custom',
+                message: 'Every exchange of the mandate must start from or arrive at the business unit of the mandate',
+                path: ['planSection', 'exchanges', index],
+            });
+        }
+    });
     if (new Set(mandate.notebookPages.map((page) => page.slug)).size !== mandate.notebookPages.length) {
         ctx.addIssue({ code: 'custom', message: 'Notebook page slugs must be unique', path: ['notebookPages'] });
     }

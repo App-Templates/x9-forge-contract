@@ -131,6 +131,19 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                     delivery: z.ZodString;
                 }, z.core.$strict>;
             }, z.core.$strict>], "kind">;
+            gapRule: z.ZodOptional<z.ZodEnum<{
+                mark_and_proceed: "mark_and_proceed";
+                stop_and_ask: "stop_and_ask";
+            }>>;
+            signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodString;
+                signer: z.ZodEnum<{
+                    owner: "owner";
+                    director: "director";
+                    referent: "referent";
+                }>;
+                form: z.ZodLiteral<"decision_request">;
+            }, z.core.$strict>>>;
         }, z.core.$strict>;
         /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
         project: z.ZodOptional<z.ZodObject<{
@@ -172,6 +185,40 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                 buSlug: z.ZodString;
                 does: z.ZodString;
             }, z.core.$strict>>;
+        }, z.core.$strict>>>;
+        /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+        exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            fromBu: z.ZodString;
+            toBu: z.ZodString;
+            what: z.ZodString;
+            format: z.ZodString;
+            key: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>>;
+        /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+        questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            question: z.ZodString;
+            unlocks: z.ZodString;
+            askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                personRef: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"owner">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"director">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"business_unit">;
+                buSlug: z.ZodString;
+            }, z.core.$strict>], "kind">>;
+        }, z.core.$strict>>>;
+        /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+        sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            topic: z.ZodString;
+            status: z.ZodEnum<{
+                partial: "partial";
+                missing: "missing";
+                covered: "covered";
+            }>;
+            pages: z.ZodArray<z.ZodString>;
         }, z.core.$strict>>>;
     }, z.core.$strict>;
     decision: z.ZodObject<{
@@ -319,6 +366,19 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                         delivery: z.ZodString;
                     }, z.core.$strict>;
                 }, z.core.$strict>], "kind">;
+                gapRule: z.ZodOptional<z.ZodEnum<{
+                    mark_and_proceed: "mark_and_proceed";
+                    stop_and_ask: "stop_and_ask";
+                }>>;
+                signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodString;
+                    signer: z.ZodEnum<{
+                        owner: "owner";
+                        director: "director";
+                        referent: "referent";
+                    }>;
+                    form: z.ZodLiteral<"decision_request">;
+                }, z.core.$strict>>>;
             }, z.core.$strict>;
             /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
             project: z.ZodOptional<z.ZodObject<{
@@ -360,6 +420,40 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                     buSlug: z.ZodString;
                     does: z.ZodString;
                 }, z.core.$strict>>;
+            }, z.core.$strict>>>;
+            /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+            exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                fromBu: z.ZodString;
+                toBu: z.ZodString;
+                what: z.ZodString;
+                format: z.ZodString;
+                key: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>>;
+            /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+            questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                question: z.ZodString;
+                unlocks: z.ZodString;
+                askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    personRef: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"owner">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"director">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"business_unit">;
+                    buSlug: z.ZodString;
+                }, z.core.$strict>], "kind">>;
+            }, z.core.$strict>>>;
+            /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+            sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                topic: z.ZodString;
+                status: z.ZodEnum<{
+                    partial: "partial";
+                    missing: "missing";
+                    covered: "covered";
+                }>;
+                pages: z.ZodArray<z.ZodString>;
             }, z.core.$strict>>>;
         }, z.core.$strict>;
         decision: z.ZodObject<{
@@ -547,6 +641,19 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                             delivery: z.ZodString;
                         }, z.core.$strict>;
                     }, z.core.$strict>], "kind">;
+                    gapRule: z.ZodOptional<z.ZodEnum<{
+                        mark_and_proceed: "mark_and_proceed";
+                        stop_and_ask: "stop_and_ask";
+                    }>>;
+                    signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        key: z.ZodString;
+                        signer: z.ZodEnum<{
+                            owner: "owner";
+                            director: "director";
+                            referent: "referent";
+                        }>;
+                        form: z.ZodLiteral<"decision_request">;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
                 project: z.ZodOptional<z.ZodObject<{
@@ -588,6 +695,40 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                         buSlug: z.ZodString;
                         does: z.ZodString;
                     }, z.core.$strict>>;
+                }, z.core.$strict>>>;
+                /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+                exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    fromBu: z.ZodString;
+                    toBu: z.ZodString;
+                    what: z.ZodString;
+                    format: z.ZodString;
+                    key: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>>;
+                /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+                questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    question: z.ZodString;
+                    unlocks: z.ZodString;
+                    askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"referent">;
+                        personRef: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"owner">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"director">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"business_unit">;
+                        buSlug: z.ZodString;
+                    }, z.core.$strict>], "kind">>;
+                }, z.core.$strict>>>;
+                /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+                sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    topic: z.ZodString;
+                    status: z.ZodEnum<{
+                        partial: "partial";
+                        missing: "missing";
+                        covered: "covered";
+                    }>;
+                    pages: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>>;
             }, z.core.$strict>;
             decision: z.ZodObject<{

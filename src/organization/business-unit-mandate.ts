@@ -5,9 +5,12 @@ import {
   ActionPlanBuExecutorSchema,
   ActionPlanBusinessUnitSchema,
   ActionPlanDeliveryShapeSchema,
+  ActionPlanExchangeSchema,
   ActionPlanObjectiveSchema,
   ActionPlanProjectObjectiveSchema,
+  ActionPlanQuestionSchema,
   ActionPlanReferentRefSchema,
+  ActionPlanSourceCoverageSchema,
   ActionPlanWorkBreakdownSchema,
 } from './action-plan.js';
 import { AssetOriginSchema, AssetRefSchema, AssetSha256Schema } from './asset.js';
@@ -103,6 +106,12 @@ export const ReconciledMandateSchema = z.strictObject({
     deliveryShape: ActionPlanDeliveryShapeSchema.optional(),
     /** The whole project breakdown (product plans): the unit sees its items and where they sit. */
     workBreakdown: ActionPlanWorkBreakdownSchema.optional(),
+    /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+    exchanges: z.array(ActionPlanExchangeSchema).optional(),
+    /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+    questions: z.array(ActionPlanQuestionSchema).optional(),
+    /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+    sourceCoverage: z.array(ActionPlanSourceCoverageSchema).max(50).optional(),
   }),
   decision: z.strictObject({
     requestId: DecisionRequestIdSchema,
@@ -165,6 +174,16 @@ export const ReconciledMandateSchema = z.strictObject({
       path: ['planSection', 'workBreakdown'],
     });
   }
+  const unitSlug = mandate.planSection.businessUnit.buSlug;
+  mandate.planSection.exchanges?.forEach((exchange, index) => {
+    if (exchange.fromBu !== unitSlug && exchange.toBu !== unitSlug) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Every exchange of the mandate must start from or arrive at the business unit of the mandate',
+        path: ['planSection', 'exchanges', index],
+      });
+    }
+  });
   if (new Set(mandate.notebookPages.map((page) => page.slug)).size !== mandate.notebookPages.length) {
     ctx.addIssue({ code: 'custom', message: 'Notebook page slugs must be unique', path: ['notebookPages'] });
   }
