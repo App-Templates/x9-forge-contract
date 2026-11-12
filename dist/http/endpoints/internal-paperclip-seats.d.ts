@@ -525,6 +525,11 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
     messageId: z.ZodString;
     sentAt: z.ZodISODateTime;
     digest: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"limit_lifted">;
+    limit: z.ZodLiteral<"company_spend">;
+    revision: z.ZodInt;
+    liftedAt: z.ZodISODateTime;
 }, z.core.$strict>], "kind">;
 export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
     scope: z.ZodObject<{
@@ -654,6 +659,11 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         messageId: z.ZodString;
         sentAt: z.ZodISODateTime;
         digest: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"limit_lifted">;
+        limit: z.ZodLiteral<"company_spend">;
+        revision: z.ZodInt;
+        liftedAt: z.ZodISODateTime;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
 export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited", "waiting_on_blockers"];
@@ -868,6 +878,11 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             messageId: z.ZodString;
             sentAt: z.ZodISODateTime;
             digest: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"limit_lifted">;
+            limit: z.ZodLiteral<"company_spend">;
+            revision: z.ZodInt;
+            liftedAt: z.ZodISODateTime;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{

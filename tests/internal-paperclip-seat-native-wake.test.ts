@@ -6,7 +6,7 @@ import {
   InternalPaperclipSeatNativeWakeResponseSchema,
   PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS,
   internalPaperclipSeatNativeWakeContract,
-} from '../src/http/endpoints/index.js';
+} from '../src/http/endpoints/internal-paperclip-seats.js';
 
 const scope = { tenantId: 't1', ownerId: 'o1', agentId: 'director-a' };
 const identity = { managementAgentId: 'director-a', runtimeAgentId: 'director-a', vaultAgentId: 7 };
@@ -120,5 +120,34 @@ describe('internal Paperclip seat native-wake contract', () => {
     expect(parseRes({ result: 'waiting_on_blockers' })).toBe(false);
     expect(parseRes({ result: 'waiting_on_blockers', issueId, runId })).toBe(false);
     expect(parseRes({ result: 'waiting_on_blockers', issueId, commentId })).toBe(false);
+  });
+
+  it('s6526 tetto-alzato-evento: the native wake request accepts a limit_lifted event with company_spend, revision and liftedAt only with organization and identity, and the result count stays 11', () => {
+    const lifted = { kind: 'limit_lifted', limit: 'company_spend', revision: 3, liftedAt: '2026-11-12T10:00:00.000Z' };
+    const request = { ...base, eventId: 'evt-6526', event: lifted };
+    expect(parse(request)).toBe(true);
+    expect(parse({ ...request, event: { ...lifted, liftedAt: '2026-11-12T11:00:00+01:00' } })).toBe(true);
+    const { organizationId: _o, ...noOrg } = request;
+    expect(parse(noOrg)).toBe(false);
+    const { identity: _i, ...noIdentity } = request;
+    expect(parse(noIdentity)).toBe(false);
+    expect(parse({ ...request, event: { ...lifted, limit: 'daily_runs' } })).toBe(false);
+    expect(parse({ ...request, event: { ...lifted, extra: 1 } })).toBe(false);
+    expect(parse({ ...request, event: { ...lifted, revision: 0 } })).toBe(false);
+    expect(parse({ ...request, event: { ...lifted, liftedAt: '2026-11-12T10:00:00' } })).toBe(false);
+    const { revision: _r, ...noRevision } = lifted;
+    expect(parse({ ...request, event: noRevision })).toBe(false);
+
+    expect(parseRes({ result: 'deferred', issueId })).toBe(true);
+    expect(parseRes({ result: 'no_task' })).toBe(true);
+    expect(parseRes({ result: 'no_task', issueId })).toBe(false);
+    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toHaveLength(11);
+
+    // Dry run on today's shapes: nothing was tightened.
+    expect(parse(emailRequest)).toBe(true);
+    expect(parse({ ...base, eventId: 'evt-6513', event: { kind: 'project_delivered', projectId: 'orto-facile', messageId: '<f@example.invalid>', sentAt: '2026-11-12T10:00:00.000Z', digest: 'a'.repeat(64) } })).toBe(true);
+    expect(parseRes({ result: 'opened', issueId })).toBe(true);
+    expect(parseRes({ result: 'woken', issueId, runId })).toBe(true);
+    expect(parseRes({ result: 'duplicate' })).toBe(true);
   });
 });

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.189.0 — the native wake knows the lifted spend cap (task 6526)
+
+- `http/endpoints/internal-paperclip-seats` adds the native-wake event `limit_lifted` (`limit: company_spend`, `revision`, `liftedAt`; requires `organizationId` and `identity`). No new result: `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS` stays at 11 entries; for this event `deferred` means the check was requested from Paperclip and `no_task` that no issue waits on the cap.
+- Additive; no existing event, result or saved shape is tightened. Consumers: cap-paperclip (ec-x9/6519) and agent-core (ec-x9/6520), after the adoption 6523 and configuration 6524.
+
 ## v1.188.0 — spend cap waits carry a fixed Paperclip monitor name (task 6518)
 
 - `capability/paperclip/turn-disposition` adds `LIMIT_WAIT_SERVICE_NAME` (`X9 company spend cap`) and `waitsOnLimit(policy: unknown): boolean`, which reads only that exact monitor name and tolerates Paperclip's additional and nullable stored fields. Budget refusals and budget stops carry the name through `check_later.serviceName` into `executionPolicy.monitor.serviceName`; other waits keep no name and the default retry remains 3600 seconds.

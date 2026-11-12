@@ -291,6 +291,13 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     sentAt: z.iso.datetime({ offset: true }),
     digest: AssetSha256Schema,
   }),
+  // The company spend cap no longer holds this agent back; sent by agent-core, once per agent, never by the model.
+  z.strictObject({
+    kind: z.literal('limit_lifted'),
+    limit: z.literal('company_spend'),
+    revision: z.int().min(1),
+    liftedAt: z.iso.datetime({ offset: true }),
+  }),
 ]);
 
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip
@@ -335,6 +342,7 @@ export const InternalPaperclipSeatNativeWakeRequestSchema = z.strictObject({
   }
 });
 
+// For `limit_lifted`, `deferred` (with the issueId) means "check requested from Paperclip" and `no_task` means "no issue waiting on the cap".
 export const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = [
   'opened', 'woken', 'deferred', 'duplicate', 'already_open', 'not_waiting', 'no_task', 'ambiguous', 'not_enabled', 'rate_limited',
   // The event belongs to an existing open incarico of the seat that waits on open blockers held by other agents;

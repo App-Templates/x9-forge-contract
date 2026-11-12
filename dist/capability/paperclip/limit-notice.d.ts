@@ -6,9 +6,9 @@ import { z } from 'zod';
  */
 export declare const LIMIT_NOTICE_LIMITS: readonly ["daily_runs", "daily_cost", "company_spend"];
 export declare const LimitNoticeLimitSchema: z.ZodEnum<{
+    company_spend: "company_spend";
     daily_runs: "daily_runs";
     daily_cost: "daily_cost";
-    company_spend: "company_spend";
 }>;
 export type LimitNoticeLimit = z.infer<typeof LimitNoticeLimitSchema>;
 /** Paperclip's units for the two daily caps; the company spend uses the unit of InternalCompanySpendResponseSchema. */
@@ -39,9 +39,9 @@ export declare const LimitNoticeRecipientSchema: z.ZodEnum<{
 export declare function nextUtcMidnight(iso: string): string;
 export declare const LimitNoticeSchema: z.ZodObject<{
     limit: z.ZodEnum<{
+        company_spend: "company_spend";
         daily_runs: "daily_runs";
         daily_cost: "daily_cost";
-        company_spend: "company_spend";
     }>;
     limitValue: z.ZodNumber;
     observedValue: z.ZodNumber;
