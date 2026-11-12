@@ -1,9 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
+exports.SHARED_MAILBOX_REFUSAL_REASONS = exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxAudienceSchema = exports.SHARED_MAILBOX_AUDIENCES = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
+exports.sharedMailboxAudience = sharedMailboxAudience;
 exports.parseSharedMailboxesFile = parseSharedMailboxesFile;
 exports.parseSharedMailboxSubjectLabel = parseSharedMailboxSubjectLabel;
+exports.decideSharedMailboxRoute = decideSharedMailboxRoute;
 exports.routeSharedMailboxMessage = routeSharedMailboxMessage;
+exports.formatSharedMailboxSubjectLabel = formatSharedMailboxSubjectLabel;
+exports.sharedMailboxLabelFromName = sharedMailboxLabelFromName;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const agent_email_inbox_js_1 = require("../messaging/agent-email-inbox.cjs");
@@ -15,16 +19,23 @@ exports.SharedMailboxHolderSchema = zod_1.z.strictObject({
     label: exports.SharedMailboxLabelSchema,
     displayName: zod_1.z.string().min(1).max(120),
 });
-/** One company inbox, shared by the Director and business unit leads. */
+exports.SHARED_MAILBOX_AUDIENCES = ['business_unit_leads', 'directors'];
+exports.SharedMailboxAudienceSchema = zod_1.z.enum(exports.SHARED_MAILBOX_AUDIENCES);
+/** One company inbox, shared by the Director and business unit leads, or by the project Directors. */
 exports.SharedMailboxSchema = zod_1.z.strictObject({
     mailboxId: zod_1.z.string().min(1).max(128),
     tenantId: business_unit_lead_js_1.BusinessUnitLeadBirthRequestSchema.shape.tenantId,
     companyId: business_unit_lead_js_1.BusinessUnitLeadBirthRequestSchema.shape.company.shape.companyId,
     providerInboxId: agent_email_inbox_js_1.AgentEmailInboxSchema.shape.provider_inbox_id,
     address: zod_1.z.email(),
-    holders: zod_1.z.array(exports.SharedMailboxHolderSchema).min(2).max(50),
+    holders: zod_1.z.array(exports.SharedMailboxHolderSchema).min(1).max(50),
     defaultAgentId: agent_identity_js_1.AgentIdSchema,
+    /** Absent means `business_unit_leads`. */
+    audience: exports.SharedMailboxAudienceSchema.optional(),
 }).superRefine((mailbox, ctx) => {
+    if (mailbox.audience !== 'directors' && mailbox.holders.length < 2) {
+        ctx.addIssue({ code: 'custom', path: ['holders'], message: 'A business unit leads mailbox needs at least 2 holders' });
+    }
     const agentIds = new Set();
     const labels = new Set();
     mailbox.holders.forEach((holder, index) => {
@@ -42,6 +53,9 @@ exports.SharedMailboxSchema = zod_1.z.strictObject({
         ctx.addIssue({ code: 'custom', path: ['defaultAgentId'], message: 'Default agent must be a mailbox holder' });
     }
 });
+function sharedMailboxAudience(mailbox) {
+    return mailbox.audience ?? exports.SHARED_MAILBOX_AUDIENCES[0];
+}
 /** Relative to the contexts directory shared by Forge and cap-email. */
 exports.SHARED_MAILBOXES_FILE = 'companies/shared-mailboxes.json';
 exports.SharedMailboxFileEntrySchema = zod_1.z.strictObject({
@@ -93,8 +107,10 @@ function parseSharedMailboxSubjectLabel(subject) {
     const label = exports.SharedMailboxLabelSchema.safeParse(match[1]);
     return label.success ? label.data : null;
 }
-/** Preserve conversation ownership before considering a subject label. */
-function routeSharedMailboxMessage(input) {
+exports.SHARED_MAILBOX_REFUSAL_REASONS = ['label_unknown'];
+const REFUSED_LABEL_MAX_LENGTH = 80;
+/** Thread first, then subject label; a directors mailbox refuses an unknown leading label. */
+function decideSharedMailboxRoute(input) {
     const { mailbox, threads, providerThreadId, subject } = input;
     const thread = threads.find((candidate) => candidate.mailboxId === mailbox.mailboxId
         && candidate.providerThreadId === providerThreadId
@@ -105,6 +121,39 @@ function routeSharedMailboxMessage(input) {
     const holder = label === null ? undefined : mailbox.holders.find((candidate) => candidate.label.toLowerCase() === label.toLowerCase());
     if (holder)
         return { agentId: holder.agentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[1] };
+    if (sharedMailboxAudience(mailbox) === 'directors') {
+        const unprefixed = subject.replace(/^(?:\s*(?:re|r|fwd|i):\s*)*/i, '').trimStart();
+        const group = /^\[([^\]]*)\]/u.exec(unprefixed);
+        if (group) {
+            return { via: 'refused', reason: exports.SHARED_MAILBOX_REFUSAL_REASONS[0], label: group[1].slice(0, REFUSED_LABEL_MAX_LENGTH) };
+        }
+    }
     return { agentId: mailbox.defaultAgentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[2] };
+}
+/** Same shape as ever; throws on a refusal so a caller that ignores refusals never delivers to the default. */
+function routeSharedMailboxMessage(input) {
+    const decision = decideSharedMailboxRoute(input);
+    if (decision.via === 'refused') {
+        throw new Error(`Shared mailbox message refused: ${decision.reason} (${decision.label})`);
+    }
+    return decision;
+}
+/** `[label]` as written in a subject; the label must be valid and read back unchanged. */
+function formatSharedMailboxSubjectLabel(label) {
+    const valid = exports.SharedMailboxLabelSchema.parse(label);
+    const subject = `[${valid}]`;
+    if (parseSharedMailboxSubjectLabel(subject) !== valid) {
+        throw new Error('Shared mailbox label does not read back from its subject');
+    }
+    return subject;
+}
+/** A valid label from a project name: collapse spaces, drop characters a label refuses, cap at 40. */
+function sharedMailboxLabelFromName(name) {
+    const cleaned = name.replace(/[^\p{L}\p{N} -]/gu, '').replace(/ {2,}/g, ' ')
+        .replace(/^[^\p{L}\p{N}]+/u, '').slice(0, 40).trimEnd();
+    const label = exports.SharedMailboxLabelSchema.safeParse(cleaned);
+    if (!label.success)
+        throw new Error('Project name has no characters usable as a mailbox label');
+    return label.data;
 }
 //# sourceMappingURL=shared-mailbox.js.map

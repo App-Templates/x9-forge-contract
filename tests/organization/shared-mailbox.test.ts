@@ -4,6 +4,7 @@ import { AgentEmailInboxSchema } from '../../src/messaging/agent-email-inbox.js'
 import { BusinessUnitLeadBirthRequestSchema } from '../../src/organization/business-unit-lead.js';
 import {
   SHARED_MAILBOXES_FILE,
+  SHARED_MAILBOX_AUDIENCES,
   SHARED_MAILBOX_ROUTE_VIAS,
   SharedMailboxFileEntrySchema,
   SharedMailboxHolderSchema,
@@ -11,6 +12,10 @@ import {
   SharedMailboxSchema,
   SharedMailboxThreadSchema,
   SharedMailboxesFileSchema,
+  decideSharedMailboxRoute,
+  formatSharedMailboxSubjectLabel,
+  sharedMailboxAudience,
+  sharedMailboxLabelFromName,
   parseSharedMailboxesFile,
   parseSharedMailboxSubjectLabel,
   routeSharedMailboxMessage,
@@ -278,5 +283,101 @@ describe('shared mailbox routing', () => {
 
   it.each(['Hello [Design]', '[Design', 'Re: []', 'Re: [Design!]', ''])('returns null without a valid leading label: %s', (subject) => {
     expect(parseSharedMailboxSubjectLabel(subject)).toBeNull();
+  });
+});
+
+describe('s6703 casella-director: directors audience of the shared mailbox', () => {
+  const base = {
+    tenantId: '1', companyId: 'good-choice', providerInboxId: 'inbox-gc', address: 'chiefs@agentmail.to',
+  };
+  const chiefsInput = {
+    ...base, mailboxId: 'chiefs-gc',
+    holders: [
+      { agentId: 'capo-dati', label: 'Dati', displayName: 'Capo Dati' },
+      { agentId: 'bu-dati-good-choice', label: 'Dati GC', displayName: 'BU Dati Good Choice' },
+    ],
+    defaultAgentId: 'capo-dati',
+  };
+  const directorHolders = [
+    { agentId: 'director-good-choice', label: 'Good Choice', displayName: 'Director Good Choice' },
+    { agentId: 'director-cantina-facile', label: 'Cantina Facile', displayName: 'Director Cantina Facile' },
+  ];
+  const directorsInput = {
+    ...base, mailboxId: 'directors-gc', providerInboxId: 'inbox-dir', address: 'director-good-choice@agentmail.to',
+    audience: 'directors', holders: directorHolders, defaultAgentId: 'director-good-choice',
+  };
+  const chiefs = SharedMailboxSchema.parse(chiefsInput);
+  const directors = SharedMailboxSchema.parse(directorsInput);
+  const directorThread = SharedMailboxThreadSchema.parse({
+    mailboxId: 'directors-gc', providerThreadId: 'th-1', agentId: 'director-cantina-facile',
+    openedAt: '2026-11-12T10:00:00+01:00',
+  });
+
+  it('(a) today file parses to the same object and has the chiefs audience', () => {
+    const parsed = parseSharedMailboxesFile([{ companyName: 'Good Choice', mailbox: chiefsInput }]);
+    expect(parsed).toEqual([chiefsInput]);
+    expect('audience' in parsed[0]!).toBe(false);
+    expect(sharedMailboxAudience(parsed[0]!)).toBe('business_unit_leads');
+    expect(SHARED_MAILBOX_AUDIENCES).toEqual(['business_unit_leads', 'directors']);
+  });
+
+  it('(a) holder count per audience', () => {
+    const one = [directorHolders[0]];
+    expect(SharedMailboxSchema.safeParse({ ...chiefsInput, holders: [chiefsInput.holders[0]] }).success).toBe(false);
+    expect(SharedMailboxSchema.safeParse({ ...chiefsInput, audience: 'business_unit_leads', holders: [chiefsInput.holders[0]] }).success).toBe(false);
+    expect(SharedMailboxSchema.safeParse({ ...directorsInput, holders: one }).success).toBe(true);
+    expect(SharedMailboxSchema.safeParse({ ...directorsInput, holders: [] }).success).toBe(false);
+    expect(SharedMailboxSchema.safeParse({ ...directorsInput, audience: 'invented' }).success).toBe(false);
+    expect(sharedMailboxAudience(directors)).toBe('directors');
+  });
+
+  it('(a) the same agent in two mailboxes is refused', () => {
+    const other = { ...directorsInput, mailboxId: 'directors-2', providerInboxId: 'inbox-2' };
+    expect(SharedMailboxesFileSchema.safeParse([
+      { companyName: 'A', mailbox: directorsInput }, { companyName: 'B', mailbox: other },
+    ]).success).toBe(false);
+  });
+
+  it('(b) directors: thread wins, then label, then default', () => {
+    expect(decideSharedMailboxRoute({ mailbox: directors, threads: [directorThread], providerThreadId: 'th-1', subject: '[Good Choice] x' }))
+      .toEqual({ agentId: 'director-cantina-facile', via: 'thread' });
+    for (const subject of ['[Cantina Facile] x', 'Re: [cantina facile] x']) {
+      expect(decideSharedMailboxRoute({ mailbox: directors, threads: [], subject }))
+        .toEqual({ agentId: 'director-cantina-facile', via: 'label' });
+    }
+    for (const subject of ['Hello', 'Hello [Cantina Facile]']) {
+      expect(decideSharedMailboxRoute({ mailbox: directors, threads: [], subject }))
+        .toEqual({ agentId: 'director-good-choice', via: 'default' });
+    }
+  });
+
+  it('(b) directors: an unknown leading label is refused with the text read', () => {
+    expect(decideSharedMailboxRoute({ mailbox: directors, threads: [], subject: '[Cantina Facil] x' }))
+      .toEqual({ via: 'refused', reason: 'label_unknown', label: 'Cantina Facil' });
+    expect(decideSharedMailboxRoute({ mailbox: directors, threads: [], subject: 'Re: [Good Choice!] x' }))
+      .toEqual({ via: 'refused', reason: 'label_unknown', label: 'Good Choice!' });
+    const long = decideSharedMailboxRoute({ mailbox: directors, threads: [], subject: `[${'x'.repeat(100)}] y` });
+    expect(long).toMatchObject({ via: 'refused', label: 'x'.repeat(80) });
+  });
+
+  it('(c) chiefs never refuse; routeSharedMailboxMessage throws on a refusal', () => {
+    expect(routeSharedMailboxMessage({ mailbox: chiefs, threads: [], subject: '[Unknown] Hello' }))
+      .toEqual({ agentId: 'capo-dati', via: 'default' });
+    expect(decideSharedMailboxRoute({ mailbox: chiefs, threads: [], subject: '[Unknown] Hello' }))
+      .toEqual({ agentId: 'capo-dati', via: 'default' });
+    expect(() => routeSharedMailboxMessage({ mailbox: directors, threads: [], subject: '[Cantina Facil] x' })).toThrow(/label_unknown/);
+    expect(routeSharedMailboxMessage({ mailbox: directors, threads: [], subject: '[Cantina Facile] x' }))
+      .toEqual({ agentId: 'director-cantina-facile', via: 'label' });
+  });
+
+  it('(d) subject label and label from a project name', () => {
+    expect(formatSharedMailboxSubjectLabel('Cantina Facile')).toBe('[Cantina Facile]');
+    expect(parseSharedMailboxSubjectLabel(formatSharedMailboxSubjectLabel('Cantina Facile'))).toBe('Cantina Facile');
+    expect(() => formatSharedMailboxSubjectLabel('Bad!')).toThrow();
+    expect(sharedMailboxLabelFromName('Cantina Facile')).toBe('Cantina Facile');
+    expect(sharedMailboxLabelFromName('  Orto   Facile! ')).toBe('Orto Facile');
+    expect(sharedMailboxLabelFromName('a'.repeat(60))).toBe('a'.repeat(40));
+    expect(sharedMailboxLabelFromName(`${'a'.repeat(39)} bbb`)).toBe('a'.repeat(39));
+    expect(() => sharedMailboxLabelFromName('!!!')).toThrow();
   });
 });

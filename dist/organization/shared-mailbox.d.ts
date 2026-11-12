@@ -8,7 +8,13 @@ export declare const SharedMailboxHolderSchema: z.ZodObject<{
     displayName: z.ZodString;
 }, z.core.$strict>;
 export type SharedMailboxHolder = z.infer<typeof SharedMailboxHolderSchema>;
-/** One company inbox, shared by the Director and business unit leads. */
+export declare const SHARED_MAILBOX_AUDIENCES: readonly ["business_unit_leads", "directors"];
+export declare const SharedMailboxAudienceSchema: z.ZodEnum<{
+    business_unit_leads: "business_unit_leads";
+    directors: "directors";
+}>;
+export type SharedMailboxAudience = z.infer<typeof SharedMailboxAudienceSchema>;
+/** One company inbox, shared by the Director and business unit leads, or by the project Directors. */
 export declare const SharedMailboxSchema: z.ZodObject<{
     mailboxId: z.ZodString;
     tenantId: z.ZodString;
@@ -21,8 +27,14 @@ export declare const SharedMailboxSchema: z.ZodObject<{
         displayName: z.ZodString;
     }, z.core.$strict>>;
     defaultAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    /** Absent means `business_unit_leads`. */
+    audience: z.ZodOptional<z.ZodEnum<{
+        business_unit_leads: "business_unit_leads";
+        directors: "directors";
+    }>>;
 }, z.core.$strict>;
 export type SharedMailbox = z.infer<typeof SharedMailboxSchema>;
+export declare function sharedMailboxAudience(mailbox: Pick<SharedMailbox, 'audience'>): SharedMailboxAudience;
 /** Relative to the contexts directory shared by Forge and cap-email. */
 export declare const SHARED_MAILBOXES_FILE = "companies/shared-mailboxes.json";
 export declare const SharedMailboxFileEntrySchema: z.ZodObject<{
@@ -39,6 +51,11 @@ export declare const SharedMailboxFileEntrySchema: z.ZodObject<{
             displayName: z.ZodString;
         }, z.core.$strict>>;
         defaultAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        /** Absent means `business_unit_leads`. */
+        audience: z.ZodOptional<z.ZodEnum<{
+            business_unit_leads: "business_unit_leads";
+            directors: "directors";
+        }>>;
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type SharedMailboxFileEntry = z.infer<typeof SharedMailboxFileEntrySchema>;
@@ -56,6 +73,11 @@ export declare const SharedMailboxesFileSchema: z.ZodArray<z.ZodObject<{
             displayName: z.ZodString;
         }, z.core.$strict>>;
         defaultAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        /** Absent means `business_unit_leads`. */
+        audience: z.ZodOptional<z.ZodEnum<{
+            business_unit_leads: "business_unit_leads";
+            directors: "directors";
+        }>>;
     }, z.core.$strict>;
 }, z.core.$strict>>;
 export type SharedMailboxesFile = z.infer<typeof SharedMailboxesFileSchema>;
@@ -76,11 +98,25 @@ export type SharedMailboxRoute = {
     via: SharedMailboxRouteVia;
 };
 export declare function parseSharedMailboxSubjectLabel(subject: string): string | null;
-/** Preserve conversation ownership before considering a subject label. */
-export declare function routeSharedMailboxMessage(input: {
+export declare const SHARED_MAILBOX_REFUSAL_REASONS: readonly ["label_unknown"];
+export type SharedMailboxRouteRefusal = {
+    via: 'refused';
+    reason: 'label_unknown';
+    label: string;
+};
+type SharedMailboxRouteInput = {
     mailbox: SharedMailbox;
     threads: readonly SharedMailboxThread[];
     providerThreadId?: string | null;
     subject: string;
-}): SharedMailboxRoute;
+};
+/** Thread first, then subject label; a directors mailbox refuses an unknown leading label. */
+export declare function decideSharedMailboxRoute(input: SharedMailboxRouteInput): SharedMailboxRoute | SharedMailboxRouteRefusal;
+/** Same shape as ever; throws on a refusal so a caller that ignores refusals never delivers to the default. */
+export declare function routeSharedMailboxMessage(input: SharedMailboxRouteInput): SharedMailboxRoute;
+/** `[label]` as written in a subject; the label must be valid and read back unchanged. */
+export declare function formatSharedMailboxSubjectLabel(label: string): string;
+/** A valid label from a project name: collapse spaces, drop characters a label refuses, cap at 40. */
+export declare function sharedMailboxLabelFromName(name: string): string;
+export {};
 //# sourceMappingURL=shared-mailbox.d.ts.map

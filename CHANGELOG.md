@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.197.0 — directors audience of the shared mailbox (task 6703)
+
+- `SharedMailboxSchema` gets an optional `audience` (`business_unit_leads` | `directors`, absent means the first); `sharedMailboxAudience` reads it. Holders are counted per audience: at least 2 for business unit leads, at least 1 for directors.
+- `decideSharedMailboxRoute` (thread, then label, then default) refuses with `label_unknown` a new email to a directors mailbox whose leading bracket group names no holder; `routeSharedMailboxMessage` keeps its shape and throws on a refusal.
+- `formatSharedMailboxSubjectLabel` and `sharedMailboxLabelFromName` write and derive subject labels.
+- Additive. Consumers: X9 (adoption, then cap-email), Forge (mailbox store and «Crea progetto»).
+
 ## v1.196.0 — project Director rule, project create and project Director enrollment contracts (tasks 6666-6668)
 
 - `organization/project-director`: `projectDirector` decides who is the Director of a project, with four fixed refusals.
