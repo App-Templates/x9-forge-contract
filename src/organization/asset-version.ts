@@ -50,6 +50,12 @@ export const AssetVersionRecordSchema = z.strictObject({
 });
 export type AssetVersionRecord = z.infer<typeof AssetVersionRecordSchema>;
 
+export const ASSET_VERSION_REDO_REASON_MESSAGE = 'A redo review requires a reason';
+
+export function assetVersionRedoHasReason(review: { verdict: string; reason?: string | undefined }): boolean {
+  return review.verdict !== 'redo' || review.reason !== undefined;
+}
+
 export const AssetVersionLeadReviewSchema = z.strictObject({
   buSlug: AssetVersionRecordSchema.shape.buSlug,
   key: AssetKeySchema,
@@ -58,8 +64,8 @@ export const AssetVersionLeadReviewSchema = z.strictObject({
   reason: z.string().min(3).max(2000).optional(),
   reviewedBy: ParticipantAgentIdentitySchema,
   reviewedAt: AssetRefSchema.shape.createdAt,
-}).refine((review) => review.verdict !== 'redo' || review.reason !== undefined, {
-  path: ['reason'], message: 'A redo review requires a reason',
+}).refine(assetVersionRedoHasReason, {
+  path: ['reason'], message: ASSET_VERSION_REDO_REASON_MESSAGE,
 });
 export type AssetVersionLeadReview = z.infer<typeof AssetVersionLeadReviewSchema>;
 
