@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.191.0 — department state facts come from one Memory contract (task 6530)
+
+- New narrow subpath `http/endpoints/internal-memory-business-unit-state`: `internalMemoryBusinessUnitStateContract` posts only the verified organization run context to Memory. Memory determines the role and visible department scopes; a caller with role `other` receives no departments.
+- A `listed` response carries each department's versions, delivery decisions and outcomes, lead reviews and assets for `deriveBusinessUnitStateSummary`. Consumers pair reviews with the department scope; the derivation ignores facts outside it. Limits are 20 departments and, per department, 1000 versions, 1000 decisions, 1000 reviews and 200 assets. Oversized complete facts produce `refused / state_too_large`, never a truncated list.
+- Additive: no existing or saved schema changes, including delivery requests with only `deliveryRef` and options without `effect`. No endpoint barrel export is added. Consumers: X9 adoption (ec-x9/6531), Memory (ec-x9/6532) and agent-core (ec-x9/6563); this version alone enables no runtime behaviour. Session outcomes follow in ec-x9/6564–6567.
+
 ## v1.190.0 — an assignment accepts materials from another business unit of the same project (task 6533)
 
 - `DevSessionAssignmentSchema` no longer refuses an asset whose `buSlug` differs from the assignment's business unit (`material_foreign_business_unit` is gone); tenant, company and project are still checked in that order.
