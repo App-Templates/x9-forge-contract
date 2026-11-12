@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.180.0",
+  "versione": "1.181.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1219,8 +1219,10 @@
       "CapabilityAgentIdSchema": "@x9-forge/contracts/capability/ricerca/agent-config",
       "CapabilityModelIdSchema": "@x9-forge/contracts/capability/ricerca/agent-config",
       "CapabilityUsdSchema": "@x9-forge/contracts/capability/ricerca/agent-config",
+      "RESEARCH_NOT_OPENED_REASONS": "@x9-forge/contracts/capability/ricerca/research",
       "RICERCA_INTERNAL_TOOLS": "@x9-forge/contracts/capability/ricerca/tools",
       "RICERCA_TOOLS": "@x9-forge/contracts/capability/ricerca/tools",
+      "ResearchAdmissionSchema": "@x9-forge/contracts/capability/ricerca/research",
       "ResearchAgentConfigSchema": "@x9-forge/contracts/capability/ricerca/agent-config",
       "ResearchBudgetSchema": "@x9-forge/contracts/capability/ricerca/agent-config",
       "ResearchCostSchema": "@x9-forge/contracts/capability/ricerca/research",
@@ -1229,6 +1231,7 @@
       "ResearchFindingSchema": "@x9-forge/contracts/capability/ricerca/research",
       "ResearchIdSchema": "@x9-forge/contracts/capability/ricerca/research",
       "ResearchModelsSchema": "@x9-forge/contracts/capability/ricerca/agent-config",
+      "ResearchNotOpenedReasonSchema": "@x9-forge/contracts/capability/ricerca/research",
       "ResearchParamsSchema": "@x9-forge/contracts/capability/ricerca/agent-config",
       "ResearchRequestSchema": "@x9-forge/contracts/capability/ricerca/research",
       "ResearchResultInputSchema": "@x9-forge/contracts/capability/ricerca/tools",
@@ -1244,6 +1247,7 @@
       "SourceRuleSchema": "@x9-forge/contracts/capability/ricerca/agent-config",
       "SpendingCapabilitySchema": "@x9-forge/contracts/capability/ricerca/spend",
       "WebUrlSchema": "@x9-forge/contracts/capability/ricerca/research",
+      "renderResearchAdmission": "@x9-forge/contracts/capability/ricerca/research",
       "researchExecutePath": "@x9-forge/contracts/capability/ricerca/tools"
     },
     "@x9-forge/contracts/capability/lab": {

@@ -49,6 +49,37 @@ export declare const ResearchCostSchema: z.ZodObject<{
     uncertain: z.ZodBoolean;
 }, z.core.$strict>;
 export type ResearchCost = z.infer<typeof ResearchCostSchema>;
+export declare const RESEARCH_NOT_OPENED_REASONS: readonly ["web_exhausted", "research_budget_exhausted", "day_budget_exhausted", "nothing_to_open"];
+export declare const ResearchNotOpenedReasonSchema: z.ZodEnum<{
+    web_exhausted: "web_exhausted";
+    research_budget_exhausted: "research_budget_exhausted";
+    day_budget_exhausted: "day_budget_exhausted";
+    nothing_to_open: "nothing_to_open";
+}>;
+export type ResearchNotOpenedReason = z.infer<typeof ResearchNotOpenedReasonSchema>;
+export declare const ResearchAdmissionSchema: z.ZodObject<{
+    rule: z.ZodEnum<{
+        opened_only: "opened_only";
+        opened_or_search_result: "opened_or_search_result";
+    }>;
+    /** Addresses cited by the report among the search results. */
+    cited: z.ZodNumber;
+    /** Pages actually opened. */
+    opened: z.ZodNumber;
+    /** Addresses admitted as sources under the selected rule. */
+    admitted: z.ZodNumber;
+    /** Findings discarded because none of their sources were admitted. */
+    droppedFindings: z.ZodNumber;
+    notOpenedReason: z.ZodOptional<z.ZodEnum<{
+        web_exhausted: "web_exhausted";
+        research_budget_exhausted: "research_budget_exhausted";
+        day_budget_exhausted: "day_budget_exhausted";
+        nothing_to_open: "nothing_to_open";
+    }>>;
+}, z.core.$strict>;
+export type ResearchAdmission = z.infer<typeof ResearchAdmissionSchema>;
+/** Validate and render one fixed Italian line without external state. */
+export declare function renderResearchAdmission(admission: ResearchAdmission): string;
 export declare const ResearchResultSchema: z.ZodObject<{
     researchId: z.ZodString;
     agentId: z.ZodString;
@@ -79,6 +110,26 @@ export declare const ResearchResultSchema: z.ZodObject<{
         webCalls: z.ZodNumber;
         uncertain: z.ZodBoolean;
     }, z.core.$strict>;
+    admission: z.ZodOptional<z.ZodObject<{
+        rule: z.ZodEnum<{
+            opened_only: "opened_only";
+            opened_or_search_result: "opened_or_search_result";
+        }>;
+        /** Addresses cited by the report among the search results. */
+        cited: z.ZodNumber;
+        /** Pages actually opened. */
+        opened: z.ZodNumber;
+        /** Addresses admitted as sources under the selected rule. */
+        admitted: z.ZodNumber;
+        /** Findings discarded because none of their sources were admitted. */
+        droppedFindings: z.ZodNumber;
+        notOpenedReason: z.ZodOptional<z.ZodEnum<{
+            web_exhausted: "web_exhausted";
+            research_budget_exhausted: "research_budget_exhausted";
+            day_budget_exhausted: "day_budget_exhausted";
+            nothing_to_open: "nothing_to_open";
+        }>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ResearchResult = z.infer<typeof ResearchResultSchema>;
 //# sourceMappingURL=research.d.ts.map

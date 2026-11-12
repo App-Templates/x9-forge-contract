@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.LabGapsRefSchema = exports.ResearchIdSchema = void 0;
+exports.ResearchResultSchema = exports.ResearchAdmissionSchema = exports.ResearchNotOpenedReasonSchema = exports.RESEARCH_NOT_OPENED_REASONS = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.LabGapsRefSchema = exports.ResearchIdSchema = void 0;
+exports.renderResearchAdmission = renderResearchAdmission;
 const zod_1 = require("zod");
 const asset_js_1 = require("../../organization/asset.cjs");
 const agent_config_js_1 = require("./agent-config.cjs");
@@ -62,6 +63,48 @@ exports.ResearchCostSchema = zod_1.z.object({
     /** true when the provider did not report the usage and the reservation was charged instead. */
     uncertain: zod_1.z.boolean(),
 }).strict();
+exports.RESEARCH_NOT_OPENED_REASONS = [
+    'web_exhausted',
+    'research_budget_exhausted',
+    'day_budget_exhausted',
+    'nothing_to_open',
+];
+exports.ResearchNotOpenedReasonSchema = zod_1.z.enum(exports.RESEARCH_NOT_OPENED_REASONS);
+exports.ResearchAdmissionSchema = zod_1.z.strictObject({
+    rule: agent_config_js_1.SourceRuleSchema,
+    /** Addresses cited by the report among the search results. */
+    cited: zod_1.z.number().int().nonnegative(),
+    /** Pages actually opened. */
+    opened: zod_1.z.number().int().nonnegative(),
+    /** Addresses admitted as sources under the selected rule. */
+    admitted: zod_1.z.number().int().nonnegative(),
+    /** Findings discarded because none of their sources were admitted. */
+    droppedFindings: zod_1.z.number().int().nonnegative(),
+    notOpenedReason: exports.ResearchNotOpenedReasonSchema.optional(),
+}).superRefine((admission, ctx) => {
+    if (admission.rule === 'opened_only' && admission.admitted > admission.opened) {
+        ctx.addIssue({ code: 'custom', path: ['admitted'], message: 'admitted sources cannot exceed opened pages under opened_only' });
+    }
+    if (admission.rule === 'opened_only' && admission.opened === 0
+        && admission.droppedFindings > 0 && admission.notOpenedReason === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['notOpenedReason'], message: 'a reason is required when unopened pages cause findings to be dropped' });
+    }
+    if (admission.droppedFindings === 0 && admission.notOpenedReason !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['notOpenedReason'], message: 'a reason is forbidden when no findings were dropped' });
+    }
+});
+const NOT_OPENED_SENTENCES = {
+    web_exhausted: 'Le pagine non sono state aperte: chiamate web finite.',
+    research_budget_exhausted: 'Le pagine non sono state aperte: tetto di spesa della ricerca raggiunto.',
+    day_budget_exhausted: 'Le pagine non sono state aperte: tetto di spesa del giorno raggiunto.',
+    nothing_to_open: 'Le pagine non sono state aperte: il resoconto non citava pagine da aprire.',
+};
+/** Validate and render one fixed Italian line without external state. */
+function renderResearchAdmission(admission) {
+    const parsed = exports.ResearchAdmissionSchema.parse(admission);
+    const counts = `Fonti ammesse: ${parsed.admitted}. Pagine aperte: ${parsed.opened} su ${parsed.cited} citate. Risultati scartati: ${parsed.droppedFindings}.`;
+    return parsed.notOpenedReason === undefined ? counts : `${counts} ${NOT_OPENED_SENTENCES[parsed.notOpenedReason]}`;
+}
 exports.ResearchResultSchema = zod_1.z.object({
     researchId: exports.ResearchIdSchema,
     agentId: agent_config_js_1.CapabilityAgentIdSchema,
@@ -73,5 +116,7 @@ exports.ResearchResultSchema = zod_1.z.object({
     newQuestions: zod_1.z.array(TextSchema).max(20),
     sources: zod_1.z.array(exports.ResearchSourceSchema).max(300),
     cost: exports.ResearchCostSchema,
+    /** Absent in results saved before 1.181.0. */
+    admission: exports.ResearchAdmissionSchema.optional(),
 }).strict();
 //# sourceMappingURL=research.js.map

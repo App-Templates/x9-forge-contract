@@ -123,6 +123,22 @@ export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
             webCalls: z.ZodNumber;
             uncertain: z.ZodBoolean;
         }, z.core.$strict>;
+        admission: z.ZodOptional<z.ZodObject<{
+            rule: z.ZodEnum<{
+                opened_only: "opened_only";
+                opened_or_search_result: "opened_or_search_result";
+            }>;
+            cited: z.ZodNumber;
+            opened: z.ZodNumber;
+            admitted: z.ZodNumber;
+            droppedFindings: z.ZodNumber;
+            notOpenedReason: z.ZodOptional<z.ZodEnum<{
+                web_exhausted: "web_exhausted";
+                research_budget_exhausted: "research_budget_exhausted";
+                day_budget_exhausted: "day_budget_exhausted";
+                nothing_to_open: "nothing_to_open";
+            }>>;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
 }, z.core.$strict>, z.ZodObject<{
     document: z.ZodObject<{

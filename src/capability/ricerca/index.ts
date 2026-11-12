@@ -36,12 +36,18 @@ export {
   ResearchSourceSchema,
   ResearchFindingSchema,
   ResearchCostSchema,
+  RESEARCH_NOT_OPENED_REASONS,
+  ResearchNotOpenedReasonSchema,
+  ResearchAdmissionSchema,
+  renderResearchAdmission,
   ResearchResultSchema,
   type ResearchRequest,
   type ResearchState,
   type ResearchSource,
   type ResearchFinding,
   type ResearchCost,
+  type ResearchNotOpenedReason,
+  type ResearchAdmission,
   type ResearchResult,
 } from './research.js';
 

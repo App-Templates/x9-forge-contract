@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.181.0 — research results carry the source admission count and a fixed explanation; additive (task 6353)
+
+- `capability/ricerca` adds strict `ResearchAdmissionSchema` / `ResearchAdmission`, `RESEARCH_NOT_OPENED_REASONS`, `ResearchNotOpenedReasonSchema` / `ResearchNotOpenedReason`, and pure `renderResearchAdmission(admission)`, one fixed Italian line. The count records the source rule, cited addresses, opened pages, admitted sources, dropped findings and an optional reason pages were not opened. Under `opened_only`, admitted sources cannot exceed opened pages; dropped findings with no opened pages require a reason, and no dropped findings forbids a reason.
+- `ResearchResultSchema` gains optional `admission`; existing saved results, sources and costs are unchanged. Consumers: cap-ricerca fills the count, cap-lab passes it to the agent, and Forge reads it. Release readers (including strict `lab_ingest` readers) on 1.181.0 before cap-ricerca starts writing the field. Runtime behaviour requires the X9 and Forge adoption tasks and the cap-ricerca page-opening and admission-count tasks.
+
 ## v1.180.0 — the Lab notebook is read by page name too, and the answer says how each page was found or why it is empty; additive (task 6352)
 
 - `capability/lab` adds `slugs` (1-50 unique page names, optional) to `LabQueryInputSchema` and `LabReadPublishedInputSchema`; `matches` (`LabPageMatchSchema`, `matchedBy` from `LAB_PAGE_MATCH_KINDS`: `slug`, `all_words`, `any_word`) and `emptyReason` (`LAB_EMPTY_REASONS`: `no_match`, `slug_not_found`, `notebook_empty`) to both outputs. `matches`, when present, has exactly one entry per returned page; `emptyReason` only with no pages. `question` stays required; today's inputs and outputs still parse.
