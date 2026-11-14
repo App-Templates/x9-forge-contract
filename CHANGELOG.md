@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.211.0 — the research adapter is reserved to the two research slots (task 6949)
+
+- `MODEL_CONSUMER_ADAPTER_IDS` has two new frozen rows: `research_search` and `research_structure`, both `['ricerca-openai-responses']`.
+- New `modelConsumerAdapterReservedElsewhere(slotId, adapterId)`: true when the adapter is reserved to another slot and is not allowed for this one.
+- `consumerAccepts` now answers `adapter-not-allowed` for a research slot choice on another adapter.
+- Consumers: Forge (6952, after 6950 and 6951 align the tests), X9 none known: no x9 code calls `consumerAccepts` outside vendor and tests.
+
 ## v1.210.0 — the lead of a unit is named by unit and project (task 6856)
 
 - Lead id form `capo-<unit>--<code>`; `<code>` = `businessUnitLeadProjectCode({ ownerId, companyId, projectId })` (FNV-1a 32 bit, base 36, 5 characters). The unit slug is at most 18 characters with a project (`BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX`); no truncation, `businessUnitLeadAgentId` throws.

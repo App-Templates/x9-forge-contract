@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.210.0",
+  "versione": "1.211.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -176,6 +176,7 @@
       "modelChainAcceptsAdapter": "@x9-forge/contracts/model-router/model-chain",
       "modelConfigurationContentVersion": "@x9-forge/contracts/model-router/models-version",
       "modelConsumerAcceptsAdapter": "@x9-forge/contracts/model-router/model-consumers",
+      "modelConsumerAdapterReservedElsewhere": "@x9-forge/contracts/model-router/model-consumers",
       "modelConsumerTransportJsonSchemas": "@x9-forge/contracts/model-router/model-consumer-execution",
       "modelSettingsSelections": "@x9-forge/contracts/model-router/capability-model-settings",
       "modelsEffectivePath": "@x9-forge/contracts/model-router/effective-models",
@@ -2914,6 +2915,7 @@
       "modelChainAcceptsAdapter": "@x9-forge/contracts/model-router/model-chain",
       "modelConfigurationContentVersion": "@x9-forge/contracts/model-router/models-version",
       "modelConsumerAcceptsAdapter": "@x9-forge/contracts/model-router/model-consumers",
+      "modelConsumerAdapterReservedElsewhere": "@x9-forge/contracts/model-router/model-consumers",
       "modelConsumerTransportJsonSchemas": "@x9-forge/contracts/model-router/model-consumer-execution",
       "modelSettingsSelections": "@x9-forge/contracts/model-router/capability-model-settings",
       "modelsEffectivePath": "@x9-forge/contracts/model-router/effective-models",
