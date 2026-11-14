@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { InboundEventDispositionSchema } from '../../capability/paperclip/inbound-event.js';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
+import { RunIdSchema } from '../../organization/run-context.js';
 import { CapabilityAgentScopeSchema } from '../../capability/capability-call-identity.js';
 import { AgentRequestSchema } from '../../organization/agent-request.js';
 import { AssetRefSchema, AssetSha256Schema } from '../../organization/asset.js';
@@ -143,9 +144,20 @@ export const InternalPaperclipSeatReplyWakeRequestSchema = z.strictObject({
   organizationId: InternalPaperclipSeatsQuerySchema.shape.organizationId,
   identity: ParticipantAgentIdentitySchema,
   messageId: z.string().min(1).max(998).refine(v => v.trim().length > 0, 'Non-blank message id required'),
+  // The Paperclip run in which the agent sent the email this one answers; cap-paperclip reads the incarico from that run, never from the text.
+  sourceRunId: RunIdSchema.optional(),
 });
 
-export const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = ['woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous'] as const;
+export const PAPERCLIP_SOURCE_RUN_REFUSALS = [
+  'source_run_unknown', // The run does not exist for this agent.
+  'source_run_without_issue', // The run has no incarico.
+  'source_issue_not_agents', // The incarico does not belong to this agent.
+  'source_issue_closed', // The incarico is closed.
+] as const;
+
+export const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = [
+  'woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous', ...PAPERCLIP_SOURCE_RUN_REFUSALS,
+] as const;
 export const PaperclipSeatReplyWakeResultSchema = z.enum(PAPERCLIP_SEAT_REPLY_WAKE_RESULTS);
 
 export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
@@ -160,10 +172,14 @@ export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
   if (value.result !== 'woken' && value.runId !== undefined) {
     ctx.addIssue({ code: 'custom', message: 'runId is only allowed with woken', path: ['runId'] });
   }
-  if ((value.result === 'skipped' || value.result === 'not_waiting') && value.issueId === undefined) {
+  if ((value.result === 'skipped' || value.result === 'not_waiting' || value.result === 'source_issue_closed') && value.issueId === undefined) {
     ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
   }
-  if ((value.result === 'no_mandate' || value.result === 'ambiguous') && value.issueId !== undefined) {
+  if (
+    (value.result === 'no_mandate' || value.result === 'ambiguous' || value.result === 'source_run_unknown'
+      || value.result === 'source_run_without_issue' || value.result === 'source_issue_not_agents')
+    && value.issueId !== undefined
+  ) {
     ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
   }
   const disposition = value.disposition;
@@ -229,6 +245,8 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     mode: z.enum(PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES),
     // Memory A project of the decision request this email answers, when cap-email knows it; never guessed.
     projectRef: DecisionRequestSchema.shape.projectId,
+    // The Paperclip run in which the agent sent the email this one answers; cap-paperclip reads the incarico from that run, never from the text.
+    sourceRunId: RunIdSchema.optional(),
     from: z.string().min(1).max(320),
     subject: z.string().min(1).max(300),
     receivedAt: z.iso.datetime(),
@@ -332,6 +350,9 @@ export const InternalPaperclipSeatNativeWakeRequestSchema = z.strictObject({
     }
   }
   if (value.event.kind === 'email') {
+    if (value.event.mode === 'request' && value.event.sourceRunId !== undefined) {
+      ctx.addIssue({ code: 'custom', message: 'sourceRunId needs a reply or a decision', path: ['event', 'sourceRunId'] });
+    }
     const isDecision = value.event.mode === 'decision';
     if (isDecision && value.event.decision === undefined) {
       ctx.addIssue({ code: 'custom', message: 'decision mode requires decision', path: ['event', 'decision'] });
@@ -348,6 +369,7 @@ export const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = [
   // The event belongs to an existing open incarico of the seat that waits on open blockers held by other agents;
   // Paperclip resumes it when they are done (`issue_blockers_resolved`), nothing was written and no run was started.
   'waiting_on_blockers',
+  ...PAPERCLIP_SOURCE_RUN_REFUSALS,
 ] as const;
 export const PaperclipSeatNativeWakeResultSchema = z.enum(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS);
 
@@ -369,13 +391,14 @@ export const InternalPaperclipSeatNativeWakeResponseSchema = z.strictObject({
   }
   if (
     (value.result === 'opened' || value.result === 'deferred' || value.result === 'already_open' || value.result === 'not_waiting'
-      || value.result === 'waiting_on_blockers')
+      || value.result === 'waiting_on_blockers' || value.result === 'source_issue_closed')
     && value.issueId === undefined
   ) {
     ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
   }
   if (
-    (value.result === 'no_task' || value.result === 'ambiguous' || value.result === 'not_enabled' || value.result === 'rate_limited')
+    (value.result === 'no_task' || value.result === 'ambiguous' || value.result === 'not_enabled' || value.result === 'rate_limited'
+      || value.result === 'source_run_unknown' || value.result === 'source_run_without_issue' || value.result === 'source_issue_not_agents')
     && value.issueId !== undefined
   ) {
     ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });

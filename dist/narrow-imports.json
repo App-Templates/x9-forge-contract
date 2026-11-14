@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.207.0",
+  "versione": "1.208.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1853,6 +1853,7 @@
       "PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_REPLY_WAKE_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_WAKE_ERROR_CODES": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
+      "PAPERCLIP_SOURCE_RUN_REFUSALS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_TURNO_SEGRETO_HEADER": "@x9-forge/contracts/http/endpoints/paperclip-protocollo-turno",
       "PaperclipSeatNativeWakeEventSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatNativeWakeResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",

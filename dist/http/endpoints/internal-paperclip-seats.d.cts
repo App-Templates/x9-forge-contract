@@ -224,12 +224,18 @@ export declare const InternalPaperclipSeatReplyWakeRequestSchema: z.ZodObject<{
         vaultAgentId: z.ZodNumber;
     }, z.core.$strict>;
     messageId: z.ZodString;
+    sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
 }, z.core.$strict>;
-export declare const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS: readonly ["woken", "skipped", "duplicate", "not_waiting", "no_mandate", "ambiguous"];
+export declare const PAPERCLIP_SOURCE_RUN_REFUSALS: readonly ["source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
+export declare const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS: readonly ["woken", "skipped", "duplicate", "not_waiting", "no_mandate", "ambiguous", "source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
 export declare const PaperclipSeatReplyWakeResultSchema: z.ZodEnum<{
     duplicate: "duplicate";
     skipped: "skipped";
     ambiguous: "ambiguous";
+    source_run_unknown: "source_run_unknown";
+    source_run_without_issue: "source_run_without_issue";
+    source_issue_not_agents: "source_issue_not_agents";
+    source_issue_closed: "source_issue_closed";
     woken: "woken";
     not_waiting: "not_waiting";
     no_mandate: "no_mandate";
@@ -239,6 +245,10 @@ export declare const InternalPaperclipSeatReplyWakeResponseSchema: z.ZodObject<{
         duplicate: "duplicate";
         skipped: "skipped";
         ambiguous: "ambiguous";
+        source_run_unknown: "source_run_unknown";
+        source_run_without_issue: "source_run_without_issue";
+        source_issue_not_agents: "source_issue_not_agents";
+        source_issue_closed: "source_issue_closed";
         woken: "woken";
         not_waiting: "not_waiting";
         no_mandate: "no_mandate";
@@ -325,12 +335,17 @@ export declare const internalPaperclipSeatReplyWakeContract: {
             vaultAgentId: z.ZodNumber;
         }, z.core.$strict>;
         messageId: z.ZodString;
+        sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         result: z.ZodEnum<{
             duplicate: "duplicate";
             skipped: "skipped";
             ambiguous: "ambiguous";
+            source_run_unknown: "source_run_unknown";
+            source_run_without_issue: "source_run_without_issue";
+            source_issue_not_agents: "source_issue_not_agents";
+            source_issue_closed: "source_issue_closed";
             woken: "woken";
             not_waiting: "not_waiting";
             no_mandate: "no_mandate";
@@ -420,6 +435,7 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
         request: "request";
     }>;
     projectRef: z.ZodOptional<z.ZodString>;
+    sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
     from: z.ZodString;
     subject: z.ZodString;
     receivedAt: z.ZodISODateTime;
@@ -554,6 +570,7 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             request: "request";
         }>;
         projectRef: z.ZodOptional<z.ZodString>;
+        sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
         from: z.ZodString;
         subject: z.ZodString;
         receivedAt: z.ZodISODateTime;
@@ -666,12 +683,16 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         liftedAt: z.ZodISODateTime;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
-export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited", "waiting_on_blockers"];
+export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited", "waiting_on_blockers", "source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
 export declare const PaperclipSeatNativeWakeResultSchema: z.ZodEnum<{
     duplicate: "duplicate";
     ambiguous: "ambiguous";
     opened: "opened";
     deferred: "deferred";
+    source_run_unknown: "source_run_unknown";
+    source_run_without_issue: "source_run_without_issue";
+    source_issue_not_agents: "source_issue_not_agents";
+    source_issue_closed: "source_issue_closed";
     woken: "woken";
     not_waiting: "not_waiting";
     already_open: "already_open";
@@ -686,6 +707,10 @@ export declare const InternalPaperclipSeatNativeWakeResponseSchema: z.ZodObject<
         ambiguous: "ambiguous";
         opened: "opened";
         deferred: "deferred";
+        source_run_unknown: "source_run_unknown";
+        source_run_without_issue: "source_run_without_issue";
+        source_issue_not_agents: "source_issue_not_agents";
+        source_issue_closed: "source_issue_closed";
         woken: "woken";
         not_waiting: "not_waiting";
         already_open: "already_open";
@@ -773,6 +798,7 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 request: "request";
             }>;
             projectRef: z.ZodOptional<z.ZodString>;
+            sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
             from: z.ZodString;
             subject: z.ZodString;
             receivedAt: z.ZodISODateTime;
@@ -891,6 +917,10 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             ambiguous: "ambiguous";
             opened: "opened";
             deferred: "deferred";
+            source_run_unknown: "source_run_unknown";
+            source_run_without_issue: "source_run_without_issue";
+            source_issue_not_agents: "source_issue_not_agents";
+            source_issue_closed: "source_issue_closed";
             woken: "woken";
             not_waiting: "not_waiting";
             already_open: "already_open";

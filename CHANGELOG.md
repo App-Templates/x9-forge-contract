@@ -5,6 +5,13 @@
 - Added the plan save refusal `referent_email_not_declared` (task 6908); `details` remains allowed only with `action_plan_referent_version_mismatch`.
 - Consumers: X9 (6909, 6910).
 
+## v1.208.0 — run the chief's email came from, for the referent reply wake and the approval notice (task 6980)
+
+- Optional `sourceRunId` from the canonical `RunIdSchema` on the reply wake request and the native email wake event; the native request accepts it only in `reply` or `decision` mode.
+- Both wake responses add `source_run_unknown`, `source_run_without_issue`, `source_issue_not_agents` and `source_issue_closed`. The first three must not carry `issueId`; the closed issue refusal requires it.
+- optional fields and closed lists only; every service that parses the wake responses must adopt this version in the same release as the service that sends the new results.
+- Consumers: X9 (6981), Forge none.
+
 ## v1.207.0 — a distinct refusal for a mandate that is not recorded (task 6920)
 
 - New refusal code `asset_version_mandate_not_recorded` in `ASSET_VERSION_REFUSALS`, distinct from `asset_version_key_not_in_mandate`.

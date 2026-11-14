@@ -4,7 +4,10 @@ import {
   INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH,
   InternalPaperclipSeatNativeWakeRequestSchema,
   InternalPaperclipSeatNativeWakeResponseSchema,
+  InternalPaperclipSeatReplyWakeRequestSchema,
+  InternalPaperclipSeatReplyWakeResponseSchema,
   PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS,
+  PAPERCLIP_SEAT_REPLY_WAKE_RESULTS,
   internalPaperclipSeatNativeWakeContract,
 } from '../src/http/endpoints/internal-paperclip-seats.js';
 
@@ -93,7 +96,7 @@ describe('internal Paperclip seat native-wake contract', () => {
     expect(internalPaperclipSeatNativeWakeContract.authType).toBe('secret');
     expect(internalPaperclipSeatNativeWakeContract.path).toBe('/internal/paperclip/seats/native-wake');
     expect(INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH).not.toBe(INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH);
-    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toHaveLength(11);
+    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toHaveLength(15);
   });
 
   it('s6513 consegna-inviata-e-gemello-in-attesa: the native wake request accepts a project_delivered event with project, message, time and digest only with organization and identity, and the response accepts waiting_on_blockers only with the waiting issue and without run or comment', () => {
@@ -122,7 +125,7 @@ describe('internal Paperclip seat native-wake contract', () => {
     expect(parseRes({ result: 'waiting_on_blockers', issueId, commentId })).toBe(false);
   });
 
-  it('s6526 tetto-alzato-evento: the native wake request accepts a limit_lifted event with company_spend, revision and liftedAt only with organization and identity, and the result count stays 11', () => {
+  it('s6526 tetto-alzato-evento: the native wake request accepts a limit_lifted event with company_spend, revision and liftedAt only with organization and identity, and the result count is 15', () => {
     const lifted = { kind: 'limit_lifted', limit: 'company_spend', revision: 3, liftedAt: '2026-11-12T10:00:00.000Z' };
     const request = { ...base, eventId: 'evt-6526', event: lifted };
     expect(parse(request)).toBe(true);
@@ -141,7 +144,7 @@ describe('internal Paperclip seat native-wake contract', () => {
     expect(parseRes({ result: 'deferred', issueId })).toBe(true);
     expect(parseRes({ result: 'no_task' })).toBe(true);
     expect(parseRes({ result: 'no_task', issueId })).toBe(false);
-    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toHaveLength(11);
+    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toHaveLength(15);
 
     // Dry run on today's shapes: nothing was tightened.
     expect(parse(emailRequest)).toBe(true);
@@ -149,5 +152,79 @@ describe('internal Paperclip seat native-wake contract', () => {
     expect(parseRes({ result: 'opened', issueId })).toBe(true);
     expect(parseRes({ result: 'woken', issueId, runId })).toBe(true);
     expect(parseRes({ result: 'duplicate' })).toBe(true);
+  });
+});
+
+describe('s6980 corsa-di-origine: the referent reply carries the run the chief sent the email from', () => {
+  const sourceRunId = 'c1807418-7acf-4a12-9a4e-283485154a62';
+  const chiefIdentity = { managementAgentId: 'capo-contenuti', runtimeAgentId: 'capo-contenuti', vaultAgentId: 42 };
+  const replyRequest = { organizationId: 'good-choice', identity: chiefIdentity, messageId: '<reply-6980@example.invalid>' };
+  const nativeRequest = {
+    ...base,
+    organizationId: replyRequest.organizationId,
+    scope: { ...scope, agentId: chiefIdentity.runtimeAgentId },
+    identity: chiefIdentity,
+    eventId: 'email:reply-6980',
+  };
+  const refusals = ['source_run_unknown', 'source_run_without_issue', 'source_issue_not_agents', 'source_issue_closed'];
+
+  it('(a) accepts reply requests with or without the source run and rejects an empty run', () => {
+    expect(InternalPaperclipSeatReplyWakeRequestSchema.parse(replyRequest)).toEqual(replyRequest);
+    const withRun = { ...replyRequest, sourceRunId };
+    expect(InternalPaperclipSeatReplyWakeRequestSchema.parse(withRun)).toEqual(withRun);
+    expect(InternalPaperclipSeatReplyWakeRequestSchema.safeParse({ ...replyRequest, sourceRunId: '' }).success).toBe(false);
+  });
+
+  it('(b) accepts source runs on replies and decisions but refuses them on first contact', () => {
+    for (const event of [{ ...email, mode: 'reply' }, decisionEvent]) {
+      const request = { ...nativeRequest, event: { ...event, sourceRunId } };
+      expect(InternalPaperclipSeatNativeWakeRequestSchema.parse(request)).toEqual(request);
+      expect(parse({ ...nativeRequest, event })).toBe(true);
+      expect(parse({ ...nativeRequest, event: { ...event, sourceRunId: '' } })).toBe(false);
+    }
+    expect(parse({ ...nativeRequest, event: email })).toBe(true);
+    const firstContact = InternalPaperclipSeatNativeWakeRequestSchema.safeParse({
+      ...nativeRequest, event: { ...email, sourceRunId },
+    });
+    expect(firstContact.success).toBe(false);
+    if (!firstContact.success) {
+      expect(firstContact.error.issues).toContainEqual(expect.objectContaining({
+        path: ['event', 'sourceRunId'], message: 'sourceRunId needs a reply or a decision',
+      }));
+    }
+  });
+
+  it.each([
+    ['reply', InternalPaperclipSeatReplyWakeResponseSchema],
+    ['native', InternalPaperclipSeatNativeWakeResponseSchema],
+  ] as const)('(c) keeps issue ids private for untrusted runs in the %s response', (_name, schema) => {
+    for (const result of refusals) {
+      const requiresIssue = result === 'source_issue_closed';
+      expect(schema.safeParse({ result }).success, result).toBe(!requiresIssue);
+      expect(schema.safeParse({ result, issueId }).success, result).toBe(requiresIssue);
+      const rejected = schema.safeParse(requiresIssue ? { result } : { result, issueId });
+      expect(rejected.success, result).toBe(false);
+      if (!rejected.success) {
+        expect(rejected.error.issues, result).toContainEqual(expect.objectContaining({ path: ['issueId'] }));
+      }
+      expect(schema.safeParse({ result, ...(requiresIssue ? { issueId } : {}), runId }).success, result).toBe(false);
+    }
+  });
+
+  it('(d) rejects an invented result in both closed response lists', () => {
+    for (const schema of [InternalPaperclipSeatReplyWakeResponseSchema, InternalPaperclipSeatNativeWakeResponseSchema]) {
+      expect(schema.safeParse({ result: 'source_run_boh' }).success).toBe(false);
+    }
+  });
+
+  it('(e) appends the four refusals and preserves the existing results in order', () => {
+    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toHaveLength(15);
+    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toEqual([
+      'opened', 'woken', 'deferred', 'duplicate', 'already_open', 'not_waiting', 'no_task', 'ambiguous',
+      'not_enabled', 'rate_limited', 'waiting_on_blockers', ...refusals,
+    ]);
+    expect(PAPERCLIP_SEAT_REPLY_WAKE_RESULTS).toEqual([
+      'woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous', ...refusals,
+    ]);
   });
 });
