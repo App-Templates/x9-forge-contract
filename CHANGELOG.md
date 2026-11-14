@@ -2,6 +2,9 @@
 
 ## Non rilasciato
 
+- Added the plan save refusal `referent_email_not_declared` (task 6908); `details` remains allowed only with `action_plan_referent_version_mismatch`.
+- Consumers: X9 (6909, 6910).
+
 ## v1.205.0 — the delivery referent is found by address, one rule for every service (task 6900)
 
 - New function `deliveryReferentAddress({ levels, requestedAddress? })`: the first level with rows decides, rows are counted by distinct address (`referentAddressKey`: trim + lowercase), not by row.

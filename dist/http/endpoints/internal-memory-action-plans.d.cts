@@ -517,13 +517,14 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
     status: z.ZodLiteral<"not_found">;
 }, z.core.$strict>], "status">;
 export type ActionPlanReadResponse = z.infer<typeof ActionPlanReadResponseSchema>;
-export declare const ACTION_PLAN_ERROR_CODES: readonly ["action_plan_conflict", "action_plan_digest_mismatch", "action_plan_scope_mismatch", "identity_uncertain", "action_plan_referent_version_mismatch"];
+export declare const ACTION_PLAN_ERROR_CODES: readonly ["action_plan_conflict", "action_plan_digest_mismatch", "action_plan_scope_mismatch", "identity_uncertain", "action_plan_referent_version_mismatch", "referent_email_not_declared"];
 export declare const ActionPlanErrorCodeSchema: z.ZodEnum<{
     identity_uncertain: "identity_uncertain";
     action_plan_conflict: "action_plan_conflict";
     action_plan_digest_mismatch: "action_plan_digest_mismatch";
     action_plan_scope_mismatch: "action_plan_scope_mismatch";
     action_plan_referent_version_mismatch: "action_plan_referent_version_mismatch";
+    referent_email_not_declared: "referent_email_not_declared";
 }>;
 export type ActionPlanErrorCode = z.infer<typeof ActionPlanErrorCodeSchema>;
 /**
@@ -543,6 +544,7 @@ export declare const ActionPlanErrorResponseSchema: z.ZodObject<{
         action_plan_digest_mismatch: "action_plan_digest_mismatch";
         action_plan_scope_mismatch: "action_plan_scope_mismatch";
         action_plan_referent_version_mismatch: "action_plan_referent_version_mismatch";
+        referent_email_not_declared: "referent_email_not_declared";
     }>;
     message: z.ZodString;
     details: z.ZodOptional<z.ZodObject<{
