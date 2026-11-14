@@ -111,14 +111,37 @@ export declare const BusinessUnitLeadBirthPendingSchema: z.ZodObject<{
     step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
 }, z.core.$strict>;
 export type BusinessUnitLeadBirthPending = z.infer<typeof BusinessUnitLeadBirthPendingSchema>;
-/** Forge names the agent of a business unit lead `capo-<slug>` (management and runtime id alike). */
+/** Forge names the agent of a business unit lead `capo-<slug>--<code>` (management and runtime id alike); old leads are `capo-<slug>`. */
 export declare const BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX: "capo-";
-/** Agent id Forge gives to the lead of the business unit `slug`. */
-export declare function businessUnitLeadAgentId(slug: string): string;
+export declare const BUSINESS_UNIT_LEAD_PROJECT_SEPARATOR: "--";
+export declare const BUSINESS_UNIT_LEAD_PROJECT_CODE_LENGTH = 5;
+/** 30 (agent slug maximum) - 5 (prefix) - 2 (separator) - 5 (project code). */
+export declare const BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX = 18;
+/** One refusal code per cause of a lead birth that cannot name the lead after its project. */
+export declare const BUSINESS_UNIT_LEAD_BIRTH_REFUSAL: {
+    readonly projectMissing: "progetto_mancante";
+    readonly unitTooLongForProject: "reparto_troppo_lungo_per_progetto";
+    readonly leadWithoutProjectGroup: "capo_senza_gruppo_progetto";
+    readonly projectGroupMissing: "gruppo_progetto_assente";
+};
+export interface BusinessUnitLeadProjectScope {
+    ownerId: string;
+    companyId: string;
+    projectId: string;
+}
+/** Five-character code of a project (FNV-1a 32 bit over `owner/company/project`, base 36). Pure. */
+export declare function businessUnitLeadProjectCode(scope: BusinessUnitLeadProjectScope): string;
 /**
- * The business unit slug of a lead agent id, or `null` when the id is not the id of a business unit lead. The id is
- * assigned by Forge at birth, so a consumer that has verified the agent identity can read the slug from it instead of
- * trusting a slug written by the model.
+ * Agent id Forge gives to the lead of the business unit `slug`. Without `project` the old `capo-<slug>`; with it
+ * `capo-<slug>--<code>` (throws when the slug is longer than the maximum for a project; no truncation).
+ */
+export declare function businessUnitLeadAgentId(slug: string, project?: BusinessUnitLeadProjectScope): string;
+/**
+ * The business unit slug of a lead agent id (old `capo-<slug>` or new `capo-<slug>--<code>`), or `null` when the id is
+ * not the id of a business unit lead. The id is assigned by Forge at birth, so a consumer that has verified the agent
+ * identity can read the slug from it instead of trusting a slug written by the model.
  */
 export declare function businessUnitSlugOfLeadAgentId(agentId: string): string | null;
+/** The project code of a new-form lead id; `null` for the old form or an id that is not a lead. */
+export declare function businessUnitLeadProjectCodeOfAgentId(agentId: string): string | null;
 //# sourceMappingURL=business-unit-lead.d.ts.map

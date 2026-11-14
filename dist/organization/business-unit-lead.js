@@ -88,22 +88,70 @@ export const BusinessUnitLeadBirthPendingSchema = z.strictObject({
      */
     step: z.string().min(1).max(128).regex(/\S/).nullable().optional(),
 });
-/** Forge names the agent of a business unit lead `capo-<slug>` (management and runtime id alike). */
+/** Forge names the agent of a business unit lead `capo-<slug>--<code>` (management and runtime id alike); old leads are `capo-<slug>`. */
 export const BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = 'capo-';
+export const BUSINESS_UNIT_LEAD_PROJECT_SEPARATOR = '--';
+export const BUSINESS_UNIT_LEAD_PROJECT_CODE_LENGTH = 5;
+/** 30 (agent slug maximum) - 5 (prefix) - 2 (separator) - 5 (project code). */
+export const BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX = 18;
+/** One refusal code per cause of a lead birth that cannot name the lead after its project. */
+export const BUSINESS_UNIT_LEAD_BIRTH_REFUSAL = {
+    projectMissing: 'progetto_mancante',
+    unitTooLongForProject: 'reparto_troppo_lungo_per_progetto',
+    leadWithoutProjectGroup: 'capo_senza_gruppo_progetto',
+    projectGroupMissing: 'gruppo_progetto_assente',
+};
 const LEAD_SLUG = BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.slug;
-/** Agent id Forge gives to the lead of the business unit `slug`. */
-export function businessUnitLeadAgentId(slug) {
-    return `${BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX}${LEAD_SLUG.parse(slug)}`;
+const PROJECT_CODE_MODULUS = 36 ** BUSINESS_UNIT_LEAD_PROJECT_CODE_LENGTH;
+const PROJECT_CODE_PATTERN = new RegExp(`^(.+)${BUSINESS_UNIT_LEAD_PROJECT_SEPARATOR}([a-z0-9]{${BUSINESS_UNIT_LEAD_PROJECT_CODE_LENGTH}})$`);
+/** Five-character code of a project (FNV-1a 32 bit over `owner/company/project`, base 36). Pure. */
+export function businessUnitLeadProjectCode(scope) {
+    const text = `${scope.ownerId}/${scope.companyId}/${scope.projectId}`;
+    let hash = 0x811c9dc5;
+    for (let index = 0; index < text.length; index += 1) {
+        hash ^= text.charCodeAt(index);
+        hash = Math.imul(hash, 0x01000193) >>> 0;
+    }
+    return (hash % PROJECT_CODE_MODULUS).toString(36).padStart(BUSINESS_UNIT_LEAD_PROJECT_CODE_LENGTH, '0');
 }
 /**
- * The business unit slug of a lead agent id, or `null` when the id is not the id of a business unit lead. The id is
- * assigned by Forge at birth, so a consumer that has verified the agent identity can read the slug from it instead of
- * trusting a slug written by the model.
+ * Agent id Forge gives to the lead of the business unit `slug`. Without `project` the old `capo-<slug>`; with it
+ * `capo-<slug>--<code>` (throws when the slug is longer than the maximum for a project; no truncation).
+ */
+export function businessUnitLeadAgentId(slug, project) {
+    const unit = LEAD_SLUG.parse(slug);
+    if (project === undefined)
+        return `${BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX}${unit}`;
+    if (unit.length > BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX) {
+        throw new Error(`Business unit slug "${unit}" is longer than ${BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX} characters`);
+    }
+    return `${BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX}${unit}${BUSINESS_UNIT_LEAD_PROJECT_SEPARATOR}${businessUnitLeadProjectCode(project)}`;
+}
+/** Splits the part after the prefix into unit and project code; does not check the prefix. */
+function splitLeadIdBody(body) {
+    const match = PROJECT_CODE_PATTERN.exec(body);
+    if (match === null)
+        return { unit: body, code: null };
+    const unit = match[1];
+    if (unit.length > BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX)
+        return null;
+    return { unit, code: match[2] };
+}
+/**
+ * The business unit slug of a lead agent id (old `capo-<slug>` or new `capo-<slug>--<code>`), or `null` when the id is
+ * not the id of a business unit lead. The id is assigned by Forge at birth, so a consumer that has verified the agent
+ * identity can read the slug from it instead of trusting a slug written by the model.
  */
 export function businessUnitSlugOfLeadAgentId(agentId) {
     if (!agentId.startsWith(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX))
         return null;
-    const parsed = LEAD_SLUG.safeParse(agentId.slice(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX.length));
+    const parsed = LEAD_SLUG.safeParse(splitLeadIdBody(agentId.slice(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX.length))?.unit);
     return parsed.success ? parsed.data : null;
+}
+/** The project code of a new-form lead id; `null` for the old form or an id that is not a lead. */
+export function businessUnitLeadProjectCodeOfAgentId(agentId) {
+    if (businessUnitSlugOfLeadAgentId(agentId) === null)
+        return null;
+    return splitLeadIdBody(agentId.slice(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX.length))?.code ?? null;
 }
 //# sourceMappingURL=business-unit-lead.js.map

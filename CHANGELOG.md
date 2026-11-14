@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.210.0 — the lead of a unit is named by unit and project (task 6856)
+
+- Lead id form `capo-<unit>--<code>`; `<code>` = `businessUnitLeadProjectCode({ ownerId, companyId, projectId })` (FNV-1a 32 bit, base 36, 5 characters). The unit slug is at most 18 characters with a project (`BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX`); no truncation, `businessUnitLeadAgentId` throws.
+- Four refusal codes in `BUSINESS_UNIT_LEAD_BIRTH_REFUSAL`: `progetto_mancante`, `reparto_troppo_lungo_per_progetto`, `capo_senza_gruppo_progetto`, `gruppo_progetto_assente`.
+- `businessUnitSlugOfLeadAgentId` reads both forms: old ids keep the same reading. New `businessUnitLeadProjectCodeOfAgentId`. `projectId` stays optional in the birth request.
+- Consumers: Forge (6857, 6960, 6858, 6963, 6859), X9 (6781, 6964, 6965, 6966, 6782, 6961, 6962).
+
 ## v1.209.0 — one rule for the project key: a Paperclip UUID is not a project key (task 6955)
 
 - Added `PAPERCLIP_PROJECT_ID_REFUSAL` (`project_id_paperclip`), `isPaperclipProjectId(value)` and the fixed `PAPERCLIP_PROJECT_ID_REFUSAL_REASON` to `organization/asset`; no schema changes.
