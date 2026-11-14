@@ -74,4 +74,12 @@ export const AssetRefSchema = z.strictObject({
     providedBy: z.strictObject({ personRef: AssetTypeSchema }).optional(),
     createdAt: z.iso.datetime({ offset: true }),
 });
+/** Refusal code for a `projectId` that is the Paperclip project identifier (a UUID), not the project key. */
+export const PAPERCLIP_PROJECT_ID_REFUSAL = 'project_id_paperclip';
+/** True only for a string shaped like a UUID (either case): the Paperclip project id, never a project key. */
+export function isPaperclipProjectId(value) {
+    return typeof value === 'string' && z.guid().safeParse(value).success;
+}
+/** Fixed refusal sentence; starts with the code and never contains the received value. */
+export const PAPERCLIP_PROJECT_ID_REFUSAL_REASON = `${PAPERCLIP_PROJECT_ID_REFUSAL}: il projectId passato è l'identificativo del progetto in Paperclip, non la chiave del progetto; usa la chiave scritta nella riga «Progetto:» del Mandato e richiama: non è stato fatto nulla`;
 //# sourceMappingURL=asset.js.map

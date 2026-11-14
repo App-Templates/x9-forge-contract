@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.208.0",
+  "versione": "1.209.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2552,6 +2552,8 @@
       "OrganizationRunIssuerSchema": "@x9-forge/contracts/organization/run-context",
       "OrganizationToolCallContextSchema": "@x9-forge/contracts/organization/tool-call-correlation",
       "OutcomeIntakeSchema": "@x9-forge/contracts/organization/outcome-intake",
+      "PAPERCLIP_PROJECT_ID_REFUSAL": "@x9-forge/contracts/organization/asset",
+      "PAPERCLIP_PROJECT_ID_REFUSAL_REASON": "@x9-forge/contracts/organization/asset",
       "PROJECT_DELIVERY_ASSET_TYPE": "@x9-forge/contracts/organization/project-delivery",
       "PROJECT_DELIVERY_DUPLICATE_UNIT": "@x9-forge/contracts/organization/project-delivery",
       "PROJECT_DELIVERY_MAX_ATTEMPTS": "@x9-forge/contracts/organization/project-delivery",
@@ -2675,6 +2677,7 @@
       "formatSharedMailboxSubjectLabel": "@x9-forge/contracts/organization/shared-mailbox",
       "isExperienceReceiptForEvent": "@x9-forge/contracts/organization/experience",
       "isLaterDecisionRequest": "@x9-forge/contracts/organization/asset-version",
+      "isPaperclipProjectId": "@x9-forge/contracts/organization/asset",
       "isPublishMaterialResponseForRequest": "@x9-forge/contracts/organization/publication-operations",
       "isResolveMaterialResponseForRequest": "@x9-forge/contracts/organization/publication-operations",
       "isStackSubjectTag": "@x9-forge/contracts/organization/shared-mailbox",

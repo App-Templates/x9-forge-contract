@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.209.0 — one rule for the project key: a Paperclip UUID is not a project key (task 6955)
+
+- Added `PAPERCLIP_PROJECT_ID_REFUSAL` (`project_id_paperclip`), `isPaperclipProjectId(value)` and the fixed `PAPERCLIP_PROJECT_ID_REFUSAL_REASON` to `organization/asset`; no schema changes.
+- Consumers: X9 (cap-lab 6946, cap-ricerca 6957 after adoption), Forge none.
+
 - Added the plan save refusal `referent_email_not_declared` (task 6908); `details` remains allowed only with `action_plan_referent_version_mismatch`.
 - Consumers: X9 (6909, 6910).
 

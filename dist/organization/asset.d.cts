@@ -96,4 +96,10 @@ export declare const AssetRefSchema: z.ZodObject<{
     createdAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type AssetRef = z.infer<typeof AssetRefSchema>;
+/** Refusal code for a `projectId` that is the Paperclip project identifier (a UUID), not the project key. */
+export declare const PAPERCLIP_PROJECT_ID_REFUSAL: "project_id_paperclip";
+/** True only for a string shaped like a UUID (either case): the Paperclip project id, never a project key. */
+export declare function isPaperclipProjectId(value: unknown): boolean;
+/** Fixed refusal sentence; starts with the code and never contains the received value. */
+export declare const PAPERCLIP_PROJECT_ID_REFUSAL_REASON: string;
 //# sourceMappingURL=asset.d.ts.map

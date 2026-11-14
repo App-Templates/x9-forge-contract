@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AssetRefSchema = exports.AssetOriginSchema = exports.AssetVersionRefSchema = exports.AssetKeySchema = exports.AssetTypeSchema = exports.AssetSha256Schema = exports.ASSET_ORIGIN_KINDS = void 0;
+exports.PAPERCLIP_PROJECT_ID_REFUSAL_REASON = exports.PAPERCLIP_PROJECT_ID_REFUSAL = exports.AssetRefSchema = exports.AssetOriginSchema = exports.AssetVersionRefSchema = exports.AssetKeySchema = exports.AssetTypeSchema = exports.AssetSha256Schema = exports.ASSET_ORIGIN_KINDS = void 0;
+exports.isPaperclipProjectId = isPaperclipProjectId;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const business_unit_lead_js_1 = require("./business-unit-lead.cjs");
@@ -77,4 +78,12 @@ exports.AssetRefSchema = zod_1.z.strictObject({
     providedBy: zod_1.z.strictObject({ personRef: exports.AssetTypeSchema }).optional(),
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 });
+/** Refusal code for a `projectId` that is the Paperclip project identifier (a UUID), not the project key. */
+exports.PAPERCLIP_PROJECT_ID_REFUSAL = 'project_id_paperclip';
+/** True only for a string shaped like a UUID (either case): the Paperclip project id, never a project key. */
+function isPaperclipProjectId(value) {
+    return typeof value === 'string' && zod_1.z.guid().safeParse(value).success;
+}
+/** Fixed refusal sentence; starts with the code and never contains the received value. */
+exports.PAPERCLIP_PROJECT_ID_REFUSAL_REASON = `${exports.PAPERCLIP_PROJECT_ID_REFUSAL}: il projectId passato è l'identificativo del progetto in Paperclip, non la chiave del progetto; usa la chiave scritta nella riga «Progetto:» del Mandato e richiama: non è stato fatto nulla`;
 //# sourceMappingURL=asset.js.map
