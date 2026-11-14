@@ -458,4 +458,32 @@ export declare function referentForUnit(input: {
         entryVersion?: number | undefined;
     };
 }): ReferentForUnitResult;
+/** Refusal codes of the delivery referent lookup (one per cause). */
+export declare const DELIVERY_REFERENT_REFUSALS: readonly ["delivery_referent_missing", "delivery_referent_several_addresses", "delivery_referent_address_differs"];
+export type DeliveryReferentRefusal = (typeof DELIVERY_REFERENT_REFUSALS)[number];
+export type DeliveryReferentResult = {
+    ok: true;
+    email: string;
+    level: 'business_unit' | 'project';
+    personRefs: string[];
+} | {
+    ok: false;
+    code: DeliveryReferentRefusal;
+};
+/** Comparison key of a referent address: trimmed and lowercased. */
+export declare function referentAddressKey(email: string): string;
+/**
+ * One rule to find the address a delivery goes to. The first level with at least one row
+ * decides; its rows are counted by distinct address, not by row. Pure: reads and writes nothing.
+ */
+export declare function deliveryReferentAddress(input: {
+    levels: ReadonlyArray<{
+        level: 'business_unit' | 'project';
+        entries: ReadonlyArray<{
+            personRef: string;
+            email: string;
+        }>;
+    }>;
+    requestedAddress?: string | undefined;
+}): DeliveryReferentResult;
 //# sourceMappingURL=company-map.d.ts.map

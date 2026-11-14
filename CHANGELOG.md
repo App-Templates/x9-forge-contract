@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.205.0 — the delivery referent is found by address, one rule for every service (task 6900)
+
+- New function `deliveryReferentAddress({ levels, requestedAddress? })`: the first level with rows decides, rows are counted by distinct address (`referentAddressKey`: trim + lowercase), not by row.
+- New refusal codes `DELIVERY_REFERENT_REFUSALS`: `delivery_referent_missing`, `delivery_referent_several_addresses`, `delivery_referent_address_differs`.
+- `referent_not_authorized` stays for a map row of another tenant, organization, client or project.
+- No stored shape changes.
+- Consumers: X9 (6901, 6902, 6903), Forge none.
+
 ## v1.204.0 — reply and forward prefixes stripped in one place (task 6746)
 
 - New function `stripSharedMailboxReplyPrefixes(subject): { prefix, rest }`, used by `parseSharedMailboxSubjectLabel` and `decideSharedMailboxRoute` (the two copies of the expression are gone).

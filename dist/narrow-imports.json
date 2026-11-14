@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.204.0",
+  "versione": "1.205.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2487,6 +2487,7 @@
       "DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_PREVIEW_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_PROBLEM_CODES": "@x9-forge/contracts/organization/delivery-package",
+      "DELIVERY_REFERENT_REFUSALS": "@x9-forge/contracts/organization/company-map",
       "DIRECTORS_MAILBOX_AUDIENCE": "@x9-forge/contracts/organization/shared-mailbox",
       "DIRECTOR_ROLE": "@x9-forge/contracts/organization/agent-role",
       "DecisionAlternativeSchema": "@x9-forge/contracts/organization/decision-response",
@@ -2667,6 +2668,7 @@
       "deliveryPackageMeets": "@x9-forge/contracts/organization/business-unit-type",
       "deliveryPackagePaths": "@x9-forge/contracts/organization/delivery-package",
       "deliveryPackageProblems": "@x9-forge/contracts/organization/delivery-package",
+      "deliveryReferentAddress": "@x9-forge/contracts/organization/company-map",
       "deriveAssetVersionStates": "@x9-forge/contracts/organization/asset-version",
       "deriveBusinessUnitStateSummary": "@x9-forge/contracts/organization/business-unit-state",
       "formatSharedMailboxSubjectLabel": "@x9-forge/contracts/organization/shared-mailbox",
@@ -2684,6 +2686,7 @@
       "projectDeliveryRecordName": "@x9-forge/contracts/organization/project-delivery",
       "projectDeliveryUnitDigest": "@x9-forge/contracts/organization/project-delivery",
       "reconcileProjectDelivery": "@x9-forge/contracts/organization/project-delivery",
+      "referentAddressKey": "@x9-forge/contracts/organization/company-map",
       "referentForUnit": "@x9-forge/contracts/organization/company-map",
       "roleCapabilities": "@x9-forge/contracts/organization/agent-role",
       "routeSharedMailboxMessage": "@x9-forge/contracts/organization/shared-mailbox",

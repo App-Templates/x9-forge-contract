@@ -229,4 +229,31 @@ export function referentForUnit(input) {
     }
     return { ok: false, code: 'referent_not_in_map' };
 }
+/** Refusal codes of the delivery referent lookup (one per cause). */
+export const DELIVERY_REFERENT_REFUSALS = [
+    'delivery_referent_missing',
+    'delivery_referent_several_addresses',
+    'delivery_referent_address_differs',
+];
+/** Comparison key of a referent address: trimmed and lowercased. */
+export function referentAddressKey(email) {
+    return email.trim().toLowerCase();
+}
+/**
+ * One rule to find the address a delivery goes to. The first level with at least one row
+ * decides; its rows are counted by distinct address, not by row. Pure: reads and writes nothing.
+ */
+export function deliveryReferentAddress(input) {
+    const decisive = input.levels.find((candidate) => candidate.entries.length > 0);
+    if (decisive === undefined)
+        return { ok: false, code: 'delivery_referent_missing' };
+    const addresses = new Set(decisive.entries.map((entry) => referentAddressKey(entry.email)));
+    if (addresses.size > 1)
+        return { ok: false, code: 'delivery_referent_several_addresses' };
+    const [email] = [...addresses];
+    if (input.requestedAddress !== undefined && referentAddressKey(input.requestedAddress) !== email) {
+        return { ok: false, code: 'delivery_referent_address_differs' };
+    }
+    return { ok: true, email, level: decisive.level, personRefs: decisive.entries.map((entry) => entry.personRef) };
+}
 //# sourceMappingURL=company-map.js.map
