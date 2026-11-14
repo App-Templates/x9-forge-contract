@@ -3,7 +3,7 @@ export declare const INTERNAL_MEMORY_ASSET_VERSIONS_PATH: "/internal/memory/asse
 export declare const INTERNAL_MEMORY_ASSET_VERSIONS_LIST_PATH: "/internal/memory/asset-versions/list";
 export declare const INTERNAL_MEMORY_ASSET_VERSIONS_LATEST_PATH: "/internal/memory/asset-versions/latest";
 export declare const INTERNAL_MEMORY_ASSET_VERSIONS_REVIEWS_PATH: "/internal/memory/asset-versions/reviews";
-export declare const ASSET_VERSION_REFUSALS: readonly ["asset_version_conflict", "asset_version_unknown_file", "asset_version_foreign_business_unit", "asset_version_key_not_in_mandate"];
+export declare const ASSET_VERSION_REFUSALS: readonly ["asset_version_conflict", "asset_version_unknown_file", "asset_version_foreign_business_unit", "asset_version_key_not_in_mandate", "asset_version_mandate_not_recorded"];
 /**
  * The service resolves createdBy from the verified identity, checks buSlug against that identity,
  * and checks key against the business unit's mandate (6304). Zero means the first version.
@@ -120,6 +120,7 @@ export declare const InternalMemoryAssetVersionRecordResponseSchema: z.ZodDiscri
         asset_version_unknown_file: "asset_version_unknown_file";
         asset_version_foreign_business_unit: "asset_version_foreign_business_unit";
         asset_version_key_not_in_mandate: "asset_version_key_not_in_mandate";
+        asset_version_mandate_not_recorded: "asset_version_mandate_not_recorded";
     }>;
 }, z.core.$strict>], "outcome">;
 export type InternalMemoryAssetVersionRecordResponse = z.infer<typeof InternalMemoryAssetVersionRecordResponseSchema>;
@@ -439,6 +440,7 @@ export declare const internalMemoryAssetVersionRecordContract: {
             asset_version_unknown_file: "asset_version_unknown_file";
             asset_version_foreign_business_unit: "asset_version_foreign_business_unit";
             asset_version_key_not_in_mandate: "asset_version_key_not_in_mandate";
+            asset_version_mandate_not_recorded: "asset_version_mandate_not_recorded";
         }>;
     }, z.core.$strict>], "outcome">;
 };

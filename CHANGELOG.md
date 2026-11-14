@@ -5,6 +5,13 @@
 - Added the plan save refusal `referent_email_not_declared` (task 6908); `details` remains allowed only with `action_plan_referent_version_mismatch`.
 - Consumers: X9 (6909, 6910).
 
+## v1.207.0 — a distinct refusal for a mandate that is not recorded (task 6920)
+
+- New refusal code `asset_version_mandate_not_recorded` in `ASSET_VERSION_REFUSALS`, distinct from `asset_version_key_not_in_mandate`.
+- No schema changes, one value added to a closed list.
+- Every consumer that parses the record response with the bridge schema must adopt this version in the same release as the service that sends the code.
+- Consumers: X9 (6921), Forge none.
+
 ## v1.205.0 — the delivery referent is found by address, one rule for every service (task 6900)
 
 - New function `deliveryReferentAddress({ levels, requestedAddress? })`: the first level with rows decides, rows are counted by distinct address (`referentAddressKey`: trim + lowercase), not by row.

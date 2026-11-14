@@ -14,6 +14,8 @@ exports.ASSET_VERSION_REFUSALS = [
     'asset_version_unknown_file',
     'asset_version_foreign_business_unit',
     'asset_version_key_not_in_mandate',
+    // the unit's reconciled mandate is not recorded in memory, so no key can be checked; not a wrong key
+    'asset_version_mandate_not_recorded',
 ];
 // Zod cannot omit directly from refined objects. Reuse the canonical checks, which do not depend on createdBy.
 const RegistrationProvenanceSchema = new zod_1.z.ZodObject({

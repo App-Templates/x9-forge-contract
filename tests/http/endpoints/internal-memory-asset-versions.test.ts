@@ -68,6 +68,7 @@ describe('internal memory asset versions', () => {
     expect(ASSET_VERSION_REFUSALS).toEqual([
       'asset_version_conflict', 'asset_version_unknown_file',
       'asset_version_foreign_business_unit', 'asset_version_key_not_in_mandate',
+      'asset_version_mandate_not_recorded',
     ]);
     for (const code of ASSET_VERSION_REFUSALS) {
       const response = { outcome: 'refused', code };
@@ -174,5 +175,19 @@ describe('internal memory asset versions', () => {
       expect(internalMemoryAssetVersionListContract.responseSchema.safeParse({ versions: [version] }).success).toBe(false);
       expect(internalMemoryAssetVersionLatestContract.responseSchema.safeParse({ version }).success).toBe(false);
     }
+  });
+});
+
+describe('s6920 mandato-non-registrato: a distinct refusal for a mandate that is not recorded', () => {
+  it('lists the code, distinct from the key-outside-mandate one, and the record response parses it', () => {
+    expect(ASSET_VERSION_REFUSALS).toContain('asset_version_mandate_not_recorded');
+    expect(ASSET_VERSION_REFUSALS).toHaveLength(5);
+    expect(new Set(ASSET_VERSION_REFUSALS).size).toBe(5);
+    const response = { outcome: 'refused', code: 'asset_version_mandate_not_recorded' };
+    expect(internalMemoryAssetVersionRecordContract.responseSchema.parse(response)).toEqual(response);
+  });
+
+  it('still refuses an invented code', () => {
+    expect(internalMemoryAssetVersionRecordContract.responseSchema.safeParse({ outcome: 'refused', code: 'invented' }).success).toBe(false);
   });
 });
