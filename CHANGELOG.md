@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.213.0 — one rule gives a lead its shared mailbox label (task 7044)
+
+- Added `businessUnitLeadMailboxLabel({ agentId, businessUnit, projectId? })` to `organization/shared-mailbox`: the unit alone when `projectId` is absent or the id carries no project code (historical lead); otherwise `<unit> <projectId>` with characters outside letters, digits, space and hyphen replaced by `-`, cut to at most 40 as the first 34 characters (trailing spaces and hyphens removed) plus `-` and the 5-character project code of the id.
+- additive; no consumer changes behaviour until it adopts the function; labels already saved stay valid.
+
 ## v1.212.0 — one rule says whether a lead belongs to a project (task 7036)
 
 - Added `businessUnitLeadProjectVerdict({ agentId, project, recipientProjectIds? })`, with the birth project code taking precedence over historical project recipients.

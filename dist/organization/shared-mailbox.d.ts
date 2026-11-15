@@ -133,5 +133,15 @@ export declare function routeSharedMailboxMessage(input: SharedMailboxRouteInput
 export declare function formatSharedMailboxSubjectLabel(label: string): string;
 /** A valid label from a project name: collapse spaces, drop characters a label refuses, cap at 40. */
 export declare function sharedMailboxLabelFromName(name: string): string;
+/**
+ * The shared mailbox label of a business unit lead: the unit alone for a historical lead (or without a project),
+ * `<unit> <project>` for a lead whose id carries the project code, cut deterministically to 40 characters.
+ * The composed label applies only to such a lead; checking an already saved holder still accepts the unit alone (no migration, R-37).
+ */
+export declare function businessUnitLeadMailboxLabel(input: {
+    agentId: string;
+    businessUnit: string;
+    projectId?: string;
+}): SharedMailboxLabel;
 export {};
 //# sourceMappingURL=shared-mailbox.d.ts.map

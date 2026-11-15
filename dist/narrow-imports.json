@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.212.0",
+  "versione": "1.213.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2657,6 +2657,7 @@
       "assetVersionRedoHasReason": "@x9-forge/contracts/organization/asset-version",
       "assetVersionTransitionAllowed": "@x9-forge/contracts/organization/asset-version",
       "businessUnitLeadAgentId": "@x9-forge/contracts/organization/business-unit-lead",
+      "businessUnitLeadMailboxLabel": "@x9-forge/contracts/organization/shared-mailbox",
       "businessUnitLeadProjectCode": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitLeadProjectCodeOfAgentId": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitLeadProjectVerdict": "@x9-forge/contracts/organization/business-unit-lead",

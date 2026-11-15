@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { AgentIdSchema } from "../agent/agent-identity.js";
 import { AgentEmailInboxSchema } from "../messaging/agent-email-inbox.js";
-import { BusinessUnitLeadBirthRequestSchema } from "./business-unit-lead.js";
+import { BusinessUnitLeadBirthRequestSchema, businessUnitLeadProjectCodeOfAgentId } from "./business-unit-lead.js";
 import { DECISION_REQUEST_SUBJECT_LABEL, DecisionRequestIdSchema } from "./decision-request.js";
 export const SharedMailboxLabelSchema = z.string().min(1).max(40)
     .regex(/^[\p{L}\p{N}][\p{L}\p{N} -]*$/u);
@@ -173,5 +173,23 @@ export function sharedMailboxLabelFromName(name) {
     if (!label.success)
         throw new Error('Project name has no characters usable as a mailbox label');
     return label.data;
+}
+const LEAD_LABEL_MAX_LENGTH = 40;
+const LEAD_LABEL_HEAD_LENGTH = 34;
+/**
+ * The shared mailbox label of a business unit lead: the unit alone for a historical lead (or without a project),
+ * `<unit> <project>` for a lead whose id carries the project code, cut deterministically to 40 characters.
+ * The composed label applies only to such a lead; checking an already saved holder still accepts the unit alone (no migration, R-37).
+ */
+export function businessUnitLeadMailboxLabel(input) {
+    const unit = SharedMailboxLabelSchema.parse(input.businessUnit);
+    const code = input.projectId === undefined ? null : businessUnitLeadProjectCodeOfAgentId(input.agentId);
+    if (input.projectId === undefined || code === null)
+        return unit;
+    const text = `${unit} ${input.projectId}`.replace(/[^\p{L}\p{N} -]/gu, '-');
+    if (text.length <= LEAD_LABEL_MAX_LENGTH)
+        return SharedMailboxLabelSchema.parse(text);
+    const head = text.slice(0, LEAD_LABEL_HEAD_LENGTH).replace(/[ -]+$/u, '');
+    return SharedMailboxLabelSchema.parse(`${head}-${code}`);
 }
 //# sourceMappingURL=shared-mailbox.js.map
