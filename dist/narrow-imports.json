@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.211.0",
+  "versione": "1.212.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2443,6 +2443,7 @@
       "BUSINESS_UNIT_LEAD_PROJECT_CODE_LENGTH": "@x9-forge/contracts/organization/business-unit-lead",
       "BUSINESS_UNIT_LEAD_PROJECT_SEPARATOR": "@x9-forge/contracts/organization/business-unit-lead",
       "BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX": "@x9-forge/contracts/organization/business-unit-lead",
+      "BUSINESS_UNIT_LEAD_PROJECT_VERDICTS": "@x9-forge/contracts/organization/business-unit-lead",
       "BUSINESS_UNIT_LEAD_ROLE": "@x9-forge/contracts/organization/agent-role",
       "BUSINESS_UNIT_LEAD_TYPE_IDS": "@x9-forge/contracts/organization/business-unit-type",
       "BusinessUnitLeadBirthPendingSchema": "@x9-forge/contracts/organization/business-unit-lead",
@@ -2658,6 +2659,7 @@
       "businessUnitLeadAgentId": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitLeadProjectCode": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitLeadProjectCodeOfAgentId": "@x9-forge/contracts/organization/business-unit-lead",
+      "businessUnitLeadProjectVerdict": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitSlugOfLeadAgentId": "@x9-forge/contracts/organization/business-unit-lead",
       "canonicalJson": "@x9-forge/contracts/organization/action-plan",
       "canonicalScriptHash": "@x9-forge/contracts/organization/simulation-world",
@@ -2716,6 +2718,7 @@
       "BUSINESS_UNIT_LEAD_PROJECT_CODE_LENGTH": "@x9-forge/contracts/organization/business-unit-lead",
       "BUSINESS_UNIT_LEAD_PROJECT_SEPARATOR": "@x9-forge/contracts/organization/business-unit-lead",
       "BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX": "@x9-forge/contracts/organization/business-unit-lead",
+      "BUSINESS_UNIT_LEAD_PROJECT_VERDICTS": "@x9-forge/contracts/organization/business-unit-lead",
       "BusinessUnitLeadBirthPendingSchema": "@x9-forge/contracts/organization/business-unit-lead",
       "BusinessUnitLeadBirthRequestSchema": "@x9-forge/contracts/organization/business-unit-lead",
       "BusinessUnitLeadBirthResultSchema": "@x9-forge/contracts/organization/business-unit-lead",
@@ -2724,6 +2727,7 @@
       "businessUnitLeadAgentId": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitLeadProjectCode": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitLeadProjectCodeOfAgentId": "@x9-forge/contracts/organization/business-unit-lead",
+      "businessUnitLeadProjectVerdict": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitSlugOfLeadAgentId": "@x9-forge/contracts/organization/business-unit-lead"
     },
     "@x9-forge/contracts/organization/business-unit-type": {

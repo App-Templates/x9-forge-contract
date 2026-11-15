@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.212.0 — one rule says whether a lead belongs to a project (task 7036)
+
+- Added `businessUnitLeadProjectVerdict({ agentId, project, recipientProjectIds? })`, with the birth project code taking precedence over historical project recipients.
+- Closed `BUSINESS_UNIT_LEAD_PROJECT_VERDICTS` and `BusinessUnitLeadProjectVerdict`: `same_project`, `other_project`, `not_proven`. Consumers must backfill historical project recipients before treating `not_proven` as a refusal.
+- additive; no consumer changes behaviour until it adopts the function.
+
 ## v1.211.0 — the research adapter is reserved to the two research slots (task 6949)
 
 - `MODEL_CONSUMER_ADAPTER_IDS` has two new frozen rows: `research_search` and `research_structure`, both `['ricerca-openai-responses']`.

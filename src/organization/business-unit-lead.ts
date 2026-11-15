@@ -181,3 +181,31 @@ export function businessUnitLeadProjectCodeOfAgentId(agentId: string): string | 
   if (businessUnitSlugOfLeadAgentId(agentId) === null) return null;
   return splitLeadIdBody(agentId.slice(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX.length))?.code ?? null;
 }
+
+export const BUSINESS_UNIT_LEAD_PROJECT_VERDICTS = [
+  /** The birth code or a historical lead's project recipient matches the project. */
+  'same_project',
+  /** The birth code differs, or a historical lead has only other project recipients. */
+  'other_project',
+  /** The id is not a lead, or a historical lead has no project recipients. */
+  'not_proven',
+] as const;
+export type BusinessUnitLeadProjectVerdict = typeof BUSINESS_UNIT_LEAD_PROJECT_VERDICTS[number];
+
+/**
+ * Whether a lead belongs to a project, using its birth code before historical binding recipients.
+ * Consumers must not turn `not_proven` into a refusal until historical leads have project recipients backfilled (R-33).
+ */
+export function businessUnitLeadProjectVerdict(input: {
+  agentId: string;
+  project: BusinessUnitLeadProjectScope;
+  recipientProjectIds?: readonly string[];
+}): BusinessUnitLeadProjectVerdict {
+  if (businessUnitSlugOfLeadAgentId(input.agentId) === null) return 'not_proven';
+  const code = businessUnitLeadProjectCodeOfAgentId(input.agentId);
+  if (code !== null) {
+    return code === businessUnitLeadProjectCode(input.project) ? 'same_project' : 'other_project';
+  }
+  if (input.recipientProjectIds === undefined || input.recipientProjectIds.length === 0) return 'not_proven';
+  return input.recipientProjectIds.includes(input.project.projectId) ? 'same_project' : 'other_project';
+}

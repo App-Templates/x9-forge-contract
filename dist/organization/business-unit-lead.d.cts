@@ -144,4 +144,15 @@ export declare function businessUnitLeadAgentId(slug: string, project?: Business
 export declare function businessUnitSlugOfLeadAgentId(agentId: string): string | null;
 /** The project code of a new-form lead id; `null` for the old form or an id that is not a lead. */
 export declare function businessUnitLeadProjectCodeOfAgentId(agentId: string): string | null;
+export declare const BUSINESS_UNIT_LEAD_PROJECT_VERDICTS: readonly ["same_project", "other_project", "not_proven"];
+export type BusinessUnitLeadProjectVerdict = typeof BUSINESS_UNIT_LEAD_PROJECT_VERDICTS[number];
+/**
+ * Whether a lead belongs to a project, using its birth code before historical binding recipients.
+ * Consumers must not turn `not_proven` into a refusal until historical leads have project recipients backfilled (R-33).
+ */
+export declare function businessUnitLeadProjectVerdict(input: {
+    agentId: string;
+    project: BusinessUnitLeadProjectScope;
+    recipientProjectIds?: readonly string[];
+}): BusinessUnitLeadProjectVerdict;
 //# sourceMappingURL=business-unit-lead.d.ts.map
