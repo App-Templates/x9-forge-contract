@@ -475,6 +475,7 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
     sessionIssue: z.ZodNumber;
     commit: z.ZodString;
     projectId: z.ZodString;
+    sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"work_stalled">;
     issueId: z.ZodUUID;
@@ -610,6 +611,7 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         sessionIssue: z.ZodNumber;
         commit: z.ZodString;
         projectId: z.ZodString;
+        sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"work_stalled">;
         issueId: z.ZodUUID;
@@ -838,6 +840,7 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             sessionIssue: z.ZodNumber;
             commit: z.ZodString;
             projectId: z.ZodString;
+            sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"work_stalled">;
             issueId: z.ZodUUID;

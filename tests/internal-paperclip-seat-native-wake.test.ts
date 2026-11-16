@@ -228,3 +228,29 @@ describe('s6980 corsa-di-origine: the referent reply carries the run the chief s
     ]);
   });
 });
+
+describe('s7208 session delivery carries the run that opened the session', () => {
+  it('(a) accepts and preserves sourceRunId on dev_delivered', () => {
+    const request = { ...devRequest, event: { ...devRequest.event, sourceRunId: runId } };
+    const result = InternalPaperclipSeatNativeWakeRequestSchema.safeParse(request);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data).toEqual(request);
+    }
+  });
+
+  it('(b) keeps dev_delivered without sourceRunId valid', () => {
+    expect(InternalPaperclipSeatNativeWakeRequestSchema.parse(devRequest)).toEqual(devRequest);
+  });
+
+  it('(c) rejects invalid source runs and unknown delivery fields', () => {
+    for (const sourceRunId of ['', 42, null]) {
+      expect(parse({ ...devRequest, event: { ...devRequest.event, sourceRunId } })).toBe(false);
+    }
+    expect(parse({ ...devRequest, event: { ...devRequest.event, sourceRunId: runId, issueId } })).toBe(false);
+  });
+
+  it('(d) keeps sourceRunId invalid on research_done', () => {
+    expect(parse({ ...researchRequest, event: { ...researchRequest.event, sourceRunId: runId } })).toBe(false);
+  });
+});

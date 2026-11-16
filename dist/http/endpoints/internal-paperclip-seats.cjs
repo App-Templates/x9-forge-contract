@@ -220,6 +220,8 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         sessionIssue: session_assignment_js_1.DevSessionResultSchema.shape.issue,
         commit: session_assignment_js_1.DevSessionCommitSchema,
         projectId: session_assignment_js_1.DevSessionAssignmentSchema.shape.projectId,
+        // The Paperclip run in which the chief opened the session; cap-paperclip reads the issue from that run, never from the text.
+        sourceRunId: run_context_js_1.RunIdSchema.optional(),
     }),
     zod_1.z.strictObject({
         kind: zod_1.z.literal('work_stalled'),

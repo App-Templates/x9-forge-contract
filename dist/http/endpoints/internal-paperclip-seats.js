@@ -217,6 +217,8 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
         sessionIssue: DevSessionResultSchema.shape.issue,
         commit: DevSessionCommitSchema,
         projectId: DevSessionAssignmentSchema.shape.projectId,
+        // The Paperclip run in which the chief opened the session; cap-paperclip reads the issue from that run, never from the text.
+        sourceRunId: RunIdSchema.optional(),
     }),
     z.strictObject({
         kind: z.literal('work_stalled'),

@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.214.0 — the session delivery event carries the run that opened the session (task 7208)
+
+- Added optional `sourceRunId` from the canonical `RunIdSchema` to the native `dev_delivered` wake event. It carries the Paperclip run in which the chief opened the session so cap-paperclip reads the issue from that run, never from the text.
+- additive and optional; events without it stay valid; a consumer that does not know the field refuses an event that carries it (strict object), so cap-paperclip adopts the bridge before cap-dev sends it.
+- Consumers adopt the bridge in tasks 7209 and 7210 before cap-dev sends the field in task 7220.
+
 ## v1.213.0 — one rule gives a lead its shared mailbox label (task 7044)
 
 - Added `businessUnitLeadMailboxLabel({ agentId, businessUnit, projectId? })` to `organization/shared-mailbox`: the unit alone when `projectId` is absent or the id carries no project code (historical lead); otherwise `<unit> <projectId>` with characters outside letters, digits, space and hyphen replaced by `-`, cut to at most 40 as the first 34 characters (trailing spaces and hyphens removed) plus `-` and the 5-character project code of the id.
