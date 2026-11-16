@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.216.0 — the board-operator resume of a stopped issue has fixed shapes (task 7212)
+
+- New `capability/paperclip/board-resume` (reached by the existing `./capability/*` path, barrel untouched): closed list `BOARD_RESUME_CAUSES` (`refused_turn`, `stranded_infrastructure`, `interrupted_turn`), `BOARD_RESUME_KEEP_REASONS` with the exhaustive `BOARD_RESUME_KEEP_TEXT`, cautious defaults (`BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = 2`, `BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = 1800`, `BOARD_RESUME_MIN_RUNS_LEFT = 2`), the strict `BoardResumeLogSchema` with `renderBoardResumeLog`, and the fixed comments `boardResumeComment`, `boardResumeNeedsPersonComment`, `boardResumeCommentKind`.
+- additive; new module, no stored shape changes; no production value in the bridge.
+- Consumers: cap-paperclip adopts it in the enrolment round (tasks 7213-7218).
+
 ## v1.215.0 — an unavailable turn leaves a check-later on the task and the run succeeds; uncertain and failed still fail the run (task 7204)
 
 - `dispositionForTurnEnd` now returns `check_later` for `unavailable`, with `runSucceeds: true`, the shared `INTERRUPTED_RETRY_SECONDS = 1800` and `TURN_DISPOSITION_TEXT.interruptedNote(afterSeconds: number): string`. The note starts with `Turno interrotto:` and asks the agent to inspect existing work before repeating it; no limit service name is attached.
