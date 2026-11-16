@@ -8,12 +8,15 @@ import { PaperclipDisposizioneCorpoSchema } from '../../src/capability/paperclip
 import { LimitNoticeSchema, renderLimitNotice } from '../../src/capability/paperclip/limit-notice.js';
 import {
   ADMISSION_REFUSAL_CLASS,
+  INTERRUPTED_RETRY_SECONDS,
   LIMIT_WAIT_SERVICE_NAME,
   NOT_NOW_DEFAULT_RETRY_SECONDS,
   TurnDispositionSchema,
   TurnEndSchema,
+  TURN_DISPOSITION_TEXT,
   dispositionForTurnEnd,
   paperclipBodyForDisposition,
+  waitsOnLimit,
   type TurnEnd,
 } from '../../src/capability/paperclip/turn-disposition.js';
 
@@ -21,6 +24,90 @@ const AGENT_ID = '11111111-1111-4111-8111-111111111111';
 const NOW = new Date('2026-11-11T09:00:00.000Z');
 const refused = (code: OrganizationAdmissionRefusalCode, retryAfterSeconds?: number): TurnEnd =>
   retryAfterSeconds === undefined ? { kind: 'refused', code } : { kind: 'refused', code, retryAfterSeconds };
+
+const INTERRUPTED_NOTE = 'Turno interrotto: il servizio non ha risposto. Prima di rifare qualcosa guarda cosa è già stato fatto su questo incarico (commenti, file, incarichi aperti) e non ripeterlo. Ricontrollo automatico tra 30 minuti.';
+
+it('s7204 (a) unavailable schedules a successful check without a limit service', () => {
+  expect(INTERRUPTED_RETRY_SECONDS).toBe(1800);
+  expect(TURN_DISPOSITION_TEXT.interruptedNote(INTERRUPTED_RETRY_SECONDS)).toBe(INTERRUPTED_NOTE);
+  expect(TURN_DISPOSITION_TEXT.interruptedNote(125)).toBe(INTERRUPTED_NOTE.replace('30 minuti.', '2 minuti.'));
+  const disposition = dispositionForTurnEnd({ kind: 'unavailable' });
+  expect(disposition).toEqual({
+    kind: 'check_later', runSucceeds: true, afterSeconds: 1800, notes: INTERRUPTED_NOTE,
+  });
+  expect(TurnDispositionSchema.safeParse(disposition).success).toBe(true);
+  expect(disposition).not.toHaveProperty('serviceName');
+  expect(disposition.kind === 'check_later' && disposition.notes.startsWith('Turno interrotto:')).toBe(true);
+});
+
+it('s7204 (b) only uncertain and failed fail, covering every schema kind', () => {
+  const examples: Record<string, TurnEnd> = {
+    succeeded: { kind: 'succeeded' },
+    refused: refused('budget_exhausted'),
+    failed: { kind: 'failed', failureCode: 'tool_error' },
+    uncertain: { kind: 'uncertain' },
+    unavailable: { kind: 'unavailable' },
+    cancelled: { kind: 'cancelled' },
+    stopped: { kind: 'stopped', code: 'budget_exhausted' },
+  };
+  const kinds = TurnEndSchema.options.map((option) => option.shape.kind.value);
+  expect(kinds.slice().sort()).toEqual(Object.keys(examples).sort());
+  for (const kind of kinds) {
+    const disposition = dispositionForTurnEnd(TurnEndSchema.parse(examples[kind]));
+    if (kind === 'uncertain' || kind === 'failed') {
+      expect(disposition, kind).toEqual({ kind: 'fail_run', runSucceeds: false });
+    } else {
+      expect(disposition.runSucceeds, kind).toBe(true);
+    }
+  }
+});
+
+it('s7204 (c) unavailable writes an in-progress task and a UTC check in thirty minutes', () => {
+  const body = paperclipBodyForDisposition(dispositionForTurnEnd({ kind: 'unavailable' }), {
+    now: NOW, agentId: AGENT_ID,
+  });
+  expect(body).toEqual({
+    status: 'in_progress',
+    executionPolicy: { monitor: { nextCheckAt: '2026-11-11T09:30:00.000Z', notes: INTERRUPTED_NOTE } },
+  });
+  expect(PaperclipDisposizioneCorpoSchema.safeParse(body).success).toBe(true);
+  expect(body?.executionPolicy?.monitor.nextCheckAt).toMatch(/Z$/);
+  expect(body?.executionPolicy?.monitor.notes).toBe(INTERRUPTED_NOTE);
+});
+
+it('s7204 (d) a production-shaped policy keeps extra fields and replaces its limit monitor without mutation', () => {
+  const policy = {
+    mode: 'normal',
+    commentRequired: true,
+    stages: [{
+      id: '22222222-2222-4222-8222-222222222222',
+      type: 'review',
+      participants: [{ type: 'agent', agentId: AGENT_ID }],
+    }],
+    additionalPolicyField: { enabled: true },
+    monitor: {
+      nextCheckAt: '2026-11-11T10:00:00.000Z',
+      notes: 'Previous spend-cap check.',
+      serviceName: LIMIT_WAIT_SERVICE_NAME,
+    },
+  };
+  const original = structuredClone(policy);
+  expect(waitsOnLimit(policy)).toBe(true);
+  const body = paperclipBodyForDisposition(dispositionForTurnEnd({ kind: 'unavailable' }), {
+    now: NOW, agentId: AGENT_ID, currentExecutionPolicy: policy,
+  });
+  expect(body).toEqual({
+    status: 'in_progress',
+    executionPolicy: {
+      ...policy,
+      monitor: { nextCheckAt: '2026-11-11T09:30:00.000Z', notes: INTERRUPTED_NOTE },
+    },
+  });
+  expect(body?.executionPolicy?.monitor).not.toHaveProperty('serviceName');
+  expect(waitsOnLimit(body?.executionPolicy)).toBe(false);
+  expect(PaperclipDisposizioneCorpoSchema.safeParse(body).success).toBe(true);
+  expect(policy).toEqual(original);
+});
 
 it('s6182 non-adesso-come-guasto: dispositionForTurnEnd never fails the run for an admission refusal, and budget_exhausted becomes a check_later', () => {
   for (const code of ORGANIZATION_ADMISSION_REFUSAL_CODES) {
@@ -75,7 +162,7 @@ it('s6182 a definitive refusal blocks for the owner and the run still succeeds',
   });
 });
 
-it('s6182 failed, uncertain and unavailable are the only ends that fail the run', () => {
+it('s6182 failed and uncertain are the only ends that fail the run', () => {
   const ends: TurnEnd[] = [
     { kind: 'succeeded' },
     { kind: 'cancelled' },
@@ -85,10 +172,11 @@ it('s6182 failed, uncertain and unavailable are the only ends that fail the run'
     ...ORGANIZATION_ADMISSION_REFUSAL_CODES.map((code) => refused(code)),
   ];
   const failing = ends.filter((e) => !dispositionForTurnEnd(e).runSucceeds).map((e) => e.kind);
-  expect(failing).toEqual(['failed', 'uncertain', 'unavailable']);
+  expect(failing).toEqual(['failed', 'uncertain']);
   expect(dispositionForTurnEnd({ kind: 'succeeded' }).kind).toBe('leave');
   expect(dispositionForTurnEnd({ kind: 'cancelled' }).kind).toBe('leave');
   expect(paperclipBodyForDisposition(dispositionForTurnEnd({ kind: 'uncertain' }), { now: NOW, agentId: AGENT_ID })).toBeNull();
+  expect(paperclipBodyForDisposition(dispositionForTurnEnd({ kind: 'unavailable' }), { now: NOW, agentId: AGENT_ID })).not.toBeNull();
   expect(paperclipBodyForDisposition(dispositionForTurnEnd({ kind: 'succeeded' }), { now: NOW, agentId: AGENT_ID })).toBeNull();
   expect(TurnEndSchema.safeParse({ kind: 'refused', code: 'nope' }).success).toBe(false);
   expect(TurnEndSchema.safeParse({ kind: 'refused', code: 'rd_paused', retryAfterSeconds: 0 }).success).toBe(false);

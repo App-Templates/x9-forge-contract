@@ -22,6 +22,7 @@ export const ADMISSION_REFUSAL_CLASS = {
     rd_paused: 'not_now',
 };
 export const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+export const INTERRUPTED_RETRY_SECONDS = 1800;
 export const LIMIT_WAIT_SERVICE_NAME = 'X9 company spend cap';
 const MIN_CHECK_SECONDS = 60;
 const CHECK_NOTE_MAX = 500;
@@ -32,6 +33,7 @@ export const TURN_DISPOSITION_TEXT = {
     checkNote: (code) => `Non adesso: ${code}. Ricontrollo automatico.`,
     checkNoteWithReason: (code, message, afterSeconds) => `Non adesso: ${code}. ${message} Ricontrollo automatico tra ${Math.round(afterSeconds / 60)} minuti.`,
     stoppedNote: (code) => `Fermato a metà turno: ${code}. Il lavoro già fatto resta. Ricontrollo automatico.`,
+    interruptedNote: (afterSeconds) => `Turno interrotto: il servizio non ha risposto. Prima di rifare qualcosa guarda cosa è già stato fatto su questo incarico (commenti, file, incarichi aperti) e non ripeterlo. Ricontrollo automatico tra ${Math.round(afterSeconds / 60)} minuti.`,
     notExecutedComment: () => 'Non eseguito: R&D in pausa.',
     unblockAction: (code) => `Turno rifiutato: ${code}. Correggere il legame o l'identità dell'agente, poi commentare qui per riaprire.`,
 };
@@ -70,7 +72,7 @@ export const TurnDispositionSchema = z.discriminatedUnion('kind', [
     }),
     z.strictObject({ kind: z.literal('fail_run'), runSucceeds: z.literal(false) }),
 ]);
-/** Only failed, uncertain and unavailable ends fail the run; refusals and limit stops never do. */
+/** Only failed and uncertain ends fail the run; refusals, limit stops and unavailable services never do. */
 export function dispositionForTurnEnd(end) {
     switch (end.kind) {
         case 'succeeded':
@@ -103,9 +105,15 @@ export function dispositionForTurnEnd(end) {
                 notes: TURN_DISPOSITION_TEXT.stoppedNote(end.code),
                 ...(end.code === 'budget_exhausted' ? { serviceName: LIMIT_WAIT_SERVICE_NAME } : {}),
             };
+        case 'unavailable':
+            return {
+                kind: 'check_later',
+                runSucceeds: true,
+                afterSeconds: INTERRUPTED_RETRY_SECONDS,
+                notes: TURN_DISPOSITION_TEXT.interruptedNote(INTERRUPTED_RETRY_SECONDS),
+            };
         case 'failed':
         case 'uncertain':
-        case 'unavailable':
             return { kind: 'fail_run', runSucceeds: false };
     }
 }

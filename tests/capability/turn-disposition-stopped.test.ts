@@ -170,12 +170,11 @@ it('s6350 a stopped turn writes the next check and preserves the existing execut
   expect(policy).toEqual(original);
 });
 
-it('s6350 failed limit turns, uncertain and unavailable still fail the run', () => {
+it('s6350 failed limit turns and uncertain still fail the run', () => {
   for (const end of [
     { kind: 'failed', failureCode: 'budget_exhausted' },
     { kind: 'failed', failureCode: 'run_expired' },
     { kind: 'uncertain' },
-    { kind: 'unavailable' },
   ]) {
     expect(dispositionForTurnEnd(TurnEndSchema.parse(end))).toEqual({ kind: 'fail_run', runSucceeds: false });
   }

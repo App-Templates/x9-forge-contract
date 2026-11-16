@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.215.0 — an unavailable turn leaves a check-later on the task and the run succeeds; uncertain and failed still fail the run (task 7204)
+
+- `dispositionForTurnEnd` now returns `check_later` for `unavailable`, with `runSucceeds: true`, the shared `INTERRUPTED_RETRY_SECONDS = 1800` and `TURN_DISPOSITION_TEXT.interruptedNote(afterSeconds: number): string`. The note starts with `Turno interrotto:` and asks the agent to inspect existing work before repeating it; no limit service name is attached.
+- Existing schemas and stored shapes stay unchanged; the existing body builder preserves policy fields and replaces the monitor. `uncertain` and `failed` still return `fail_run`.
+- additive for the bridge; a consumer that treats `fail_run` as the only way to a failed run changes behaviour only when it adopts this version.
+- Consumers: cap-paperclip adds the three-restart limit in task 7205 and adopts this bridge in task 7206; existing blocked tasks are unchanged.
+
 ## v1.214.0 — the session delivery event carries the run that opened the session (task 7208)
 
 - Added optional `sourceRunId` from the canonical `RunIdSchema` to the native `dev_delivered` wake event. It carries the Paperclip run in which the chief opened the session so cap-paperclip reads the issue from that run, never from the text.

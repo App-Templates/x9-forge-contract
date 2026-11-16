@@ -13,6 +13,7 @@ import {
  * What stays written on Paperclip when an organization turn ends is decided here and only here: a «not now» refusal
  * (spend cap, R&D pause, infrastructure not ready) is a wait Paperclip re-checks by itself, never a failed run.
  * A turn stopped by a limit while working also schedules a re-check and succeeds, preserving work already done.
+ * An unavailable service schedules a cautious re-check; only failed and uncertain ends fail the run.
  */
 
 export type AdmissionRefusalClass = 'definitive' | 'not_now';
@@ -39,6 +40,7 @@ export const ADMISSION_REFUSAL_CLASS = {
 } as const satisfies Record<OrganizationAdmissionRefusalCode, AdmissionRefusalClass>;
 
 export const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+export const INTERRUPTED_RETRY_SECONDS = 1800;
 export const LIMIT_WAIT_SERVICE_NAME = 'X9 company spend cap';
 const MIN_CHECK_SECONDS = 60;
 const CHECK_NOTE_MAX = 500;
@@ -54,6 +56,8 @@ export const TURN_DISPOSITION_TEXT = {
     `Non adesso: ${code}. ${message} Ricontrollo automatico tra ${Math.round(afterSeconds / 60)} minuti.`,
   stoppedNote: (code: TurnStopCode): string =>
     `Fermato a metà turno: ${code}. Il lavoro già fatto resta. Ricontrollo automatico.`,
+  interruptedNote: (afterSeconds: number): string =>
+    `Turno interrotto: il servizio non ha risposto. Prima di rifare qualcosa guarda cosa è già stato fatto su questo incarico (commenti, file, incarichi aperti) e non ripeterlo. Ricontrollo automatico tra ${Math.round(afterSeconds / 60)} minuti.`,
   notExecutedComment: (): string => 'Non eseguito: R&D in pausa.',
   unblockAction: (code: OrganizationAdmissionRefusalCode): string =>
     `Turno rifiutato: ${code}. Correggere il legame o l'identità dell'agente, poi commentare qui per riaprire.`,
@@ -98,7 +102,7 @@ export const TurnDispositionSchema = z.discriminatedUnion('kind', [
 ]);
 export type TurnDisposition = z.infer<typeof TurnDispositionSchema>;
 
-/** Only failed, uncertain and unavailable ends fail the run; refusals and limit stops never do. */
+/** Only failed and uncertain ends fail the run; refusals, limit stops and unavailable services never do. */
 export function dispositionForTurnEnd(end: TurnEnd): TurnDisposition {
   switch (end.kind) {
     case 'succeeded':
@@ -131,9 +135,15 @@ export function dispositionForTurnEnd(end: TurnEnd): TurnDisposition {
         notes: TURN_DISPOSITION_TEXT.stoppedNote(end.code),
         ...(end.code === 'budget_exhausted' ? { serviceName: LIMIT_WAIT_SERVICE_NAME } : {}),
       };
+    case 'unavailable':
+      return {
+        kind: 'check_later',
+        runSucceeds: true,
+        afterSeconds: INTERRUPTED_RETRY_SECONDS,
+        notes: TURN_DISPOSITION_TEXT.interruptedNote(INTERRUPTED_RETRY_SECONDS),
+      };
     case 'failed':
     case 'uncertain':
-    case 'unavailable':
       return { kind: 'fail_run', runSucceeds: false };
   }
 }

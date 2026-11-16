@@ -5,6 +5,7 @@ import { type PaperclipDisposizioneCorpo } from "../paperclip-protocollo/wire-sc
  * What stays written on Paperclip when an organization turn ends is decided here and only here: a «not now» refusal
  * (spend cap, R&D pause, infrastructure not ready) is a wait Paperclip re-checks by itself, never a failed run.
  * A turn stopped by a limit while working also schedules a re-check and succeeds, preserving work already done.
+ * An unavailable service schedules a cautious re-check; only failed and uncertain ends fail the run.
  */
 export type AdmissionRefusalClass = 'definitive' | 'not_now';
 /** A code added to ORGANIZATION_ADMISSION_REFUSAL_CODES without a class here does not compile. */
@@ -28,6 +29,7 @@ export declare const ADMISSION_REFUSAL_CLASS: {
     readonly rd_paused: "not_now";
 };
 export declare const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+export declare const INTERRUPTED_RETRY_SECONDS = 1800;
 export declare const LIMIT_WAIT_SERVICE_NAME = "X9 company spend cap";
 export declare const TURN_STOP_CODES: readonly ["budget_exhausted", "run_expired"];
 export declare const TurnStopCodeSchema: z.ZodEnum<{
@@ -39,6 +41,7 @@ export declare const TURN_DISPOSITION_TEXT: {
     readonly checkNote: (code: OrganizationAdmissionRefusalCode) => string;
     readonly checkNoteWithReason: (code: OrganizationAdmissionRefusalCode, message: string, afterSeconds: number) => string;
     readonly stoppedNote: (code: TurnStopCode) => string;
+    readonly interruptedNote: (afterSeconds: number) => string;
     readonly notExecutedComment: () => string;
     readonly unblockAction: (code: OrganizationAdmissionRefusalCode) => string;
 };
@@ -107,7 +110,7 @@ export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject
     runSucceeds: z.ZodLiteral<false>;
 }, z.core.$strict>], "kind">;
 export type TurnDisposition = z.infer<typeof TurnDispositionSchema>;
-/** Only failed, uncertain and unavailable ends fail the run; refusals and limit stops never do. */
+/** Only failed and uncertain ends fail the run; refusals, limit stops and unavailable services never do. */
 export declare function dispositionForTurnEnd(end: TurnEnd): TurnDisposition;
 /** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */
 export declare function waitsOnLimit(policy: unknown): boolean;

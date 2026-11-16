@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TurnDispositionSchema = exports.TurnEndSchema = exports.TURN_DISPOSITION_TEXT = exports.TurnStopCodeSchema = exports.TURN_STOP_CODES = exports.LIMIT_WAIT_SERVICE_NAME = exports.NOT_NOW_DEFAULT_RETRY_SECONDS = exports.ADMISSION_REFUSAL_CLASS = void 0;
+exports.TurnDispositionSchema = exports.TurnEndSchema = exports.TURN_DISPOSITION_TEXT = exports.TurnStopCodeSchema = exports.TURN_STOP_CODES = exports.LIMIT_WAIT_SERVICE_NAME = exports.INTERRUPTED_RETRY_SECONDS = exports.NOT_NOW_DEFAULT_RETRY_SECONDS = exports.ADMISSION_REFUSAL_CLASS = void 0;
 exports.dispositionForTurnEnd = dispositionForTurnEnd;
 exports.waitsOnLimit = waitsOnLimit;
 exports.paperclipBodyForDisposition = paperclipBodyForDisposition;
@@ -28,6 +28,7 @@ exports.ADMISSION_REFUSAL_CLASS = {
     rd_paused: 'not_now',
 };
 exports.NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+exports.INTERRUPTED_RETRY_SECONDS = 1800;
 exports.LIMIT_WAIT_SERVICE_NAME = 'X9 company spend cap';
 const MIN_CHECK_SECONDS = 60;
 const CHECK_NOTE_MAX = 500;
@@ -38,6 +39,7 @@ exports.TURN_DISPOSITION_TEXT = {
     checkNote: (code) => `Non adesso: ${code}. Ricontrollo automatico.`,
     checkNoteWithReason: (code, message, afterSeconds) => `Non adesso: ${code}. ${message} Ricontrollo automatico tra ${Math.round(afterSeconds / 60)} minuti.`,
     stoppedNote: (code) => `Fermato a metà turno: ${code}. Il lavoro già fatto resta. Ricontrollo automatico.`,
+    interruptedNote: (afterSeconds) => `Turno interrotto: il servizio non ha risposto. Prima di rifare qualcosa guarda cosa è già stato fatto su questo incarico (commenti, file, incarichi aperti) e non ripeterlo. Ricontrollo automatico tra ${Math.round(afterSeconds / 60)} minuti.`,
     notExecutedComment: () => 'Non eseguito: R&D in pausa.',
     unblockAction: (code) => `Turno rifiutato: ${code}. Correggere il legame o l'identità dell'agente, poi commentare qui per riaprire.`,
 };
@@ -76,7 +78,7 @@ exports.TurnDispositionSchema = zod_1.z.discriminatedUnion('kind', [
     }),
     zod_1.z.strictObject({ kind: zod_1.z.literal('fail_run'), runSucceeds: zod_1.z.literal(false) }),
 ]);
-/** Only failed, uncertain and unavailable ends fail the run; refusals and limit stops never do. */
+/** Only failed and uncertain ends fail the run; refusals, limit stops and unavailable services never do. */
 function dispositionForTurnEnd(end) {
     switch (end.kind) {
         case 'succeeded':
@@ -109,9 +111,15 @@ function dispositionForTurnEnd(end) {
                 notes: exports.TURN_DISPOSITION_TEXT.stoppedNote(end.code),
                 ...(end.code === 'budget_exhausted' ? { serviceName: exports.LIMIT_WAIT_SERVICE_NAME } : {}),
             };
+        case 'unavailable':
+            return {
+                kind: 'check_later',
+                runSucceeds: true,
+                afterSeconds: exports.INTERRUPTED_RETRY_SECONDS,
+                notes: exports.TURN_DISPOSITION_TEXT.interruptedNote(exports.INTERRUPTED_RETRY_SECONDS),
+            };
         case 'failed':
         case 'uncertain':
-        case 'unavailable':
             return { kind: 'fail_run', runSucceeds: false };
     }
 }
