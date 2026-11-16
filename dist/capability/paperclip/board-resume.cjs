@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BOARD_RESUME_NEEDS_PERSON_PREFIX = exports.BOARD_RESUME_COMMENT_PREFIX = exports.BoardResumeLogSchema = exports.BOARD_RESUME_MIN_RUNS_LEFT = exports.BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = exports.BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = exports.BOARD_RESUME_KEEP_TEXT = exports.BoardResumeKeepReasonSchema = exports.BOARD_RESUME_KEEP_REASONS = exports.BoardResumeCauseSchema = exports.BOARD_RESUME_CAUSES = void 0;
+exports.BOARD_RESUME_NEEDS_PERSON_PREFIX = exports.BOARD_RESUME_COMMENT_PREFIX = exports.BoardResumeLogSchema = exports.BOARD_RESUME_MIN_RUNS_LEFT = exports.BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = exports.BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = exports.BOARD_RESUME_AGENT_STATUSES = exports.BOARD_RESUME_KEEP_TEXT = exports.BoardResumeKeepReasonSchema = exports.BOARD_RESUME_KEEP_REASONS = exports.BoardResumeCauseSchema = exports.BOARD_RESUME_CAUSES = void 0;
+exports.boardResumeAgentStatusAllowed = boardResumeAgentStatusAllowed;
 exports.renderBoardResumeLog = renderBoardResumeLog;
 exports.boardResumeComment = boardResumeComment;
 exports.boardResumeNeedsPersonComment = boardResumeNeedsPersonComment;
@@ -28,6 +29,7 @@ exports.BOARD_RESUME_KEEP_REASONS = [
     'history_unreadable',
     'trace_failed',
     'agent_error_not_cleared',
+    'agent_not_available',
 ];
 exports.BoardResumeKeepReasonSchema = zod_1.z.enum(exports.BOARD_RESUME_KEEP_REASONS);
 /** A reason added to the list without a sentence here does not compile. */
@@ -45,7 +47,13 @@ exports.BOARD_RESUME_KEEP_TEXT = {
     history_unreadable: "Non riesco a leggere la storia dell'incarico: non lo riapro.",
     trace_failed: "Non sono riuscito a scrivere il commento sull'incarico: senza traccia non lo riapro.",
     agent_error_not_cleared: "L'agente è ancora in errore: non riapro l'incarico.",
+    agent_not_available: "L'agente è fermo per una ragione che non è un guasto tecnico (in pausa, terminato, in attesa di approvazione o in uno stato che non conosco): non riapro l'incarico.",
 };
+/** Paperclip v2026.1005.0 isAgentStatusInvokable: /app/packages/shared/dist/agent-eligibility.js:1-10. */
+exports.BOARD_RESUME_AGENT_STATUSES = ['active', 'idle', 'running', 'error'];
+function boardResumeAgentStatusAllowed(status) {
+    return exports.BOARD_RESUME_AGENT_STATUSES.some((allowed) => allowed === status);
+}
 exports.BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = 2;
 exports.BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = 1800;
 /** Runs of the day that must remain for a reopen: the wake and its disposition. */
@@ -61,11 +69,13 @@ exports.BoardResumeLogSchema = zod_1.z
     cause: exports.BoardResumeCauseSchema,
     attempt: zod_1.z.number().int().min(1),
     max: zod_1.z.number().int().min(1),
+    at: zod_1.z.iso.datetime().optional(),
 })
     .refine((log) => log.attempt <= log.max, { message: 'attempt must not exceed max', path: ['attempt'] });
 function renderBoardResumeLog(log) {
     const base = `incarico_ripreso azienda=${log.companyId} incarico=${log.issueIdentifier} agente=${log.paperclipAgentId} causa=${log.cause} n=${log.attempt}/${log.max}`;
-    return log.runtimeAgentId === undefined ? base : `${base} identita=${log.runtimeAgentId}`;
+    const identified = log.runtimeAgentId === undefined ? base : `${base} identita=${log.runtimeAgentId}`;
+    return log.at === undefined ? identified : `${identified} ora=${log.at}`;
 }
 exports.BOARD_RESUME_COMMENT_PREFIX = 'Ripartenza automatica (operatore di board): ';
 exports.BOARD_RESUME_NEEDS_PERSON_PREFIX = 'Serve una persona: ';

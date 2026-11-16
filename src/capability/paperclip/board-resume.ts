@@ -25,6 +25,7 @@ export const BOARD_RESUME_KEEP_REASONS = [
   'history_unreadable',
   'trace_failed',
   'agent_error_not_cleared',
+  'agent_not_available',
 ] as const;
 export const BoardResumeKeepReasonSchema = z.enum(BOARD_RESUME_KEEP_REASONS);
 export type BoardResumeKeepReason = z.infer<typeof BoardResumeKeepReasonSchema>;
@@ -44,7 +45,15 @@ export const BOARD_RESUME_KEEP_TEXT = {
   history_unreadable: "Non riesco a leggere la storia dell'incarico: non lo riapro.",
   trace_failed: "Non sono riuscito a scrivere il commento sull'incarico: senza traccia non lo riapro.",
   agent_error_not_cleared: "L'agente è ancora in errore: non riapro l'incarico.",
+  agent_not_available: "L'agente è fermo per una ragione che non è un guasto tecnico (in pausa, terminato, in attesa di approvazione o in uno stato che non conosco): non riapro l'incarico.",
 } as const satisfies Record<BoardResumeKeepReason, string>;
+
+/** Paperclip v2026.1005.0 isAgentStatusInvokable: /app/packages/shared/dist/agent-eligibility.js:1-10. */
+export const BOARD_RESUME_AGENT_STATUSES = ['active', 'idle', 'running', 'error'] as const;
+
+export function boardResumeAgentStatusAllowed(status: string | null | undefined): boolean {
+  return BOARD_RESUME_AGENT_STATUSES.some((allowed) => allowed === status);
+}
 
 export const BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = 2;
 export const BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = 1800;
@@ -63,13 +72,15 @@ export const BoardResumeLogSchema = z
     cause: BoardResumeCauseSchema,
     attempt: z.number().int().min(1),
     max: z.number().int().min(1),
+    at: z.iso.datetime().optional(),
   })
   .refine((log) => log.attempt <= log.max, { message: 'attempt must not exceed max', path: ['attempt'] });
 export type BoardResumeLog = z.infer<typeof BoardResumeLogSchema>;
 
 export function renderBoardResumeLog(log: BoardResumeLog): string {
   const base = `incarico_ripreso azienda=${log.companyId} incarico=${log.issueIdentifier} agente=${log.paperclipAgentId} causa=${log.cause} n=${log.attempt}/${log.max}`;
-  return log.runtimeAgentId === undefined ? base : `${base} identita=${log.runtimeAgentId}`;
+  const identified = log.runtimeAgentId === undefined ? base : `${base} identita=${log.runtimeAgentId}`;
+  return log.at === undefined ? identified : `${identified} ora=${log.at}`;
 }
 
 export const BOARD_RESUME_COMMENT_PREFIX = 'Ripartenza automatica (operatore di board): ';

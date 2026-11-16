@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  BOARD_RESUME_AGENT_STATUSES,
   BOARD_RESUME_CAUSES,
   BOARD_RESUME_COMMENT_PREFIX,
   BOARD_RESUME_KEEP_REASONS,
@@ -9,6 +10,7 @@ import {
   BOARD_RESUME_MIN_RUNS_LEFT,
   BOARD_RESUME_NEEDS_PERSON_PREFIX,
   BoardResumeLogSchema,
+  boardResumeAgentStatusAllowed,
   boardResumeComment,
   boardResumeCommentKind,
   boardResumeNeedsPersonComment,
@@ -29,7 +31,7 @@ const baseLog = {
 describe('s7212 ripartenza-board-forme', () => {
   it('s7212 (a) the causes are a closed list and every keep reason has a sentence', () => {
     expect([...BOARD_RESUME_CAUSES]).toEqual(['refused_turn', 'stranded_infrastructure', 'interrupted_turn']);
-    expect(BOARD_RESUME_KEEP_REASONS.length).toBe(13);
+    expect(BOARD_RESUME_KEEP_REASONS.length).toBe(14);
     for (const reason of BOARD_RESUME_KEEP_REASONS) {
       expect(BOARD_RESUME_KEEP_TEXT[reason].trim().length).toBeGreaterThan(0);
     }
@@ -80,5 +82,42 @@ describe('s7212 ripartenza-board-forme', () => {
     expect(boardResumeCommentKind('un commento qualunque')).toBeNull();
     expect(boardResumeCommentKind(` ${BOARD_RESUME_COMMENT_PREFIX}x`)).toBeNull();
     expect(boardResumeCommentKind(`ciao ${BOARD_RESUME_NEEDS_PERSON_PREFIX}x`)).toBeNull();
+  });
+});
+
+describe('s7221 ripartenza-board-agente-e-ora', () => {
+  it('s7221 (a) an unavailable agent has a keep reason and a fixed explanation', () => {
+    expect(BOARD_RESUME_KEEP_REASONS).toContain('agent_not_available');
+    expect(BOARD_RESUME_KEEP_REASONS.at(-1)).toBe('agent_not_available');
+    expect(BOARD_RESUME_KEEP_TEXT.agent_not_available).toContain('non riapro');
+    expect(BOARD_RESUME_KEEP_TEXT.agent_not_available).toContain('in pausa');
+  });
+
+  it('s7221 (b) only the four invokable agent statuses allow a resume', () => {
+    expect(BOARD_RESUME_AGENT_STATUSES).toEqual(['active', 'idle', 'running', 'error']);
+    for (const status of ['active', 'idle', 'running', 'error']) {
+      expect(boardResumeAgentStatusAllowed(status), `allowed: ${status}`).toBe(true);
+    }
+    for (const status of ['paused', 'terminated', 'pending_approval', 'Idle', ' idle', 'archived', '', null, undefined]) {
+      expect(boardResumeAgentStatusAllowed(status), `refused: ${status}`).toBe(false);
+    }
+  });
+
+  it('s7221 (c) the optional UTC timestamp is last and refuses other text or offsets', () => {
+    const at = '2026-11-16T12:00:00.000Z';
+    const log = { ...baseLog, at };
+    expect(BoardResumeLogSchema.safeParse(log).success).toBe(true);
+    expect(renderBoardResumeLog(log)).toBe(
+      `incarico_ripreso azienda=${COMPANY} incarico=AZI-42 agente=${AGENT} causa=refused_turn n=1/2 ora=${at}`,
+    );
+    const identifiedLog = { ...log, runtimeAgentId: 'ceo-x9' };
+    expect(BoardResumeLogSchema.safeParse(identifiedLog).success).toBe(true);
+    expect(renderBoardResumeLog(identifiedLog)).toBe(
+      `incarico_ripreso azienda=${COMPANY} incarico=AZI-42 agente=${AGENT} causa=refused_turn n=1/2 identita=ceo-x9 ora=${at}`,
+    );
+    for (const invalid of ['yesterday', '2026-11-16', '2026-11-16T12:00:00.000+02:00', `${at} token=abc`]) {
+      expect(BoardResumeLogSchema.safeParse({ ...baseLog, at: invalid }).success, `refused: ${invalid}`).toBe(false);
+    }
+    expect(BoardResumeLogSchema.safeParse({ ...log, extra: 'text' }).success).toBe(false);
   });
 });

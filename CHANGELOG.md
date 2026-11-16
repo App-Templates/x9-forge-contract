@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.217.0 — board resumes keep agents stopped for product reasons and can carry a UTC timestamp (task 7221)
+
+- Added `agent_not_available` to `BOARD_RESUME_KEEP_REASONS` with its fixed Italian sentence in `BOARD_RESUME_KEEP_TEXT`.
+- Added the closed `BOARD_RESUME_AGENT_STATUSES` list (`active`, `idle`, `running`, `error`) and `boardResumeAgentStatusAllowed(status: string | null | undefined): boolean`; every other value is refused.
+- Added optional `at: z.iso.datetime()` to the strict `BoardResumeLogSchema`; `renderBoardResumeLog` appends ` ora=<at>` last, after `identita` when present. Offsets and free text are refused; lines without `at` stay identical.
+- additive; no stored data changes. Consumers: cap-paperclip adopts the contract in tasks 7222-7223; no consumer behaviour changes until adoption.
+
 ## v1.216.0 — the board-operator resume of a stopped issue has fixed shapes (task 7212)
 
 - New `capability/paperclip/board-resume` (reached by the existing `./capability/*` path, barrel untouched): closed list `BOARD_RESUME_CAUSES` (`refused_turn`, `stranded_infrastructure`, `interrupted_turn`), `BOARD_RESUME_KEEP_REASONS` with the exhaustive `BOARD_RESUME_KEEP_TEXT`, cautious defaults (`BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = 2`, `BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = 1800`, `BOARD_RESUME_MIN_RUNS_LEFT = 2`), the strict `BoardResumeLogSchema` with `renderBoardResumeLog`, and the fixed comments `boardResumeComment`, `boardResumeNeedsPersonComment`, `boardResumeCommentKind`.

@@ -12,7 +12,7 @@ export declare const BoardResumeCauseSchema: z.ZodEnum<{
     interrupted_turn: "interrupted_turn";
 }>;
 export type BoardResumeCause = z.infer<typeof BoardResumeCauseSchema>;
-export declare const BOARD_RESUME_KEEP_REASONS: readonly ["cause_not_recognised", "cause_disabled", "open_blockers", "declared_wait", "person_touched", "run_in_flight", "daily_cap_reached", "daily_cap_unreadable", "max_resumes_reached", "too_soon", "history_unreadable", "trace_failed", "agent_error_not_cleared"];
+export declare const BOARD_RESUME_KEEP_REASONS: readonly ["cause_not_recognised", "cause_disabled", "open_blockers", "declared_wait", "person_touched", "run_in_flight", "daily_cap_reached", "daily_cap_unreadable", "max_resumes_reached", "too_soon", "history_unreadable", "trace_failed", "agent_error_not_cleared", "agent_not_available"];
 export declare const BoardResumeKeepReasonSchema: z.ZodEnum<{
     cause_not_recognised: "cause_not_recognised";
     cause_disabled: "cause_disabled";
@@ -27,6 +27,7 @@ export declare const BoardResumeKeepReasonSchema: z.ZodEnum<{
     history_unreadable: "history_unreadable";
     trace_failed: "trace_failed";
     agent_error_not_cleared: "agent_error_not_cleared";
+    agent_not_available: "agent_not_available";
 }>;
 export type BoardResumeKeepReason = z.infer<typeof BoardResumeKeepReasonSchema>;
 /** A reason added to the list without a sentence here does not compile. */
@@ -44,7 +45,11 @@ export declare const BOARD_RESUME_KEEP_TEXT: {
     readonly history_unreadable: "Non riesco a leggere la storia dell'incarico: non lo riapro.";
     readonly trace_failed: "Non sono riuscito a scrivere il commento sull'incarico: senza traccia non lo riapro.";
     readonly agent_error_not_cleared: "L'agente è ancora in errore: non riapro l'incarico.";
+    readonly agent_not_available: "L'agente è fermo per una ragione che non è un guasto tecnico (in pausa, terminato, in attesa di approvazione o in uno stato che non conosco): non riapro l'incarico.";
 };
+/** Paperclip v2026.1005.0 isAgentStatusInvokable: /app/packages/shared/dist/agent-eligibility.js:1-10. */
+export declare const BOARD_RESUME_AGENT_STATUSES: readonly ["active", "idle", "running", "error"];
+export declare function boardResumeAgentStatusAllowed(status: string | null | undefined): boolean;
 export declare const BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = 2;
 export declare const BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = 1800;
 /** Runs of the day that must remain for a reopen: the wake and its disposition. */
@@ -62,6 +67,7 @@ export declare const BoardResumeLogSchema: z.ZodObject<{
     }>;
     attempt: z.ZodNumber;
     max: z.ZodNumber;
+    at: z.ZodOptional<z.ZodISODateTime>;
 }, z.core.$strict>;
 export type BoardResumeLog = z.infer<typeof BoardResumeLogSchema>;
 export declare function renderBoardResumeLog(log: BoardResumeLog): string;
