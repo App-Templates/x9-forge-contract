@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.264.0 — short social topic titles close on the last full word (task 3632)
+
+- `capability/social-listening`: `shortenSocialTopicTitle` drops dangling open brackets, trailing punctuation and trailing linking words, so titles like "Pulizia Android TV da" or "Weight-space programming (MIT C" end on the last full word. `SOCIAL_TOPIC_TITLE_MAX` is unchanged (31).
+- Additive behaviour fix; same signature; no stored data changes. Consumer: agent-x9 `services/cap-social-listening` (MVP import).
+
 ## v1.263.0 — the social listening job adapters for the generic channel, the round read contract and the exported queue result errors (task 3616)
 
 - `capability/social-listening`: `SOCIAL_JOB_RESULT_ERRORS` and `SocialJobResultErrorSchema` are exported from `job-io.ts` (`socialJobResultMatches` unchanged).

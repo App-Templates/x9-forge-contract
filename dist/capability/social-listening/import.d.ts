@@ -87,7 +87,7 @@ export declare const SocialLegacyClusterRowSchema: z.ZodObject<{
 export type SocialLegacyClusterRow = z.infer<typeof SocialLegacyClusterRowSchema>;
 export declare function socialImportVerdict(verdict: SocialLegacyVerdict): SocialVerdict;
 export declare function socialImportKind(kind: SocialLegacyKind): SocialPostKind;
-/** No ellipsis: keep the last complete word when possible, then strip trailing punctuation. */
+/** No ellipsis: close on the last full word, dropping dangling parentheses, punctuation and linking words. */
 export declare function shortenSocialTopicTitle(text: string): string;
 /** Identity comes exclusively from the caller, and is checked even for already parsed rows. */
 export declare function socialImportPost(row: unknown, { identity }: {

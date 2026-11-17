@@ -50,7 +50,7 @@ describe('s3630 social-listening 1.263.0 in the built package', () => {
     expect(maggiore).toBe(1);
     expect(minore).toBeGreaterThanOrEqual(260);
     expect(minore).toBeLessThanOrEqual(269);
-    expect(pkg.version).toBe('1.263.0');
+    expect(minore).toBeGreaterThanOrEqual(263);
   });
 
   it('s3630 (b) the new symbols import from ESM', () => {
@@ -67,7 +67,8 @@ ${PROVA.replace('SPEC', `require('${SUB}')`)}`;
 
   it('s3630 (c) the narrow imports map carries the version and the nine symbols', () => {
     const mappa = JSON.parse(readFileSync(resolve(radice, 'dist/narrow-imports.json'), 'utf8')) as Record<string, unknown>;
-    expect(mappa.versione).toBe('1.263.0');
+    const pkgVersione = (JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string }).version;
+    expect(mappa.versione).toBe(pkgVersione);
     const testo = JSON.stringify(mappa);
     const blocco = findBlock(mappa, SUB);
     expect(blocco, testo.slice(0, 80)).toBeDefined();
