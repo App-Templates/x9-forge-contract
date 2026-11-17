@@ -9,6 +9,8 @@ import {
   VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema,
   VideoEngineRouteRunRequestSchema, VideoEngineErrorSchema, VideoEngineHealthSchema,
   VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema,
+  VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema,
+  VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelVersionSchema, VideoModelSchema, VideoModelListSchema,
   VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoEngineFootageRejectedSchema,
   VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoFootageListQuerySchema, VideoFootageListSchema,
 } from '../../../src/capability/video/index.js';
@@ -55,6 +57,16 @@ const footageQuery = {
 };
 const footageJob = { jobId: ID, fileName: 'clip.mp4' };
 const footageRejection = { error: 'Ripresa rifiutata.', operation_state: 'rejected', code: 'doppione' };
+
+
+const modelDescription = { face: 'Oval face', body: 'Tall', hair: 'Long brown hair' };
+const modelGeneration = { model: 'img-model-1', seed: 42, parameters: [{ name: 'steps', value: '30' }] };
+const modelRef = { kind: 'frontale', fileName: 'frontale.png', sha256: 'b'.repeat(64), width: 1024, height: 1536, sizeBytes: 5000 };
+const modelVersion = {
+  version: 1, status: 'approvata', description: modelDescription, refs: [modelRef], generation: modelGeneration,
+  createdAt: '2026-11-17T10:00:00Z', approvedAt: '2026-11-17T10:05:00.123Z', digest: 'c'.repeat(64),
+};
+const model = { id: 'giulia-1', name: 'Giulia', identity: job.identity, versions: [modelVersion], currentVersion: 1 };
 
 // Verdicts come from the canonical schema: a shared contract change is not a parity failure.
 // Gate counterchecks: remove Error.strict() to check shared evolution; change a pattern
@@ -354,6 +366,83 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
         id: 'piscina-03', place: 'piscina', outfit: 'grey shirt', framing: 'largo', durationSeconds: 12.5, scenes: -1,
         sha256: 'a'.repeat(64), fileName: 'piscina.mp4',
       }] },
+    },
+  },
+  videoEngineModelQuery: {
+    schema: VideoModelScopeQuerySchema, minimum: 1,
+    cases: {
+      'scoped query': job.identity,
+      'missing tenant': { ownerId: job.identity.ownerId, agentId: job.identity.agentId },
+      'missing agent': { tenantId: job.identity.tenantId, ownerId: job.identity.ownerId },
+      'extra field': { ...job.identity, extra: 1 },
+    },
+  },
+  videoEngineModelRefAddQuery: {
+    schema: VideoModelRefAddQuerySchema, minimum: 1,
+    cases: {
+      front: { ...job.identity, kind: 'frontale' },
+      'full body': { ...job.identity, kind: 'figura_intera' },
+      'unknown angle': { ...job.identity, kind: 'laterale' },
+      'missing kind': job.identity,
+      'missing owner': { tenantId: job.identity.tenantId, agentId: job.identity.agentId, kind: 'frontale' },
+    },
+  },
+  videoEngineModelCreateRequest: {
+    schema: VideoModelCreateRequestSchema, minimum: 1,
+    cases: {
+      create: { name: 'Giulia', description: modelDescription, generation: modelGeneration },
+      'empty name': { name: '', description: modelDescription, generation: modelGeneration },
+      'missing hair': { name: 'Giulia', description: { face: modelDescription.face, body: modelDescription.body }, generation: modelGeneration },
+      'body identity': { name: 'Giulia', description: modelDescription, generation: modelGeneration, identity: job.identity },
+    },
+  },
+  videoEngineModelVersionCreateRequest: {
+    schema: VideoModelVersionCreateRequestSchema, minimum: 1,
+    cases: {
+      seeded: { description: modelDescription, generation: modelGeneration },
+      'no seed': { description: modelDescription, generation: { ...modelGeneration, seed: null } },
+      'negative seed': { description: modelDescription, generation: { ...modelGeneration, seed: -1 } },
+      'too many parameters': { description: modelDescription, generation: { ...modelGeneration, parameters: Array.from({ length: 21 }, (_, i) => ({ name: `p${i}`, value: 'v' })) } },
+    },
+  },
+  videoEngineModelApproveRequest: {
+    schema: VideoModelApproveRequestSchema, minimum: 1,
+    cases: {
+      approve: { digest: modelVersion.digest },
+      uppercase: { digest: 'C'.repeat(64) },
+      short: { digest: 'abc' },
+      'extra field': { digest: modelVersion.digest, extra: 1 },
+    },
+  },
+  videoEngineModelVersion: {
+    schema: VideoModelVersionSchema, minimum: 1,
+    cases: {
+      approved: modelVersion,
+      'draft without images': { ...modelVersion, status: 'bozza', refs: [], approvedAt: null },
+      'five references': { ...modelVersion, refs: Array.from({ length: 5 }, () => modelRef) },
+      'unknown status': { ...modelVersion, status: 'pubblicata' },
+      'reference path': { ...modelVersion, refs: [{ ...modelRef, fileName: '../x.png' }] },
+      'zero version': { ...modelVersion, version: 0 },
+    },
+  },
+  videoEngineModel: {
+    schema: VideoModelSchema, minimum: 1,
+    cases: {
+      approved: model,
+      'without approved version': { ...model, versions: [{ ...modelVersion, status: 'bozza', refs: [], approvedAt: null }], currentVersion: null },
+      'id path': { ...model, id: '../x' },
+      'uppercase id': { ...model, id: 'Giulia' },
+      'missing identity': { id: model.id, name: model.name, versions: model.versions, currentVersion: model.currentVersion },
+      'extra field': { ...model, extra: 1 },
+    },
+  },
+  videoEngineModelList: {
+    schema: VideoModelListSchema, minimum: 1,
+    cases: {
+      'one model': { models: [model] },
+      empty: { models: [] },
+      'extra field': { models: [], extra: 1 },
+      'empty model id': { models: [{ ...model, id: '' }] },
     },
   },
 };
