@@ -11,12 +11,34 @@ import { z } from 'zod';
  *   (`doc/execution-semantics.md` «Blockers»); `POST /issues/:id/children` with `blockParentUntilDone` adds the blocker;
  * - an async external job owned by the assignee is a one-shot monitor (`executionPolicy.monitor.nextCheckAt`, notes up to
  *   500 characters, serviceName up to 120), consumed by an `issue_monitor_due` wake.
- * Paperclip sets no time bounds on the monitor; one week is our bound, equal to retryAfterSeconds.
+ * Paperclip monitors support timeoutAt, maxAttempts and recoveryPolicy (validators/issue.ts:390-430).
+ * The bridge uses maxAttempts with wake_owner and bounds the first check to one week, equal to retryAfterSeconds.
  */
 export declare const PAPERCLIP_NATIVE_WAIT_TOOLS: {
     readonly checkLater: "paperclip_check_later";
 };
 export declare const PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604800;
+export declare const PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = 5;
+/**
+ * Paperclip wakes the owner at most `attempts` times in total: the count survives rearming
+ * (server/src/services/issue-execution-policy.ts:221). After the last wake, rearming is refused and the owner acts.
+ * A blocked wait cannot carry this field because a monitor never fires on a blocked issue.
+ */
+export declare const PaperclipFollowUpSchema: z.ZodObject<{
+    attempts: z.ZodInt;
+}, z.core.$strict>;
+export type PaperclipFollowUp = z.infer<typeof PaperclipFollowUpSchema>;
+/** The only monitor recovery policy the bridge uses; Paperclip supports three policies. */
+export declare const PAPERCLIP_MONITOR_RECOVERY_POLICIES: readonly ["wake_owner"];
+/** The single builder of the monitor bounds sent to Paperclip; existing checks remain unbounded. */
+export declare function paperclipMonitorBounds(followUp: PaperclipFollowUp | undefined): {
+    maxAttempts: number;
+    recoveryPolicy: (typeof PAPERCLIP_MONITOR_RECOVERY_POLICIES)[number];
+} | undefined;
+/** Exact refusal text copied from Paperclip server/src/services/issue-execution-policy.ts:75. */
+export declare const PAPERCLIP_MONITOR_EXHAUSTED_TEXT = "Monitor bounds are already exhausted";
+/** Paperclip supplies no error code for this refusal: status and the exact trimmed text identify it. */
+export declare function isPaperclipMonitorExhausted(httpStatus: number, text: string | null | undefined): boolean;
 /** The single question of an «ask another agent» interaction and the limits of its texts (Paperclip answers it with free text). */
 export declare const PAPERCLIP_ASK_QUESTION_ID = "detail";
 export declare const PAPERCLIP_ASK_QUESTION_MAX = 2000;
@@ -107,6 +129,9 @@ export declare const PaperclipCheckLaterSchema: z.ZodObject<{
         kind: z.ZodLiteral<"research">;
         researchId: z.ZodString;
     }, z.core.$strict>], "kind">>>;
+    followUp: z.ZodOptional<z.ZodObject<{
+        attempts: z.ZodInt;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 /** A decision asked of another agent (resolved from `roleRef` by the consumer): Paperclip interaction + task in_review. */
 export declare const PaperclipAskSchema: z.ZodObject<{
@@ -155,6 +180,9 @@ export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
             kind: z.ZodLiteral<"research">;
             researchId: z.ZodString;
         }, z.core.$strict>], "kind">>>;
+        followUp: z.ZodOptional<z.ZodObject<{
+            attempts: z.ZodInt;
+        }, z.core.$strict>>;
     }, z.core.$strict>>;
     ask: z.ZodOptional<z.ZodObject<{
         roleRef: z.ZodString;
@@ -244,6 +272,9 @@ export declare const PaperclipCheckLaterInputSchema: z.ZodObject<{
         kind: z.ZodLiteral<"research">;
         researchId: z.ZodString;
     }, z.core.$strict>], "kind">>>;
+    followUp: z.ZodOptional<z.ZodObject<{
+        attempts: z.ZodInt;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export declare const PaperclipCheckLaterOutputSchema: z.ZodObject<{
     issue: z.ZodObject<{

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
+import { readFileSync } from 'node:fs';
 import {
   PAPERCLIP_ASK_QUESTION_ID, PAPERCLIP_INTERACTION_PENDING_WAKE, PaperclipAnswerInteractionBodySchema,
   PaperclipAskInteractionBodySchema, PaperclipNativeAssignInputSchema as NativeAssign,
@@ -10,6 +11,8 @@ import {
   PaperclipNativeCreateIssueInputSchema as NativeCreate, PaperclipNativeReviewInputSchema as NativeReview,
   PaperclipReviewInputSchema as Review, PAPERCLIP_WAIT_REFUSALS, PAPERCLIP_WAIT_UNBLOCKERS, paperclipUnblockDescriptor,
   PAPERCLIP_WAIT_REF_KINDS, PaperclipWaitRefSchema, PaperclipWaitsOnSchema, paperclipWaitRefKey,
+  PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS, PaperclipFollowUpSchema, PAPERCLIP_MONITOR_RECOVERY_POLICIES,
+  paperclipMonitorBounds, PAPERCLIP_MONITOR_EXHAUSTED_TEXT, isPaperclipMonitorExhausted,
 } from '../src/capability/paperclip/index.js';
 
 const issueId = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
@@ -283,5 +286,89 @@ describe('s7292 attesa-con-legame: waitsOn names the decisions and researches a 
     expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor }).success).toBe(true);
     expect(NativeReview.safeParse({ issueId, status: 'in_progress', checkLater: checkLaterBase }).success).toBe(true);
     expect(CheckLater.safeParse({ issueId, ...checkLaterBase }).success).toBe(true);
+  });
+});
+
+
+describe('s7293 ricontatto-del-referente: Paperclip counts the scheduled wakes', () => {
+  const checkLater = { afterSeconds: 172800, notes: 'Check whether the contact answered' };
+  const waitingFor = { action: 'The contact sends access', unblockedBy: 'external' } as const;
+  // Monitor shape: packages/shared/src/validators/issue.ts:390-430;
+  // recovery policies: packages/shared/src/constants.ts:532-536 (Paperclip).
+  const PaperclipMonitor = z.strictObject({
+    nextCheckAt: z.iso.datetime(),
+    notes: z.string().trim().min(1).max(500),
+    serviceName: z.string().trim().min(1).max(120).optional(),
+    timeoutAt: z.iso.datetime().optional(),
+    maxAttempts: z.int().min(1).optional(),
+    recoveryPolicy: z.enum(['wake_owner', 'create_recovery_issue', 'escalate_to_board']).optional(),
+  });
+
+  it('(a) accepts followUp in both checks and refuses malformed attempts', () => {
+    expect(PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS).toBe(5);
+    for (const attempts of [1, 2, 3, 4, 5]) {
+      const later = { ...checkLater, followUp: { attempts } };
+      const review = { issueId, status: 'in_progress', checkLater: later };
+      expect(NativeReview.parse(review)).toEqual(review);
+      expect(CheckLater.parse({ issueId, ...later })).toEqual({ issueId, ...later });
+    }
+    for (const followUp of [{ attempts: 0 }, { attempts: 6 }, { attempts: 1.5 }, {}, { attempts: 3, extra: true }]) {
+      expect(PaperclipFollowUpSchema.safeParse(followUp).success).toBe(false);
+      expect(NativeReview.safeParse({ issueId, status: 'in_progress', checkLater: { ...checkLater, followUp } }).success).toBe(false);
+      expect(CheckLater.safeParse({ issueId, ...checkLater, followUp }).success).toBe(false);
+    }
+  });
+
+  it('(b) a blocked wait still cannot carry followUp or a scheduled check', () => {
+    // Waiting and checking stay separate: a monitor never fires on a blocked issue.
+    expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor,
+      checkLater: { ...checkLater, followUp: { attempts: 3 } } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'blocked',
+      waitingFor: { ...waitingFor, followUp: { attempts: 3 } } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_progress', waitingFor,
+      checkLater: { ...checkLater, followUp: { attempts: 3 } } }).success).toBe(false);
+  });
+
+  it('(c) builds only maxAttempts and wake_owner, or no bounds', () => {
+    expect([...PAPERCLIP_MONITOR_RECOVERY_POLICIES]).toEqual(['wake_owner']);
+    expect(paperclipMonitorBounds({ attempts: 3 })).toEqual({ maxAttempts: 3, recoveryPolicy: 'wake_owner' });
+    expect(paperclipMonitorBounds(undefined)).toBeUndefined();
+  });
+
+  it('(d) the bounds pass Paperclip monitor validation with the real field name', () => {
+    const monitor = { nextCheckAt: '2026-11-19T12:00:00.000Z', notes: checkLater.notes,
+      ...paperclipMonitorBounds({ attempts: 3 }) };
+    expect(PaperclipMonitor.parse(monitor)).toEqual({ nextCheckAt: monitor.nextCheckAt,
+      notes: checkLater.notes, maxAttempts: 3, recoveryPolicy: 'wake_owner' });
+    const { maxAttempts, ...rest } = monitor;
+    expect(PaperclipMonitor.safeParse({ ...rest, maxAttempt: maxAttempts }).success).toBe(false);
+  });
+
+  it('(e) recognizes only the exact exhausted text at status 422, after trim', () => {
+    const text = 'Monitor bounds are already exhausted';
+    expect(PAPERCLIP_MONITOR_EXHAUSTED_TEXT).toBe(text);
+    expect(isPaperclipMonitorExhausted(422, text)).toBe(true);
+    expect(isPaperclipMonitorExhausted(422, `  ${text}\n`)).toBe(true);
+    expect(isPaperclipMonitorExhausted(409, text)).toBe(false);
+    expect(isPaperclipMonitorExhausted(422, `${text} soon`)).toBe(false);
+    expect(isPaperclipMonitorExhausted(422, `Before: ${text}`)).toBe(false);
+    expect(isPaperclipMonitorExhausted(422, 'Another refusal')).toBe(false);
+    expect(isPaperclipMonitorExhausted(422, text.toLowerCase())).toBe(false);
+  });
+
+  it('(f) preserves existing in-flight checks and stored monitors without followUp', () => {
+    const review = { issueId, status: 'in_progress', checkLater };
+    expect(NativeReview.parse(review)).toEqual(review);
+    expect(CheckLater.parse({ issueId, ...checkLater })).toEqual({ issueId, ...checkLater });
+    expect(NativeReview.parse({ issueId, status: 'blocked', waitingFor })).toEqual({ issueId, status: 'blocked', waitingFor });
+    const stored = { nextCheckAt: '2026-11-19T12:00:00.000Z', notes: checkLater.notes, serviceName: 'cap-ricerca' };
+    expect(PaperclipMonitor.parse(stored)).toEqual(stored);
+    expect({ ...stored, ...paperclipMonitorBounds(undefined) }).toEqual(stored);
+  });
+
+  it('(g) both comments acknowledge Paperclip monitor bounds', () => {
+    for (const relative of ['../src/capability/paperclip/native-wait.ts', '../src/capability/paperclip-protocollo/wire-scritture.ts']) {
+      expect(readFileSync(new URL(relative, import.meta.url), 'utf8')).not.toContain('no time bounds');
+    }
   });
 });

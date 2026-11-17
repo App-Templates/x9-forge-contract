@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.227.0 — scheduled checks declare how many times Paperclip wakes the owner (task 7293)
+
+- Added optional `followUp: { attempts }` (1 to 5, strict `PaperclipFollowUpSchema`, `PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS`) to `PaperclipCheckLaterSchema` and `PaperclipCheckLaterInputSchema`. A blocked wait still cannot be combined with a scheduled check.
+- Added pure `paperclipMonitorBounds(followUp)` as the single builder of `{ maxAttempts, recoveryPolicy: 'wake_owner' }` (`PAPERCLIP_MONITOR_RECOVERY_POLICIES`); without follow-up it returns `undefined`. Paperclip counts wakes across rearms.
+- Added `PAPERCLIP_MONITOR_EXHAUSTED_TEXT` and `isPaperclipMonitorExhausted(httpStatus, text)`: only HTTP 422 with the exact trimmed refusal text from Paperclip is recognized.
+- Corrected both monitor comments: Paperclip supports `timeoutAt`, `maxAttempts` and `recoveryPolicy`; the bridge uses attempt bounds with `wake_owner` and a one-week first-check bound.
+- Additive. Consumer: ec-x9/7297, after adoption 7294. No stored data changes: existing checks without `followUp` keep their current form. Live rearm counting is verified by the consumer task, not by the bridge.
+
 ## v1.226.0 — a wait names the decisions and researches it expects, as data (task 7292)
 
 - Added `waitsOn` (optional, 1 to 20 unique references) to `PaperclipWaitingForSchema`, `PaperclipCheckLaterSchema` and `PaperclipCheckLaterInputSchema`. A reference is `{ kind: 'decision', requestId }` or `{ kind: 'research', researchId }` (`PAPERCLIP_WAIT_REF_KINDS`, `PaperclipWaitRefSchema`, `PaperclipWaitsOnSchema`, strict objects).

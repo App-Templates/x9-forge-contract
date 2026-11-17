@@ -18,10 +18,40 @@ import {
  *   (`doc/execution-semantics.md` «Blockers»); `POST /issues/:id/children` with `blockParentUntilDone` adds the blocker;
  * - an async external job owned by the assignee is a one-shot monitor (`executionPolicy.monitor.nextCheckAt`, notes up to
  *   500 characters, serviceName up to 120), consumed by an `issue_monitor_due` wake.
- * Paperclip sets no time bounds on the monitor; one week is our bound, equal to retryAfterSeconds.
+ * Paperclip monitors support timeoutAt, maxAttempts and recoveryPolicy (validators/issue.ts:390-430).
+ * The bridge uses maxAttempts with wake_owner and bounds the first check to one week, equal to retryAfterSeconds.
  */
 export const PAPERCLIP_NATIVE_WAIT_TOOLS = { checkLater: 'paperclip_check_later' } as const;
 export const PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604_800;
+
+export const PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = 5;
+/**
+ * Paperclip wakes the owner at most `attempts` times in total: the count survives rearming
+ * (server/src/services/issue-execution-policy.ts:221). After the last wake, rearming is refused and the owner acts.
+ * A blocked wait cannot carry this field because a monitor never fires on a blocked issue.
+ */
+export const PaperclipFollowUpSchema = z.strictObject({
+  attempts: z.int().min(1).max(PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS),
+}).describe('Paperclip wakes the owner at most attempts times in total across rearms, then refuses rearming and the owner handles the next step; blocked waits have no monitor');
+export type PaperclipFollowUp = z.infer<typeof PaperclipFollowUpSchema>;
+
+/** The only monitor recovery policy the bridge uses; Paperclip supports three policies. */
+export const PAPERCLIP_MONITOR_RECOVERY_POLICIES = ['wake_owner'] as const;
+
+/** The single builder of the monitor bounds sent to Paperclip; existing checks remain unbounded. */
+export function paperclipMonitorBounds(followUp: PaperclipFollowUp | undefined):
+  { maxAttempts: number; recoveryPolicy: (typeof PAPERCLIP_MONITOR_RECOVERY_POLICIES)[number] } | undefined {
+  if (followUp === undefined) return undefined;
+  return { maxAttempts: followUp.attempts, recoveryPolicy: PAPERCLIP_MONITOR_RECOVERY_POLICIES[0] };
+}
+
+/** Exact refusal text copied from Paperclip server/src/services/issue-execution-policy.ts:75. */
+export const PAPERCLIP_MONITOR_EXHAUSTED_TEXT = 'Monitor bounds are already exhausted';
+
+/** Paperclip supplies no error code for this refusal: status and the exact trimmed text identify it. */
+export function isPaperclipMonitorExhausted(httpStatus: number, text: string | null | undefined): boolean {
+  return httpStatus === 422 && (text ?? '').trim() === PAPERCLIP_MONITOR_EXHAUSTED_TEXT;
+}
 
 /** The single question of an «ask another agent» interaction and the limits of its texts (Paperclip answers it with free text). */
 export const PAPERCLIP_ASK_QUESTION_ID = 'detail';
@@ -100,6 +130,7 @@ export const PaperclipCheckLaterSchema = z.strictObject({
   notes: Text.max(500),
   serviceName: Text.max(120).optional(),
   waitsOn: PaperclipWaitsOnSchema.optional(),
+  followUp: PaperclipFollowUpSchema.optional(),
 });
 
 /** A decision asked of another agent (resolved from `roleRef` by the consumer): Paperclip interaction + task in_review. */
@@ -219,6 +250,7 @@ export const PaperclipCheckLaterInputSchema = z.strictObject({
   notes: Text.max(500),
   serviceName: Text.max(120).optional(),
   waitsOn: PaperclipWaitsOnSchema.optional(),
+  followUp: PaperclipFollowUpSchema.optional(),
 });
 export const PaperclipCheckLaterOutputSchema = z.strictObject({
   issue: PaperclipIssueViewSchema,
