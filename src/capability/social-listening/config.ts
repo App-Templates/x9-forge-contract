@@ -131,8 +131,8 @@ export const SOCIAL_LISTENING_PARAMETERS: CapabilityParametersDeclaration = {
       explanation: 'Raggiunto il tetto il giro si ferma e lo stato dice «tetto raggiunto».',
       group: 'Spesa',
       unit: 'USD',
-      status: 'proposed',
-      reference: 'D9, regola provvisoria di mirino-dettaglio: 2 $ al giorno, da sostituire con la P0',
+      status: 'decided',
+      reference: 'D24 (Stefano 17/11, «Si»): 2 $ al giorno per agente (mirino-dettaglio)',
       consumes: true,
     },
     {
