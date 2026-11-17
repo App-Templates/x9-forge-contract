@@ -69,7 +69,7 @@ export const SocialLegacyAnalysisRowSchema = z.object({
   titolo: z.string().min(1).max(300),
   strumenti: z.array(z.object({
     nome: z.string(),
-    link: WebUrlSchema,
+    link: z.union([WebUrlSchema, z.literal('')]),
     cosa_fa: z.string(),
   }).strict()).max(20),
   verdetto: SocialLegacyVerdictSchema,
