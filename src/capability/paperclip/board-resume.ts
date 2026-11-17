@@ -96,6 +96,37 @@ export const BOARD_RESUME_KEEP_TEXT = {
   agent_not_available: "L'agente è fermo per una ragione che non è un guasto tecnico (in pausa, terminato, in attesa di approvazione o in uno stato che non conosco): non riapro l'incarico.",
 } as const satisfies Record<BoardResumeKeepReason, string>;
 
+export const BOARD_HOLD_SKIP_REASONS = [...BOARD_RESUME_KEEP_REASONS, ...BOARD_CLOSED_HOLD_REASONS] as const;
+export const BoardHoldSkipReasonSchema = z.enum(BOARD_HOLD_SKIP_REASONS);
+export type BoardHoldSkipReason = z.infer<typeof BoardHoldSkipReasonSchema>;
+
+/** Strict identified log entry with a closed reason and a required UTC timestamp. */
+export const BoardHoldSkipLogSchema = z.strictObject({
+  companyId: z.uuid(),
+  issueIdentifier: z.string().min(1).max(64),
+  paperclipAgentId: z.uuid(),
+  reason: BoardHoldSkipReasonSchema,
+  at: z.iso.datetime(),
+});
+export type BoardHoldSkipLog = z.infer<typeof BoardHoldSkipLogSchema>;
+
+export function renderBoardHoldSkipLog(log: BoardHoldSkipLog): string {
+  const parsed = BoardHoldSkipLogSchema.parse(log);
+  return `fermo_non_riaperto azienda=${parsed.companyId} incarico=${parsed.issueIdentifier} agente=${parsed.paperclipAgentId} motivo=${parsed.reason} ora=${parsed.at}`;
+}
+
+export const BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS = 3_600;
+
+/** The consumer owns history and selects the previous entry for the same issue. */
+export function boardHoldSkipLogDue(
+  previous: Pick<BoardHoldSkipLog, 'reason' | 'at'> | undefined,
+  reason: BoardHoldSkipReason,
+  nowMs: number,
+): boolean {
+  return previous === undefined || previous.reason !== reason
+    || nowMs - Date.parse(previous.at) >= BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS * 1_000;
+}
+
 /** Paperclip v2026.1005.0 isAgentStatusInvokable: /app/packages/shared/dist/agent-eligibility.js:1-10. */
 export const BOARD_RESUME_AGENT_STATUSES = ['active', 'idle', 'running', 'error'] as const;
 

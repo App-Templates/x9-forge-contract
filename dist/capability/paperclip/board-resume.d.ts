@@ -93,6 +93,76 @@ export declare const BOARD_RESUME_KEEP_TEXT: {
     readonly agent_error_not_cleared: "L'agente è ancora in errore: non riapro l'incarico.";
     readonly agent_not_available: "L'agente è fermo per una ragione che non è un guasto tecnico (in pausa, terminato, in attesa di approvazione o in uno stato che non conosco): non riapro l'incarico.";
 };
+export declare const BOARD_HOLD_SKIP_REASONS: readonly ["cause_not_recognised", "cause_disabled", "open_blockers", "declared_wait", "person_touched", "run_in_flight", "daily_cap_reached", "daily_cap_unreadable", "max_resumes_reached", "too_soon", "history_unreadable", "trace_failed", "agent_error_not_cleared", "agent_not_available", "other_recovery_action", "no_blocked_hold", "already_resolved", "issue_changed", "hold_too_old", "run_not_found", "run_not_infrastructure_failure", "activity_unreadable", "binding_not_verified", "paperclip_no_change", "paperclip_refused", "round_cap_reached"];
+export declare const BoardHoldSkipReasonSchema: z.ZodEnum<{
+    other_recovery_action: "other_recovery_action";
+    no_blocked_hold: "no_blocked_hold";
+    already_resolved: "already_resolved";
+    issue_changed: "issue_changed";
+    hold_too_old: "hold_too_old";
+    run_not_found: "run_not_found";
+    run_not_infrastructure_failure: "run_not_infrastructure_failure";
+    activity_unreadable: "activity_unreadable";
+    binding_not_verified: "binding_not_verified";
+    paperclip_no_change: "paperclip_no_change";
+    paperclip_refused: "paperclip_refused";
+    round_cap_reached: "round_cap_reached";
+    cause_not_recognised: "cause_not_recognised";
+    cause_disabled: "cause_disabled";
+    open_blockers: "open_blockers";
+    declared_wait: "declared_wait";
+    person_touched: "person_touched";
+    run_in_flight: "run_in_flight";
+    daily_cap_reached: "daily_cap_reached";
+    daily_cap_unreadable: "daily_cap_unreadable";
+    max_resumes_reached: "max_resumes_reached";
+    too_soon: "too_soon";
+    history_unreadable: "history_unreadable";
+    trace_failed: "trace_failed";
+    agent_error_not_cleared: "agent_error_not_cleared";
+    agent_not_available: "agent_not_available";
+}>;
+export type BoardHoldSkipReason = z.infer<typeof BoardHoldSkipReasonSchema>;
+/** Strict identified log entry with a closed reason and a required UTC timestamp. */
+export declare const BoardHoldSkipLogSchema: z.ZodObject<{
+    companyId: z.ZodUUID;
+    issueIdentifier: z.ZodString;
+    paperclipAgentId: z.ZodUUID;
+    reason: z.ZodEnum<{
+        other_recovery_action: "other_recovery_action";
+        no_blocked_hold: "no_blocked_hold";
+        already_resolved: "already_resolved";
+        issue_changed: "issue_changed";
+        hold_too_old: "hold_too_old";
+        run_not_found: "run_not_found";
+        run_not_infrastructure_failure: "run_not_infrastructure_failure";
+        activity_unreadable: "activity_unreadable";
+        binding_not_verified: "binding_not_verified";
+        paperclip_no_change: "paperclip_no_change";
+        paperclip_refused: "paperclip_refused";
+        round_cap_reached: "round_cap_reached";
+        cause_not_recognised: "cause_not_recognised";
+        cause_disabled: "cause_disabled";
+        open_blockers: "open_blockers";
+        declared_wait: "declared_wait";
+        person_touched: "person_touched";
+        run_in_flight: "run_in_flight";
+        daily_cap_reached: "daily_cap_reached";
+        daily_cap_unreadable: "daily_cap_unreadable";
+        max_resumes_reached: "max_resumes_reached";
+        too_soon: "too_soon";
+        history_unreadable: "history_unreadable";
+        trace_failed: "trace_failed";
+        agent_error_not_cleared: "agent_error_not_cleared";
+        agent_not_available: "agent_not_available";
+    }>;
+    at: z.ZodISODateTime;
+}, z.core.$strict>;
+export type BoardHoldSkipLog = z.infer<typeof BoardHoldSkipLogSchema>;
+export declare function renderBoardHoldSkipLog(log: BoardHoldSkipLog): string;
+export declare const BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS = 3600;
+/** The consumer owns history and selects the previous entry for the same issue. */
+export declare function boardHoldSkipLogDue(previous: Pick<BoardHoldSkipLog, 'reason' | 'at'> | undefined, reason: BoardHoldSkipReason, nowMs: number): boolean;
 /** Paperclip v2026.1005.0 isAgentStatusInvokable: /app/packages/shared/dist/agent-eligibility.js:1-10. */
 export declare const BOARD_RESUME_AGENT_STATUSES: readonly ["active", "idle", "running", "error"];
 export declare function boardResumeAgentStatusAllowed(status: string | null | undefined): boolean;

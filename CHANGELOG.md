@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.219.0 — skipped Paperclip holds have a strict log line and an hourly repeat rule (task 7236)
+
+- Added the 26-entry `BOARD_HOLD_SKIP_REASONS` union, `BoardHoldSkipReasonSchema` and `BoardHoldSkipReason`, reusing both existing reason lists and their sentences.
+- Added strict `BoardHoldSkipLogSchema` and `BoardHoldSkipLog` with company UUID, issue identifier, Paperclip agent UUID, closed reason and required UTC timestamp. `renderBoardHoldSkipLog(log: BoardHoldSkipLog): string` validates the input and renders `fermo_non_riaperto azienda=<uuid> incarico=<id> agente=<uuid> motivo=<reason> ora=<at>`.
+- Added `BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS = 3600` and pure `boardHoldSkipLogDue(previous: Pick<BoardHoldSkipLog, 'reason' | 'at'> | undefined, reason: BoardHoldSkipReason, nowMs: number): boolean`. A line is due on the first observation, a reason change or at least one hour since the previous line. The consumer owns history for each issue and supplies the current instant.
+- Consumer adoption is in cap-paperclip tasks 7237-7242.
+
 ## v1.218.0 — closed Paperclip holds have separate resume shapes (task 7235)
 
 - Added `BOARD_CLOSED_HOLD_CAUSES`, `BoardClosedHoldCauseSchema` and `BoardClosedHoldCause` for infrastructure failures without changes or after writes. Existing `BOARD_RESUME_CAUSES`, keep reasons and sentences stay unchanged.

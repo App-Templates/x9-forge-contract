@@ -11,6 +11,10 @@ import {
   BOARD_CLOSED_HOLD_TEXT,
   BoardClosedHoldCauseSchema,
   BoardClosedHoldReasonSchema,
+  BOARD_HOLD_SKIP_REASONS,
+  BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS,
+  BoardHoldSkipReasonSchema,
+  BoardHoldSkipLogSchema,
   BOARD_RESUME_AGENT_STATUSES,
   BOARD_RESUME_CAUSES,
   BOARD_RESUME_COMMENT_PREFIX,
@@ -22,11 +26,13 @@ import {
   BOARD_RESUME_NEEDS_PERSON_PREFIX,
   BoardResumeLogSchema,
   boardClosedHoldComment,
+  boardHoldSkipLogDue,
   boardResumeAgentStatusAllowed,
   boardResumeComment,
   boardResumeCommentKind,
   boardResumeNeedsPersonComment,
   renderBoardResumeLog,
+  renderBoardHoldSkipLog,
 } from '../../src/capability/paperclip/board-resume.js';
 
 const COMPANY = '11111111-1111-4111-8111-111111111111';
@@ -197,5 +203,59 @@ describe('s7235 fermo-gia-chiuso-forme', () => {
       expect(BoardResumeLogSchema.safeParse({ ...log, extra: 'text' }).success).toBe(false);
     }
     expect(BoardResumeLogSchema.safeParse({ ...baseLog, cause: 'closed_hold', at }).success).toBe(false);
+  });
+});
+
+describe('s7236 fermo-non-riaperto-riga', () => {
+  const log = {
+    companyId: COMPANY,
+    issueIdentifier: 'AZI-42',
+    paperclipAgentId: AGENT,
+    reason: 'hold_too_old' as const,
+    at: '2026-11-17T12:00:00.000Z',
+  };
+
+  it('s7236 (a) skip reasons unite both closed lists without duplicates', () => {
+    expect(BOARD_HOLD_SKIP_REASONS).toEqual([...BOARD_RESUME_KEEP_REASONS, ...BOARD_CLOSED_HOLD_REASONS]);
+    expect(BOARD_HOLD_SKIP_REASONS).toHaveLength(26);
+    expect(new Set(BOARD_HOLD_SKIP_REASONS).size).toBe(26);
+    expect(BoardHoldSkipReasonSchema.options).toEqual([...BOARD_HOLD_SKIP_REASONS]);
+    for (const reason of BOARD_HOLD_SKIP_REASONS) {
+      expect(BoardHoldSkipReasonSchema.safeParse(reason).success, reason).toBe(true);
+    }
+    expect(BoardHoldSkipReasonSchema.safeParse('free text').success).toBe(false);
+  });
+
+  it('s7236 (b) skip logs render a strict identified UTC line and reject invalid data', () => {
+    expect(BoardHoldSkipLogSchema.safeParse(log).success).toBe(true);
+    expect(renderBoardHoldSkipLog(log)).toBe(
+      `fermo_non_riaperto azienda=${COMPANY} incarico=AZI-42 agente=${AGENT} motivo=hold_too_old ora=2026-11-17T12:00:00.000Z`,
+    );
+    for (const invalid of [
+      { ...log, extra: 'text' },
+      { ...log, at: '2026-11-17T12:00:00.000+02:00' },
+      { ...log, at: 'yesterday' },
+      { ...log, companyId: 'not-a-uuid' },
+      { ...log, paperclipAgentId: 'not-a-uuid' },
+      { ...log, issueIdentifier: '' },
+      { ...log, issueIdentifier: 'A'.repeat(65) },
+    ]) {
+      expect(BoardHoldSkipLogSchema.safeParse(invalid).success).toBe(false);
+      expect(() => renderBoardHoldSkipLog(invalid)).toThrow();
+    }
+    expect(BoardHoldSkipLogSchema.safeParse({ ...log, reason: 'free text' }).success).toBe(false);
+    expect(BoardHoldSkipLogSchema.safeParse({ ...log, at: undefined }).success).toBe(false);
+    expect(BoardHoldSkipLogSchema.safeParse({ ...log, issueIdentifier: 'A'.repeat(64) }).success).toBe(true);
+  });
+
+  it('s7236 (c) skip log repetition is due first, on reason change or after one hour', () => {
+    const nowMs = Date.parse(log.at);
+    expect(BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS).toBe(3_600);
+    expect(boardHoldSkipLogDue(undefined, log.reason, nowMs)).toBe(true);
+    expect(boardHoldSkipLogDue(log, log.reason, nowMs)).toBe(false);
+    expect(boardHoldSkipLogDue(log, log.reason, nowMs + 3_599_000)).toBe(false);
+    expect(boardHoldSkipLogDue(log, log.reason, nowMs + 3_600_000)).toBe(true);
+    expect(boardHoldSkipLogDue(log, log.reason, nowMs + 3_601_000)).toBe(true);
+    expect(boardHoldSkipLogDue(log, 'declared_wait', nowMs + 1_000)).toBe(true);
   });
 });

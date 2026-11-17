@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BOARD_RESUME_NEEDS_PERSON_PREFIX = exports.BOARD_RESUME_COMMENT_PREFIX = exports.BoardResumeLogSchema = exports.BOARD_RESUME_MIN_RUNS_LEFT = exports.BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = exports.BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = exports.BOARD_RESUME_AGENT_STATUSES = exports.BOARD_RESUME_KEEP_TEXT = exports.BoardResumeKeepReasonSchema = exports.BOARD_RESUME_KEEP_REASONS = exports.BOARD_CLOSED_HOLD_TEXT = exports.BoardClosedHoldReasonSchema = exports.BOARD_CLOSED_HOLD_REASONS = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_MAX = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_MIN = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MAX = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MIN = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT = exports.BoardClosedHoldCauseSchema = exports.BOARD_CLOSED_HOLD_CAUSES = exports.BoardResumeCauseSchema = exports.BOARD_RESUME_CAUSES = void 0;
+exports.BOARD_RESUME_NEEDS_PERSON_PREFIX = exports.BOARD_RESUME_COMMENT_PREFIX = exports.BoardResumeLogSchema = exports.BOARD_RESUME_MIN_RUNS_LEFT = exports.BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = exports.BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = exports.BOARD_RESUME_AGENT_STATUSES = exports.BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS = exports.BoardHoldSkipLogSchema = exports.BoardHoldSkipReasonSchema = exports.BOARD_HOLD_SKIP_REASONS = exports.BOARD_RESUME_KEEP_TEXT = exports.BoardResumeKeepReasonSchema = exports.BOARD_RESUME_KEEP_REASONS = exports.BOARD_CLOSED_HOLD_TEXT = exports.BoardClosedHoldReasonSchema = exports.BOARD_CLOSED_HOLD_REASONS = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_MAX = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_MIN = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MAX = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MIN = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT = exports.BoardClosedHoldCauseSchema = exports.BOARD_CLOSED_HOLD_CAUSES = exports.BoardResumeCauseSchema = exports.BOARD_RESUME_CAUSES = void 0;
+exports.renderBoardHoldSkipLog = renderBoardHoldSkipLog;
+exports.boardHoldSkipLogDue = boardHoldSkipLogDue;
 exports.boardResumeAgentStatusAllowed = boardResumeAgentStatusAllowed;
 exports.renderBoardResumeLog = renderBoardResumeLog;
 exports.boardResumeComment = boardResumeComment;
@@ -91,6 +93,26 @@ exports.BOARD_RESUME_KEEP_TEXT = {
     agent_error_not_cleared: "L'agente è ancora in errore: non riapro l'incarico.",
     agent_not_available: "L'agente è fermo per una ragione che non è un guasto tecnico (in pausa, terminato, in attesa di approvazione o in uno stato che non conosco): non riapro l'incarico.",
 };
+exports.BOARD_HOLD_SKIP_REASONS = [...exports.BOARD_RESUME_KEEP_REASONS, ...exports.BOARD_CLOSED_HOLD_REASONS];
+exports.BoardHoldSkipReasonSchema = zod_1.z.enum(exports.BOARD_HOLD_SKIP_REASONS);
+/** Strict identified log entry with a closed reason and a required UTC timestamp. */
+exports.BoardHoldSkipLogSchema = zod_1.z.strictObject({
+    companyId: zod_1.z.uuid(),
+    issueIdentifier: zod_1.z.string().min(1).max(64),
+    paperclipAgentId: zod_1.z.uuid(),
+    reason: exports.BoardHoldSkipReasonSchema,
+    at: zod_1.z.iso.datetime(),
+});
+function renderBoardHoldSkipLog(log) {
+    const parsed = exports.BoardHoldSkipLogSchema.parse(log);
+    return `fermo_non_riaperto azienda=${parsed.companyId} incarico=${parsed.issueIdentifier} agente=${parsed.paperclipAgentId} motivo=${parsed.reason} ora=${parsed.at}`;
+}
+exports.BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS = 3_600;
+/** The consumer owns history and selects the previous entry for the same issue. */
+function boardHoldSkipLogDue(previous, reason, nowMs) {
+    return previous === undefined || previous.reason !== reason
+        || nowMs - Date.parse(previous.at) >= exports.BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS * 1_000;
+}
 /** Paperclip v2026.1005.0 isAgentStatusInvokable: /app/packages/shared/dist/agent-eligibility.js:1-10. */
 exports.BOARD_RESUME_AGENT_STATUSES = ['active', 'idle', 'running', 'error'];
 function boardResumeAgentStatusAllowed(status) {
