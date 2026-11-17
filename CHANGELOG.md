@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.231.0 — generic executor job and the capability queue channel (tasks 3613-3614)
+
+- `capability/dev`: `DevGenericJobSchema`, `DevGenericJobResultSchema`, `DEV_GENERIC_JOB_TOOLS` (`mlx_whisper`, `claude_p`), `DEV_GENERIC_INPUT_MAX_BYTES` / `DEV_GENERIC_OUTPUT_MAX_BYTES`, `devGenericResultMatchesJob`, plus the channel schemas (claim, heartbeat, complete) and `selectDevGenericClaim`.
+- `http` (`endpoints`): the device-signed `claimDevGenericJobContract`, `heartbeatDevGenericJobContract` and `completeDevGenericJobContract` of `/connect/generic-jobs`.
+- Additive; no stored data changes: development and design jobs, the session assignment and the signed command v2 are unchanged.
+- Consumers: agent-x9 `tools/esecutore-laptop`, `services/esecutore-sessioni`, cap-dev and the capability that owns the queue (social listening).
+
 ## v1.230.0 — who may give an assignment to whom, by role; the Lab starts research itself (task 7304)
 
 - New module `capability/paperclip/role-assignment` (subpath `@x9-forge/contracts/capability/paperclip/role-assignment`): `PAPERCLIP_ASSIGNMENT_MATRIX`, `PAPERCLIP_ASSIGNMENT_REFUSALS` and pure `decideAssignment(from, to)`.

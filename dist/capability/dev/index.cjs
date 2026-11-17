@@ -18,6 +18,8 @@ exports.DevSessionMaterialLinkSchema = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL
 __exportStar(require("./signed-command.cjs"), exports);
 __exportStar(require("./config-state.cjs"), exports);
 __exportStar(require("./production-job.cjs"), exports);
+__exportStar(require("./generic-job.cjs"), exports);
+__exportStar(require("./generic-channel.cjs"), exports);
 __exportStar(require("./production-result.cjs"), exports);
 __exportStar(require("./production-config-match.cjs"), exports);
 __exportStar(require("./production-progress.cjs"), exports);

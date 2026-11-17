@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.230.0",
+  "versione": "1.231.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1067,6 +1067,10 @@
       "EMAIL_SEND_TOOL": "@x9-forge/contracts/capability/email-tools"
     },
     "@x9-forge/contracts/capability/dev": {
+      "DEV_GENERIC_EXECUTORS": "@x9-forge/contracts/capability/dev/generic-job",
+      "DEV_GENERIC_INPUT_MAX_BYTES": "@x9-forge/contracts/capability/dev/generic-job",
+      "DEV_GENERIC_JOB_TOOLS": "@x9-forge/contracts/capability/dev/generic-job",
+      "DEV_GENERIC_OUTPUT_MAX_BYTES": "@x9-forge/contracts/capability/dev/generic-job",
       "DEV_SESSION_ANSWER_BLOCK_MARKER": "@x9-forge/contracts/capability/dev/session-outcome",
       "DEV_SESSION_ANSWER_KINDS": "@x9-forge/contracts/capability/dev/session-outcome",
       "DEV_SESSION_AUTONOMOUS_LABEL": "@x9-forge/contracts/capability/dev/session-assignment",
@@ -1090,6 +1094,19 @@
       "DevAgentStateSchema": "@x9-forge/contracts/capability/dev/config-state",
       "DevAgentStatusSchema": "@x9-forge/contracts/capability/dev/config-state",
       "DevBindingSchema": "@x9-forge/contracts/capability/dev/config-state",
+      "DevGenericClaimRequestSchema": "@x9-forge/contracts/capability/dev/generic-channel",
+      "DevGenericClaimResponseSchema": "@x9-forge/contracts/capability/dev/generic-channel",
+      "DevGenericCompleteRequestSchema": "@x9-forge/contracts/capability/dev/generic-channel",
+      "DevGenericCompleteResponseSchema": "@x9-forge/contracts/capability/dev/generic-channel",
+      "DevGenericExecutorSchema": "@x9-forge/contracts/capability/dev/generic-job",
+      "DevGenericHeartbeatRequestSchema": "@x9-forge/contracts/capability/dev/generic-channel",
+      "DevGenericHeartbeatResponseSchema": "@x9-forge/contracts/capability/dev/generic-channel",
+      "DevGenericInputSchema": "@x9-forge/contracts/capability/dev/generic-job",
+      "DevGenericJobResultSchema": "@x9-forge/contracts/capability/dev/generic-job",
+      "DevGenericJobSchema": "@x9-forge/contracts/capability/dev/generic-job",
+      "DevGenericLeaseSchema": "@x9-forge/contracts/capability/dev/generic-channel",
+      "DevGenericOutputSchema": "@x9-forge/contracts/capability/dev/generic-job",
+      "DevGenericToolSchema": "@x9-forge/contracts/capability/dev/generic-job",
       "DevProductionArtifactChunkSchema": "@x9-forge/contracts/capability/dev/production-artifact-content",
       "DevProductionArtifactSchema": "@x9-forge/contracts/capability/dev/production-result",
       "DevProductionJobSchema": "@x9-forge/contracts/capability/dev/production-job",
@@ -1114,6 +1131,7 @@
       "DevSignedCommandV2Schema": "@x9-forge/contracts/capability/dev/signed-command",
       "canonicalizeDevProductionReport": "@x9-forge/contracts/capability/dev/production-job",
       "canonicalizeDevSignedCommandV2": "@x9-forge/contracts/capability/dev/signed-command",
+      "devGenericResultMatchesJob": "@x9-forge/contracts/capability/dev/generic-job",
       "devProductionApprovalBindings": "@x9-forge/contracts/capability/dev/production-job",
       "devProductionExecutionMode": "@x9-forge/contracts/capability/dev/production-job",
       "devSessionAnswerCanonicalJson": "@x9-forge/contracts/capability/dev/session-outcome",
@@ -1139,7 +1157,8 @@
       "renderDevSessionBlock": "@x9-forge/contracts/capability/dev/session-assignment",
       "renderDevSessionDelivery": "@x9-forge/contracts/capability/dev/session-assignment",
       "renderDevSessionMaterialLinks": "@x9-forge/contracts/capability/dev/session-material-link",
-      "renderDevSessionOutcomeBlock": "@x9-forge/contracts/capability/dev/session-outcome"
+      "renderDevSessionOutcomeBlock": "@x9-forge/contracts/capability/dev/session-outcome",
+      "selectDevGenericClaim": "@x9-forge/contracts/capability/dev/generic-channel"
     },
     "@x9-forge/contracts/voice": {
       "AgentVoiceConfigSchema": "@x9-forge/contracts/capability/voice/agent-voice-settings",
@@ -1999,6 +2018,7 @@
       "capToolCallPath": "@x9-forge/contracts/http/endpoints/cap-tool-call",
       "capTurnLeadContract": "@x9-forge/contracts/http/endpoints/cap-turn-lead",
       "capabilityCallContextContract": "@x9-forge/contracts/http/endpoints/capability-call-context",
+      "claimDevGenericJobContract": "@x9-forge/contracts/http/endpoints/dev-generic-jobs",
       "coachBrowserContract": "@x9-forge/contracts/http/endpoints/coach-browser",
       "coachConversationInputContract": "@x9-forge/contracts/http/endpoints/coach-operational-write",
       "coachExecutionEventContract": "@x9-forge/contracts/http/endpoints/coach-operational-write",
@@ -2019,6 +2039,7 @@
       "coachSessionRecordContract": "@x9-forge/contracts/http/endpoints/internal-capability-coach",
       "coachSessionRevisionsReadContract": "@x9-forge/contracts/http/endpoints/coach-operational-read",
       "coachUsageObserveContract": "@x9-forge/contracts/http/endpoints/coach-operational-write",
+      "completeDevGenericJobContract": "@x9-forge/contracts/http/endpoints/dev-generic-jobs",
       "connectReturnContract": "@x9-forge/contracts/http/endpoints/connect-public",
       "connectionCompletedContract": "@x9-forge/contracts/http/endpoints/internal-connection-completed",
       "consentDevelopmentSessionContract": "@x9-forge/contracts/http/endpoints/internal-development-sessions",
@@ -2091,6 +2112,7 @@
       "getListAgentsRuntimeState": "@x9-forge/contracts/http/endpoints/internal-agents-list",
       "getVaultConnectionStateContract": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
       "getVaultConnectionValueContract": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
+      "heartbeatDevGenericJobContract": "@x9-forge/contracts/http/endpoints/dev-generic-jobs",
       "heartbeatDevelopmentSessionContract": "@x9-forge/contracts/http/endpoints/development-session-heartbeat",
       "internalAgentAddressBookContract": "@x9-forge/contracts/http/endpoints/internal-agent-address-book",
       "internalAgentChannelAccessApplyContract": "@x9-forge/contracts/http/endpoints/internal-agent-channel-access",
