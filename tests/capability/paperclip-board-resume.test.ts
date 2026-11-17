@@ -299,20 +299,41 @@ describe('s7243 dichiarazione-fermo-chiuso', () => {
     }
   });
 
-  it('(b) classifies Paperclip refusals into the closed list', () => {
-    const cases: Array<[string, string]> = [
-      ['provider is not stopped', 'provider_not_stopped'],
-      ['execution is not settled', 'execution_not_settled'],
-      ['recovery owner or source changed', 'owner_or_source_changed'],
-      ['run does not match the action', 'run_mismatch'],
-      ['workspace repair is required', 'workspace_repair_required'],
-      ['another recovery action is active', 'other_active_action'],
-    ];
-    for (const [message, code] of cases) expect(boardReconcileRefusalCode(409, message)).toBe(code);
-    expect(boardReconcileRefusalCode(404, 'x')).toBe('action_not_found');
-    expect(boardReconcileRefusalCode(400, 'x')).toBe('bad_request');
-    expect(boardReconcileRefusalCode(409, 'something new')).toBe('other_refusal');
-    expect(boardReconcileRefusalCode(409, undefined)).toBe('other_refusal');
+  const TRUE_REFUSALS: Array<[string, string, string]> = [
+    ['execution-recovery-resolution.js:18', 'Reconcile the recorded execution and its action outcomes before continuing this task.', 'run_mismatch'],
+    ['execution-recovery-resolution.js:40', 'The recovery source or task owner changed. Inspect the current execution before continuing.', 'owner_or_source_changed'],
+    ['execution-recovery-resolution.js:44', 'Verify safe workspace staging or repair and record workspaceRepairEvidence before continuing this run.', 'workspace_repair_required'],
+    ['execution-recovery-resolution.js:58', "The previous provider's process ownership cannot be verified.", 'provider_not_stopped'],
+    ['execution-recovery-resolution.js:60', 'The previous provider is still running. Stop it before continuing.', 'provider_not_stopped'],
+    ['execution-recovery-resolution.js:67', 'This execution still has a coordinator or a linked continuation. Inspect that run first.', 'execution_not_settled'],
+    ['execution-recovery-resolution.js:74', 'The previous execution environment has not finished releasing its authority.', 'execution_not_settled'],
+    ['routes-issues-6177-6340-resolve.js:55', 'Verified outcomes must restore this source recovery without replacing another active recovery action.', 'other_active_action'],
+  ];
+
+  it.each(TRUE_REFUSALS)('(b) true Paperclip message %s maps to its code', (_where, message, code) => {
+    expect(boardReconcileRefusalCode(409, message)).toBe(code);
+    expect(boardReconcileRefusalCode(409, `  ${message}\n`)).toBe(code);
+  });
+
+  it('(b2) other messages, rewritten, lowercase or missing, stay other_refusal', () => {
+    for (const message of [
+      'An execution reconciliation must target the current execution recovery action and continue the task.',
+      'The authorized chat retry owner is no longer valid.',
+      'Repair the retained sandbox, then use Retry workspace export to finish the accepted result without another provider turn.',
+      'Provider is not stopped.',
+      'the previous provider is still running. stop it before continuing.',
+      'something new',
+      '',
+      undefined,
+      null,
+    ]) {
+      expect(boardReconcileRefusalCode(409, message)).toBe('other_refusal');
+    }
+  });
+
+  it('(b3) status 404 and 400 come first; codes are nine with a sentence each', () => {
+    expect(boardReconcileRefusalCode(404, 'Active recovery action not found')).toBe('action_not_found');
+    expect(boardReconcileRefusalCode(400, 'Validation error')).toBe('bad_request');
     for (const code of BOARD_RECONCILE_REFUSALS) expect(BOARD_RECONCILE_REFUSAL_TEXT[code].length).toBeGreaterThan(0);
     expect(BOARD_RECONCILE_REFUSALS).toHaveLength(9);
   });

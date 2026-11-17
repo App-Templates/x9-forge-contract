@@ -264,23 +264,38 @@ exports.BOARD_RECONCILE_REFUSAL_TEXT = {
     bad_request: 'Paperclip ha rifiutato la richiesta perché malformata: non riapro.',
     other_refusal: 'Paperclip ha rifiutato la riapertura per un motivo non previsto: non riapro.',
 };
-/** Message prefixes of Paperclip's 409 answers, matched case-insensitively. */
-const BOARD_RECONCILE_REFUSAL_PREFIXES = [
-    ['provider_not_stopped', 'provider is not stopped'],
-    ['execution_not_settled', 'execution is not settled'],
-    ['owner_or_source_changed', 'recovery owner or source changed'],
-    ['run_mismatch', 'run does not match'],
-    ['workspace_repair_required', 'workspace repair is required'],
-    ['other_active_action', 'another recovery action is active'],
+/**
+ * Exact texts of Paperclip's 409 refusals (Paperclip v2026.1005.0). They carry
+ * no `code`, so the text is the only way to tell them apart. Source file:line
+ * above each row.
+ */
+const BOARD_RECONCILE_REFUSAL_MESSAGES = [
+    // execution-recovery-resolution.js:18
+    ['run_mismatch', 'Reconcile the recorded execution and its action outcomes before continuing this task.'],
+    // execution-recovery-resolution.js:40
+    ['owner_or_source_changed', 'The recovery source or task owner changed. Inspect the current execution before continuing.'],
+    // execution-recovery-resolution.js:44
+    ['workspace_repair_required', 'Verify safe workspace staging or repair and record workspaceRepairEvidence before continuing this run.'],
+    // execution-recovery-resolution.js:58
+    ['provider_not_stopped', "The previous provider's process ownership cannot be verified."],
+    // execution-recovery-resolution.js:60
+    ['provider_not_stopped', 'The previous provider is still running. Stop it before continuing.'],
+    // execution-recovery-resolution.js:67
+    ['execution_not_settled', 'This execution still has a coordinator or a linked continuation. Inspect that run first.'],
+    // execution-recovery-resolution.js:74
+    ['execution_not_settled', 'The previous execution environment has not finished releasing its authority.'],
+    // routes-issues-6177-6340-resolve.js:55
+    ['other_active_action', 'Verified outcomes must restore this source recovery without replacing another active recovery action.'],
 ];
+/** Status first (404, 400), then the exact message (trimmed, case-sensitive); anything else fails closed. */
 function boardReconcileRefusalCode(status, message) {
     if (status === 404)
         return 'action_not_found';
     if (status === 400)
         return 'bad_request';
-    const text = (message ?? '').trim().toLowerCase();
-    for (const [code, prefix] of BOARD_RECONCILE_REFUSAL_PREFIXES) {
-        if (text.startsWith(prefix))
+    const text = (message ?? '').trim();
+    for (const [code, known] of BOARD_RECONCILE_REFUSAL_MESSAGES) {
+        if (text === known)
             return code;
     }
     return 'other_refusal';

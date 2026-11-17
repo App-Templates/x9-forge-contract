@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.221.0 — the refusal classifier reads Paperclip's true texts (task 7244)
+
+- Fixed: `boardReconcileRefusalCode` now recognises the eight exact refusal texts of Paperclip v2026.1005.0, one by one (trimmed, case-sensitive); anything else stays `other_refusal`. The 7243 prefixes never matched real messages.
+- Rebuilt the narrow-imports map (it still named 1.219.0).
+- No shape, export or code changes.
+
 ## v1.220.0 — true declaration for a closed Paperclip hold and a closed list of resolve refusals (task 7243)
 
 - Added `BOARD_RECONCILIATION_OUTCOMES` (`not_performed`, `mixed`; never `completed`), `BOARD_RECONCILIATION_FINISHED_RUN_STATUSES`, `BoardClosedHoldFactsSchema` and `BoardReconciliationSchema`.

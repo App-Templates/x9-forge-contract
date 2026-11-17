@@ -273,6 +273,7 @@ export declare const BOARD_RECONCILE_REFUSAL_TEXT: {
     readonly bad_request: "Paperclip ha rifiutato la richiesta perché malformata: non riapro.";
     readonly other_refusal: "Paperclip ha rifiutato la riapertura per un motivo non previsto: non riapro.";
 };
+/** Status first (404, 400), then the exact message (trimmed, case-sensitive); anything else fails closed. */
 export declare function boardReconcileRefusalCode(status: number, message: string | null | undefined): BoardReconcileRefusal;
 export declare const BoardReconcileRefusalLogSchema: z.ZodObject<{
     companyId: z.ZodUUID;
