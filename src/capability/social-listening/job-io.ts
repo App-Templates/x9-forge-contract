@@ -78,9 +78,12 @@ export const SocialJobResultSchema = z.discriminatedUnion('kind', [
 ]);
 export type SocialJobResult = z.infer<typeof SocialJobResultSchema>;
 
+export const SOCIAL_JOB_RESULT_ERRORS = ['kind_mismatch', 'post_mismatch', 'topic_mismatch', 'job_not_running'] as const;
+export const SocialJobResultErrorSchema = z.enum(SOCIAL_JOB_RESULT_ERRORS);
+
 export type SocialJobResultMatch =
   | { ok: true }
-  | { ok: false; error: 'kind_mismatch' | 'post_mismatch' | 'topic_mismatch' | 'job_not_running' };
+  | { ok: false; error: typeof SOCIAL_JOB_RESULT_ERRORS[number] };
 
 /** Correlates a parsed result with its queue job; it does not authorize or persist data. */
 export function socialJobResultMatches(job: SocialJob, result: SocialJobResult): SocialJobResultMatch {
