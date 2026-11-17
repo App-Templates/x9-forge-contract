@@ -56,6 +56,7 @@ __exportStar(require("./config.cjs"), exports);
 __exportStar(require("./import.cjs"), exports);
 __exportStar(require("./import-analysis.cjs"), exports);
 __exportStar(require("./job-io.cjs"), exports);
+__exportStar(require("./routes.cjs"), exports);
 __exportStar(require("./cap.cjs"), exports);
 __exportStar(require("./handover.cjs"), exports);
 var verdict_js_1 = require("./verdict.cjs");

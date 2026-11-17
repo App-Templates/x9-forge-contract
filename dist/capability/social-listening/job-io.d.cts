@@ -105,11 +105,18 @@ export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject
     }, z.core.$strict>>;
 }, z.core.$strict>], "kind">;
 export type SocialJobResult = z.infer<typeof SocialJobResultSchema>;
+export declare const SOCIAL_JOB_RESULT_ERRORS: readonly ["kind_mismatch", "post_mismatch", "topic_mismatch", "job_not_running"];
+export declare const SocialJobResultErrorSchema: z.ZodEnum<{
+    kind_mismatch: "kind_mismatch";
+    post_mismatch: "post_mismatch";
+    topic_mismatch: "topic_mismatch";
+    job_not_running: "job_not_running";
+}>;
 export type SocialJobResultMatch = {
     ok: true;
 } | {
     ok: false;
-    error: 'kind_mismatch' | 'post_mismatch' | 'topic_mismatch' | 'job_not_running';
+    error: typeof SOCIAL_JOB_RESULT_ERRORS[number];
 };
 /** Correlates a parsed result with its queue job; it does not authorize or persist data. */
 export declare function socialJobResultMatches(job: SocialJob, result: SocialJobResult): SocialJobResultMatch;

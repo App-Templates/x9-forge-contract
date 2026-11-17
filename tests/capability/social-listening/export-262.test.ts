@@ -33,12 +33,11 @@ console.log(ok ? 'OK' : 'KO');
 `;
 
 describe('s3618 social-listening subpath in the built package', () => {
-  it('s3618 (a) package.json has version 1.262.0 and the subpath key', () => {
+  it('s3618 (a) package.json has a version in the 1.260-1.269 band and the subpath key', () => {
     const [maggiore, minore] = pkg.version.split('.').map(Number);
     expect(maggiore).toBe(1);
     expect(minore).toBeGreaterThanOrEqual(260);
     expect(minore).toBeLessThanOrEqual(269);
-    expect(pkg.version).toBe('1.262.0');
     expect(pkg.exports['./capability/social-listening']).toEqual({
       types: './dist/capability/social-listening/index.d.cts',
       import: './dist/capability/social-listening/index.js',
@@ -76,7 +75,7 @@ console.log(typeof r.resolveResearchParams === 'function'
     const mappa = JSON.parse(readFileSync(resolve(radice, 'dist/narrow-imports.json'), 'utf8')) as {
       versione: string;
     };
-    expect(mappa.versione).toBe('1.262.0');
+    expect(mappa.versione).toBe(pkg.version);
   });
 
   it('s3618 (e) the CHANGELOG has v1.262.0 above v1.230.0', () => {

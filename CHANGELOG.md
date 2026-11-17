@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.263.0 — the social listening job adapters for the generic channel, the round read contract and the exported queue result errors (task 3616)
+
+- `capability/social-listening`: `SOCIAL_JOB_RESULT_ERRORS` and `SocialJobResultErrorSchema` are exported from `job-io.ts` (`socialJobResultMatches` unchanged).
+- `readSocialGenericJob` and `readSocialGenericOutput`: pure adapters between the generic channel job (task 3614) and the typed queue input and result. Errors: `not_social_job`, `foreign_scope`, `kind_mismatch`, `invalid_input`, `input_mismatch`, `invalid_result`. A foreign job or result is an error; the identity comes from the queue job held by the service, never from the executor.
+- Round read: `socialRoundPath`, `SocialRoundQuerySchema`, `SocialRoundReadResponseSchema`, `selectSocialRound` (errors `invalid_response`, `foreign_scope`, `round_mismatch`) and `socialRoundReadContract` (`GET`, internal secret in the `INTERNAL_SECRET_HEADER` header).
+- Additive; no stored data changes; the generic channel routes of task 3614 are untouched. Consumers: agent-x9 `services/cap-social-listening`, the executor and forge-v2 (Ascolto page).
+
 ## v1.262.0 — the social listening capability contracts, video transcription input, Meta credential keys, caller-chosen research values and the `social` spend entry (tasks 3600-3603, 3606-3611, 3617, 3619)
 
 - New subpath `@x9-forge/contracts/capability/social-listening` with: topic (short title and category), post (optional `analysis`: verdict, reason, facts each with its link, cited tools), profile and vertical; the seven tools (`SOCIAL_LISTENING_TOOLS`); queue job and round state; configuration and `SOCIAL_LISTENING_PARAMETERS`; legacy MVP import rows with `socialImportPostAnalysis` and `socialImportPostWithAnalysis`; job input and output; the server daily cap `socialCapDecision` (2 USD per agent per day); the server handover `socialRoundHandover`.

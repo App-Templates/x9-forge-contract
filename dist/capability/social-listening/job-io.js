@@ -72,6 +72,8 @@ export const SocialJobResultSchema = z.discriminatedUnion('kind', [
         }).strict()).min(1).max(30),
     }).strict(),
 ]);
+export const SOCIAL_JOB_RESULT_ERRORS = ['kind_mismatch', 'post_mismatch', 'topic_mismatch', 'job_not_running'];
+export const SocialJobResultErrorSchema = z.enum(SOCIAL_JOB_RESULT_ERRORS);
 /** Correlates a parsed result with its queue job; it does not authorize or persist data. */
 export function socialJobResultMatches(job, result) {
     if (job.state !== 'running')

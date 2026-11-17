@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialJobResultSchema = exports.SocialJobInputSchema = void 0;
+exports.SocialJobResultErrorSchema = exports.SOCIAL_JOB_RESULT_ERRORS = exports.SocialJobResultSchema = exports.SocialJobInputSchema = void 0;
 exports.socialJobResultMatches = socialJobResultMatches;
 const zod_1 = require("zod");
 const research_js_1 = require("../ricerca/research.cjs");
@@ -76,6 +76,8 @@ exports.SocialJobResultSchema = zod_1.z.discriminatedUnion('kind', [
         }).strict()).min(1).max(30),
     }).strict(),
 ]);
+exports.SOCIAL_JOB_RESULT_ERRORS = ['kind_mismatch', 'post_mismatch', 'topic_mismatch', 'job_not_running'];
+exports.SocialJobResultErrorSchema = zod_1.z.enum(exports.SOCIAL_JOB_RESULT_ERRORS);
 /** Correlates a parsed result with its queue job; it does not authorize or persist data. */
 function socialJobResultMatches(job, result) {
     if (job.state !== 'running')

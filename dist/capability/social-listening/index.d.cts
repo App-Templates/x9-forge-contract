@@ -16,6 +16,7 @@ export * from "./config.cjs";
 export * from "./import.cjs";
 export * from "./import-analysis.cjs";
 export * from "./job-io.cjs";
+export * from "./routes.cjs";
 export * from "./cap.cjs";
 export * from "./handover.cjs";
 export { SocialFactSchema, SocialPostToolSchema, SocialPostAnalysisSchema, type SocialFact, type SocialPostTool, type SocialPostAnalysis } from "./verdict.cjs";

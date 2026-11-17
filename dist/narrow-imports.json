@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.262.0",
+  "versione": "1.263.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1288,6 +1288,7 @@
       "SOCIAL_HANDOVER_REASONS": "@x9-forge/contracts/capability/social-listening/handover",
       "SOCIAL_IMPORT_ANALYSIS_ERRORS": "@x9-forge/contracts/capability/social-listening/import-analysis",
       "SOCIAL_JOB_KINDS": "@x9-forge/contracts/capability/social-listening/queue",
+      "SOCIAL_JOB_RESULT_ERRORS": "@x9-forge/contracts/capability/social-listening/job-io",
       "SOCIAL_JOB_STATES": "@x9-forge/contracts/capability/social-listening/queue",
       "SOCIAL_LEGACY_ANALYSIS_SCHEMA": "@x9-forge/contracts/capability/social-listening/import",
       "SOCIAL_LEGACY_CLUSTER_SCHEMA": "@x9-forge/contracts/capability/social-listening/import",
@@ -1312,6 +1313,7 @@
       "SocialHandleSchema": "@x9-forge/contracts/capability/social-listening/post",
       "SocialJobInputSchema": "@x9-forge/contracts/capability/social-listening/job-io",
       "SocialJobKindSchema": "@x9-forge/contracts/capability/social-listening/queue",
+      "SocialJobResultErrorSchema": "@x9-forge/contracts/capability/social-listening/job-io",
       "SocialJobResultSchema": "@x9-forge/contracts/capability/social-listening/job-io",
       "SocialJobSchema": "@x9-forge/contracts/capability/social-listening/queue",
       "SocialJobStateSchema": "@x9-forge/contracts/capability/social-listening/queue",
@@ -1333,6 +1335,8 @@
       "SocialRecapInputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialRecapOutputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialRecapTopicSummarySchema": "@x9-forge/contracts/capability/social-listening/tools",
+      "SocialRoundQuerySchema": "@x9-forge/contracts/capability/social-listening/routes",
+      "SocialRoundReadResponseSchema": "@x9-forge/contracts/capability/social-listening/routes",
       "SocialRoundSchema": "@x9-forge/contracts/capability/social-listening/queue",
       "SocialRoundStateSchema": "@x9-forge/contracts/capability/social-listening/queue",
       "SocialTopicCostSchema": "@x9-forge/contracts/capability/social-listening/topic",
@@ -1350,6 +1354,9 @@
       "SocialVerticalSetOutputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialVerticalsListInputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialVerticalsListOutputSchema": "@x9-forge/contracts/capability/social-listening/tools",
+      "readSocialGenericJob": "@x9-forge/contracts/capability/social-listening/routes",
+      "readSocialGenericOutput": "@x9-forge/contracts/capability/social-listening/routes",
+      "selectSocialRound": "@x9-forge/contracts/capability/social-listening/routes",
       "shortenSocialTopicTitle": "@x9-forge/contracts/capability/social-listening/import",
       "socialCapDecision": "@x9-forge/contracts/capability/social-listening/cap",
       "socialCategoryInVertical": "@x9-forge/contracts/capability/social-listening/topic",
@@ -1361,7 +1368,9 @@
       "socialImportTopic": "@x9-forge/contracts/capability/social-listening/import",
       "socialImportVerdict": "@x9-forge/contracts/capability/social-listening/import",
       "socialJobResultMatches": "@x9-forge/contracts/capability/social-listening/job-io",
-      "socialRoundHandover": "@x9-forge/contracts/capability/social-listening/handover"
+      "socialRoundHandover": "@x9-forge/contracts/capability/social-listening/handover",
+      "socialRoundPath": "@x9-forge/contracts/capability/social-listening/routes",
+      "socialRoundReadContract": "@x9-forge/contracts/capability/social-listening/routes"
     },
     "@x9-forge/contracts/capability/lab": {
       "COMPETENCE_MAX_LEVEL": "@x9-forge/contracts/capability/lab/competence",
