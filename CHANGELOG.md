@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.228.0 — the closed list of the seven Paperclip communication processes and the shared "Come si comunica" section (task 7302)
+
+- New module `capability/paperclip/communication-channels` (subpath `@x9-forge/contracts/capability/paperclip/communication-channels`): `PAPERCLIP_COMMUNICATION_CHANNELS` (seven identifiers, each with its Paperclip source), `PaperclipCommunicationChannelSchema`, `PAPERCLIP_CHANNEL_TOOLS` (tools taken from `PAPERCLIP_TOOLS`), `communicationSectionLines()` and `communicationSection()`.
+- The section says agent-to-agent email does not exist, lists the seven processes with their tools, and carries the rule on outside referents and on who starts research. One text for every profile.
+- Additive. Consumers: ec-x9/7305 and forge-rel-059/7310. No stored data changes.
+
 ## v1.227.0 — scheduled checks declare how many times Paperclip wakes the owner (task 7293)
 
 - Added optional `followUp: { attempts }` (1 to 5, strict `PaperclipFollowUpSchema`, `PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS`) to `PaperclipCheckLaterSchema` and `PaperclipCheckLaterInputSchema`. A blocked wait still cannot be combined with a scheduled check.
