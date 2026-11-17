@@ -6,7 +6,7 @@ import { MODEL_PROVIDERS } from '../model-router/model-provider.js';
 export const AGENT_CREDENTIAL_SERVICE_KEYS = [...new Set([...KNOWN_CREDENTIAL_KEYS, ...AUTH_GATE_FIELDS])] as const;
 export type AgentCredentialServiceKey = KnownCredentialKey | AuthGateField;
 export const AgentCredentialServiceKeySchema = z.enum(AGENT_CREDENTIAL_SERVICE_KEYS);
-export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo', 'paperclip', 'github', 'bitbucket', 'figma'] as const;
+export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo', 'paperclip', 'github', 'bitbucket', 'figma', 'meta'] as const;
 export const AgentCredentialCommercialServiceSchema = z.enum(AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS);
 export const AgentCredentialInternalServiceSchema = z.enum(['x9', 'forge']);
 export const AgentCredentialKindSchema = z.enum(['credential', 'setting', 'identifier']);
@@ -68,6 +68,24 @@ const definitions = {
       "id": "figma"
     },
     "secret": true
+  },
+  "META_GRAPH_TOKEN": {
+    "label": "Token Meta Graph (lettura Instagram)",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "meta"
+    },
+    "secret": true
+  },
+  "META_IG_BUSINESS_ID": {
+    "label": "Identificativo account Instagram Business",
+    "kind": "identifier",
+    "service": {
+      "type": "commercial",
+      "id": "meta"
+    },
+    "secret": false
   },
   "GITHUB_APP_PRIVATE_KEY": {
     "label": "Chiave privata app GitHub",
