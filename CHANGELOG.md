@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.232.0 — native Paperclip assignment permissions (task 7355)
+
+- New narrow module `capability/paperclip/assignment-permission`: strict `PaperclipAssignmentPermissionSchema` (none, broad, list, branch, list_and_branch), `PaperclipAssignmentOrganizationSchema` and `PaperclipAssignmentFactsSchema`.
+- Pure `decideAssignmentByPermission(facts: unknown)` decides from permission, explicit identities, organization and recipient protection only, with closed bases and refusals. Combined scopes require both the list and branch; branches include their roots and at most 50 parent edges. Blocked recipients refuse even broad grants; open recipients need no grant.
+- Deliberately rejects cycles, unsupported scope keys, project scopes and missing recipient ancestors. The existing assignment matrix and decision are unchanged. Consumers: ec-x9/7357 (adoption), 7351 and 7356 (use). Additive; no stored data or runtime behavior changes until adoption by X9.
+
 ## v1.231.0 — generic executor job and the capability queue channel (tasks 3613-3614)
 
 - `capability/dev`: `DevGenericJobSchema`, `DevGenericJobResultSchema`, `DEV_GENERIC_JOB_TOOLS` (`mlx_whisper`, `claude_p`), `DEV_GENERIC_INPUT_MAX_BYTES` / `DEV_GENERIC_OUTPUT_MAX_BYTES`, `devGenericResultMatchesJob`, plus the channel schemas (claim, heartbeat, complete) and `selectDevGenericClaim`.
