@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.218.0 — closed Paperclip holds have separate resume shapes (task 7235)
+
+- Added `BOARD_CLOSED_HOLD_CAUSES`, `BoardClosedHoldCauseSchema` and `BoardClosedHoldCause` for infrastructure failures without changes or after writes. Existing `BOARD_RESUME_CAUSES`, keep reasons and sentences stay unchanged.
+- Added `BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT/MIN/MAX` (259200/3600/432000) and `BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT/MIN/MAX` (3/1/20); older holds need a person and excess reopens wait for the next round.
+- Added the twelve `BOARD_CLOSED_HOLD_REASONS`, `BoardClosedHoldReasonSchema`, `BoardClosedHoldReason` and exhaustive Italian `BOARD_CLOSED_HOLD_TEXT`.
+- Added `boardClosedHoldComment({ cause, attempt, max }): string`, with the shared resume prefix and a warning to reread comments and issue state after writes. `BoardResumeLogSchema` accepts the two new causes; its strict fields and renderer stay unchanged.
+- Additive; no stored data changes. Consumer: cap-paperclip adopts in tasks 7237-7242, after bridge task 7236; no consumer behaviour changes until adoption.
+
 ## v1.217.0 — board resumes keep agents stopped for product reasons and can carry a UTC timestamp (task 7221)
 
 - Added `agent_not_available` to `BOARD_RESUME_KEEP_REASONS` with its fixed Italian sentence in `BOARD_RESUME_KEEP_TEXT`.

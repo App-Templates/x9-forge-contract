@@ -7,6 +7,47 @@ import { z } from 'zod';
 /** Refused at admission; dead for an infrastructure fault with no changes; interrupted by a restart or an unavailable service. */
 export const BOARD_RESUME_CAUSES = ['refused_turn', 'stranded_infrastructure', 'interrupted_turn'];
 export const BoardResumeCauseSchema = z.enum(BOARD_RESUME_CAUSES);
+/** The last run died from an infrastructure fault, either without changes or after writing. */
+export const BOARD_CLOSED_HOLD_CAUSES = ['closed_hold_infrastructure', 'closed_hold_after_writes'];
+export const BoardClosedHoldCauseSchema = z.enum(BOARD_CLOSED_HOLD_CAUSES);
+/** Older holds need a person; the five-day ceiling prevents reopening week-old holds in bulk. */
+export const BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT = 259_200;
+export const BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MIN = 3_600;
+export const BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MAX = 432_000;
+/** Remaining closed holds wait for the next consumer round (round_cap_reached). */
+export const BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT = 3;
+export const BOARD_CLOSED_HOLD_MAX_PER_ROUND_MIN = 1;
+export const BOARD_CLOSED_HOLD_MAX_PER_ROUND_MAX = 20;
+export const BOARD_CLOSED_HOLD_REASONS = [
+    'other_recovery_action',
+    'no_blocked_hold',
+    'already_resolved',
+    'issue_changed',
+    'hold_too_old',
+    'run_not_found',
+    'run_not_infrastructure_failure',
+    'activity_unreadable',
+    'binding_not_verified',
+    'paperclip_no_change',
+    'paperclip_refused',
+    'round_cap_reached',
+];
+export const BoardClosedHoldReasonSchema = z.enum(BOARD_CLOSED_HOLD_REASONS);
+/** A reason added to the list without a sentence here does not compile. */
+export const BOARD_CLOSED_HOLD_TEXT = {
+    other_recovery_action: "C'è un'altra azione di recupero sull'incarico: non lo riapro.",
+    no_blocked_hold: "Non risulta un fermo già chiuso con esito bloccato: non riapro l'incarico.",
+    already_resolved: "L'incarico è già risolto: non lo riapro.",
+    issue_changed: "L'incarico è cambiato o un agente ha scritto dopo il fermo: non lo riapro.",
+    hold_too_old: "Il fermo è troppo vecchio: serve una persona per riaprire l'incarico.",
+    run_not_found: "Non trovo la corsa che ha causato il fermo: non riapro l'incarico.",
+    run_not_infrastructure_failure: "La corsa non risulta interrotta da un guasto dell'infrastruttura: non riapro l'incarico.",
+    activity_unreadable: "Non riesco a leggere l'attività dell'incarico: non lo riapro.",
+    binding_not_verified: "Non posso verificare il legame tra azienda, incarico e agente: non riapro l'incarico.",
+    paperclip_no_change: "Paperclip non ha applicato la ripresa: l'incarico resta fermo.",
+    paperclip_refused: "Paperclip ha rifiutato la ripresa: l'incarico resta fermo.",
+    round_cap_reached: "Il tetto di riaperture dei fermi chiusi per questo giro è raggiunto: aspetto il prossimo giro.",
+};
 export const BOARD_RESUME_KEEP_REASONS = [
     'cause_not_recognised',
     'cause_disabled',
@@ -58,7 +99,7 @@ export const BoardResumeLogSchema = z
     issueIdentifier: z.string().min(1).max(64),
     paperclipAgentId: z.uuid(),
     runtimeAgentId: z.string().min(1).max(200).optional(),
-    cause: BoardResumeCauseSchema,
+    cause: z.enum([...BOARD_RESUME_CAUSES, ...BOARD_CLOSED_HOLD_CAUSES]),
     attempt: z.number().int().min(1),
     max: z.number().int().min(1),
     at: z.iso.datetime().optional(),
@@ -78,6 +119,14 @@ const CAUSE_WORDS = {
 };
 export function boardResumeComment(input) {
     const text = `${BOARD_RESUME_COMMENT_PREFIX}${CAUSE_WORDS[input.cause]}; riapertura ${input.attempt} di ${input.max}. Prima di rifare qualcosa guarda cosa è già stato fatto su questo incarico e non ripeterlo.`;
+    return text.slice(0, COMMENT_MAX);
+}
+const CLOSED_HOLD_CAUSE_WORDS = {
+    closed_hold_infrastructure: "il turno precedente è morto per un guasto dell'infrastruttura senza modifiche. Prima di agire controlla cosa è già stato fatto sull'incarico e non ripeterlo.",
+    closed_hold_after_writes: "il turno precedente è stato interrotto DOPO aver scritto. Rileggi i commenti e lo stato dell'incarico prima di agire e non ripetere le modifiche già fatte.",
+};
+export function boardClosedHoldComment(input) {
+    const text = `${BOARD_RESUME_COMMENT_PREFIX}riapertura ${input.attempt} di ${input.max}; ${CLOSED_HOLD_CAUSE_WORDS[input.cause]}`;
     return text.slice(0, COMMENT_MAX);
 }
 export function boardResumeNeedsPersonComment(input) {

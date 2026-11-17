@@ -1,5 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import {
+  BOARD_CLOSED_HOLD_CAUSES,
+  BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT,
+  BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MIN,
+  BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MAX,
+  BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT,
+  BOARD_CLOSED_HOLD_MAX_PER_ROUND_MIN,
+  BOARD_CLOSED_HOLD_MAX_PER_ROUND_MAX,
+  BOARD_CLOSED_HOLD_REASONS,
+  BOARD_CLOSED_HOLD_TEXT,
+  BoardClosedHoldCauseSchema,
+  BoardClosedHoldReasonSchema,
   BOARD_RESUME_AGENT_STATUSES,
   BOARD_RESUME_CAUSES,
   BOARD_RESUME_COMMENT_PREFIX,
@@ -10,6 +21,7 @@ import {
   BOARD_RESUME_MIN_RUNS_LEFT,
   BOARD_RESUME_NEEDS_PERSON_PREFIX,
   BoardResumeLogSchema,
+  boardClosedHoldComment,
   boardResumeAgentStatusAllowed,
   boardResumeComment,
   boardResumeCommentKind,
@@ -119,5 +131,71 @@ describe('s7221 ripartenza-board-agente-e-ora', () => {
       expect(BoardResumeLogSchema.safeParse({ ...baseLog, at: invalid }).success, `refused: ${invalid}`).toBe(false);
     }
     expect(BoardResumeLogSchema.safeParse({ ...log, extra: 'text' }).success).toBe(false);
+  });
+});
+
+describe('s7235 fermo-gia-chiuso-forme', () => {
+  it('s7235 (a) closed holds have separate causes, limits and exhaustive reasons', () => {
+    expect(BOARD_CLOSED_HOLD_CAUSES).toEqual(['closed_hold_infrastructure', 'closed_hold_after_writes']);
+    expect(BoardClosedHoldCauseSchema.options).toEqual([...BOARD_CLOSED_HOLD_CAUSES]);
+    expect(BoardClosedHoldCauseSchema.safeParse('closed_hold').success).toBe(false);
+    expect([
+      BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT,
+      BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MIN,
+      BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MAX,
+    ]).toEqual([259200, 3600, 432000]);
+    expect([
+      BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT,
+      BOARD_CLOSED_HOLD_MAX_PER_ROUND_MIN,
+      BOARD_CLOSED_HOLD_MAX_PER_ROUND_MAX,
+    ]).toEqual([3, 1, 20]);
+    expect(BOARD_CLOSED_HOLD_REASONS).toEqual([
+      'other_recovery_action', 'no_blocked_hold', 'already_resolved', 'issue_changed',
+      'hold_too_old', 'run_not_found', 'run_not_infrastructure_failure', 'activity_unreadable',
+      'binding_not_verified', 'paperclip_no_change', 'paperclip_refused', 'round_cap_reached',
+    ]);
+    expect(BoardClosedHoldReasonSchema.options).toEqual([...BOARD_CLOSED_HOLD_REASONS]);
+    expect(BoardClosedHoldReasonSchema.safeParse('unknown').success).toBe(false);
+    for (const reason of BOARD_CLOSED_HOLD_REASONS) {
+      expect(BOARD_CLOSED_HOLD_TEXT[reason].trim().length).toBeGreaterThan(0);
+      expect(BOARD_RESUME_KEEP_REASONS).not.toContain(reason);
+    }
+    expect(Object.keys(BOARD_CLOSED_HOLD_TEXT).sort()).toEqual([...BOARD_CLOSED_HOLD_REASONS].sort());
+    expect(BOARD_RESUME_CAUSES).toEqual(['refused_turn', 'stranded_infrastructure', 'interrupted_turn']);
+    expect(BOARD_RESUME_KEEP_REASONS).toEqual([
+      'cause_not_recognised', 'cause_disabled', 'open_blockers', 'declared_wait', 'person_touched',
+      'run_in_flight', 'daily_cap_reached', 'daily_cap_unreadable', 'max_resumes_reached', 'too_soon',
+      'history_unreadable', 'trace_failed', 'agent_error_not_cleared', 'agent_not_available',
+    ]);
+  });
+
+  it('s7235 (b) closed hold comments count as resumes and warn about previous writes', () => {
+    for (const cause of BOARD_CLOSED_HOLD_CAUSES) {
+      const text = boardClosedHoldComment({ cause, attempt: 1, max: 2 });
+      expect(text.startsWith(BOARD_RESUME_COMMENT_PREFIX)).toBe(true);
+      expect(boardResumeCommentKind(text)).toBe('resume');
+      expect(text).toContain('riapertura 1 di 2');
+      expect(text).not.toContain('undefined');
+      expect(text.length).toBeLessThanOrEqual(500);
+      if (cause === 'closed_hold_after_writes') {
+        expect(text).toContain('DOPO aver scritto');
+        expect(text).toContain('Rileggi i commenti e lo stato');
+      } else {
+        expect(text).not.toContain('DOPO aver scritto');
+        expect(text).not.toContain('Rileggi i commenti e lo stato');
+      }
+    }
+  });
+
+  it('s7235 (c) closed hold log causes carry UTC time and reject the generic cause', () => {
+    const at = '2026-11-17T12:00:00.000Z';
+    for (const cause of BOARD_CLOSED_HOLD_CAUSES) {
+      const log = BoardResumeLogSchema.parse({ ...baseLog, cause, at });
+      expect(renderBoardResumeLog(log)).toBe(
+        `incarico_ripreso azienda=${COMPANY} incarico=AZI-42 agente=${AGENT} causa=${cause} n=1/2 ora=${at}`,
+      );
+      expect(BoardResumeLogSchema.safeParse({ ...log, extra: 'text' }).success).toBe(false);
+    }
+    expect(BoardResumeLogSchema.safeParse({ ...baseLog, cause: 'closed_hold', at }).success).toBe(false);
   });
 });
