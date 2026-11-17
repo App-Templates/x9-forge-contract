@@ -91,8 +91,8 @@ export declare const labPageDetailContract: {
             text: z.ZodString;
             sourceIds: z.ZodArray<z.ZodString>;
             status: z.ZodEnum<{
-                aperta: "aperta";
                 confermata: "confermata";
+                aperta: "aperta";
                 contraddetta: "contraddetta";
                 scartata: "scartata";
             }>;

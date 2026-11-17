@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoRegiaErrorSchema = exports.VideoRegiaErrorCodeSchema = exports.VideoRegiaResultSchema = exports.VideoRegiaFileSchema = exports.VideoRegiaResultRequestSchema = exports.VideoRegiaOpenResponseSchema = exports.VideoRegiaIdSchema = exports.VideoRegiaRequestSchema = exports.VIDEO_REGIA_MAX_FOOTAGE_CANDIDATES = exports.VideoRegiaMaterialSchema = exports.VideoRegiaDocumentSchema = exports.VIDEO_REGIA_GRAPHIC_FILE = exports.VIDEO_REGIA_FILE = void 0;
+exports.VideoRegiaErrorSchema = exports.VideoRegiaErrorCodeSchema = exports.VideoRegiaResultSchema = exports.VideoRegiaFileSchema = exports.VideoRegiaResultRequestSchema = exports.VideoRegiaOpenResponseSchema = exports.VideoRegiaIdSchema = exports.VideoRegiaRequestSchema = exports.VIDEO_REGIA_MAX_FOOTAGE_CANDIDATES = exports.VideoRegiaMaterialSchema = exports.VideoRegiaDocumentSchema = exports.VideoModelRegiaDocumentSchema = exports.VideoModelShotSchema = exports.VIDEO_MODEL_REGIA_MAX_SHOTS = exports.VIDEO_MODEL_REGIA_MIN_SHOTS = exports.VideoStoryRegiaDocumentSchema = exports.VIDEO_REGIA_GRAPHIC_FILE = exports.VIDEO_REGIA_FILE = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const session_assignment_js_1 = require("../dev/session-assignment.cjs");
@@ -19,12 +19,36 @@ const story_js_1 = require("./story.cjs");
 exports.VIDEO_REGIA_FILE = 'regia.json';
 exports.VIDEO_REGIA_GRAPHIC_FILE = 'grafica.html';
 /** `regia.json`: scenes with their voice tags, the chosen shots (absent for the pure infographic) and the closing. */
-exports.VideoRegiaDocumentSchema = zod_1.z.strictObject({
+exports.VideoStoryRegiaDocumentSchema = zod_1.z.strictObject({
     version: zod_1.z.literal(1),
     scenes: story_js_1.VideoStoryScenesSchema,
     footage: footage_js_1.VideoFootageChoiceSchema.optional(),
     outro: story_js_1.VideoStoryOutroSchema,
 });
+exports.VIDEO_MODEL_REGIA_MIN_SHOTS = 3;
+exports.VIDEO_MODEL_REGIA_MAX_SHOTS = 8;
+/** One generated shot; editing may shorten its duration. Cross-shot rules belong to the engine. */
+exports.VideoModelShotSchema = zod_1.z.strictObject({
+    title: zod_1.z.string().trim().min(1).max(120),
+    location: zod_1.z.string().trim().min(1).max(100).regex(/^[^\r\n]+$/),
+    environment: zod_1.z.string().min(1).max(350),
+    interior: zod_1.z.boolean(),
+    action: zod_1.z.string().min(1).max(350),
+    camera: zod_1.z.string().min(1).max(200),
+    wardrobe: zod_1.z.enum(['base', 'look']),
+    durationSeconds: zod_1.z.number().int().min(2).max(15),
+});
+/** Fixed-model direction, delivered through the same regia.json and grafica.html channel. */
+exports.VideoModelRegiaDocumentSchema = zod_1.z.strictObject({
+    version: zod_1.z.literal(2),
+    shots: zod_1.z.array(exports.VideoModelShotSchema).min(exports.VIDEO_MODEL_REGIA_MIN_SHOTS).max(exports.VIDEO_MODEL_REGIA_MAX_SHOTS),
+    outfitNote: zod_1.z.string().trim().min(1).max(700).optional(),
+    caption: zod_1.z.string().trim().min(1).max(200),
+});
+exports.VideoRegiaDocumentSchema = zod_1.z.discriminatedUnion('version', [
+    exports.VideoStoryRegiaDocumentSchema,
+    exports.VideoModelRegiaDocumentSchema,
+]);
 /** A reference the session reads: a GitHub link (preset file, example graphic, recipe), with a short note. */
 exports.VideoRegiaMaterialSchema = zod_1.z.strictObject({
     url: session_assignment_js_1.DevSessionGitHubLinkSchema,

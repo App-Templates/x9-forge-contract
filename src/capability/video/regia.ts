@@ -23,12 +23,43 @@ export const VIDEO_REGIA_FILE = 'regia.json' as const;
 export const VIDEO_REGIA_GRAPHIC_FILE = 'grafica.html' as const;
 
 /** `regia.json`: scenes with their voice tags, the chosen shots (absent for the pure infographic) and the closing. */
-export const VideoRegiaDocumentSchema = z.strictObject({
+export const VideoStoryRegiaDocumentSchema = z.strictObject({
   version: z.literal(1),
   scenes: VideoStoryScenesSchema,
   footage: VideoFootageChoiceSchema.optional(),
   outro: VideoStoryOutroSchema,
 });
+export type VideoStoryRegiaDocument = z.infer<typeof VideoStoryRegiaDocumentSchema>;
+
+export const VIDEO_MODEL_REGIA_MIN_SHOTS = 3;
+export const VIDEO_MODEL_REGIA_MAX_SHOTS = 8;
+
+/** One generated shot; editing may shorten its duration. Cross-shot rules belong to the engine. */
+export const VideoModelShotSchema = z.strictObject({
+  title: z.string().trim().min(1).max(120),
+  location: z.string().trim().min(1).max(100).regex(/^[^\r\n]+$/),
+  environment: z.string().min(1).max(350),
+  interior: z.boolean(),
+  action: z.string().min(1).max(350),
+  camera: z.string().min(1).max(200),
+  wardrobe: z.enum(['base', 'look']),
+  durationSeconds: z.number().int().min(2).max(15),
+});
+export type VideoModelShot = z.infer<typeof VideoModelShotSchema>;
+
+/** Fixed-model direction, delivered through the same regia.json and grafica.html channel. */
+export const VideoModelRegiaDocumentSchema = z.strictObject({
+  version: z.literal(2),
+  shots: z.array(VideoModelShotSchema).min(VIDEO_MODEL_REGIA_MIN_SHOTS).max(VIDEO_MODEL_REGIA_MAX_SHOTS),
+  outfitNote: z.string().trim().min(1).max(700).optional(),
+  caption: z.string().trim().min(1).max(200),
+});
+export type VideoModelRegiaDocument = z.infer<typeof VideoModelRegiaDocumentSchema>;
+
+export const VideoRegiaDocumentSchema = z.discriminatedUnion('version', [
+  VideoStoryRegiaDocumentSchema,
+  VideoModelRegiaDocumentSchema,
+]);
 export type VideoRegiaDocument = z.infer<typeof VideoRegiaDocumentSchema>;
 
 /** A reference the session reads: a GitHub link (preset file, example graphic, recipe), with a short note. */

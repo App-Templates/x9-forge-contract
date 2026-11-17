@@ -11,7 +11,7 @@ import { z } from 'zod';
 export declare const VIDEO_REGIA_FILE: "regia.json";
 export declare const VIDEO_REGIA_GRAPHIC_FILE: "grafica.html";
 /** `regia.json`: scenes with their voice tags, the chosen shots (absent for the pure infographic) and the closing. */
-export declare const VideoRegiaDocumentSchema: z.ZodObject<{
+export declare const VideoStoryRegiaDocumentSchema: z.ZodObject<{
     version: z.ZodLiteral<1>;
     scenes: z.ZodArray<z.ZodObject<{
         text: z.ZodString;
@@ -23,6 +23,73 @@ export declare const VideoRegiaDocumentSchema: z.ZodObject<{
         line: z.ZodString;
     }, z.core.$strict>;
 }, z.core.$strict>;
+export type VideoStoryRegiaDocument = z.infer<typeof VideoStoryRegiaDocumentSchema>;
+export declare const VIDEO_MODEL_REGIA_MIN_SHOTS = 3;
+export declare const VIDEO_MODEL_REGIA_MAX_SHOTS = 8;
+/** One generated shot; editing may shorten its duration. Cross-shot rules belong to the engine. */
+export declare const VideoModelShotSchema: z.ZodObject<{
+    title: z.ZodString;
+    location: z.ZodString;
+    environment: z.ZodString;
+    interior: z.ZodBoolean;
+    action: z.ZodString;
+    camera: z.ZodString;
+    wardrobe: z.ZodEnum<{
+        base: "base";
+        look: "look";
+    }>;
+    durationSeconds: z.ZodNumber;
+}, z.core.$strict>;
+export type VideoModelShot = z.infer<typeof VideoModelShotSchema>;
+/** Fixed-model direction, delivered through the same regia.json and grafica.html channel. */
+export declare const VideoModelRegiaDocumentSchema: z.ZodObject<{
+    version: z.ZodLiteral<2>;
+    shots: z.ZodArray<z.ZodObject<{
+        title: z.ZodString;
+        location: z.ZodString;
+        environment: z.ZodString;
+        interior: z.ZodBoolean;
+        action: z.ZodString;
+        camera: z.ZodString;
+        wardrobe: z.ZodEnum<{
+            base: "base";
+            look: "look";
+        }>;
+        durationSeconds: z.ZodNumber;
+    }, z.core.$strict>>;
+    outfitNote: z.ZodOptional<z.ZodString>;
+    caption: z.ZodString;
+}, z.core.$strict>;
+export type VideoModelRegiaDocument = z.infer<typeof VideoModelRegiaDocumentSchema>;
+export declare const VideoRegiaDocumentSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    version: z.ZodLiteral<1>;
+    scenes: z.ZodArray<z.ZodObject<{
+        text: z.ZodString;
+        tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    }, z.core.$strict>>;
+    footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    outro: z.ZodObject<{
+        title: z.ZodString;
+        line: z.ZodString;
+    }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    version: z.ZodLiteral<2>;
+    shots: z.ZodArray<z.ZodObject<{
+        title: z.ZodString;
+        location: z.ZodString;
+        environment: z.ZodString;
+        interior: z.ZodBoolean;
+        action: z.ZodString;
+        camera: z.ZodString;
+        wardrobe: z.ZodEnum<{
+            base: "base";
+            look: "look";
+        }>;
+        durationSeconds: z.ZodNumber;
+    }, z.core.$strict>>;
+    outfitNote: z.ZodOptional<z.ZodString>;
+    caption: z.ZodString;
+}, z.core.$strict>], "version">;
 export type VideoRegiaDocument = z.infer<typeof VideoRegiaDocumentSchema>;
 /** A reference the session reads: a GitHub link (preset file, example graphic, recipe), with a short note. */
 export declare const VideoRegiaMaterialSchema: z.ZodObject<{
@@ -101,7 +168,7 @@ export declare const VideoRegiaResultSchema: z.ZodDiscriminatedUnion<[z.ZodObjec
     branch: z.ZodString;
     commit: z.ZodString;
     link: z.ZodString;
-    regia: z.ZodObject<{
+    regia: z.ZodDiscriminatedUnion<[z.ZodObject<{
         version: z.ZodLiteral<1>;
         scenes: z.ZodArray<z.ZodObject<{
             text: z.ZodString;
@@ -112,7 +179,24 @@ export declare const VideoRegiaResultSchema: z.ZodDiscriminatedUnion<[z.ZodObjec
             title: z.ZodString;
             line: z.ZodString;
         }, z.core.$strict>;
-    }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        version: z.ZodLiteral<2>;
+        shots: z.ZodArray<z.ZodObject<{
+            title: z.ZodString;
+            location: z.ZodString;
+            environment: z.ZodString;
+            interior: z.ZodBoolean;
+            action: z.ZodString;
+            camera: z.ZodString;
+            wardrobe: z.ZodEnum<{
+                base: "base";
+                look: "look";
+            }>;
+            durationSeconds: z.ZodNumber;
+        }, z.core.$strict>>;
+        outfitNote: z.ZodOptional<z.ZodString>;
+        caption: z.ZodString;
+    }, z.core.$strict>], "version">;
     regiaFile: z.ZodObject<{
         path: z.ZodString;
         sha256: z.ZodString;
