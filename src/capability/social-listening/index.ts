@@ -53,3 +53,5 @@ export {
 } from './topic.js';
 
 export * from './tools.js';
+export * from './queue.js';
+export * from './config.js';
