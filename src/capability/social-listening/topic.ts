@@ -1,8 +1,9 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
-import { ResearchFindingSchema, ResearchIdSchema, ResearchSourceSchema } from '../ricerca/research.js';
+import { ResearchIdSchema, ResearchSourceSchema } from '../ricerca/research.js';
 import { AgentDaySchema } from '../ricerca/spend.js';
 import { SocialHandleSchema, SocialVerticalIdSchema } from './post.js';
+import { SocialFactSchema, SocialVerdictSchema, type SocialVerdict } from './verdict.js';
 
 const IsoDateTimeSchema = z.iso.datetime({ offset: true });
 
@@ -34,9 +35,7 @@ export function socialCategoryInVertical(vertical: Pick<SocialVertical, 'categor
   return vertical.categories.some(c => c.slug === slug);
 }
 
-export const SOCIAL_VERDICTS = ['funziona', 'da_provare', 'non_funziona', 'fuffa'] as const;
-export const SocialVerdictSchema = z.enum(SOCIAL_VERDICTS);
-export type SocialVerdict = z.infer<typeof SocialVerdictSchema>;
+export { SOCIAL_VERDICTS, SocialVerdictSchema, type SocialVerdict } from './verdict.js';
 
 /** Creators' "truth" score per verdict (D16). */
 export const SOCIAL_VERDICT_TRUTH_SCORE = {
@@ -56,7 +55,7 @@ export const SOCIAL_TOPIC_TITLE_MAX = 31;
 export const SocialTopicTitleSchema = z.string().trim().min(1).max(SOCIAL_TOPIC_TITLE_MAX);
 
 /** A fact cites at least one http(s) source: reused from research, minus its `origin`. */
-export const SocialTopicFactSchema = ResearchFindingSchema.omit({ origin: true });
+export const SocialTopicFactSchema = SocialFactSchema;
 export type SocialTopicFact = z.infer<typeof SocialTopicFactSchema>;
 
 export const SocialTopicSourceSchema = ResearchSourceSchema;

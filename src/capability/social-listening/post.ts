@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
 import { WebUrlSchema } from '../ricerca/research.js';
+import { SocialPostAnalysisSchema } from './verdict.js';
 
 /**
  * Social providers. The provider sits behind an interface: TikTok, YouTube, LinkedIn are added here
@@ -43,6 +44,7 @@ export const SocialPostSchema = z.object({
   kind: SocialPostKindSchema,
   caption: z.string().max(5000),
   transcript: z.string().max(60000).optional(),
+  analysis: SocialPostAnalysisSchema.optional(),
   collectedAt: IsoDateTimeSchema,
 }).strict();
 export type SocialPost = z.infer<typeof SocialPostSchema>;
