@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.226.0 — a wait names the decisions and researches it expects, as data (task 7292)
+
+- Added `waitsOn` (optional, 1 to 20 unique references) to `PaperclipWaitingForSchema`, `PaperclipCheckLaterSchema` and `PaperclipCheckLaterInputSchema`. A reference is `{ kind: 'decision', requestId }` or `{ kind: 'research', researchId }` (`PAPERCLIP_WAIT_REF_KINDS`, `PaperclipWaitRefSchema`, `PaperclipWaitsOnSchema`, strict objects).
+- Added `paperclipWaitRefKey(ref)`: `decision:<id>` / `research:<id>`, the only key to compare references.
+- Additive. Consumers: ec-x9/7295-7296 (after the adoption 7294). No stored data changes: the Paperclip descriptor stays `{ owner, action }`, `waitsOn` is a call field kept by X9.
+
 ## v1.225.0 — a wait says who unblocks it, and Paperclip's descriptor is built only for who Paperclip admits (task 7290)
 
 - `PaperclipWaitingForSchema` now requires `unblockedBy` (`PAPERCLIP_WAIT_UNBLOCKERS`: `self`, `external`, `company_agent`; `PaperclipWaitUnblockerSchema`). Without it, or with another value, the wait is refused; `action` stays free text and is never read to decide.

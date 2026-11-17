@@ -9,6 +9,7 @@ import {
   PaperclipCheckLaterOutputSchema as CheckLaterOutput, PaperclipCreateIssueInputSchema as Create,
   PaperclipNativeCreateIssueInputSchema as NativeCreate, PaperclipNativeReviewInputSchema as NativeReview,
   PaperclipReviewInputSchema as Review, PAPERCLIP_WAIT_REFUSALS, PAPERCLIP_WAIT_UNBLOCKERS, paperclipUnblockDescriptor,
+  PAPERCLIP_WAIT_REF_KINDS, PaperclipWaitRefSchema, PaperclipWaitsOnSchema, paperclipWaitRefKey,
 } from '../src/capability/paperclip/index.js';
 
 const issueId = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
@@ -239,5 +240,48 @@ describe('s7290 attesa-dichiarata: the wait says who unblocks it (closed list, t
     for (const bad of ['', 'director', '123']) {
       expect(() => paperclipUnblockDescriptor({ action: 'x', unblockedBy: 'self' }, bad)).toThrow();
     }
+  });
+});
+
+describe('s7292 attesa-con-legame: waitsOn names the decisions and researches a wait expects', () => {
+  const dec = { kind: 'decision', requestId: 'dec_6f1c2d3e-1bad-4e0d-a697-7d19bfac6100' } as const;
+  const res = { kind: 'research', researchId: 'res_ab12cd34' } as const;
+  const waitingFor = { action: 'Il referente risponde', unblockedBy: 'external' } as const;
+  const checkLaterBase = { afterSeconds: 600, notes: 'Controllo la ricerca' };
+  it('(a) the kinds are exactly decision and research', () => {
+    expect([...PAPERCLIP_WAIT_REF_KINDS]).toEqual(['decision', 'research']);
+  });
+  it('(b) waitingFor, checkLater of the review and the check-later input accept waitsOn', () => {
+    for (const waitsOn of [[dec], [res], [dec, res]]) {
+      const wait = { issueId, status: 'blocked', waitingFor: { ...waitingFor, waitsOn } };
+      expect(NativeReview.parse(wait)).toEqual(wait);
+      const later = { issueId, status: 'in_progress', checkLater: { ...checkLaterBase, waitsOn } };
+      expect(NativeReview.parse(later)).toEqual(later);
+      const input = { issueId, ...checkLaterBase, waitsOn };
+      expect(CheckLater.parse(input)).toEqual(input);
+    }
+  });
+  it('(c) refuses empty, too many, repeated, unknown, mixed, extra-key and malformed references', () => {
+    const many = Array.from({ length: 21 }, (_, i) => ({ kind: 'research', researchId: `r-${i}` }));
+    const bad: unknown[] = [[], many, [dec, dec], [res, { ...res }], [{ kind: 'other', requestId: 'abcdef' }],
+      [{ kind: 'decision', researchId: 'res_ab12cd34' }], [{ ...dec, researchId: 'x' }], [{ ...res, extra: 1 }],
+      [{ kind: 'decision', requestId: 'a b' }], [{ kind: 'decision', requestId: 'short' }], [{ kind: 'research', researchId: '' }]];
+    for (const waitsOn of bad) {
+      expect(PaperclipWaitsOnSchema.safeParse(waitsOn).success).toBe(false);
+      expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor: { ...waitingFor, waitsOn } }).success).toBe(false);
+      expect(CheckLater.safeParse({ issueId, ...checkLaterBase, waitsOn }).success).toBe(false);
+    }
+    expect(PaperclipWaitRefSchema.safeParse(dec).success).toBe(true);
+    expect(PaperclipWaitsOnSchema.safeParse(many.slice(0, 20)).success).toBe(true);
+  });
+  it('(d) the key carries the kind, so the same id of two kinds differs', () => {
+    expect(paperclipWaitRefKey({ kind: 'decision', requestId: 'abcdef' })).toBe('decision:abcdef');
+    expect(paperclipWaitRefKey({ kind: 'research', researchId: 'abcdef' })).toBe('research:abcdef');
+    expect(PaperclipWaitsOnSchema.safeParse([{ kind: 'decision', requestId: 'abcdef' }, { kind: 'research', researchId: 'abcdef' }]).success).toBe(true);
+  });
+  it('(e) without waitsOn everything stays valid', () => {
+    expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor }).success).toBe(true);
+    expect(NativeReview.safeParse({ issueId, status: 'in_progress', checkLater: checkLaterBase }).success).toBe(true);
+    expect(CheckLater.safeParse({ issueId, ...checkLaterBase }).success).toBe(true);
   });
 });

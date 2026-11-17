@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { DecisionRequestIdSchema } from '../../organization/decision-request.js';
+import { ResearchIdSchema } from '../ricerca/research.js';
 import {
   PaperclipAssignInputSchema, PaperclipAssignRefInputSchema, PaperclipCreateIssueInputSchema, PaperclipIssueViewSchema,
   PaperclipReviewInputSchema,
@@ -34,6 +36,26 @@ const IssueIds = z.array(z.uuid()).min(1).max(20)
   .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique');
 
 /**
+ * What a wait expects, declared with the identifiers the tools returned (`email_request_decision` gives `requestId`,
+ * `research_start` gives `researchId`): the link is data, never an id written inside the free text of `action` or `notes`.
+ */
+export const PAPERCLIP_WAIT_REF_KINDS = ['decision', 'research'] as const;
+export const PaperclipWaitRefSchema = z.discriminatedUnion('kind', [
+  z.strictObject({ kind: z.literal('decision'), requestId: DecisionRequestIdSchema }),
+  z.strictObject({ kind: z.literal('research'), researchId: ResearchIdSchema }),
+]);
+export type PaperclipWaitRef = z.infer<typeof PaperclipWaitRefSchema>;
+
+/** The only key by which references are compared: `decision:<requestId>` or `research:<researchId>`. */
+export function paperclipWaitRefKey(ref: PaperclipWaitRef): string {
+  return ref.kind === 'decision' ? `decision:${ref.requestId}` : `research:${ref.researchId}`;
+}
+
+export const PaperclipWaitsOnSchema = z.array(PaperclipWaitRefSchema).min(1).max(20)
+  .refine(refs => new Set(refs.map(paperclipWaitRefKey)).size === refs.length, 'Waited-on references must be unique')
+  .describe('The decisions or researches this wait expects, with their identifiers');
+
+/**
  * Who unblocks a wait, declared by the agent with fixed words (the free text of `action` is never read to decide):
  * - `self`: an action of the agent itself;
  * - `external`: a contact or event outside the company's agents; the answer wakes the agent, which stays the owner;
@@ -50,6 +72,7 @@ export const PaperclipWaitingForSchema = z.strictObject({
   unblockedBy: PaperclipWaitUnblockerSchema.describe(
     'Who unblocks the wait: self (an action of your own), external (a contact or event outside the company agents); company_agent (another company agent) is refused',
   ),
+  waitsOn: PaperclipWaitsOnSchema.optional(),
 });
 
 /** Closed list of the refusals of a wait declaration; the name is both the reason and the log code. */
@@ -76,6 +99,7 @@ export const PaperclipCheckLaterSchema = z.strictObject({
   afterSeconds: z.number().int().min(30).max(PAPERCLIP_CHECK_LATER_MAX_SECONDS),
   notes: Text.max(500),
   serviceName: Text.max(120).optional(),
+  waitsOn: PaperclipWaitsOnSchema.optional(),
 });
 
 /** A decision asked of another agent (resolved from `roleRef` by the consumer): Paperclip interaction + task in_review. */
@@ -194,6 +218,7 @@ export const PaperclipCheckLaterInputSchema = z.strictObject({
   afterSeconds: z.number().int().min(30).max(PAPERCLIP_CHECK_LATER_MAX_SECONDS),
   notes: Text.max(500),
   serviceName: Text.max(120).optional(),
+  waitsOn: PaperclipWaitsOnSchema.optional(),
 });
 export const PaperclipCheckLaterOutputSchema = z.strictObject({
   issue: PaperclipIssueViewSchema,

@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PAPERCLIP_WAIT_REFUSALS = exports.PaperclipWaitingForSchema = exports.PaperclipWaitUnblockerSchema = exports.PAPERCLIP_WAIT_UNBLOCKERS = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PAPERCLIP_WAIT_REFUSALS = exports.PaperclipWaitingForSchema = exports.PaperclipWaitUnblockerSchema = exports.PAPERCLIP_WAIT_UNBLOCKERS = exports.PaperclipWaitsOnSchema = exports.PaperclipWaitRefSchema = exports.PAPERCLIP_WAIT_REF_KINDS = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.paperclipWaitRefKey = paperclipWaitRefKey;
 exports.paperclipUnblockDescriptor = paperclipUnblockDescriptor;
 exports.paperclipAskIdempotencyKey = paperclipAskIdempotencyKey;
 exports.paperclipAskInteractionBody = paperclipAskInteractionBody;
 exports.paperclipAnswerInteractionBody = paperclipAnswerInteractionBody;
 const zod_1 = require("zod");
+const decision_request_js_1 = require("../../organization/decision-request.cjs");
+const research_js_1 = require("../ricerca/research.cjs");
 const tools_js_1 = require("./tools.cjs");
 /**
  * Native waits of the P6 «C» variant (PROTOCOLLO-PAPERCLIP-P6.md): what a task waits for is declared to Paperclip, never
@@ -34,6 +37,22 @@ const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().leng
 const IssueIds = zod_1.z.array(zod_1.z.uuid()).min(1).max(20)
     .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique');
 /**
+ * What a wait expects, declared with the identifiers the tools returned (`email_request_decision` gives `requestId`,
+ * `research_start` gives `researchId`): the link is data, never an id written inside the free text of `action` or `notes`.
+ */
+exports.PAPERCLIP_WAIT_REF_KINDS = ['decision', 'research'];
+exports.PaperclipWaitRefSchema = zod_1.z.discriminatedUnion('kind', [
+    zod_1.z.strictObject({ kind: zod_1.z.literal('decision'), requestId: decision_request_js_1.DecisionRequestIdSchema }),
+    zod_1.z.strictObject({ kind: zod_1.z.literal('research'), researchId: research_js_1.ResearchIdSchema }),
+]);
+/** The only key by which references are compared: `decision:<requestId>` or `research:<researchId>`. */
+function paperclipWaitRefKey(ref) {
+    return ref.kind === 'decision' ? `decision:${ref.requestId}` : `research:${ref.researchId}`;
+}
+exports.PaperclipWaitsOnSchema = zod_1.z.array(exports.PaperclipWaitRefSchema).min(1).max(20)
+    .refine(refs => new Set(refs.map(paperclipWaitRefKey)).size === refs.length, 'Waited-on references must be unique')
+    .describe('The decisions or researches this wait expects, with their identifiers');
+/**
  * Who unblocks a wait, declared by the agent with fixed words (the free text of `action` is never read to decide):
  * - `self`: an action of the agent itself;
  * - `external`: a contact or event outside the company's agents; the answer wakes the agent, which stays the owner;
@@ -46,6 +65,7 @@ exports.PaperclipWaitUnblockerSchema = zod_1.z.enum(exports.PAPERCLIP_WAIT_UNBLO
 exports.PaperclipWaitingForSchema = zod_1.z.strictObject({
     action: Text.max(2000),
     unblockedBy: exports.PaperclipWaitUnblockerSchema.describe('Who unblocks the wait: self (an action of your own), external (a contact or event outside the company agents); company_agent (another company agent) is refused'),
+    waitsOn: exports.PaperclipWaitsOnSchema.optional(),
 });
 /** Closed list of the refusals of a wait declaration; the name is both the reason and the log code. */
 exports.PAPERCLIP_WAIT_REFUSALS = ['wait_for_company_agent'];
@@ -65,6 +85,7 @@ exports.PaperclipCheckLaterSchema = zod_1.z.strictObject({
     afterSeconds: zod_1.z.number().int().min(30).max(exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS),
     notes: Text.max(500),
     serviceName: Text.max(120).optional(),
+    waitsOn: exports.PaperclipWaitsOnSchema.optional(),
 });
 /** A decision asked of another agent (resolved from `roleRef` by the consumer): Paperclip interaction + task in_review. */
 exports.PaperclipAskSchema = zod_1.z.strictObject({ roleRef: Text.max(120), question: Text.max(exports.PAPERCLIP_ASK_QUESTION_MAX) });
@@ -177,6 +198,7 @@ exports.PaperclipCheckLaterInputSchema = zod_1.z.strictObject({
     afterSeconds: zod_1.z.number().int().min(30).max(exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS),
     notes: Text.max(500),
     serviceName: Text.max(120).optional(),
+    waitsOn: exports.PaperclipWaitsOnSchema.optional(),
 });
 exports.PaperclipCheckLaterOutputSchema = zod_1.z.strictObject({
     issue: tools_js_1.PaperclipIssueViewSchema,

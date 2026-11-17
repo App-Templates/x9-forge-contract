@@ -24,6 +24,28 @@ export declare const PAPERCLIP_ANSWER_MAX = 4000;
 /** The wake reason Paperclip gives the addressee of a pending interaction (`routes/issues.ts`). */
 export declare const PAPERCLIP_INTERACTION_PENDING_WAKE = "interaction_pending";
 /**
+ * What a wait expects, declared with the identifiers the tools returned (`email_request_decision` gives `requestId`,
+ * `research_start` gives `researchId`): the link is data, never an id written inside the free text of `action` or `notes`.
+ */
+export declare const PAPERCLIP_WAIT_REF_KINDS: readonly ["decision", "research"];
+export declare const PaperclipWaitRefSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"decision">;
+    requestId: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"research">;
+    researchId: z.ZodString;
+}, z.core.$strict>], "kind">;
+export type PaperclipWaitRef = z.infer<typeof PaperclipWaitRefSchema>;
+/** The only key by which references are compared: `decision:<requestId>` or `research:<researchId>`. */
+export declare function paperclipWaitRefKey(ref: PaperclipWaitRef): string;
+export declare const PaperclipWaitsOnSchema: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"decision">;
+    requestId: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"research">;
+    researchId: z.ZodString;
+}, z.core.$strict>], "kind">>;
+/**
  * Who unblocks a wait, declared by the agent with fixed words (the free text of `action` is never read to decide):
  * - `self`: an action of the agent itself;
  * - `external`: a contact or event outside the company's agents; the answer wakes the agent, which stays the owner;
@@ -45,6 +67,13 @@ export declare const PaperclipWaitingForSchema: z.ZodObject<{
         self: "self";
         company_agent: "company_agent";
     }>;
+    waitsOn: z.ZodOptional<z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"decision">;
+        requestId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"research">;
+        researchId: z.ZodString;
+    }, z.core.$strict>], "kind">>>;
 }, z.core.$strict>;
 /** Closed list of the refusals of a wait declaration; the name is both the reason and the log code. */
 export declare const PAPERCLIP_WAIT_REFUSALS: readonly ["wait_for_company_agent"];
@@ -71,6 +100,13 @@ export declare const PaperclipCheckLaterSchema: z.ZodObject<{
     afterSeconds: z.ZodNumber;
     notes: z.ZodString;
     serviceName: z.ZodOptional<z.ZodString>;
+    waitsOn: z.ZodOptional<z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"decision">;
+        requestId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"research">;
+        researchId: z.ZodString;
+    }, z.core.$strict>], "kind">>>;
 }, z.core.$strict>;
 /** A decision asked of another agent (resolved from `roleRef` by the consumer): Paperclip interaction + task in_review. */
 export declare const PaperclipAskSchema: z.ZodObject<{
@@ -100,11 +136,25 @@ export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
             self: "self";
             company_agent: "company_agent";
         }>;
+        waitsOn: z.ZodOptional<z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"decision">;
+            requestId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"research">;
+            researchId: z.ZodString;
+        }, z.core.$strict>], "kind">>>;
     }, z.core.$strict>>;
     checkLater: z.ZodOptional<z.ZodObject<{
         afterSeconds: z.ZodNumber;
         notes: z.ZodString;
         serviceName: z.ZodOptional<z.ZodString>;
+        waitsOn: z.ZodOptional<z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"decision">;
+            requestId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"research">;
+            researchId: z.ZodString;
+        }, z.core.$strict>], "kind">>>;
     }, z.core.$strict>>;
     ask: z.ZodOptional<z.ZodObject<{
         roleRef: z.ZodString;
@@ -187,6 +237,13 @@ export declare const PaperclipCheckLaterInputSchema: z.ZodObject<{
     afterSeconds: z.ZodNumber;
     notes: z.ZodString;
     serviceName: z.ZodOptional<z.ZodString>;
+    waitsOn: z.ZodOptional<z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"decision">;
+        requestId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"research">;
+        researchId: z.ZodString;
+    }, z.core.$strict>], "kind">>>;
 }, z.core.$strict>;
 export declare const PaperclipCheckLaterOutputSchema: z.ZodObject<{
     issue: z.ZodObject<{
