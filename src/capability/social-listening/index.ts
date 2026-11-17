@@ -59,3 +59,4 @@ export * from './import.js';
 export * from './job-io.js';
 export * from './cap.js';
 export * from './handover.js';
+export { SocialFactSchema, SocialPostToolSchema, SocialPostAnalysisSchema, type SocialFact, type SocialPostTool, type SocialPostAnalysis } from './verdict.js';
