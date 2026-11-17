@@ -5,6 +5,9 @@ import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import type { ZodType } from 'zod';
 import {
+  VIDEO_MODEL_REF_MEDIA_TYPES, VIDEO_MODEL_REF_MAX_BYTES,
+  VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelRegiaDocumentSchema,
+  VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema,
   VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema,
   VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema,
   VideoEngineRouteRunRequestSchema, VideoEngineErrorSchema, VideoEngineHealthSchema,
@@ -14,6 +17,11 @@ import {
   VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoEngineFootageRejectedSchema,
   VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoFootageListQuerySchema, VideoFootageListSchema,
 } from '../../../src/capability/video/index.js';
+import { INTERNAL_SECRET_HEADER } from '../../../src/auth/auth-headers.js';
+import {
+  officinaVideoModelProductionCreateContract, officinaVideoModelRegiaApplyContract,
+  officinaVideoModelStateContract, officinaVideoModelFrameContract, officinaVideoModelFrameApproveContract,
+} from '../../../src/http/endpoints/officina-video.js';
 import { getPortableCapabilityContracts } from '../../../src/capability/portable-contracts.js';
 
 const ID = 'a'.repeat(32);
@@ -68,11 +76,33 @@ const modelVersion = {
 };
 const model = { id: 'giulia-1', name: 'Giulia', identity: job.identity, versions: [modelVersion], currentVersion: 1 };
 
+const productionQuery = {
+  ...job.identity, videoProjectId: 'video-1', modelId: model.id, modelVersion: '1',
+  purpose: 'Show the summer collection', name: 'Summer look', durationSeconds: '30',
+  budgetUsd: '12.50', fileName: 'Look (1).JPG',
+};
+const productionCreated = { engineProjectId: ID, lookSha256: 'd'.repeat(64), modelDigest: modelVersion.digest };
+const modelShot = {
+  title: 'Arrival', location: 'Rome', environment: 'A sunny street', interior: false,
+  action: 'Walk towards the camera', camera: 'Medium shot', wardrobe: 'look', durationSeconds: 6,
+};
+const modelRegia = { version: 2, shots: Array.from({ length: 3 }, () => ({ ...modelShot })), caption: 'Summer in Rome' };
+const modelFrame = {
+  status: 'pronto', frameUrl: `${media}/campione.png`, frameSha256: 'e'.repeat(64),
+  similarity: { outcome: 'da_rivedere', reason: 'volto_non_rilevato', score: null, threshold: 0.363 },
+  approvedAt: null, approvedBy: null, reviewConfirmed: false, error: null,
+};
+const productionState = {
+  modelId: model.id, modelVersion: 1, modelDigest: modelVersion.digest,
+  lookSha256: productionCreated.lookSha256, purpose: productionQuery.purpose, regiaApplied: true, frame: modelFrame,
+};
+const frameApproval = { revision: 1, frameSha256: modelFrame.frameSha256, confirmReview: true };
+
 // Verdicts come from the canonical schema: a shared contract change is not a parity failure.
 // Gate counterchecks: remove Error.strict() to check shared evolution; change a pattern
 // only in the temporary catalog to check divergence detection. Compare parsed values too:
 // accepting the same input is insufficient if one runtime strips fields the other preserves.
-const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; minimum?: number }> = {
+const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; minimum?: number; accepted?: readonly string[] }> = {
   videoEngineProject: {
     schema: VideoEngineProjectSchema,
     cases: {
@@ -445,6 +475,91 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
       'empty model id': { models: [{ ...model, id: '' }] },
     },
   },
+  videoEngineModelProductionQuery: {
+    schema: VideoModelProductionQuerySchema, minimum: 1,
+    accepted: ['production', 'look note', 'minimum duration', 'maximum duration'],
+    cases: {
+      production: productionQuery,
+      'look note': { ...productionQuery, lookNote: '  Red silk dress  ' },
+      'minimum duration': { ...productionQuery, durationSeconds: '18' },
+      'maximum duration': { ...productionQuery, durationSeconds: '60' },
+      '17 seconds': { ...productionQuery, durationSeconds: '17' },
+      '61 seconds': { ...productionQuery, durationSeconds: '61' },
+      'zero budget': { ...productionQuery, budgetUsd: '0' },
+      'look path traversal': { ...productionQuery, fileName: '../look.jpg' },
+      'missing modelId': Object.fromEntries(Object.entries(productionQuery).filter(([key]) => key !== 'modelId')),
+      'missing tenantId': Object.fromEntries(Object.entries(productionQuery).filter(([key]) => key !== 'tenantId')),
+      'numeric version': { ...productionQuery, modelVersion: 1 },
+      'numeric duration': { ...productionQuery, durationSeconds: 30 },
+      'numeric budget': { ...productionQuery, budgetUsd: 12.5 },
+      'empty purpose': { ...productionQuery, purpose: '  ' },
+      'empty look note': { ...productionQuery, lookNote: '  ' },
+      'extra field': { ...productionQuery, extra: true },
+    },
+  },
+  videoEngineModelProductionCreated: {
+    schema: VideoModelProductionCreatedSchema, minimum: 1, accepted: ['created'],
+    cases: {
+      created: productionCreated,
+      'short id': { ...productionCreated, engineProjectId: 'abc' },
+      'uppercase hash': { ...productionCreated, lookSha256: 'D'.repeat(64) },
+      'extra field': { ...productionCreated, extra: true },
+    },
+  },
+  videoEngineModelRegia: {
+    schema: VideoModelRegiaDocumentSchema, minimum: 1, accepted: ['three shots', 'outfit note'],
+    cases: {
+      'three shots': modelRegia,
+      'outfit note': { ...modelRegia, outfitNote: '  Red silk dress  ' },
+      'two shots': { ...modelRegia, shots: Array.from({ length: 2 }, () => modelShot) },
+      'nine shots': { ...modelRegia, shots: Array.from({ length: 9 }, () => modelShot) },
+      'version 1': { ...modelRegia, version: 1 },
+      'other wardrobe': { ...modelRegia, shots: [{ ...modelShot, wardrobe: 'altro' }, modelShot, modelShot] },
+      'multiline location': { ...modelRegia, shots: [{ ...modelShot, location: 'Rome\nMilan' }, modelShot, modelShot] },
+      'missing caption': { version: 2, shots: modelRegia.shots },
+    },
+  },
+  videoEngineModelState: {
+    schema: VideoModelProductionStateSchema, minimum: 1,
+    accepted: ['frame needs review', 'absent frame', 'approved by person', 'rejected likeness'],
+    cases: {
+      'frame needs review': productionState,
+      'absent frame': { ...productionState, frame: { ...modelFrame, status: 'assente', frameUrl: null, frameSha256: null, similarity: null } },
+      'approved by person': { ...productionState, frame: {
+        ...modelFrame, approvedAt: '2026-11-17T11:00:00.123Z', approvedBy: 'persona',
+        similarity: { outcome: 'ok', reason: 'confermata', score: 0.7, threshold: 0.363 },
+      } },
+      'rejected likeness': { ...productionState, frame: { ...modelFrame, similarity: { outcome: 'respinto', reason: 'sotto_soglia', score: -1, threshold: 1 } } },
+      'green outcome': { ...productionState, frame: { ...modelFrame, similarity: { ...modelFrame.similarity, outcome: 'verde' } } },
+      'approved by system': { ...productionState, frame: { ...modelFrame, approvedAt: '2026-11-17T11:00:00Z', approvedBy: 'sistema' } },
+      'unsafe frame URL': { ...productionState, frame: { ...modelFrame, frameUrl: '/etc/passwd' } },
+      'extra field': { ...productionState, extra: true },
+      'missing frame': Object.fromEntries(Object.entries(productionState).filter(([key]) => key !== 'frame')),
+      'unknown frame status': { ...productionState, frame: { ...modelFrame, status: 'done' } },
+      'uppercase frame hash': { ...productionState, frame: { ...modelFrame, frameSha256: 'E'.repeat(64) } },
+      'non UTC approval': { ...productionState, frame: { ...modelFrame, approvedAt: '2026-11-17T11:00:00+01:00' } },
+      'unknown similarity reason': { ...productionState, frame: { ...modelFrame, similarity: { ...modelFrame.similarity, reason: 'unknown' } } },
+      'score above one': { ...productionState, frame: { ...modelFrame, similarity: { ...modelFrame.similarity, score: 1.1 } } },
+      'threshold below minus one': { ...productionState, frame: { ...modelFrame, similarity: { ...modelFrame.similarity, threshold: -1.1 } } },
+      'long error': { ...productionState, frame: { ...modelFrame, error: 'x'.repeat(501) } },
+    },
+  },
+  videoEngineModelFrameRequest: {
+    schema: VideoModelFrameRequestSchema, minimum: 1, accepted: ['revision'],
+    cases: { revision: { revision: 1 }, zero: { revision: 0 }, missing: {}, extra: { revision: 1, extra: true } },
+  },
+  videoEngineModelFrameApproveRequest: {
+    schema: VideoModelFrameApproveRequestSchema, minimum: 1, accepted: ['confirmed review', 'without review confirmation'],
+    cases: {
+      'confirmed review': frameApproval,
+      'without review confirmation': { ...frameApproval, confirmReview: false },
+      'missing confirmReview': { revision: 1, frameSha256: modelFrame.frameSha256 },
+      'missing fingerprint': { revision: 1, confirmReview: true },
+      'text confirmation': { ...frameApproval, confirmReview: 'si' },
+      'zero revision': { ...frameApproval, revision: 0 },
+      'extra field': { ...frameApproval, extra: true },
+    },
+  },
 };
 
 type Verdict = { ok: boolean; value?: unknown };
@@ -486,11 +601,15 @@ describe('engine contracts: zod and generated Python parity', () => {
     expect(Object.keys(corpus).sort()).toEqual(names.sort());
   });
 
-  for (const [contract, { schema, cases, minimum = 4 }] of Object.entries(corpus)) {
+  for (const [contract, { schema, cases, minimum = 4, accepted }] of Object.entries(corpus)) {
     describe(contract, () => {
       for (const [name, value] of Object.entries(cases)) {
         it(name, () => {
           const zod = schema.safeParse(value);
+          if (accepted) {
+            expect(zod.success, `${contract}/${name}: expected verdict`).toBe(accepted.includes(name));
+            expect(python[contract]?.[name]?.ok, `${contract}/${name}: Python expected verdict`).toBe(accepted.includes(name));
+          }
           expect(python[contract]?.[name]?.ok, `${contract}/${name}: zod ${zod.success}`).toBe(zod.success);
           if (zod.success) expect(python[contract]![name]!.value).toEqual(zod.data);
         });
@@ -503,4 +622,62 @@ describe('engine contracts: zod and generated Python parity', () => {
       });
     });
   }
+});
+
+// SUMMARY: replacing approvedBy's z.literal('persona') with z.string() must fail
+// videoEngineModelState / approved by system in both Zod and generated Python.
+// Acceptance, type checks and this mutation are run by the gate.
+const productionRoutes = [
+  ['videoEngineModelProductionCreate', officinaVideoModelProductionCreateContract, 'POST', '/api/produzioni-modella', 201, undefined, 'videoEngineModelProductionCreated'],
+  ['videoEngineModelRegiaApply', officinaVideoModelRegiaApplyContract, 'POST', '/api/projects/:engineProjectId/regia-modella', 200, 'videoEngineModelRegia', 'videoEngineModelState'],
+  ['videoEngineModelState', officinaVideoModelStateContract, 'GET', '/api/projects/:engineProjectId/modella', 200, undefined, 'videoEngineModelState'],
+  ['videoEngineModelFrame', officinaVideoModelFrameContract, 'POST', '/api/projects/:engineProjectId/frame-campione', 202, 'videoEngineModelFrameRequest', 'videoEngineModelState'],
+  ['videoEngineModelFrameApprove', officinaVideoModelFrameApproveContract, 'POST', '/api/projects/:engineProjectId/frame-campione/approva', 200, 'videoEngineModelFrameApproveRequest', 'videoEngineModelState'],
+] as const;
+
+describe('model production route wiring', () => {
+  for (const [name, contract, method, path, responseStatus, requestContract, responseContract] of productionRoutes) {
+    it(`${name} publishes its route and supported portable contracts`, () => {
+      expect(contract).toMatchObject({ method, path, responseStatus, errorSchema: VideoEngineErrorSchema });
+      const { contracts, transports } = getPortableCapabilityContracts();
+      const transport = transports[name];
+      expect(transport).toMatchObject({ method, path, authHeader: INTERNAL_SECRET_HEADER, errorContract: 'videoEngineError', responseContract });
+      expect(transport!.requestContract).toBe(requestContract);
+      for (const target of [requestContract, responseContract, 'videoEngineError']) {
+        if (target) expect(contracts[target], target).toMatchObject({ supported: true, rules: [], customRefinements: 0, gates: [] });
+      }
+      const params = contract === officinaVideoModelProductionCreateContract ? {} : { engineProjectId: ID };
+      expect(contract.paramsSchema.safeParse(params).success).toBe(true);
+      expect(contract.paramsSchema.safeParse({ ...params, extra: true }).success).toBe(false);
+      if (contract !== officinaVideoModelProductionCreateContract) {
+        expect(contract.paramsSchema.safeParse({ engineProjectId: '../x' }).success).toBe(false);
+        expect(contract.responseSchema).toBe(VideoModelProductionStateSchema);
+      }
+    });
+  }
+
+  it('requires query identity and publishes binary look limits', () => {
+    const contract = officinaVideoModelProductionCreateContract;
+    expect(contract.querySchema).toBe(VideoModelProductionQuerySchema);
+    expect(contract.querySchema.safeParse(productionQuery).success).toBe(true);
+    for (const key of ['tenantId', 'ownerId', 'agentId']) {
+      const query = Object.fromEntries(Object.entries(productionQuery).filter(([field]) => field !== key));
+      expect(contract.querySchema.safeParse(query).success, key).toBe(false);
+    }
+    expect(contract.responseSchema).toBe(VideoModelProductionCreatedSchema);
+    expect(contract.bodyMediaTypes).toBe(VIDEO_MODEL_REF_MEDIA_TYPES);
+    expect(contract.maxBodyBytes).toBe(VIDEO_MODEL_REF_MAX_BYTES);
+    expect(contract).not.toHaveProperty('requestSchema');
+    const { contracts, transports } = getPortableCapabilityContracts();
+    expect(transports.videoEngineModelProductionCreate).toMatchObject({
+      queryContract: 'videoEngineModelProductionQuery', bodyMediaTypes: VIDEO_MODEL_REF_MEDIA_TYPES, maxBodyBytes: VIDEO_MODEL_REF_MAX_BYTES,
+    });
+    expect(contracts.videoEngineModelProductionQuery).toMatchObject({ supported: true, customRefinements: 0, rules: [], gates: [] });
+  });
+
+  it('uses canonical regia and frame request schemas', () => {
+    expect(officinaVideoModelRegiaApplyContract.requestSchema).toBe(VideoModelRegiaDocumentSchema);
+    expect(officinaVideoModelFrameContract.requestSchema).toBe(VideoModelFrameRequestSchema);
+    expect(officinaVideoModelFrameApproveContract.requestSchema).toBe(VideoModelFrameApproveRequestSchema);
+  });
 });

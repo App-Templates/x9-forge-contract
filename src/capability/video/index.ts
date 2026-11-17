@@ -307,3 +307,28 @@ export {
   type VideoModelVersionCreateRequest,
   type VideoModelApproveRequest,
 } from './modella.js';
+
+export {
+  VIDEO_MODEL_PRODUCTION_MIN_SECONDS,
+  VIDEO_MODEL_PRODUCTION_MAX_SECONDS,
+  VideoModelProductionQuerySchema,
+  VideoModelProductionCreatedSchema,
+  VideoModelSimilarityOutcomeSchema,
+  VideoModelSimilarityReasonSchema,
+  VideoModelSimilaritySchema,
+  VideoModelFrameStatusSchema,
+  VideoModelFrameStateSchema,
+  VideoModelProductionStateSchema,
+  VideoModelFrameRequestSchema,
+  VideoModelFrameApproveRequestSchema,
+  type VideoModelProductionQuery,
+  type VideoModelProductionCreated,
+  type VideoModelSimilarityOutcome,
+  type VideoModelSimilarityReason,
+  type VideoModelSimilarity,
+  type VideoModelFrameStatus,
+  type VideoModelFrameState,
+  type VideoModelProductionState,
+  type VideoModelFrameRequest,
+  type VideoModelFrameApproveRequest,
+} from './produzione-modella.js';

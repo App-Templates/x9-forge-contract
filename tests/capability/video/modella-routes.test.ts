@@ -91,9 +91,13 @@ describe('model routes', () => {
     }
   });
 
-  it('publishes all seven model transports and all eight supported catalog contracts', () => {
+  it('publishes all model transports and all eight supported archive contracts', () => {
     const { contracts, transports } = getPortableCapabilityContracts();
-    const expectedNames = routes.map(([name]) => name).sort();
+    const expectedNames = [
+      ...routes.map(([name]) => name),
+      'videoEngineModelProductionCreate', 'videoEngineModelRegiaApply', 'videoEngineModelState',
+      'videoEngineModelFrame', 'videoEngineModelFrameApprove',
+    ].sort();
     expect(Object.keys(transports).filter(name => name.startsWith('videoEngineModel')).sort()).toEqual(expectedNames);
     for (const [name, contract, , , , requestContract, responseContract] of routes) {
       const transport = transports[name];

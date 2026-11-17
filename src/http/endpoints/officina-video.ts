@@ -4,6 +4,9 @@ import { VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineJobSchema, 
 import { VIDEO_FOOTAGE_MAX_BYTES, VIDEO_FOOTAGE_MEDIA_TYPES, VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoFootageJobIdSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoEngineFootageRejectedSchema, VideoFootageListQuerySchema, VideoFootageListSchema } from '../../capability/video/footage.js';
 import { VIDEO_MODEL_REF_MEDIA_TYPES, VIDEO_MODEL_REF_MAX_BYTES, VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema, VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelSchema, VideoModelListSchema, VideoModelVersionSchema, VideoModelIdSchema, VideoModelVersionParamSchema, VideoModelRefKindSchema } from '../../capability/video/modella.js';
 
+import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from '../../capability/video/produzione-modella.js';
+import { VideoModelRegiaDocumentSchema } from '../../capability/video/regia.js';
+
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
   errorSchema: VideoEngineErrorSchema,
@@ -222,5 +225,61 @@ export const officinaVideoModelApproveContract = {
   querySchema: VideoModelScopeQuerySchema,
   requestSchema: VideoModelApproveRequestSchema,
   responseSchema: VideoModelVersionSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: create a production from the approved model and binary look image. */
+export const officinaVideoModelProductionCreateContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/produzioni-modella',
+  paramsSchema: z.object({}).strict(),
+  querySchema: VideoModelProductionQuerySchema,
+  bodyMediaTypes: VIDEO_MODEL_REF_MEDIA_TYPES,
+  maxBodyBytes: VIDEO_MODEL_REF_MAX_BYTES,
+  responseSchema: VideoModelProductionCreatedSchema,
+  responseStatus: 201,
+} as const;
+
+/** cap-video -> engine: model production RegiaApply. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoModelRegiaApplyContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/projects/:engineProjectId/regia-modella',
+  paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
+  requestSchema: VideoModelRegiaDocumentSchema,
+  responseSchema: VideoModelProductionStateSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: model production State. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoModelStateContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/projects/:engineProjectId/modella',
+  paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
+  responseSchema: VideoModelProductionStateSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: model production Frame. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoModelFrameContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/projects/:engineProjectId/frame-campione',
+  paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
+  requestSchema: VideoModelFrameRequestSchema,
+  responseSchema: VideoModelProductionStateSchema,
+  responseStatus: 202,
+} as const;
+
+/** cap-video -> engine: model production FrameApprove. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoModelFrameApproveContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/projects/:engineProjectId/frame-campione/approva',
+  paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
+  requestSchema: VideoModelFrameApproveRequestSchema,
+  responseSchema: VideoModelProductionStateSchema,
   responseStatus: 200,
 } as const;
