@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import {
+  PAPERCLIP_ASK_QUESTION_ID, PAPERCLIP_INTERACTION_PENDING_WAKE, PaperclipAnswerInteractionBodySchema,
+  PaperclipAskInteractionBodySchema, PaperclipNativeAssignInputSchema as NativeAssign,
+  PaperclipNativeAssignRefInputSchema as NativeAssignRef, paperclipAnswerInteractionBody,
+  paperclipAskIdempotencyKey, paperclipAskInteractionBody,
   PAPERCLIP_CHECK_LATER_MAX_SECONDS, PAPERCLIP_NATIVE_WAIT_TOOLS, PAPERCLIP_TOOLS, PaperclipCheckLaterInputSchema as CheckLater,
   PaperclipCheckLaterOutputSchema as CheckLaterOutput, PaperclipCreateIssueInputSchema as Create,
   PaperclipNativeCreateIssueInputSchema as NativeCreate, PaperclipNativeReviewInputSchema as NativeReview,
@@ -112,5 +116,82 @@ describe('check later: a one-shot Paperclip monitor (P-15)', () => {
     for (const schema of [NativeReview, NativeCreate, CheckLater]) {
       expect(z.toJSONSchema(schema)).toMatchObject({ type: 'object' });
     }
+  });
+});
+
+describe('s7275 chiedi-a-un-agente: ask in review and the answer in assign', () => {
+  const ask = { roleRef: 'director', question: 'Quale ambiente uso per la prova?' };
+  const issueRef = 'SOC-12';
+
+  it('(a) accepts ask only with in_review and no other wait', () => {
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask }).success).toBe(true);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', comment: 'Serve una decisione', ask }).success).toBe(true);
+    for (const status of ['done', 'blocked', 'in_progress']) {
+      expect(NativeReview.safeParse({ issueId, status, ask }).success).toBe(false);
+    }
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask, waitingFor: { action: 'x' } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask, blockedByIssueIds: [child] }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask, checkLater: { afterSeconds: 60, notes: 'x' } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, roleRef: '' } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, question: '' } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, question: 'q'.repeat(2001) } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, question: 'q'.repeat(2000) } }).success).toBe(true);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, extra: 1 } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review' }).success).toBe(true);
+  });
+
+  it('(b) assign carries answersInteractionId only with the answer text', () => {
+    const base = { issueId, roleRef: 'sviluppo' };
+    for (const schema of [NativeAssign]) {
+      expect(schema.safeParse({ ...base, answersInteractionId: other, comment: 'Usa lo staging' }).success).toBe(true);
+      expect(schema.safeParse({ ...base, answersInteractionId: other }).success).toBe(false);
+      expect(schema.safeParse({ ...base, answersInteractionId: 'non-uuid', comment: 'x' }).success).toBe(false);
+      expect(schema.safeParse({ ...base, answersInteractionId: other, comment: 'x'.repeat(4001) }).success).toBe(false);
+      expect(schema.safeParse({ ...base, comment: 'x', surprise: 1 }).success).toBe(false);
+      expect(schema.safeParse(base).success).toBe(true);
+      expect(schema.safeParse({ ...base, comment: 'x' }).success).toBe(true);
+    }
+    const ref = { issueId: issueRef, roleRef: 'sviluppo' };
+    expect(NativeAssignRef.safeParse({ ...ref, answersInteractionId: other, comment: 'ok' }).success).toBe(true);
+    expect(NativeAssignRef.safeParse({ ...ref, answersInteractionId: other }).success).toBe(false);
+    expect(NativeAssignRef.safeParse(ref).success).toBe(true);
+    expect(NativeAssignRef.safeParse({ ...ref, answersInteractionId: other, comment: 'ok', surprise: 1 }).success).toBe(false);
+  });
+
+  it('(c) builds the Paperclip creation body with two equal views and no resolverPolicy', () => {
+    const key = paperclipAskIdempotencyKey(issueId, 'call-1');
+    expect(key).toBe(`ask:${issueId}:call-1`);
+    const body = paperclipAskInteractionBody({ question: ask.question, addresseeAgentId: child, idempotencyKey: key });
+    expect(PaperclipAskInteractionBodySchema.parse(body)).toEqual(body);
+    expect(Object.keys(body)).not.toContain('resolverPolicy');
+    expect(body.kind).toBe('ask_user_questions');
+    expect(body.continuationPolicy).toBe('wake_assignee');
+    expect(body.addresseeAgentId).toBe(child);
+    const [set] = body.payload.questionSet.questions;
+    const [view] = body.payload.questions;
+    expect(set).toMatchObject({ id: PAPERCLIP_ASK_QUESTION_ID, prompt: ask.question, required: true });
+    expect(view).toMatchObject({ id: set?.id, prompt: set?.prompt, required: set?.required });
+    expect(view?.options).toHaveLength(1);
+    expect(view?.options[0]?.freeText).toBe(true);
+    expect(PaperclipAskInteractionBodySchema.safeParse({ ...body, resolverPolicy: 'human_only' }).success).toBe(false);
+    expect(PaperclipAskInteractionBodySchema.safeParse({ ...body, addresseeAgentId: 'nope' }).success).toBe(false);
+    const diverging = { ...body, payload: { ...body.payload, questions: [{ ...view, prompt: 'altro' }] } };
+    expect(PaperclipAskInteractionBodySchema.safeParse(diverging).success).toBe(false);
+    expect(() => paperclipAskInteractionBody({ question: '', addresseeAgentId: child, idempotencyKey: key })).toThrow();
+    expect(() => paperclipAskInteractionBody({ question: 'q'.repeat(2001), addresseeAgentId: child, idempotencyKey: key })).toThrow();
+    expect(() => paperclipAskInteractionBody({ question: 'q', addresseeAgentId: child, idempotencyKey: 'k'.repeat(256) })).toThrow();
+    expect(() => paperclipAskIdempotencyKey(issueId, 'c'.repeat(300))).toThrow();
+    expect(PAPERCLIP_INTERACTION_PENDING_WAKE).toBe('interaction_pending');
+  });
+
+  it('(d) builds the answer body: trimmed text, empty optionIds, bounded', () => {
+    const body = paperclipAnswerInteractionBody('  Usa lo staging \n');
+    expect(body).toEqual({ answers: [{ questionId: PAPERCLIP_ASK_QUESTION_ID, optionIds: [], otherText: 'Usa lo staging' }] });
+    expect(PaperclipAnswerInteractionBodySchema.parse(body)).toEqual(body);
+    expect(() => paperclipAnswerInteractionBody('   ')).toThrow();
+    expect(() => paperclipAnswerInteractionBody('')).toThrow();
+    expect(() => paperclipAnswerInteractionBody('x'.repeat(4001))).toThrow();
+    expect(paperclipAnswerInteractionBody('x'.repeat(4000)).answers[0]?.otherText).toHaveLength(4000);
+    expect(paperclipAnswerInteractionBody(`${' '.repeat(10)}${'x'.repeat(4000)}`).answers[0]?.otherText).toHaveLength(4000);
   });
 });

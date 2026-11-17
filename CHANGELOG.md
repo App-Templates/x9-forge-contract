@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.224.0 — «ask another agent» has the shape Paperclip documents (task 7275)
+
+- Added `ask: { roleRef, question }` to `PaperclipNativeReviewInputSchema` (only with `in_review`, never with `blockedByIssueIds`, `waitingFor`, `checkLater`; `PaperclipAskSchema`) and `answersInteractionId` (requires `comment`, the answer) to the new `PaperclipNativeAssignInputSchema` / `PaperclipNativeAssignRefInputSchema`.
+- Added pure builders `paperclipAskIdempotencyKey`, `paperclipAskInteractionBody` (kind `ask_user_questions`, `addresseeAgentId`, `wake_assignee`, two equal views, no `resolverPolicy`) and `paperclipAnswerInteractionBody` (trimmed free text, empty `optionIds`), validated by `PaperclipAskInteractionBodySchema` / `PaperclipAnswerInteractionBodySchema`; constants `PAPERCLIP_ASK_QUESTION_ID`, `PAPERCLIP_ASK_QUESTION_MAX`, `PAPERCLIP_ANSWER_MAX`, `PAPERCLIP_INTERACTION_PENDING_WAKE`.
+- Additive; nothing existing changes; no stored data changes. Consumers: cap-paperclip tasks 7276-7279.
+
 ## v1.223.0 — the proof of recorded outcomes never contains `<` or `>` (task 7258)
 
 - Fixed: `boardRecoveryOutcomesBlock` now turns every `<` and `>` of the proof into a space (then collapses spaces), so the fence can never be closed. The v1.222.0 cleanup of `<<<`/`>>>` runs could be bypassed with composed inputs such as `<<>>><fine-esiti><<<>>`.

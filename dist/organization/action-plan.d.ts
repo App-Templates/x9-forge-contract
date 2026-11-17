@@ -510,6 +510,21 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
     }, z.core.$strict>;
     projectId: z.ZodString;
     clientId: z.ZodString;
+    questions: z.ZodArray<z.ZodObject<{
+        question: z.ZodString;
+        unlocks: z.ZodString;
+        askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            personRef: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"owner">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"director">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"business_unit">;
+            buSlug: z.ZodString;
+        }, z.core.$strict>], "kind">>;
+    }, z.core.$strict>>;
     strategy: z.ZodObject<{
         approach: z.ZodString;
         choices: z.ZodArray<z.ZodString>;
@@ -660,21 +675,6 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
             milestone: z.ZodNumber;
         }, z.core.$strict>>;
         neededBy: z.ZodOptional<z.ZodISODate>;
-    }, z.core.$strict>>;
-    questions: z.ZodArray<z.ZodObject<{
-        question: z.ZodString;
-        unlocks: z.ZodString;
-        askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
-            kind: z.ZodLiteral<"referent">;
-            personRef: z.ZodString;
-        }, z.core.$strict>, z.ZodObject<{
-            kind: z.ZodLiteral<"owner">;
-        }, z.core.$strict>, z.ZodObject<{
-            kind: z.ZodLiteral<"director">;
-        }, z.core.$strict>, z.ZodObject<{
-            kind: z.ZodLiteral<"business_unit">;
-            buSlug: z.ZodString;
-        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
     sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
         topic: z.ZodString;
@@ -741,6 +741,21 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
     }, z.core.$strict>;
     projectId: z.ZodString;
     clientId: z.ZodString;
+    questions: z.ZodArray<z.ZodObject<{
+        question: z.ZodString;
+        unlocks: z.ZodString;
+        askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            personRef: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"owner">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"director">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"business_unit">;
+            buSlug: z.ZodString;
+        }, z.core.$strict>], "kind">>;
+    }, z.core.$strict>>;
     strategy: z.ZodObject<{
         approach: z.ZodString;
         choices: z.ZodArray<z.ZodString>;
@@ -891,21 +906,6 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
             milestone: z.ZodNumber;
         }, z.core.$strict>>;
         neededBy: z.ZodOptional<z.ZodISODate>;
-    }, z.core.$strict>>;
-    questions: z.ZodArray<z.ZodObject<{
-        question: z.ZodString;
-        unlocks: z.ZodString;
-        askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
-            kind: z.ZodLiteral<"referent">;
-            personRef: z.ZodString;
-        }, z.core.$strict>, z.ZodObject<{
-            kind: z.ZodLiteral<"owner">;
-        }, z.core.$strict>, z.ZodObject<{
-            kind: z.ZodLiteral<"director">;
-        }, z.core.$strict>, z.ZodObject<{
-            kind: z.ZodLiteral<"business_unit">;
-            buSlug: z.ZodString;
-        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
     sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
         topic: z.ZodString;

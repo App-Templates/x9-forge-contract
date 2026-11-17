@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipCheckLaterSchema = exports.PaperclipWaitingForSchema = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PaperclipWaitingForSchema = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.paperclipAskIdempotencyKey = paperclipAskIdempotencyKey;
+exports.paperclipAskInteractionBody = paperclipAskInteractionBody;
+exports.paperclipAnswerInteractionBody = paperclipAnswerInteractionBody;
 const zod_1 = require("zod");
 const tools_js_1 = require("./tools.cjs");
 /**
@@ -19,6 +22,13 @@ const tools_js_1 = require("./tools.cjs");
  */
 exports.PAPERCLIP_NATIVE_WAIT_TOOLS = { checkLater: 'paperclip_check_later' };
 exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604_800;
+/** The single question of an «ask another agent» interaction and the limits of its texts (Paperclip answers it with free text). */
+exports.PAPERCLIP_ASK_QUESTION_ID = 'detail';
+exports.PAPERCLIP_ASK_QUESTION_MAX = 2000;
+exports.PAPERCLIP_ANSWER_MAX = 4000;
+/** The wake reason Paperclip gives the addressee of a pending interaction (`routes/issues.ts`). */
+exports.PAPERCLIP_INTERACTION_PENDING_WAKE = 'interaction_pending';
+const ASK_IDEMPOTENCY_KEY_MAX = 255;
 const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 const IssueIds = zod_1.z.array(zod_1.z.uuid()).min(1).max(20)
     .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique');
@@ -30,6 +40,8 @@ exports.PaperclipCheckLaterSchema = zod_1.z.strictObject({
     notes: Text.max(500),
     serviceName: Text.max(120).optional(),
 });
+/** A decision asked of another agent (resolved from `roleRef` by the consumer): Paperclip interaction + task in_review. */
+exports.PaperclipAskSchema = zod_1.z.strictObject({ roleRef: Text.max(120), question: Text.max(exports.PAPERCLIP_ASK_QUESTION_MAX) });
 /**
  * `paperclip_review` with every durable disposition Paperclip accepts: `blocked` with what it waits for (tasks, or the
  * external action the agent owns), or the task kept `in_progress` with a scheduled check of an async job (P-15). The
@@ -41,7 +53,12 @@ exports.PaperclipNativeReviewInputSchema = tools_js_1.PaperclipReviewInputSchema
     blockedByIssueIds: IssueIds.optional(),
     waitingFor: exports.PaperclipWaitingForSchema.optional(),
     checkLater: exports.PaperclipCheckLaterSchema.optional(),
+    ask: exports.PaperclipAskSchema.optional(),
 }).superRefine((value, ctx) => {
+    if (value.ask !== undefined && (value.status !== 'in_review' || value.blockedByIssueIds !== undefined
+        || value.waitingFor !== undefined || value.checkLater !== undefined)) {
+        ctx.addIssue({ code: 'custom', path: ['ask'], message: 'ask requires status in_review and no other wait' });
+    }
     if ((value.blockedByIssueIds !== undefined || value.waitingFor !== undefined) && value.status !== 'blocked') {
         ctx.addIssue({ code: 'custom', path: ['status'], message: 'A wait reason requires status blocked' });
     }
@@ -60,6 +77,74 @@ exports.PaperclipNativeCreateIssueInputSchema = tools_js_1.PaperclipCreateIssueI
         ctx.addIssue({ code: 'custom', path: ['waitForChild'], message: 'Waiting for a child requires parentIssueId and assigneeRoleRef' });
     }
 });
+const AnswerFields = {
+    answersInteractionId: zod_1.z.uuid().optional(),
+};
+function requireAnswerText(value, ctx) {
+    if (value.answersInteractionId !== undefined && value.comment === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['comment'], message: 'Answering an interaction requires the answer text in comment' });
+    }
+}
+/** `paperclip_assign` that can also answer a question another agent put to the assignee (the comment is the answer). */
+exports.PaperclipNativeAssignInputSchema = tools_js_1.PaperclipAssignInputSchema.extend(AnswerFields).superRefine(requireAnswerText);
+exports.PaperclipNativeAssignRefInputSchema = tools_js_1.PaperclipAssignRefInputSchema.extend(AnswerFields).superRefine(requireAnswerText);
+const AskPrompt = Text.max(exports.PAPERCLIP_ASK_QUESTION_MAX);
+/** Creation body of `POST /issues/:id/interactions` (kind ask_user_questions) with an addressee and no resolverPolicy. */
+exports.PaperclipAskInteractionBodySchema = zod_1.z.strictObject({
+    kind: zod_1.z.literal('ask_user_questions'),
+    idempotencyKey: zod_1.z.string().min(1).max(ASK_IDEMPOTENCY_KEY_MAX),
+    addresseeAgentId: zod_1.z.uuid(),
+    continuationPolicy: zod_1.z.literal('wake_assignee'),
+    payload: zod_1.z.strictObject({
+        version: zod_1.z.literal(1),
+        questionSet: zod_1.z.strictObject({
+            schema: zod_1.z.literal('paperclip.question_set.v1'),
+            questions: zod_1.z.tuple([zod_1.z.strictObject({
+                    id: zod_1.z.literal(exports.PAPERCLIP_ASK_QUESTION_ID), prompt: AskPrompt, answerMode: zod_1.z.literal('text'), required: zod_1.z.literal(true),
+                })]),
+        }),
+        questions: zod_1.z.tuple([zod_1.z.strictObject({
+                id: zod_1.z.literal(exports.PAPERCLIP_ASK_QUESTION_ID), prompt: AskPrompt, selectionMode: zod_1.z.literal('single'), required: zod_1.z.literal(true),
+                options: zod_1.z.tuple([zod_1.z.strictObject({ id: zod_1.z.literal('text'), label: zod_1.z.string().min(1).max(120), freeText: zod_1.z.literal(true) })]),
+            })]),
+    }),
+}).superRefine((value, ctx) => {
+    const [set] = value.payload.questionSet.questions;
+    const [view] = value.payload.questions;
+    if (set.prompt !== view.prompt) {
+        ctx.addIssue({ code: 'custom', path: ['payload', 'questions', 0, 'prompt'], message: 'The two views must carry the same prompt' });
+    }
+});
+/** Body of `POST /issues/:id/interactions/:interactionId/respond` for that question: free text, no option. */
+exports.PaperclipAnswerInteractionBodySchema = zod_1.z.strictObject({
+    answers: zod_1.z.tuple([zod_1.z.strictObject({
+            questionId: zod_1.z.literal(exports.PAPERCLIP_ASK_QUESTION_ID), optionIds: zod_1.z.tuple([]), otherText: Text.max(exports.PAPERCLIP_ANSWER_MAX),
+        })]),
+});
+/** `ask:<issueId>:<callId>`, at most 255 characters (throws beyond). */
+function paperclipAskIdempotencyKey(issueId, callId) {
+    const key = `ask:${issueId}:${callId}`;
+    if (key.length > ASK_IDEMPOTENCY_KEY_MAX)
+        throw new Error('Ask idempotency key longer than 255 characters');
+    return key;
+}
+function paperclipAskInteractionBody(input) {
+    return exports.PaperclipAskInteractionBodySchema.parse({
+        kind: 'ask_user_questions', idempotencyKey: input.idempotencyKey, addresseeAgentId: input.addresseeAgentId,
+        continuationPolicy: 'wake_assignee',
+        payload: {
+            version: 1,
+            questionSet: { schema: 'paperclip.question_set.v1', questions: [{ id: exports.PAPERCLIP_ASK_QUESTION_ID, prompt: input.question, answerMode: 'text', required: true }] },
+            questions: [{ id: exports.PAPERCLIP_ASK_QUESTION_ID, prompt: input.question, selectionMode: 'single', required: true,
+                    options: [{ id: 'text', label: 'Risposta', freeText: true }] }],
+        },
+    });
+}
+function paperclipAnswerInteractionBody(text) {
+    return exports.PaperclipAnswerInteractionBodySchema.parse({
+        answers: [{ questionId: exports.PAPERCLIP_ASK_QUESTION_ID, optionIds: [], otherText: text.trim() }],
+    });
+}
 /** One-shot Paperclip monitor on a task the agent owns, for an async job it will check later (no recurring interval). */
 exports.PaperclipCheckLaterInputSchema = zod_1.z.strictObject({
     issueId: zod_1.z.uuid(),
