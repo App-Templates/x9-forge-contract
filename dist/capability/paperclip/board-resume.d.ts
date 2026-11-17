@@ -248,6 +248,38 @@ export declare const BoardReconciliationSchema: z.ZodObject<{
 export type BoardReconciliation = z.infer<typeof BoardReconciliationSchema>;
 /** Builds the true declaration; throws when the facts do not support it (never declares what is not known). */
 export declare function boardClosedHoldReconciliation(facts: BoardClosedHoldFacts): BoardReconciliation;
+/**
+ * Reading side of the declaration: Paperclip puts one `{recoveryActionId, decision}` per resolved recovery action in
+ * the resume context (`recoveryOutcomes`; execution-continuation.js:296-302). Only the named fields of `decision`
+ * are read and shown; extra fields written by Paperclip or by a person are dropped.
+ */
+export declare const BOARD_RECOVERY_OUTCOME_VALUES: readonly ["completed", "not_performed", "mixed"];
+export type BoardRecoveryOutcomeValue = (typeof BOARD_RECOVERY_OUTCOME_VALUES)[number];
+export declare const BOARD_RECOVERY_OUTCOME_WORDS: {
+    readonly completed: "eseguito";
+    readonly not_performed: "non eseguito";
+    readonly mixed: "eseguito in parte";
+};
+export declare const BoardRecoveryOutcomeSchema: z.ZodObject<{
+    decision: z.ZodObject<{
+        runId: z.ZodGUID;
+        providerStopped: z.ZodLiteral<true>;
+        actionOutcome: z.ZodEnum<{
+            completed: "completed";
+            not_performed: "not_performed";
+            mixed: "mixed";
+        }>;
+        outcomeEvidence: z.ZodString;
+        recordedAt: z.ZodCatch<z.ZodOptional<z.ZodISODateTime>>;
+    }, z.core.$strip>;
+}, z.core.$strip>;
+export type BoardRecoveryOutcome = z.infer<typeof BoardRecoveryOutcomeSchema>;
+export declare const BOARD_RECOVERY_OUTCOMES_SHOWN_MAX = 3;
+export declare const BOARD_RECOVERY_OUTCOME_EVIDENCE_SHOWN_MAX = 1500;
+export declare const BOARD_RECOVERY_OUTCOMES_OPEN = "<<<esiti-turni-caduti>>>";
+export declare const BOARD_RECOVERY_OUTCOMES_CLOSE = "<<<fine-esiti>>>";
+/** Text block for the boss with the recorded outcomes of fallen turns; null when no entry is valid. Pure, never throws. */
+export declare function boardRecoveryOutcomesBlock(raw: unknown): string | null;
 /** Paperclip refusals of the resolve call, closed list (execution-recovery-resolution.js:18-74). */
 export declare const BOARD_RECONCILE_REFUSALS: readonly ["provider_not_stopped", "execution_not_settled", "owner_or_source_changed", "run_mismatch", "workspace_repair_required", "other_active_action", "action_not_found", "bad_request", "other_refusal"];
 export declare const BoardReconcileRefusalSchema: z.ZodEnum<{

@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.222.0 — recorded outcomes of fallen Paperclip turns have a shape and a text block for the boss (task 7251)
+
+- Added `BOARD_RECOVERY_OUTCOME_VALUES` (`completed`, `not_performed`, `mixed`), `BOARD_RECOVERY_OUTCOME_WORDS` and `BoardRecoveryOutcomeSchema` (reads only `decision`: guid `runId`, `providerStopped: true`, outcome, trimmed proof 1-12000, optional ISO `recordedAt`; extra fields are dropped).
+- Added `BOARD_RECOVERY_OUTCOMES_SHOWN_MAX` (3), `BOARD_RECOVERY_OUTCOME_EVIDENCE_SHOWN_MAX` (1500), the fence markers and pure `boardRecoveryOutcomesBlock(raw): string | null`: newest first, proof stripped of `<<<`/`>>>` runs and control characters, cut to 1500, never throws.
+- Additive; no stored data changes. Consumer: cap-paperclip tasks 7255 (X9 adopts) and 7249.
+
 ## v1.221.0 — the refusal classifier reads Paperclip's true texts (task 7244)
 
 - Fixed: `boardReconcileRefusalCode` now recognises the eight exact refusal texts of Paperclip v2026.1005.0, one by one (trimmed, case-sensitive); anything else stays `other_refusal`. The 7243 prefixes never matched real messages.
