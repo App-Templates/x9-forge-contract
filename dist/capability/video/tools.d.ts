@@ -214,9 +214,9 @@ export declare const VideoProjectStepSchema: z.ZodEnum<{
     assemble: "assemble";
     plan: "plan";
     story: "story";
+    regia: "regia";
     review_sent: "review_sent";
     delivery_sent: "delivery_sent";
-    regia: "regia";
 }>;
 export type VideoProjectStep = z.infer<typeof VideoProjectStepSchema>;
 export declare const VideoScriptReviseResponseSchema: z.ZodObject<{
@@ -238,9 +238,9 @@ export declare const VideoScriptReviseResponseSchema: z.ZodObject<{
         assemble: "assemble";
         plan: "plan";
         story: "story";
+        regia: "regia";
         review_sent: "review_sent";
         delivery_sent: "delivery_sent";
-        regia: "regia";
     }>;
     scriptRevision: z.ZodNumber;
 }, z.core.$strict>;
@@ -265,9 +265,9 @@ export declare const VideoProjectViewSchema: z.ZodObject<{
         assemble: "assemble";
         plan: "plan";
         story: "story";
+        regia: "regia";
         review_sent: "review_sent";
         delivery_sent: "delivery_sent";
-        regia: "regia";
     }>;
     identity: z.ZodObject<{
         agentId: z.ZodString;

@@ -40,8 +40,8 @@ export declare const WikiPageSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type WikiPage = z.infer<typeof WikiPageSchema>;
 export declare const WikiClaimStatusSchema: z.ZodEnum<{
-    aperta: "aperta";
     confermata: "confermata";
+    aperta: "aperta";
     contraddetta: "contraddetta";
     scartata: "scartata";
 }>;
@@ -52,8 +52,8 @@ export declare const WikiClaimSchema: z.ZodObject<{
     text: z.ZodString;
     sourceIds: z.ZodArray<z.ZodString>;
     status: z.ZodEnum<{
-        aperta: "aperta";
         confermata: "confermata";
+        aperta: "aperta";
         contraddetta: "contraddetta";
         scartata: "scartata";
     }>;
