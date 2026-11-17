@@ -1,10 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
 const zod_1 = require("zod");
 const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
 const footage_js_1 = require("../../capability/video/footage.cjs");
+const modella_js_1 = require("../../capability/video/modella.cjs");
+const produzione_modella_js_1 = require("../../capability/video/produzione-modella.cjs");
+const regia_js_1 = require("../../capability/video/regia.cjs");
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 exports.officinaVideoJobContract = {
     errorSchema: engine_js_1.VideoEngineErrorSchema,
@@ -130,6 +133,132 @@ exports.officinaVideoFootageListContract = {
     paramsSchema: zod_1.z.object({}).strict(),
     querySchema: footage_js_1.VideoFootageListQuerySchema,
     responseSchema: footage_js_1.VideoFootageListSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: model Create. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoModelCreateContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/modelle',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: modella_js_1.VideoModelScopeQuerySchema,
+    requestSchema: modella_js_1.VideoModelCreateRequestSchema,
+    responseSchema: modella_js_1.VideoModelSchema,
+    responseStatus: 201,
+};
+/** cap-video -> engine: model List. An empty scope returns models: []. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoModelListContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/modelle',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: modella_js_1.VideoModelScopeQuerySchema,
+    responseSchema: modella_js_1.VideoModelListSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: model Get. A model belonging to another tenant or agent is 404. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoModelGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/modelle/:modelId',
+    paramsSchema: zod_1.z.object({ modelId: modella_js_1.VideoModelIdSchema }).strict(),
+    querySchema: modella_js_1.VideoModelScopeQuerySchema,
+    responseSchema: modella_js_1.VideoModelSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: model VersionCreate. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoModelVersionCreateContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/modelle/:modelId/versioni',
+    paramsSchema: zod_1.z.object({ modelId: modella_js_1.VideoModelIdSchema }).strict(),
+    querySchema: modella_js_1.VideoModelScopeQuerySchema,
+    requestSchema: modella_js_1.VideoModelVersionCreateRequestSchema,
+    responseSchema: modella_js_1.VideoModelVersionSchema,
+    responseStatus: 201,
+};
+/** cap-video -> engine: model RefAdd. The image is binary; identity and kind are in the query. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoModelRefAddContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/modelle/:modelId/versioni/:version/riferimenti',
+    paramsSchema: zod_1.z.object({ modelId: modella_js_1.VideoModelIdSchema, version: modella_js_1.VideoModelVersionParamSchema }).strict(),
+    querySchema: modella_js_1.VideoModelRefAddQuerySchema,
+    bodyMediaTypes: modella_js_1.VIDEO_MODEL_REF_MEDIA_TYPES,
+    maxBodyBytes: modella_js_1.VIDEO_MODEL_REF_MAX_BYTES,
+    responseSchema: modella_js_1.VideoModelVersionSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: model RefGet. The response is a binary image. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoModelRefGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/modelle/:modelId/versioni/:version/riferimenti/:kind',
+    paramsSchema: zod_1.z.object({ modelId: modella_js_1.VideoModelIdSchema, version: modella_js_1.VideoModelVersionParamSchema, kind: modella_js_1.VideoModelRefKindSchema }).strict(),
+    querySchema: modella_js_1.VideoModelScopeQuerySchema,
+    responseMediaTypes: modella_js_1.VIDEO_MODEL_REF_MEDIA_TYPES,
+    responseStatus: 200,
+};
+/** cap-video -> engine: model Approve. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoModelApproveContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/modelle/:modelId/versioni/:version/approva',
+    paramsSchema: zod_1.z.object({ modelId: modella_js_1.VideoModelIdSchema, version: modella_js_1.VideoModelVersionParamSchema }).strict(),
+    querySchema: modella_js_1.VideoModelScopeQuerySchema,
+    requestSchema: modella_js_1.VideoModelApproveRequestSchema,
+    responseSchema: modella_js_1.VideoModelVersionSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: create a production from the approved model and binary look image. */
+exports.officinaVideoModelProductionCreateContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/produzioni-modella',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: produzione_modella_js_1.VideoModelProductionQuerySchema,
+    bodyMediaTypes: modella_js_1.VIDEO_MODEL_REF_MEDIA_TYPES,
+    maxBodyBytes: modella_js_1.VIDEO_MODEL_REF_MAX_BYTES,
+    responseSchema: produzione_modella_js_1.VideoModelProductionCreatedSchema,
+    responseStatus: 201,
+};
+/** cap-video -> engine: model production RegiaApply. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoModelRegiaApplyContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/projects/:engineProjectId/regia-modella',
+    paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
+    requestSchema: regia_js_1.VideoModelRegiaDocumentSchema,
+    responseSchema: produzione_modella_js_1.VideoModelProductionStateSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: model production State. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoModelStateContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/projects/:engineProjectId/modella',
+    paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
+    responseSchema: produzione_modella_js_1.VideoModelProductionStateSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: model production Frame. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoModelFrameContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/projects/:engineProjectId/frame-campione',
+    paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
+    requestSchema: produzione_modella_js_1.VideoModelFrameRequestSchema,
+    responseSchema: produzione_modella_js_1.VideoModelProductionStateSchema,
+    responseStatus: 202,
+};
+/** cap-video -> engine: model production FrameApprove. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoModelFrameApproveContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/projects/:engineProjectId/frame-campione/approva',
+    paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
+    requestSchema: produzione_modella_js_1.VideoModelFrameApproveRequestSchema,
+    responseSchema: produzione_modella_js_1.VideoModelProductionStateSchema,
     responseStatus: 200,
 };
 //# sourceMappingURL=officina-video.js.map

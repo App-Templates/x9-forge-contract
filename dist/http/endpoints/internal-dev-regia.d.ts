@@ -76,7 +76,7 @@ export declare const internalDevRegiaResultContract: {
         branch: z.ZodString;
         commit: z.ZodString;
         link: z.ZodString;
-        regia: z.ZodObject<{
+        regia: z.ZodDiscriminatedUnion<[z.ZodObject<{
             version: z.ZodLiteral<1>;
             scenes: z.ZodArray<z.ZodObject<{
                 text: z.ZodString;
@@ -87,7 +87,24 @@ export declare const internalDevRegiaResultContract: {
                 title: z.ZodString;
                 line: z.ZodString;
             }, z.core.$strict>;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            version: z.ZodLiteral<2>;
+            shots: z.ZodArray<z.ZodObject<{
+                title: z.ZodString;
+                location: z.ZodString;
+                environment: z.ZodString;
+                interior: z.ZodBoolean;
+                action: z.ZodString;
+                camera: z.ZodString;
+                wardrobe: z.ZodEnum<{
+                    base: "base";
+                    look: "look";
+                }>;
+                durationSeconds: z.ZodNumber;
+            }, z.core.$strict>>;
+            outfitNote: z.ZodOptional<z.ZodString>;
+            caption: z.ZodString;
+        }, z.core.$strict>], "version">;
         regiaFile: z.ZodObject<{
             path: z.ZodString;
             sha256: z.ZodString;

@@ -2,6 +2,16 @@
 
 ## Non rilasciato
 
+## v1.105.0 — Officina video: modella fissa, additivo
+
+- `modella.ts`: modella per tenant e agente, versioni, riferimenti con impronta, descrizione, generazione.
+- Sette rotte `/api/modelle…` (`officinaVideoModel*Contract`, transport `videoEngineModel*`).
+- `VideoRegiaDocumentSchema` come unione su `version` (v2 = `VideoModelRegiaDocumentSchema`, v1 invariata); il tipo `VideoRegiaDocument` diventa un'unione: i consumer restringono per `version`.
+- `produzione-modella.ts`: produzione con foto del look, regia v2 consegnata, frame campione, esito di somiglianza `ok`/`da_rivedere`/`respinto`, approvazione; cinque rotte (`/api/produzioni-modella`, `/api/projects/:id/regia-modella`, `/modella`, `/frame-campione`, `/frame-campione/approva`).
+- Consumer: motore (ov-motore 3535-3541) e cap-video (ov-x9 3542-3549).
+
+Nessuno schema zod esistente si stringe: schemi e rotte nuovi e un'unione additiva sul documento di regia.
+
 ## v1.104.0 — Officina video: serie a episodi, additivo
 
 - `episode.ts`: fasi, 7 finali, 4 battute, ganci, personaggi con ritratto, contesto ed esito dell'episodio, vista della serie.

@@ -11,7 +11,10 @@ import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleReq
 import { agentOrdinaryAuthorityContract } from "../http/endpoints/internal-agents-ordinary-authority.js";
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from "../http/endpoints/internal-capability-agent.js";
 import { capToolCallContract } from "../http/endpoints/cap-tool-call.js";
-import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract, officinaVideoFootageListContract } from "../http/endpoints/officina-video.js";
+import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract, officinaVideoFootageListContract, officinaVideoModelCreateContract, officinaVideoModelListContract, officinaVideoModelGetContract, officinaVideoModelVersionCreateContract, officinaVideoModelRefAddContract, officinaVideoModelRefGetContract, officinaVideoModelApproveContract, officinaVideoModelProductionCreateContract, officinaVideoModelRegiaApplyContract, officinaVideoModelStateContract, officinaVideoModelFrameContract, officinaVideoModelFrameApproveContract } from "../http/endpoints/officina-video.js";
+import { VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema, VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelSchema, VideoModelListSchema, VideoModelVersionSchema } from "./video/modella.js";
+import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from "./video/produzione-modella.js";
+import { VideoModelRegiaDocumentSchema } from "./video/regia.js";
 import { INTERNAL_SECRET_HEADER } from "../auth/auth-headers.js";
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
 const snapshot = CapabilityOrdinaryCallSnapshotSchema.safeExtend({ values: z.record(CapabilityParameterKeySchema, CapabilityParameterValueSchema) });
@@ -159,6 +162,20 @@ export function getPortableCapabilityContracts() {
     add('videoEngineFootageJob', VideoFootageJobSchema, [], 0);
     add('videoEngineFootageListQuery', VideoFootageListQuerySchema, [], 0);
     add('videoEngineFootageList', VideoFootageListSchema, [], 0);
+    add('videoEngineModelQuery', VideoModelScopeQuerySchema, [], 0);
+    add('videoEngineModelRefAddQuery', VideoModelRefAddQuerySchema, [], 0);
+    add('videoEngineModelCreateRequest', VideoModelCreateRequestSchema, [], 0);
+    add('videoEngineModelVersionCreateRequest', VideoModelVersionCreateRequestSchema, [], 0);
+    add('videoEngineModelApproveRequest', VideoModelApproveRequestSchema, [], 0);
+    add('videoEngineModel', VideoModelSchema, [], 0);
+    add('videoEngineModelList', VideoModelListSchema, [], 0);
+    add('videoEngineModelVersion', VideoModelVersionSchema, [], 0);
+    add('videoEngineModelProductionQuery', VideoModelProductionQuerySchema, [], 0);
+    add('videoEngineModelProductionCreated', VideoModelProductionCreatedSchema, [], 0);
+    add('videoEngineModelRegia', VideoModelRegiaDocumentSchema, [], 0);
+    add('videoEngineModelState', VideoModelProductionStateSchema, [], 0);
+    add('videoEngineModelFrameRequest', VideoModelFrameRequestSchema, [], 0);
+    add('videoEngineModelFrameApproveRequest', VideoModelFrameApproveRequestSchema, [], 0);
     add('authorityQuery', AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: z.toJSONSchema(CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
     add('authorityResponse', authorityResponse, authorityRules, 2);
     contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -195,6 +212,21 @@ export function getPortableCapabilityContracts() {
             },
             videoEngineFootageJobGet: { ...transport(officinaVideoFootageJobGetContract), queryContract: 'videoEngineFootageJobQuery', responseContract: 'videoEngineFootageJob', errorContract: 'videoEngineError' },
             videoEngineFootageList: { ...transport(officinaVideoFootageListContract), queryContract: 'videoEngineFootageListQuery', responseContract: 'videoEngineFootageList', errorContract: 'videoEngineError' },
+            videoEngineModelCreate: { ...transport(officinaVideoModelCreateContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelCreateRequest', responseContract: 'videoEngineModel', errorContract: 'videoEngineError' },
+            videoEngineModelList: { ...transport(officinaVideoModelListContract), queryContract: 'videoEngineModelQuery', responseContract: 'videoEngineModelList', errorContract: 'videoEngineError' },
+            videoEngineModelGet: { ...transport(officinaVideoModelGetContract), queryContract: 'videoEngineModelQuery', responseContract: 'videoEngineModel', errorContract: 'videoEngineError' },
+            videoEngineModelVersionCreate: { ...transport(officinaVideoModelVersionCreateContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelVersionCreateRequest', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError' },
+            videoEngineModelRefAdd: { ...transport(officinaVideoModelRefAddContract), queryContract: 'videoEngineModelRefAddQuery', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError', bodyMediaTypes: officinaVideoModelRefAddContract.bodyMediaTypes, maxBodyBytes: officinaVideoModelRefAddContract.maxBodyBytes },
+            videoEngineModelRefGet: { ...transport(officinaVideoModelRefGetContract), queryContract: 'videoEngineModelQuery', errorContract: 'videoEngineError' },
+            videoEngineModelApprove: { ...transport(officinaVideoModelApproveContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelApproveRequest', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError' },
+            videoEngineModelProductionCreate: {
+                ...transport(officinaVideoModelProductionCreateContract), queryContract: 'videoEngineModelProductionQuery', responseContract: 'videoEngineModelProductionCreated', errorContract: 'videoEngineError',
+                bodyMediaTypes: officinaVideoModelProductionCreateContract.bodyMediaTypes, maxBodyBytes: officinaVideoModelProductionCreateContract.maxBodyBytes,
+            },
+            videoEngineModelRegiaApply: { ...transport(officinaVideoModelRegiaApplyContract), requestContract: 'videoEngineModelRegia', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
+            videoEngineModelState: { ...transport(officinaVideoModelStateContract), responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
+            videoEngineModelFrame: { ...transport(officinaVideoModelFrameContract), requestContract: 'videoEngineModelFrameRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
+            videoEngineModelFrameApprove: { ...transport(officinaVideoModelFrameApproveContract), requestContract: 'videoEngineModelFrameApproveRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineMedia: {
                 method: 'GET', path: '/media/:engineProjectId/:file', authHeader: INTERNAL_SECRET_HEADER, errorContract: 'videoEngineError',
                 paramsSchema: z.toJSONSchema(z.object({ engineProjectId: VideoEngineIdSchema, file: z.string().regex(/^[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/) }).strict()),
