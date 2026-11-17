@@ -201,6 +201,7 @@ export declare const AgentSpendResponseSchema: z.ZodObject<{
             video: "video";
             ricerca: "ricerca";
             lab: "lab";
+            social: "social";
         }>;
         day: z.ZodString;
         spentUsd: z.ZodNumber;
@@ -234,6 +235,7 @@ export declare const ricercaAgentSpendContract: {
                 video: "video";
                 ricerca: "ricerca";
                 lab: "lab";
+                social: "social";
             }>;
             day: z.ZodString;
             spentUsd: z.ZodNumber;
@@ -269,6 +271,7 @@ export declare const labAgentSpendContract: {
                 video: "video";
                 ricerca: "ricerca";
                 lab: "lab";
+                social: "social";
             }>;
             day: z.ZodString;
             spentUsd: z.ZodNumber;
@@ -304,6 +307,7 @@ export declare const videoAgentSpendContract: {
                 video: "video";
                 ricerca: "ricerca";
                 lab: "lab";
+                social: "social";
             }>;
             day: z.ZodString;
             spentUsd: z.ZodNumber;

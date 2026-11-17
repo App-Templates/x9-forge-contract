@@ -9,11 +9,15 @@ import { z } from 'zod';
 export declare const AgentDaySchema: z.ZodString;
 /** Longest window of one agent spend request, days (inclusive). */
 export declare const AGENT_SPEND_MAX_DAYS = 400;
-/** The capabilities that report spend this way. */
+/**
+ * The capabilities that report spend this way. For `social`, `spentUsd` is the closed cost of the round on the
+ * pay-per-use track plus the agent's extended researches of the day, and `capUsd` its daily ceiling.
+ */
 export declare const SpendingCapabilitySchema: z.ZodEnum<{
     video: "video";
     ricerca: "ricerca";
     lab: "lab";
+    social: "social";
 }>;
 export type SpendingCapability = z.infer<typeof SpendingCapabilitySchema>;
 export declare const AgentSpendDaySchema: z.ZodObject<{
@@ -22,6 +26,7 @@ export declare const AgentSpendDaySchema: z.ZodObject<{
         video: "video";
         ricerca: "ricerca";
         lab: "lab";
+        social: "social";
     }>;
     day: z.ZodString;
     spentUsd: z.ZodNumber;

@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.230.0 — the social listening capability contracts, caller-chosen research values and the `social` spend entry (tasks 3600-3603)
+
+- Added the public `@x9-forge/contracts/capability/social-listening` subpath: topics with short titles and categories, posts, followed profiles and verticals; seven tools; queue jobs and round states; agent configuration and B1 parameters. Built for ESM and CommonJS with type declarations.
+- `capability/ricerca` adds optional caller `params` (`ResearchCallerParamsSchema`) and `resolveResearchParams(agent, requested?)`, with the `params_above_agent` error code when requested values exceed the agent's maxima.
+- Added `social` to `SpendingCapabilitySchema` so social listening shares the capability spend ledger.
+- Additive; no stored data changes. Research `params` remains optional. Consumers: agent-x9 `services/cap-social-listening` and the forge-v2 Ascolto page.
+
 ## v1.223.0 — the proof of recorded outcomes never contains `<` or `>` (task 7258)
 
 - Fixed: `boardRecoveryOutcomesBlock` now turns every `<` and `>` of the proof into a space (then collapses spaces), so the fence can never be closed. The v1.222.0 cleanup of `<<<`/`>>>` runs could be bypassed with composed inputs such as `<<>>><fine-esiti><<<>>`.
