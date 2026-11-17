@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.224.0",
+  "versione": "1.225.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -843,6 +843,8 @@
       "PAPERCLIP_STATI_INCARICO": "@x9-forge/contracts/capability/paperclip-protocollo/wire-letture",
       "PAPERCLIP_TOOLS": "@x9-forge/contracts/capability/paperclip/tools",
       "PAPERCLIP_TURNO_ERRORI": "@x9-forge/contracts/capability/paperclip-protocollo/turno",
+      "PAPERCLIP_WAIT_REFUSALS": "@x9-forge/contracts/capability/paperclip/native-wait",
+      "PAPERCLIP_WAIT_UNBLOCKERS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipActivityInputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipActivityOutputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipAgentBindingSchema": "@x9-forge/contracts/capability/paperclip/tools",
@@ -929,6 +931,7 @@
       "PaperclipTurnoErroreSchema": "@x9-forge/contracts/capability/paperclip-protocollo/turno",
       "PaperclipTurnoRichiestaSchema": "@x9-forge/contracts/capability/paperclip-protocollo/turno",
       "PaperclipTurnoRispostaSchema": "@x9-forge/contracts/capability/paperclip-protocollo/turno",
+      "PaperclipWaitUnblockerSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipWaitingForSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PcpAffidaIngressoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/strumenti",
       "PcpCommentaIngressoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/strumenti",
@@ -1022,6 +1025,7 @@
       "paperclipEnrollmentComplete": "@x9-forge/contracts/capability/paperclip/enrollment",
       "paperclipIssueRefKind": "@x9-forge/contracts/capability/paperclip/tools",
       "paperclipPercorsi": "@x9-forge/contracts/capability/paperclip-protocollo/percorsi",
+      "paperclipUnblockDescriptor": "@x9-forge/contracts/capability/paperclip/native-wait",
       "parseCameraPoliciesWrite": "@x9-forge/contracts/capability/configuration/camera-policy",
       "parseCapabilityOrdinaryCall": "@x9-forge/contracts/capability/ordinary-configuration",
       "parseCapabilityOrdinaryLifecycle": "@x9-forge/contracts/capability/ordinary-lifecycle",
@@ -3129,6 +3133,8 @@
       "PAPERCLIP_ISSUE_IDENTIFIER_PATTERN": "@x9-forge/contracts/capability/paperclip/tools",
       "PAPERCLIP_NATIVE_WAIT_TOOLS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_TOOLS": "@x9-forge/contracts/capability/paperclip/tools",
+      "PAPERCLIP_WAIT_REFUSALS": "@x9-forge/contracts/capability/paperclip/native-wait",
+      "PAPERCLIP_WAIT_UNBLOCKERS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipActivityInputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipActivityOutputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipAgentBindingSchema": "@x9-forge/contracts/capability/paperclip/tools",
@@ -3187,13 +3193,15 @@
       "PaperclipSearchOutputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipTakeInputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipTakeRefInputSchema": "@x9-forge/contracts/capability/paperclip/tools",
+      "PaperclipWaitUnblockerSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipWaitingForSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "internalPaperclipEnrollmentResolveContract": "@x9-forge/contracts/capability/paperclip/enrollment",
       "paperclipAnswerInteractionBody": "@x9-forge/contracts/capability/paperclip/native-wait",
       "paperclipAskIdempotencyKey": "@x9-forge/contracts/capability/paperclip/native-wait",
       "paperclipAskInteractionBody": "@x9-forge/contracts/capability/paperclip/native-wait",
       "paperclipEnrollmentComplete": "@x9-forge/contracts/capability/paperclip/enrollment",
-      "paperclipIssueRefKind": "@x9-forge/contracts/capability/paperclip/tools"
+      "paperclipIssueRefKind": "@x9-forge/contracts/capability/paperclip/tools",
+      "paperclipUnblockDescriptor": "@x9-forge/contracts/capability/paperclip/native-wait"
     }
   }
 }

@@ -23,10 +23,49 @@ export declare const PAPERCLIP_ASK_QUESTION_MAX = 2000;
 export declare const PAPERCLIP_ANSWER_MAX = 4000;
 /** The wake reason Paperclip gives the addressee of a pending interaction (`routes/issues.ts`). */
 export declare const PAPERCLIP_INTERACTION_PENDING_WAKE = "interaction_pending";
+/**
+ * Who unblocks a wait, declared by the agent with fixed words (the free text of `action` is never read to decide):
+ * - `self`: an action of the agent itself;
+ * - `external`: a contact or event outside the company's agents; the answer wakes the agent, which stays the owner;
+ * - `company_agent`: another agent of the company, which Paperclip refuses (an agent names only itself, 403) and
+ *   which is not awaited with this tool.
+ */
+export declare const PAPERCLIP_WAIT_UNBLOCKERS: readonly ["self", "external", "company_agent"];
+export declare const PaperclipWaitUnblockerSchema: z.ZodEnum<{
+    external: "external";
+    self: "self";
+    company_agent: "company_agent";
+}>;
+export type PaperclipWaitUnblocker = z.infer<typeof PaperclipWaitUnblockerSchema>;
 /** The concrete action that unblocks the task, owned by the calling agent itself (Paperclip: agents name only themselves). */
 export declare const PaperclipWaitingForSchema: z.ZodObject<{
     action: z.ZodString;
+    unblockedBy: z.ZodEnum<{
+        external: "external";
+        self: "self";
+        company_agent: "company_agent";
+    }>;
 }, z.core.$strict>;
+/** Closed list of the refusals of a wait declaration; the name is both the reason and the log code. */
+export declare const PAPERCLIP_WAIT_REFUSALS: readonly ["wait_for_company_agent"];
+export type PaperclipWaitRefusal = (typeof PAPERCLIP_WAIT_REFUSALS)[number];
+export type PaperclipUnblockDescriptorResult = {
+    ok: true;
+    descriptor: {
+        owner: {
+            agentId: string;
+        };
+        action: string;
+    };
+} | {
+    ok: false;
+    refusal: PaperclipWaitRefusal;
+};
+/**
+ * The `unblockDescriptor` Paperclip stores (strict: only `owner` and `action`; the declaration stays in the call).
+ * The refusal comes from the declared `unblockedBy`, never from `action`.
+ */
+export declare function paperclipUnblockDescriptor(waitingFor: PaperclipWaitingFor, agentId: string): PaperclipUnblockDescriptorResult;
 /** One-shot check of an async job the agent owns: Paperclip wakes it (issue_monitor_due) after afterSeconds. */
 export declare const PaperclipCheckLaterSchema: z.ZodObject<{
     afterSeconds: z.ZodNumber;
@@ -56,6 +95,11 @@ export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
     blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
     waitingFor: z.ZodOptional<z.ZodObject<{
         action: z.ZodString;
+        unblockedBy: z.ZodEnum<{
+            external: "external";
+            self: "self";
+            company_agent: "company_agent";
+        }>;
     }, z.core.$strict>>;
     checkLater: z.ZodOptional<z.ZodObject<{
         afterSeconds: z.ZodNumber;

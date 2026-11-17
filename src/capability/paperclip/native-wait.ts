@@ -33,8 +33,43 @@ const Text = z.string().min(1).max(4096).refine(value => value.trim().length > 0
 const IssueIds = z.array(z.uuid()).min(1).max(20)
   .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique');
 
+/**
+ * Who unblocks a wait, declared by the agent with fixed words (the free text of `action` is never read to decide):
+ * - `self`: an action of the agent itself;
+ * - `external`: a contact or event outside the company's agents; the answer wakes the agent, which stays the owner;
+ * - `company_agent`: another agent of the company, which Paperclip refuses (an agent names only itself, 403) and
+ *   which is not awaited with this tool.
+ */
+export const PAPERCLIP_WAIT_UNBLOCKERS = ['self', 'external', 'company_agent'] as const;
+export const PaperclipWaitUnblockerSchema = z.enum(PAPERCLIP_WAIT_UNBLOCKERS);
+export type PaperclipWaitUnblocker = z.infer<typeof PaperclipWaitUnblockerSchema>;
+
 /** The concrete action that unblocks the task, owned by the calling agent itself (Paperclip: agents name only themselves). */
-export const PaperclipWaitingForSchema = z.strictObject({ action: Text.max(2000) });
+export const PaperclipWaitingForSchema = z.strictObject({
+  action: Text.max(2000),
+  unblockedBy: PaperclipWaitUnblockerSchema.describe(
+    'Who unblocks the wait: self (an action of your own), external (a contact or event outside the company agents); company_agent (another company agent) is refused',
+  ),
+});
+
+/** Closed list of the refusals of a wait declaration; the name is both the reason and the log code. */
+export const PAPERCLIP_WAIT_REFUSALS = ['wait_for_company_agent'] as const;
+export type PaperclipWaitRefusal = (typeof PAPERCLIP_WAIT_REFUSALS)[number];
+
+export type PaperclipUnblockDescriptorResult =
+  | { ok: true; descriptor: { owner: { agentId: string }; action: string } }
+  | { ok: false; refusal: PaperclipWaitRefusal };
+
+/**
+ * The `unblockDescriptor` Paperclip stores (strict: only `owner` and `action`; the declaration stays in the call).
+ * The refusal comes from the declared `unblockedBy`, never from `action`.
+ */
+export function paperclipUnblockDescriptor(waitingFor: PaperclipWaitingFor, agentId: string): PaperclipUnblockDescriptorResult {
+  const owner = z.uuid().parse(agentId);
+  const { action, unblockedBy } = PaperclipWaitingForSchema.parse(waitingFor);
+  if (unblockedBy === 'company_agent') return { ok: false, refusal: 'wait_for_company_agent' };
+  return { ok: true, descriptor: { owner: { agentId: owner }, action } };
+}
 
 /** One-shot check of an async job the agent owns: Paperclip wakes it (issue_monitor_due) after afterSeconds. */
 export const PaperclipCheckLaterSchema = z.strictObject({

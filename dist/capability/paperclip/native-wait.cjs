@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PaperclipWaitingForSchema = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PAPERCLIP_WAIT_REFUSALS = exports.PaperclipWaitingForSchema = exports.PaperclipWaitUnblockerSchema = exports.PAPERCLIP_WAIT_UNBLOCKERS = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.paperclipUnblockDescriptor = paperclipUnblockDescriptor;
 exports.paperclipAskIdempotencyKey = paperclipAskIdempotencyKey;
 exports.paperclipAskInteractionBody = paperclipAskInteractionBody;
 exports.paperclipAnswerInteractionBody = paperclipAnswerInteractionBody;
@@ -32,8 +33,33 @@ const ASK_IDEMPOTENCY_KEY_MAX = 255;
 const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 const IssueIds = zod_1.z.array(zod_1.z.uuid()).min(1).max(20)
     .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique');
+/**
+ * Who unblocks a wait, declared by the agent with fixed words (the free text of `action` is never read to decide):
+ * - `self`: an action of the agent itself;
+ * - `external`: a contact or event outside the company's agents; the answer wakes the agent, which stays the owner;
+ * - `company_agent`: another agent of the company, which Paperclip refuses (an agent names only itself, 403) and
+ *   which is not awaited with this tool.
+ */
+exports.PAPERCLIP_WAIT_UNBLOCKERS = ['self', 'external', 'company_agent'];
+exports.PaperclipWaitUnblockerSchema = zod_1.z.enum(exports.PAPERCLIP_WAIT_UNBLOCKERS);
 /** The concrete action that unblocks the task, owned by the calling agent itself (Paperclip: agents name only themselves). */
-exports.PaperclipWaitingForSchema = zod_1.z.strictObject({ action: Text.max(2000) });
+exports.PaperclipWaitingForSchema = zod_1.z.strictObject({
+    action: Text.max(2000),
+    unblockedBy: exports.PaperclipWaitUnblockerSchema.describe('Who unblocks the wait: self (an action of your own), external (a contact or event outside the company agents); company_agent (another company agent) is refused'),
+});
+/** Closed list of the refusals of a wait declaration; the name is both the reason and the log code. */
+exports.PAPERCLIP_WAIT_REFUSALS = ['wait_for_company_agent'];
+/**
+ * The `unblockDescriptor` Paperclip stores (strict: only `owner` and `action`; the declaration stays in the call).
+ * The refusal comes from the declared `unblockedBy`, never from `action`.
+ */
+function paperclipUnblockDescriptor(waitingFor, agentId) {
+    const owner = zod_1.z.uuid().parse(agentId);
+    const { action, unblockedBy } = exports.PaperclipWaitingForSchema.parse(waitingFor);
+    if (unblockedBy === 'company_agent')
+        return { ok: false, refusal: 'wait_for_company_agent' };
+    return { ok: true, descriptor: { owner: { agentId: owner }, action } };
+}
 /** One-shot check of an async job the agent owns: Paperclip wakes it (issue_monitor_due) after afterSeconds. */
 exports.PaperclipCheckLaterSchema = zod_1.z.strictObject({
     afterSeconds: zod_1.z.number().int().min(30).max(exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS),

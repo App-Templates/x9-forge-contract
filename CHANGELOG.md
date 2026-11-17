@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.225.0 — a wait says who unblocks it, and Paperclip's descriptor is built only for who Paperclip admits (task 7290)
+
+- `PaperclipWaitingForSchema` now requires `unblockedBy` (`PAPERCLIP_WAIT_UNBLOCKERS`: `self`, `external`, `company_agent`; `PaperclipWaitUnblockerSchema`). Without it, or with another value, the wait is refused; `action` stays free text and is never read to decide.
+- Added `PAPERCLIP_WAIT_REFUSALS` (`wait_for_company_agent`) and the pure `paperclipUnblockDescriptor(waitingFor, agentId)`: `{ ok: true, descriptor: { owner: { agentId }, action } }` for `self` and `external` (identical to what is stored in Paperclip today), `{ ok: false, refusal }` for `company_agent`; a non-uuid `agentId` throws.
+- Breaking for callers of `paperclip_review` with `waitingFor` (the field is mandatory). Consumer: ec-x9/7291. No stored data changes: `waitingFor` is a call field, Paperclip keeps only the descriptor.
+
 ## v1.224.0 — «ask another agent» has the shape Paperclip documents (task 7275)
 
 - Added `ask: { roleRef, question }` to `PaperclipNativeReviewInputSchema` (only with `in_review`, never with `blockedByIssueIds`, `waitingFor`, `checkLater`; `PaperclipAskSchema`) and `answersInteractionId` (requires `comment`, the answer) to the new `PaperclipNativeAssignInputSchema` / `PaperclipNativeAssignRefInputSchema`.

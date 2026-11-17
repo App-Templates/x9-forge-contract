@@ -8,7 +8,7 @@ import {
   PAPERCLIP_CHECK_LATER_MAX_SECONDS, PAPERCLIP_NATIVE_WAIT_TOOLS, PAPERCLIP_TOOLS, PaperclipCheckLaterInputSchema as CheckLater,
   PaperclipCheckLaterOutputSchema as CheckLaterOutput, PaperclipCreateIssueInputSchema as Create,
   PaperclipNativeCreateIssueInputSchema as NativeCreate, PaperclipNativeReviewInputSchema as NativeReview,
-  PaperclipReviewInputSchema as Review,
+  PaperclipReviewInputSchema as Review, PAPERCLIP_WAIT_REFUSALS, PAPERCLIP_WAIT_UNBLOCKERS, paperclipUnblockDescriptor,
 } from '../src/capability/paperclip/index.js';
 
 const issueId = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
@@ -26,7 +26,7 @@ describe('native review: blocked says what it waits for (P-04)', () => {
   it('accepts blocked with the tasks it waits for or with the action the agent owns', () => {
     const blockers = { issueId, status: 'blocked', blockedByIssueIds: [child, other] };
     expect(NativeReview.parse(blockers)).toEqual(blockers);
-    const external = { issueId, status: 'blocked', waitingFor: { action: 'Il referente manda gli accessi' }, comment: 'In attesa' };
+    const external = { issueId, status: 'blocked', waitingFor: { action: 'Il referente manda gli accessi', unblockedBy: 'external' }, comment: 'In attesa' };
     expect(NativeReview.parse(external)).toEqual(external);
   });
   it('refuses a wait reason without blocked', () => {
@@ -193,5 +193,51 @@ describe('s7275 chiedi-a-un-agente: ask in review and the answer in assign', () 
     expect(() => paperclipAnswerInteractionBody('x'.repeat(4001))).toThrow();
     expect(paperclipAnswerInteractionBody('x'.repeat(4000)).answers[0]?.otherText).toHaveLength(4000);
     expect(paperclipAnswerInteractionBody(`${' '.repeat(10)}${'x'.repeat(4000)}`).answers[0]?.otherText).toHaveLength(4000);
+  });
+});
+
+describe('s7290 attesa-dichiarata: the wait says who unblocks it (closed list, text never read)', () => {
+  const agentId = 'f13dd515-1bad-4e0d-a697-7d19bfac6200';
+  const labAction = 'ripristino del servizio Lab per ingestione e pubblicazione dei risultati delle ricerche';
+  // Paperclip's strict unblock descriptor (validators/issue.ts:693-704), copied here: owner by agentId, action text, nothing else.
+  const PaperclipDescriptor = z.strictObject({ owner: z.strictObject({ agentId: z.uuid() }), action: z.string().min(1) });
+
+  it('(a) the lists are closed and exact', () => {
+    expect([...PAPERCLIP_WAIT_UNBLOCKERS]).toEqual(['self', 'external', 'company_agent']);
+    expect([...PAPERCLIP_WAIT_REFUSALS]).toEqual(['wait_for_company_agent']);
+  });
+  it('(b) unblockedBy is mandatory and only the three values pass', () => {
+    for (const unblockedBy of PAPERCLIP_WAIT_UNBLOCKERS) {
+      expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor: { action: 'x', unblockedBy } }).success).toBe(true);
+    }
+    for (const waitingFor of [{ action: 'x' }, { action: 'x', unblockedBy: 'board' }, { action: 'x', unblockedBy: 'user' },
+      { action: 'x', unblockedBy: 'Self' }, { action: 'x', unblockedBy: '' }, { action: 'x', unblockedBy: 'self', extra: 1 }]) {
+      expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor }).success).toBe(false);
+    }
+  });
+  it('(c) self and external give the descriptor X9 stores today (same keys, same order, strict Paperclip schema)', () => {
+    // Shapes copied from X9 director-lab-production-seats.test.ts:93 (Lab action) and director-ask-resume.test.ts:23.
+    for (const action of [labAction, 'Il referente manda gli accessi']) {
+      for (const unblockedBy of ['self', 'external'] as const) {
+        const out = paperclipUnblockDescriptor({ action, unblockedBy }, agentId);
+        expect(out).toEqual({ ok: true, descriptor: { owner: { agentId }, action } });
+        if (!out.ok) throw new Error('unexpected refusal');
+        expect(JSON.stringify(out.descriptor)).toBe(JSON.stringify({ owner: { agentId }, action }));
+        expect(Object.keys(out.descriptor)).toEqual(['owner', 'action']);
+        expect(PaperclipDescriptor.safeParse(out.descriptor).success).toBe(true);
+      }
+    }
+  });
+  it('(d) company_agent is refused with its reason and no descriptor, whatever the action says', () => {
+    for (const action of ['aspetto me stesso', 'aspetto il Director', labAction]) {
+      const out = paperclipUnblockDescriptor({ action, unblockedBy: 'company_agent' }, agentId);
+      expect(out).toEqual({ ok: false, refusal: 'wait_for_company_agent' });
+      expect('descriptor' in out).toBe(false);
+    }
+  });
+  it('(e) a non-uuid agentId throws', () => {
+    for (const bad of ['', 'director', '123']) {
+      expect(() => paperclipUnblockDescriptor({ action: 'x', unblockedBy: 'self' }, bad)).toThrow();
+    }
   });
 });
