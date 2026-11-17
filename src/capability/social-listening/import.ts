@@ -111,14 +111,32 @@ export function socialImportKind(kind: SocialLegacyKind): SocialPostKind {
   return SOCIAL_LEGACY_KINDS[kind];
 }
 
-/** No ellipsis: keep the last complete word when possible, then strip trailing punctuation. */
+const SOCIAL_TITLE_TRAILING_WORDS = new Set(
+  ('a ad al allo alla ai agli alle con da dal dallo dalla dai dagli dalle di del dello della dei degli delle ' +
+    'e ed il lo la i gli le in nel nello nella nei negli nelle o per su sul sullo sulla sui sugli sulle ' +
+    'tra fra un uno una che come non').split(' '),
+);
+
+/** No ellipsis: close on the last full word, dropping dangling parentheses, punctuation and linking words. */
 export function shortenSocialTopicTitle(text: string): string {
   const trimmed = text.trim();
   if (trimmed.length <= SOCIAL_TOPIC_TITLE_MAX) return trimmed || 'Argomento';
   const hardCut = trimmed.slice(0, SOCIAL_TOPIC_TITLE_MAX);
   const lastSpace = trimmed.lastIndexOf(' ', SOCIAL_TOPIC_TITLE_MAX);
-  const cut = lastSpace > 0 ? trimmed.slice(0, lastSpace) : hardCut;
-  return cut.replace(/[\s:,;.\-–]+$/, '') || hardCut;
+  let cut = lastSpace > 0 ? trimmed.slice(0, lastSpace) : hardCut;
+  const open = cut.lastIndexOf('(');
+  if (open > 0 && cut.indexOf(')', open) === -1) cut = cut.slice(0, open);
+  for (;;) {
+    const stripped = cut.replace(/[\s:,;.\-–(]+$/, '');
+    const space = stripped.lastIndexOf(' ');
+    if (space > 0 && SOCIAL_TITLE_TRAILING_WORDS.has(stripped.slice(space + 1).toLowerCase())) {
+      cut = stripped.slice(0, space);
+      continue;
+    }
+    cut = stripped;
+    break;
+  }
+  return cut || hardCut;
 }
 
 /** Identity comes exclusively from the caller, and is checked even for already parsed rows. */
