@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.229.0 — one email recipient admission policy for all four agent roles (task 7303)
+
+- Added `organization/email-recipient-policy`: strict `EmailRecipientFactsSchema`, pure `decideEmailRecipient(facts: unknown)`, closed recipient bases and role admission table. Director admits all four bases; business-unit leads admit certified referents, brief openers and certified thread senders; Lab and Ricerca admit only certified thread senders.
+- Added four refusal codes: `recipient_is_company_agent`, `recipient_not_certified`, `role_not_admitted`, `recipient_check_unavailable`. Company-agent refusals name the three Paperclip alternatives through `EMAIL_REFUSAL_CHANNELS`.
+- Callers supply scoped memory referents and the actual brief opener; the policy reads no settings. Certified referents take precedence over company mailboxes. Consumers: ec-x9/7306-7307. Additive; no stored data changes and no runtime behavior changes until adoption by X9.
+
 ## v1.228.0 — the closed list of the seven Paperclip communication processes and the shared "Come si comunica" section (task 7302)
 
 - New module `capability/paperclip/communication-channels` (subpath `@x9-forge/contracts/capability/paperclip/communication-channels`): `PAPERCLIP_COMMUNICATION_CHANNELS` (seven identifiers, each with its Paperclip source), `PaperclipCommunicationChannelSchema`, `PAPERCLIP_CHANNEL_TOOLS` (tools taken from `PAPERCLIP_TOOLS`), `communicationSectionLines()` and `communicationSection()`.
