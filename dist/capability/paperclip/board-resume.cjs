@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BOARD_RESUME_NEEDS_PERSON_PREFIX = exports.BOARD_RESUME_COMMENT_PREFIX = exports.BoardResumeLogSchema = exports.BOARD_RESUME_MIN_RUNS_LEFT = exports.BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = exports.BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = exports.BOARD_RESUME_AGENT_STATUSES = exports.BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS = exports.BoardHoldSkipLogSchema = exports.BoardHoldSkipReasonSchema = exports.BOARD_HOLD_SKIP_REASONS = exports.BOARD_RESUME_KEEP_TEXT = exports.BoardResumeKeepReasonSchema = exports.BOARD_RESUME_KEEP_REASONS = exports.BOARD_CLOSED_HOLD_TEXT = exports.BoardClosedHoldReasonSchema = exports.BOARD_CLOSED_HOLD_REASONS = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_MAX = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_MIN = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MAX = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MIN = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT = exports.BoardClosedHoldCauseSchema = exports.BOARD_CLOSED_HOLD_CAUSES = exports.BoardResumeCauseSchema = exports.BOARD_RESUME_CAUSES = void 0;
+exports.BoardReconcileRefusalLogSchema = exports.BOARD_RECONCILE_REFUSAL_TEXT = exports.BoardReconcileRefusalSchema = exports.BOARD_RECONCILE_REFUSALS = exports.BoardReconciliationSchema = exports.BoardClosedHoldFactsSchema = exports.BOARD_RECONCILIATION_EVIDENCE_MAX = exports.BOARD_RECONCILIATION_EVIDENCE_MIN = exports.BOARD_RECONCILIATION_FINISHED_RUN_STATUSES = exports.BoardReconciliationOutcomeSchema = exports.BOARD_RECONCILIATION_OUTCOMES = exports.BOARD_RESUME_NEEDS_PERSON_PREFIX = exports.BOARD_RESUME_COMMENT_PREFIX = exports.BoardResumeLogSchema = exports.BOARD_RESUME_MIN_RUNS_LEFT = exports.BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = exports.BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = exports.BOARD_RESUME_AGENT_STATUSES = exports.BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS = exports.BoardHoldSkipLogSchema = exports.BoardHoldSkipReasonSchema = exports.BOARD_HOLD_SKIP_REASONS = exports.BOARD_RESUME_KEEP_TEXT = exports.BoardResumeKeepReasonSchema = exports.BOARD_RESUME_KEEP_REASONS = exports.BOARD_CLOSED_HOLD_TEXT = exports.BoardClosedHoldReasonSchema = exports.BOARD_CLOSED_HOLD_REASONS = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_MAX = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_MIN = exports.BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MAX = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MIN = exports.BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT = exports.BoardClosedHoldCauseSchema = exports.BOARD_CLOSED_HOLD_CAUSES = exports.BoardResumeCauseSchema = exports.BOARD_RESUME_CAUSES = void 0;
 exports.renderBoardHoldSkipLog = renderBoardHoldSkipLog;
 exports.boardHoldSkipLogDue = boardHoldSkipLogDue;
 exports.boardResumeAgentStatusAllowed = boardResumeAgentStatusAllowed;
@@ -9,6 +9,9 @@ exports.boardResumeComment = boardResumeComment;
 exports.boardClosedHoldComment = boardClosedHoldComment;
 exports.boardResumeNeedsPersonComment = boardResumeNeedsPersonComment;
 exports.boardResumeCommentKind = boardResumeCommentKind;
+exports.boardClosedHoldReconciliation = boardClosedHoldReconciliation;
+exports.boardReconcileRefusalCode = boardReconcileRefusalCode;
+exports.renderBoardReconcileRefusalLog = renderBoardReconcileRefusalLog;
 const zod_1 = require("zod");
 /**
  * Shapes of the board-operator resume of a stopped issue. This module lists and words things; it never reopens
@@ -169,5 +172,129 @@ function boardResumeCommentKind(body) {
     if (body.startsWith(exports.BOARD_RESUME_NEEDS_PERSON_PREFIX))
         return 'needs_person';
     return null;
+}
+/**
+ * Declaration of the observed outcome of a CLOSED hold, for Paperclip's `POST /issues/:id/recovery-actions/resolve`
+ * (`executionReconciliation`). Never `completed`: an automatic operator cannot know that. Source: Paperclip
+ * v2026.1005.0 execution-recovery-resolution.js:14-74.
+ */
+exports.BOARD_RECONCILIATION_OUTCOMES = ['not_performed', 'mixed'];
+exports.BoardReconciliationOutcomeSchema = zod_1.z.enum(exports.BOARD_RECONCILIATION_OUTCOMES);
+/** Run states in which the provider is certainly stopped (execution-recovery-resolution.js:39). */
+exports.BOARD_RECONCILIATION_FINISHED_RUN_STATUSES = ['failed', 'interrupted', 'timed_out', 'cancelled'];
+exports.BOARD_RECONCILIATION_EVIDENCE_MIN = 20;
+exports.BOARD_RECONCILIATION_EVIDENCE_MAX = 12_000;
+const BOARD_RECONCILIATION_WRITES_MAX = 30;
+/** Facts the consumer has read; the declaration is derived only from them. */
+exports.BoardClosedHoldFactsSchema = zod_1.z.strictObject({
+    cause: exports.BoardClosedHoldCauseSchema,
+    runId: zod_1.z.uuid(),
+    runStatus: zod_1.z.string().min(1).max(64),
+    runErrorCode: zod_1.z.string().min(1).max(200).nullable(),
+    commentsByRun: zod_1.z.number().int().min(0),
+    writes: zod_1.z
+        .array(zod_1.z.strictObject({
+        action: zod_1.z.string().regex(/^[a-z][a-z0-9_.]{0,79}$/),
+        count: zod_1.z.number().int().min(1),
+    }))
+        .max(BOARD_RECONCILIATION_WRITES_MAX),
+});
+exports.BoardReconciliationSchema = zod_1.z.strictObject({
+    runId: zod_1.z.uuid(),
+    providerStopped: zod_1.z.literal(true),
+    actionOutcome: exports.BoardReconciliationOutcomeSchema,
+    outcomeEvidence: zod_1.z.string().min(exports.BOARD_RECONCILIATION_EVIDENCE_MIN).max(exports.BOARD_RECONCILIATION_EVIDENCE_MAX),
+});
+/** Builds the true declaration; throws when the facts do not support it (never declares what is not known). */
+function boardClosedHoldReconciliation(facts) {
+    const f = exports.BoardClosedHoldFactsSchema.parse(facts);
+    if (!exports.BOARD_RECONCILIATION_FINISHED_RUN_STATUSES.includes(f.runStatus)) {
+        throw new Error(`run ${f.runId} is ${f.runStatus}: provider stop cannot be declared`);
+    }
+    const total = f.writes.reduce((n, w) => n + w.count, 0) + f.commentsByRun;
+    const writes = [
+        ...(f.commentsByRun > 0 ? [`commenti: ${f.commentsByRun}`] : []),
+        ...f.writes.map((w) => `${w.action}: ${w.count}`),
+    ];
+    if (f.cause === 'closed_hold_infrastructure' && total > 0) {
+        throw new Error('closed_hold_infrastructure with writes: outcome contradicts the facts');
+    }
+    if (f.cause === 'closed_hold_after_writes' && total === 0) {
+        throw new Error('closed_hold_after_writes without writes: outcome contradicts the facts');
+    }
+    const run = `Turno ${f.runId} finito con stato ${f.runStatus}${f.runErrorCode === null ? '' : ` e codice d'errore ${f.runErrorCode}`}.`;
+    const sources = 'Letto da GET /heartbeat-runs, /issues/:id/comments e /companies/:id/activity.';
+    const outside = 'Gli effetti fuori da Paperclip non sono verificabili da questo operatore.';
+    if (f.cause === 'closed_hold_infrastructure') {
+        return {
+            runId: f.runId,
+            providerStopped: true,
+            actionOutcome: 'not_performed',
+            outcomeEvidence: `${run} Nessuna scrittura registrata dal turno su commenti o attività. ${sources} ${outside}`,
+        };
+    }
+    return {
+        runId: f.runId,
+        providerStopped: true,
+        actionOutcome: 'mixed',
+        outcomeEvidence: `${run} Scritture registrate dal turno: ${writes.join(', ')}. ${sources} ${outside} Il capo rilegge commenti e stato dell'incarico prima di agire.`,
+    };
+}
+/** Paperclip refusals of the resolve call, closed list (execution-recovery-resolution.js:18-74). */
+exports.BOARD_RECONCILE_REFUSALS = [
+    'provider_not_stopped',
+    'execution_not_settled',
+    'owner_or_source_changed',
+    'run_mismatch',
+    'workspace_repair_required',
+    'other_active_action',
+    'action_not_found',
+    'bad_request',
+    'other_refusal',
+];
+exports.BoardReconcileRefusalSchema = zod_1.z.enum(exports.BOARD_RECONCILE_REFUSALS);
+exports.BOARD_RECONCILE_REFUSAL_TEXT = {
+    provider_not_stopped: 'Paperclip non considera fermo il turno: non riapro.',
+    execution_not_settled: 'Paperclip non ha ancora chiuso l\'esecuzione del turno: riprovo al prossimo giro.',
+    owner_or_source_changed: 'L\'incarico ha cambiato responsabile o origine: non riapro.',
+    run_mismatch: 'Il turno dichiarato non è quello dell\'azione di recupero: non riapro.',
+    workspace_repair_required: 'Serve prima riparare lo spazio di lavoro: non riapro.',
+    other_active_action: 'C\'è già un\'altra azione di recupero attiva sull\'incarico: non riapro.',
+    action_not_found: 'L\'azione di recupero non esiste più: non riapro.',
+    bad_request: 'Paperclip ha rifiutato la richiesta perché malformata: non riapro.',
+    other_refusal: 'Paperclip ha rifiutato la riapertura per un motivo non previsto: non riapro.',
+};
+/** Message prefixes of Paperclip's 409 answers, matched case-insensitively. */
+const BOARD_RECONCILE_REFUSAL_PREFIXES = [
+    ['provider_not_stopped', 'provider is not stopped'],
+    ['execution_not_settled', 'execution is not settled'],
+    ['owner_or_source_changed', 'recovery owner or source changed'],
+    ['run_mismatch', 'run does not match'],
+    ['workspace_repair_required', 'workspace repair is required'],
+    ['other_active_action', 'another recovery action is active'],
+];
+function boardReconcileRefusalCode(status, message) {
+    if (status === 404)
+        return 'action_not_found';
+    if (status === 400)
+        return 'bad_request';
+    const text = (message ?? '').trim().toLowerCase();
+    for (const [code, prefix] of BOARD_RECONCILE_REFUSAL_PREFIXES) {
+        if (text.startsWith(prefix))
+            return code;
+    }
+    return 'other_refusal';
+}
+exports.BoardReconcileRefusalLogSchema = zod_1.z.strictObject({
+    companyId: zod_1.z.uuid(),
+    issueIdentifier: zod_1.z.string().min(1).max(64),
+    paperclipAgentId: zod_1.z.uuid(),
+    status: zod_1.z.number().int().min(400).max(499),
+    code: exports.BoardReconcileRefusalSchema,
+    at: zod_1.z.iso.datetime(),
+});
+function renderBoardReconcileRefusalLog(log) {
+    const p = exports.BoardReconcileRefusalLogSchema.parse(log);
+    return `riapertura_rifiutata azienda=${p.companyId} incarico=${p.issueIdentifier} agente=${p.paperclipAgentId} stato=${p.status} codice=${p.code} ora=${p.at}`;
 }
 //# sourceMappingURL=board-resume.js.map

@@ -159,4 +159,128 @@ export function boardResumeCommentKind(body) {
         return 'needs_person';
     return null;
 }
+/**
+ * Declaration of the observed outcome of a CLOSED hold, for Paperclip's `POST /issues/:id/recovery-actions/resolve`
+ * (`executionReconciliation`). Never `completed`: an automatic operator cannot know that. Source: Paperclip
+ * v2026.1005.0 execution-recovery-resolution.js:14-74.
+ */
+export const BOARD_RECONCILIATION_OUTCOMES = ['not_performed', 'mixed'];
+export const BoardReconciliationOutcomeSchema = z.enum(BOARD_RECONCILIATION_OUTCOMES);
+/** Run states in which the provider is certainly stopped (execution-recovery-resolution.js:39). */
+export const BOARD_RECONCILIATION_FINISHED_RUN_STATUSES = ['failed', 'interrupted', 'timed_out', 'cancelled'];
+export const BOARD_RECONCILIATION_EVIDENCE_MIN = 20;
+export const BOARD_RECONCILIATION_EVIDENCE_MAX = 12_000;
+const BOARD_RECONCILIATION_WRITES_MAX = 30;
+/** Facts the consumer has read; the declaration is derived only from them. */
+export const BoardClosedHoldFactsSchema = z.strictObject({
+    cause: BoardClosedHoldCauseSchema,
+    runId: z.uuid(),
+    runStatus: z.string().min(1).max(64),
+    runErrorCode: z.string().min(1).max(200).nullable(),
+    commentsByRun: z.number().int().min(0),
+    writes: z
+        .array(z.strictObject({
+        action: z.string().regex(/^[a-z][a-z0-9_.]{0,79}$/),
+        count: z.number().int().min(1),
+    }))
+        .max(BOARD_RECONCILIATION_WRITES_MAX),
+});
+export const BoardReconciliationSchema = z.strictObject({
+    runId: z.uuid(),
+    providerStopped: z.literal(true),
+    actionOutcome: BoardReconciliationOutcomeSchema,
+    outcomeEvidence: z.string().min(BOARD_RECONCILIATION_EVIDENCE_MIN).max(BOARD_RECONCILIATION_EVIDENCE_MAX),
+});
+/** Builds the true declaration; throws when the facts do not support it (never declares what is not known). */
+export function boardClosedHoldReconciliation(facts) {
+    const f = BoardClosedHoldFactsSchema.parse(facts);
+    if (!BOARD_RECONCILIATION_FINISHED_RUN_STATUSES.includes(f.runStatus)) {
+        throw new Error(`run ${f.runId} is ${f.runStatus}: provider stop cannot be declared`);
+    }
+    const total = f.writes.reduce((n, w) => n + w.count, 0) + f.commentsByRun;
+    const writes = [
+        ...(f.commentsByRun > 0 ? [`commenti: ${f.commentsByRun}`] : []),
+        ...f.writes.map((w) => `${w.action}: ${w.count}`),
+    ];
+    if (f.cause === 'closed_hold_infrastructure' && total > 0) {
+        throw new Error('closed_hold_infrastructure with writes: outcome contradicts the facts');
+    }
+    if (f.cause === 'closed_hold_after_writes' && total === 0) {
+        throw new Error('closed_hold_after_writes without writes: outcome contradicts the facts');
+    }
+    const run = `Turno ${f.runId} finito con stato ${f.runStatus}${f.runErrorCode === null ? '' : ` e codice d'errore ${f.runErrorCode}`}.`;
+    const sources = 'Letto da GET /heartbeat-runs, /issues/:id/comments e /companies/:id/activity.';
+    const outside = 'Gli effetti fuori da Paperclip non sono verificabili da questo operatore.';
+    if (f.cause === 'closed_hold_infrastructure') {
+        return {
+            runId: f.runId,
+            providerStopped: true,
+            actionOutcome: 'not_performed',
+            outcomeEvidence: `${run} Nessuna scrittura registrata dal turno su commenti o attività. ${sources} ${outside}`,
+        };
+    }
+    return {
+        runId: f.runId,
+        providerStopped: true,
+        actionOutcome: 'mixed',
+        outcomeEvidence: `${run} Scritture registrate dal turno: ${writes.join(', ')}. ${sources} ${outside} Il capo rilegge commenti e stato dell'incarico prima di agire.`,
+    };
+}
+/** Paperclip refusals of the resolve call, closed list (execution-recovery-resolution.js:18-74). */
+export const BOARD_RECONCILE_REFUSALS = [
+    'provider_not_stopped',
+    'execution_not_settled',
+    'owner_or_source_changed',
+    'run_mismatch',
+    'workspace_repair_required',
+    'other_active_action',
+    'action_not_found',
+    'bad_request',
+    'other_refusal',
+];
+export const BoardReconcileRefusalSchema = z.enum(BOARD_RECONCILE_REFUSALS);
+export const BOARD_RECONCILE_REFUSAL_TEXT = {
+    provider_not_stopped: 'Paperclip non considera fermo il turno: non riapro.',
+    execution_not_settled: 'Paperclip non ha ancora chiuso l\'esecuzione del turno: riprovo al prossimo giro.',
+    owner_or_source_changed: 'L\'incarico ha cambiato responsabile o origine: non riapro.',
+    run_mismatch: 'Il turno dichiarato non è quello dell\'azione di recupero: non riapro.',
+    workspace_repair_required: 'Serve prima riparare lo spazio di lavoro: non riapro.',
+    other_active_action: 'C\'è già un\'altra azione di recupero attiva sull\'incarico: non riapro.',
+    action_not_found: 'L\'azione di recupero non esiste più: non riapro.',
+    bad_request: 'Paperclip ha rifiutato la richiesta perché malformata: non riapro.',
+    other_refusal: 'Paperclip ha rifiutato la riapertura per un motivo non previsto: non riapro.',
+};
+/** Message prefixes of Paperclip's 409 answers, matched case-insensitively. */
+const BOARD_RECONCILE_REFUSAL_PREFIXES = [
+    ['provider_not_stopped', 'provider is not stopped'],
+    ['execution_not_settled', 'execution is not settled'],
+    ['owner_or_source_changed', 'recovery owner or source changed'],
+    ['run_mismatch', 'run does not match'],
+    ['workspace_repair_required', 'workspace repair is required'],
+    ['other_active_action', 'another recovery action is active'],
+];
+export function boardReconcileRefusalCode(status, message) {
+    if (status === 404)
+        return 'action_not_found';
+    if (status === 400)
+        return 'bad_request';
+    const text = (message ?? '').trim().toLowerCase();
+    for (const [code, prefix] of BOARD_RECONCILE_REFUSAL_PREFIXES) {
+        if (text.startsWith(prefix))
+            return code;
+    }
+    return 'other_refusal';
+}
+export const BoardReconcileRefusalLogSchema = z.strictObject({
+    companyId: z.uuid(),
+    issueIdentifier: z.string().min(1).max(64),
+    paperclipAgentId: z.uuid(),
+    status: z.number().int().min(400).max(499),
+    code: BoardReconcileRefusalSchema,
+    at: z.iso.datetime(),
+});
+export function renderBoardReconcileRefusalLog(log) {
+    const p = BoardReconcileRefusalLogSchema.parse(log);
+    return `riapertura_rifiutata azienda=${p.companyId} incarico=${p.issueIdentifier} agente=${p.paperclipAgentId} stato=${p.status} codice=${p.code} ora=${p.at}`;
+}
 //# sourceMappingURL=board-resume.js.map

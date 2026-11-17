@@ -205,4 +205,93 @@ export declare function boardResumeNeedsPersonComment(input: {
     max: number;
 }): string;
 export declare function boardResumeCommentKind(body: string): 'resume' | 'needs_person' | null;
+/**
+ * Declaration of the observed outcome of a CLOSED hold, for Paperclip's `POST /issues/:id/recovery-actions/resolve`
+ * (`executionReconciliation`). Never `completed`: an automatic operator cannot know that. Source: Paperclip
+ * v2026.1005.0 execution-recovery-resolution.js:14-74.
+ */
+export declare const BOARD_RECONCILIATION_OUTCOMES: readonly ["not_performed", "mixed"];
+export declare const BoardReconciliationOutcomeSchema: z.ZodEnum<{
+    not_performed: "not_performed";
+    mixed: "mixed";
+}>;
+export type BoardReconciliationOutcome = z.infer<typeof BoardReconciliationOutcomeSchema>;
+/** Run states in which the provider is certainly stopped (execution-recovery-resolution.js:39). */
+export declare const BOARD_RECONCILIATION_FINISHED_RUN_STATUSES: readonly ["failed", "interrupted", "timed_out", "cancelled"];
+export declare const BOARD_RECONCILIATION_EVIDENCE_MIN = 20;
+export declare const BOARD_RECONCILIATION_EVIDENCE_MAX = 12000;
+/** Facts the consumer has read; the declaration is derived only from them. */
+export declare const BoardClosedHoldFactsSchema: z.ZodObject<{
+    cause: z.ZodEnum<{
+        closed_hold_infrastructure: "closed_hold_infrastructure";
+        closed_hold_after_writes: "closed_hold_after_writes";
+    }>;
+    runId: z.ZodUUID;
+    runStatus: z.ZodString;
+    runErrorCode: z.ZodNullable<z.ZodString>;
+    commentsByRun: z.ZodNumber;
+    writes: z.ZodArray<z.ZodObject<{
+        action: z.ZodString;
+        count: z.ZodNumber;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type BoardClosedHoldFacts = z.infer<typeof BoardClosedHoldFactsSchema>;
+export declare const BoardReconciliationSchema: z.ZodObject<{
+    runId: z.ZodUUID;
+    providerStopped: z.ZodLiteral<true>;
+    actionOutcome: z.ZodEnum<{
+        not_performed: "not_performed";
+        mixed: "mixed";
+    }>;
+    outcomeEvidence: z.ZodString;
+}, z.core.$strict>;
+export type BoardReconciliation = z.infer<typeof BoardReconciliationSchema>;
+/** Builds the true declaration; throws when the facts do not support it (never declares what is not known). */
+export declare function boardClosedHoldReconciliation(facts: BoardClosedHoldFacts): BoardReconciliation;
+/** Paperclip refusals of the resolve call, closed list (execution-recovery-resolution.js:18-74). */
+export declare const BOARD_RECONCILE_REFUSALS: readonly ["provider_not_stopped", "execution_not_settled", "owner_or_source_changed", "run_mismatch", "workspace_repair_required", "other_active_action", "action_not_found", "bad_request", "other_refusal"];
+export declare const BoardReconcileRefusalSchema: z.ZodEnum<{
+    provider_not_stopped: "provider_not_stopped";
+    execution_not_settled: "execution_not_settled";
+    owner_or_source_changed: "owner_or_source_changed";
+    run_mismatch: "run_mismatch";
+    workspace_repair_required: "workspace_repair_required";
+    other_active_action: "other_active_action";
+    action_not_found: "action_not_found";
+    bad_request: "bad_request";
+    other_refusal: "other_refusal";
+}>;
+export type BoardReconcileRefusal = z.infer<typeof BoardReconcileRefusalSchema>;
+export declare const BOARD_RECONCILE_REFUSAL_TEXT: {
+    readonly provider_not_stopped: "Paperclip non considera fermo il turno: non riapro.";
+    readonly execution_not_settled: "Paperclip non ha ancora chiuso l'esecuzione del turno: riprovo al prossimo giro.";
+    readonly owner_or_source_changed: "L'incarico ha cambiato responsabile o origine: non riapro.";
+    readonly run_mismatch: "Il turno dichiarato non è quello dell'azione di recupero: non riapro.";
+    readonly workspace_repair_required: "Serve prima riparare lo spazio di lavoro: non riapro.";
+    readonly other_active_action: "C'è già un'altra azione di recupero attiva sull'incarico: non riapro.";
+    readonly action_not_found: "L'azione di recupero non esiste più: non riapro.";
+    readonly bad_request: "Paperclip ha rifiutato la richiesta perché malformata: non riapro.";
+    readonly other_refusal: "Paperclip ha rifiutato la riapertura per un motivo non previsto: non riapro.";
+};
+export declare function boardReconcileRefusalCode(status: number, message: string | null | undefined): BoardReconcileRefusal;
+export declare const BoardReconcileRefusalLogSchema: z.ZodObject<{
+    companyId: z.ZodUUID;
+    issueIdentifier: z.ZodString;
+    paperclipAgentId: z.ZodUUID;
+    status: z.ZodNumber;
+    code: z.ZodEnum<{
+        provider_not_stopped: "provider_not_stopped";
+        execution_not_settled: "execution_not_settled";
+        owner_or_source_changed: "owner_or_source_changed";
+        run_mismatch: "run_mismatch";
+        workspace_repair_required: "workspace_repair_required";
+        other_active_action: "other_active_action";
+        action_not_found: "action_not_found";
+        bad_request: "bad_request";
+        other_refusal: "other_refusal";
+    }>;
+    at: z.ZodISODateTime;
+}, z.core.$strict>;
+export type BoardReconcileRefusalLog = z.infer<typeof BoardReconcileRefusalLogSchema>;
+export declare function renderBoardReconcileRefusalLog(log: BoardReconcileRefusalLog): string;
 //# sourceMappingURL=board-resume.d.ts.map

@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
+  BOARD_RECONCILE_REFUSALS,
+  BOARD_RECONCILE_REFUSAL_TEXT,
+  BOARD_RECONCILIATION_FINISHED_RUN_STATUSES,
+  BoardReconcileRefusalLogSchema,
+  boardClosedHoldReconciliation,
+  boardReconcileRefusalCode,
+  renderBoardReconcileRefusalLog,
   BOARD_CLOSED_HOLD_CAUSES,
   BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT,
   BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_MIN,
@@ -257,5 +264,74 @@ describe('s7236 fermo-non-riaperto-riga', () => {
     expect(boardHoldSkipLogDue(log, log.reason, nowMs + 3_600_000)).toBe(true);
     expect(boardHoldSkipLogDue(log, log.reason, nowMs + 3_601_000)).toBe(true);
     expect(boardHoldSkipLogDue(log, 'declared_wait', nowMs + 1_000)).toBe(true);
+  });
+});
+
+describe('s7243 dichiarazione-fermo-chiuso', () => {
+  const runId = '11111111-1111-4111-8111-111111111111';
+  const base = { runId, runStatus: 'failed', runErrorCode: 'adapter_failed', commentsByRun: 0, writes: [] as { action: string; count: number }[] };
+
+  it('(a) declares from facts and refuses what facts do not support', () => {
+    const none = boardClosedHoldReconciliation({ ...base, cause: 'closed_hold_infrastructure' });
+    expect(none).toMatchObject({ runId, providerStopped: true, actionOutcome: 'not_performed' });
+    expect(none.outcomeEvidence).toContain('adapter_failed');
+    expect(none.outcomeEvidence).toContain('Gli effetti fuori da Paperclip non sono verificabili da questo operatore');
+    const mixed = boardClosedHoldReconciliation({
+      ...base,
+      cause: 'closed_hold_after_writes',
+      commentsByRun: 1,
+      writes: [{ action: 'issue.cross_issue_influence_observed', count: 2 }],
+    });
+    expect(mixed.actionOutcome).toBe('mixed');
+    expect(mixed.outcomeEvidence).toContain('issue.cross_issue_influence_observed: 2');
+    expect(mixed.outcomeEvidence).toContain('commenti: 1');
+    expect(mixed.outcomeEvidence).toContain('rilegge commenti e stato');
+    for (const runStatus of ['running', 'queued', 'succeeded']) {
+      expect(() => boardClosedHoldReconciliation({ ...base, runStatus, cause: 'closed_hold_infrastructure' })).toThrow();
+    }
+    expect(() => boardClosedHoldReconciliation({ ...base, cause: 'closed_hold_infrastructure', commentsByRun: 1 })).toThrow();
+    expect(() => boardClosedHoldReconciliation({ ...base, cause: 'closed_hold_after_writes' })).toThrow();
+    expect(() =>
+      boardClosedHoldReconciliation({ ...base, cause: 'closed_hold_after_writes', writes: [{ action: 'bad name', count: 1 }] }),
+    ).toThrow();
+    for (const runStatus of BOARD_RECONCILIATION_FINISHED_RUN_STATUSES) {
+      expect(boardClosedHoldReconciliation({ ...base, runStatus, cause: 'closed_hold_infrastructure' }).providerStopped).toBe(true);
+    }
+  });
+
+  it('(b) classifies Paperclip refusals into the closed list', () => {
+    const cases: Array<[string, string]> = [
+      ['provider is not stopped', 'provider_not_stopped'],
+      ['execution is not settled', 'execution_not_settled'],
+      ['recovery owner or source changed', 'owner_or_source_changed'],
+      ['run does not match the action', 'run_mismatch'],
+      ['workspace repair is required', 'workspace_repair_required'],
+      ['another recovery action is active', 'other_active_action'],
+    ];
+    for (const [message, code] of cases) expect(boardReconcileRefusalCode(409, message)).toBe(code);
+    expect(boardReconcileRefusalCode(404, 'x')).toBe('action_not_found');
+    expect(boardReconcileRefusalCode(400, 'x')).toBe('bad_request');
+    expect(boardReconcileRefusalCode(409, 'something new')).toBe('other_refusal');
+    expect(boardReconcileRefusalCode(409, undefined)).toBe('other_refusal');
+    for (const code of BOARD_RECONCILE_REFUSALS) expect(BOARD_RECONCILE_REFUSAL_TEXT[code].length).toBeGreaterThan(0);
+    expect(BOARD_RECONCILE_REFUSALS).toHaveLength(9);
+  });
+
+  it('(c) refusal log line is exact and strict', () => {
+    const log = {
+      companyId: '22222222-2222-4222-8222-222222222222',
+      issueIdentifier: 'ABC-12',
+      paperclipAgentId: '33333333-3333-4333-8333-333333333333',
+      status: 409,
+      code: 'run_mismatch' as const,
+      at: '2026-11-17T10:00:00.000Z',
+    };
+    expect(renderBoardReconcileRefusalLog(log)).toBe(
+      'riapertura_rifiutata azienda=22222222-2222-4222-8222-222222222222 incarico=ABC-12 agente=33333333-3333-4333-8333-333333333333 stato=409 codice=run_mismatch ora=2026-11-17T10:00:00.000Z',
+    );
+    for (const bad of [{ ...log, status: 500 }, { ...log, code: 'free text' }, { ...log, extra: 1 }]) {
+      expect(BoardReconcileRefusalLogSchema.safeParse(bad).success).toBe(false);
+      expect(() => renderBoardReconcileRefusalLog(bad as never)).toThrow();
+    }
   });
 });

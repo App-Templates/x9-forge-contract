@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.220.0 — true declaration for a closed Paperclip hold and a closed list of resolve refusals (task 7243)
+
+- Added `BOARD_RECONCILIATION_OUTCOMES` (`not_performed`, `mixed`; never `completed`), `BOARD_RECONCILIATION_FINISHED_RUN_STATUSES`, `BoardClosedHoldFactsSchema` and `BoardReconciliationSchema`.
+- Added `boardClosedHoldReconciliation(facts)`: derives the `executionReconciliation` declaration from facts read by the consumer; throws on an unfinished run or when the cause contradicts the writes.
+- Added the nine `BOARD_RECONCILE_REFUSALS`, schema, `BOARD_RECONCILE_REFUSAL_TEXT` and pure `boardReconcileRefusalCode(status, message)`.
+- Added strict `BoardReconcileRefusalLogSchema` and `renderBoardReconcileRefusalLog`: `riapertura_rifiutata azienda=… incarico=… agente=… stato=… codice=… ora=…`.
+- Additive; no stored data changes. Consumer: cap-paperclip tasks 7237-7242.
+
 ## v1.219.0 — skipped Paperclip holds have a strict log line and an hourly repeat rule (task 7236)
 
 - Added the 26-entry `BOARD_HOLD_SKIP_REASONS` union, `BoardHoldSkipReasonSchema` and `BoardHoldSkipReason`, reusing both existing reason lists and their sentences.
