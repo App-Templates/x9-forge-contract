@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { type ResearchParams } from "./agent-config.cjs";
 /**
  * One research of cap-ricerca (v1.28.0, Phase 54): a question of one agent, researched on the web within the agent's
  * budget, answered with findings that carry their sources. Research runs in cascades: a research may start from the
@@ -12,6 +13,36 @@ export declare const LabGapsRefSchema: z.ZodString;
 export type LabGapsRef = z.infer<typeof LabGapsRefSchema>;
 /** Only http(s) addresses, bounded: never `file:`, `javascript:` or `data:`. */
 export declare const WebUrlSchema: z.ZodString;
+/**
+ * The research values a caller may ask for ONE research: same limits as the agent configuration, no defaults.
+ * The service refuses a request above the agent's maxima (`params_above_agent`), never trims it.
+ */
+export declare const ResearchCallerParamsSchema: z.ZodObject<{
+    searchContextSize: z.ZodOptional<z.ZodEnum<{
+        low: "low";
+        medium: "medium";
+        high: "high";
+    }>>;
+    reasoningEffort: z.ZodOptional<z.ZodEnum<{
+        low: "low";
+        medium: "medium";
+        high: "high";
+    }>>;
+    maxToolCalls: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export type ResearchCallerParams = z.infer<typeof ResearchCallerParamsSchema>;
+export type ResolveResearchParamsResult = {
+    ok: true;
+    params: ResearchParams;
+} | {
+    ok: false;
+    above: ('maxToolCalls' | 'searchContextSize' | 'reasoningEffort')[];
+};
+/**
+ * Resolve the values of one research against the agent's maxima. A missing value takes the agent's; a value above
+ * the agent's maximum is reported in `above` (in the order maxToolCalls, searchContextSize, reasoningEffort).
+ */
+export declare function resolveResearchParams(agent: ResearchParams, requested?: ResearchCallerParams): ResolveResearchParamsResult;
 export declare const ResearchRequestSchema: z.ZodObject<{
     question: z.ZodString;
     goal: z.ZodOptional<z.ZodString>;
@@ -19,6 +50,19 @@ export declare const ResearchRequestSchema: z.ZodObject<{
     labGapsRef: z.ZodOptional<z.ZodString>;
     projectId: z.ZodOptional<z.ZodString>;
     maxUsd: z.ZodOptional<z.ZodNumber>;
+    params: z.ZodOptional<z.ZodObject<{
+        searchContextSize: z.ZodOptional<z.ZodEnum<{
+            low: "low";
+            medium: "medium";
+            high: "high";
+        }>>;
+        reasoningEffort: z.ZodOptional<z.ZodEnum<{
+            low: "low";
+            medium: "medium";
+            high: "high";
+        }>>;
+        maxToolCalls: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ResearchRequest = z.infer<typeof ResearchRequestSchema>;
 export declare const ResearchStateSchema: z.ZodEnum<{

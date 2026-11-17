@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.260.0 — the social listening capability contracts, caller-chosen research values and the `social` spend entry (tasks 3600-3603)
+
+- Added the `@x9-forge/contracts/capability/social-listening` subpath: the topic (short title, category, verdict, sources, cost and track), the source post, the followed profile and the vertical with its vocabulary; the seven tools with names, inputs and outputs and no model-written identity (`SOCIAL_LISTENING_TOOLS`); the queue job and the run state; the configuration and the per-agent parameters in the B1 form (`SOCIAL_LISTENING_PARAMETERS`). Tenant and agent are on every row.
+- `capability/ricerca`: optional `params` on `ResearchRequestSchema` (`ResearchCallerParamsSchema`: tool-call count, search context size, reasoning effort, all optional, strict) and the pure `resolveResearchParams(agent, requested?)`, which refuses values above the agent's maximums with the error code `params_above_agent`.
+- Added the `social` entry to `SpendingCapabilitySchema`.
+- Additive; no stored data changes (`params` is optional). Consumers: agent-x9 `services/cap-social-listening` and forge-v2 (Ascolto page).
+
 ## v1.227.0 — scheduled checks declare how many times Paperclip wakes the owner (task 7293)
 
 - Added optional `followUp: { attempts }` (1 to 5, strict `PaperclipFollowUpSchema`, `PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS`) to `PaperclipCheckLaterSchema` and `PaperclipCheckLaterInputSchema`. A blocked wait still cannot be combined with a scheduled check.

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResearchResultSchema = exports.ResearchAdmissionSchema = exports.ResearchNotOpenedReasonSchema = exports.RESEARCH_NOT_OPENED_REASONS = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.LabGapsRefSchema = exports.ResearchIdSchema = void 0;
+exports.ResearchResultSchema = exports.ResearchAdmissionSchema = exports.ResearchNotOpenedReasonSchema = exports.RESEARCH_NOT_OPENED_REASONS = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.ResearchCallerParamsSchema = exports.WebUrlSchema = exports.LabGapsRefSchema = exports.ResearchIdSchema = void 0;
+exports.resolveResearchParams = resolveResearchParams;
 exports.renderResearchAdmission = renderResearchAdmission;
 const zod_1 = require("zod");
 const asset_js_1 = require("../../organization/asset.cjs");
@@ -26,6 +27,40 @@ exports.WebUrlSchema = zod_1.z.string().max(2000).refine(u => {
     }
 }, 'only http(s) addresses');
 const TextSchema = zod_1.z.string().trim().min(1).max(2000);
+/**
+ * The research values a caller may ask for ONE research: same limits as the agent configuration, no defaults.
+ * The service refuses a request above the agent's maxima (`params_above_agent`), never trims it.
+ */
+exports.ResearchCallerParamsSchema = agent_config_js_1.ResearchParamsSchema
+    .pick({ maxToolCalls: true, searchContextSize: true, reasoningEffort: true })
+    .partial()
+    .strict();
+const LEVEL_ORDER = { low: 0, medium: 1, high: 2 };
+/**
+ * Resolve the values of one research against the agent's maxima. A missing value takes the agent's; a value above
+ * the agent's maximum is reported in `above` (in the order maxToolCalls, searchContextSize, reasoningEffort).
+ */
+function resolveResearchParams(agent, requested) {
+    const above = [];
+    const r = requested ?? {};
+    if (r.maxToolCalls !== undefined && r.maxToolCalls > agent.maxToolCalls)
+        above.push('maxToolCalls');
+    if (r.searchContextSize !== undefined && LEVEL_ORDER[r.searchContextSize] > LEVEL_ORDER[agent.searchContextSize])
+        above.push('searchContextSize');
+    if (r.reasoningEffort !== undefined && LEVEL_ORDER[r.reasoningEffort] > LEVEL_ORDER[agent.reasoningEffort])
+        above.push('reasoningEffort');
+    if (above.length > 0)
+        return { ok: false, above };
+    return {
+        ok: true,
+        params: {
+            ...agent,
+            maxToolCalls: r.maxToolCalls ?? agent.maxToolCalls,
+            searchContextSize: r.searchContextSize ?? agent.searchContextSize,
+            reasoningEffort: r.reasoningEffort ?? agent.reasoningEffort,
+        },
+    };
+}
 exports.ResearchRequestSchema = zod_1.z.object({
     question: TextSchema,
     /** Why the question matters (helps the research choose what to open). */
@@ -41,6 +76,8 @@ exports.ResearchRequestSchema = zod_1.z.object({
     projectId: asset_js_1.AssetRefSchema.shape.projectId.optional(),
     /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
     maxUsd: zod_1.z.number().positive().finite().optional(),
+    /** A lighter research asked by the caller for THIS research; refused above the agent's maxima, like `maxUsd`. */
+    params: exports.ResearchCallerParamsSchema.optional(),
 }).strict();
 exports.ResearchStateSchema = zod_1.z.enum(['queued', 'running', 'completed', 'failed', 'budget_exhausted']);
 exports.ResearchSourceSchema = zod_1.z.object({

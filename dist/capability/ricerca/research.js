@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { AssetRefSchema } from "../../organization/asset.js";
-import { CapabilityAgentIdSchema, SourceRuleSchema } from "./agent-config.js";
+import { CapabilityAgentIdSchema, ResearchParamsSchema, SourceRuleSchema } from "./agent-config.js";
 /**
  * One research of cap-ricerca (v1.28.0, Phase 54): a question of one agent, researched on the web within the agent's
  * budget, answered with findings that carry their sources. Research runs in cascades: a research may start from the
@@ -22,6 +22,40 @@ export const WebUrlSchema = z.string().max(2000).refine(u => {
     }
 }, 'only http(s) addresses');
 const TextSchema = z.string().trim().min(1).max(2000);
+/**
+ * The research values a caller may ask for ONE research: same limits as the agent configuration, no defaults.
+ * The service refuses a request above the agent's maxima (`params_above_agent`), never trims it.
+ */
+export const ResearchCallerParamsSchema = ResearchParamsSchema
+    .pick({ maxToolCalls: true, searchContextSize: true, reasoningEffort: true })
+    .partial()
+    .strict();
+const LEVEL_ORDER = { low: 0, medium: 1, high: 2 };
+/**
+ * Resolve the values of one research against the agent's maxima. A missing value takes the agent's; a value above
+ * the agent's maximum is reported in `above` (in the order maxToolCalls, searchContextSize, reasoningEffort).
+ */
+export function resolveResearchParams(agent, requested) {
+    const above = [];
+    const r = requested ?? {};
+    if (r.maxToolCalls !== undefined && r.maxToolCalls > agent.maxToolCalls)
+        above.push('maxToolCalls');
+    if (r.searchContextSize !== undefined && LEVEL_ORDER[r.searchContextSize] > LEVEL_ORDER[agent.searchContextSize])
+        above.push('searchContextSize');
+    if (r.reasoningEffort !== undefined && LEVEL_ORDER[r.reasoningEffort] > LEVEL_ORDER[agent.reasoningEffort])
+        above.push('reasoningEffort');
+    if (above.length > 0)
+        return { ok: false, above };
+    return {
+        ok: true,
+        params: {
+            ...agent,
+            maxToolCalls: r.maxToolCalls ?? agent.maxToolCalls,
+            searchContextSize: r.searchContextSize ?? agent.searchContextSize,
+            reasoningEffort: r.reasoningEffort ?? agent.reasoningEffort,
+        },
+    };
+}
 export const ResearchRequestSchema = z.object({
     question: TextSchema,
     /** Why the question matters (helps the research choose what to open). */
@@ -37,6 +71,8 @@ export const ResearchRequestSchema = z.object({
     projectId: AssetRefSchema.shape.projectId.optional(),
     /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
     maxUsd: z.number().positive().finite().optional(),
+    /** A lighter research asked by the caller for THIS research; refused above the agent's maxima, like `maxUsd`. */
+    params: ResearchCallerParamsSchema.optional(),
 }).strict();
 export const ResearchStateSchema = z.enum(['queued', 'running', 'completed', 'failed', 'budget_exhausted']);
 export const ResearchSourceSchema = z.object({
