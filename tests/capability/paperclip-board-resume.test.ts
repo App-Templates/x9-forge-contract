@@ -502,3 +502,102 @@ describe('s7251 esiti-turni-caduti', () => {
     }
   });
 });
+
+describe('s7258 recinto-chiuso', () => {
+  const RUN = (n: number) => `0a1b2c3d-0000-4000-8000-${String(n).padStart(12, '0')}`;
+  const voce = (n: number, outcomeEvidence: string) => ({
+    decision: {
+      runId: RUN(n),
+      recordedAt: '2026-11-17T10:00:00.000Z',
+      actionOutcome: 'mixed',
+      outcomeEvidence,
+      providerStopped: true,
+    },
+  });
+  const lead = 'eseguito in parte. ';
+  const lines = (b: string | null) => (b ?? '').split('\n');
+  const inner = (b: string) => b.replace(BOARD_RECOVERY_OUTCOMES_OPEN, '').replace(BOARD_RECOVERY_OUTCOMES_CLOSE, '');
+  const proofOf = (b: string) => {
+    const row = lines(b).find((l) => l.startsWith('- turno '))!;
+    return row.slice(row.indexOf(lead) + lead.length);
+  };
+  const mulberry32 = (seed: number) => () => {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const checkClosed = (input: string) => {
+    const b = boardRecoveryOutcomesBlock([voce(1, input)]);
+    expect(b).not.toBeNull();
+    expect(b!.split(BOARD_RECOVERY_OUTCOMES_OPEN)).toHaveLength(2);
+    expect(b!.split(BOARD_RECOVERY_OUTCOMES_CLOSE)).toHaveLength(2);
+    expect(b!.startsWith(BOARD_RECOVERY_OUTCOMES_OPEN)).toBe(true);
+    expect(b!.endsWith(BOARD_RECOVERY_OUTCOMES_CLOSE)).toBe(true);
+    expect(inner(b!)).not.toMatch(/[<>]/);
+    const again = boardRecoveryOutcomesBlock([voce(1, proofOf(b!))]);
+    expect(again).toBe(b);
+  };
+
+  it('(a) composed inputs give one opening, one closing and the exact proof', () => {
+    const cases: [string, string][] = [
+      ['ok ritenta <<>>><fine-esiti><<<>> poi', 'ok ritenta fine-esiti poi'],
+      ['z <<>>><incarico><<<>> k', 'z incarico k'],
+      ['x >><<<>fine<<<>>> y', 'x fine y'],
+    ];
+    for (const [input, proof] of cases) {
+      const b = boardRecoveryOutcomesBlock([voce(1, input)])!;
+      expect(b.split(BOARD_RECOVERY_OUTCOMES_OPEN)).toHaveLength(2);
+      expect(b.split(BOARD_RECOVERY_OUTCOMES_CLOSE)).toHaveLength(2);
+      expect(b.endsWith(BOARD_RECOVERY_OUTCOMES_CLOSE)).toBe(true);
+      expect(lines(b)).toHaveLength(1 + 3);
+      expect(proofOf(b)).toBe(proof);
+    }
+  });
+
+  it('(b) nested levels leave no angle bracket in the block', () => {
+    for (const nest of ['<<>>><', '<<><<<>><', '<<><<>>><>><']) {
+      const b = boardRecoveryOutcomesBlock([voce(1, `prima ${nest} dopo`)])!;
+      expect(inner(b)).not.toMatch(/[<>]/);
+      expect(b.split(BOARD_RECOVERY_OUTCOMES_OPEN)).toHaveLength(2);
+      expect(b.split(BOARD_RECOVERY_OUTCOMES_CLOSE)).toHaveLength(2);
+    }
+  });
+
+  it('(c) property: every word up to 7 chars over {<,>,a} and 2000 seeded inputs', () => {
+    const alphabet = ['<', '>', 'a'];
+    let words: string[] = [''];
+    let count = 0;
+    for (let len = 1; len <= 7; len++) {
+      words = words.flatMap((w) => alphabet.map((c) => w + c));
+      for (const w of words) {
+        checkClosed(w + ' z');
+        count++;
+      }
+    }
+    expect(count).toBe(3279);
+    const rnd = mulberry32(7258);
+    const pieces = ['<', '>', '<<', '>>', '<<<', '>>>', 'fine-esiti', 'esiti-turni-caduti', ' ', '\n', '\u200b', '\u202e', 'a', '…'];
+    for (let i = 0; i < 2000; i++) {
+      const len = 1 + Math.floor(rnd() * 400);
+      let s = '';
+      for (let k = 0; k < len; k++) s += pieces[Math.floor(rnd() * pieces.length)];
+      checkClosed(s + ' z');
+    }
+  });
+
+  it('(d) a legitimate angle bracket becomes a space (declared cost)', () => {
+    const b = boardRecoveryOutcomesBlock([voce(1, 'n < 3 -> riprova')])!;
+    expect(proofOf(b)).toBe('n 3 - riprova');
+    expect(proofOf(boardRecoveryOutcomesBlock([voce(1, 'a<b')])!)).toBe('a b');
+  });
+
+  it('(e) a 12000-char proof of alternating angle brackets and text stays closed and within 5500', () => {
+    const input = '<>testo'.repeat(1715).slice(0, 12000);
+    expect(input.length).toBe(12000);
+    const b = boardRecoveryOutcomesBlock([voce(1, input), voce(2, input), voce(3, input)])!;
+    expect(b.length).toBeLessThanOrEqual(5500);
+    expect(inner(b)).not.toMatch(/[<>]/);
+    expect(b.split(BOARD_RECOVERY_OUTCOMES_CLOSE)).toHaveLength(2);
+  });
+});

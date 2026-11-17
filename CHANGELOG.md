@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.223.0 — the proof of recorded outcomes never contains `<` or `>` (task 7258)
+
+- Fixed: `boardRecoveryOutcomesBlock` now turns every `<` and `>` of the proof into a space (then collapses spaces), so the fence can never be closed. The v1.222.0 cleanup of `<<<`/`>>>` runs could be bypassed with composed inputs such as `<<>>><fine-esiti><<<>>`.
+- A lone `<` or `>` in a legitimate proof also disappears (`n < 3` shows as `n 3`); no shape, constant, sentence or limit changes.
+- Additive; no stored data changes. Consumer: cap-paperclip task 7259 (X9 adopts).
+
 ## v1.222.0 — recorded outcomes of fallen Paperclip turns have a shape and a text block for the boss (task 7251)
 
 - Added `BOARD_RECOVERY_OUTCOME_VALUES` (`completed`, `not_performed`, `mixed`), `BOARD_RECOVERY_OUTCOME_WORDS` and `BoardRecoveryOutcomeSchema` (reads only `decision`: guid `runId`, `providerStopped: true`, outcome, trimmed proof 1-12000, optional ISO `recordedAt`; extra fields are dropped).

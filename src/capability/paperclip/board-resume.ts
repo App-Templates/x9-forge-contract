@@ -304,8 +304,11 @@ export const BOARD_RECOVERY_OUTCOMES_OPEN = '<<<esiti-turni-caduti>>>';
 export const BOARD_RECOVERY_OUTCOMES_CLOSE = '<<<fine-esiti>>>';
 
 function recoveryOutcomeProof(text: string): string {
+  // Every `<` and `>` becomes a space in one pass: no angle bracket survives, so the fence markers
+  // (`<<<`/`>>>`) can never appear. Removing runs like `<{3,}` is not enough: taking a group out joins
+  // its neighbours and can build a new one (`<<>>><fine><<<>>`). A space also keeps `a<b` as `a b`.
   const clean = text
-    .replace(/<{3,}|>{3,}/g, '')
+    .replace(/[<>]/g, ' ')
     .replace(/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]+/gu, ' ')
     .replace(/\s+/g, ' ')
     .trim();
