@@ -8,7 +8,7 @@ const model_provider_js_1 = require("../model-router/model-provider.cjs");
 /** Metadata only: this module never accepts credential values or resolves the active provider. */
 exports.AGENT_CREDENTIAL_SERVICE_KEYS = [...new Set([...agent_credentials_js_1.KNOWN_CREDENTIAL_KEYS, ...agent_credentials_js_1.AUTH_GATE_FIELDS])];
 exports.AgentCredentialServiceKeySchema = zod_1.z.enum(exports.AGENT_CREDENTIAL_SERVICE_KEYS);
-exports.AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...model_provider_js_1.MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo', 'paperclip', 'github', 'bitbucket', 'figma'];
+exports.AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...model_provider_js_1.MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo', 'paperclip', 'github', 'bitbucket', 'figma', 'meta'];
 exports.AgentCredentialCommercialServiceSchema = zod_1.z.enum(exports.AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS);
 exports.AgentCredentialInternalServiceSchema = zod_1.z.enum(['x9', 'forge']);
 exports.AgentCredentialKindSchema = zod_1.z.enum(['credential', 'setting', 'identifier']);
@@ -63,6 +63,24 @@ const definitions = {
             "id": "figma"
         },
         "secret": true
+    },
+    "META_GRAPH_TOKEN": {
+        "label": "Token Meta Graph (lettura Instagram)",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "meta"
+        },
+        "secret": true
+    },
+    "META_IG_BUSINESS_ID": {
+        "label": "Identificativo account Instagram Business",
+        "kind": "identifier",
+        "service": {
+            "type": "commercial",
+            "id": "meta"
+        },
+        "secret": false
     },
     "GITHUB_APP_PRIVATE_KEY": {
         "label": "Chiave privata app GitHub",

@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.262.0 — the social listening capability contracts, video transcription input, Meta credential keys, caller-chosen research values and the `social` spend entry (tasks 3600-3603, 3606-3611, 3617, 3619)
+
+- New subpath `@x9-forge/contracts/capability/social-listening` with: topic (short title and category), post (optional `analysis`: verdict, reason, facts each with its link, cited tools), profile and vertical; the seven tools (`SOCIAL_LISTENING_TOOLS`); queue job and round state; configuration and `SOCIAL_LISTENING_PARAMETERS`; legacy MVP import rows with `socialImportPostAnalysis` and `socialImportPostWithAnalysis`; job input and output; the server daily cap `socialCapDecision` (2 USD per agent per day); the server handover `socialRoundHandover`.
+- `capability/stt`: `TranscribeMediaRequestSchema`, `parseTranscribeInput`, `STT_MEDIA_MAX_DURATION_SEC`.
+- `agent`: credential keys `META_GRAPH_TOKEN` and `META_IG_BUSINESS_ID` (service `meta`).
+- `capability/ricerca`: optional `params` and `resolveResearchParams`, with the refusal `params_above_agent`; `SpendingCapabilitySchema` gains the `social` entry.
+- Additive; no stored data changes (`params` and `analysis` are optional). Consumers: agent-x9 `services/cap-social-listening` and forge-v2 (Ascolto page). The queue internal routes (3616) are not part of this entry.
+
 ## v1.230.0 — who may give an assignment to whom, by role; the Lab starts research itself (task 7304)
 
 - New module `capability/paperclip/role-assignment` (subpath `@x9-forge/contracts/capability/paperclip/role-assignment`): `PAPERCLIP_ASSIGNMENT_MATRIX`, `PAPERCLIP_ASSIGNMENT_REFUSALS` and pure `decideAssignment(from, to)`.

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TranscribeResponseSchema = exports.TranscribeRequestSchema = exports.OPENAI_STT_DEFAULT_MODEL = exports.DEFAULT_STT_PRIMARY_PROVIDER = exports.TranscribeProviderSchema = exports.CAP_STT_DEFAULT_PORT = void 0;
+exports.TranscribeMediaRequestSchema = exports.TranscribeMediaUrlSchema = exports.STT_MEDIA_MAX_DURATION_SEC = exports.TranscribeResponseSchema = exports.TranscribeRequestSchema = exports.OPENAI_STT_DEFAULT_MODEL = exports.DEFAULT_STT_PRIMARY_PROVIDER = exports.TranscribeProviderSchema = exports.CAP_STT_DEFAULT_PORT = void 0;
+exports.parseTranscribeInput = parseTranscribeInput;
 /**
  * Speech-to-text capability contracts — sub-path `@x9-forge/contracts/capability/stt`.
  *
@@ -103,4 +104,55 @@ exports.TranscribeResponseSchema = zod_1.z.object({
     durationSec: zod_1.z.number().int().nonnegative(),
     provider: exports.TranscribeProviderSchema,
 });
+/** Cost boundary for media-file transcription, independent of the Telegram limit. */
+exports.STT_MEDIA_MAX_DURATION_SEC = 600;
+/**
+ * Validate only URL syntax. The consuming service must enforce its domain allowlist
+ * and reject internal addresses before fetching media, including after redirects.
+ */
+exports.TranscribeMediaUrlSchema = zod_1.z.string().max(2000).refine(value => {
+    try {
+        const url = new URL(value);
+        return url.protocol === 'https:' && url.username === '' && url.password === ''
+            && !value.includes('#');
+    }
+    catch {
+        return false;
+    }
+}, { message: 'Expected an HTTPS media URL without credentials or a fragment' });
+/** Identity is supplied by the authenticated ToolCallRequest envelope. */
+exports.TranscribeMediaRequestSchema = zod_1.z.strictObject({
+    mediaUrl: exports.TranscribeMediaUrlSchema,
+    durationSec: zod_1.z.number().int().nonnegative().max(exports.STT_MEDIA_MAX_DURATION_SEC),
+    mimeType: zod_1.z.string().min(1).optional(),
+    languageHint: zod_1.z.string().regex(/^[a-z]{2}$/).optional(),
+});
+/**
+ * Select the source before parsing: the legacy Telegram schema strips unknown
+ * fields, so parsing it first could silently discard an ambiguous media source.
+ * Both sources keep the existing TranscribeResponseSchema and provider choices.
+ */
+function parseTranscribeInput(raw) {
+    try {
+        if (typeof raw === 'object' && raw !== null) {
+            if ('telegramFileUrl' in raw && 'mediaUrl' in raw) {
+                return { ok: false, error: 'transcribe_source_ambiguous' };
+            }
+            if ('mediaUrl' in raw) {
+                const parsed = exports.TranscribeMediaRequestSchema.safeParse(raw);
+                return parsed.success
+                    ? { ok: true, kind: 'media', request: parsed.data }
+                    : { ok: false, error: 'invalid_transcribe_input' };
+            }
+        }
+        const parsed = exports.TranscribeRequestSchema.safeParse(raw);
+        return parsed.success
+            ? { ok: true, kind: 'telegram', request: parsed.data }
+            : { ok: false, error: 'invalid_transcribe_input' };
+    }
+    catch {
+        // Unknown input may contain throwing getters or proxies; never expose them.
+        return { ok: false, error: 'invalid_transcribe_input' };
+    }
+}
 //# sourceMappingURL=index.js.map

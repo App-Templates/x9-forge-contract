@@ -10,8 +10,8 @@ import { z } from 'zod';
  */
 export declare const RetentionClassSchema: z.ZodEnum<{
     standard: "standard";
-    short: "short";
     long: "long";
+    short: "short";
     permanent: "permanent";
     "compliance-hold": "compliance-hold";
 }>;
@@ -43,8 +43,8 @@ export type ArchivalPolicy = z.infer<typeof ArchivalPolicySchema>;
 export declare const RetentionPolicyMetadataSchema: z.ZodObject<{
     retentionClass: z.ZodEnum<{
         standard: "standard";
-        short: "short";
         long: "long";
+        short: "short";
         permanent: "permanent";
         "compliance-hold": "compliance-hold";
     }>;
