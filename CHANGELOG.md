@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.230.0 — who may give an assignment to whom, by role; the Lab starts research itself (task 7304)
+
+- New module `capability/paperclip/role-assignment` (subpath `@x9-forge/contracts/capability/paperclip/role-assignment`): `PAPERCLIP_ASSIGNMENT_MATRIX`, `PAPERCLIP_ASSIGNMENT_REFUSALS` and pure `decideAssignment(from, to)`.
+- Same table X9 applies in `seat-peers.ts:64-71,101`, minus Lab → Ricerca (Stefano 17/11): that pair is refused with `lab_starts_research_itself` and `useTool` = `RICERCA_TOOLS.start`; every other pair outside the table gets `assign_target_not_allowed`.
+- Additive. Consumers: ec-x9/7309 and forge-rel-059/7316. No stored data changes and no runtime behavior changes until X9 adopts it.
+
 ## v1.229.0 — one email recipient admission policy for all four agent roles (task 7303)
 
 - Added `organization/email-recipient-policy`: strict `EmailRecipientFactsSchema`, pure `decideEmailRecipient(facts: unknown)`, closed recipient bases and role admission table. Director admits all four bases; business-unit leads admit certified referents, brief openers and certified thread senders; Lab and Ricerca admit only certified thread senders.
