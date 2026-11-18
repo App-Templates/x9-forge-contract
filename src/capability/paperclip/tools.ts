@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
 import { BusinessUnitLeadBirthRequestSchema, BusinessUnitLeadBirthResultSchema } from '../../organization/business-unit-lead.js';
 import { DecisionRequestIdSchema } from '../../organization/decision-request.js';
+import { PaperclipStatoIncaricoSchema } from '../paperclip-protocollo/wire-letture.js';
 
 const Text = z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 export const PAPERCLIP_ISSUE_IDENTIFIER_PATTERN = /^[A-Z][A-Z0-9]{0,15}-[0-9]{1,9}$/;
@@ -41,7 +42,8 @@ export const PaperclipGoalViewSchema = z.strictObject({
   parentId: z.uuid().nullable(), ownerAgentId: z.uuid().nullable(),
 });
 export const PaperclipCreateGoalOutputSchema = z.strictObject({ goal: PaperclipGoalViewSchema });
-export const PaperclipIssueStatusSchema = z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done', 'blocked', 'cancelled']);
+// Una sola fonte dei sette stati: wire-letture.ts (Paperclip packages/shared/src/constants.ts:189-197).
+export const PaperclipIssueStatusSchema = PaperclipStatoIncaricoSchema;
 const Statuses = z.array(PaperclipIssueStatusSchema).min(1).max(7)
   .refine(values => new Set(values).size === values.length, 'Statuses must be unique');
 export const PaperclipQueueInputSchema = z.strictObject({
