@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.234.0 — the assignment plan a seat is born with comes from the matrix (task 7364)
+
+- `capability/paperclip/role-assignment` exports `PaperclipBirthPlanSchema` (strict: permission `none` or `broad`, recipient protection `open` or `protected`, `canCreateAgents`), the type `PaperclipBirthPlan`, `PAPERCLIP_BIRTH_PLAN_REFUSALS` (`role_unknown`) and the pure, never-throwing `decideAssignmentBirthPlan(role: unknown, matrix = PAPERCLIP_ASSIGNMENT_MATRIX)`.
+- The rule is read from the matrix only, with no role name: a role with exactly one caller is protected, the broad permission goes to who can call a protected role, and `canCreateAgents` follows it. Today's four plans are those X9 writes now.
+- Additive: no existing value changes. Consumers: ec-x9/7368 (adoption) and 7370 (use). No stored data changes.
+
 ## v1.233.0 — which assignment refusals are permission denials (task 7363)
 
 - `capability/paperclip/assignment-permission` exports `PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS` (`recipient_blocked`, `no_permission`, `recipient_not_in_list`, `recipient_not_in_branch`), the type `PaperclipAssignmentPermissionDenial` and the never-throwing predicate `isPaperclipAssignmentPermissionDenial(refusal: unknown)`. The other six refusals are wrong facts the bridge does not judge.

@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { type AgentRole } from "../../organization/agent-role.js";
 import { type RicercaToolName } from "../ricerca/tools.js";
 /**
@@ -24,4 +25,40 @@ export type PaperclipAssignmentDecision = {
 };
 /** Pure: may `from` give an assignment to `to`? Unknown roles are refused, never thrown. */
 export declare function decideAssignment(from: AgentRole, to: AgentRole): PaperclipAssignmentDecision;
+/**
+ * The assignment plan a seat is born with (task 7364), derived only from the matrix: no role name decides anything.
+ * `recipientProtection` is what the seat is born with; `blocked` is never a birth state.
+ */
+export declare const PaperclipBirthPlanSchema: z.ZodObject<{
+    permission: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        form: z.ZodLiteral<"none">;
+    }, z.core.$strict>, z.ZodObject<{
+        form: z.ZodLiteral<"broad">;
+    }, z.core.$strict>], "form">;
+    recipientProtection: z.ZodEnum<{
+        open: "open";
+        protected: "protected";
+    }>;
+    canCreateAgents: z.ZodBoolean;
+}, z.core.$strict>;
+export type PaperclipBirthPlan = z.infer<typeof PaperclipBirthPlanSchema>;
+export declare const PAPERCLIP_BIRTH_PLAN_REFUSALS: readonly ["role_unknown"];
+export type PaperclipBirthPlanRefusal = (typeof PAPERCLIP_BIRTH_PLAN_REFUSALS)[number];
+export type PaperclipBirthPlanDecision = {
+    ok: true;
+    plan: PaperclipBirthPlan;
+} | {
+    ok: false;
+    refusal: PaperclipBirthPlanRefusal;
+};
+/**
+ * Pure, never throws. A role is `protected` when exactly one other role can give it work (Paperclip protects such a
+ * recipient: only a caller with the broad permission may assign to it, authorization.ts:2146-2175); with no caller or
+ * several it is `open`. A role gets the `broad` permission iff its row holds at least one protected role: towards an
+ * open recipient Paperclip lets anyone assign. `canCreateAgents` follows the broad permission: Paperclip's access
+ * check gives `canAssignTasks` to `canCreateAgents` (agents.ts:1607-1622), the permissions PATCH sums them
+ * (agents.ts:4970-4972), and a new agent is born with `canCreateAgents` TRUE (agent-permissions.ts:42-47), so who is
+ * not broad must be written false.
+ */
+export declare function decideAssignmentBirthPlan(role: unknown, matrix?: Readonly<Record<AgentRole, readonly AgentRole[]>>): PaperclipBirthPlanDecision;
 //# sourceMappingURL=role-assignment.d.ts.map
