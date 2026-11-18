@@ -52,6 +52,25 @@ export const PAPERCLIP_ASSIGNMENT_PERMISSION_REFUSALS = [
 ] as const;
 export type PaperclipAssignmentPermissionRefusal = (typeof PAPERCLIP_ASSIGNMENT_PERMISSION_REFUSALS)[number];
 
+/**
+ * Refusals with which Paperclip itself would deny for permission or for the
+ * recipient's policy (authorization.ts:2146-2175 assigner flow, :1501-1527 broad
+ * grant before scoped grant, :309-318 blocked recipient denies even broad grants).
+ * The other six refusals (facts_malformed, permission_malformed, organization_malformed,
+ * protection_malformed, organization_cycle, unknown_agent) are wrong facts the bridge
+ * refuses to judge: callers must not treat them as "Paperclip would say no".
+ */
+export const PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS = [
+  'recipient_blocked', 'no_permission', 'recipient_not_in_list', 'recipient_not_in_branch',
+] as const satisfies readonly PaperclipAssignmentPermissionRefusal[];
+export type PaperclipAssignmentPermissionDenial = (typeof PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS)[number];
+
+/** True only for the four permission denials; never throws, whatever the input. */
+export function isPaperclipAssignmentPermissionDenial(refusal: unknown): refusal is PaperclipAssignmentPermissionDenial {
+  return typeof refusal === 'string'
+    && (PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS as readonly string[]).includes(refusal);
+}
+
 export type PaperclipAssignmentPermissionDecision =
   | { ok: true; basis: PaperclipAssignmentBasis }
   | { ok: false; refusal: PaperclipAssignmentPermissionRefusal };

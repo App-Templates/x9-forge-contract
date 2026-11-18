@@ -4,12 +4,14 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
   PAPERCLIP_ASSIGNMENT_BASES,
+  PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS,
   PAPERCLIP_ASSIGNMENT_PERMISSION_REFUSALS,
   PAPERCLIP_RECIPIENT_PROTECTIONS,
   PaperclipAssignmentFactsSchema,
   PaperclipAssignmentOrganizationSchema,
   PaperclipAssignmentPermissionSchema,
   decideAssignmentByPermission,
+  isPaperclipAssignmentPermissionDenial,
   type PaperclipAssignmentFacts,
   type PaperclipAssignmentPermission,
 } from '../src/capability/paperclip/assignment-permission.js';
@@ -198,5 +200,67 @@ describe('s7355 permission-based assignment', () => {
       ]));
     `], { cwd: fileURLToPath(new URL('..', import.meta.url)), encoding: 'utf8' });
     expect(JSON.parse(output)).toEqual(['function', true, { ok: true, basis: 'broad_permission' }]);
+  });
+});
+
+describe('s7363 permission denials versus wrong facts', () => {
+  const denials = ['recipient_blocked', 'no_permission', 'recipient_not_in_list', 'recipient_not_in_branch'];
+  const wrongFacts = ['facts_malformed', 'permission_malformed', 'organization_malformed',
+    'protection_malformed', 'organization_cycle', 'unknown_agent'];
+
+  it('(a) the four denial codes, in order, plus the six wrong-fact codes are the whole list', () => {
+    expect([...PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS]).toEqual(denials);
+    for (const code of denials) expect(PAPERCLIP_ASSIGNMENT_PERMISSION_REFUSALS).toContain(code);
+    const rest = PAPERCLIP_ASSIGNMENT_PERMISSION_REFUSALS.filter((c) => !denials.includes(c));
+    expect([...rest].sort()).toEqual([...wrongFacts].sort());
+  });
+
+  it('(b) each denial is really produced by the function and passes the predicate', () => {
+    const cases: Array<[string, unknown]> = [
+      ['recipient_blocked', facts({ permission: { form: 'broad' }, recipientProtection: 'blocked' })],
+      ['no_permission', facts({ permission: { form: 'none' } })],
+      ['recipient_not_in_list', facts({ permission: { form: 'list', agentIds: ['d'] } })],
+      ['recipient_not_in_branch', facts({ permission: { form: 'branch', rootAgentIds: ['d'] } })],
+    ];
+    for (const [code, input] of cases) {
+      const result = decideAssignmentByPermission(input);
+      expect(result).toEqual({ ok: false, refusal: code });
+      if (!result.ok) expect(isPaperclipAssignmentPermissionDenial(result.refusal)).toBe(true);
+    }
+  });
+
+  it('(c) each wrong-fact refusal is really produced and is not a denial', () => {
+    const cases: Array<[string, unknown]> = [
+      ['facts_malformed', { ...facts(), role: 'x' }],
+      ['permission_malformed', { ...facts(), permission: { form: 'other' } }],
+      ['organization_malformed', { ...facts(), organization: { a: { reportsTo: 5 } } }],
+      ['protection_malformed', { ...facts(), recipientProtection: 'private' }],
+      ['organization_cycle', facts({ organization: { a: { reportsTo: 'b' }, b: { reportsTo: 'a' }, c: { reportsTo: null } } })],
+      ['unknown_agent', facts({ recipient: 'zz' })],
+    ];
+    for (const [code, input] of cases) {
+      const result = decideAssignmentByPermission(input);
+      expect(result).toEqual({ ok: false, refusal: code });
+      if (!result.ok) expect(isPaperclipAssignmentPermissionDenial(result.refusal)).toBe(false);
+    }
+  });
+
+  it('(d) the predicate is false and never throws for anything else', () => {
+    for (const value of [undefined, null, 0, 7, {}, [], ['no_permission'], '', 'role_unknown',
+      'lab_starts_research_itself', 'assign_target_not_allowed']) {
+      expect(isPaperclipAssignmentPermissionDenial(value)).toBe(false);
+    }
+  });
+
+  it('(e) the built package exports both names in Node', () => {
+    const output = execFileSync(process.execPath, ['--input-type=module', '-e', `
+      const m = await import('@x9-forge/contracts/capability/paperclip/assignment-permission');
+      process.stdout.write(JSON.stringify([
+        typeof m.isPaperclipAssignmentPermissionDenial,
+        m.PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS,
+        m.isPaperclipAssignmentPermissionDenial('no_permission')
+      ]));
+    `], { cwd: fileURLToPath(new URL('..', import.meta.url)), encoding: 'utf8' });
+    expect(JSON.parse(output)).toEqual(['function', denials, true]);
   });
 });

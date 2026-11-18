@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.233.0 — which assignment refusals are permission denials (task 7363)
+
+- `capability/paperclip/assignment-permission` exports `PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS` (`recipient_blocked`, `no_permission`, `recipient_not_in_list`, `recipient_not_in_branch`), the type `PaperclipAssignmentPermissionDenial` and the never-throwing predicate `isPaperclipAssignmentPermissionDenial(refusal: unknown)`. The other six refusals are wrong facts the bridge does not judge.
+- Additive: no existing value changes. Consumers: ec-x9/7368 (adoption) and 7369 (use, replacing the hand-copied codes in `seat-peers.ts`). No stored data changes. Import-weight caps remeasured (7362).
+
 ## v1.232.0 — native Paperclip assignment permissions (task 7355)
 
 - New narrow module `capability/paperclip/assignment-permission`: strict `PaperclipAssignmentPermissionSchema` (none, broad, list, branch, list_and_branch), `PaperclipAssignmentOrganizationSchema` and `PaperclipAssignmentFactsSchema`.

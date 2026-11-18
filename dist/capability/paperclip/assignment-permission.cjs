@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PAPERCLIP_ASSIGNMENT_PERMISSION_REFUSALS = exports.PAPERCLIP_ASSIGNMENT_BASES = exports.PaperclipAssignmentFactsSchema = exports.PAPERCLIP_RECIPIENT_PROTECTIONS = exports.PaperclipAssignmentOrganizationSchema = exports.PaperclipAssignmentPermissionSchema = void 0;
+exports.PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS = exports.PAPERCLIP_ASSIGNMENT_PERMISSION_REFUSALS = exports.PAPERCLIP_ASSIGNMENT_BASES = exports.PaperclipAssignmentFactsSchema = exports.PAPERCLIP_RECIPIENT_PROTECTIONS = exports.PaperclipAssignmentOrganizationSchema = exports.PaperclipAssignmentPermissionSchema = void 0;
+exports.isPaperclipAssignmentPermissionDenial = isPaperclipAssignmentPermissionDenial;
 exports.decideAssignmentByPermission = decideAssignmentByPermission;
 const zod_1 = require("zod");
 /**
@@ -39,6 +40,22 @@ exports.PAPERCLIP_ASSIGNMENT_PERMISSION_REFUSALS = [
     'organization_cycle', 'unknown_agent', 'recipient_blocked', 'no_permission',
     'recipient_not_in_list', 'recipient_not_in_branch',
 ];
+/**
+ * Refusals with which Paperclip itself would deny for permission or for the
+ * recipient's policy (authorization.ts:2146-2175 assigner flow, :1501-1527 broad
+ * grant before scoped grant, :309-318 blocked recipient denies even broad grants).
+ * The other six refusals (facts_malformed, permission_malformed, organization_malformed,
+ * protection_malformed, organization_cycle, unknown_agent) are wrong facts the bridge
+ * refuses to judge: callers must not treat them as "Paperclip would say no".
+ */
+exports.PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS = [
+    'recipient_blocked', 'no_permission', 'recipient_not_in_list', 'recipient_not_in_branch',
+];
+/** True only for the four permission denials; never throws, whatever the input. */
+function isPaperclipAssignmentPermissionDenial(refusal) {
+    return typeof refusal === 'string'
+        && exports.PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS.includes(refusal);
+}
 /** Pure decision over validated facts; no settings, I/O or implicit identities. */
 function decideAssignmentByPermission(facts) {
     const parsed = exports.PaperclipAssignmentFactsSchema.safeParse(facts);
