@@ -8,3 +8,4 @@ export * from './agenti.js';
 export * from './strumenti.js';
 export * from './stati.js';
 export * from './corsa.js';
+export * from './wire-documenti.js';

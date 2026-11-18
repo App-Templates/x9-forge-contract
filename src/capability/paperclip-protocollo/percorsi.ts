@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PaperclipDocumentoChiaveSchema } from './wire-documenti.js';
 import { PaperclipStatoIncaricoSchema } from './wire-letture.js';
 
 // Paperclip docs/guides/agent-developer/heartbeat-protocol.md:52,77-80.
@@ -162,5 +163,10 @@ export const paperclipPercorsi = {
 
   annullaCorsa(runId: string): string {
     return `/api/heartbeat-runs/${z.guid().parse(runId)}/cancel`;
+  },
+
+  // 7406: Paperclip routes/issues.ts:9714-9758 (GET), :10222 (PUT).
+  documento(issueId: string, key: string): string {
+    return `/api/issues/${z.guid().parse(issueId)}/documents/${PaperclipDocumentoChiaveSchema.parse(key)}`;
   },
 };
