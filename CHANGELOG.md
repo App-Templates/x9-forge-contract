@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.239.0 — The channels text says what the system does with files and proofs and no longer promises tools the agent does not have (task 7426)
+
+- The delivery lines of `communicationSectionLines()` say that the system carries the screenshots and documents of a development session to the issue when a piece is closed, as attachments and work products, that the agent only cites them in its comment and leaves no path of its own disk, and that outside a development session (Director, Lab, Research) nothing is promised; no first-person «carico», «registro» or «reopen» (7426).
+- Additive; the text of the section «Come si comunica» changes for every profile that imports it, once the consumer moves its pin of the bridge; no stored data changes. Consumers: the Forge profiles that import `communicationSection()`.
+
 ## v1.238.0 — The list of the assets of a development session is a cap-dev contract on the same door as their bytes (task 7424)
 
 - Dev session assets list: `listDevSessionAssetsContract`, `DevSessionAssetsListRequestSchema`, `DevSessionAssetsListResponseSchema`, `DEV_SESSION_ASSETS_LIST_MAX` and `DevSessionAssetsListRefusalSchema` (7424).

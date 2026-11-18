@@ -75,8 +75,8 @@ const CHANNEL_TEXT = {
 exports.PAPERCLIP_DELIVERY_CHANNELS = ['attachment', 'work_product'];
 exports.PaperclipDeliveryChannelSchema = zod_1.z.enum(exports.PAPERCLIP_DELIVERY_CHANNELS);
 const DELIVERY_TEXT = {
-    attachment: "carico il file sull'incarico come allegato, un file per volta, prima di chiudere, e lo lego al mio commento",
-    work_product: "registro il file, l'anteprima, il ramo, il commit o la pull request come prodotto del lavoro dell'incarico",
+    attachment: "il sistema carica sull'incarico come allegato le schermate e i documenti della sessione, uno per volta, alla chiusura del pezzo; io li cito nel mio commento",
+    work_product: "il sistema registra le schermate, i documenti e il commit della sessione come prodotto del lavoro dell'incarico; io li cito nel commento",
 };
 function toolsText(channel) {
     const tools = exports.PAPERCLIP_CHANNEL_TOOLS[channel];
@@ -98,10 +98,12 @@ function communicationSectionLines() {
         }),
         '',
         'Per portare un file o una prova non uso un canale mio e non lascio un percorso sul mio disco, che chi rivede non vede: ' +
-            "li metto sull'incarico.",
+            "le schermate e i documenti della sessione li porta il sistema sull'incarico alla chiusura di un pezzo.",
         ...exports.PAPERCLIP_DELIVERY_CHANNELS.map((channel) => `- ${DELIVERY_TEXT[channel]}.`),
-        'Se un incarico chiuso va riaperto, lo faccio con un commento che chiede la riapertura (reopen): ' +
-            'un commento semplice non lo riapre e un incarico annullato non si riapre così.',
+        'Questo vale per i pezzi di una sessione di sviluppo: se non lavoro in una sessione di sviluppo non prometto nessun ' +
+            'caricamento e nel commento dico che cosa ho prodotto, senza dire che un file è caricato.',
+        'Un commento semplice non riapre un incarico chiuso e un incarico annullato non si riapre: ' +
+            'se serve altro lavoro lo scrivo nel commento a chi rivede.',
         '',
         "Fuori dall'azienda scrivo solo ai referenti certificati del progetto in Memoria Aziendale, a chi ha aperto il brief " +
             "del progetto (il Director anche all'Owner) e a un referente che mi ha scritto nel filo: " +
