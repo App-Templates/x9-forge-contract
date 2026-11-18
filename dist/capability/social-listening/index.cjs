@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialPostAnalysisSchema = exports.SocialPostToolSchema = exports.SocialFactSchema = exports.SocialTopicSchema = exports.SocialTopicCostSchema = exports.SocialTopicSourceSchema = exports.SocialTopicFactSchema = exports.SocialTopicTitleSchema = exports.SOCIAL_TOPIC_TITLE_MAX = exports.SocialTrackSchema = exports.SOCIAL_TRACKS = exports.SOCIAL_VERDICT_TRUTH_SCORE = exports.SocialVerdictSchema = exports.SOCIAL_VERDICTS = exports.socialCategoryInVertical = exports.SocialVerticalSchema = exports.SocialCategorySchema = exports.SocialCategorySlugSchema = exports.SocialPostSchema = exports.SocialPostKindSchema = exports.SOCIAL_POST_KINDS = exports.SocialFollowedProfileSchema = exports.SocialVerticalIdSchema = exports.SocialHandleSchema = exports.SocialProviderSchema = exports.SOCIAL_PROVIDERS = void 0;
+exports.SocialPostAnalysisSchema = exports.SocialPostToolSchema = exports.SocialFactSchema = exports.SocialTopicSchema = exports.SocialTopicCostSchema = exports.SocialTopicSourceSchema = exports.SocialTopicFactSchema = exports.SocialTopicTitleSchema = exports.SOCIAL_TOPIC_TITLE_MAX = exports.SocialTrackSchema = exports.SOCIAL_TRACKS = exports.SOCIAL_VERDICT_TRUTH_SCORE = exports.SocialVerdictSchema = exports.SOCIAL_VERDICTS = exports.socialCategoryInVertical = exports.SocialVerticalSchema = exports.SocialCategorySchema = exports.SocialCategorySlugSchema = exports.SocialPostFilterSchema = exports.SocialPostSchema = exports.SocialPostKindSchema = exports.SOCIAL_POST_KINDS = exports.SocialFollowedProfileSchema = exports.SocialVerticalIdSchema = exports.SocialHandleSchema = exports.SocialProviderSchema = exports.SOCIAL_PROVIDERS = void 0;
 /**
  * social-listening contracts — sub-path `@x9-forge/contracts/capability/social-listening`.
  *
@@ -34,6 +34,7 @@ Object.defineProperty(exports, "SocialFollowedProfileSchema", { enumerable: true
 Object.defineProperty(exports, "SOCIAL_POST_KINDS", { enumerable: true, get: function () { return post_js_1.SOCIAL_POST_KINDS; } });
 Object.defineProperty(exports, "SocialPostKindSchema", { enumerable: true, get: function () { return post_js_1.SocialPostKindSchema; } });
 Object.defineProperty(exports, "SocialPostSchema", { enumerable: true, get: function () { return post_js_1.SocialPostSchema; } });
+Object.defineProperty(exports, "SocialPostFilterSchema", { enumerable: true, get: function () { return post_js_1.SocialPostFilterSchema; } });
 var topic_js_1 = require("./topic.cjs");
 Object.defineProperty(exports, "SocialCategorySlugSchema", { enumerable: true, get: function () { return topic_js_1.SocialCategorySlugSchema; } });
 Object.defineProperty(exports, "SocialCategorySchema", { enumerable: true, get: function () { return topic_js_1.SocialCategorySchema; } });

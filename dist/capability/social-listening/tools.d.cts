@@ -120,6 +120,8 @@ export declare const SocialRecapOutputSchema: z.ZodObject<{
             uncertain: z.ZodBoolean;
         }, z.core.$strict>;
     }, z.core.$strict>>;
+    /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
+    pageUrl: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export declare const SocialTopicGetOutputSchema: z.ZodObject<{
     topicId: z.ZodString;

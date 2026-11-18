@@ -8,7 +8,7 @@
  *
  * STRICT (internal boundary, R-14): no `.passthrough()`.
  */
-export { SOCIAL_PROVIDERS, SocialProviderSchema, SocialHandleSchema, SocialVerticalIdSchema, SocialFollowedProfileSchema, SOCIAL_POST_KINDS, SocialPostKindSchema, SocialPostSchema, type SocialProvider, type SocialHandle, type SocialVerticalId, type SocialFollowedProfile, type SocialPostKind, type SocialPost, } from "./post.js";
+export { SOCIAL_PROVIDERS, SocialProviderSchema, SocialHandleSchema, SocialVerticalIdSchema, SocialFollowedProfileSchema, SOCIAL_POST_KINDS, SocialPostKindSchema, SocialPostSchema, SocialPostFilterSchema, type SocialPostFilter, type SocialProvider, type SocialHandle, type SocialVerticalId, type SocialFollowedProfile, type SocialPostKind, type SocialPost, } from "./post.js";
 export { SocialCategorySlugSchema, SocialCategorySchema, SocialVerticalSchema, socialCategoryInVertical, SOCIAL_VERDICTS, SocialVerdictSchema, SOCIAL_VERDICT_TRUTH_SCORE, SOCIAL_TRACKS, SocialTrackSchema, SOCIAL_TOPIC_TITLE_MAX, SocialTopicTitleSchema, SocialTopicFactSchema, SocialTopicSourceSchema, SocialTopicCostSchema, SocialTopicSchema, type SocialCategorySlug, type SocialCategory, type SocialVertical, type SocialVerdict, type SocialTrack, type SocialTopicFact, type SocialTopicSource, type SocialTopicCost, type SocialTopic, } from "./topic.js";
 export * from "./tools.js";
 export * from "./queue.js";

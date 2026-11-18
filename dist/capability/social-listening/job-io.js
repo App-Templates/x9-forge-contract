@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { WebUrlSchema } from "../ricerca/research.js";
-import { SocialHandleSchema, SocialPostSchema, SocialVerticalIdSchema } from "./post.js";
+import { SocialHandleSchema, SocialPostFilterSchema, SocialPostSchema, SocialVerticalIdSchema, } from "./post.js";
 import { SocialJobKindSchema } from "./queue.js";
-import { SocialCategorySlugSchema, SocialTopicSchema } from "./topic.js";
+import { SocialCategorySlugSchema, SocialTopicCostSchema, SocialTopicSchema, } from "./topic.js";
 import { SocialFactSchema } from "./verdict.js";
 const kinds = SocialJobKindSchema.enum;
 const topic = SocialTopicSchema.shape;
@@ -62,6 +62,8 @@ export const SocialJobResultSchema = z.discriminatedUnion('kind', [
         summary: topic.summary,
         facts: topic.facts,
         sources: topic.sources,
+        /** What this verification cost on the server track; the Mac track is quota, not dollars. */
+        costUsd: z.number().nonnegative().finite().optional(),
     }).strict(),
     z.object({
         kind: z.literal(kinds.group),
@@ -75,6 +77,26 @@ export const SocialJobResultSchema = z.discriminatedUnion('kind', [
         }).strict()).min(1).max(30),
     }).strict(),
 ]);
+/** Derives the topic cost from the verification result and the track that did the work. */
+export function socialVerifyTopicCost(result, track) {
+    if (result.kind !== 'verify')
+        throw new TypeError('not_a_verify_result');
+    return SocialTopicCostSchema.parse({
+        usd: track === 'mac' ? 0 : (result.costUsd ?? 0),
+        track,
+        uncertain: track === 'server' && result.costUsd === undefined,
+    });
+}
+/** Turns a `filter` result into the outcome saved on the post; `filteredAt` is the service's apply time. */
+export function socialPostFilterFromResult(result, filteredAt) {
+    if (result.kind !== 'filter')
+        throw new TypeError('not_a_filter_result');
+    return SocialPostFilterSchema.parse({
+        keep: result.keep,
+        ...(result.reason === undefined ? {} : { reason: result.reason }),
+        filteredAt,
+    });
+}
 export const SOCIAL_JOB_RESULT_ERRORS = ['kind_mismatch', 'post_mismatch', 'topic_mismatch', 'job_not_running'];
 export const SocialJobResultErrorSchema = z.enum(SOCIAL_JOB_RESULT_ERRORS);
 /** Correlates a parsed result with its queue job; it does not authorize or persist data. */

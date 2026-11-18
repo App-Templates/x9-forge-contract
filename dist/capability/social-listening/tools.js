@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { WebUrlSchema } from "../ricerca/research.js";
 import { AgentDaySchema } from "../ricerca/spend.js";
 import { SocialFollowedProfileSchema, SocialHandleSchema, SocialProviderSchema, SocialVerticalIdSchema, } from "./post.js";
 import { SOCIAL_VERDICTS, SocialCategorySlugSchema, SocialTopicCostSchema, SocialTopicSchema, SocialTopicTitleSchema, SocialTrackSchema, SocialVerdictSchema, SocialVerticalSchema, } from "./topic.js";
@@ -72,6 +73,8 @@ export const SocialRecapOutputSchema = z.strictObject({
     postsSeen: NonNegativeIntSchema,
     spentUsd: z.number().nonnegative().finite(),
     topics: z.array(SocialRecapTopicSummarySchema).max(50),
+    /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
+    pageUrl: WebUrlSchema.optional(),
 });
 /**
  * The topic without identity. `.omit()` is not allowed on a refined schema (zod 4), so the shape is rebuilt from

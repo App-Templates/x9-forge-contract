@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SocialJobResultErrorSchema = exports.SOCIAL_JOB_RESULT_ERRORS = exports.SocialJobResultSchema = exports.SocialJobInputSchema = void 0;
+exports.socialVerifyTopicCost = socialVerifyTopicCost;
+exports.socialPostFilterFromResult = socialPostFilterFromResult;
 exports.socialJobResultMatches = socialJobResultMatches;
 const zod_1 = require("zod");
 const research_js_1 = require("../ricerca/research.cjs");
@@ -66,6 +68,8 @@ exports.SocialJobResultSchema = zod_1.z.discriminatedUnion('kind', [
         summary: topic.summary,
         facts: topic.facts,
         sources: topic.sources,
+        /** What this verification cost on the server track; the Mac track is quota, not dollars. */
+        costUsd: zod_1.z.number().nonnegative().finite().optional(),
     }).strict(),
     zod_1.z.object({
         kind: zod_1.z.literal(kinds.group),
@@ -79,6 +83,26 @@ exports.SocialJobResultSchema = zod_1.z.discriminatedUnion('kind', [
         }).strict()).min(1).max(30),
     }).strict(),
 ]);
+/** Derives the topic cost from the verification result and the track that did the work. */
+function socialVerifyTopicCost(result, track) {
+    if (result.kind !== 'verify')
+        throw new TypeError('not_a_verify_result');
+    return topic_js_1.SocialTopicCostSchema.parse({
+        usd: track === 'mac' ? 0 : (result.costUsd ?? 0),
+        track,
+        uncertain: track === 'server' && result.costUsd === undefined,
+    });
+}
+/** Turns a `filter` result into the outcome saved on the post; `filteredAt` is the service's apply time. */
+function socialPostFilterFromResult(result, filteredAt) {
+    if (result.kind !== 'filter')
+        throw new TypeError('not_a_filter_result');
+    return post_js_1.SocialPostFilterSchema.parse({
+        keep: result.keep,
+        ...(result.reason === undefined ? {} : { reason: result.reason }),
+        filteredAt,
+    });
+}
 exports.SOCIAL_JOB_RESULT_ERRORS = ['kind_mismatch', 'post_mismatch', 'topic_mismatch', 'job_not_running'];
 exports.SocialJobResultErrorSchema = zod_1.z.enum(exports.SOCIAL_JOB_RESULT_ERRORS);
 /** Correlates a parsed result with its queue job; it does not authorize or persist data. */

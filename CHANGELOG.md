@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.267.0 — social listening recap page link, post filter outcome, verify cost (tasks 3690-3692)
+
+- Optional `pageUrl` on the recap output.
+- Optional `filter` on the post, with `SocialPostFilterSchema` and `socialPostFilterFromResult`.
+- Optional `costUsd` on the `verify` result, with `socialVerifyTopicCost`.
+- Additive; rows saved without these fields stay valid.
+
 ## v1.266.0 — optimized social round rules (task 3675)
 
 - `capability/social-listening`: `socialTopicTitleIssue` and `socialGroupResultIssues` check the informative short title and the controlled grouping against the work.

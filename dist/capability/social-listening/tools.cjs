@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialRecapOutputSchema = exports.SocialRecapTopicSummarySchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
 const zod_1 = require("zod");
+const research_js_1 = require("../ricerca/research.cjs");
 const spend_js_1 = require("../ricerca/spend.cjs");
 const post_js_1 = require("./post.cjs");
 const topic_js_1 = require("./topic.cjs");
@@ -75,6 +76,8 @@ exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     postsSeen: NonNegativeIntSchema,
     spentUsd: zod_1.z.number().nonnegative().finite(),
     topics: zod_1.z.array(exports.SocialRecapTopicSummarySchema).max(50),
+    /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
+    pageUrl: research_js_1.WebUrlSchema.optional(),
 });
 /**
  * The topic without identity. `.omit()` is not allowed on a refined schema (zod 4), so the shape is rebuilt from

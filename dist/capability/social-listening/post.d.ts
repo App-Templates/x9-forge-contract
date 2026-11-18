@@ -30,6 +30,13 @@ export declare const SocialPostKindSchema: z.ZodEnum<{
     carousel: "carousel";
 }>;
 export type SocialPostKind = z.infer<typeof SocialPostKindSchema>;
+/** Outcome of the `filter` job on a post: kept or dropped, why, and when the service applied it. */
+export declare const SocialPostFilterSchema: z.ZodObject<{
+    keep: z.ZodBoolean;
+    reason: z.ZodOptional<z.ZodString>;
+    filteredAt: z.ZodISODateTime;
+}, z.core.$strict>;
+export type SocialPostFilter = z.infer<typeof SocialPostFilterSchema>;
 /** Web text (caption, transcript) is DATA, never instructions: bounded in length. */
 export declare const SocialPostSchema: z.ZodObject<{
     identity: z.ZodObject<{
@@ -70,6 +77,11 @@ export declare const SocialPostSchema: z.ZodObject<{
             whatItDoes: z.ZodString;
         }, z.core.$strict>>;
         analyzedAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
+    filter: z.ZodOptional<z.ZodObject<{
+        keep: z.ZodBoolean;
+        reason: z.ZodOptional<z.ZodString>;
+        filteredAt: z.ZodISODateTime;
     }, z.core.$strict>>;
     collectedAt: z.ZodISODateTime;
 }, z.core.$strict>;

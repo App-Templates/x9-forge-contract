@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.266.0",
+  "versione": "1.267.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1349,6 +1349,7 @@
       "SocialListeningAgentConfigSchema": "@x9-forge/contracts/capability/social-listening/config",
       "SocialListeningToolErrorSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialPostAnalysisSchema": "@x9-forge/contracts/capability/social-listening/verdict",
+      "SocialPostFilterSchema": "@x9-forge/contracts/capability/social-listening/post",
       "SocialPostKindSchema": "@x9-forge/contracts/capability/social-listening/post",
       "SocialPostSchema": "@x9-forge/contracts/capability/social-listening/post",
       "SocialPostToolSchema": "@x9-forge/contracts/capability/social-listening/verdict",
@@ -1415,6 +1416,7 @@
       "socialJobResultMatches": "@x9-forge/contracts/capability/social-listening/job-io",
       "socialListeningConfigFromOrdinary": "@x9-forge/contracts/capability/social-listening/config-ordinary",
       "socialListeningOrdinaryWriteIssues": "@x9-forge/contracts/capability/social-listening/config-ordinary",
+      "socialPostFilterFromResult": "@x9-forge/contracts/capability/social-listening/job-io",
       "socialRoundHandover": "@x9-forge/contracts/capability/social-listening/handover",
       "socialRoundPath": "@x9-forge/contracts/capability/social-listening/routes",
       "socialRoundReadContract": "@x9-forge/contracts/capability/social-listening/routes",
@@ -1424,6 +1426,7 @@
       "socialTopicTitleIssue": "@x9-forge/contracts/capability/social-listening/group",
       "socialTopicVideoBriefInput": "@x9-forge/contracts/capability/social-listening/video-brief",
       "socialTopicVideoBriefText": "@x9-forge/contracts/capability/social-listening/video-brief",
+      "socialVerifyTopicCost": "@x9-forge/contracts/capability/social-listening/job-io",
       "socialVideoExternalRef": "@x9-forge/contracts/capability/social-listening/video-brief"
     },
     "@x9-forge/contracts/capability/lab": {

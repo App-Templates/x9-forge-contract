@@ -1,5 +1,7 @@
 import { z } from 'zod';
+import { type SocialPostFilter } from "./post.cjs";
 import { type SocialJob } from "./queue.cjs";
+import { type SocialTopicCost, type SocialTrack } from "./topic.cjs";
 /** Lightweight references only. The queue job, never the executor, supplies identity. */
 export declare const SocialJobInputSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"collect">;
@@ -39,6 +41,11 @@ export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         provider: z.ZodEnum<{
             instagram: "instagram";
         }>;
+        filter: z.ZodOptional<z.ZodObject<{
+            keep: z.ZodBoolean;
+            reason: z.ZodOptional<z.ZodString>;
+            filteredAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
         caption: z.ZodString;
         transcript: z.ZodOptional<z.ZodString>;
         analysis: z.ZodOptional<z.ZodObject<{
@@ -97,6 +104,7 @@ export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         title: z.ZodOptional<z.ZodString>;
         opened: z.ZodBoolean;
     }, z.core.$strict>>;
+    costUsd: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"group">;
     topics: z.ZodArray<z.ZodObject<{
@@ -109,6 +117,10 @@ export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject
     }, z.core.$strict>>;
 }, z.core.$strict>], "kind">;
 export type SocialJobResult = z.infer<typeof SocialJobResultSchema>;
+/** Derives the topic cost from the verification result and the track that did the work. */
+export declare function socialVerifyTopicCost(result: SocialJobResult, track: SocialTrack): SocialTopicCost;
+/** Turns a `filter` result into the outcome saved on the post; `filteredAt` is the service's apply time. */
+export declare function socialPostFilterFromResult(result: SocialJobResult, filteredAt: string): SocialPostFilter;
 export declare const SOCIAL_JOB_RESULT_ERRORS: readonly ["kind_mismatch", "post_mismatch", "topic_mismatch", "job_not_running"];
 export declare const SocialJobResultErrorSchema: z.ZodEnum<{
     kind_mismatch: "kind_mismatch";
