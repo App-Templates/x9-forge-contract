@@ -13,6 +13,12 @@ export const PAPERCLIP_STATI_INCARICO = [
 
 export const PaperclipStatoIncaricoSchema = z.enum(PAPERCLIP_STATI_INCARICO);
 
+// Paperclip packages/shared/src/constants.ts:210 (ISSUE_PRIORITIES); validators/issue.ts:709 (default medium).
+export const PAPERCLIP_PRIORITA = ['critical', 'high', 'medium', 'low'] as const;
+export const PaperclipPrioritaSchema = z.enum(PAPERCLIP_PRIORITA);
+export const PAPERCLIP_PRIORITA_PREDEFINITA = 'medium' as const satisfies (typeof PAPERCLIP_PRIORITA)[number];
+export type PaperclipPriorita = z.infer<typeof PaperclipPrioritaSchema>;
+
 // Paperclip server/dist/routes/issues.js:5806-5807.
 export const PaperclipBloccoSchema = z.looseObject({
   id: z.guid(),
