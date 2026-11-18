@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipErroreRispostaSchema = exports.PaperclipAgenteMeSchema = exports.PaperclipContestoTurnoSchema = exports.PaperclipCommentiSchema = exports.PaperclipCommentoSchema = exports.PaperclipIncaricoSchema = exports.PaperclipBloccoSchema = exports.PaperclipStatoIncaricoSchema = exports.PAPERCLIP_STATI_INCARICO = void 0;
+exports.PaperclipErroreRispostaSchema = exports.PaperclipAgenteMeSchema = exports.PaperclipContestoTurnoSchema = exports.PaperclipCommentiSchema = exports.PaperclipCommentoSchema = exports.PaperclipIncaricoSchema = exports.PaperclipBloccoSchema = exports.PAPERCLIP_PRIORITA_PREDEFINITA = exports.PaperclipPrioritaSchema = exports.PAPERCLIP_PRIORITA = exports.PaperclipStatoIncaricoSchema = exports.PAPERCLIP_STATI_INCARICO = void 0;
 const zod_1 = require("zod");
 // Paperclip packages/shared/dist/constants.js:165-173.
 exports.PAPERCLIP_STATI_INCARICO = [
@@ -13,6 +13,10 @@ exports.PAPERCLIP_STATI_INCARICO = [
     'cancelled',
 ];
 exports.PaperclipStatoIncaricoSchema = zod_1.z.enum(exports.PAPERCLIP_STATI_INCARICO);
+// Paperclip packages/shared/src/constants.ts:210 (ISSUE_PRIORITIES); validators/issue.ts:709 (default medium).
+exports.PAPERCLIP_PRIORITA = ['critical', 'high', 'medium', 'low'];
+exports.PaperclipPrioritaSchema = zod_1.z.enum(exports.PAPERCLIP_PRIORITA);
+exports.PAPERCLIP_PRIORITA_PREDEFINITA = 'medium';
 // Paperclip server/dist/routes/issues.js:5806-5807.
 exports.PaperclipBloccoSchema = zod_1.z.looseObject({
     id: zod_1.z.guid(),

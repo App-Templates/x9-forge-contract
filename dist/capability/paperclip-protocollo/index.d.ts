@@ -1,7 +1,13 @@
 export * from "./wire-letture.js";
 export * from "./wire-scritture.js";
+export * from "./wire-creazione.js";
+export * from "./wire-commento.js";
 export * from "./percorsi.js";
 export * from "./turno.js";
 export * from "./agenti.js";
 export * from "./strumenti.js";
+export * from "./stati.js";
+export * from "./corsa.js";
+export * from "./wire-documenti.js";
+export * from "./wire-approvazioni.js";
 //# sourceMappingURL=index.d.ts.map

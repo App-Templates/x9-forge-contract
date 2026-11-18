@@ -113,6 +113,7 @@ export declare const PAPERCLIP_PROTOCOLLO_ERRORI: readonly ["feature_off", "turn
 export declare const PaperclipProtocolloErroreSchema: z.ZodEnum<{
     credential_missing: "credential_missing";
     identity_mismatch: "identity_mismatch";
+    risposta_non_valida: "risposta_non_valida";
     feature_off: "feature_off";
     turno_assente: "turno_assente";
     incarico_non_preso: "incarico_non_preso";
@@ -120,7 +121,6 @@ export declare const PaperclipProtocolloErroreSchema: z.ZodEnum<{
     conflitto_proprietario: "conflitto_proprietario";
     non_autorizzato: "non_autorizzato";
     non_trovato: "non_trovato";
-    risposta_non_valida: "risposta_non_valida";
     errore_paperclip: "errore_paperclip";
 }>;
 export type PcpPrendiIngresso = z.infer<typeof PcpPrendiIngressoSchema>;

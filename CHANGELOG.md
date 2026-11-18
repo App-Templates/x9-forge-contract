@@ -2,6 +2,18 @@
 
 ## Non rilasciato
 
+## v1.235.0 — Paperclip contracts for paths, states, issue creation, comments, the run, recipients by id, documents and approvals (tasks 7400-7407)
+
+- Paths: `paperclipPercorsi` and the issue-list and comment-query filters, with `paperclipPercorsoSenzaPrefisso`.
+- Issue states as one source: the seven states with `PAPERCLIP_TRANSIZIONI`, `paperclipTransizioneAmmessa` and `paperclipIngressoStato`; `PaperclipIssueStatusSchema` is the same object as `PaperclipStatoIncaricoSchema`.
+- Creation: the create bodies (`PaperclipIncaricoCorpoSchema`) and the deduplication outcome (`paperclipEsitoCreazione`).
+- Comments and updates: the extended bodies (`PaperclipAggiornaConCommentoCorpoSchema`) with attachments, `reopen`, `resume` (`paperclipRipresaAmmessa`) and the assignee by id.
+- The run: `PaperclipCorsaSchema` with its eight states, `paperclipCorsaPuoScrivere`, board-only cancellation and its confirmation on the same run.
+- Recipients by agent id: `PaperclipAgentIdSchema`, `PaperclipColleaguesSchema`; the old role-ref fields are deprecated.
+- Issue documents: `PaperclipDocumentoCreaCorpoSchema`, `paperclipDocumentoScritto`, the base revision and the plan confirmation with `continuationPolicy`.
+- Approvals: `PaperclipApprovalCreaCorpoSchema`, their types and states, and the budget-cap payload.
+- Additive; no stored data changes. Consumers: the PC adoption tasks (cap-paperclip, cap-paperclip-protocollo).
+
 ## v1.234.0 — the assignment plan a seat is born with comes from the matrix (task 7364)
 
 - `capability/paperclip/role-assignment` exports `PaperclipBirthPlanSchema` (strict: permission `none` or `broad`, recipient protection `open` or `protected`, `canCreateAgents`), the type `PaperclipBirthPlan`, `PAPERCLIP_BIRTH_PLAN_REFUSALS` (`role_unknown`) and the pure, never-throwing `decideAssignmentBirthPlan(role: unknown, matrix = PAPERCLIP_ASSIGNMENT_MATRIX)`.

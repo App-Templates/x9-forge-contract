@@ -16,8 +16,14 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./wire-letture.cjs"), exports);
 __exportStar(require("./wire-scritture.cjs"), exports);
+__exportStar(require("./wire-creazione.cjs"), exports);
+__exportStar(require("./wire-commento.cjs"), exports);
 __exportStar(require("./percorsi.cjs"), exports);
 __exportStar(require("./turno.cjs"), exports);
 __exportStar(require("./agenti.cjs"), exports);
 __exportStar(require("./strumenti.cjs"), exports);
+__exportStar(require("./stati.cjs"), exports);
+__exportStar(require("./corsa.cjs"), exports);
+__exportStar(require("./wire-documenti.cjs"), exports);
+__exportStar(require("./wire-approvazioni.cjs"), exports);
 //# sourceMappingURL=index.js.map

@@ -9,6 +9,15 @@ export declare const PaperclipStatoIncaricoSchema: z.ZodEnum<{
     in_progress: "in_progress";
     in_review: "in_review";
 }>;
+export declare const PAPERCLIP_PRIORITA: readonly ["critical", "high", "medium", "low"];
+export declare const PaperclipPrioritaSchema: z.ZodEnum<{
+    low: "low";
+    medium: "medium";
+    high: "high";
+    critical: "critical";
+}>;
+export declare const PAPERCLIP_PRIORITA_PREDEFINITA: "medium";
+export type PaperclipPriorita = z.infer<typeof PaperclipPrioritaSchema>;
 export declare const PaperclipBloccoSchema: z.ZodObject<{
     id: z.ZodGUID;
     status: z.ZodEnum<{

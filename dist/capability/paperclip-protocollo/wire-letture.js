@@ -10,6 +10,10 @@ export const PAPERCLIP_STATI_INCARICO = [
     'cancelled',
 ];
 export const PaperclipStatoIncaricoSchema = z.enum(PAPERCLIP_STATI_INCARICO);
+// Paperclip packages/shared/src/constants.ts:210 (ISSUE_PRIORITIES); validators/issue.ts:709 (default medium).
+export const PAPERCLIP_PRIORITA = ['critical', 'high', 'medium', 'low'];
+export const PaperclipPrioritaSchema = z.enum(PAPERCLIP_PRIORITA);
+export const PAPERCLIP_PRIORITA_PREDEFINITA = 'medium';
 // Paperclip server/dist/routes/issues.js:5806-5807.
 export const PaperclipBloccoSchema = z.looseObject({
     id: z.guid(),
