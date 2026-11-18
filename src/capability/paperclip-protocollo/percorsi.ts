@@ -169,4 +169,9 @@ export const paperclipPercorsi = {
   documento(issueId: string, key: string): string {
     return `/api/issues/${z.guid().parse(issueId)}/documents/${PaperclipDocumentoChiaveSchema.parse(key)}`;
   },
+
+  // 7407: Paperclip server/src/routes/approvals.ts:222.
+  approvazioni(companyId: string): string {
+    return `/api/companies/${z.guid().parse(companyId)}/approvals`;
+  },
 };
