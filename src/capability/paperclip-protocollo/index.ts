@@ -10,3 +10,4 @@ export * from './stati.js';
 export * from './corsa.js';
 export * from './wire-documenti.js';
 export * from './wire-approvazioni.js';
+export * from './riferimenti.js';

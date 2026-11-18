@@ -38,7 +38,18 @@ export const PaperclipIncaricoSchema = z.looseObject({
   goalId: z.guid().nullable().optional(),
   assigneeAgentId: z.guid().nullable().optional(),
   blockedBy: z.array(PaperclipBloccoSchema).optional(),
+  // Paperclip GET /issues/:id: creator, execution ownership and outgoing blockers.
+  identifier: z.string().nullable().optional(),
+  companyId: z.guid().optional(),
+  priority: PaperclipPrioritaSchema.optional(),
+  createdByAgentId: z.guid().nullable().optional(),
+  executionRunId: z.guid().nullable().optional(),
+  blocks: z.array(PaperclipBloccoSchema).optional(),
+  updatedAt: z.string().optional(),
 });
+
+// Paperclip server/src/services/issues.ts:211-212 limits issue lists to 1000 entries.
+export const PaperclipElencoIncarichiSchema = z.array(PaperclipIncaricoSchema).max(1000);
 
 // Paperclip server/dist/routes/issues.js:10826-10855.
 export const PaperclipCommentoSchema = z.looseObject({
@@ -50,6 +61,24 @@ export const PaperclipCommentoSchema = z.looseObject({
 });
 
 export const PaperclipCommentiSchema = z.array(PaperclipCommentoSchema);
+
+/** Select the newest valid timestamp, falling back to the API's requested order (descending by default). */
+export function paperclipCommentoPiuRecente(
+  commenti: readonly z.infer<typeof PaperclipCommentoSchema>[],
+  ordine: 'asc' | 'desc' = 'desc',
+): z.infer<typeof PaperclipCommentoSchema> | null {
+  let scelto: z.infer<typeof PaperclipCommentoSchema> | null = null;
+  let istante = -Infinity;
+  for (const commento of commenti) {
+    const data = Date.parse(commento.createdAt ?? '');
+    if (Number.isFinite(data) && data > istante) {
+      scelto = commento;
+      istante = data;
+    }
+  }
+  if (scelto !== null) return scelto;
+  return (ordine === 'desc' ? commenti[0] : commenti.at(-1)) ?? null;
+}
 
 // Paperclip server/dist/routes/issues.js:5728-5870.
 export const PaperclipContestoTurnoSchema = z.looseObject({

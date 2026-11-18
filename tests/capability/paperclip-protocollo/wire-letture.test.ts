@@ -6,9 +6,11 @@ import {
   PaperclipCommentiSchema,
   PaperclipCommentoSchema,
   PaperclipContestoTurnoSchema,
+  PaperclipElencoIncarichiSchema,
   PaperclipErroreRispostaSchema,
   PaperclipIncaricoSchema,
   PaperclipStatoIncaricoSchema,
+  paperclipCommentoPiuRecente,
 } from '../../../src/capability/paperclip-protocollo/wire-letture.js';
 
 const issueId = '11111111-1111-4111-8111-111111111111';
@@ -48,6 +50,78 @@ const comment = {
 };
 
 describe('Paperclip wire readings', () => {
+  it('s7411_vista_completa', () => {
+    const complete = {
+      ...issue,
+      identifier: 'PAP-224',
+      companyId: goalId,
+      priority: 'high',
+      createdByAgentId: agentId,
+      executionRunId: null,
+      blocks: [{ id: blockerId, status: 'todo' }],
+      updatedAt: '2026-11-18T09:00:00.000Z',
+    };
+    expect(PaperclipIncaricoSchema.parse(complete)).toEqual(complete);
+    expect(PaperclipIncaricoSchema.parse(issue)).toEqual(issue);
+    const minimal = { id: issueId, title: 'Mandato', status: 'todo' };
+    expect(PaperclipIncaricoSchema.parse(minimal)).toEqual(minimal);
+    const nullable = {
+      ...minimal, identifier: null, createdByAgentId: null, executionRunId: null,
+    };
+    expect(PaperclipIncaricoSchema.parse(nullable)).toEqual(nullable);
+    expect(PaperclipIncaricoSchema.parse({ ...complete, executionRunId: commentId }).executionRunId)
+      .toBe(commentId);
+    for (const invalid of [
+      { createdByAgentId: 'x' },
+      { priority: 'urgent' },
+      { identifier: 224 },
+      { companyId: 'x' },
+      { executionRunId: 'x' },
+      { blocks: [{ id: blockerId }] },
+      { blocks: null },
+      { updatedAt: 42 },
+    ]) {
+      expect(PaperclipIncaricoSchema.safeParse({ ...complete, ...invalid }).success)
+        .toBe(false);
+    }
+  });
+
+  it('s7411_elenco', () => {
+    expect(PaperclipElencoIncarichiSchema.parse([issue])).toEqual([issue]);
+    expect(PaperclipElencoIncarichiSchema.parse([])).toEqual([]);
+    expect(PaperclipElencoIncarichiSchema.parse(Array.from({ length: 1000 }, () => issue)))
+      .toHaveLength(1000);
+    expect(PaperclipElencoIncarichiSchema.safeParse(Array.from({ length: 1001 }, () => issue)).success)
+      .toBe(false);
+    expect(PaperclipElencoIncarichiSchema.safeParse([
+      issue, { id: issueId, status: 'todo' },
+    ]).success).toBe(false);
+  });
+
+  it('s7411_commento_piu_recente', () => {
+    const oldest = { ...comment, body: 'Oldest', createdAt: '2026-11-17T10:00:00.000Z' };
+    const newest = { ...comment, body: 'Newest', createdAt: '2026-11-18T10:00:00.000Z' };
+    const undated = { id: commentId, body: 'Undated' };
+    const otherUndated = { id: blockerId, body: 'Other undated' };
+    const invalidDate = { ...undated, createdAt: 'not-a-date' };
+    const descending = [newest, oldest];
+    // Taking .at(-1) from Paperclip's default descending order selects the oldest comment.
+    expect(descending.at(-1)).toBe(oldest);
+    for (const order of ['asc', 'desc'] as const) {
+      expect(paperclipCommentoPiuRecente([oldest, newest], order)).toBe(newest);
+      expect(paperclipCommentoPiuRecente(descending, order)).toBe(newest);
+      expect(paperclipCommentoPiuRecente([undated, newest, oldest], order)).toBe(newest);
+      expect(paperclipCommentoPiuRecente([oldest, newest, invalidDate], order)).toBe(newest);
+      expect(paperclipCommentoPiuRecente([], order)).toBeNull();
+    }
+    expect(paperclipCommentoPiuRecente(descending)).toBe(newest);
+    expect(paperclipCommentoPiuRecente([undated, otherUndated])).toBe(undated);
+    expect(paperclipCommentoPiuRecente([undated, otherUndated], 'desc')).toBe(undated);
+    expect(paperclipCommentoPiuRecente([undated, otherUndated], 'asc')).toBe(otherUndated);
+    expect(paperclipCommentoPiuRecente([invalidDate, undated], 'desc')).toBe(invalidDate);
+    expect(paperclipCommentoPiuRecente([invalidDate, undated], 'asc')).toBe(undated);
+  });
+
   it('accetta_incarico_reale_con_blocchi', () => {
     expect(PaperclipIncaricoSchema.parse(issue)).toEqual(issue);
   });
