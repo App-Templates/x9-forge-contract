@@ -80,6 +80,34 @@ export function paperclipCommentoPiuRecente(
   return (ordine === 'desc' ? commenti[0] : commenti.at(-1)) ?? null;
 }
 
+// Paperclip server/src/routes/issues.ts:8512-8587 (heartbeat-context); untyped response fields stay free.
+// Each hint is optional and tolerant: a malformed hint is dropped, it never fails the read of the issue.
+// services/issues.ts:11999-12023.
+export const PaperclipCursoreCommentiSchema = z.looseObject({
+  totalComments: z.number().int().nonnegative(),
+  latestCommentId: z.guid().nullable(),
+  latestCommentAt: z.string().nullable().optional(),
+});
+export const PaperclipProgettoContestoSchema = z.looseObject({
+  id: z.guid(),
+  name: z.string(),
+  status: z.string(),
+  targetDate: z.string().nullable().optional(),
+});
+export const PaperclipObiettivoContestoSchema = z.looseObject({
+  id: z.guid(),
+  title: z.string(),
+  status: z.string(),
+  level: z.string(),
+  parentId: z.guid().nullable().optional(),
+});
+export const PaperclipRiassuntoContinuazioneSchema = z.looseObject({
+  key: z.string(),
+  title: z.string().nullable().optional(),
+  body: z.string(),
+  latestRevisionId: z.guid().optional(),
+});
+
 // Paperclip server/dist/routes/issues.js:5728-5870.
 export const PaperclipContestoTurnoSchema = z.looseObject({
   issue: PaperclipIncaricoSchema,
@@ -89,6 +117,10 @@ export const PaperclipContestoTurnoSchema = z.looseObject({
     status: PaperclipStatoIncaricoSchema.optional(),
   })),
   wakeComment: PaperclipCommentoSchema.nullable().optional(),
+  commentCursor: PaperclipCursoreCommentiSchema.optional().catch(undefined),
+  project: PaperclipProgettoContestoSchema.nullable().optional().catch(undefined),
+  goal: PaperclipObiettivoContestoSchema.nullable().optional().catch(undefined),
+  continuationSummary: PaperclipRiassuntoContinuazioneSchema.nullable().optional().catch(undefined),
 });
 
 // Paperclip docs/guides/agent-developer/heartbeat-protocol.md:12-18;

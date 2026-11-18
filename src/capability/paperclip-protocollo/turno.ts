@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PaperclipStatoIncaricoSchema } from './wire-letture.js';
 
 /**
  * The reasons Paperclip gives a wake. On the wire `reason` is a free string (Paperclip packages/shared/src/validators/agent.ts:234):
@@ -94,6 +95,16 @@ export const PAPERCLIP_COMMENTO_OBBLIGATORIO_STATI = [
 export const PAPERCLIP_RECUPERO_INTENTI = ['status_only'] as const;
 export const PAPERCLIP_COMMENTO_MANCANTE_RITENTATIVI = 1;
 
+/** A hint of the wake context is optional and tolerant: a malformed value is dropped, it never fails the turn. */
+function hint<T extends z.ZodType>(schema: T) {
+  return schema.optional().catch(undefined);
+}
+/** An issue as the wake context summarizes it (services/issues.ts:9181-9208; services/heartbeat.ts:5688-5698). */
+export const PaperclipTurnoIncaricoSintesiSchema = z.looseObject({
+  id: z.guid(), identifier: z.string().nullable().optional(), title: z.string(), status: PaperclipStatoIncaricoSchema,
+  assigneeAgentId: z.guid().nullable().optional(), summary: z.string().nullable().optional(),
+});
+
 // Campi della sveglia: Paperclip server/dist/routes/issues.js:10263-10280,10526-10552.
 export const PaperclipTurnoContestoSchema = z.looseObject({
   taskId: z.guid().optional(),
@@ -105,6 +116,31 @@ export const PaperclipTurnoContestoSchema = z.looseObject({
   allowDeliverableWork: z.boolean().optional().catch(undefined),
   allowDocumentUpdates: z.boolean().optional().catch(undefined),
   resumeRequiresNormalModel: z.boolean().optional().catch(undefined),
+  // Who and why (services/heartbeat.ts:7173-7183; routes/issues.ts:14829-14835 for `source`).
+  source: hint(z.string()),
+  wakeSource: hint(z.enum(PAPERCLIP_WAKE_SOURCES)),
+  wakeTriggerDetail: hint(z.enum(PAPERCLIP_WAKE_TRIGGER_DETAILS)),
+  // issue_blockers_resolved (routes/issues.ts:14522-14529).
+  resolvedBlockerIssueId: hint(z.guid()),
+  blockerIssueIds: hint(z.array(z.guid())),
+  // issue_children_completed (routes/issues.ts:14829-14835; services/issues.ts:9209-9218): at most 20 summaries.
+  completedChildIssueId: hint(z.guid()),
+  childIssueIds: hint(z.array(z.guid())),
+  childIssueSummaries: hint(z.array(PaperclipTurnoIncaricoSintesiSchema).max(20)),
+  childIssueSummaryTruncated: hint(z.boolean()),
+  onboardingCompletion: hint(z.boolean()),
+  // A comment on a task whose blockers are still open runs in a bounded mode (services/heartbeat.ts:27997-28018).
+  dependencyBlockedInteraction: hint(z.boolean()),
+  unresolvedBlockerIssueIds: hint(z.array(z.guid())),
+  unresolvedBlockerCount: hint(z.number().int().nonnegative()),
+  unresolvedBlockerSummaries: hint(z.array(PaperclipTurnoIncaricoSintesiSchema)),
+  // A resolved card wakes the assignee with `issue_commented` (routes/issues.ts:2714-2745;
+  // kept only for `mutation: interaction`, services/heartbeat.ts:7194-7230).
+  interactionId: hint(z.guid()),
+  interactionKind: hint(z.string()),
+  interactionStatus: hint(z.string()),
+  // `taskId` and `issueId` are the watchdog's review task; the watched issue is inside `taskWatchdog` (services/task-watchdogs.ts:679-735).
+  taskWatchdog: hint(z.looseObject({ watchedIssueId: z.guid(), stopFingerprint: z.string() })),
 });
 export type PaperclipTurnoContesto = z.infer<typeof PaperclipTurnoContestoSchema>;
 
