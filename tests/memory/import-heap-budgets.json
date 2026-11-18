@@ -1,5 +1,5 @@
 {
-  "misurato": "12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
+  "misurato": "18/11/2026, dist di 1.232.0 dopo 7355; voci cambiate solo `./capability/dev` e `./capability/paperclip` (3613, 3614, 7292). Precedente: 12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
   "voci": {
     ".": {
       "heap_mb": 32,
@@ -27,9 +27,9 @@
       "motivo": "solo il nome dello strumento di invio email (6102): un solo modulo, nessun import"
     },
     "./capability/dev": {
-      "heap_mb": 22.5,
-      "moduli": 56,
-      "motivo": "contratti della capacità di sviluppo; misura 21.2 MB, 56 moduli dopo 6711: + `dev/session-outcome` (6342) e il modulo leggero `tool-error-disposition` (6711) dopo 1.122.0"
+      "heap_mb": 23.5,
+      "moduli": 58,
+      "motivo": "contratti della capacità di sviluppo; misura 21.2 MB, 56 moduli dopo 6711: + `dev/session-outcome` (6342) e il modulo leggero `tool-error-disposition` (6711) dopo 1.122.0; + `dev/generic-job` (3613) e `dev/generic-channel` (3614) dopo 1.203.0; misura 22.2 MB, 58 moduli"
     },
     "./voice": {
       "heap_mb": 18.5,
@@ -122,9 +122,9 @@
       "motivo": "solo la presentazione delle capacità"
     },
     "./capability/paperclip": {
-      "heap_mb": 22,
+      "heap_mb": 24.5,
       "moduli": 49,
-      "motivo": "contratti della capacità paperclip"
+      "motivo": "contratti della capacità paperclip; + i due import di `native-wait` (7292: `organization/decision-request`, `capability/ricerca/research`) dopo 1.225.0; misura 23 MB, 48 moduli"
     },
     "./agent/*": {
       "heap_mb": 31.5,
