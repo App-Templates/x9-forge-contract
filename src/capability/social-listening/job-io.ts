@@ -1,6 +1,12 @@
 import { z } from 'zod';
 import { WebUrlSchema } from '../ricerca/research.js';
-import { SocialHandleSchema, SocialPostSchema, SocialVerticalIdSchema } from './post.js';
+import {
+  SocialHandleSchema,
+  SocialPostFilterSchema,
+  SocialPostSchema,
+  SocialVerticalIdSchema,
+  type SocialPostFilter,
+} from './post.js';
 import { SocialJobKindSchema, type SocialJob } from './queue.js';
 import { SocialCategorySlugSchema, SocialTopicSchema } from './topic.js';
 import { SocialFactSchema } from './verdict.js';
@@ -81,7 +87,17 @@ export const SocialJobResultSchema = z.discriminatedUnion('kind', [
 ]);
 export type SocialJobResult = z.infer<typeof SocialJobResultSchema>;
 
-export const SOCIAL_JOB_RESULT_ERRORS = ['kind_mismatch', 'post_mismatch', 'topic_mismatch', 'job_not_running'] as const;
+/** Turns a `filter` result into the outcome saved on the post; `filteredAt` is the service's apply time. */
+export function socialPostFilterFromResult(result: SocialJobResult, filteredAt: string): SocialPostFilter {
+  if (result.kind !== 'filter') throw new TypeError('not_a_filter_result');
+  return SocialPostFilterSchema.parse({
+    keep: result.keep,
+    ...(result.reason === undefined ? {} : { reason: result.reason }),
+    filteredAt,
+  });
+}
+
+export const SOCIAL_JOB_RESULT_ERRORS =['kind_mismatch', 'post_mismatch', 'topic_mismatch', 'job_not_running'] as const;
 export const SocialJobResultErrorSchema = z.enum(SOCIAL_JOB_RESULT_ERRORS);
 
 export type SocialJobResultMatch =

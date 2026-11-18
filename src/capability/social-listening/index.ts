@@ -17,6 +17,8 @@ export {
   SOCIAL_POST_KINDS,
   SocialPostKindSchema,
   SocialPostSchema,
+  SocialPostFilterSchema,
+  type SocialPostFilter,
   type SocialProvider,
   type SocialHandle,
   type SocialVerticalId,

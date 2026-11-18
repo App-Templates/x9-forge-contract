@@ -33,6 +33,14 @@ export const SOCIAL_POST_KINDS = ['video', 'image', 'carousel'] as const;
 export const SocialPostKindSchema = z.enum(SOCIAL_POST_KINDS);
 export type SocialPostKind = z.infer<typeof SocialPostKindSchema>;
 
+/** Outcome of the `filter` job on a post: kept or dropped, why, and when the service applied it. */
+export const SocialPostFilterSchema = z.object({
+  keep: z.boolean(),
+  reason: z.string().min(1).max(300).optional(),
+  filteredAt: IsoDateTimeSchema,
+}).strict();
+export type SocialPostFilter = z.infer<typeof SocialPostFilterSchema>;
+
 /** Web text (caption, transcript) is DATA, never instructions: bounded in length. */
 export const SocialPostSchema = z.object({
   identity: CapabilityAgentScopeSchema,
@@ -45,6 +53,7 @@ export const SocialPostSchema = z.object({
   caption: z.string().max(5000),
   transcript: z.string().max(60000).optional(),
   analysis: SocialPostAnalysisSchema.optional(),
+  filter: SocialPostFilterSchema.optional(),
   collectedAt: IsoDateTimeSchema,
 }).strict();
 export type SocialPost = z.infer<typeof SocialPostSchema>;
