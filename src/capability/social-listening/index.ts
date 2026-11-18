@@ -55,6 +55,7 @@ export {
 export * from './tools.js';
 export * from './queue.js';
 export * from './config.js';
+export * from './config-ordinary.js';
 export * from './import.js';
 export * from './import-analysis.js';
 export * from './job-io.js';
