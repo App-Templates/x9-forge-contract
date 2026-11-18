@@ -30,10 +30,10 @@ function loadChannels(mode: 'esm' | 'cjs'): { names: string[]; delivery: unknown
 }
 
 describe('s7422 pacchetto-1-237-0', () => {
-  it('s7422_version: package and first CHANGELOG release are 1.237.0', () => {
+  it('s7422_version: CHANGELOG contains 1.237.0 and package matches the first release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
     const firstRelease = /^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1];
-    expect(firstRelease).toBe('1.237.0');
+    expect(changelog).toContain('## v1.237.0');
     expect(packageVersion()).toBe(firstRelease);
   });
 

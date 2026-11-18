@@ -110,6 +110,7 @@ export * from "./development-session-heartbeat.cjs";
 export * from "./dev-generic-jobs.cjs";
 export * from "./internal-dev-artifact-content.cjs";
 export * from "./internal-dev-session-asset-content.cjs";
+export * from "./internal-dev-session-assets-list.cjs";
 export * from "./internal-dev-delivery-links.cjs";
 export * from "./paperclip-protocollo-turno.cjs";
 export * from "./officina-video.cjs";

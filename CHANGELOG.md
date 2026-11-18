@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.238.0 — The list of the assets of a development session is a cap-dev contract on the same door as their bytes (task 7424)
+
+- Dev session assets list: `listDevSessionAssetsContract`, `DevSessionAssetsListRequestSchema`, `DevSessionAssetsListResponseSchema`, `DEV_SESSION_ASSETS_LIST_MAX` and `DevSessionAssetsListRefusalSchema` (7424).
+- Additive; no stored data changes. Consumers: cap-dev (serves the list), cap-paperclip (uploads the proofs of a delivery to the Paperclip task).
+
 ## v1.237.0 — The channels text says how files and proofs travel (attachment, work product) and how a closed issue is reopened (task 7421)
 
 - Delivery channels: `PAPERCLIP_DELIVERY_CHANNELS`, `PaperclipDeliveryChannelSchema`, `PaperclipDeliveryChannel` and the new lines of `communicationSectionLines()` (7421).

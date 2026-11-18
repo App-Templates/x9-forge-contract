@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.237.0",
+  "versione": "1.238.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1821,6 +1821,8 @@
       "ConnectionCompletedResponseSchema": "@x9-forge/contracts/http/endpoints/internal-connection-completed",
       "DEV_DELIVERY_LINKS_MAX_PATHS": "@x9-forge/contracts/http/endpoints/internal-dev-delivery-links",
       "DEV_DELIVERY_LINK_TTL_MS": "@x9-forge/contracts/http/endpoints/internal-dev-delivery-links",
+      "DEV_SESSION_ASSETS_LIST_MAX": "@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list",
+      "DEV_SESSION_ASSETS_LIST_REFUSALS": "@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list",
       "DecisionRequestErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "DecisionRequestErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "DeleteVaultConnectionResponseSchema": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
@@ -1836,6 +1838,9 @@
       "DevProductionRoleModelsSchema": "@x9-forge/contracts/http/endpoints/development-session-models",
       "DevProductionSubmissionSchema": "@x9-forge/contracts/http/endpoints/internal-dev-production",
       "DevSessionAssetReadSchema": "@x9-forge/contracts/http/endpoints/internal-dev-session-asset-content",
+      "DevSessionAssetsListRefusalSchema": "@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list",
+      "DevSessionAssetsListRequestSchema": "@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list",
+      "DevSessionAssetsListResponseSchema": "@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list",
       "DevelopmentSessionHeartbeatSchema": "@x9-forge/contracts/http/endpoints/development-session-heartbeat",
       "DevelopmentSessionListQuerySchema": "@x9-forge/contracts/http/endpoints/internal-development-session-list",
       "DevelopmentSessionListSchema": "@x9-forge/contracts/http/endpoints/internal-development-session-list",
@@ -2497,6 +2502,7 @@
       "labScopeQuerySchema": "@x9-forge/contracts/http/endpoints/internal-capability-lab",
       "listAgentsContract": "@x9-forge/contracts/http/endpoints/internal-agents-list",
       "listDevProductionJobsContract": "@x9-forge/contracts/http/endpoints/internal-dev-jobs",
+      "listDevSessionAssetsContract": "@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list",
       "listDevelopmentSessionsContract": "@x9-forge/contracts/http/endpoints/internal-development-session-list",
       "listVaultConnectionsContract": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
       "memoryConsoleListContract": "@x9-forge/contracts/http/endpoints/memory-console",

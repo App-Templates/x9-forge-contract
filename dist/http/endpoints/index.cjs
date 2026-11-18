@@ -137,6 +137,7 @@ __exportStar(require("./development-session-heartbeat.cjs"), exports);
 __exportStar(require("./dev-generic-jobs.cjs"), exports);
 __exportStar(require("./internal-dev-artifact-content.cjs"), exports);
 __exportStar(require("./internal-dev-session-asset-content.cjs"), exports);
+__exportStar(require("./internal-dev-session-assets-list.cjs"), exports);
 __exportStar(require("./internal-dev-delivery-links.cjs"), exports);
 __exportStar(require("./paperclip-protocollo-turno.cjs"), exports);
 __exportStar(require("./officina-video.cjs"), exports);
