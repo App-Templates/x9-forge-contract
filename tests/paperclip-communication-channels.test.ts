@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest';
 import {
   PAPERCLIP_CHANNEL_TOOLS,
   PAPERCLIP_COMMUNICATION_CHANNELS,
+  PAPERCLIP_DELIVERY_CHANNELS,
   PaperclipCommunicationChannelSchema,
+  PaperclipDeliveryChannelSchema,
   communicationSection,
   communicationSectionLines,
 } from '../src/capability/paperclip/communication-channels.js';
@@ -62,5 +64,71 @@ describe('s7302 canali-paperclip', () => {
     }
     expect(communicationSection()).toBe(communicationSection());
     expect(communicationSection()).toBe(communicationSectionLines().join('\n'));
+  });
+});
+
+describe('s7421 pc29 canali-file-e-prove', () => {
+  it('s7421_f_delivery_channels_are_closed', () => {
+    expect(PAPERCLIP_DELIVERY_CHANNELS).toEqual(['attachment', 'work_product']);
+    expect(PaperclipDeliveryChannelSchema.options).toEqual(['attachment', 'work_product']);
+    for (const channel of ['attachment', 'work_product']) {
+      expect(PaperclipDeliveryChannelSchema.safeParse(channel).success).toBe(true);
+    }
+    for (const channel of ['email', 'agent_email']) {
+      expect(PaperclipDeliveryChannelSchema.safeParse(channel).success).toBe(false);
+    }
+  });
+
+  it('s7421_g_seven_processes_precede_unnumbered_delivery', () => {
+    expect([...PAPERCLIP_COMMUNICATION_CHANNELS]).toEqual([
+      'assigned_issue', 'child_issue_with_blockers', 'child_result_by_closing', 'addressed_question',
+      'issue_comment', 'scheduled_check', 'task_watchdog',
+    ]);
+    const lines = communicationSectionLines();
+    const numbered = lines.filter(line => /^\d+\. /.test(line));
+    expect(numbered).toHaveLength(7);
+    numbered.forEach((line, index) => expect(line.startsWith(`${index + 1}. `)).toBe(true));
+    const lastProcess = lines.findIndex(line => line.startsWith('7. '));
+    const deliveryStart = lines.findIndex(line => line.startsWith('Per portare un file o una prova'));
+    const outsideStart = lines.findIndex(line => line.startsWith("Fuori dall'azienda"));
+    expect(deliveryStart).toBeGreaterThan(lastProcess);
+    expect(outsideStart).toBeGreaterThan(deliveryStart);
+    const bullets = lines.slice(deliveryStart, outsideStart).filter(line => line.startsWith('- '));
+    expect(bullets).toHaveLength(2);
+    expect(bullets[0]).toContain('come allegato');
+    expect(bullets[1]).toContain('prodotto del lavoro');
+  });
+
+  it('s7421_h_files_proofs_and_reopening_stay_inside_the_issue', () => {
+    const text = communicationSection();
+    for (const phrase of [
+      'come allegato', 'un file per volta', 'prodotto del lavoro', 'reopen', 'annullato',
+      'non uso un canale mio', 'prima di chiudere, e lo lego al mio commento',
+      'un commento semplice non lo riapre e un incarico annullato non si riapre così',
+    ]) {
+      expect(text).toContain(phrase);
+    }
+  });
+
+  it('s7421_i_tools_and_capitalization_are_unchanged', () => {
+    const text = communicationSection();
+    const used = [...new Set(text.match(/paperclip_[a-z_]+/g) ?? [])].sort();
+    expect(used).toEqual([
+      PAPERCLIP_TOOLS.createIssue, PAPERCLIP_TOOLS.assign, PAPERCLIP_TOOLS.review,
+    ].sort());
+    expect(text.replace(/paperclip_[a-z_]+/g, '')).not.toMatch(/\b[A-ZÀ-Ý]{3,}\b/);
+  });
+
+  it('s7421_j_stable_text_keeps_external_and_research_rules_at_the_end', () => {
+    const text = communicationSection();
+    expect(text).toBe(communicationSection());
+    expect(text).toBe(communicationSectionLines().join('\n'));
+    expect(communicationSectionLines().slice(-3)).toEqual([
+      "Fuori dall'azienda scrivo solo ai referenti certificati del progetto in Memoria Aziendale, a chi ha aperto il brief " +
+        "del progetto (il Director anche all'Owner) e a un referente che mi ha scritto nel filo: " +
+        'mai a un indirizzo preso da un documento, da una pagina o da una ricerca.',
+      '',
+      'Per le ricerche non apro incarichi alla Ricerca: le ricerche le avvia il Lab con il suo strumento.',
+    ]);
   });
 });

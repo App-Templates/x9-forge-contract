@@ -1,8 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import {
+  PAPERCLIP_COMMENTO_MANCANTE_RITENTATIVI,
+  PAPERCLIP_COMMENTO_OBBLIGATORIO_STATI,
+  PAPERCLIP_MOTIVO_COMMENTO_MANCANTE,
+  PAPERCLIP_RECUPERO_INTENTI,
+  PaperclipTurnoContestoSchema,
   PaperclipTurnoErroreSchema,
   PaperclipTurnoRichiestaSchema,
   incaricoDelTurno,
+  paperclipTurnoSoloDisposizione,
 } from '../../../src/capability/paperclip-protocollo/turno.js';
 import { paperclipProtocolloTurnoContract } from '../../../src/http/endpoints/paperclip-protocollo-turno.js';
 
@@ -53,5 +59,93 @@ describe('turno Paperclip', () => {
     expect(paperclipProtocolloTurnoContract.path).toBe('/webhook/paperclip/turno');
     expect(paperclipProtocolloTurnoContract.method).toBe('POST');
     expect(paperclipProtocolloTurnoContract.authType).toBe('external_provider');
+  });
+
+  it('s7413_contesto_solo_disposizione', () => {
+    const context = {
+      issueId: INCARICO,
+      recoveryIntent: 'status_only',
+      allowDeliverableWork: false,
+      allowDocumentUpdates: false,
+      resumeRequiresNormalModel: true,
+      wakeReason: 'missing_issue_comment',
+    };
+    const parsed = PaperclipTurnoRichiestaSchema.parse({
+      runId: RUN,
+      agentId: AGENTE,
+      context,
+    });
+    expect(parsed.context).toEqual(context);
+    expect(paperclipTurnoSoloDisposizione(parsed.context)).toBe(true);
+    expect(
+      paperclipTurnoSoloDisposizione(
+        PaperclipTurnoContestoSchema.parse({ recoveryIntent: 'status_only' }),
+      ),
+    ).toBe(true);
+  });
+
+  it('s7413_solo_disposizione_per_lavoro_vietato', () => {
+    expect(
+      paperclipTurnoSoloDisposizione(
+        PaperclipTurnoContestoSchema.parse({ allowDeliverableWork: false }),
+      ),
+    ).toBe(true);
+    expect(
+      paperclipTurnoSoloDisposizione(
+        PaperclipTurnoContestoSchema.parse({ allowDeliverableWork: true }),
+      ),
+    ).toBe(false);
+    expect(paperclipTurnoSoloDisposizione(PaperclipTurnoContestoSchema.parse({}))).toBe(false);
+  });
+
+  it('s7413_valore_storto_scartato', () => {
+    const context = {
+      issueId: INCARICO,
+      wakeReason: 'missing_issue_comment',
+      recoveryIntent: 'normal_model',
+      allowDeliverableWork: 'no',
+      allowDocumentUpdates: 'no',
+      resumeRequiresNormalModel: 'yes',
+    };
+    const parsed = PaperclipTurnoRichiestaSchema.parse({
+      runId: RUN,
+      agentId: AGENTE,
+      context,
+    }).context;
+    expect(parsed.recoveryIntent).toBeUndefined();
+    expect(parsed.allowDeliverableWork).toBeUndefined();
+    expect(parsed.allowDocumentUpdates).toBeUndefined();
+    expect(parsed.resumeRequiresNormalModel).toBeUndefined();
+    expect(parsed.issueId).toBe(INCARICO);
+    expect(parsed.wakeReason).toBe('missing_issue_comment');
+    expect(paperclipTurnoSoloDisposizione(parsed)).toBe(false);
+    expect(
+      PaperclipTurnoContestoSchema.safeParse({ ...context, issueId: 'non-un-guid' }).success,
+    ).toBe(false);
+  });
+
+  it('s7413_contesti_di_oggi_invariati', () => {
+    const contexts = [
+      { taskId: INCARICO, wakeReason: 'issue_assigned', extra: 1 },
+      { taskId: INCARICO, issueId: ALTRO },
+      { issueId: ALTRO },
+      {},
+    ];
+    for (const context of contexts) {
+      const parsed = PaperclipTurnoContestoSchema.parse(context);
+      expect(parsed).toStrictEqual(context);
+      expect(paperclipTurnoSoloDisposizione(parsed)).toBe(false);
+    }
+  });
+
+  it('s7413_costanti', () => {
+    expect(PAPERCLIP_MOTIVO_COMMENTO_MANCANTE).toBe('missing_issue_comment');
+    expect(PAPERCLIP_COMMENTO_OBBLIGATORIO_STATI).toEqual([
+      'satisfied',
+      'retry_queued',
+      'retry_exhausted',
+    ]);
+    expect(PAPERCLIP_RECUPERO_INTENTI).toEqual(['status_only']);
+    expect(PAPERCLIP_COMMENTO_MANCANTE_RITENTATIVI).toBe(1);
   });
 });

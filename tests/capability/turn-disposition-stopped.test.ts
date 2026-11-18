@@ -8,6 +8,7 @@ import {
   TurnEndSchema,
   dispositionForTurnEnd,
   paperclipBodyForDisposition,
+  TURN_DISPOSITION_TEXT,
   waitsOnLimit,
 } from '../../src/capability/paperclip/turn-disposition.js';
 
@@ -171,12 +172,12 @@ it('s6350 a stopped turn writes the next check and preserves the existing execut
 });
 
 it('s6350 failed limit turns and uncertain still fail the run', () => {
-  for (const end of [
-    { kind: 'failed', failureCode: 'budget_exhausted' },
-    { kind: 'failed', failureCode: 'run_expired' },
-    { kind: 'uncertain' },
-  ]) {
-    expect(dispositionForTurnEnd(TurnEndSchema.parse(end))).toEqual({ kind: 'fail_run', runSucceeds: false });
+  for (const [end, cause, detail] of [
+    [{ kind: 'failed', failureCode: 'budget_exhausted' }, 'turn_failed', 'Turno fallito: budget_exhausted.'],
+    [{ kind: 'failed', failureCode: 'run_expired' }, 'turn_failed', 'Turno fallito: run_expired.'],
+    [{ kind: 'uncertain' }, 'outcome_uncertain', TURN_DISPOSITION_TEXT.uncertainNote()],
+  ] as const) {
+    expect(dispositionForTurnEnd(TurnEndSchema.parse(end))).toEqual({ kind: 'fail_run', runSucceeds: false, cause, detail });
   }
 });
 

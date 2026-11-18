@@ -4,6 +4,8 @@ import * as capability from '../../../src/capability/index.js';
 import * as signedCommand from '../../../src/capability/dev/signed-command.js';
 import * as configState from '../../../src/capability/dev/config-state.js';
 import * as productionJob from '../../../src/capability/dev/production-job.js';
+import * as genericJob from '../../../src/capability/dev/generic-job.js';
+import * as genericChannel from '../../../src/capability/dev/generic-channel.js';
 import * as productionResult from '../../../src/capability/dev/production-result.js';
 import * as productionArtifactContent from '../../../src/capability/dev/production-artifact-content.js';
 import * as productionProgress from '../../../src/capability/dev/production-progress.js';
@@ -12,7 +14,7 @@ import * as sessionAssignment from '../../../src/capability/dev/session-assignme
 import * as sessionMaterialLink from '../../../src/capability/dev/session-material-link.js';
 import * as sessionOutcome from '../../../src/capability/dev/session-outcome.js';
 
-const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment, ...sessionMaterialLink, ...sessionOutcome };
+const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...genericJob, ...genericChannel, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment, ...sessionMaterialLink, ...sessionOutcome };
 
 describe('capability/dev subpath', () => {
   it('re-exports every symbol of signed-command, config-state, production-job, production-result, production-artifact-content, production-config-match and production-progress', () => {
@@ -50,6 +52,25 @@ describe('capability/dev subpath', () => {
     expect(Object.keys(dev).sort()).toEqual(
       [
         'DEV_SIGNED_COMMAND_V2_DOMAIN',
+        'DEV_GENERIC_JOB_TOOLS',
+        'DEV_GENERIC_EXECUTORS',
+        'DEV_GENERIC_INPUT_MAX_BYTES',
+        'DEV_GENERIC_OUTPUT_MAX_BYTES',
+        'DevGenericToolSchema',
+        'DevGenericExecutorSchema',
+        'DevGenericInputSchema',
+        'DevGenericOutputSchema',
+        'DevGenericJobSchema',
+        'DevGenericJobResultSchema',
+        'devGenericResultMatchesJob',
+        'DevGenericClaimRequestSchema',
+        'DevGenericLeaseSchema',
+        'DevGenericClaimResponseSchema',
+        'DevGenericHeartbeatRequestSchema',
+        'DevGenericHeartbeatResponseSchema',
+        'DevGenericCompleteRequestSchema',
+        'DevGenericCompleteResponseSchema',
+        'selectDevGenericClaim',
         'DevAgentConfigSchema',
         'DevAgentConfigStateSchema',
         'DevAgentStateSchema',

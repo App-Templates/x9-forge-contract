@@ -13,6 +13,12 @@ export const PAPERCLIP_STATI_INCARICO = [
 
 export const PaperclipStatoIncaricoSchema = z.enum(PAPERCLIP_STATI_INCARICO);
 
+// Paperclip packages/shared/src/constants.ts:210 (ISSUE_PRIORITIES); validators/issue.ts:709 (default medium).
+export const PAPERCLIP_PRIORITA = ['critical', 'high', 'medium', 'low'] as const;
+export const PaperclipPrioritaSchema = z.enum(PAPERCLIP_PRIORITA);
+export const PAPERCLIP_PRIORITA_PREDEFINITA = 'medium' as const satisfies (typeof PAPERCLIP_PRIORITA)[number];
+export type PaperclipPriorita = z.infer<typeof PaperclipPrioritaSchema>;
+
 // Paperclip server/dist/routes/issues.js:5806-5807.
 export const PaperclipBloccoSchema = z.looseObject({
   id: z.guid(),
@@ -32,7 +38,18 @@ export const PaperclipIncaricoSchema = z.looseObject({
   goalId: z.guid().nullable().optional(),
   assigneeAgentId: z.guid().nullable().optional(),
   blockedBy: z.array(PaperclipBloccoSchema).optional(),
+  // Paperclip GET /issues/:id: creator, execution ownership and outgoing blockers.
+  identifier: z.string().nullable().optional(),
+  companyId: z.guid().optional(),
+  priority: PaperclipPrioritaSchema.optional(),
+  createdByAgentId: z.guid().nullable().optional(),
+  executionRunId: z.guid().nullable().optional(),
+  blocks: z.array(PaperclipBloccoSchema).optional(),
+  updatedAt: z.string().optional(),
 });
+
+// Paperclip server/src/services/issues.ts:211-212 limits issue lists to 1000 entries.
+export const PaperclipElencoIncarichiSchema = z.array(PaperclipIncaricoSchema).max(1000);
 
 // Paperclip server/dist/routes/issues.js:10826-10855.
 export const PaperclipCommentoSchema = z.looseObject({
@@ -45,6 +62,52 @@ export const PaperclipCommentoSchema = z.looseObject({
 
 export const PaperclipCommentiSchema = z.array(PaperclipCommentoSchema);
 
+/** Select the newest valid timestamp, falling back to the API's requested order (descending by default). */
+export function paperclipCommentoPiuRecente(
+  commenti: readonly z.infer<typeof PaperclipCommentoSchema>[],
+  ordine: 'asc' | 'desc' = 'desc',
+): z.infer<typeof PaperclipCommentoSchema> | null {
+  let scelto: z.infer<typeof PaperclipCommentoSchema> | null = null;
+  let istante = -Infinity;
+  for (const commento of commenti) {
+    const data = Date.parse(commento.createdAt ?? '');
+    if (Number.isFinite(data) && data > istante) {
+      scelto = commento;
+      istante = data;
+    }
+  }
+  if (scelto !== null) return scelto;
+  return (ordine === 'desc' ? commenti[0] : commenti.at(-1)) ?? null;
+}
+
+// Paperclip server/src/routes/issues.ts:8512-8587 (heartbeat-context); untyped response fields stay free.
+// Each hint is optional and tolerant: a malformed hint is dropped, it never fails the read of the issue.
+// services/issues.ts:11999-12023.
+export const PaperclipCursoreCommentiSchema = z.looseObject({
+  totalComments: z.number().int().nonnegative(),
+  latestCommentId: z.guid().nullable(),
+  latestCommentAt: z.string().nullable().optional(),
+});
+export const PaperclipProgettoContestoSchema = z.looseObject({
+  id: z.guid(),
+  name: z.string(),
+  status: z.string(),
+  targetDate: z.string().nullable().optional(),
+});
+export const PaperclipObiettivoContestoSchema = z.looseObject({
+  id: z.guid(),
+  title: z.string(),
+  status: z.string(),
+  level: z.string(),
+  parentId: z.guid().nullable().optional(),
+});
+export const PaperclipRiassuntoContinuazioneSchema = z.looseObject({
+  key: z.string(),
+  title: z.string().nullable().optional(),
+  body: z.string(),
+  latestRevisionId: z.guid().optional(),
+});
+
 // Paperclip server/dist/routes/issues.js:5728-5870.
 export const PaperclipContestoTurnoSchema = z.looseObject({
   issue: PaperclipIncaricoSchema,
@@ -54,6 +117,10 @@ export const PaperclipContestoTurnoSchema = z.looseObject({
     status: PaperclipStatoIncaricoSchema.optional(),
   })),
   wakeComment: PaperclipCommentoSchema.nullable().optional(),
+  commentCursor: PaperclipCursoreCommentiSchema.optional().catch(undefined),
+  project: PaperclipProgettoContestoSchema.nullable().optional().catch(undefined),
+  goal: PaperclipObiettivoContestoSchema.nullable().optional().catch(undefined),
+  continuationSummary: PaperclipRiassuntoContinuazioneSchema.nullable().optional().catch(undefined),
 });
 
 // Paperclip docs/guides/agent-developer/heartbeat-protocol.md:12-18;

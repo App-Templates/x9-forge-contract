@@ -141,9 +141,11 @@ export * from './development-session-models.js';
 export * from './internal-development-session-list.js';
 
 export * from './development-session-heartbeat.js';
+export * from './dev-generic-jobs.js';
 
 export * from './internal-dev-artifact-content.js';
 export * from './internal-dev-session-asset-content.js';
+export * from './internal-dev-session-assets-list.js';
 export * from './internal-dev-delivery-links.js';
 export * from './paperclip-protocollo-turno.js';
 export * from './officina-video.js';
