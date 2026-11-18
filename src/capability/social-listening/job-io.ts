@@ -3,6 +3,7 @@ import { WebUrlSchema } from '../ricerca/research.js';
 import { SocialHandleSchema, SocialPostSchema, SocialVerticalIdSchema } from './post.js';
 import { SocialJobKindSchema, type SocialJob } from './queue.js';
 import { SocialCategorySlugSchema, SocialTopicSchema } from './topic.js';
+import { SocialFactSchema } from './verdict.js';
 
 const kinds = SocialJobKindSchema.enum;
 const topic = SocialTopicSchema.shape;
@@ -26,6 +27,8 @@ export const SocialJobInputSchema = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal(kinds.verify),
     topicId: topic.topicId,
+    /** Facts already verified that the executor must not pay for again. */
+    knownFacts: z.array(SocialFactSchema).max(20).optional(),
   }).strict(),
   z.object({
     kind: z.literal(kinds.group),
