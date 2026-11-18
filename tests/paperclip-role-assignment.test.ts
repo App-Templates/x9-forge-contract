@@ -185,3 +185,26 @@ describe('s7364 piano-alla-nascita', () => {
       { ok: true, plan: { permission: { form: 'none' }, recipientProtection: 'protected', canCreateAgents: false } }]);
   });
 });
+
+describe('s7372 piano-alla-nascita prove mancanti', () => {
+  it('(a) a role listing itself does not count as its own caller', () => {
+    const SELF_LISTED: Matrix = {
+      director: ['capo-bu', 'lab', 'ricerca'],
+      'capo-bu': ['director'],
+      lab: ['lab', 'director'],
+      ricerca: ['director'],
+    };
+    expect(plan('lab', SELF_LISTED).recipientProtection).toBe('protected');
+    const director = plan('director', SELF_LISTED);
+    expect(director.permission).toEqual(broad);
+    expect(director.canCreateAgents).toBe(true);
+  });
+
+  it('(b) the schema refuses an extra key at the top level and inside permission', () => {
+    const valid = { permission: { form: 'broad' }, recipientProtection: 'open', canCreateAgents: true };
+    expect(PaperclipBirthPlanSchema.safeParse(valid).success).toBe(true);
+    expect(PaperclipBirthPlanSchema.safeParse({ ...valid, extra: 1 }).success).toBe(false);
+    expect(PaperclipBirthPlanSchema.safeParse({ ...valid, permission: { form: 'broad', extra: 1 } }).success).toBe(false);
+    expect(PaperclipBirthPlanSchema.safeParse({ ...valid, permission: { form: 'none', extra: 1 } }).success).toBe(false);
+  });
+});
