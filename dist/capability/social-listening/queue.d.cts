@@ -41,8 +41,8 @@ export declare const SocialJobSchema: z.ZodObject<{
         running: "running";
     }>;
     track: z.ZodEnum<{
-        mac: "mac";
         server: "server";
+        mac: "mac";
     }>;
     day: z.ZodString;
     verticalId: z.ZodString;
@@ -73,8 +73,8 @@ export declare const SocialRoundSchema: z.ZodObject<{
     verticalId: z.ZodString;
     day: z.ZodString;
     track: z.ZodEnum<{
-        mac: "mac";
         server: "server";
+        mac: "mac";
     }>;
     state: z.ZodEnum<{
         failed: "failed";

@@ -3,8 +3,8 @@ import { z } from 'zod';
 export declare const SOCIAL_SERVER_DAILY_CAP_DEFAULT_USD = 2;
 export declare const SocialCapCheckSchema: z.ZodObject<{
     track: z.ZodEnum<{
-        mac: "mac";
         server: "server";
+        mac: "mac";
     }>;
     capUsd: z.ZodNumber;
     spentUsd: z.ZodNumber;

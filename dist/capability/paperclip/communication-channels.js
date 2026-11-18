@@ -61,6 +61,18 @@ const CHANNEL_TEXT = {
         wakes: "si sveglia quell'agente, quando tutto il gruppo è fermo",
     },
 };
+/**
+ * How files and proofs travel between agents: always inside the issue, never on a channel of our own. A path on the
+ * agent's disk is not enough because reviewers cannot see it (Paperclip doc/AGENT-ARTIFACTS.md:3-6,59-65; skills/paperclip/
+ * SKILL.md:201). The two ways are an attachment of the issue and a work product of the issue; the seven processes above
+ * are untouched.
+ */
+export const PAPERCLIP_DELIVERY_CHANNELS = ['attachment', 'work_product'];
+export const PaperclipDeliveryChannelSchema = z.enum(PAPERCLIP_DELIVERY_CHANNELS);
+const DELIVERY_TEXT = {
+    attachment: "carico il file sull'incarico come allegato, un file per volta, prima di chiudere, e lo lego al mio commento",
+    work_product: "registro il file, l'anteprima, il ramo, il commit o la pull request come prodotto del lavoro dell'incarico",
+};
 function toolsText(channel) {
     const tools = PAPERCLIP_CHANNEL_TOOLS[channel];
     return tools.length === 0 ? 'lo configura la piattaforma, non ho uno strumento' : `strumenti: ${tools.join(', ')}`;
@@ -79,6 +91,12 @@ export function communicationSectionLines() {
             const text = CHANNEL_TEXT[channel];
             return `${index + 1}. ${text.what} (${toolsText(channel)}); ${text.wakes}.`;
         }),
+        '',
+        'Per portare un file o una prova non uso un canale mio e non lascio un percorso sul mio disco, che chi rivede non vede: ' +
+            "li metto sull'incarico.",
+        ...PAPERCLIP_DELIVERY_CHANNELS.map((channel) => `- ${DELIVERY_TEXT[channel]}.`),
+        'Se un incarico chiuso va riaperto, lo faccio con un commento che chiede la riapertura (reopen): ' +
+            'un commento semplice non lo riapre e un incarico annullato non si riapre così.',
         '',
         "Fuori dall'azienda scrivo solo ai referenti certificati del progetto in Memoria Aziendale, a chi ha aperto il brief " +
             "del progetto (il Director anche all'Owner) e a un referente che mi ha scritto nel filo: " +

@@ -39,12 +39,12 @@ export declare const VoiceCallBriefSchema: z.ZodObject<{
     notes: z.ZodOptional<z.ZodString>;
     intent: z.ZodOptional<z.ZodEnum<{
         social: "social";
+        other: "other";
         reminder: "reminder";
         information: "information";
         sales: "sales";
         legal: "legal";
         logistics: "logistics";
-        other: "other";
     }>>;
     memory_context: z.ZodOptional<z.ZodString>;
     relationship_context: z.ZodOptional<z.ZodString>;

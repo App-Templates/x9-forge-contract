@@ -18,14 +18,14 @@ import { z } from 'zod';
  */
 export declare const VoiceCallIntentSchema: z.ZodEnum<{
     social: "social";
+    other: "other";
     reminder: "reminder";
     information: "information";
     sales: "sales";
     legal: "legal";
     logistics: "logistics";
-    other: "other";
 }>;
 export type VoiceCallIntent = z.infer<typeof VoiceCallIntentSchema>;
 /** Ordered tuple of all intent values — use for iteration / exhaustiveness tests. */
-export declare const VOICE_CALL_INTENTS: ("social" | "reminder" | "information" | "sales" | "legal" | "logistics" | "other")[];
+export declare const VOICE_CALL_INTENTS: ("social" | "other" | "reminder" | "information" | "sales" | "legal" | "logistics")[];
 //# sourceMappingURL=intent.d.ts.map

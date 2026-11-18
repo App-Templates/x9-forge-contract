@@ -1,5 +1,5 @@
 {
-  "misurato": "12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
+  "misurato": "18/11/2026, dist di 1.268.0 dopo 3710-3711: `./capability/social-listening` misura 37.5 MB, 89 moduli; tetto 39.5 MB (misura × 1.05 arrotondata al mezzo MB verso l’alto), 90 moduli (misura + 1). Precedente: 18/11/2026, dist di 1.237.0 dopo 7422 (rimisura 7423); voci cambiate solo `./capability` e `./capability/paperclip` dopo 7400-7421 (tetto = misura × 1.05 arrotondata al mezzo MB verso l’alto; moduli = misura + 1). Precedente: 18/11/2026, dist di 1.232.0 dopo 7355; voci cambiate solo `./capability/dev` e `./capability/paperclip` (3613, 3614, 7292). Precedente: 12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
   "voci": {
     ".": {
       "heap_mb": 32,
@@ -17,9 +17,9 @@
       "motivo": "identità, proprietari e credenziali degli agenti con i loro schemi"
     },
     "./capability": {
-      "heap_mb": 60,
-      "moduli": 147,
-      "motivo": "barile delle capacità: manifest, chiamate agli strumenti, schema dell’ambiente e contratti di ogni capacità"
+      "heap_mb": 72,
+      "moduli": 158,
+      "motivo": "barile delle capacità: manifest, chiamate agli strumenti, schema dell’ambiente e contratti di ogni capacità; dopo 1.234.0, percorsi e schemi di paperclip-protocollo (7400-7407, 7411, 7413-7418), destinatario per id e ruolo e domande indirizzate (7405, 7410, 7412), cause del fallimento (7419) e canali di consegna (7421), costruiti da 7408, 7420 e 7422; misura 68.2 MB, 157 moduli (7423)"
     },
     "./capability/email-tools": {
       "heap_mb": 1,
@@ -27,9 +27,9 @@
       "motivo": "solo il nome dello strumento di invio email (6102): un solo modulo, nessun import"
     },
     "./capability/dev": {
-      "heap_mb": 22.5,
-      "moduli": 56,
-      "motivo": "contratti della capacità di sviluppo; misura 21.2 MB, 56 moduli dopo 6711: + `dev/session-outcome` (6342) e il modulo leggero `tool-error-disposition` (6711) dopo 1.122.0"
+      "heap_mb": 23.5,
+      "moduli": 58,
+      "motivo": "contratti della capacità di sviluppo; misura 21.2 MB, 56 moduli dopo 6711: + `dev/session-outcome` (6342) e il modulo leggero `tool-error-disposition` (6711) dopo 1.122.0; + `dev/generic-job` (3613) e `dev/generic-channel` (3614) dopo 1.203.0; misura 22.2 MB, 58 moduli"
     },
     "./voice": {
       "heap_mb": 18.5,
@@ -55,6 +55,11 @@
       "heap_mb": 23,
       "moduli": 61,
       "motivo": "contratti della capacità di ricerca"
+    },
+    "./capability/social-listening": {
+      "heap_mb": 39.5,
+      "moduli": 90,
+      "motivo": "contratti dell’ascolto social nel pacchetto delle due linee (3710-3711); misura 37.5 MB, 89 moduli nel dist di 1.268.0; tetto = misura × 1.05 arrotondata al mezzo MB verso l’alto, moduli = misura + 1"
     },
     "./capability/lab": {
       "heap_mb": 23,
@@ -122,9 +127,9 @@
       "motivo": "solo la presentazione delle capacità"
     },
     "./capability/paperclip": {
-      "heap_mb": 22,
-      "moduli": 49,
-      "motivo": "contratti della capacità paperclip"
+      "heap_mb": 28,
+      "moduli": 52,
+      "motivo": "contratti della capacità paperclip; + i due import di `native-wait` (7292: `organization/decision-request`, `capability/ricerca/research`) dopo 1.225.0; misura 23 MB, 48 moduli; dopo 1.234.0, stato unico dell’incarico (7401: `paperclip-protocollo/stati`), destinatario per id (7405) e ruolo (7410: `recipient`), domande indirizzate e politiche delle carte in `native-wait` (7412); misura 26.2 MB, 51 moduli nel dist di 1.237.0 (7423)"
     },
     "./agent/*": {
       "heap_mb": 31.5,

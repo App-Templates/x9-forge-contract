@@ -2,6 +2,10 @@
 
 ## Non rilasciato
 
+## v1.268.0 — one bridge line: social listening (1.262.0-1.267.0) and ec-ponte-conferme (1.231.0-1.238.0) in one package (tasks 3710-3711)
+
+Additive. No contract changed: the package now carries, built, the contracts of both lines (social listening 1.262.0-1.267.0 and Paperclip P9-P12, the generic cap-dev work and the asset list of ec-ponte-conferme 1.231.0-1.238.0).
+
 ## v1.267.0 — social listening recap page link, post filter outcome, verify cost (tasks 3690-3692)
 
 - Optional `pageUrl` on the recap output.
@@ -46,6 +50,66 @@
 - `agent`: credential keys `META_GRAPH_TOKEN` and `META_IG_BUSINESS_ID` (service `meta`).
 - `capability/ricerca`: optional `params` and `resolveResearchParams`, with the refusal `params_above_agent`; `SpendingCapabilitySchema` gains the `social` entry.
 - Additive; no stored data changes (`params` and `analysis` are optional). Consumers: agent-x9 `services/cap-social-listening` and forge-v2 (Ascolto page). The queue internal routes (3616) are not part of this entry.
+
+## v1.238.0 — The list of the assets of a development session is a cap-dev contract on the same door as their bytes (task 7424)
+
+- Dev session assets list: `listDevSessionAssetsContract`, `DevSessionAssetsListRequestSchema`, `DevSessionAssetsListResponseSchema`, `DEV_SESSION_ASSETS_LIST_MAX` and `DevSessionAssetsListRefusalSchema` (7424).
+- Additive; no stored data changes. Consumers: cap-dev (serves the list), cap-paperclip (uploads the proofs of a delivery to the Paperclip task).
+
+## v1.237.0 — The channels text says how files and proofs travel (attachment, work product) and how a closed issue is reopened (task 7421)
+
+- Delivery channels: `PAPERCLIP_DELIVERY_CHANNELS`, `PaperclipDeliveryChannelSchema`, `PaperclipDeliveryChannel` and the new lines of `communicationSectionLines()` (7421).
+- Additive; the text of the section «Come si comunica» changes for every profile that imports it, once the consumer moves its pin of the bridge; no stored data changes. Consumers: the Forge profiles that import `communicationSection()`.
+
+## v1.236.0 — Paperclip contracts for the role-to-id translation, the issue view, addressed questions, the status-only wake, wake reasons, the wake context, attachments, manual wakes, work products and the cause of a failed run (tasks 7410-7419)
+
+- Role-to-id translation: `paperclipDestinatarioPerRuolo` (7410).
+- Issue view: `PaperclipElencoIncarichiSchema`, `paperclipCommentoPiuRecente`, `paperclipLinkIncarico` and `paperclipIdentificatoriNudi` (7411).
+- Addressed questions: `PaperclipAddressedAskSchema`, `decidePaperclipAsk`, `PaperclipAskPersonInteractionBodySchema` and the closed card vocabularies (7412).
+- Status-only wake: `paperclipTurnoSoloDisposizione` and the tolerant status-only fields (7413).
+- Wake reasons: `PAPERCLIP_WAKE_REASONS`, `paperclipWakeReasonKind` and `paperclipWakeEndsChildWait` (7414).
+- Wake context: the tolerant wake-context fields and `PaperclipCursoreCommentiSchema` (7415).
+- Attachments: `PaperclipAllegatoCaricaSchema` and `paperclipAllegatoCaricaSchema` (7416).
+- Manual wakes: `paperclipWakeupRequest`, `classifyPaperclipWakeAnswer`, `paperclipWakeIdempotencyKey` and `PaperclipRuntimeHeartbeatSchema` (7417).
+- Work products: `PaperclipProdottoCreaCorpoSchema` and `paperclipProdottoDaAllegato` (7418).
+- Failed run cause: `turnFailRun` and `TURN_FAILURE_CAUSES` (7419).
+- Additive, except that `fail_run` of `turn-disposition` now carries `cause` and `detail` (7419); no stored data changes. Consumers: the PC adoption tasks (cap-paperclip, cap-paperclip-protocollo).
+
+## v1.235.0 — Paperclip contracts for paths, states, issue creation, comments, the run, recipients by id, documents and approvals (tasks 7400-7407)
+
+- Paths: `paperclipPercorsi` and the issue-list and comment-query filters, with `paperclipPercorsoSenzaPrefisso`.
+- Issue states as one source: the seven states with `PAPERCLIP_TRANSIZIONI`, `paperclipTransizioneAmmessa` and `paperclipIngressoStato`; `PaperclipIssueStatusSchema` is the same object as `PaperclipStatoIncaricoSchema`.
+- Creation: the create bodies (`PaperclipIncaricoCorpoSchema`) and the deduplication outcome (`paperclipEsitoCreazione`).
+- Comments and updates: the extended bodies (`PaperclipAggiornaConCommentoCorpoSchema`) with attachments, `reopen`, `resume` (`paperclipRipresaAmmessa`) and the assignee by id.
+- The run: `PaperclipCorsaSchema` with its eight states, `paperclipCorsaPuoScrivere`, board-only cancellation and its confirmation on the same run.
+- Recipients by agent id: `PaperclipAgentIdSchema`, `PaperclipColleaguesSchema`; the old role-ref fields are deprecated.
+- Issue documents: `PaperclipDocumentoCreaCorpoSchema`, `paperclipDocumentoScritto`, the base revision and the plan confirmation with `continuationPolicy`.
+- Approvals: `PaperclipApprovalCreaCorpoSchema`, their types and states, and the budget-cap payload.
+- Additive; no stored data changes. Consumers: the PC adoption tasks (cap-paperclip, cap-paperclip-protocollo).
+
+## v1.234.0 — the assignment plan a seat is born with comes from the matrix (task 7364)
+
+- `capability/paperclip/role-assignment` exports `PaperclipBirthPlanSchema` (strict: permission `none` or `broad`, recipient protection `open` or `protected`, `canCreateAgents`), the type `PaperclipBirthPlan`, `PAPERCLIP_BIRTH_PLAN_REFUSALS` (`role_unknown`) and the pure, never-throwing `decideAssignmentBirthPlan(role: unknown, matrix = PAPERCLIP_ASSIGNMENT_MATRIX)`.
+- The rule is read from the matrix only, with no role name: a role with exactly one caller is protected, the broad permission goes to who can call a protected role, and `canCreateAgents` follows it. Today's four plans are those X9 writes now.
+- Additive: no existing value changes. Consumers: ec-x9/7368 (adoption) and 7370 (use). No stored data changes.
+
+## v1.233.0 — which assignment refusals are permission denials (task 7363)
+
+- `capability/paperclip/assignment-permission` exports `PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS` (`recipient_blocked`, `no_permission`, `recipient_not_in_list`, `recipient_not_in_branch`), the type `PaperclipAssignmentPermissionDenial` and the never-throwing predicate `isPaperclipAssignmentPermissionDenial(refusal: unknown)`. The other six refusals are wrong facts the bridge does not judge.
+- Additive: no existing value changes. Consumers: ec-x9/7368 (adoption) and 7369 (use, replacing the hand-copied codes in `seat-peers.ts`). No stored data changes. Import-weight caps remeasured (7362).
+
+## v1.232.0 — native Paperclip assignment permissions (task 7355)
+
+- New narrow module `capability/paperclip/assignment-permission`: strict `PaperclipAssignmentPermissionSchema` (none, broad, list, branch, list_and_branch), `PaperclipAssignmentOrganizationSchema` and `PaperclipAssignmentFactsSchema`.
+- Pure `decideAssignmentByPermission(facts: unknown)` decides from permission, explicit identities, organization and recipient protection only, with closed bases and refusals. Combined scopes require both the list and branch; branches include their roots and at most 50 parent edges. Blocked recipients refuse even broad grants; open recipients need no grant.
+- Deliberately rejects cycles, unsupported scope keys, project scopes and missing recipient ancestors. The existing assignment matrix and decision are unchanged. Consumers: ec-x9/7357 (adoption), 7351 and 7356 (use). Additive; no stored data or runtime behavior changes until adoption by X9.
+
+## v1.231.0 — generic executor job and the capability queue channel (tasks 3613-3614)
+
+- `capability/dev`: `DevGenericJobSchema`, `DevGenericJobResultSchema`, `DEV_GENERIC_JOB_TOOLS` (`mlx_whisper`, `claude_p`), `DEV_GENERIC_INPUT_MAX_BYTES` / `DEV_GENERIC_OUTPUT_MAX_BYTES`, `devGenericResultMatchesJob`, plus the channel schemas (claim, heartbeat, complete) and `selectDevGenericClaim`.
+- `http` (`endpoints`): the device-signed `claimDevGenericJobContract`, `heartbeatDevGenericJobContract` and `completeDevGenericJobContract` of `/connect/generic-jobs`.
+- Additive; no stored data changes: development and design jobs, the session assignment and the signed command v2 are unchanged.
+- Consumers: agent-x9 `tools/esecutore-laptop`, `services/esecutore-sessioni`, cap-dev and the capability that owns the queue (social listening).
 
 ## v1.230.0 — who may give an assignment to whom, by role; the Lab starts research itself (task 7304)
 

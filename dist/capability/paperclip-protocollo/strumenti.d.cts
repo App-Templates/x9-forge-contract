@@ -67,6 +67,32 @@ export declare const PcpLeggiUscitaSchema: z.ZodObject<{
             identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             assigneeAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
         }, z.core.$loose>>>;
+        identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        companyId: z.ZodOptional<z.ZodGUID>;
+        priority: z.ZodOptional<z.ZodEnum<{
+            low: "low";
+            medium: "medium";
+            high: "high";
+            critical: "critical";
+        }>>;
+        createdByAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+        executionRunId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+        blocks: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodGUID;
+            status: z.ZodEnum<{
+                cancelled: "cancelled";
+                done: "done";
+                blocked: "blocked";
+                backlog: "backlog";
+                todo: "todo";
+                in_progress: "in_progress";
+                in_review: "in_review";
+            }>;
+            title: z.ZodOptional<z.ZodString>;
+            identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            assigneeAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+        }, z.core.$loose>>>;
+        updatedAt: z.ZodOptional<z.ZodString>;
     }, z.core.$loose>;
     commenti: z.ZodArray<z.ZodObject<{
         id: z.ZodGUID;
@@ -113,6 +139,7 @@ export declare const PAPERCLIP_PROTOCOLLO_ERRORI: readonly ["feature_off", "turn
 export declare const PaperclipProtocolloErroreSchema: z.ZodEnum<{
     credential_missing: "credential_missing";
     identity_mismatch: "identity_mismatch";
+    risposta_non_valida: "risposta_non_valida";
     feature_off: "feature_off";
     turno_assente: "turno_assente";
     incarico_non_preso: "incarico_non_preso";
@@ -120,7 +147,6 @@ export declare const PaperclipProtocolloErroreSchema: z.ZodEnum<{
     conflitto_proprietario: "conflitto_proprietario";
     non_autorizzato: "non_autorizzato";
     non_trovato: "non_trovato";
-    risposta_non_valida: "risposta_non_valida";
     errore_paperclip: "errore_paperclip";
 }>;
 export type PcpPrendiIngresso = z.infer<typeof PcpPrendiIngressoSchema>;

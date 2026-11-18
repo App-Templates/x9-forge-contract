@@ -47,12 +47,12 @@ export declare const VoicePrepareCallResponseSchema: z.ZodObject<{
         notes: z.ZodOptional<z.ZodString>;
         intent: z.ZodOptional<z.ZodEnum<{
             social: "social";
+            other: "other";
             reminder: "reminder";
             information: "information";
             sales: "sales";
             legal: "legal";
             logistics: "logistics";
-            other: "other";
         }>>;
         memory_context: z.ZodOptional<z.ZodString>;
         relationship_context: z.ZodOptional<z.ZodString>;
@@ -83,12 +83,12 @@ export declare const VoicePrepareCallResponseSchema: z.ZodObject<{
     }, z.core.$strip>;
     intent: z.ZodEnum<{
         social: "social";
+        other: "other";
         reminder: "reminder";
         information: "information";
         sales: "sales";
         legal: "legal";
         logistics: "logistics";
-        other: "other";
     }>;
     intent_confidence: z.ZodOptional<z.ZodNumber>;
     provenance: z.ZodArray<z.ZodObject<{

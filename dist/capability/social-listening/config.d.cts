@@ -12,8 +12,8 @@ export declare const SocialListeningAgentConfigSchema: z.ZodObject<{
     version: z.ZodNumber;
     round: z.ZodObject<{
         runsOn: z.ZodEnum<{
-            mac: "mac";
             server: "server";
+            mac: "mac";
         }>;
         localTime: z.ZodString;
         timezone: z.ZodString;

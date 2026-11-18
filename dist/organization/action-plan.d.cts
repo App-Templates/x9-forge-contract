@@ -530,6 +530,7 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         choices: z.ZodArray<z.ZodString>;
         discardedAlternatives: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
+    risks: z.ZodArray<z.ZodString>;
     dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
         slug: z.ZodString;
         version: z.ZodNumber;
@@ -660,7 +661,6 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         format: z.ZodString;
         key: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
-    risks: z.ZodArray<z.ZodString>;
     assumptions: z.ZodArray<z.ZodString>;
     missingMaterials: z.ZodArray<z.ZodObject<{
         what: z.ZodString;
@@ -761,6 +761,7 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         choices: z.ZodArray<z.ZodString>;
         discardedAlternatives: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
+    risks: z.ZodArray<z.ZodString>;
     dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
         slug: z.ZodString;
         version: z.ZodNumber;
@@ -891,7 +892,6 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         format: z.ZodString;
         key: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
-    risks: z.ZodArray<z.ZodString>;
     assumptions: z.ZodArray<z.ZodString>;
     missingMaterials: z.ZodArray<z.ZodObject<{
         what: z.ZodString;

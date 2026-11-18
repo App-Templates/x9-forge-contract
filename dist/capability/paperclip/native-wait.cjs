@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PAPERCLIP_WAIT_REFUSALS = exports.PaperclipWaitingForSchema = exports.PaperclipWaitUnblockerSchema = exports.PAPERCLIP_WAIT_UNBLOCKERS = exports.PaperclipWaitsOnSchema = exports.PaperclipWaitRefSchema = exports.PAPERCLIP_WAIT_REF_KINDS = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_MONITOR_EXHAUSTED_TEXT = exports.PAPERCLIP_MONITOR_RECOVERY_POLICIES = exports.PaperclipFollowUpSchema = exports.PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.PAPERCLIP_ASK_REFUSALS = exports.PaperclipNativeCreateIssueAgentInputSchema = exports.PaperclipNativeAssignAgentRefInputSchema = exports.PaperclipNativeAssignAgentInputSchema = exports.PaperclipNativeReviewAddressedInputSchema = exports.PaperclipAddressedAskSchema = exports.PAPERCLIP_ASK_TARGETS = exports.PAPERCLIP_ASK_DECLARED_CHOICES = exports.PaperclipConfirmationResultSchema = exports.PaperclipQuestionResultSchema = exports.PaperclipInteractionReadSchema = exports.PaperclipResolverPolicyReadSchema = exports.PaperclipResolverPolicySchema = exports.PaperclipContinuationPolicySchema = exports.PaperclipInteractionStatusSchema = exports.PaperclipInteractionKindSchema = exports.PAPERCLIP_CONFIRMATION_OUTCOMES = exports.PAPERCLIP_QUESTION_EXPIRATION_REASONS = exports.PAPERCLIP_QUESTION_OUTCOMES = exports.PAPERCLIP_RESOLVER_POLICY_ALIASES = exports.PAPERCLIP_RESOLVER_POLICIES = exports.PAPERCLIP_CONTINUATION_POLICIES = exports.PAPERCLIP_INTERACTION_STATUSES = exports.PAPERCLIP_INTERACTION_CREATABLE_KINDS = exports.PAPERCLIP_INTERACTION_KINDS = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PAPERCLIP_WAIT_REFUSALS = exports.PaperclipWaitingForSchema = exports.PaperclipWaitUnblockerSchema = exports.PAPERCLIP_WAIT_UNBLOCKERS = exports.PaperclipWaitsOnSchema = exports.PaperclipWaitRefSchema = exports.PAPERCLIP_WAIT_REF_KINDS = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_MONITOR_EXHAUSTED_TEXT = exports.PAPERCLIP_MONITOR_RECOVERY_POLICIES = exports.PaperclipFollowUpSchema = exports.PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipConfermaConPoliticheCorpoSchema = exports.PaperclipAskPersonInteractionBodySchema = void 0;
 exports.paperclipMonitorBounds = paperclipMonitorBounds;
 exports.isPaperclipMonitorExhausted = isPaperclipMonitorExhausted;
 exports.paperclipWaitRefKey = paperclipWaitRefKey;
@@ -8,9 +9,14 @@ exports.paperclipUnblockDescriptor = paperclipUnblockDescriptor;
 exports.paperclipAskIdempotencyKey = paperclipAskIdempotencyKey;
 exports.paperclipAskInteractionBody = paperclipAskInteractionBody;
 exports.paperclipAnswerInteractionBody = paperclipAnswerInteractionBody;
+exports.paperclipNormalizeResolverPolicy = paperclipNormalizeResolverPolicy;
+exports.decidePaperclipAsk = decidePaperclipAsk;
+exports.paperclipAskPersonIdempotencyKey = paperclipAskPersonIdempotencyKey;
+exports.paperclipAskPersonInteractionBody = paperclipAskPersonInteractionBody;
 const zod_1 = require("zod");
 const decision_request_js_1 = require("../../organization/decision-request.cjs");
 const research_js_1 = require("../ricerca/research.cjs");
+const wire_scritture_js_1 = require("../paperclip-protocollo/wire-scritture.cjs");
 const tools_js_1 = require("./tools.cjs");
 /**
  * Native waits of the P6 «C» variant (PROTOCOLLO-PAPERCLIP-P6.md): what a task waits for is declared to Paperclip, never
@@ -122,13 +128,13 @@ exports.PaperclipAskSchema = zod_1.z.strictObject({ roleRef: Text.max(120), ques
  * check lives in review, not in a tool of its own, because a new write tool needs a policy decision of the agent
  * (agent-core asks a human for unknown writes) while review is already granted to every Paperclip agent.
  */
-exports.PaperclipNativeReviewInputSchema = tools_js_1.PaperclipReviewInputSchema.extend({
+const NativeReviewBase = tools_js_1.PaperclipReviewInputSchema.extend({
     status: zod_1.z.enum(['in_review', 'done', 'blocked', 'in_progress']),
     blockedByIssueIds: IssueIds.optional(),
     waitingFor: exports.PaperclipWaitingForSchema.optional(),
     checkLater: exports.PaperclipCheckLaterSchema.optional(),
-    ask: exports.PaperclipAskSchema.optional(),
-}).superRefine((value, ctx) => {
+});
+function checkNativeReview(value, ctx) {
     if (value.ask !== undefined && (value.status !== 'in_review' || value.blockedByIssueIds !== undefined
         || value.waitingFor !== undefined || value.checkLater !== undefined)) {
         ctx.addIssue({ code: 'custom', path: ['ask'], message: 'ask requires status in_review and no other wait' });
@@ -142,7 +148,9 @@ exports.PaperclipNativeReviewInputSchema = tools_js_1.PaperclipReviewInputSchema
     if (value.blockedByIssueIds?.includes(value.issueId) === true) {
         ctx.addIssue({ code: 'custom', path: ['blockedByIssueIds'], message: 'A task cannot wait for itself' });
     }
-});
+}
+exports.PaperclipNativeReviewInputSchema = NativeReviewBase.extend({ ask: exports.PaperclipAskSchema.optional() })
+    .superRefine(checkNativeReview);
 /** `paperclip_create_issue` that also declares the wait: the parent stays blocked until this child is done. */
 exports.PaperclipNativeCreateIssueInputSchema = tools_js_1.PaperclipCreateIssueInputSchema.extend({
     waitForChild: zod_1.z.boolean().optional(),
@@ -163,32 +171,34 @@ function requireAnswerText(value, ctx) {
 exports.PaperclipNativeAssignInputSchema = tools_js_1.PaperclipAssignInputSchema.extend(AnswerFields).superRefine(requireAnswerText);
 exports.PaperclipNativeAssignRefInputSchema = tools_js_1.PaperclipAssignRefInputSchema.extend(AnswerFields).superRefine(requireAnswerText);
 const AskPrompt = Text.max(exports.PAPERCLIP_ASK_QUESTION_MAX);
+const AskPayload = zod_1.z.strictObject({
+    version: zod_1.z.literal(1),
+    questionSet: zod_1.z.strictObject({
+        schema: zod_1.z.literal('paperclip.question_set.v1'),
+        questions: zod_1.z.tuple([zod_1.z.strictObject({
+                id: zod_1.z.literal(exports.PAPERCLIP_ASK_QUESTION_ID), prompt: AskPrompt, answerMode: zod_1.z.literal('text'), required: zod_1.z.literal(true),
+            })]),
+    }),
+    questions: zod_1.z.tuple([zod_1.z.strictObject({
+            id: zod_1.z.literal(exports.PAPERCLIP_ASK_QUESTION_ID), prompt: AskPrompt, selectionMode: zod_1.z.literal('single'), required: zod_1.z.literal(true),
+            options: zod_1.z.tuple([zod_1.z.strictObject({ id: zod_1.z.literal('text'), label: zod_1.z.string().min(1).max(120), freeText: zod_1.z.literal(true) })]),
+        })]),
+});
+function requireSamePrompt(value, ctx) {
+    const [set] = value.payload.questionSet.questions;
+    const [view] = value.payload.questions;
+    if (set.prompt !== view.prompt) {
+        ctx.addIssue({ code: 'custom', path: ['payload', 'questions', 0, 'prompt'], message: 'The two views must carry the same prompt' });
+    }
+}
 /** Creation body of `POST /issues/:id/interactions` (kind ask_user_questions) with an addressee and no resolverPolicy. */
 exports.PaperclipAskInteractionBodySchema = zod_1.z.strictObject({
     kind: zod_1.z.literal('ask_user_questions'),
     idempotencyKey: zod_1.z.string().min(1).max(ASK_IDEMPOTENCY_KEY_MAX),
     addresseeAgentId: zod_1.z.uuid(),
     continuationPolicy: zod_1.z.literal('wake_assignee'),
-    payload: zod_1.z.strictObject({
-        version: zod_1.z.literal(1),
-        questionSet: zod_1.z.strictObject({
-            schema: zod_1.z.literal('paperclip.question_set.v1'),
-            questions: zod_1.z.tuple([zod_1.z.strictObject({
-                    id: zod_1.z.literal(exports.PAPERCLIP_ASK_QUESTION_ID), prompt: AskPrompt, answerMode: zod_1.z.literal('text'), required: zod_1.z.literal(true),
-                })]),
-        }),
-        questions: zod_1.z.tuple([zod_1.z.strictObject({
-                id: zod_1.z.literal(exports.PAPERCLIP_ASK_QUESTION_ID), prompt: AskPrompt, selectionMode: zod_1.z.literal('single'), required: zod_1.z.literal(true),
-                options: zod_1.z.tuple([zod_1.z.strictObject({ id: zod_1.z.literal('text'), label: zod_1.z.string().min(1).max(120), freeText: zod_1.z.literal(true) })]),
-            })]),
-    }),
-}).superRefine((value, ctx) => {
-    const [set] = value.payload.questionSet.questions;
-    const [view] = value.payload.questions;
-    if (set.prompt !== view.prompt) {
-        ctx.addIssue({ code: 'custom', path: ['payload', 'questions', 0, 'prompt'], message: 'The two views must carry the same prompt' });
-    }
-});
+    payload: AskPayload,
+}).superRefine(requireSamePrompt);
 /** Body of `POST /issues/:id/interactions/:interactionId/respond` for that question: free text, no option. */
 exports.PaperclipAnswerInteractionBodySchema = zod_1.z.strictObject({
     answers: zod_1.z.tuple([zod_1.z.strictObject({
@@ -219,6 +229,128 @@ function paperclipAnswerInteractionBody(text) {
         answers: [{ questionId: exports.PAPERCLIP_ASK_QUESTION_ID, optionIds: [], otherText: text.trim() }],
     });
 }
+/**
+ * Closed vocabularies of the Paperclip interactions (cards in the issue thread). Source: Paperclip
+ * packages/shared/src/constants.ts:259-267 (kinds), 269-294 (resolver policies), 331-348 (statuses, continuation policies) and
+ * packages/shared/src/validators/issue.ts:1223-1227, 1448-1459, 1699-1711, 1866-1876 (outcomes). A value Paperclip adds later
+ * fails a read here, loudly, instead of being read as something else.
+ */
+exports.PAPERCLIP_INTERACTION_KINDS = [
+    'suggest_tasks', 'ask_user_questions', 'request_confirmation', 'request_checkbox_confirmation', 'request_item_verdicts', 'connection_intent',
+];
+/** The five kinds `POST /issues/:id/interactions` creates: `connection_intent` is made by the server only (validators/issue.ts:1944-2010). */
+exports.PAPERCLIP_INTERACTION_CREATABLE_KINDS = [
+    'suggest_tasks', 'ask_user_questions', 'request_confirmation', 'request_checkbox_confirmation', 'request_item_verdicts',
+];
+exports.PAPERCLIP_INTERACTION_STATUSES = ['pending', 'accepted', 'rejected', 'answered', 'cancelled', 'expired', 'failed'];
+exports.PAPERCLIP_CONTINUATION_POLICIES = ['none', 'wake_assignee', 'wake_assignee_on_accept'];
+/** Who may resolve a card. `anyone` is the default (the creating run included); `human_only` keeps agents out. */
+exports.PAPERCLIP_RESOLVER_POLICIES = ['anyone', 'not_creator', 'human_only'];
+/** Write-compatible aliases of one migration window (constants.ts:277-285): read them, never write them. */
+exports.PAPERCLIP_RESOLVER_POLICY_ALIASES = ['board_or_agents', 'board_only'];
+exports.PAPERCLIP_QUESTION_OUTCOMES = ['skipped', 'withdrawn', 'issue_closed', 'addressee_deleted'];
+exports.PAPERCLIP_QUESTION_EXPIRATION_REASONS = ['superseded_by_comment', 'superseded_by_newer_interaction'];
+exports.PAPERCLIP_CONFIRMATION_OUTCOMES = [
+    'accepted', 'rejected', 'superseded_by_comment', 'superseded_by_newer_request', 'stale_target', 'skipped', 'withdrawn', 'issue_closed',
+    'addressee_deleted',
+];
+exports.PaperclipInteractionKindSchema = zod_1.z.enum(exports.PAPERCLIP_INTERACTION_KINDS);
+exports.PaperclipInteractionStatusSchema = zod_1.z.enum(exports.PAPERCLIP_INTERACTION_STATUSES);
+exports.PaperclipContinuationPolicySchema = zod_1.z.enum(exports.PAPERCLIP_CONTINUATION_POLICIES);
+exports.PaperclipResolverPolicySchema = zod_1.z.enum(exports.PAPERCLIP_RESOLVER_POLICIES);
+exports.PaperclipResolverPolicyReadSchema = zod_1.z.enum([...exports.PAPERCLIP_RESOLVER_POLICIES, ...exports.PAPERCLIP_RESOLVER_POLICY_ALIASES]);
+/** Paperclip normalizes the two aliases (constants.ts:296-302); the ponte does the same when it reads a card. */
+function paperclipNormalizeResolverPolicy(policy) {
+    return policy === 'board_or_agents' ? 'anyone' : policy === 'board_only' ? 'human_only' : policy;
+}
+/** A card as Paperclip returns it, read tolerantly: the kind and the status are closed, the rest passes. */
+exports.PaperclipInteractionReadSchema = zod_1.z.looseObject({
+    id: zod_1.z.guid(), kind: exports.PaperclipInteractionKindSchema, status: exports.PaperclipInteractionStatusSchema,
+    addresseeAgentId: tools_js_1.PaperclipAgentIdSchema.nullish(),
+});
+exports.PaperclipQuestionResultSchema = zod_1.z.looseObject({
+    outcome: zod_1.z.enum(exports.PAPERCLIP_QUESTION_OUTCOMES).optional(), expirationReason: zod_1.z.enum(exports.PAPERCLIP_QUESTION_EXPIRATION_REASONS).optional(),
+});
+exports.PaperclipConfirmationResultSchema = zod_1.z.looseObject({ outcome: zod_1.z.enum(exports.PAPERCLIP_CONFIRMATION_OUTCOMES) });
+/**
+ * Where the question card of the bridge is narrower than Paperclip's `ask_user_questions` (validators/issue.ts:1251, 1270, 1371, 1390),
+ * declared: one free-text question per card, and a prompt of at most 2000 characters where Paperclip takes 4000 (the bridge asks one thing at a time).
+ */
+exports.PAPERCLIP_ASK_DECLARED_CHOICES = {
+    questionsPerCard: { ours: 1, paperclip: 64 },
+    promptMax: { ours: exports.PAPERCLIP_ASK_QUESTION_MAX, paperclip: 4000 },
+};
+/**
+ * Who a question is put to, with the recipient as an id: `agent` (the card is addressed to that agent, Paperclip wakes it with
+ * `interaction_pending`, no `resolverPolicy`: SKILL.md:169,602) or `person` (a human answers: `resolverPolicy: human_only`, nobody is
+ * named, the card stays open to the eligible humans; `addresseeUserId` is not offered because the stack has no exact Paperclip user id,
+ * api-reference.md:927-928). `PaperclipAskSchema.roleRef` is deprecated.
+ */
+exports.PAPERCLIP_ASK_TARGETS = ['agent', 'person'];
+exports.PaperclipAddressedAskSchema = zod_1.z.discriminatedUnion('to', [
+    zod_1.z.strictObject({ to: zod_1.z.literal('agent'), addresseeAgentId: tools_js_1.PaperclipAgentIdSchema, question: AskPrompt }),
+    zod_1.z.strictObject({ to: zod_1.z.literal('person'), question: AskPrompt }),
+]);
+/** `paperclip_review` that asks an agent or a person with the recipient as an id; same waits and same checks as the native review. */
+exports.PaperclipNativeReviewAddressedInputSchema = NativeReviewBase.extend({ ask: exports.PaperclipAddressedAskSchema.optional() })
+    .superRefine(checkNativeReview);
+/** `paperclip_assign` by id that can also answer a question put to the assignee. */
+exports.PaperclipNativeAssignAgentInputSchema = tools_js_1.PaperclipAssignAgentInputSchema.extend(AnswerFields).superRefine(requireAnswerText);
+exports.PaperclipNativeAssignAgentRefInputSchema = tools_js_1.PaperclipAssignAgentRefInputSchema.extend(AnswerFields).superRefine(requireAnswerText);
+/** `paperclip_create_issue` by id that also declares the wait: the parent stays blocked until the child is done. */
+exports.PaperclipNativeCreateIssueAgentInputSchema = tools_js_1.PaperclipCreateIssueAgentInputSchema.extend({
+    waitForChild: zod_1.z.boolean().optional(),
+}).superRefine((value, ctx) => {
+    if (value.waitForChild === true && (value.parentIssueId === undefined || value.assigneeAgentId === undefined)) {
+        ctx.addIssue({ code: 'custom', path: ['waitForChild'], message: 'Waiting for a child requires parentIssueId and assigneeAgentId' });
+    }
+});
+/** Paperclip refuses an interaction an agent addresses to itself (422, services/issue-thread-interactions.ts:3384-3388). */
+exports.PAPERCLIP_ASK_REFUSALS = ['ask_to_self'];
+function decidePaperclipAsk(selfAgentId, ask) {
+    return ask.to === 'agent' && ask.addresseeAgentId === selfAgentId ? { ok: false, refusal: 'ask_to_self' } : { ok: true };
+}
+/**
+ * Creation body of `POST /issues/:id/interactions` (kind ask_user_questions) for a PERSON: `resolverPolicy: human_only`,
+ * `continuationPolicy: wake_assignee`, no addressee (api-reference.md:994-1002). The task then goes `in_review`, unchanged assignee,
+ * after the card is verified `pending`; never a blocker with owner `user` or `board`.
+ */
+exports.PaperclipAskPersonInteractionBodySchema = zod_1.z.strictObject({
+    kind: zod_1.z.literal('ask_user_questions'),
+    idempotencyKey: zod_1.z.string().min(1).max(ASK_IDEMPOTENCY_KEY_MAX),
+    title: zod_1.z.string().trim().min(1).max(240).optional(),
+    resolverPolicy: zod_1.z.literal('human_only'),
+    continuationPolicy: zod_1.z.literal('wake_assignee'),
+    payload: AskPayload,
+}).superRefine(requireSamePrompt);
+/** `ask-person:<issueId>:<callId>`, at most 255 characters (throws beyond). */
+function paperclipAskPersonIdempotencyKey(issueId, callId) {
+    const key = `ask-person:${issueId}:${callId}`;
+    if (key.length > ASK_IDEMPOTENCY_KEY_MAX)
+        throw new Error('Ask idempotency key longer than 255 characters');
+    return key;
+}
+function paperclipAskPersonInteractionBody(input) {
+    return exports.PaperclipAskPersonInteractionBodySchema.parse({
+        kind: 'ask_user_questions', idempotencyKey: input.idempotencyKey, ...(input.title === undefined ? {} : { title: input.title }),
+        resolverPolicy: 'human_only', continuationPolicy: 'wake_assignee',
+        payload: {
+            version: 1,
+            questionSet: { schema: 'paperclip.question_set.v1', questions: [{ id: exports.PAPERCLIP_ASK_QUESTION_ID, prompt: input.question, answerMode: 'text', required: true }] },
+            questions: [{ id: exports.PAPERCLIP_ASK_QUESTION_ID, prompt: input.question, selectionMode: 'single', required: true,
+                    options: [{ id: 'text', label: 'Risposta', freeText: true }] }],
+        },
+    });
+}
+/**
+ * The plan confirmation with the two policies Paperclip lets the creator choose. The default stays what it is today (no field:
+ * `continuationPolicy: none`, `resolverPolicy: anyone`); `wake_assignee_on_accept` makes Paperclip wake the assignee when the
+ * plan is accepted, which today nothing does (routes/issues.ts:2595-2602). Choosing it is an adoption decision, not made here.
+ */
+exports.PaperclipConfermaConPoliticheCorpoSchema = wire_scritture_js_1.PaperclipConfermaCorpoSchema.extend({
+    resolverPolicy: exports.PaperclipResolverPolicySchema.optional(),
+    continuationPolicy: exports.PaperclipContinuationPolicySchema.optional(),
+});
 /** One-shot Paperclip monitor on a task the agent owns, for an async job it will check later (no recurring interval). */
 exports.PaperclipCheckLaterInputSchema = zod_1.z.strictObject({
     issueId: zod_1.z.uuid(),

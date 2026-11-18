@@ -18,6 +18,18 @@ export declare const PaperclipCommunicationChannelSchema: z.ZodEnum<{
 export type PaperclipCommunicationChannel = z.infer<typeof PaperclipCommunicationChannelSchema>;
 type PaperclipToolName = (typeof PAPERCLIP_TOOLS)[keyof typeof PAPERCLIP_TOOLS];
 export declare const PAPERCLIP_CHANNEL_TOOLS: Record<PaperclipCommunicationChannel, readonly PaperclipToolName[]>;
+/**
+ * How files and proofs travel between agents: always inside the issue, never on a channel of our own. A path on the
+ * agent's disk is not enough because reviewers cannot see it (Paperclip doc/AGENT-ARTIFACTS.md:3-6,59-65; skills/paperclip/
+ * SKILL.md:201). The two ways are an attachment of the issue and a work product of the issue; the seven processes above
+ * are untouched.
+ */
+export declare const PAPERCLIP_DELIVERY_CHANNELS: readonly ["attachment", "work_product"];
+export declare const PaperclipDeliveryChannelSchema: z.ZodEnum<{
+    attachment: "attachment";
+    work_product: "work_product";
+}>;
+export type PaperclipDeliveryChannel = z.infer<typeof PaperclipDeliveryChannelSchema>;
 /** The section as lines: first person, plain Italian. Tool names are interpolated from PAPERCLIP_TOOLS only. */
 export declare function communicationSectionLines(): readonly string[];
 export declare function communicationSection(): string;
