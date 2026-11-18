@@ -7,3 +7,4 @@ export * from './turno.js';
 export * from './agenti.js';
 export * from './strumenti.js';
 export * from './stati.js';
+export * from './corsa.js';
