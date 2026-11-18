@@ -1,6 +1,7 @@
 export * from './wire-letture.js';
 export * from './wire-scritture.js';
 export * from './wire-creazione.js';
+export * from './wire-commento.js';
 export * from './percorsi.js';
 export * from './turno.js';
 export * from './agenti.js';
