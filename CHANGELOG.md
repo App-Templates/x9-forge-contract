@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.266.0 — optimized social round rules (task 3675)
+
+- `capability/social-listening`: `socialTopicTitleIssue` and `socialGroupResultIssues` check the informative short title and the controlled grouping against the work.
+- `SocialVerifiedFactSchema`, `socialFactKey` and `socialFactFresh`: memory of already verified facts.
+- `socialCostPerPost`: cost per post seen.
+- Optional `knownFacts` on the `verify` job input.
+- Additive; no stored data changes.
+
 ## v1.265.0 — social listening pieces: creators rank, favorites, topic actions, typed agent config (tasks 3643-3648)
 
 - `capability/social-listening`: creators rank tool `social_creators_rank` (3643).

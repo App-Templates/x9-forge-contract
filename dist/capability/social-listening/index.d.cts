@@ -17,6 +17,8 @@ export * from "./config-ordinary.cjs";
 export * from "./import.cjs";
 export * from "./import-analysis.cjs";
 export * from "./job-io.cjs";
+export * from "./group.cjs";
+export * from "./fact-memory.cjs";
 export * from "./routes.cjs";
 export * from "./cap.cjs";
 export * from "./handover.cjs";

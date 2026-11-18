@@ -15,6 +15,10 @@ export declare const SocialJobInputSchema: z.ZodDiscriminatedUnion<[z.ZodObject<
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"verify">;
     topicId: z.ZodString;
+    knownFacts: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        text: z.ZodString;
+        sourceUrls: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"group">;
     verticalId: z.ZodString;

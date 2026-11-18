@@ -7,6 +7,7 @@ const research_js_1 = require("../ricerca/research.cjs");
 const post_js_1 = require("./post.cjs");
 const queue_js_1 = require("./queue.cjs");
 const topic_js_1 = require("./topic.cjs");
+const verdict_js_1 = require("./verdict.cjs");
 const kinds = queue_js_1.SocialJobKindSchema.enum;
 const topic = topic_js_1.SocialTopicSchema.shape;
 /** Lightweight references only. The queue job, never the executor, supplies identity. */
@@ -28,6 +29,8 @@ exports.SocialJobInputSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.object({
         kind: zod_1.z.literal(kinds.verify),
         topicId: topic.topicId,
+        /** Facts already verified that the executor must not pay for again. */
+        knownFacts: zod_1.z.array(verdict_js_1.SocialFactSchema).max(20).optional(),
     }).strict(),
     zod_1.z.object({
         kind: zod_1.z.literal(kinds.group),

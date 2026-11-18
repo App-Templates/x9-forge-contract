@@ -89,8 +89,8 @@ export type InternalMemoryRecallBundleRequest = z.infer<typeof InternalMemoryRec
 export declare const RecallBundleEntrySchema: z.ZodObject<{
     id: z.ZodString;
     resultType: z.ZodEnum<{
-        episode: "episode";
         fact: "fact";
+        episode: "episode";
         edge: "edge";
     }>;
     score: z.ZodNumber;
@@ -130,8 +130,8 @@ export declare const InternalMemoryRecallBundleResponseSchema: z.ZodObject<{
     entries: z.ZodArray<z.ZodObject<{
         id: z.ZodString;
         resultType: z.ZodEnum<{
-            episode: "episode";
             fact: "fact";
+            episode: "episode";
             edge: "edge";
         }>;
         score: z.ZodNumber;
@@ -321,8 +321,8 @@ export declare const internalMemoryRecallBundleContract: {
         entries: z.ZodArray<z.ZodObject<{
             id: z.ZodString;
             resultType: z.ZodEnum<{
-                episode: "episode";
                 fact: "fact";
+                episode: "episode";
                 edge: "edge";
             }>;
             score: z.ZodNumber;

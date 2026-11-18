@@ -29,9 +29,12 @@ console.log(ok ? 'OK' : 'KO');
 `;
 
 describe('s3649 social-listening 1.265.0 in the built package', () => {
-  it('s3649 (a) package.json has version 1.265.0', () => {
+  it('s3649 (a) package.json has a version in the 1.265.0-1.269.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toBe('1.265.0');
+    const [maggiore, minore] = pkg.version.split('.').map(Number);
+    expect(maggiore).toBe(1);
+    expect(minore).toBeGreaterThanOrEqual(265);
+    expect(minore).toBeLessThanOrEqual(269);
   });
 
   it('s3649 (b) the new symbols import from ESM', () => {
@@ -46,9 +49,10 @@ ${PROVA.replace('SPEC', `require('${SUB}')`)}`;
     expect(node(script)).toBe('OK');
   });
 
-  it('s3649 (c) the narrow imports map carries version 1.265.0', () => {
+  it('s3649 (c) the narrow imports map carries the package.json version', () => {
     const mappa = JSON.parse(readFileSync(resolve(radice, 'dist/narrow-imports.json'), 'utf8')) as Record<string, unknown>;
-    expect(mappa.versione).toBe('1.265.0');
+    const pkg = JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string };
+    expect(mappa.versione).toBe(pkg.version);
   });
 
   it('s3649 (d) the CHANGELOG has v1.265.0 above v1.264.0 and names the symbols', () => {
