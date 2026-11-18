@@ -13,3 +13,4 @@ export * from './wire-approvazioni.js';
 export * from './riferimenti.js';
 export * from './wire-allegati.js';
 export * from './wire-sveglie.js';
+export * from './wire-prodotti.js';

@@ -190,4 +190,12 @@ export const paperclipPercorsi = {
   allegato(attachmentId: string): string {
     return `/api/attachments/${z.guid().parse(attachmentId)}`;
   },
+
+  // 7418. Paperclip routes/issues.ts:9578 e :10627 (GET/POST), :11052 e :11149 (PATCH/DELETE).
+  prodottiLavoro(issueId: string): string {
+    return `/api/issues/${z.guid().parse(issueId)}/work-products`;
+  },
+  prodottoLavoro(workProductId: string): string {
+    return `/api/work-products/${z.guid().parse(workProductId)}`;
+  },
 };
