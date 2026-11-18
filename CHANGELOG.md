@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.237.0 — The channels text says how files and proofs travel (attachment, work product) and how a closed issue is reopened (task 7421)
+
+- Delivery channels: `PAPERCLIP_DELIVERY_CHANNELS`, `PaperclipDeliveryChannelSchema`, `PaperclipDeliveryChannel` and the new lines of `communicationSectionLines()` (7421).
+- Additive; the text of the section «Come si comunica» changes for every profile that imports it, once the consumer moves its pin of the bridge; no stored data changes. Consumers: the Forge profiles that import `communicationSection()`.
+
 ## v1.236.0 — Paperclip contracts for the role-to-id translation, the issue view, addressed questions, the status-only wake, wake reasons, the wake context, attachments, manual wakes, work products and the cause of a failed run (tasks 7410-7419)
 
 - Role-to-id translation: `paperclipDestinatarioPerRuolo` (7410).

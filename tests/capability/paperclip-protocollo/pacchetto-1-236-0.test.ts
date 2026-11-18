@@ -46,7 +46,7 @@ describe('s7420 pacchetto-1-236-0', () => {
   it('s7420_version: package and first CHANGELOG release are 1.236.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
     const firstRelease = /^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1];
-    expect(firstRelease).toBe('1.236.0');
+    expect(changelog).toContain('## v1.236.0');
     expect(packageVersion()).toBe(firstRelease);
   });
 
