@@ -174,4 +174,20 @@ export const paperclipPercorsi = {
   approvazioni(companyId: string): string {
     return `/api/companies/${z.guid().parse(companyId)}/approvals`;
   },
+
+  // 7416: Paperclip routes/issues.ts:18359-18461 (POST/GET), :18536-18622 (content), :18628 (DELETE).
+  allegati(companyId: string, issueId: string): string {
+    return `/api/companies/${z.guid().parse(companyId)}/issues/${z.guid().parse(issueId)}/attachments`;
+  },
+  allegatiIncarico(issueId: string): string {
+    return `/api/issues/${z.guid().parse(issueId)}/attachments`;
+  },
+  allegatoContenuto(attachmentId: string, scarica = false): string {
+    const path = `/api/attachments/${z.guid().parse(attachmentId)}/content`;
+    return scarica ? `${path}?download=1` : path;
+  },
+  // DELETE only: Paperclip has no GET /api/attachments/:id.
+  allegato(attachmentId: string): string {
+    return `/api/attachments/${z.guid().parse(attachmentId)}`;
+  },
 };
