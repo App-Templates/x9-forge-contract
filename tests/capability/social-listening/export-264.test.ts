@@ -23,9 +23,9 @@ console.log(t === 'Pulizia Android TV' && m.SOCIAL_TOPIC_TITLE_MAX === 31 ? 'OK'
 `;
 
 describe('s3633 social-listening 1.264.0 in the built package', () => {
-  it('s3633 (a) package.json has version 1.264.0', () => {
+  it('s3633 (a) package.json has a version in the 1.264.0-1.269.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toBe('1.264.0');
+    expect(pkg.version).toMatch(/^1\.26[4-9]\.\d+$/);
   });
 
   it('s3633 (b) the short title closes on the last full word from ESM', () => {
@@ -42,7 +42,8 @@ ${PROVA.replace('SPEC', `require('${SUB}')`)}`;
 
   it('s3633 (c) the narrow imports map carries version 1.264.0', () => {
     const mappa = JSON.parse(readFileSync(resolve(radice, 'dist/narrow-imports.json'), 'utf8')) as Record<string, unknown>;
-    expect(mappa.versione).toBe('1.264.0');
+    const pkg = JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string };
+    expect(mappa.versione).toBe(pkg.version);
   });
 
   it('s3633 (d) the CHANGELOG has v1.264.0 above v1.263.0 and names the function', () => {

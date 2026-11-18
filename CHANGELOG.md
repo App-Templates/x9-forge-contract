@@ -2,6 +2,16 @@
 
 ## Non rilasciato
 
+## v1.265.0 — social listening pieces: creators rank, favorites, topic actions, typed agent config (tasks 3643-3648)
+
+- `capability/social-listening`: creators rank tool `social_creators_rank` (3643).
+- Personal favorites tools `social_favorite_add`, `social_favorite_remove`, `social_favorite_list`, with tenant, owner and agent on every row (3644).
+- `social_topic_brief`: prepares the `video_brief_create` request from a topic, with `externalRef: social:<topicId>` (3645).
+- `social_topic_save_wiki`: prepares `lab_ingest` from a topic, only with the owner's explicit yes (3646).
+- `social_topic_research`: prepares `research_start` from a topic with the per-research and per-day caps (3647).
+- `socialListeningConfigFromOrdinary` and `socialListeningOrdinaryWriteIssues`: the agent's `ordinary-v2` configuration becomes the typed round configuration (3648).
+- Additive; no stored data changes. Consumers: agent-x9 `services/cap-social-listening` and forge-v2 (Ascolto page).
+
 ## v1.264.0 — short social topic titles close on the last full word (task 3632)
 
 - `capability/social-listening`: `shortenSocialTopicTitle` drops dangling open brackets, trailing punctuation and trailing linking words, so titles like "Pulizia Android TV da" or "Weight-space programming (MIT C" end on the last full word. `SOCIAL_TOPIC_TITLE_MAX` is unchanged (31).
