@@ -65,3 +65,4 @@ export * from './creators.js';
 export * from './favorites.js';
 export { SocialFactSchema, SocialPostToolSchema, SocialPostAnalysisSchema, type SocialFact, type SocialPostTool, type SocialPostAnalysis } from './verdict.js';
 export * from './video-brief.js';
+export * from './save-wiki.js';
