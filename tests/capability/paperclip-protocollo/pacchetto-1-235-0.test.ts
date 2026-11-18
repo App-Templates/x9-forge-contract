@@ -38,7 +38,7 @@ describe('s7408 pacchetto-1-235-0', () => {
   it('s7408_versione: package.json e prima voce del CHANGELOG sono 1.235.0', () => {
     const changelog = readFileSync(resolve(radice, 'CHANGELOG.md'), 'utf8');
     const prima = /^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1];
-    expect(prima).toBe(VERSIONE);
+    expect(changelog).toContain(`## v${VERSIONE}`);
     expect(versionePacchetto()).toBe(prima);
   });
 

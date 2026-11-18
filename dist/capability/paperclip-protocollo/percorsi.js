@@ -150,5 +150,27 @@ export const paperclipPercorsi = {
     approvazioni(companyId) {
         return `/api/companies/${z.guid().parse(companyId)}/approvals`;
     },
+    // 7416: Paperclip routes/issues.ts:18359-18461 (POST/GET), :18536-18622 (content), :18628 (DELETE).
+    allegati(companyId, issueId) {
+        return `/api/companies/${z.guid().parse(companyId)}/issues/${z.guid().parse(issueId)}/attachments`;
+    },
+    allegatiIncarico(issueId) {
+        return `/api/issues/${z.guid().parse(issueId)}/attachments`;
+    },
+    allegatoContenuto(attachmentId, scarica = false) {
+        const path = `/api/attachments/${z.guid().parse(attachmentId)}/content`;
+        return scarica ? `${path}?download=1` : path;
+    },
+    // DELETE only: Paperclip has no GET /api/attachments/:id.
+    allegato(attachmentId) {
+        return `/api/attachments/${z.guid().parse(attachmentId)}`;
+    },
+    // 7418. Paperclip routes/issues.ts:9578 e :10627 (GET/POST), :11052 e :11149 (PATCH/DELETE).
+    prodottiLavoro(issueId) {
+        return `/api/issues/${z.guid().parse(issueId)}/work-products`;
+    },
+    prodottoLavoro(workProductId) {
+        return `/api/work-products/${z.guid().parse(workProductId)}`;
+    },
 };
 //# sourceMappingURL=percorsi.js.map

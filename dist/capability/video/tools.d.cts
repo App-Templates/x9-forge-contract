@@ -80,10 +80,10 @@ export declare const VideoProjectStepSchema: z.ZodEnum<{
     failed: "failed";
     done: "done";
     queued: "queued";
+    plan: "plan";
     frames: "frames";
     clips: "clips";
     assemble: "assemble";
-    plan: "plan";
     story: "story";
     review_sent: "review_sent";
     delivery_sent: "delivery_sent";
@@ -104,10 +104,10 @@ export declare const VideoScriptReviseResponseSchema: z.ZodObject<{
         failed: "failed";
         done: "done";
         queued: "queued";
+        plan: "plan";
         frames: "frames";
         clips: "clips";
         assemble: "assemble";
-        plan: "plan";
         story: "story";
         review_sent: "review_sent";
         delivery_sent: "delivery_sent";
@@ -131,10 +131,10 @@ export declare const VideoProjectViewSchema: z.ZodObject<{
         failed: "failed";
         done: "done";
         queued: "queued";
+        plan: "plan";
         frames: "frames";
         clips: "clips";
         assemble: "assemble";
-        plan: "plan";
         story: "story";
         review_sent: "review_sent";
         delivery_sent: "delivery_sent";

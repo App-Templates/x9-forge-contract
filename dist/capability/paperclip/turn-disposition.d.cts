@@ -37,11 +37,37 @@ export declare const TurnStopCodeSchema: z.ZodEnum<{
     run_expired: "run_expired";
 }>;
 export type TurnStopCode = z.infer<typeof TurnStopCodeSchema>;
+export declare const TURN_FAILURE_CAUSES: readonly ["turn_failed", "outcome_uncertain", "restart_count_unreadable"];
+export declare const TurnFailureCauseSchema: z.ZodEnum<{
+    turn_failed: "turn_failed";
+    outcome_uncertain: "outcome_uncertain";
+    restart_count_unreadable: "restart_count_unreadable";
+}>;
+export type TurnFailureCause = z.infer<typeof TurnFailureCauseSchema>;
+export declare const TURN_UNAVAILABLE_CAUSES: readonly ["no_response", "response_not_conforming", "error_without_body", "unknown_error_code", "status_mismatch"];
+export declare const TurnUnavailableCauseSchema: z.ZodEnum<{
+    no_response: "no_response";
+    response_not_conforming: "response_not_conforming";
+    error_without_body: "error_without_body";
+    unknown_error_code: "unknown_error_code";
+    status_mismatch: "status_mismatch";
+}>;
+export type TurnUnavailableCause = z.infer<typeof TurnUnavailableCauseSchema>;
 export declare const TURN_DISPOSITION_TEXT: {
+    readonly failedNote: (failureCode: string) => string;
+    readonly uncertainNote: () => string;
+    readonly restartCountNote: () => string;
+    readonly unavailableCause: {
+        no_response: string;
+        response_not_conforming: string;
+        error_without_body: string;
+        unknown_error_code: string;
+        status_mismatch: string;
+    };
     readonly checkNote: (code: OrganizationAdmissionRefusalCode) => string;
     readonly checkNoteWithReason: (code: OrganizationAdmissionRefusalCode, message: string, afterSeconds: number) => string;
     readonly stoppedNote: (code: TurnStopCode) => string;
-    readonly interruptedNote: (afterSeconds: number) => string;
+    readonly interruptedNote: (afterSeconds: number, cause?: TurnUnavailableCause) => string;
     readonly notExecutedComment: () => string;
     readonly unblockAction: (code: OrganizationAdmissionRefusalCode) => string;
 };
@@ -77,6 +103,13 @@ export declare const TurnEndSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"uncertain">;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"unavailable">;
+    cause: z.ZodOptional<z.ZodEnum<{
+        no_response: "no_response";
+        response_not_conforming: "response_not_conforming";
+        error_without_body: "error_without_body";
+        unknown_error_code: "unknown_error_code";
+        status_mismatch: "status_mismatch";
+    }>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"cancelled">;
 }, z.core.$strict>, z.ZodObject<{
@@ -108,8 +141,18 @@ export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"fail_run">;
     runSucceeds: z.ZodLiteral<false>;
+    cause: z.ZodEnum<{
+        turn_failed: "turn_failed";
+        outcome_uncertain: "outcome_uncertain";
+        restart_count_unreadable: "restart_count_unreadable";
+    }>;
+    detail: z.ZodString;
 }, z.core.$strict>], "kind">;
 export type TurnDisposition = z.infer<typeof TurnDispositionSchema>;
+/** The only way to build a valid `fail_run`: the cause and its text travel together. */
+export declare function turnFailRun(cause: TurnFailureCause, failureCode?: string): Extract<TurnDisposition, {
+    kind: 'fail_run';
+}>;
 /** Only failed and uncertain ends fail the run; refusals, limit stops and unavailable services never do. */
 export declare function dispositionForTurnEnd(end: TurnEnd): TurnDisposition;
 /** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */

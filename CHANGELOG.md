@@ -2,6 +2,20 @@
 
 ## Non rilasciato
 
+## v1.236.0 — Paperclip contracts for the role-to-id translation, the issue view, addressed questions, the status-only wake, wake reasons, the wake context, attachments, manual wakes, work products and the cause of a failed run (tasks 7410-7419)
+
+- Role-to-id translation: `paperclipDestinatarioPerRuolo` (7410).
+- Issue view: `PaperclipElencoIncarichiSchema`, `paperclipCommentoPiuRecente`, `paperclipLinkIncarico` and `paperclipIdentificatoriNudi` (7411).
+- Addressed questions: `PaperclipAddressedAskSchema`, `decidePaperclipAsk`, `PaperclipAskPersonInteractionBodySchema` and the closed card vocabularies (7412).
+- Status-only wake: `paperclipTurnoSoloDisposizione` and the tolerant status-only fields (7413).
+- Wake reasons: `PAPERCLIP_WAKE_REASONS`, `paperclipWakeReasonKind` and `paperclipWakeEndsChildWait` (7414).
+- Wake context: the tolerant wake-context fields and `PaperclipCursoreCommentiSchema` (7415).
+- Attachments: `PaperclipAllegatoCaricaSchema` and `paperclipAllegatoCaricaSchema` (7416).
+- Manual wakes: `paperclipWakeupRequest`, `classifyPaperclipWakeAnswer`, `paperclipWakeIdempotencyKey` and `PaperclipRuntimeHeartbeatSchema` (7417).
+- Work products: `PaperclipProdottoCreaCorpoSchema` and `paperclipProdottoDaAllegato` (7418).
+- Failed run cause: `turnFailRun` and `TURN_FAILURE_CAUSES` (7419).
+- Additive, except that `fail_run` of `turn-disposition` now carries `cause` and `detail` (7419); no stored data changes. Consumers: the PC adoption tasks (cap-paperclip, cap-paperclip-protocollo).
+
 ## v1.235.0 — Paperclip contracts for paths, states, issue creation, comments, the run, recipients by id, documents and approvals (tasks 7400-7407)
 
 - Paths: `paperclipPercorsi` and the issue-list and comment-query filters, with `paperclipPercorsoSenzaPrefisso`.

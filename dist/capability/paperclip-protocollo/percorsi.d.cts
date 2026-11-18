@@ -67,5 +67,11 @@ export declare const paperclipPercorsi: {
     annullaCorsa(runId: string): string;
     documento(issueId: string, key: string): string;
     approvazioni(companyId: string): string;
+    allegati(companyId: string, issueId: string): string;
+    allegatiIncarico(issueId: string): string;
+    allegatoContenuto(attachmentId: string, scarica?: boolean): string;
+    allegato(attachmentId: string): string;
+    prodottiLavoro(issueId: string): string;
+    prodottoLavoro(workProductId: string): string;
 };
 //# sourceMappingURL=percorsi.d.ts.map

@@ -10,4 +10,8 @@ export * from "./stati.js";
 export * from "./corsa.js";
 export * from "./wire-documenti.js";
 export * from "./wire-approvazioni.js";
+export * from "./riferimenti.js";
+export * from "./wire-allegati.js";
+export * from "./wire-sveglie.js";
+export * from "./wire-prodotti.js";
 //# sourceMappingURL=index.js.map

@@ -104,6 +104,32 @@ export declare const PaperclipAggiornaRispostaCompletaSchema: z.ZodObject<{
         identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         assigneeAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
     }, z.core.$loose>>>;
+    identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    companyId: z.ZodOptional<z.ZodGUID>;
+    priority: z.ZodOptional<z.ZodEnum<{
+        low: "low";
+        medium: "medium";
+        high: "high";
+        critical: "critical";
+    }>>;
+    createdByAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+    executionRunId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+    blocks: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodGUID;
+        status: z.ZodEnum<{
+            cancelled: "cancelled";
+            done: "done";
+            blocked: "blocked";
+            backlog: "backlog";
+            todo: "todo";
+            in_progress: "in_progress";
+            in_review: "in_review";
+        }>;
+        title: z.ZodOptional<z.ZodString>;
+        identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        assigneeAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+    }, z.core.$loose>>>;
+    updatedAt: z.ZodOptional<z.ZodString>;
     changes: z.ZodRecord<z.ZodString, z.ZodObject<{
         from: z.ZodUnknown;
         to: z.ZodUnknown;
@@ -143,6 +169,32 @@ export declare const PaperclipAggiornaRispostaSchema: z.ZodUnion<readonly [z.Zod
         identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         assigneeAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
     }, z.core.$loose>>>;
+    identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    companyId: z.ZodOptional<z.ZodGUID>;
+    priority: z.ZodOptional<z.ZodEnum<{
+        low: "low";
+        medium: "medium";
+        high: "high";
+        critical: "critical";
+    }>>;
+    createdByAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+    executionRunId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+    blocks: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodGUID;
+        status: z.ZodEnum<{
+            cancelled: "cancelled";
+            done: "done";
+            blocked: "blocked";
+            backlog: "backlog";
+            todo: "todo";
+            in_progress: "in_progress";
+            in_review: "in_review";
+        }>;
+        title: z.ZodOptional<z.ZodString>;
+        identifier: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        assigneeAgentId: z.ZodOptional<z.ZodNullable<z.ZodGUID>>;
+    }, z.core.$loose>>>;
+    updatedAt: z.ZodOptional<z.ZodString>;
     changes: z.ZodRecord<z.ZodString, z.ZodObject<{
         from: z.ZodUnknown;
         to: z.ZodUnknown;

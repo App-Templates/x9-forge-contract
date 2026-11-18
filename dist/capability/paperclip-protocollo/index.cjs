@@ -26,4 +26,8 @@ __exportStar(require("./stati.cjs"), exports);
 __exportStar(require("./corsa.cjs"), exports);
 __exportStar(require("./wire-documenti.cjs"), exports);
 __exportStar(require("./wire-approvazioni.cjs"), exports);
+__exportStar(require("./riferimenti.cjs"), exports);
+__exportStar(require("./wire-allegati.cjs"), exports);
+__exportStar(require("./wire-sveglie.cjs"), exports);
+__exportStar(require("./wire-prodotti.cjs"), exports);
 //# sourceMappingURL=index.js.map

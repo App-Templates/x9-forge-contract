@@ -72,8 +72,8 @@ export declare const InternalMemoryKnowledgePublishRequestSchema: z.ZodObject<{
         }>;
         status: z.ZodEnum<{
             proposed: "proposed";
-            current: "current";
             withdrawn: "withdrawn";
+            current: "current";
         }>;
         evidence: z.ZodArray<z.ZodObject<{
             kind: z.ZodEnum<{
@@ -280,8 +280,8 @@ export declare const internalMemoryKnowledgePublishContract: {
             }>;
             status: z.ZodEnum<{
                 proposed: "proposed";
-                current: "current";
                 withdrawn: "withdrawn";
+                current: "current";
             }>;
             evidence: z.ZodArray<z.ZodObject<{
                 kind: z.ZodEnum<{
