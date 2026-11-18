@@ -14,6 +14,8 @@ import {
   TurnDispositionSchema,
   TurnEndSchema,
   TURN_DISPOSITION_TEXT,
+  TURN_UNAVAILABLE_CAUSES,
+  turnFailRun,
   dispositionForTurnEnd,
   paperclipBodyForDisposition,
   waitsOnLimit,
@@ -55,7 +57,9 @@ it('s7204 (b) only uncertain and failed fail, covering every schema kind', () =>
   for (const kind of kinds) {
     const disposition = dispositionForTurnEnd(TurnEndSchema.parse(examples[kind]));
     if (kind === 'uncertain' || kind === 'failed') {
-      expect(disposition, kind).toEqual({ kind: 'fail_run', runSucceeds: false });
+      expect(disposition, kind).toEqual(kind === 'failed'
+        ? { kind: 'fail_run', runSucceeds: false, cause: 'turn_failed', detail: 'Turno fallito: tool_error.' }
+        : { kind: 'fail_run', runSucceeds: false, cause: 'outcome_uncertain', detail: TURN_DISPOSITION_TEXT.uncertainNote() });
     } else {
       expect(disposition.runSucceeds, kind).toBe(true);
     }
@@ -287,4 +291,71 @@ it('s6543 a sentence too long for the note falls back to the old note', () => {
   const d = dispositionForTurnEnd(withMessage('budget_exhausted', 'x'.repeat(480)));
   expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
   expect(d).toMatchObject({ notes: 'Non adesso: budget_exhausted. Ricontrollo automatico.' });
+});
+
+it('s7419_failed_porta_causa_e_testo', () => {
+  const d = dispositionForTurnEnd({ kind: 'failed', failureCode: 'tool_error' });
+  expect(d).toMatchObject({ kind: 'fail_run', cause: 'turn_failed', detail: 'Turno fallito: tool_error.' });
+  expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
+  const long = dispositionForTurnEnd({ kind: 'failed', failureCode: 'e'.repeat(300) });
+  expect(long.kind === 'fail_run' && long.detail.length <= 2000 && long.detail.includes('e'.repeat(200))).toBe(true);
+  expect(long.kind === 'fail_run' && long.detail.includes('e'.repeat(201))).toBe(false);
+});
+
+it('s7419_uncertain_porta_causa_e_testo', () => {
+  const d = dispositionForTurnEnd({ kind: 'uncertain' });
+  expect(d).toMatchObject({ kind: 'fail_run', cause: 'outcome_uncertain', detail: TURN_DISPOSITION_TEXT.uncertainNote() });
+  expect(d.kind === 'fail_run' && d.detail).toContain('non è chiaro se il lavoro è stato fatto');
+  expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
+});
+
+it('s7419_fail_run_senza_causa_rifiutato', () => {
+  const ok = { kind: 'fail_run', runSucceeds: false, cause: 'turn_failed', detail: 'x' };
+  expect(TurnDispositionSchema.safeParse(ok).success).toBe(true);
+  expect(TurnDispositionSchema.safeParse({ kind: 'fail_run', runSucceeds: false }).success).toBe(false);
+  expect(TurnDispositionSchema.safeParse({ ...ok, cause: 'altro' }).success).toBe(false);
+  expect(TurnDispositionSchema.safeParse({ ...ok, detail: '' }).success).toBe(false);
+  expect(TurnDispositionSchema.safeParse({ ...ok, extra: 1 }).success).toBe(false);
+});
+
+it('s7419_turnFailRun', () => {
+  for (const cause of ['turn_failed', 'outcome_uncertain', 'restart_count_unreadable'] as const) {
+    const d = turnFailRun(cause, 'x');
+    expect(d.cause).toBe(cause);
+    expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
+  }
+  expect(turnFailRun('restart_count_unreadable').detail).toBe(TURN_DISPOSITION_TEXT.restartCountNote());
+  expect(() => turnFailRun('x' as never)).toThrow();
+});
+
+it('s7419_unavailable_con_causa', () => {
+  const frasi = new Set<string>();
+  for (const cause of TURN_UNAVAILABLE_CAUSES) {
+    const d = dispositionForTurnEnd(TurnEndSchema.parse({ kind: 'unavailable', cause }));
+    expect(d.kind).toBe('check_later');
+    if (d.kind !== 'check_later') continue;
+    expect(d.notes.startsWith('Turno interrotto: il servizio non ha risposto (')).toBe(true);
+    expect(d.notes.length).toBeLessThanOrEqual(500);
+    expect(d.afterSeconds).toBe(1800);
+    expect(d).not.toHaveProperty('serviceName');
+    expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
+    frasi.add(TURN_DISPOSITION_TEXT.unavailableCause[cause]);
+    expect(d.notes).toContain(`(${TURN_DISPOSITION_TEXT.unavailableCause[cause]})`);
+  }
+  expect(frasi.size).toBe(5);
+  const senza = dispositionForTurnEnd({ kind: 'unavailable' });
+  expect(senza.kind === 'check_later' && senza.notes).toBe(INTERRUPTED_NOTE);
+  expect(TurnEndSchema.safeParse({ kind: 'unavailable', cause: 'altro' }).success).toBe(false);
+  expect(TurnEndSchema.options).toHaveLength(7);
+});
+
+it('s7419_solo_fail_run_ha_la_causa', () => {
+  expect(TurnDispositionSchema.safeParse({ kind: 'leave', runSucceeds: true, cause: 'turn_failed' }).success).toBe(false);
+  expect(TurnDispositionSchema.safeParse({
+    kind: 'check_later', runSucceeds: true, afterSeconds: 1800, notes: 'n', cause: 'turn_failed',
+  }).success).toBe(false);
+});
+
+it('s7419_corpo_di_fail_run_ancora_nullo', () => {
+  expect(paperclipBodyForDisposition(turnFailRun('turn_failed', 'x'), { now: NOW, agentId: AGENT_ID })).toBeNull();
 });
