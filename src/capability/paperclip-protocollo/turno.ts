@@ -1,5 +1,14 @@
 import { z } from 'zod';
 
+export const PAPERCLIP_MOTIVO_COMMENTO_MANCANTE = 'missing_issue_comment' as const;
+export const PAPERCLIP_COMMENTO_OBBLIGATORIO_STATI = [
+  'satisfied',
+  'retry_queued',
+  'retry_exhausted',
+] as const;
+export const PAPERCLIP_RECUPERO_INTENTI = ['status_only'] as const;
+export const PAPERCLIP_COMMENTO_MANCANTE_RITENTATIVI = 1;
+
 // Campi della sveglia: Paperclip server/dist/routes/issues.js:10263-10280,10526-10552.
 export const PaperclipTurnoContestoSchema = z.looseObject({
   taskId: z.guid().optional(),
@@ -7,8 +16,16 @@ export const PaperclipTurnoContestoSchema = z.looseObject({
   wakeReason: z.string().optional(),
   wakeCommentId: z.guid().optional(),
   commentId: z.guid().optional(),
+  recoveryIntent: z.enum(PAPERCLIP_RECUPERO_INTENTI).optional().catch(undefined),
+  allowDeliverableWork: z.boolean().optional().catch(undefined),
+  allowDocumentUpdates: z.boolean().optional().catch(undefined),
+  resumeRequiresNormalModel: z.boolean().optional().catch(undefined),
 });
 export type PaperclipTurnoContesto = z.infer<typeof PaperclipTurnoContestoSchema>;
+
+export function paperclipTurnoSoloDisposizione(ctx: PaperclipTurnoContesto): boolean {
+  return ctx.recoveryIntent === 'status_only' || ctx.allowDeliverableWork === false;
+}
 
 // Corpo dell'adattatore http: server/dist/adapters/http/execute.js:9-60; docs/adapters/http.md:27-51.
 // Il corpo compilato non ha companyId.
