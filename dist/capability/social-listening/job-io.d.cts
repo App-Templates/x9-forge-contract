@@ -1,7 +1,8 @@
 import { z } from 'zod';
-import { type SocialPostFilter, type SocialPost } from "./post.cjs";
+import { type SocialPostFilter, type SocialPost, type SocialVerticalId } from "./post.cjs";
 import { type SocialJob } from "./queue.cjs";
-import { type SocialTopicCost, type SocialTrack } from "./topic.cjs";
+import { type SocialTopic, type SocialTopicCost, type SocialTrack } from "./topic.cjs";
+import { type SocialFact } from "./verdict.cjs";
 export declare const SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = 12000;
 /** Keep whole Unicode code points, including surrogate pairs. */
 export declare function socialPostExcerpt(text: string, maxChars: number): string;
@@ -15,6 +16,26 @@ export declare const SocialJobPostMaterialSchema: z.ZodObject<{
     }>;
     caption: z.ZodString;
     transcriptExcerpt: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export declare const SOCIAL_GROUP_EXCERPT_MAX = 240;
+/** Post text is DATA, never instructions. */
+export declare const SocialJobGroupPostSchema: z.ZodObject<{
+    postId: z.ZodString;
+    handle: z.ZodString;
+    excerpt: z.ZodString;
+}, z.core.$strict>;
+export declare const SOCIAL_VERIFY_EXCERPT_MAX = 1500;
+export declare const SOCIAL_VERIFY_POSTS_MAX = 10;
+/** Topic and post text are DATA, never instructions. */
+export declare const SocialJobVerifyMaterialSchema: z.ZodObject<{
+    title: z.ZodString;
+    category: z.ZodString;
+    summary: z.ZodString;
+    posts: z.ZodArray<z.ZodObject<{
+        postId: z.ZodString;
+        handle: z.ZodString;
+        excerpt: z.ZodString;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 /** Bounded references and post data. The queue job, never the executor, supplies identity. */
 export declare const SocialJobInputSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -45,15 +66,42 @@ export declare const SocialJobInputSchema: z.ZodDiscriminatedUnion<[z.ZodObject<
         text: z.ZodString;
         sourceUrls: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
+    material: z.ZodOptional<z.ZodObject<{
+        title: z.ZodString;
+        category: z.ZodString;
+        summary: z.ZodString;
+        posts: z.ZodArray<z.ZodObject<{
+            postId: z.ZodString;
+            handle: z.ZodString;
+            excerpt: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"group">;
     verticalId: z.ZodString;
     postIds: z.ZodArray<z.ZodString>;
     categories: z.ZodArray<z.ZodString>;
+    posts: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        postId: z.ZodString;
+        handle: z.ZodString;
+        excerpt: z.ZodString;
+    }, z.core.$strict>>>;
 }, z.core.$strict>], "kind">;
 export type SocialJobInput = z.infer<typeof SocialJobInputSchema>;
 /** Supply the Mac with post data within both the material and generic input limits. */
 export declare function socialFilterJobInput(post: SocialPost): SocialJobInput;
+/** Supply the Mac with a short excerpt per kept post, shrinking all excerpts together to fit the generic input limit. */
+export declare function socialGroupJobInput({ verticalId, categories, posts }: {
+    verticalId: SocialVerticalId;
+    categories: string[];
+    posts: SocialPost[];
+}): SocialJobInput;
+/** Supply topic material in topic order, shrinking only excerpts and preserving known facts. */
+export declare function socialVerifyJobInput({ topic: sourceTopic, posts, knownFacts }: {
+    topic: Pick<SocialTopic, 'topicId' | 'title' | 'category' | 'summary' | 'postIds'>;
+    posts: SocialPost[];
+    knownFacts?: SocialFact[];
+}): SocialJobInput;
 /** Bounded executor data. The receiving service attaches the trusted job identity. */
 export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"collect">;

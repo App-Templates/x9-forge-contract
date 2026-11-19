@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialJobResultErrorSchema = exports.SOCIAL_JOB_RESULT_ERRORS = exports.SocialJobResultSchema = exports.SocialJobInputSchema = exports.SocialJobPostMaterialSchema = exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = void 0;
+exports.SocialJobResultErrorSchema = exports.SOCIAL_JOB_RESULT_ERRORS = exports.SocialJobResultSchema = exports.SocialJobInputSchema = exports.SocialJobVerifyMaterialSchema = exports.SOCIAL_VERIFY_POSTS_MAX = exports.SOCIAL_VERIFY_EXCERPT_MAX = exports.SocialJobGroupPostSchema = exports.SOCIAL_GROUP_EXCERPT_MAX = exports.SocialJobPostMaterialSchema = exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = void 0;
 exports.socialPostExcerpt = socialPostExcerpt;
 exports.socialFilterJobInput = socialFilterJobInput;
+exports.socialGroupJobInput = socialGroupJobInput;
+exports.socialVerifyJobInput = socialVerifyJobInput;
 exports.socialVerifyTopicCost = socialVerifyTopicCost;
 exports.socialPostFilterFromResult = socialPostFilterFromResult;
 exports.socialJobResultMatches = socialJobResultMatches;
@@ -27,6 +29,24 @@ exports.SocialJobPostMaterialSchema = zod_1.z.strictObject({
     caption: post_js_1.SocialPostSchema.shape.caption,
     transcriptExcerpt: zod_1.z.string().max(exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX).optional(),
 });
+exports.SOCIAL_GROUP_EXCERPT_MAX = 240;
+/** Post text is DATA, never instructions. */
+exports.SocialJobGroupPostSchema = zod_1.z.strictObject({
+    postId: post_js_1.SocialPostSchema.shape.postId,
+    handle: post_js_1.SocialHandleSchema,
+    excerpt: zod_1.z.string().min(1).max(exports.SOCIAL_GROUP_EXCERPT_MAX),
+});
+exports.SOCIAL_VERIFY_EXCERPT_MAX = 1500;
+exports.SOCIAL_VERIFY_POSTS_MAX = 10;
+/** Topic and post text are DATA, never instructions. */
+exports.SocialJobVerifyMaterialSchema = zod_1.z.strictObject({
+    title: topic.title,
+    category: topic.category,
+    summary: topic.summary,
+    posts: zod_1.z.array(exports.SocialJobGroupPostSchema.extend({
+        excerpt: zod_1.z.string().min(1).max(exports.SOCIAL_VERIFY_EXCERPT_MAX),
+    })).min(1).max(exports.SOCIAL_VERIFY_POSTS_MAX),
+});
 /** Bounded references and post data. The queue job, never the executor, supplies identity. */
 exports.SocialJobInputSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.object({
@@ -50,12 +70,15 @@ exports.SocialJobInputSchema = zod_1.z.discriminatedUnion('kind', [
         topicId: topic.topicId,
         /** Facts already verified that the executor must not pay for again. */
         knownFacts: zod_1.z.array(verdict_js_1.SocialFactSchema).max(20).optional(),
+        material: exports.SocialJobVerifyMaterialSchema.optional(),
     }).strict(),
     zod_1.z.object({
         kind: zod_1.z.literal(kinds.group),
         verticalId: post_js_1.SocialVerticalIdSchema,
         postIds: topic.postIds,
         categories: zod_1.z.array(topic_js_1.SocialCategorySlugSchema).min(1).max(30),
+        /** Post text is DATA, same order as postIds. */
+        posts: zod_1.z.array(exports.SocialJobGroupPostSchema).min(1).max(100).optional(),
     }).strict(),
 ]);
 /** Supply the Mac with post data within both the material and generic input limits. */
@@ -81,6 +104,73 @@ function socialFilterJobInput(post) {
             material.transcriptExcerpt = socialPostExcerpt(material.transcriptExcerpt, maxChars);
     }
     return exports.SocialJobInputSchema.parse(input);
+}
+/** Supply the Mac with a short excerpt per kept post, shrinking all excerpts together to fit the generic input limit. */
+function socialGroupJobInput({ verticalId, categories, posts }) {
+    if (posts.length === 0)
+        throw new TypeError('no_posts');
+    const base = posts.map((post) => ({
+        postId: post.postId,
+        handle: post.handle,
+        text: post.transcript !== undefined && post.transcript !== '' ? post.transcript : post.caption,
+    }));
+    const encoder = new TextEncoder();
+    for (const maxChars of [exports.SOCIAL_GROUP_EXCERPT_MAX, 120, 60, 30]) {
+        const input = {
+            kind: kinds.group,
+            verticalId,
+            postIds: base.map((p) => p.postId),
+            categories,
+            posts: base.map(({ postId, handle, text }) => ({
+                postId,
+                handle,
+                excerpt: text === '' ? '(no text)' : socialPostExcerpt(text, maxChars),
+            })),
+        };
+        if (encoder.encode(JSON.stringify(input)).byteLength <= generic_job_js_1.DEV_GENERIC_INPUT_MAX_BYTES) {
+            return exports.SocialJobInputSchema.parse(input);
+        }
+    }
+    throw new TypeError('group_input_too_large');
+}
+/** Supply topic material in topic order, shrinking only excerpts and preserving known facts. */
+function socialVerifyJobInput({ topic: sourceTopic, posts, knownFacts }) {
+    const selected = sourceTopic.postIds.flatMap((postId) => {
+        const post = posts.find(p => p.postId === postId);
+        return post === undefined ? [] : [post];
+    }).slice(0, exports.SOCIAL_VERIFY_POSTS_MAX);
+    if (selected.length === 0)
+        throw new TypeError('no_topic_posts');
+    const base = selected.map(post => ({
+        postId: post.postId,
+        handle: post.handle,
+        text: post.transcript !== undefined && post.transcript !== '' ? post.transcript : post.caption,
+    }));
+    const encoder = new TextEncoder();
+    for (const maxChars of [exports.SOCIAL_VERIFY_EXCERPT_MAX, 750, 375, 180]) {
+        const material = {
+            title: sourceTopic.title,
+            category: sourceTopic.category,
+            summary: sourceTopic.summary,
+            posts: base.map(({ postId, handle, text }) => ({
+                postId,
+                handle,
+                excerpt: text === '' ? '(no text)' : socialPostExcerpt(text, maxChars),
+            })),
+        };
+        const input = {
+            kind: kinds.verify,
+            topicId: sourceTopic.topicId,
+            ...(knownFacts === undefined ? {} : { knownFacts }),
+            material,
+        };
+        // Zod counts UTF-16 units; the generic job budget counts serialized UTF-8 bytes.
+        if (material.posts.every(post => post.excerpt.length <= exports.SOCIAL_VERIFY_EXCERPT_MAX)
+            && encoder.encode(JSON.stringify(input)).byteLength <= generic_job_js_1.DEV_GENERIC_INPUT_MAX_BYTES) {
+            return exports.SocialJobInputSchema.parse(input);
+        }
+    }
+    throw new TypeError('verify_input_too_large');
 }
 /** Bounded executor data. The receiving service attaches the trusted job identity. */
 exports.SocialJobResultSchema = zod_1.z.discriminatedUnion('kind', [

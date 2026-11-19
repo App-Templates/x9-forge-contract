@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialLegacyClusterRowSchema = exports.SocialLegacyAnalysisRowSchema = exports.SOCIAL_LEGACY_VERDICTS = exports.SOCIAL_LEGACY_CLUSTER_SCHEMA = exports.SOCIAL_LEGACY_ANALYSIS_SCHEMA = void 0;
+exports.SocialLegacyClusterRowSchema = exports.SocialLegacyAnalysisRowSchema = exports.SocialMetaMediaSchema = exports.SOCIAL_META_MEDIA_FIELDS = exports.SOCIAL_LEGACY_VERDICTS = exports.SOCIAL_LEGACY_CLUSTER_SCHEMA = exports.SOCIAL_LEGACY_ANALYSIS_SCHEMA = void 0;
 exports.socialImportTimestamp = socialImportTimestamp;
+exports.socialMetaBusinessDiscoveryFields = socialMetaBusinessDiscoveryFields;
+exports.socialPostFromMetaMedia = socialPostFromMetaMedia;
 exports.socialImportVerdict = socialImportVerdict;
 exports.socialImportKind = socialImportKind;
 exports.shortenSocialTopicTitle = shortenSocialTopicTitle;
@@ -36,6 +38,61 @@ function socialImportTimestamp(value) {
     return IsoDateTimeSchema.safeParse(normalized).success ? normalized : null;
 }
 const LegacyTimestampSchema = zod_1.z.string().refine(value => socialImportTimestamp(value) !== null, 'expected a date-time with a valid numeric offset');
+exports.SOCIAL_META_MEDIA_FIELDS = [
+    'id', 'caption', 'media_type', 'media_product_type', 'media_url',
+    'permalink', 'timestamp', 'like_count', 'comments_count',
+];
+/** A field selection only: credentials and the request URL belong to the caller. */
+function socialMetaBusinessDiscoveryFields(handle, limit) {
+    const parsedHandle = post_js_1.SocialHandleSchema.safeParse(handle);
+    if (!parsedHandle.success || !Number.isInteger(limit) || limit < 1 || limit > 50) {
+        throw new TypeError('invalid_meta_query');
+    }
+    return `business_discovery.username(${parsedHandle.data}){media.limit(${limit}){${exports.SOCIAL_META_MEDIA_FIELDS.join(',')}}}`;
+}
+exports.SocialMetaMediaSchema = zod_1.z.strictObject({
+    id: zod_1.z.string().regex(/^\d{1,30}$/),
+    caption: zod_1.z.string().max(5000).optional(),
+    media_type: SocialLegacyKindSchema,
+    media_product_type: zod_1.z.string().min(1).max(30).optional(),
+    media_url: research_js_1.WebUrlSchema.optional(),
+    permalink: research_js_1.WebUrlSchema,
+    timestamp: LegacyTimestampSchema,
+    like_count: zod_1.z.number().int().nonnegative().optional(),
+    comments_count: zod_1.z.number().int().nonnegative().optional(),
+});
+const SocialMetaPostSchema = post_js_1.SocialPostSchema.omit({ identity: true }).strict();
+/** Keep the Meta id shared with the Mac; only a video file can be transcribed. */
+function socialPostFromMetaMedia(raw, context) {
+    try {
+        const parsed = exports.SocialMetaMediaSchema.safeParse(raw);
+        if (!parsed.success)
+            return { ok: false, error: 'invalid_media' };
+        const media = parsed.data;
+        const { handle, collectedAt } = context;
+        const post = SocialMetaPostSchema.safeParse({
+            postId: media.id,
+            provider: 'instagram',
+            handle,
+            link: media.permalink,
+            publishedAt: socialImportTimestamp(media.timestamp),
+            kind: socialImportKind(media.media_type),
+            caption: media.caption ?? '',
+            collectedAt,
+        });
+        if (!post.success)
+            return { ok: false, error: 'invalid_media' };
+        return {
+            ok: true,
+            post: post.data,
+            ...(media.media_type === 'VIDEO' && media.media_url !== undefined ? { videoUrl: media.media_url } : {}),
+        };
+    }
+    catch {
+        // Untrusted objects can throw from accessors during parsing or context reads.
+        return { ok: false, error: 'invalid_media' };
+    }
+}
 const LegacyPostIdSchema = zod_1.z.string().min(1).max(100);
 /** Historical web text is data. Unknown fields must stop the import rather than disappear. */
 exports.SocialLegacyAnalysisRowSchema = zod_1.z.object({

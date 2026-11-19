@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.273.0 — social listening job material for the Mac executor (tasks 3933, 3934, 3935)
+
+- Optional `material` on `filter` and `verify` inputs, and optional `posts` on `group` inputs, carry the job material to the Mac executor.
+- `socialFilterJobInput`, `socialGroupJobInput` and `socialVerifyJobInput` build inputs bounded by `DEV_GENERIC_INPUT_MAX_BYTES`.
+- `socialPostExcerpt` bounds post excerpts without splitting Unicode code points.
+- Additive; saved jobs stay valid.
+
 ## v1.272.0 — social listening round end and freshness (tasks 3930, 3931)
 
 - `SOCIAL_ROUND_ENDED_STATES` and `socialRoundEnded` say whether a round is over (`done`, `failed`, `cap_reached`).

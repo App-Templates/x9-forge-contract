@@ -1,6 +1,9 @@
 import { z } from 'zod';
 /** D24: daily pay-per-use server budget for one agent, in USD. */
 export declare const SOCIAL_SERVER_DAILY_CAP_DEFAULT_USD = 2;
+/** Placeholder until P0 measures the cost of a server verification. */
+export declare const SOCIAL_SERVER_VERIFY_ESTIMATE_USD = 0.25;
+export declare function socialServerVerifyEstimate(seenUsd: readonly number[]): number;
 export declare const SocialCapCheckSchema: z.ZodObject<{
     track: z.ZodEnum<{
         server: "server";

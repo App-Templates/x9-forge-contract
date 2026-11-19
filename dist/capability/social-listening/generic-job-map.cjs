@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SOCIAL_JOB_LIMITS = exports.SOCIAL_TRACK_EXECUTOR = exports.SOCIAL_JOB_TOOL = void 0;
+exports.socialJobRoute = socialJobRoute;
 exports.socialGenericJobFor = socialGenericJobFor;
 const generic_job_js_1 = require("../dev/generic-job.cjs");
+const tools_js_1 = require("../ricerca/tools.cjs");
 const job_io_js_1 = require("./job-io.cjs");
 const queue_js_1 = require("./queue.cjs");
 const routes_js_1 = require("./routes.cjs");
@@ -17,6 +19,28 @@ exports.SOCIAL_TRACK_EXECUTOR = {
     mac: 'laptop',
     server: 'server',
 };
+/** Route new jobs by track; server collection never uses Instagram cookies. */
+function socialJobRoute(kind, track) {
+    if (!queue_js_1.SOCIAL_JOB_KINDS.includes(kind))
+        throw new TypeError('unknown_job_route');
+    if (track === 'mac') {
+        return { runner: 'executor', executor: 'laptop', tool: exports.SOCIAL_JOB_TOOL[kind] };
+    }
+    if (track === 'server') {
+        switch (kind) {
+            case 'collect':
+                return { runner: 'service', source: 'meta_graph' };
+            case 'transcribe':
+                return { runner: 'capability', capability: 'stt', tool: 'transcribe' };
+            case 'verify':
+                return { runner: 'capability', capability: 'ricerca', tool: tools_js_1.RICERCA_TOOLS.start };
+            case 'filter':
+            case 'group':
+                return { runner: 'executor', executor: 'server', tool: 'claude_p' };
+        }
+    }
+    throw new TypeError('unknown_job_route');
+}
 exports.SOCIAL_JOB_LIMITS = {
     collect: { maxDurationSeconds: 900, maxAttempts: 3 },
     transcribe: { maxDurationSeconds: 900, maxAttempts: 3 },

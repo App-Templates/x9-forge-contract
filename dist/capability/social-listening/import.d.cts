@@ -24,6 +24,36 @@ declare const SocialLegacyKindSchema: z.ZodEnum<{
 export type SocialLegacyKind = z.infer<typeof SocialLegacyKindSchema>;
 /** Preserve local time and offset; only the missing offset colon is repaired. */
 export declare function socialImportTimestamp(value: string): string | null;
+export declare const SOCIAL_META_MEDIA_FIELDS: readonly ["id", "caption", "media_type", "media_product_type", "media_url", "permalink", "timestamp", "like_count", "comments_count"];
+/** A field selection only: credentials and the request URL belong to the caller. */
+export declare function socialMetaBusinessDiscoveryFields(handle: string, limit: number): string;
+export declare const SocialMetaMediaSchema: z.ZodObject<{
+    id: z.ZodString;
+    caption: z.ZodOptional<z.ZodString>;
+    media_type: z.ZodEnum<{
+        VIDEO: "VIDEO";
+        CAROUSEL_ALBUM: "CAROUSEL_ALBUM";
+        IMAGE: "IMAGE";
+    }>;
+    media_product_type: z.ZodOptional<z.ZodString>;
+    media_url: z.ZodOptional<z.ZodString>;
+    permalink: z.ZodString;
+    timestamp: z.ZodString;
+    like_count: z.ZodOptional<z.ZodNumber>;
+    comments_count: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+/** Keep the Meta id shared with the Mac; only a video file can be transcribed. */
+export declare function socialPostFromMetaMedia(raw: unknown, context: {
+    handle: string;
+    collectedAt: string;
+}): {
+    ok: true;
+    post: Omit<SocialPost, 'identity'>;
+    videoUrl?: string;
+} | {
+    ok: false;
+    error: 'invalid_media';
+};
 /** Historical web text is data. Unknown fields must stop the import rather than disappear. */
 export declare const SocialLegacyAnalysisRowSchema: z.ZodObject<{
     schema: z.ZodLiteral<"ig-ascolto-analisi-v1">;
