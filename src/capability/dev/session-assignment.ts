@@ -3,6 +3,7 @@ import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
 import { AssetKeySchema, AssetRefSchema } from '../../organization/asset.js';
 import type { ReconciledMandate } from '../../organization/business-unit-mandate.js';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
+import { DevSessionAcceptanceSchema } from './session-acceptance.js';
 
 /**
  * Incarico di sessione di una business unit (F4): il contratto fra chi lo apre (cap-dev di X9, per conto del capo
@@ -117,6 +118,8 @@ export const DevSessionAssignmentSchema = z.strictObject({
    * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
    */
   deliveryPackage: z.enum(DEV_SESSION_DELIVERY_PACKAGE_MODES).optional(),
+  /** Absent before 1.243.0; when present, covered by the block digest. */
+  acceptance: DevSessionAcceptanceSchema.optional(),
   destination: z.strictObject({ repo: DevSessionRepoSchema }),
   /**
    * Absent = the assignment starts from the main branch, as before; written only when present, so the canonical json
