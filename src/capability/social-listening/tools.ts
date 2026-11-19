@@ -17,6 +17,7 @@ import {
   SocialVerdictSchema,
   SocialVerticalSchema,
 } from './topic.js';
+import { socialCostPerPost } from './fact-memory.js';
 
 /**
  * The tools of the social listening capability. Agents (Telegram and X9 Live web reach the same agent-core router)
@@ -100,9 +101,16 @@ export const SocialRecapOutputSchema = z.strictObject({
   ),
   postsSeen: NonNegativeIntSchema,
   spentUsd: z.number().nonnegative().finite(),
+  /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
+  costPerPostUsd: z.number().nonnegative().finite().optional(),
   topics: z.array(SocialRecapTopicSummarySchema).max(50),
   /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
   pageUrl: WebUrlSchema.optional(),
+}).superRefine((r, ctx) => {
+  if (r.costPerPostUsd === undefined) return;
+  if (r.costPerPostUsd !== socialCostPerPost({ spentUsd: r.spentUsd, postsSeen: r.postsSeen })) {
+    ctx.addIssue({ code: 'custom', path: ['costPerPostUsd'], message: 'costPerPostUsd must match spentUsd / postsSeen' });
+  }
 });
 
 /**
