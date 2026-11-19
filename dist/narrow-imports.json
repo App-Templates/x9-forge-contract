@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.275.0",
+  "versione": "1.276.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1522,6 +1522,7 @@
       "SOCIAL_ADOPTION_KINDS": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SOCIAL_ADOPTION_STATES": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SOCIAL_ADOPTION_TOOLS": "@x9-forge/contracts/capability/social-listening/save-wiki",
+      "SOCIAL_ASCOLTO_PAGE_PATH": "@x9-forge/contracts/capability/social-listening/tools",
       "SOCIAL_CREATORS_RANK_DAYS_DEFAULT": "@x9-forge/contracts/capability/social-listening/creators",
       "SOCIAL_CREATORS_RANK_LIMIT_DEFAULT": "@x9-forge/contracts/capability/social-listening/creators",
       "SOCIAL_CREATORS_TOOLS": "@x9-forge/contracts/capability/social-listening/creators",
@@ -1669,6 +1670,7 @@
       "selectSocialRound": "@x9-forge/contracts/capability/social-listening/routes",
       "shortenSocialTopicTitle": "@x9-forge/contracts/capability/social-listening/import",
       "socialAdoptionDecision": "@x9-forge/contracts/capability/social-listening/save-wiki",
+      "socialAscoltoPagePath": "@x9-forge/contracts/capability/social-listening/tools",
       "socialCapDecision": "@x9-forge/contracts/capability/social-listening/cap",
       "socialCategoryInVertical": "@x9-forge/contracts/capability/social-listening/topic",
       "socialCostPerPost": "@x9-forge/contracts/capability/social-listening/fact-memory",
@@ -2788,6 +2790,7 @@
       "selectDevProductionProgressSnapshot": "@x9-forge/contracts/http/endpoints/internal-dev-progress",
       "selectDevelopmentSessionList": "@x9-forge/contracts/http/endpoints/internal-development-session-list",
       "selectableDevelopmentSessionModels": "@x9-forge/contracts/http/endpoints/development-session-models",
+      "socialAgentSpendContract": "@x9-forge/contracts/http/endpoints/internal-capability-agent",
       "startConnectContract": "@x9-forge/contracts/http/endpoints/internal-connect",
       "startDevelopmentSessionPairingContract": "@x9-forge/contracts/http/endpoints/internal-development-sessions",
       "stopAgentContract": "@x9-forge/contracts/http/endpoints/internal-agents-stop",

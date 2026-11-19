@@ -3,6 +3,7 @@ import { WebUrlSchema } from "../ricerca/research.js";
 import { AgentDaySchema } from "../ricerca/spend.js";
 import { SocialFollowedProfileSchema, SocialHandleSchema, SocialProviderSchema, SocialVerticalIdSchema, } from "./post.js";
 import { SOCIAL_VERDICTS, SocialCategorySlugSchema, SocialTopicCostSchema, SocialTopicSchema, SocialTopicTitleSchema, SocialTrackSchema, SocialVerdictSchema, SocialVerticalSchema, } from "./topic.js";
+import { socialCostPerPost } from "./fact-memory.js";
 /**
  * The tools of the social listening capability. Agents (Telegram and X9 Live web reach the same agent-core router)
  * call them at `capToolCallPath(SOCIAL_LISTENING_TOOLS.<tool>)` — never with a hand-written path.
@@ -63,6 +64,25 @@ export const SocialRecapTopicSummarySchema = z.strictObject({
     cost: SocialTopicCostSchema,
 });
 const NonNegativeIntSchema = z.number().int().nonnegative();
+/** The agent's Ascolto page in Forge, relative to the caller's base URL. */
+export const SOCIAL_ASCOLTO_PAGE_PATH = '/agents/{slug}/ascolto';
+/** Build a path from one slug segment without coercing untrusted values. */
+export function socialAscoltoPagePath(agentSlug) {
+    if (typeof agentSlug !== 'string' ||
+        agentSlug.length < 1 ||
+        agentSlug.length > 100 ||
+        /[/\\\u0000-\u001f\u007f-\u009f]/.test(agentSlug) ||
+        /^(?:\.|%2e){1,2}$/i.test(agentSlug)) {
+        return null;
+    }
+    try {
+        return SOCIAL_ASCOLTO_PAGE_PATH.replace('{slug}', encodeURIComponent(agentSlug));
+    }
+    catch {
+        // encodeURIComponent rejects malformed UTF-16, such as a lone surrogate.
+        return null;
+    }
+}
 /** One shape for Telegram and X9 Live web. */
 export const SocialRecapOutputSchema = z.strictObject({
     verticalId: SocialVerticalIdSchema,
@@ -72,9 +92,17 @@ export const SocialRecapOutputSchema = z.strictObject({
     counts: z.strictObject(Object.fromEntries(SOCIAL_VERDICTS.map(v => [v, NonNegativeIntSchema]))),
     postsSeen: NonNegativeIntSchema,
     spentUsd: z.number().nonnegative().finite(),
+    /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
+    costPerPostUsd: z.number().nonnegative().finite().optional(),
     topics: z.array(SocialRecapTopicSummarySchema).max(50),
     /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
     pageUrl: WebUrlSchema.optional(),
+}).superRefine((r, ctx) => {
+    if (r.costPerPostUsd === undefined)
+        return;
+    if (r.costPerPostUsd !== socialCostPerPost({ spentUsd: r.spentUsd, postsSeen: r.postsSeen })) {
+        ctx.addIssue({ code: 'custom', path: ['costPerPostUsd'], message: 'costPerPostUsd must match spentUsd / postsSeen' });
+    }
 });
 /**
  * The topic without identity. `.omit()` is not allowed on a refined schema (zod 4), so the shape is rebuilt from

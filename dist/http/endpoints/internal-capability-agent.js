@@ -105,6 +105,8 @@ export const ricercaAgentSpendContract = {
 export const labAgentSpendContract = { ...ricercaAgentSpendContract };
 /** cap-video reports the same per-agent spend shape and path as cap-ricerca. */
 export const videoAgentSpendContract = { ...ricercaAgentSpendContract };
+/** cap-social-listening reports the same per-agent spend shape and path as cap-ricerca; its rows carry capability "social". */
+export const socialAgentSpendContract = { ...ricercaAgentSpendContract };
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 export const AgentGrowthResponseSchema = z.object({
     agentId: CapabilityAgentIdSchema,

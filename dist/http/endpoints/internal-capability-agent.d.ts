@@ -322,6 +322,42 @@ export declare const videoAgentSpendContract: {
         queuedNow: z.ZodNumber;
     }, z.core.$strict>;
 };
+/** cap-social-listening reports the same per-agent spend shape and path as cap-ricerca; its rows carry capability "social". */
+export declare const socialAgentSpendContract: {
+    readonly method: "GET";
+    readonly path: "/internal/capability/agents/:agentId/spend";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly querySchema: z.ZodObject<{
+        from: z.ZodString;
+        to: z.ZodString;
+        tenantId: z.ZodOptional<z.ZodString>;
+        ownerId: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        days: z.ZodArray<z.ZodObject<{
+            agentId: z.ZodString;
+            capability: z.ZodEnum<{
+                video: "video";
+                ricerca: "ricerca";
+                lab: "lab";
+                social: "social";
+            }>;
+            day: z.ZodString;
+            spentUsd: z.ZodNumber;
+            reservedUsd: z.ZodNumber;
+            capUsd: z.ZodNumber;
+            calls: z.ZodNumber;
+            webCalls: z.ZodNumber;
+            budgetStops: z.ZodNumber;
+            budgetReachedAt: z.ZodNullable<z.ZodISODateTime>;
+            overrunAt: z.ZodNullable<z.ZodISODateTime>;
+        }, z.core.$strict>>;
+        queuedNow: z.ZodNumber;
+    }, z.core.$strict>;
+};
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 export declare const AgentGrowthResponseSchema: z.ZodObject<{
     agentId: z.ZodString;

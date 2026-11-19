@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialRecapOutputSchema = exports.SocialRecapTopicSummarySchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
+exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialRecapOutputSchema = exports.SOCIAL_ASCOLTO_PAGE_PATH = exports.SocialRecapTopicSummarySchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
+exports.socialAscoltoPagePath = socialAscoltoPagePath;
 const zod_1 = require("zod");
 const research_js_1 = require("../ricerca/research.cjs");
 const spend_js_1 = require("../ricerca/spend.cjs");
 const post_js_1 = require("./post.cjs");
 const topic_js_1 = require("./topic.cjs");
+const fact_memory_js_1 = require("./fact-memory.cjs");
 /**
  * The tools of the social listening capability. Agents (Telegram and X9 Live web reach the same agent-core router)
  * call them at `capToolCallPath(SOCIAL_LISTENING_TOOLS.<tool>)` — never with a hand-written path.
@@ -66,6 +68,25 @@ exports.SocialRecapTopicSummarySchema = zod_1.z.strictObject({
     cost: topic_js_1.SocialTopicCostSchema,
 });
 const NonNegativeIntSchema = zod_1.z.number().int().nonnegative();
+/** The agent's Ascolto page in Forge, relative to the caller's base URL. */
+exports.SOCIAL_ASCOLTO_PAGE_PATH = '/agents/{slug}/ascolto';
+/** Build a path from one slug segment without coercing untrusted values. */
+function socialAscoltoPagePath(agentSlug) {
+    if (typeof agentSlug !== 'string' ||
+        agentSlug.length < 1 ||
+        agentSlug.length > 100 ||
+        /[/\\\u0000-\u001f\u007f-\u009f]/.test(agentSlug) ||
+        /^(?:\.|%2e){1,2}$/i.test(agentSlug)) {
+        return null;
+    }
+    try {
+        return exports.SOCIAL_ASCOLTO_PAGE_PATH.replace('{slug}', encodeURIComponent(agentSlug));
+    }
+    catch {
+        // encodeURIComponent rejects malformed UTF-16, such as a lone surrogate.
+        return null;
+    }
+}
 /** One shape for Telegram and X9 Live web. */
 exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     verticalId: post_js_1.SocialVerticalIdSchema,
@@ -75,9 +96,17 @@ exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     counts: zod_1.z.strictObject(Object.fromEntries(topic_js_1.SOCIAL_VERDICTS.map(v => [v, NonNegativeIntSchema]))),
     postsSeen: NonNegativeIntSchema,
     spentUsd: zod_1.z.number().nonnegative().finite(),
+    /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
+    costPerPostUsd: zod_1.z.number().nonnegative().finite().optional(),
     topics: zod_1.z.array(exports.SocialRecapTopicSummarySchema).max(50),
     /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
     pageUrl: research_js_1.WebUrlSchema.optional(),
+}).superRefine((r, ctx) => {
+    if (r.costPerPostUsd === undefined)
+        return;
+    if (r.costPerPostUsd !== (0, fact_memory_js_1.socialCostPerPost)({ spentUsd: r.spentUsd, postsSeen: r.postsSeen })) {
+        ctx.addIssue({ code: 'custom', path: ['costPerPostUsd'], message: 'costPerPostUsd must match spentUsd / postsSeen' });
+    }
 });
 /**
  * The topic without identity. `.omit()` is not allowed on a refined schema (zod 4), so the shape is rebuilt from

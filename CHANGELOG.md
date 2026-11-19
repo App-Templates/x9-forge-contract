@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.276.0 — social listening spend route, recap cost per post and Ascolto page path (tasks 3945, 3946, 3947)
+
+- `socialAgentSpendContract` exposes the same spend path and shape as the other capabilities, with rows whose capability is `social`.
+- Optional `costPerPostUsd` on the recap is checked against `spentUsd / postsSeen`.
+- `SOCIAL_ASCOLTO_PAGE_PATH` and `socialAscoltoPagePath` provide the shared Ascolto page link template and slug validation and encoding.
+- Additive; recaps without the new field stay valid.
+
 ## v1.275.0 — social listening wiki, adoption, video project and P0 measurement (tasks 3940, 3941, 3942, 3943)
 
 - Optional `wikiIngestId` and `wikiSavedAt` on topics record wiki ingestion; `socialWikiReverifyDue` identifies topics due for reverification after 90 days (`SOCIAL_WIKI_REVERIFY_DAYS`).

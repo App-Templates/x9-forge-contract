@@ -88,6 +88,10 @@ export declare const SocialRecapTopicSummarySchema: z.ZodObject<{
         uncertain: z.ZodBoolean;
     }, z.core.$strict>;
 }, z.core.$strict>;
+/** The agent's Ascolto page in Forge, relative to the caller's base URL. */
+export declare const SOCIAL_ASCOLTO_PAGE_PATH: "/agents/{slug}/ascolto";
+/** Build a path from one slug segment without coercing untrusted values. */
+export declare function socialAscoltoPagePath(agentSlug: unknown): string | null;
 /** One shape for Telegram and X9 Live web. */
 export declare const SocialRecapOutputSchema: z.ZodObject<{
     verticalId: z.ZodString;
@@ -100,6 +104,8 @@ export declare const SocialRecapOutputSchema: z.ZodObject<{
     counts: z.ZodObject<Record<"funziona" | "da_provare" | "non_funziona" | "fuffa", z.ZodNumber>, z.core.$strict>;
     postsSeen: z.ZodNumber;
     spentUsd: z.ZodNumber;
+    /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
+    costPerPostUsd: z.ZodOptional<z.ZodNumber>;
     topics: z.ZodArray<z.ZodObject<{
         topicId: z.ZodString;
         title: z.ZodString;
