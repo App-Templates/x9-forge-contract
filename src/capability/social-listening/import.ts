@@ -52,6 +52,68 @@ const LegacyTimestampSchema = z.string().refine(
   value => socialImportTimestamp(value) !== null,
   'expected a date-time with a valid numeric offset',
 );
+
+export const SOCIAL_META_MEDIA_FIELDS = [
+  'id', 'caption', 'media_type', 'media_product_type', 'media_url',
+  'permalink', 'timestamp', 'like_count', 'comments_count',
+] as const;
+
+/** A field selection only: credentials and the request URL belong to the caller. */
+export function socialMetaBusinessDiscoveryFields(handle: string, limit: number): string {
+  const parsedHandle = SocialHandleSchema.safeParse(handle);
+  if (!parsedHandle.success || !Number.isInteger(limit) || limit < 1 || limit > 50) {
+    throw new TypeError('invalid_meta_query');
+  }
+  return `business_discovery.username(${parsedHandle.data}){media.limit(${limit}){${SOCIAL_META_MEDIA_FIELDS.join(',')}}}`;
+}
+
+export const SocialMetaMediaSchema = z.strictObject({
+  id: z.string().regex(/^\d{1,30}$/),
+  caption: z.string().max(5000).optional(),
+  media_type: SocialLegacyKindSchema,
+  media_product_type: z.string().min(1).max(30).optional(),
+  media_url: WebUrlSchema.optional(),
+  permalink: WebUrlSchema,
+  timestamp: LegacyTimestampSchema,
+  like_count: z.number().int().nonnegative().optional(),
+  comments_count: z.number().int().nonnegative().optional(),
+});
+
+const SocialMetaPostSchema = SocialPostSchema.omit({ identity: true }).strict();
+
+/** Keep the Meta id shared with the Mac; only a video file can be transcribed. */
+export function socialPostFromMetaMedia(
+  raw: unknown,
+  context: { handle: string; collectedAt: string },
+): { ok: true; post: Omit<SocialPost, 'identity'>; videoUrl?: string }
+  | { ok: false; error: 'invalid_media' } {
+  try {
+    const parsed = SocialMetaMediaSchema.safeParse(raw);
+    if (!parsed.success) return { ok: false, error: 'invalid_media' };
+    const media = parsed.data;
+    const { handle, collectedAt } = context;
+    const post = SocialMetaPostSchema.safeParse({
+      postId: media.id,
+      provider: 'instagram',
+      handle,
+      link: media.permalink,
+      publishedAt: socialImportTimestamp(media.timestamp),
+      kind: socialImportKind(media.media_type),
+      caption: media.caption ?? '',
+      collectedAt,
+    });
+    if (!post.success) return { ok: false, error: 'invalid_media' };
+    return {
+      ok: true,
+      post: post.data,
+      ...(media.media_type === 'VIDEO' && media.media_url !== undefined ? { videoUrl: media.media_url } : {}),
+    };
+  } catch {
+    // Untrusted objects can throw from accessors during parsing or context reads.
+    return { ok: false, error: 'invalid_media' };
+  }
+}
+
 const LegacyPostIdSchema = z.string().min(1).max(100);
 
 /** Historical web text is data. Unknown fields must stop the import rather than disappear. */
