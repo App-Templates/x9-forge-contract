@@ -100,6 +100,7 @@ export declare const SocialTopicSchema: z.ZodObject<{
     extendedResearchId: z.ZodOptional<z.ZodString>;
     wikiIngestId: z.ZodOptional<z.ZodUUID>;
     wikiSavedAt: z.ZodOptional<z.ZodISODateTime>;
+    videoProjectId: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type SocialTopic = z.infer<typeof SocialTopicSchema>;
 //# sourceMappingURL=topic.d.ts.map

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { type VideoBriefToolInput } from "../video/tools.js";
+import { type SocialTopic } from "./topic.js";
 import type { SocialTopicGetOutput } from "./tools.js";
 /**
  * "Passa a cap video": from a topic to the request of `video_brief_create`.
@@ -53,6 +54,17 @@ export declare const SocialTopicBriefOutputSchema: z.ZodObject<{
     }>;
 }, z.core.$strict>;
 export type SocialTopicBriefOutput = z.infer<typeof SocialTopicBriefOutputSchema>;
+/**
+ * The topic after its brief went out: `videoProjectId` is written only when cap-video's answer is about THIS topic
+ * (same topic id and same `social:<id>` reference). The last brief wins. Never throws.
+ */
+export declare function socialTopicAfterBrief(topic: SocialTopic, output: unknown): {
+    ok: true;
+    topic: SocialTopic;
+} | {
+    ok: false;
+    error: 'invalid_output' | 'topic_mismatch' | 'ref_mismatch';
+};
 export declare const SocialTopicBriefToolErrorSchema: z.ZodEnum<{
     invalid_request: "invalid_request";
     not_configured: "not_configured";

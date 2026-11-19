@@ -7,6 +7,7 @@ const capability_call_identity_js_1 = require("../capability-call-identity.cjs")
 const tools_js_1 = require("../lab/tools.cjs");
 const research_js_1 = require("../ricerca/research.cjs");
 const spend_js_1 = require("../ricerca/spend.cjs");
+const brief_js_1 = require("../video/brief.cjs");
 const post_js_1 = require("./post.cjs");
 const verdict_js_1 = require("./verdict.cjs");
 const IsoDateTimeSchema = zod_1.z.iso.datetime({ offset: true });
@@ -78,6 +79,8 @@ exports.SocialTopicSchema = zod_1.z.object({
     /** Set by the service after `lab_ingest` accepted the topic (D15). */
     wikiIngestId: tools_js_1.LabIngestIdSchema.optional(),
     wikiSavedAt: IsoDateTimeSchema.optional(),
+    /** The cap-video project born from this topic's brief (P9). */
+    videoProjectId: brief_js_1.VideoProjectIdSchema.optional(),
 }).strict().superRefine((t, ctx) => {
     if ((t.verdict === 'funziona' || t.verdict === 'da_provare') && t.facts.length < 1) {
         ctx.addIssue({ code: 'custom', path: ['facts'], message: 'verdict funziona/da_provare needs at least one fact' });

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SocialTopicBriefToolErrorSchema = exports.SocialTopicBriefOutputSchema = exports.SocialTopicBriefInputSchema = exports.SOCIAL_VIDEO_EXTERNAL_REF_PREFIX = exports.SOCIAL_TOPIC_VIDEO_TOOLS = void 0;
 exports.socialVideoExternalRef = socialVideoExternalRef;
 exports.parseSocialVideoExternalRef = parseSocialVideoExternalRef;
+exports.socialTopicAfterBrief = socialTopicAfterBrief;
 exports.socialTopicVideoBriefText = socialTopicVideoBriefText;
 exports.socialTopicVideoBriefInput = socialTopicVideoBriefInput;
 const zod_1 = require("zod");
@@ -41,6 +42,24 @@ exports.SocialTopicBriefOutputSchema = zod_1.z.strictObject({
     projectId: brief_js_1.VideoProjectIdSchema,
     state: brief_js_1.VideoProjectStateSchema,
 });
+/**
+ * The topic after its brief went out: `videoProjectId` is written only when cap-video's answer is about THIS topic
+ * (same topic id and same `social:<id>` reference). The last brief wins. Never throws.
+ */
+function socialTopicAfterBrief(topic, output) {
+    const parsed = exports.SocialTopicBriefOutputSchema.safeParse(output);
+    if (!parsed.success)
+        return { ok: false, error: 'invalid_output' };
+    if (parsed.data.topicId !== topic.topicId)
+        return { ok: false, error: 'topic_mismatch' };
+    if (parsed.data.externalRef !== exports.SOCIAL_VIDEO_EXTERNAL_REF_PREFIX + topic.topicId) {
+        return { ok: false, error: 'ref_mismatch' };
+    }
+    const next = topic_js_1.SocialTopicSchema.safeParse({ ...topic, videoProjectId: parsed.data.projectId });
+    if (!next.success)
+        return { ok: false, error: 'invalid_output' };
+    return { ok: true, topic: next.data };
+}
 exports.SocialTopicBriefToolErrorSchema = zod_1.z.enum([
     'invalid_request', 'not_configured', 'unknown_topic', 'video_not_enabled', 'video_refused',
 ]);

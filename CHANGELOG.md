@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.275.0 — social listening wiki, adoption, video project and P0 measurement (tasks 3940, 3941, 3942, 3943)
+
+- Optional `wikiIngestId` and `wikiSavedAt` on topics record wiki ingestion; `socialWikiReverifyDue` identifies topics due for reverification after 90 days (`SOCIAL_WIKI_REVERIFY_DAYS`).
+- `SocialAdoptionProposalSchema`, `SOCIAL_ADOPTION_TOOLS` and `socialAdoptionDecision` describe adoption proposals that only an owner or superadmin can decide.
+- Optional `videoProjectId` on topics and `socialTopicAfterBrief` link a topic to the video project returned by its latest brief.
+- `SocialCostMeasurementSchema` describes cost measurement rows; `socialMonthlyCostPerAuthor` and `socialMeasurementSummary` provide the P0 cost measurements and summary.
+- Additive; saved topics stay valid.
+
 ## v1.274.0 — social listening server track (tasks 3937, 3938)
 
 - `socialJobRoute` identifies who runs each job kind per track: the Mac executor, `cap-stt`, `cap-ricerca`, or the service calling the Meta API.
