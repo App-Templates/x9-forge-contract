@@ -10,6 +10,26 @@ import { socialVideoExternalRef } from "./video-brief.js";
  * automatic round. Identity never comes from the input (R-33); the service calls cap-lab with the same envelope.
  */
 export const SOCIAL_TOPIC_WIKI_TOOLS = { save: 'social_topic_save_wiki' };
+export const SOCIAL_WIKI_REVERIFY_DAYS = 90;
+/** Elapsed whole days since wiki acceptance; the caller supplies the current time. */
+export function socialWikiReverifyDue(topic, nowIso) {
+    try {
+        const parsed = SocialTopicSchema.safeParse(topic);
+        const now = SocialTopicSchema.shape.computedAt.safeParse(nowIso);
+        if (!parsed.success || !now.success)
+            return { state: 'invalid_input' };
+        if (parsed.data.wikiSavedAt === undefined)
+            return { state: 'not_saved' };
+        const age = Date.parse(now.data) - Date.parse(parsed.data.wikiSavedAt);
+        if (!Number.isFinite(age) || age < 0)
+            return { state: 'invalid_input' };
+        const daysOld = Math.floor(age / 86_400_000);
+        return { state: daysOld >= SOCIAL_WIKI_REVERIFY_DAYS ? 'due' : 'fresh', daysOld };
+    }
+    catch {
+        return { state: 'invalid_input' };
+    }
+}
 const TopicIdSchema = SocialTopicSchema.shape.topicId;
 export const SocialTopicSaveWikiInputSchema = z.strictObject({
     topicId: TopicIdSchema,

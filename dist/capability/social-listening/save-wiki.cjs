@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialTopicWikiToolErrorSchema = exports.SocialTopicSaveWikiOutputSchema = exports.SocialTopicSaveWikiInputSchema = exports.SOCIAL_TOPIC_WIKI_TOOLS = void 0;
+exports.SocialTopicWikiToolErrorSchema = exports.SocialTopicSaveWikiOutputSchema = exports.SocialTopicSaveWikiInputSchema = exports.SOCIAL_WIKI_REVERIFY_DAYS = exports.SOCIAL_TOPIC_WIKI_TOOLS = void 0;
+exports.socialWikiReverifyDue = socialWikiReverifyDue;
 exports.socialTopicLabIngestInput = socialTopicLabIngestInput;
 const zod_1 = require("zod");
 const tools_js_1 = require("../lab/tools.cjs");
@@ -14,6 +15,26 @@ const video_brief_js_1 = require("./video-brief.cjs");
  * automatic round. Identity never comes from the input (R-33); the service calls cap-lab with the same envelope.
  */
 exports.SOCIAL_TOPIC_WIKI_TOOLS = { save: 'social_topic_save_wiki' };
+exports.SOCIAL_WIKI_REVERIFY_DAYS = 90;
+/** Elapsed whole days since wiki acceptance; the caller supplies the current time. */
+function socialWikiReverifyDue(topic, nowIso) {
+    try {
+        const parsed = topic_js_1.SocialTopicSchema.safeParse(topic);
+        const now = topic_js_1.SocialTopicSchema.shape.computedAt.safeParse(nowIso);
+        if (!parsed.success || !now.success)
+            return { state: 'invalid_input' };
+        if (parsed.data.wikiSavedAt === undefined)
+            return { state: 'not_saved' };
+        const age = Date.parse(now.data) - Date.parse(parsed.data.wikiSavedAt);
+        if (!Number.isFinite(age) || age < 0)
+            return { state: 'invalid_input' };
+        const daysOld = Math.floor(age / 86_400_000);
+        return { state: daysOld >= exports.SOCIAL_WIKI_REVERIFY_DAYS ? 'due' : 'fresh', daysOld };
+    }
+    catch {
+        return { state: 'invalid_input' };
+    }
+}
 const TopicIdSchema = topic_js_1.SocialTopicSchema.shape.topicId;
 exports.SocialTopicSaveWikiInputSchema = zod_1.z.strictObject({
     topicId: TopicIdSchema,

@@ -98,6 +98,8 @@ export declare const SocialTopicSchema: z.ZodObject<{
     }, z.core.$strict>;
     computedAt: z.ZodISODateTime;
     extendedResearchId: z.ZodOptional<z.ZodString>;
+    wikiIngestId: z.ZodOptional<z.ZodUUID>;
+    wikiSavedAt: z.ZodOptional<z.ZodISODateTime>;
 }, z.core.$strict>;
 export type SocialTopic = z.infer<typeof SocialTopicSchema>;
 //# sourceMappingURL=topic.d.ts.map

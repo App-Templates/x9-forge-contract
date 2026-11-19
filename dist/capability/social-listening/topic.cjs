@@ -4,6 +4,7 @@ exports.SocialTopicSchema = exports.SocialTopicCostSchema = exports.SocialTopicS
 exports.socialCategoryInVertical = socialCategoryInVertical;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
+const tools_js_1 = require("../lab/tools.cjs");
 const research_js_1 = require("../ricerca/research.cjs");
 const spend_js_1 = require("../ricerca/spend.cjs");
 const post_js_1 = require("./post.cjs");
@@ -74,9 +75,18 @@ exports.SocialTopicSchema = zod_1.z.object({
     computedAt: IsoDateTimeSchema,
     /** The extended research already done (D14): the button goes away. */
     extendedResearchId: research_js_1.ResearchIdSchema.optional(),
+    /** Set by the service after `lab_ingest` accepted the topic (D15). */
+    wikiIngestId: tools_js_1.LabIngestIdSchema.optional(),
+    wikiSavedAt: IsoDateTimeSchema.optional(),
 }).strict().superRefine((t, ctx) => {
     if ((t.verdict === 'funziona' || t.verdict === 'da_provare') && t.facts.length < 1) {
         ctx.addIssue({ code: 'custom', path: ['facts'], message: 'verdict funziona/da_provare needs at least one fact' });
+    }
+    if (t.wikiIngestId !== undefined && t.wikiSavedAt === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['wikiSavedAt'], message: 'wiki ingest requires a saved timestamp' });
+    }
+    if (t.wikiSavedAt !== undefined && t.wikiIngestId === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['wikiIngestId'], message: 'wiki saved timestamp requires an ingest id' });
     }
 });
 //# sourceMappingURL=topic.js.map

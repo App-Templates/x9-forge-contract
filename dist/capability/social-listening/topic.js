@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from "../capability-call-identity.js";
+import { LabIngestIdSchema } from "../lab/tools.js";
 import { ResearchIdSchema, ResearchSourceSchema } from "../ricerca/research.js";
 import { AgentDaySchema } from "../ricerca/spend.js";
 import { SocialHandleSchema, SocialVerticalIdSchema } from "./post.js";
@@ -68,9 +69,18 @@ export const SocialTopicSchema = z.object({
     computedAt: IsoDateTimeSchema,
     /** The extended research already done (D14): the button goes away. */
     extendedResearchId: ResearchIdSchema.optional(),
+    /** Set by the service after `lab_ingest` accepted the topic (D15). */
+    wikiIngestId: LabIngestIdSchema.optional(),
+    wikiSavedAt: IsoDateTimeSchema.optional(),
 }).strict().superRefine((t, ctx) => {
     if ((t.verdict === 'funziona' || t.verdict === 'da_provare') && t.facts.length < 1) {
         ctx.addIssue({ code: 'custom', path: ['facts'], message: 'verdict funziona/da_provare needs at least one fact' });
+    }
+    if (t.wikiIngestId !== undefined && t.wikiSavedAt === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['wikiSavedAt'], message: 'wiki ingest requires a saved timestamp' });
+    }
+    if (t.wikiSavedAt !== undefined && t.wikiIngestId === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['wikiIngestId'], message: 'wiki saved timestamp requires an ingest id' });
     }
 });
 //# sourceMappingURL=topic.js.map

@@ -10,6 +10,19 @@ import type { SocialTopicGetOutput } from "./tools.js";
 export declare const SOCIAL_TOPIC_WIKI_TOOLS: {
     readonly save: "social_topic_save_wiki";
 };
+export declare const SOCIAL_WIKI_REVERIFY_DAYS = 90;
+/** Elapsed whole days since wiki acceptance; the caller supplies the current time. */
+export declare function socialWikiReverifyDue(topic: unknown, nowIso: string): {
+    state: 'not_saved';
+} | {
+    state: 'fresh';
+    daysOld: number;
+} | {
+    state: 'due';
+    daysOld: number;
+} | {
+    state: 'invalid_input';
+};
 export declare const SocialTopicSaveWikiInputSchema: z.ZodObject<{
     topicId: z.ZodString;
     ownerConfirmed: z.ZodLiteral<true>;

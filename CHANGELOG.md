@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.274.0 — social listening server track (tasks 3937, 3938)
+
+- `socialJobRoute` identifies who runs each job kind per track: the Mac executor, `cap-stt`, `cap-ricerca`, or the service calling the Meta API.
+- `SOCIAL_SERVER_VERIFY_ESTIMATE_USD` and `socialServerVerifyEstimate` provide the server verification cost estimate, starting at USD 0.25.
+- `SOCIAL_META_MEDIA_FIELDS`, `socialMetaBusinessDiscoveryFields` and `SocialMetaMediaSchema` describe the Meta API media fields, query and response.
+- `socialPostFromMetaMedia` converts Meta media to a social post, using the Meta media id as the post id, as in the MVP.
+- Additive; no saved data changes.
+
 ## v1.273.0 — social listening job material for the Mac executor (tasks 3933, 3934, 3935)
 
 - Optional `material` on `filter` and `verify` inputs, and optional `posts` on `group` inputs, carry the job material to the Mac executor.

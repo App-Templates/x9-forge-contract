@@ -158,6 +158,8 @@ export declare const SocialTopicGetOutputSchema: z.ZodObject<{
     }, z.core.$strict>;
     computedAt: z.ZodISODateTime;
     extendedResearchId: z.ZodOptional<z.ZodString>;
+    wikiIngestId: z.ZodOptional<z.ZodUUID>;
+    wikiSavedAt: z.ZodOptional<z.ZodISODateTime>;
 }, z.core.$strict>;
 export declare const SocialProfilesListOutputSchema: z.ZodObject<{
     profiles: z.ZodArray<z.ZodObject<{

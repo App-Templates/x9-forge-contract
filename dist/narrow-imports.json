@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.273.0",
+  "versione": "1.274.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1563,6 +1563,7 @@
       "SOCIAL_VERIFY_EXCERPT_MAX": "@x9-forge/contracts/capability/social-listening/job-io",
       "SOCIAL_VERIFY_POSTS_MAX": "@x9-forge/contracts/capability/social-listening/job-io",
       "SOCIAL_VIDEO_EXTERNAL_REF_PREFIX": "@x9-forge/contracts/capability/social-listening/video-brief",
+      "SOCIAL_WIKI_REVERIFY_DAYS": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SocialCapCheckSchema": "@x9-forge/contracts/capability/social-listening/cap",
       "SocialCategorySchema": "@x9-forge/contracts/capability/social-listening/topic",
       "SocialCategorySlugSchema": "@x9-forge/contracts/capability/social-listening/topic",
@@ -1688,7 +1689,8 @@
       "socialTopicVideoBriefText": "@x9-forge/contracts/capability/social-listening/video-brief",
       "socialVerifyJobInput": "@x9-forge/contracts/capability/social-listening/job-io",
       "socialVerifyTopicCost": "@x9-forge/contracts/capability/social-listening/job-io",
-      "socialVideoExternalRef": "@x9-forge/contracts/capability/social-listening/video-brief"
+      "socialVideoExternalRef": "@x9-forge/contracts/capability/social-listening/video-brief",
+      "socialWikiReverifyDue": "@x9-forge/contracts/capability/social-listening/save-wiki"
     },
     "@x9-forge/contracts/capability/lab": {
       "COMPETENCE_MAX_LEVEL": "@x9-forge/contracts/capability/lab/competence",
