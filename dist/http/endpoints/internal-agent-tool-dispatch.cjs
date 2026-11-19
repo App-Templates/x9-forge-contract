@@ -15,6 +15,7 @@ const cap_tool_call_js_1 = require("./cap-tool-call.cjs");
 const internal_agent_turn_js_1 = require("./internal-agent-turn.cjs");
 const email_tools_js_1 = require("../../capability/email-tools.cjs");
 const briefing_js_1 = require("../../capability/configuration/briefing.cjs");
+const mcp_x9_tools_js_1 = require("../../capability/paperclip/mcp-x9-tools.cjs");
 const text = zod_1.z.string().min(1).max(32_000);
 const telegramInput = zod_1.z.strictObject({ chatId: zod_1.z.union([zod_1.z.number().int(), zod_1.z.string().min(1).max(64)]), text });
 const sessionInput = zod_1.z.strictObject({ sessionId: zod_1.z.string().min(1).max(256) });
@@ -89,6 +90,9 @@ exports.INTERNAL_AGENT_EXECUTIONS = Object.freeze({
     security_light_on_group: registration('netatmo', 'light_on_group', lightGroupInput, NETATMO_OAUTH),
     security_light_on: registration('netatmo', 'light_on', lightInput, NETATMO_OAUTH),
     security_come_home: registration('netatmo', 'come_home', noInput, [...NETATMO_OAUTH, 'NETATMO_EMAIL', 'NETATMO_PASSWORD']),
+    // cap-paperclip's MCP endpoint for Paperclip's tool gateway (task 8502): the addressed lead's own memory, read-only.
+    // Identity comes from the admitted dispatch identity, never from the input; the input is the shape offered to Paperclip.
+    paperclip_mcp_memory_recall: registration('memory', 'memory_recall', mcp_x9_tools_js_1.X9McpMemoryRecallInputSchema, ['OPENAI_API_KEY']),
 });
 exports.InternalAgentExecutionSchema = zod_1.z.enum(Object.keys(exports.INTERNAL_AGENT_EXECUTIONS));
 /** Correlation does not authorize side-effect replay: receivers retain native lease/idempotency guards. */

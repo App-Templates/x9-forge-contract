@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.300.0 — X9 tools offered to the Paperclip tool gateway (tasks 8500-8502)
+
+- Additive: `capability/paperclip/mcp-gateway-caller` reads who is calling from the Paperclip MCP gateway (the `x-paperclip-*` metadata headers of the connection: company, agent, issue, project, run, gateway session, correlation; `Q:mcp-gateway-caller-identity`, Paperclip `tool-gateway.ts:376-384, 3349-3370`), the key of the call and the declared twins.
+- Additive: `capability/paperclip/mcp-x9-tools` describes the X9 tools offered to the gateway, the refusal as an error result (never an HTTP or JSON-RPC error) and the key of a repeated request (identity + company + issue + tool + input digest, never the run).
+- Additive: the agent-core dispatch has the fixed execution `paperclip_mcp_memory_recall` (Memory read for the capo, same input offered to Paperclip); registry counts 23 → 24.
+- Line of the Capi adattatore Paperclip project (1.300.0 and up), on top of ec-ponte 1.244.0; no existing contract changes.
+
 ## v1.244.0 — the stalled-work notice to a person has its contract (task 7579)
 
 - Additive: new narrow module `http/endpoints/internal-work-stalled-notice` defines the notice request and response, with a stable reference to the Paperclip issue and optional piece key, the repeated-request reason, occurrence (3 or more), `since`, observation time and an opaque receipt.

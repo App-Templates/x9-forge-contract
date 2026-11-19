@@ -439,11 +439,11 @@ const stalledNotice = {
 const stalledRequest = { tenantId: '1', ownerId: '1', notice: stalledNotice };
 
 describe('s7579 pacchetto-1-244-0', () => {
-  it('s7579_version: package and first release are 1.244.0 and retain 1.243.0', () => {
+  it('s7579_version: the CHANGELOG retains 1.244.0 and 1.243.0 and package matches the first release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.244.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.244.0');
+    expect(changelog).toContain('## v1.244.0');
     expect(changelog).toContain('## v1.243.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
   });
 
   it('s7579_caso_vero: ten requests identify the work by issue id without a piece', () => {
