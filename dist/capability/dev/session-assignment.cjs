@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DevSessionCommitSchema = exports.DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = exports.DevSessionAssignmentSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DEV_SESSION_DELIVERY_PACKAGE_MODES = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
+exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = exports.DevSessionAssignmentSchema = exports.DevSessionBaseSchema = exports.DevSessionCommitSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DEV_SESSION_DELIVERY_PACKAGE_MODES = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
 exports.mandateDeliverableKeys = mandateDeliverableKeys;
 exports.devSessionDeliverableKeyProblem = devSessionDeliverableKeyProblem;
 exports.devSessionBranch = devSessionBranch;
@@ -75,6 +75,15 @@ exports.DevSessionMaterialSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.strictObject({ kind: zod_1.z.literal('asset'), asset: asset_js_1.AssetRefSchema, note: NoteSchema.optional() }),
     zod_1.z.strictObject({ kind: zod_1.z.literal('github_link'), url: exports.DevSessionGitHubLinkSchema, note: NoteSchema.optional() }),
 ]);
+const CommitSchema = zod_1.z.string().regex(/^[0-9a-f]{40}$/);
+exports.DevSessionCommitSchema = CommitSchema;
+const BASE_BRANCH_PATTERN = /^(?!.*\.\.)(?!.*\/\/)(?!.*\.lock(?:\/|$))(?!.*[./]$)[A-Za-z0-9][A-Za-z0-9._\/-]{0,199}$/;
+/**
+ * Where the session starts from. `ramo` is a branch of the destination repository as the executor sees it after the
+ * fetch (never a ref path, never `..`); `commit` is the SHA the executor expects to find there, so a branch that moved
+ * is refused and never replaced silently.
+ */
+exports.DevSessionBaseSchema = zod_1.z.strictObject({ ramo: zod_1.z.string().regex(BASE_BRANCH_PATTERN), commit: CommitSchema });
 /**
  * L'incarico. Tutto ciò che identifica chi lo apre (tenant, owner, organizzazione, agente, business unit) è messo da
  * cap-dev dall'identità verificata della chiamata, mai dal modello. Materials must come from the same tenant, company
@@ -108,6 +117,11 @@ exports.DevSessionAssignmentSchema = zod_1.z.strictObject({
      */
     deliveryPackage: zod_1.z.enum(exports.DEV_SESSION_DELIVERY_PACKAGE_MODES).optional(),
     destination: zod_1.z.strictObject({ repo: exports.DevSessionRepoSchema }),
+    /**
+     * Absent = the assignment starts from the main branch, as before; written only when present, so the canonical json
+     * and the digest of every assignment without it are byte-identical to 1.241.0.
+     */
+    base: exports.DevSessionBaseSchema.optional(),
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 }).superRefine((assignment, ctx) => {
     assignment.materials.forEach((material, index) => {
@@ -231,8 +245,6 @@ function parseDevSessionBlock(body) {
 }
 // -- Consegna ------------------------------------------------------------------------------------------------------
 const Sha256Schema = zod_1.z.string().regex(/^[0-9a-f]{64}$/);
-const CommitSchema = zod_1.z.string().regex(/^[0-9a-f]{40}$/);
-exports.DevSessionCommitSchema = CommitSchema;
 /** Percorso relativo nel ramo di consegna: né assoluto, né con `..`, né con segmenti vuoti o con la barra inversa. */
 const DeliveredPathSchema = zod_1.z.string().min(1).max(1024).refine((path) => {
     if (path.startsWith('/') || path.includes('\\'))

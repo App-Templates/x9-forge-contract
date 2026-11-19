@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.242.0 — the session assignment carries an optional base (branch and expected commit) in the signed block (task 7571)
+
+- New `DevSessionBaseSchema` (`{ ramo, commit }`, strict; `ramo` is a plain branch name, never a ref path or `..`; `commit` a 40-digit lowercase SHA) and type `DevSessionBase`; `DevSessionAssignmentSchema` gains `base`, optional.
+- Additive. Assignments without `base` keep form and digest byte for byte (the literal digest of a 27/10 assignment is tested). An old strict reader refuses a block that carries `base`, so the order is bridge, vendor, readers, then writers.
+
 ## v1.241.0 — the asset_mismatch refusal of a file read has its code, the name of the first mismatching field and the function that reads it (task 7516)
 
 - `INTERNAL_MEMORY_ASSET_REFUSAL_CODES` gains `asset_mismatch`; new `ASSET_MISMATCH_FIELDS` (nine names, in the order of the Memory checks), `AssetMismatchFieldSchema`, `InternalMemoryAssetMismatchRefusalSchema` (`{ code, message, details?: { field } }`) and `assetMismatchFieldOf(refusal)`, which never throws. Only the field name travels, never a value.

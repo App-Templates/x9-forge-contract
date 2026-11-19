@@ -87,6 +87,17 @@ export declare const DevSessionMaterialSchema: z.ZodDiscriminatedUnion<[z.ZodObj
     note: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>], "kind">;
 export type DevSessionMaterial = z.infer<typeof DevSessionMaterialSchema>;
+export declare const DevSessionCommitSchema: z.ZodString;
+/**
+ * Where the session starts from. `ramo` is a branch of the destination repository as the executor sees it after the
+ * fetch (never a ref path, never `..`); `commit` is the SHA the executor expects to find there, so a branch that moved
+ * is refused and never replaced silently.
+ */
+export declare const DevSessionBaseSchema: z.ZodObject<{
+    ramo: z.ZodString;
+    commit: z.ZodString;
+}, z.core.$strict>;
+export type DevSessionBase = z.infer<typeof DevSessionBaseSchema>;
 /**
  * L'incarico. Tutto ciò che identifica chi lo apre (tenant, owner, organizzazione, agente, business unit) è messo da
  * cap-dev dall'identità verificata della chiamata, mai dal modello. Materials must come from the same tenant, company
@@ -177,6 +188,14 @@ export declare const DevSessionAssignmentSchema: z.ZodObject<{
     destination: z.ZodObject<{
         repo: z.ZodString;
     }, z.core.$strict>;
+    /**
+     * Absent = the assignment starts from the main branch, as before; written only when present, so the canonical json
+     * and the digest of every assignment without it are byte-identical to 1.241.0.
+     */
+    base: z.ZodOptional<z.ZodObject<{
+        ramo: z.ZodString;
+        commit: z.ZodString;
+    }, z.core.$strict>>;
     createdAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type DevSessionAssignment = z.infer<typeof DevSessionAssignmentSchema>;
@@ -217,7 +236,6 @@ export declare function parseDevSessionBlock(body: string): {
     ok: false;
     reason: DevSessionBlockFailure;
 };
-export declare const DevSessionCommitSchema: z.ZodString;
 export declare const DevSessionDeliveredFileSchema: z.ZodObject<{
     path: z.ZodString;
     sha256: z.ZodString;

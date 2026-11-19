@@ -63,6 +63,15 @@ export const DevSessionMaterialSchema = z.discriminatedUnion('kind', [
     z.strictObject({ kind: z.literal('asset'), asset: AssetRefSchema, note: NoteSchema.optional() }),
     z.strictObject({ kind: z.literal('github_link'), url: DevSessionGitHubLinkSchema, note: NoteSchema.optional() }),
 ]);
+const CommitSchema = z.string().regex(/^[0-9a-f]{40}$/);
+export const DevSessionCommitSchema = CommitSchema;
+const BASE_BRANCH_PATTERN = /^(?!.*\.\.)(?!.*\/\/)(?!.*\.lock(?:\/|$))(?!.*[./]$)[A-Za-z0-9][A-Za-z0-9._\/-]{0,199}$/;
+/**
+ * Where the session starts from. `ramo` is a branch of the destination repository as the executor sees it after the
+ * fetch (never a ref path, never `..`); `commit` is the SHA the executor expects to find there, so a branch that moved
+ * is refused and never replaced silently.
+ */
+export const DevSessionBaseSchema = z.strictObject({ ramo: z.string().regex(BASE_BRANCH_PATTERN), commit: CommitSchema });
 /**
  * L'incarico. Tutto ciò che identifica chi lo apre (tenant, owner, organizzazione, agente, business unit) è messo da
  * cap-dev dall'identità verificata della chiamata, mai dal modello. Materials must come from the same tenant, company
@@ -96,6 +105,11 @@ export const DevSessionAssignmentSchema = z.strictObject({
      */
     deliveryPackage: z.enum(DEV_SESSION_DELIVERY_PACKAGE_MODES).optional(),
     destination: z.strictObject({ repo: DevSessionRepoSchema }),
+    /**
+     * Absent = the assignment starts from the main branch, as before; written only when present, so the canonical json
+     * and the digest of every assignment without it are byte-identical to 1.241.0.
+     */
+    base: DevSessionBaseSchema.optional(),
     createdAt: z.iso.datetime({ offset: true }),
 }).superRefine((assignment, ctx) => {
     assignment.materials.forEach((material, index) => {
@@ -219,8 +233,6 @@ export function parseDevSessionBlock(body) {
 }
 // -- Consegna ------------------------------------------------------------------------------------------------------
 const Sha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
-const CommitSchema = z.string().regex(/^[0-9a-f]{40}$/);
-export const DevSessionCommitSchema = CommitSchema;
 /** Percorso relativo nel ramo di consegna: né assoluto, né con `..`, né con segmenti vuoti o con la barra inversa. */
 const DeliveredPathSchema = z.string().min(1).max(1024).refine((path) => {
     if (path.startsWith('/') || path.includes('\\'))
