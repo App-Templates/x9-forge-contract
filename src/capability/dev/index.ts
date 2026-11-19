@@ -9,6 +9,8 @@ export * from './production-progress.js';
 export * from './production-artifact-content.js';
 export * from './session-assignment.js';
 export * from './session-acceptance.js';
+export * from './session-acceptance-catalog.js';
+export * from './session-acceptance-templates.js';
 export * from './session-outcome.js';
 export {
   DEV_SESSION_EXECUTOR_LABEL_PREFIX,

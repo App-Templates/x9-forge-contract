@@ -12,10 +12,12 @@ import * as productionProgress from '../../../src/capability/dev/production-prog
 import * as productionConfigMatch from '../../../src/capability/dev/production-config-match.js';
 import * as sessionAssignment from '../../../src/capability/dev/session-assignment.js';
 import * as sessionAcceptance from '../../../src/capability/dev/session-acceptance.js';
+import * as sessionAcceptanceCatalog from '../../../src/capability/dev/session-acceptance-catalog.js';
+import * as sessionAcceptanceTemplates from '../../../src/capability/dev/session-acceptance-templates.js';
 import * as sessionMaterialLink from '../../../src/capability/dev/session-material-link.js';
 import * as sessionOutcome from '../../../src/capability/dev/session-outcome.js';
 
-const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...genericJob, ...genericChannel, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment, ...sessionAcceptance, ...sessionMaterialLink, ...sessionOutcome };
+const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...genericJob, ...genericChannel, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment, ...sessionAcceptance, ...sessionAcceptanceCatalog, ...sessionAcceptanceTemplates, ...sessionMaterialLink, ...sessionOutcome };
 
 describe('capability/dev subpath', () => {
   it('re-exports every symbol of signed-command, config-state, production-job, production-result, production-artifact-content, production-config-match and production-progress', () => {
@@ -42,6 +44,12 @@ describe('capability/dev subpath', () => {
     }
     for (const name of Object.keys(sessionAcceptance) as (keyof typeof sessionAcceptance)[]) {
       expect(dev[name]).toBe(sessionAcceptance[name]);
+    }
+    for (const name of Object.keys(sessionAcceptanceCatalog) as (keyof typeof sessionAcceptanceCatalog)[]) {
+      expect(dev[name]).toBe(sessionAcceptanceCatalog[name]);
+    }
+    for (const name of Object.keys(sessionAcceptanceTemplates) as (keyof typeof sessionAcceptanceTemplates)[]) {
+      expect(dev[name]).toBe(sessionAcceptanceTemplates[name]);
     }
     for (const name of Object.keys(sessionMaterialLink) as (keyof typeof sessionMaterialLink)[]) {
       expect(dev[name]).toBe(sessionMaterialLink[name]);
@@ -142,6 +150,18 @@ describe('capability/dev subpath', () => {
         'DevSessionCriterionSchema',
         'DevSessionAcceptanceInputSchema',
         'DevSessionAcceptanceSchema',
+        'DEV_SESSION_ACCEPTANCE_NEEDS',
+        'DEV_SESSION_ACCEPTANCE_CATALOG',
+        'DEV_SESSION_TEMPLATE_IDS',
+        'DevSessionTemplateIdSchema',
+        'DEV_SESSION_TEMPLATE_MATERIALS',
+        'DEV_SESSION_TEMPLATES',
+        'devSessionTemplateSupportsEngine',
+        'DEV_SESSION_REQUIREMENT_ORIGINS',
+        'DEV_SESSION_REQUIREMENT_PROBLEMS',
+        'devSessionRequirements',
+        'DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS',
+        'devSessionAcceptanceTemplateProblem',
         'DevSessionCommitSchema',
         'DevSessionDeliveredFileSchema',
         'DevSessionDeliverySchema',
