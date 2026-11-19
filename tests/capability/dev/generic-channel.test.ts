@@ -54,6 +54,13 @@ describe('generic queue channel', () => {
     }).success).toBe(true);
   });
 
+  it('s3667 accepts a claim with all three tools; repeated or invented ones stay rejected', () => {
+    const all = ['mlx_whisper', 'claude_p', 'ig_collect'];
+    expect(dev.DevGenericClaimRequestSchema.safeParse({ ...request, tools: all }).success).toBe(true);
+    expect(dev.DevGenericClaimRequestSchema.safeParse({ ...request, tools: [...all, 'ig_collect'] }).success).toBe(false);
+    expect(dev.DevGenericClaimRequestSchema.safeParse({ ...request, tools: [...all, 'bash'] }).success).toBe(false);
+  });
+
   it.each([
     { capabilities: undefined }, { capabilities: [] },
     { capabilities: Array.from({ length: 11 }, (_, i) => `cap-${i}`) },

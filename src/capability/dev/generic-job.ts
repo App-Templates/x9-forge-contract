@@ -2,8 +2,12 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../capability-call-context.js';
 import { DevSignedCommandV2Schema } from './signed-command.js';
 
-/** Names only: executors map each tool to a fixed command using their subscription. */
-export const DEV_GENERIC_JOB_TOOLS = ['mlx_whisper', 'claude_p'] as const;
+/**
+ * Names only: executors map each tool to a fixed command using their subscription.
+ * `ig_collect` collects the posts of followed profiles with the executor's fixed command;
+ * platform credentials stay on the device and never travel in the job.
+ */
+export const DEV_GENERIC_JOB_TOOLS = ['mlx_whisper', 'claude_p', 'ig_collect'] as const;
 export const DevGenericToolSchema = z.enum(DEV_GENERIC_JOB_TOOLS);
 export type DevGenericTool = z.infer<typeof DevGenericToolSchema>;
 

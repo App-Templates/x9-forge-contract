@@ -41,8 +41,17 @@ const result = {
 };
 
 describe('generic executor jobs', () => {
-  it('accepts the two fixed tool names and executor locations', () => {
-    expect(DEV_GENERIC_JOB_TOOLS).toEqual(['mlx_whisper', 'claude_p']);
+  it('s3667 accepts ig_collect and keeps jobs saved with claude_p valid', () => {
+    expect(DevGenericToolSchema.parse('ig_collect')).toBe('ig_collect');
+    expect(DEV_GENERIC_JOB_TOOLS).toEqual(['mlx_whisper', 'claude_p', 'ig_collect']);
+    expect(DevGenericJobSchema.safeParse({ ...job, tool: 'ig_collect' }).success).toBe(true);
+    // A job stored under the 3613 schema (claude_p) is unchanged.
+    const saved = { ...job, tool: 'claude_p' as const, executor: 'server' as const };
+    expect(DevGenericJobSchema.parse(saved)).toEqual(saved);
+  });
+
+  it('accepts the fixed tool names and executor locations', () => {
+    expect(DEV_GENERIC_JOB_TOOLS).toEqual(['mlx_whisper', 'claude_p', 'ig_collect']);
     expect(DEV_GENERIC_EXECUTORS).toEqual(['laptop', 'server']);
     expect(DevGenericJobSchema.parse(job)).toEqual(job);
     expect(DevGenericJobSchema.safeParse({ ...job, tool: 'claude_p', executor: 'server' }).success).toBe(true);

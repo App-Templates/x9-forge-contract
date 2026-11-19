@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { DeviceIdSchema } from '../../auth/device-signature.js';
 import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
 import {
+  DEV_GENERIC_JOB_TOOLS,
   DevGenericExecutorSchema,
   DevGenericJobResultSchema,
   DevGenericJobSchema,
@@ -17,7 +18,7 @@ export const DevGenericClaimRequestSchema = z.strictObject({
   tenantId: CapabilityAgentScopeSchema.shape.tenantId,
   ownerId: CapabilityAgentScopeSchema.shape.ownerId,
   capabilities: z.array(DevGenericJobSchema.shape.capability).min(1).max(10),
-  tools: z.array(DevGenericToolSchema).min(1).max(2).refine(
+  tools: z.array(DevGenericToolSchema).min(1).max(DEV_GENERIC_JOB_TOOLS.length).refine(
     (tools) => new Set(tools).size === tools.length,
     { message: 'Tools must be unique' },
   ),
