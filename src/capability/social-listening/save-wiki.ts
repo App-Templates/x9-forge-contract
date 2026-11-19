@@ -13,6 +13,30 @@ import { socialVideoExternalRef } from './video-brief.js';
  */
 export const SOCIAL_TOPIC_WIKI_TOOLS = { save: 'social_topic_save_wiki' } as const;
 
+export const SOCIAL_WIKI_REVERIFY_DAYS = 90;
+
+/** Elapsed whole days since wiki acceptance; the caller supplies the current time. */
+export function socialWikiReverifyDue(
+  topic: unknown,
+  nowIso: string,
+): { state: 'not_saved' }
+  | { state: 'fresh'; daysOld: number }
+  | { state: 'due'; daysOld: number }
+  | { state: 'invalid_input' } {
+  try {
+    const parsed = SocialTopicSchema.safeParse(topic);
+    const now = SocialTopicSchema.shape.computedAt.safeParse(nowIso);
+    if (!parsed.success || !now.success) return { state: 'invalid_input' };
+    if (parsed.data.wikiSavedAt === undefined) return { state: 'not_saved' };
+    const age = Date.parse(now.data) - Date.parse(parsed.data.wikiSavedAt);
+    if (!Number.isFinite(age) || age < 0) return { state: 'invalid_input' };
+    const daysOld = Math.floor(age / 86_400_000);
+    return { state: daysOld >= SOCIAL_WIKI_REVERIFY_DAYS ? 'due' : 'fresh', daysOld };
+  } catch {
+    return { state: 'invalid_input' };
+  }
+}
+
 const TopicIdSchema = SocialTopicSchema.shape.topicId;
 
 export const SocialTopicSaveWikiInputSchema = z.strictObject({
