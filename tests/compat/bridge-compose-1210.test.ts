@@ -41,13 +41,14 @@ it.each([['source', models], ['package', packagedModels]] as const)('%s keeps in
   expect(api.validateAgentModelsBatch(batch, overview, [], new Date(overview.observedAt))).toContain('slot-readonly');
 });
 
-it('retains all eighteen base dispatch actions and the five C additions', () => {
+it('retains all eighteen base dispatch actions, the five C additions and the capi addition', () => {
   const base = ['scheduler_voice_call', 'scheduler_telegram_text', 'scheduler_telegram_voice', 'scheduler_briefing_generate',
     'research_execute', 'glasses_session_admit', 'websocket_session_admit', 'voice_web_session_admit',
     'voice_calendar_week', 'voice_calendar_create', 'voice_calendar_update', 'voice_calendar_delete', 'voice_email_send',
     'voice_contacts_search', 'voice_schedule_create', 'security_light_on_group', 'security_light_on', 'security_come_home'];
   const additions = ['news_digest', 'news_digest_topic', 'calendar_today', 'calendar_week', 'lab_execute'];
-  expect(Object.keys(http.INTERNAL_AGENT_EXECUTIONS).sort()).toEqual([...base, ...additions].sort());
+  const capiAdditions = ['paperclip_mcp_memory_recall'];
+  expect(Object.keys(http.INTERNAL_AGENT_EXECUTIONS).sort()).toEqual([...base, ...additions, ...capiAdditions].sort());
   expect(http.INTERNAL_AGENT_EXECUTIONS.scheduler_briefing_generate.settingKeys).toEqual(['TTS_PROVIDER', 'ELEVENLABS_MODEL_ID']);
   expect(http.InternalAgentToolDispatchRequestSchema.safeParse({ requestId: 'composition-news-dispatch', identity: scope,
     execution: 'news_digest', input: { feeds: [{ url: 'https://example.org/feed', category: 'science', weight: 2 }], promptStyle: 'technical' } }).success).toBe(true);

@@ -40,7 +40,7 @@ for (const format of ['import', 'require']) {
   equal(http.newsBriefingSettingsGetContract.authType, 'secret');
   equal(http.coachBrowserContract.authType, 'forge_session');
   equal(http.coachBrowserContract.cacheControl, 'no-store');
-  equal(Object.keys(http.INTERNAL_AGENT_EXECUTIONS).length, 23);
+  equal(Object.keys(http.INTERNAL_AGENT_EXECUTIONS).length, 24);
   equal(http.INTERNAL_AGENT_EXECUTIONS.scheduler_briefing_generate.settingKeys, ['TTS_PROVIDER', 'ELEVENLABS_MODEL_ID']);
   equal(['news_digest', 'news_digest_topic', 'calendar_today', 'calendar_week', 'lab_execute'].every(key => key in http.INTERNAL_AGENT_EXECUTIONS), true);
 }

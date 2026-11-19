@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { X9McpMemoryRecallInputSchema } from '../../src/capability/paperclip/mcp-x9-tools.js';
 import * as http from '../../src/http/index.js';
 import { AGENT_CREDENTIAL_SERVICE_KEYS, getAgentCredentialServiceMetadata } from '../../src/agent/agent-credential-services.js';
 import { PLATFORM_INTERNAL_CREDENTIAL_KEYS } from '../../src/vault/platform-internal-credentials.js';
@@ -101,10 +102,10 @@ describe('bounded internal agent execution', () => {
       expect(api.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, ...patch }).success).toBe(false);
     }
   });
-  it('registers only the twenty-three internal fixed actions with native call paths', () => {
+  it('registers only the twenty-four internal fixed actions with native call paths', () => {
     expect(api.INTERNAL_AGENT_EXECUTIONS).toBeDefined();
     const entries = Object.entries(api.INTERNAL_AGENT_EXECUTIONS) as Array<[string, (typeof api.INTERNAL_AGENT_EXECUTIONS)[keyof typeof api.INTERNAL_AGENT_EXECUTIONS]]>;
-    expect(entries).toHaveLength(23);
+    expect(entries).toHaveLength(24);
     expect(entries.every(([, entry]) => entry.modelVisible === false && (entry.target === 'builtin' || entry.path === api.capToolCallPath(entry.tool)))).toBe(true);
     expect(api.INTERNAL_AGENT_EXECUTIONS.glasses_session_admit.credentialKeys).toEqual(['ELEVENLABS_API_KEY']);
     expect(api.INTERNAL_AGENT_EXECUTIONS.glasses_session_admit.identifierKeys).toEqual(['ELEVENLABS_VOICE_ID']);
@@ -226,4 +227,35 @@ it.each([
 ])('carries actual Briefing News selection through the bounded Core dispatch: $execution', input => {
   const parsed = api.InternalAgentToolDispatchRequestSchema.safeParse({ requestId: 'briefing-settings-dispatch', identity, ...input });
   expect(parsed.success).toBe(true);
+});
+
+describe('s8502 paperclip_mcp_memory_recall', () => {
+  const entry = api.INTERNAL_AGENT_EXECUTIONS.paperclip_mcp_memory_recall;
+  const dispatch = (input: unknown) => api.InternalAgentToolDispatchRequestSchema.safeParse({ ...request, execution: 'paperclip_mcp_memory_recall', input }).success;
+  it('s8502_voce', () => {
+    expect([entry.target, entry.capability, entry.tool, entry.path, entry.modelVisible]).toEqual(['capability', 'memory', 'memory_recall', api.capToolCallPath('memory_recall'), false]);
+    expect([...entry.credentialKeys]).toEqual(['OPENAI_API_KEY']);
+    expect([...entry.identifierKeys]).toEqual([]);
+    expect([...entry.settingKeys]).toEqual([]);
+    expect(Object.isFrozen(entry)).toBe(true);
+    expect(Object.isFrozen(entry.credentialKeys)).toBe(true);
+    expect(Object.isFrozen(entry.identifierKeys)).toBe(true);
+    expect(Object.isFrozen(entry.settingKeys)).toBe(true);
+  });
+  it('s8502_ingresso', () => {
+    expect(dispatch({ query: 'Dispensa Pronta: ultimo piano approvato', topK: 5 })).toBe(true);
+    expect(dispatch({ query: 'x' })).toBe(true);
+    for (const bad of [{}, { query: '' }, { query: 'x'.repeat(4097) }, { query: 'x', topK: 0 }, { query: 'x', topK: 21 },
+      { query: 'x', credentials: {} }, { query: 'x', url: 'https://example.invalid' }, { query: 'x', agentId: 'a' },
+      { query: 'x', tenantId: 't' }, { query: 'x', OPENAI_API_KEY: 'fixture' }]) {
+      expect(dispatch(bad), JSON.stringify(bad).slice(0, 60)).toBe(false);
+    }
+  });
+  it('s8502_stesso_ingresso', () => {
+    expect(entry.inputSchema).toBe(X9McpMemoryRecallInputSchema);
+  });
+  it('s8502_chiavi', () => {
+    const keys = [...entry.credentialKeys, ...entry.identifierKeys, ...entry.settingKeys];
+    expect(keys.every(key => !key.includes('INTERNAL') && !key.includes('TELEGRAM'))).toBe(true);
+  });
 });
