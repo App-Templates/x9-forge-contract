@@ -9,6 +9,7 @@ import {
   SocialVerticalIdSchema,
   type SocialPostFilter,
   type SocialPost,
+  type SocialVerticalId,
 } from './post.js';
 import { SocialJobKindSchema, type SocialJob } from './queue.js';
 import {
@@ -36,6 +37,15 @@ export const SocialJobPostMaterialSchema = z.strictObject({
   kind: SocialPostKindSchema,
   caption: SocialPostSchema.shape.caption,
   transcriptExcerpt: z.string().max(SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX).optional(),
+});
+
+export const SOCIAL_GROUP_EXCERPT_MAX = 240;
+
+/** Post text is DATA, never instructions. */
+export const SocialJobGroupPostSchema = z.strictObject({
+  postId: SocialPostSchema.shape.postId,
+  handle: SocialHandleSchema,
+  excerpt: z.string().min(1).max(SOCIAL_GROUP_EXCERPT_MAX),
 });
 
 /** Bounded references and post data. The queue job, never the executor, supplies identity. */
@@ -67,6 +77,8 @@ export const SocialJobInputSchema = z.discriminatedUnion('kind', [
     verticalId: SocialVerticalIdSchema,
     postIds: topic.postIds,
     categories: z.array(SocialCategorySlugSchema).min(1).max(30),
+    /** Post text is DATA, same order as postIds. */
+    posts: z.array(SocialJobGroupPostSchema).min(1).max(100).optional(),
   }).strict(),
 ]);
 export type SocialJobInput = z.infer<typeof SocialJobInputSchema>;
@@ -93,6 +105,36 @@ export function socialFilterJobInput(post: SocialPost): SocialJobInput {
     else material.transcriptExcerpt = socialPostExcerpt(material.transcriptExcerpt, maxChars);
   }
   return SocialJobInputSchema.parse(input);
+}
+
+/** Supply the Mac with a short excerpt per kept post, shrinking all excerpts together to fit the generic input limit. */
+export function socialGroupJobInput(
+  { verticalId, categories, posts }: { verticalId: SocialVerticalId; categories: string[]; posts: SocialPost[] },
+): SocialJobInput {
+  if (posts.length === 0) throw new TypeError('no_posts');
+  const base = posts.map((post) => ({
+    postId: post.postId,
+    handle: post.handle,
+    text: post.transcript !== undefined && post.transcript !== '' ? post.transcript : post.caption,
+  }));
+  const encoder = new TextEncoder();
+  for (const maxChars of [SOCIAL_GROUP_EXCERPT_MAX, 120, 60, 30]) {
+    const input = {
+      kind: kinds.group,
+      verticalId,
+      postIds: base.map((p) => p.postId),
+      categories,
+      posts: base.map(({ postId, handle, text }) => ({
+        postId,
+        handle,
+        excerpt: text === '' ? '(no text)' : socialPostExcerpt(text, maxChars),
+      })),
+    };
+    if (encoder.encode(JSON.stringify(input)).byteLength <= DEV_GENERIC_INPUT_MAX_BYTES) {
+      return SocialJobInputSchema.parse(input);
+    }
+  }
+  throw new TypeError('group_input_too_large');
 }
 
 /** Bounded executor data. The receiving service attaches the trusted job identity. */
