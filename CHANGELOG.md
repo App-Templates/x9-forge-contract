@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.243.0 — the capo–session acceptance contract (tasks 7560-7565 and 7564)
+
+- Additive: optional `acceptance` in the session assignment; old blocks keep their canonical form and digest. New criterion and input schemas, four versioned templates, a catalog of proofs and requirements, screen coverage derived from the requested screens, states and formats, Paperclip texts, attestation and verdict, and the mandate check (7560-7563, 7565).
+- `capability/dev` now imports `wire-creazione`. Built ESM, CJS, declarations and the narrow-import map carry the contract; its import-weight budget is remeasured (7564).
+- Consumers move their pin before adopting the contract. An old strict reader refuses the new field, so the order is bridge, vendor, readers, then writers. This package alone does not release the cap-dev or executor flows.
+
 ## v1.242.0 — the session assignment carries an optional base (branch and expected commit) in the signed block (task 7571)
 
 - New `DevSessionBaseSchema` (`{ ramo, commit }`, strict; `ramo` is a plain branch name, never a ref path or `..`; `commit` a 40-digit lowercase SHA) and type `DevSessionBase`; `DevSessionAssignmentSchema` gains `base`, optional.

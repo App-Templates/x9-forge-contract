@@ -6,8 +6,8 @@ export declare const VerticalPlanAttachmentRoleSchema: z.ZodEnum<{
     budget: "budget";
     reviewer: "reviewer";
     executor: "executor";
-    rd_dossier: "rd_dossier";
     criteria: "criteria";
+    rd_dossier: "rd_dossier";
 }>;
 export type VerticalPlanAttachmentRole = z.infer<typeof VerticalPlanAttachmentRoleSchema>;
 /** The plan a business unit lead sends to its referent: analysis, milestones, blockers, questions, plus attachments. */
@@ -44,8 +44,8 @@ export declare const VerticalPlanSchema: z.ZodObject<{
             budget: "budget";
             reviewer: "reviewer";
             executor: "executor";
-            rd_dossier: "rd_dossier";
             criteria: "criteria";
+            rd_dossier: "rd_dossier";
         }>;
         asset: z.ZodObject<{
             assetId: z.ZodString;

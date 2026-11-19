@@ -44,8 +44,8 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
                 budget: "budget";
                 reviewer: "reviewer";
                 executor: "executor";
-                rd_dossier: "rd_dossier";
                 criteria: "criteria";
+                rd_dossier: "rd_dossier";
             }>;
             asset: z.ZodObject<{
                 assetId: z.ZodString;
@@ -374,8 +374,8 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                     budget: "budget";
                     reviewer: "reviewer";
                     executor: "executor";
-                    rd_dossier: "rd_dossier";
                     criteria: "criteria";
+                    rd_dossier: "rd_dossier";
                 }>;
                 asset: z.ZodObject<{
                     assetId: z.ZodString;

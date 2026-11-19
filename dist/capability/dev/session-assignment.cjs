@@ -14,6 +14,7 @@ const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const asset_js_1 = require("../../organization/asset.cjs");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
+const session_acceptance_js_1 = require("./session-acceptance.cjs");
 /**
  * Incarico di sessione di una business unit (F4): il contratto fra chi lo apre (cap-dev di X9, per conto del capo
  * BU) e chi lo esegue (l'esecutore sul laptop del proprietario). L'incarico vive nel corpo di una issue della
@@ -116,6 +117,8 @@ exports.DevSessionAssignmentSchema = zod_1.z.strictObject({
      * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
      */
     deliveryPackage: zod_1.z.enum(exports.DEV_SESSION_DELIVERY_PACKAGE_MODES).optional(),
+    /** Absent before 1.243.0; when present, covered by the block digest. */
+    acceptance: session_acceptance_js_1.DevSessionAcceptanceSchema.optional(),
     destination: zod_1.z.strictObject({ repo: exports.DevSessionRepoSchema }),
     /**
      * Absent = the assignment starts from the main branch, as before; written only when present, so the canonical json

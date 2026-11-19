@@ -239,10 +239,10 @@ function builtBase(mode: 'esm' | 'cjs'): { storico: string; base: string } {
 }
 
 describe('s7571 pacchetto-1-242-0', () => {
-  it('s7571_version: package and first CHANGELOG release are 1.242.0', () => {
+  it('s7571_version: the CHANGELOG contains 1.242.0 and package matches the first release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
     const firstRelease = /^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1];
-    expect(firstRelease).toBe('1.242.0');
+    expect(changelog).toContain('## v1.242.0');
     expect(packageVersion()).toBe(firstRelease);
   });
 
@@ -309,5 +309,113 @@ describe('s7571 pacchetto-1-242-0', () => {
   it('s7571_map: narrow imports map matches the package version', () => {
     const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
     expect(map.versione).toBe(packageVersion());
+  });
+});
+
+
+function builtSession(mode: 'esm' | 'cjs', body: string): unknown {
+  const script = mode === 'esm'
+    ? `const m = await import('@x9-forge/contracts/capability/dev'); ${body}`
+    : `const m = require('@x9-forge/contracts/capability/dev'); ${body}`;
+  const args = mode === 'esm' ? ['--input-type=module', '-e', script] : ['-e', script];
+  return JSON.parse(execFileSync(process.execPath, args, { cwd: root, env: cleanEnv, encoding: 'utf8' }));
+}
+
+const acceptanceFunctions = [
+  'devSessionRequirements', 'devSessionCoverageSlots', 'devSessionAcceptanceVerdict',
+  'devSessionMandateAcceptanceProblem',
+];
+
+describe('s7564 pacchetto-1-243-0', () => {
+  it('s7564_version: package and first CHANGELOG release are 1.243.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.243.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.243.0');
+  });
+
+  for (const mode of ['esm', 'cjs'] as const) {
+    it(`s7564_${mode}: the built acceptance contract is available with a clean environment`, () => {
+      const built = builtSession(mode, `process.stdout.write(JSON.stringify({
+        safeParse: typeof m.DevSessionAcceptanceSchema.safeParse,
+        functions: ${JSON.stringify(acceptanceFunctions)}.map((name) => typeof m[name]),
+        templateIds: m.DEV_SESSION_TEMPLATE_IDS,
+        attestationFile: m.DEV_SESSION_ATTESTATION_FILE,
+        invalidAccepted: m.DevSessionAcceptanceSchema.safeParse({}).success,
+      }));`);
+      expect(built).toEqual({
+        safeParse: 'function', functions: acceptanceFunctions.map(() => 'function'),
+        templateIds: ['sviluppo-pezzo-app', 'design-sito', 'design-schermata-app', 'design-ritocco'],
+        attestationFile: 'ATTESTAZIONE.json', invalidAccepted: false,
+      });
+    });
+  }
+
+  it('s7564_map: the built map has the current version and every new public name', () => {
+    const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe(packageVersion());
+    for (const name of [
+      'DevSessionAcceptanceSchema', ...acceptanceFunctions,
+      'DEV_SESSION_TEMPLATE_IDS', 'DEV_SESSION_ATTESTATION_FILE',
+    ]) expect(text).toContain(`"${name}"`);
+  });
+
+  it('s7564_blocco_vecchio: ESM and CJS preserve literal digests, old blocks and optional base', () => {
+    const body = `const crypto = REQUIRE_CRYPTO;
+      const hash = (text) => crypto.createHash('sha256').update(text).digest('hex');
+      const oldCanonical = m.devSessionAssignmentCanonicalJson(${JSON.stringify(storico)});
+      const baseCanonical = m.devSessionAssignmentCanonicalJson(${JSON.stringify(withBase)});
+      const oldParsed = m.parseDevSessionBlock(${JSON.stringify(STORICO_BLOCK)});
+      const baseParsed = m.parseDevSessionBlock(m.renderDevSessionBlock(
+        ${JSON.stringify(withBase)}, 'b2bf777bd73b189de75b2f9c9afe4d3efe3e54bb27e70b505042d81641bd2bf0'));
+      process.stdout.write(JSON.stringify({
+        oldDigest: hash(oldCanonical), baseDigest: hash(baseCanonical),
+        oldParsed, baseParsed,
+        oldHasAcceptance: Object.hasOwn(JSON.parse(oldCanonical), 'acceptance'),
+        baseHasAcceptance: Object.hasOwn(JSON.parse(baseCanonical), 'acceptance'),
+      }));`;
+    for (const mode of ['esm', 'cjs'] as const) {
+      const built = builtSession(mode, body.replace('REQUIRE_CRYPTO', mode === 'esm'
+        ? "await import('node:crypto')" : "require('node:crypto')")) as {
+        oldDigest: string; baseDigest: string;
+        oldParsed: { ok: boolean; assignment?: typeof storico & { acceptance?: unknown } };
+        baseParsed: { ok: boolean; assignment?: typeof withBase & { acceptance?: unknown } };
+        oldHasAcceptance: boolean; baseHasAcceptance: boolean;
+      };
+      expect(built.oldDigest, mode).toBe(STORICO_DIGEST);
+      expect(built.baseDigest, mode).toBe('b2bf777bd73b189de75b2f9c9afe4d3efe3e54bb27e70b505042d81641bd2bf0');
+      expect(built.oldParsed.ok, mode).toBe(true);
+      expect(built.oldParsed.assignment, mode).toEqual(storico);
+      expect(built.oldParsed.assignment?.acceptance, mode).toBeUndefined();
+      expect(built.baseParsed.ok, mode).toBe(true);
+      expect(built.baseParsed.assignment, mode).toEqual(withBase);
+      expect(built.baseParsed.assignment?.acceptance, mode).toBeUndefined();
+      expect(built.oldHasAcceptance, mode).toBe(false);
+      expect(built.baseHasAcceptance, mode).toBe(false);
+    }
+  });
+
+  it('s7564_peso: the measured dev import fits a justified, bounded budget', () => {
+    const measured = JSON.parse(execFileSync(process.execPath, ['--input-type=module', '-e', `
+      import { misuraSottopercorsi } from './scripts/import-heap.mjs';
+      process.stdout.write(JSON.stringify(await misuraSottopercorsi({
+        radice: process.cwd(), chiavi: ['./capability/dev'],
+      })));
+    `], { cwd: root, env: cleanEnv, encoding: 'utf8' })) as {
+      chiave: string; heapMb: number; moduli: number;
+    }[];
+    const budgets = JSON.parse(readFileSync(resolve(root, 'tests/memory/import-heap-budgets.json'), 'utf8')) as {
+      voci: Record<string, { heap_mb: number; moduli: number; motivo: string }>;
+    };
+    expect(measured).toHaveLength(1);
+    const measure = measured[0]!;
+    const budget = budgets.voci['./capability/dev']!;
+    expect(measure.chiave).toBe('./capability/dev');
+    expect(measure.heapMb).toBeGreaterThan(0);
+    expect(measure.moduli).toBeGreaterThan(0);
+    expect(budget.motivo).toContain('7564');
+    expect(budget.heap_mb).toBeGreaterThan(0);
+    expect(measure.heapMb).toBeLessThanOrEqual(budget.heap_mb);
+    expect(measure.moduli).toBeLessThanOrEqual(budget.moduli);
+    expect(budget.heap_mb).toBeLessThanOrEqual(measure.heapMb * 1.25 + 1);
   });
 });

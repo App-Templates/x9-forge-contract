@@ -1,5 +1,5 @@
 {
-  "misurato": "18/11/2026, dist di 1.237.0 dopo 7422 (rimisura 7423); voci cambiate solo `./capability` e `./capability/paperclip` dopo 7400-7421 (tetto = misura × 1.05 arrotondata al mezzo MB verso l’alto; moduli = misura + 1). Precedente: 18/11/2026, dist di 1.232.0 dopo 7355; voci cambiate solo `./capability/dev` e `./capability/paperclip` (3613, 3614, 7292). Precedente: 12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
+  "misurato": "19/11/2026, dist di 1.243.0 dopo 7564; voce cambiata solo `./capability/dev` (misura 26.9 MB, 68 moduli; prima 22.2 MB, 58 moduli). Precedente: 18/11/2026, dist di 1.237.0 dopo 7422 (rimisura 7423); voci cambiate solo `./capability` e `./capability/paperclip` dopo 7400-7421 (tetto = misura × 1.05 arrotondata al mezzo MB verso l’alto; moduli = misura + 1). Precedente: 18/11/2026, dist di 1.232.0 dopo 7355; voci cambiate solo `./capability/dev` e `./capability/paperclip` (3613, 3614, 7292). Precedente: 12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
   "voci": {
     ".": {
       "heap_mb": 32,
@@ -27,9 +27,9 @@
       "motivo": "solo il nome dello strumento di invio email (6102): un solo modulo, nessun import"
     },
     "./capability/dev": {
-      "heap_mb": 23.5,
-      "moduli": 58,
-      "motivo": "contratti della capacità di sviluppo; misura 21.2 MB, 56 moduli dopo 6711: + `dev/session-outcome` (6342) e il modulo leggero `tool-error-disposition` (6711) dopo 1.122.0; + `dev/generic-job` (3613) e `dev/generic-channel` (3614) dopo 1.203.0; misura 22.2 MB, 58 moduli"
+      "heap_mb": 28.5,
+      "moduli": 69,
+      "motivo": "contratti della capacità di sviluppo; misura 21.2 MB, 56 moduli dopo 6711: + `dev/session-outcome` (6342) e il modulo leggero `tool-error-disposition` (6711) dopo 1.122.0; + `dev/generic-job` (3613) e `dev/generic-channel` (3614) dopo 1.203.0; misura 22.2 MB, 58 moduli; + il contratto di accettazione di sessione (7560-7565: criterio, catalogo e modelli, copertura, testi Paperclip, attestazione, controllo del Mandato) e `wire-creazione` (7560) dopo 1.242.0 (7564): misura 26.9 MB, 68 moduli"
     },
     "./voice": {
       "heap_mb": 18.5,
