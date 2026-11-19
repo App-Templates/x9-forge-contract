@@ -47,6 +47,11 @@ export const SOCIAL_ROUND_STATES = ['scheduled', 'running', 'done', 'failed', 'c
 export const SocialRoundStateSchema = z.enum(SOCIAL_ROUND_STATES);
 export type SocialRoundState = z.infer<typeof SocialRoundStateSchema>;
 
+export const SOCIAL_ROUND_ENDED_STATES = ['done', 'failed', 'cap_reached'] as const satisfies readonly SocialRoundState[];
+export function socialRoundEnded(state: unknown): state is (typeof SOCIAL_ROUND_ENDED_STATES)[number] {
+  return SOCIAL_ROUND_ENDED_STATES.some(endedState => state === endedState);
+}
+
 /** State of the day's round for one vertical (D9, D20). */
 export const SocialRoundSchema = z.object({
   identity: CapabilityAgentScopeSchema,
@@ -63,8 +68,10 @@ export const SocialRoundSchema = z.object({
   topicsCount: z.number().int().nonnegative(),
   spentUsd: z.number().nonnegative().finite(),
   capUsd: z.number().positive().finite().optional(),
+  /** When the end-of-round message (D21) was sent; absent until sent and on rounds saved before. */
+  noticeSentAt: IsoDateTimeSchema.optional(),
 }).strict().superRefine((r, ctx) => {
-  const ended = r.state === 'done' || r.state === 'failed' || r.state === 'cap_reached';
+  const ended = socialRoundEnded(r.state);
   if (r.finishedAt !== undefined && !ended) {
     ctx.addIssue({ code: 'custom', path: ['finishedAt'], message: 'finishedAt only with done, failed or cap_reached' });
   }
@@ -73,6 +80,9 @@ export const SocialRoundSchema = z.object({
   }
   if (r.state === 'cap_reached' && (r.track !== 'server' || r.capUsd === undefined)) {
     ctx.addIssue({ code: 'custom', path: ['state'], message: 'cap_reached only on the server track with capUsd' });
+  }
+  if (r.noticeSentAt !== undefined && !ended) {
+    ctx.addIssue({ code: 'custom', path: ['noticeSentAt'], message: 'noticeSentAt only with done, failed or cap_reached' });
   }
 });
 export type SocialRound = z.infer<typeof SocialRoundSchema>;
