@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.244.0 — the stalled-work notice to a person has its contract (task 7579)
+
+- Additive: new narrow module `http/endpoints/internal-work-stalled-notice` defines the notice request and response, with a stable reference to the Paperclip issue and optional piece key, the repeated-request reason, occurrence (3 or more), `since`, observation time and an opaque receipt.
+- No existing contract changes; daily limit notices keep their own contract. Consumers move their pin first, then adopt this contract in agent-core and cap-paperclip. This package alone does not send an email or change Paperclip processes.
+
 ## v1.243.0 — the capo–session acceptance contract (tasks 7560-7565 and 7564)
 
 - Additive: optional `acceptance` in the session assignment; old blocks keep their canonical form and digest. New criterion and input schemas, four versioned templates, a catalog of proofs and requirements, screen coverage derived from the requested screens, states and formats, Paperclip texts, attestation and verdict, and the mandate check (7560-7563, 7565).

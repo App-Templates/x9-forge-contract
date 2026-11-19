@@ -15,6 +15,15 @@ import { AssetRefSchema } from '../../../src/organization/asset.js';
 import {
   DevSessionBaseSchema, devSessionAssignmentCanonicalJson, parseDevSessionBlock, renderDevSessionBlock,
 } from '../../../src/capability/dev/session-assignment.js';
+import { InternalLimitNoticeRequestSchema } from '../../../src/http/endpoints/internal-limit-notice.js';
+import {
+  INTERNAL_WORK_STALLED_NOTICE_ERRORS, INTERNAL_WORK_STALLED_NOTICE_OUTCOMES,
+  INTERNAL_WORK_STALLED_NOTICE_PATH, WORK_STALLED_MIN_OCCURRENCE, WORK_STALLED_REASONS,
+  InternalWorkStalledNoticeErrorSchema, InternalWorkStalledNoticeOutcomeSchema,
+  InternalWorkStalledNoticeRequestSchema, InternalWorkStalledNoticeResponseSchema,
+  WorkStalledNoticeSchema, WorkStalledReasonSchema, WorkStalledReceiptSchema,
+  WorkStalledWorkSchema, internalWorkStalledNoticeContract,
+} from '../../../src/http/endpoints/internal-work-stalled-notice.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const cleanEnv = { PATH: process.env.PATH ?? '', HOME: process.env.HOME ?? '' };
@@ -327,10 +336,10 @@ const acceptanceFunctions = [
 ];
 
 describe('s7564 pacchetto-1-243-0', () => {
-  it('s7564_version: package and first CHANGELOG release are 1.243.0', () => {
+  it('s7564_version: the CHANGELOG retains 1.243.0 and package matches the first release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.243.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.243.0');
+    expect(changelog).toContain('## v1.243.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
   });
 
   for (const mode of ['esm', 'cjs'] as const) {
@@ -417,5 +426,145 @@ describe('s7564 pacchetto-1-243-0', () => {
     expect(measure.heapMb).toBeLessThanOrEqual(budget.heap_mb);
     expect(measure.moduli).toBeLessThanOrEqual(budget.moduli);
     expect(budget.heap_mb).toBeLessThanOrEqual(measure.heapMb * 1.25 + 1);
+  });
+});
+
+const stalledNotice = {
+  organizationId: 'good-choice',
+  agent: { managementAgentId: 'capo-orto-web', runtimeAgentId: 'capo-orto-web', vaultAgentId: 41 },
+  work: { issueId: 'b471e318-8829-4f42-9b48-f878427a8269' },
+  reason: 'repeated_request', occurrence: 10,
+  since: '2026-11-19T08:00:00+01:00', observedAt: '2026-11-19T09:00:00+01:00',
+};
+const stalledRequest = { tenantId: '1', ownerId: '1', notice: stalledNotice };
+
+describe('s7579 pacchetto-1-244-0', () => {
+  it('s7579_version: package and first release are 1.244.0 and retain 1.243.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.244.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.244.0');
+    expect(changelog).toContain('## v1.243.0');
+  });
+
+  it('s7579_caso_vero: ten requests identify the work by issue id without a piece', () => {
+    expect(InternalWorkStalledNoticeRequestSchema.parse(stalledRequest)).toEqual(stalledRequest);
+    expect(WorkStalledNoticeSchema.parse(stalledNotice)).toEqual(stalledNotice);
+    expect(INTERNAL_WORK_STALLED_NOTICE_PATH).toBe('/internal/work-stalled-notice');
+    expect(WORK_STALLED_MIN_OCCURRENCE).toBe(3);
+    expect(WORK_STALLED_REASONS).toEqual(['repeated_request']);
+    expect(WorkStalledReasonSchema.parse('repeated_request')).toBe('repeated_request');
+    expect(internalWorkStalledNoticeContract).toEqual({
+      method: 'POST', path: INTERNAL_WORK_STALLED_NOTICE_PATH, authType: 'secret',
+      bodySchema: InternalWorkStalledNoticeRequestSchema, responseSchema: InternalWorkStalledNoticeResponseSchema,
+    });
+  });
+
+  it('s7579_ricorrenza: the third occurrence stops the loop, with a bounded integer count', () => {
+    for (const occurrence of [3, 1000]) {
+      expect(WorkStalledNoticeSchema.safeParse({ ...stalledNotice, occurrence }).success).toBe(true);
+    }
+    for (const occurrence of [2, 0, 1001, 3.5]) {
+      expect(WorkStalledNoticeSchema.safeParse({ ...stalledNotice, occurrence }).success, String(occurrence)).toBe(false);
+    }
+  });
+
+  it('s7579_riferimento: issue uuid and optional piece key never come from a title', () => {
+    const work = stalledNotice.work;
+    expect(WorkStalledWorkSchema.parse(work)).toEqual(work);
+    expect(WorkStalledWorkSchema.safeParse({ ...work, pieceKey: 'lista-della-spesa' }).success).toBe(true);
+    for (const bad of [
+      { issueId: 'GOO-239' }, {}, { ...work, title: 'GOO-239' },
+      ...['A_b', 'a--b', '', 'x'.repeat(41)].map((pieceKey) => ({ ...work, pieceKey })),
+    ]) {
+      expect(WorkStalledWorkSchema.safeParse(bad).success, JSON.stringify(bad)).toBe(false);
+      expect(InternalWorkStalledNoticeRequestSchema.safeParse({
+        ...stalledRequest, notice: { ...stalledNotice, work: bad },
+      }).success).toBe(false);
+    }
+  });
+
+  it('s7579_stretto: extra keys, unknown reason, uncertain identity and inverted times are refused', () => {
+    for (const notice of [
+      { ...stalledNotice, extra: 1 }, { ...stalledNotice, reason: 'other' },
+      { ...stalledNotice, since: '2026-11-19T09:00:01+01:00' },
+      { ...stalledNotice, since: 'invalid' }, { ...stalledNotice, observedAt: 'invalid' },
+      { ...stalledNotice, organizationId: '' }, { ...stalledNotice, organizationId: 'x'.repeat(65) },
+      { ...stalledNotice, agent: { managementAgentId: 'capo-orto-web' } },
+    ]) expect(InternalWorkStalledNoticeRequestSchema.safeParse({ ...stalledRequest, notice }).success).toBe(false);
+    for (const request of [
+      { ...stalledRequest, extra: 1 }, { tenantId: '1', notice: stalledNotice },
+      { ownerId: '1', notice: stalledNotice }, { ...stalledRequest, tenantId: '' },
+      { ...stalledRequest, ownerId: '' },
+    ]) expect(InternalWorkStalledNoticeRequestSchema.safeParse(request).success).toBe(false);
+    for (const since of [stalledNotice.observedAt, '2026-11-19T08:00:00Z']) {
+      expect(WorkStalledNoticeSchema.safeParse({ ...stalledNotice, since }).success).toBe(true);
+    }
+  });
+
+  it('s7579_ricevuta: success requires a lowercase 64-digit receipt; only five errors exist', () => {
+    const receipt = { id: '0123456789abcdef'.repeat(4), recordedAt: stalledNotice.observedAt };
+    expect(WorkStalledReceiptSchema.parse(receipt)).toEqual(receipt);
+    expect(INTERNAL_WORK_STALLED_NOTICE_OUTCOMES).toEqual(['sent', 'already_sent']);
+    for (const outcome of ['sent', 'already_sent']) {
+      expect(InternalWorkStalledNoticeOutcomeSchema.parse(outcome)).toBe(outcome);
+      expect(InternalWorkStalledNoticeResponseSchema.safeParse({ ok: true, outcome, receipt }).success).toBe(true);
+      expect(InternalWorkStalledNoticeResponseSchema.safeParse({ ok: true, outcome }).success).toBe(false);
+    }
+    for (const bad of [
+      { recordedAt: receipt.recordedAt }, { ...receipt, id: 'a'.repeat(63) },
+      { ...receipt, id: 'a'.repeat(65) }, { ...receipt, id: receipt.id.toUpperCase() },
+      { ...receipt, id: 'g'.repeat(64) }, { ...receipt, recordedAt: 'invalid' }, { ...receipt, extra: 1 },
+    ]) {
+      expect(WorkStalledReceiptSchema.safeParse(bad).success).toBe(false);
+      expect(InternalWorkStalledNoticeResponseSchema.safeParse({ ok: true, outcome: 'sent', receipt: bad }).success).toBe(false);
+    }
+    const errors = ['invalid_request', 'unauthorized', 'organization_unknown', 'email_unavailable', 'not_sent'];
+    expect(INTERNAL_WORK_STALLED_NOTICE_ERRORS).toEqual(errors);
+    for (const error of errors) {
+      expect(InternalWorkStalledNoticeErrorSchema.parse(error)).toBe(error);
+      expect(InternalWorkStalledNoticeResponseSchema.safeParse({ ok: false, error }).success).toBe(true);
+    }
+    for (const response of [
+      { ok: false, error: 'other' }, { ok: true, outcome: 'queued', receipt },
+      { ok: false, error: 'not_sent', extra: 1 }, { ok: true, outcome: 'sent', receipt, extra: 1 },
+    ]) expect(InternalWorkStalledNoticeResponseSchema.safeParse(response).success).toBe(false);
+  });
+
+  it('s7579_storico: daily limit notices still parse and cannot be used as stalled-work notices', () => {
+    const request = { tenantId: '1', ownerId: '1', notice: {
+      limit: 'daily_runs', limitValue: 14, observedValue: 14, threshold: 'reached', event: 'wake_skipped',
+      organizationId: 'good-choice', agent: stalledNotice.agent,
+      observedAt: '2026-11-11T19:40:00.000Z', resetsAt: '2026-11-12T00:00:00.000Z',
+      recipients: ['director', 'owner'],
+    } };
+    expect(InternalLimitNoticeRequestSchema.parse(request)).toEqual(request);
+    expect(InternalWorkStalledNoticeRequestSchema.safeParse(request).success).toBe(false);
+    expect(InternalLimitNoticeRequestSchema.safeParse(stalledRequest).success).toBe(false);
+  });
+
+  for (const mode of ['esm', 'cjs'] as const) {
+    it(`s7579_dist_${mode}: the built contract accepts the real request and refuses occurrence two`, () => {
+      const body = `const request = ${JSON.stringify(stalledRequest)};
+        process.stdout.write(JSON.stringify({
+          valid: m.InternalWorkStalledNoticeRequestSchema.safeParse(request).success,
+          tooEarly: m.InternalWorkStalledNoticeRequestSchema.safeParse({
+            ...request, notice: { ...request.notice, occurrence: 2 },
+          }).success,
+          path: m.internalWorkStalledNoticeContract.path,
+        }));`;
+      const script = mode === 'esm'
+        ? `const m = await import('./dist/http/endpoints/internal-work-stalled-notice.js'); ${body}`
+        : `const m = require('./dist/http/endpoints/internal-work-stalled-notice.cjs'); ${body}`;
+      const args = mode === 'esm' ? ['--input-type=module', '-e', script] : ['-e', script];
+      const built: unknown = JSON.parse(execFileSync(process.execPath, args, {
+        cwd: root, env: cleanEnv, encoding: 'utf8',
+      }));
+      expect(built).toEqual({ valid: true, tooEarly: false, path: INTERNAL_WORK_STALLED_NOTICE_PATH });
+    });
+  }
+
+  it('s7579_map: the narrow-import map follows the package version', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
+    expect(map.versione).toBe(packageVersion());
   });
 });
