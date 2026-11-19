@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.269.0 — The channels text says what the system does with files and proofs and no longer promises tools the agent does not have (task 7426, brought onto the joined line by 3714)
+
+- The delivery lines of `communicationSectionLines()` say that the system carries the screenshots and documents of a development session to the issue when a piece is closed, as attachments and work products, that the agent only cites them in its comment and leaves no path of its own disk, and that outside a development session (Director, Lab, Research) nothing is promised; no first-person «carico», «registro» or «reopen» (7426).
+- Additive; the text of the section «Come si comunica» changes for every profile that imports it, once the consumer moves its pin of the bridge; no stored data changes. Consumers: the Forge profiles that import `communicationSection()`.
+
 ## v1.268.0 — one bridge line: social listening (1.262.0-1.267.0) and ec-ponte-conferme (1.231.0-1.238.0) in one package (tasks 3710-3711)
 
 Additive. No contract changed: the package now carries, built, the contracts of both lines (social listening 1.262.0-1.267.0 and Paperclip P9-P12, the generic cap-dev work and the asset list of ec-ponte-conferme 1.231.0-1.238.0).

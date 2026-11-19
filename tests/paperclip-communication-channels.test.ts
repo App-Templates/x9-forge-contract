@@ -102,12 +102,42 @@ describe('s7421 pc29 canali-file-e-prove', () => {
   it('s7421_h_files_proofs_and_reopening_stay_inside_the_issue', () => {
     const text = communicationSection();
     for (const phrase of [
-      'come allegato', 'un file per volta', 'prodotto del lavoro', 'reopen', 'annullato',
-      'non uso un canale mio', 'prima di chiudere, e lo lego al mio commento',
-      'un commento semplice non lo riapre e un incarico annullato non si riapre così',
+      'come allegato', 'prodotto del lavoro', 'annullato', 'non uso un canale mio',
+      'uno per volta, alla chiusura del pezzo',
+      'Un commento semplice non riapre un incarico chiuso e un incarico annullato non si riapre',
     ]) {
       expect(text).toContain(phrase);
     }
+  });
+
+  it('s7426_k_no_first_person_promise_without_a_tool', () => {
+    const text = communicationSection();
+    for (const word of ['carico', 'registro', 'lego', 'reopen']) {
+      expect(text).not.toMatch(new RegExp(`(?<![\\p{L}])${word}(?![\\p{L}])`, 'iu'));
+    }
+  });
+
+  it('s7426_l_the_system_carries_session_files_and_the_agent_cites_them', () => {
+    const text = communicationSection();
+    for (const phrase of [
+      "li porta il sistema sull'incarico alla chiusura", 'come allegato', 'prodotto del lavoro', 'io li cito',
+      'sessione di sviluppo', 'senza dire che un file è caricato', 'annullato',
+    ]) {
+      expect(text).toContain(phrase);
+    }
+  });
+
+  it('s7426_m_bullets_are_system_actions_and_the_scope_line_is_plain', () => {
+    const lines = communicationSectionLines();
+    expect(lines.filter(line => /^\d+\. /.test(line))).toHaveLength(7);
+    const deliveryStart = lines.findIndex(line => line.startsWith('Per portare un file o una prova'));
+    const outsideStart = lines.findIndex(line => line.startsWith("Fuori dall'azienda"));
+    const bullets = lines.slice(deliveryStart, outsideStart).filter(line => line.startsWith('- '));
+    expect(bullets).toHaveLength(2);
+    bullets.forEach(line => expect(line.startsWith('- il sistema')).toBe(true));
+    const scope = lines.find(line => line.startsWith('Questo vale per i pezzi di una sessione di sviluppo'));
+    expect(scope).toBeDefined();
+    expect(scope).not.toMatch(/^(- |\d+\. )/);
   });
 
   it('s7421_i_tools_and_capitalization_are_unchanged', () => {
