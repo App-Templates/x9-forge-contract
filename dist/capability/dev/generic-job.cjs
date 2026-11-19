@@ -5,8 +5,12 @@ exports.devGenericResultMatchesJob = devGenericResultMatchesJob;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const signed_command_js_1 = require("./signed-command.cjs");
-/** Names only: executors map each tool to a fixed command using their subscription. */
-exports.DEV_GENERIC_JOB_TOOLS = ['mlx_whisper', 'claude_p'];
+/**
+ * Names only: executors map each tool to a fixed command using their subscription.
+ * `ig_collect` collects the posts of followed profiles with the executor's fixed command;
+ * platform credentials stay on the device and never travel in the job.
+ */
+exports.DEV_GENERIC_JOB_TOOLS = ['mlx_whisper', 'claude_p', 'ig_collect'];
 exports.DevGenericToolSchema = zod_1.z.enum(exports.DEV_GENERIC_JOB_TOOLS);
 exports.DEV_GENERIC_EXECUTORS = ['laptop', 'server'];
 exports.DevGenericExecutorSchema = zod_1.z.enum(exports.DEV_GENERIC_EXECUTORS);

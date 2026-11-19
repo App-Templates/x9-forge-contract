@@ -1,5 +1,5 @@
 {
-  "misurato": "18/11/2026, dist di 1.268.0 dopo 3710-3711: `./capability/social-listening` misura 37.5 MB, 89 moduli; tetto 39.5 MB (misura × 1.05 arrotondata al mezzo MB verso l’alto), 90 moduli (misura + 1). Precedente: 18/11/2026, dist di 1.237.0 dopo 7422 (rimisura 7423); voci cambiate solo `./capability` e `./capability/paperclip` dopo 7400-7421 (tetto = misura × 1.05 arrotondata al mezzo MB verso l’alto; moduli = misura + 1). Precedente: 18/11/2026, dist di 1.232.0 dopo 7355; voci cambiate solo `./capability/dev` e `./capability/paperclip` (3613, 3614, 7292). Precedente: 12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
+  "misurato": "19/11/2026, dist di 1.271.0 dopo 3667-3668: `./capability/social-listening` misura 38.5 MB, 92 moduli; tetto 40.5 MB (misura × 1.05 arrotondata al mezzo MB verso l’alto), 93 moduli (misura + 1). Precedente: 18/11/2026, dist di 1.268.0 dopo 3710-3711: `./capability/social-listening` misura 37.5 MB, 89 moduli; tetto 39.5 MB (misura × 1.05 arrotondata al mezzo MB verso l’alto), 90 moduli (misura + 1). Precedente: 18/11/2026, dist di 1.237.0 dopo 7422 (rimisura 7423); voci cambiate solo `./capability` e `./capability/paperclip` dopo 7400-7421 (tetto = misura × 1.05 arrotondata al mezzo MB verso l’alto; moduli = misura + 1). Precedente: 18/11/2026, dist di 1.232.0 dopo 7355; voci cambiate solo `./capability/dev` e `./capability/paperclip` (3613, 3614, 7292). Precedente: 12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
   "voci": {
     ".": {
       "heap_mb": 32,
@@ -57,9 +57,9 @@
       "motivo": "contratti della capacità di ricerca"
     },
     "./capability/social-listening": {
-      "heap_mb": 39.5,
-      "moduli": 90,
-      "motivo": "contratti dell’ascolto social nel pacchetto delle due linee (3710-3711); misura 37.5 MB, 89 moduli nel dist di 1.268.0; tetto = misura × 1.05 arrotondata al mezzo MB verso l’alto, moduli = misura + 1"
+      "heap_mb": 40.5,
+      "moduli": 93,
+      "motivo": "contratti dell’ascolto social con il lavoro generico per tipo (3667-3669); misura 38.5 MB, 92 moduli nel dist di 1.271.0; prima 37.5 MB, 89 moduli nel dist di 1.268.0 (3710-3711); tetto = misura × 1.05 arrotondata al mezzo MB verso l’alto, moduli = misura + 1"
     },
     "./capability/lab": {
       "heap_mb": 23,

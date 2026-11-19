@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.270.0",
+  "versione": "1.271.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1529,8 +1529,10 @@
       "SOCIAL_HANDOVER_REASONS": "@x9-forge/contracts/capability/social-listening/handover",
       "SOCIAL_IMPORT_ANALYSIS_ERRORS": "@x9-forge/contracts/capability/social-listening/import-analysis",
       "SOCIAL_JOB_KINDS": "@x9-forge/contracts/capability/social-listening/queue",
+      "SOCIAL_JOB_LIMITS": "@x9-forge/contracts/capability/social-listening/generic-job-map",
       "SOCIAL_JOB_RESULT_ERRORS": "@x9-forge/contracts/capability/social-listening/job-io",
       "SOCIAL_JOB_STATES": "@x9-forge/contracts/capability/social-listening/queue",
+      "SOCIAL_JOB_TOOL": "@x9-forge/contracts/capability/social-listening/generic-job-map",
       "SOCIAL_LEGACY_ANALYSIS_SCHEMA": "@x9-forge/contracts/capability/social-listening/import",
       "SOCIAL_LEGACY_CLUSTER_SCHEMA": "@x9-forge/contracts/capability/social-listening/import",
       "SOCIAL_LEGACY_VERDICTS": "@x9-forge/contracts/capability/social-listening/import",
@@ -1549,6 +1551,7 @@
       "SOCIAL_TOPIC_VIDEO_TOOLS": "@x9-forge/contracts/capability/social-listening/video-brief",
       "SOCIAL_TOPIC_WIKI_TOOLS": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SOCIAL_TRACKS": "@x9-forge/contracts/capability/social-listening/topic",
+      "SOCIAL_TRACK_EXECUTOR": "@x9-forge/contracts/capability/social-listening/generic-job-map",
       "SOCIAL_VERDICTS": "@x9-forge/contracts/capability/social-listening/verdict",
       "SOCIAL_VERDICT_TRUTH_SCORE": "@x9-forge/contracts/capability/social-listening/topic",
       "SOCIAL_VIDEO_EXTERNAL_REF_PREFIX": "@x9-forge/contracts/capability/social-listening/video-brief",
@@ -1640,6 +1643,7 @@
       "socialCostPerPost": "@x9-forge/contracts/capability/social-listening/fact-memory",
       "socialFactFresh": "@x9-forge/contracts/capability/social-listening/fact-memory",
       "socialFactKey": "@x9-forge/contracts/capability/social-listening/fact-memory",
+      "socialGenericJobFor": "@x9-forge/contracts/capability/social-listening/generic-job-map",
       "socialGroupResultIssues": "@x9-forge/contracts/capability/social-listening/group",
       "socialImportKind": "@x9-forge/contracts/capability/social-listening/import",
       "socialImportPost": "@x9-forge/contracts/capability/social-listening/import",

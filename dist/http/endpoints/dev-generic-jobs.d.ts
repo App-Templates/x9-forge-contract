@@ -32,6 +32,7 @@ export declare const claimDevGenericJobContract: {
         tools: z.ZodArray<z.ZodEnum<{
             mlx_whisper: "mlx_whisper";
             claude_p: "claude_p";
+            ig_collect: "ig_collect";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -51,6 +52,7 @@ export declare const claimDevGenericJobContract: {
             tool: z.ZodEnum<{
                 mlx_whisper: "mlx_whisper";
                 claude_p: "claude_p";
+                ig_collect: "ig_collect";
             }>;
             executor: z.ZodEnum<{
                 laptop: "laptop";
@@ -125,6 +127,7 @@ export declare const completeDevGenericJobContract: {
             tool: z.ZodEnum<{
                 mlx_whisper: "mlx_whisper";
                 claude_p: "claude_p";
+                ig_collect: "ig_collect";
             }>;
             state: z.ZodEnum<{
                 failed: "failed";

@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.271.0 — social listening generic jobs (tasks 3667, 3668)
+
+- `ig_collect` is a third generic tool of the executor (`DEV_GENERIC_JOB_TOOLS`); a claim may ask for every listed tool.
+- `socialGenericJobFor` turns each social listening queue job into a generic executor job, with `SOCIAL_JOB_TOOL`, `SOCIAL_TRACK_EXECUTOR` and `SOCIAL_JOB_LIMITS`; identity always comes from the queued job.
+- Additive; saved generic jobs (`mlx_whisper`, `claude_p`) stay valid.
+
 ## v1.270.0 — compose an ordinary-v2 capability configuration from changed values (task 3717)
 
 - `composeOrdinaryCapabilityAgentConfigPut` builds the PUT body from the read state, the declared parameters and the changed values; closed outcomes.

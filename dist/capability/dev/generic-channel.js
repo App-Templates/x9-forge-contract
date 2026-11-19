@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { DeviceIdSchema } from "../../auth/device-signature.js";
 import { CapabilityAgentScopeSchema } from "../capability-call-context.js";
-import { DevGenericExecutorSchema, DevGenericJobResultSchema, DevGenericJobSchema, DevGenericToolSchema, } from "./generic-job.js";
+import { DEV_GENERIC_JOB_TOOLS, DevGenericExecutorSchema, DevGenericJobResultSchema, DevGenericJobSchema, DevGenericToolSchema, } from "./generic-job.js";
 /** One registered device claims work for one owner, using only its supported tools. */
 export const DevGenericClaimRequestSchema = z.strictObject({
     version: z.literal(1),
@@ -10,7 +10,7 @@ export const DevGenericClaimRequestSchema = z.strictObject({
     tenantId: CapabilityAgentScopeSchema.shape.tenantId,
     ownerId: CapabilityAgentScopeSchema.shape.ownerId,
     capabilities: z.array(DevGenericJobSchema.shape.capability).min(1).max(10),
-    tools: z.array(DevGenericToolSchema).min(1).max(2).refine((tools) => new Set(tools).size === tools.length, { message: 'Tools must be unique' }),
+    tools: z.array(DevGenericToolSchema).min(1).max(DEV_GENERIC_JOB_TOOLS.length).refine((tools) => new Set(tools).size === tools.length, { message: 'Tools must be unique' }),
 });
 export const DevGenericLeaseSchema = z.strictObject({
     leaseId: z.string().min(1).max(100),

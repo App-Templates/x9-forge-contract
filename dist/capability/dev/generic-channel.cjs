@@ -14,7 +14,7 @@ exports.DevGenericClaimRequestSchema = zod_1.z.strictObject({
     tenantId: capability_call_context_js_1.CapabilityAgentScopeSchema.shape.tenantId,
     ownerId: capability_call_context_js_1.CapabilityAgentScopeSchema.shape.ownerId,
     capabilities: zod_1.z.array(generic_job_js_1.DevGenericJobSchema.shape.capability).min(1).max(10),
-    tools: zod_1.z.array(generic_job_js_1.DevGenericToolSchema).min(1).max(2).refine((tools) => new Set(tools).size === tools.length, { message: 'Tools must be unique' }),
+    tools: zod_1.z.array(generic_job_js_1.DevGenericToolSchema).min(1).max(generic_job_js_1.DEV_GENERIC_JOB_TOOLS.length).refine((tools) => new Set(tools).size === tools.length, { message: 'Tools must be unique' }),
 });
 exports.DevGenericLeaseSchema = zod_1.z.strictObject({
     leaseId: zod_1.z.string().min(1).max(100),

@@ -33,7 +33,7 @@ console.log(JSON.stringify({
 }));
 `;
 const ATTESO = {
-  tools: ['mlx_whisper', 'claude_p'],
+  tools: ['mlx_whisper', 'claude_p', 'ig_collect'],
   job: 'function',
   claim: 'function',
   old: 'function',

@@ -1,9 +1,14 @@
 import { z } from 'zod';
-/** Names only: executors map each tool to a fixed command using their subscription. */
-export declare const DEV_GENERIC_JOB_TOOLS: readonly ["mlx_whisper", "claude_p"];
+/**
+ * Names only: executors map each tool to a fixed command using their subscription.
+ * `ig_collect` collects the posts of followed profiles with the executor's fixed command;
+ * platform credentials stay on the device and never travel in the job.
+ */
+export declare const DEV_GENERIC_JOB_TOOLS: readonly ["mlx_whisper", "claude_p", "ig_collect"];
 export declare const DevGenericToolSchema: z.ZodEnum<{
     mlx_whisper: "mlx_whisper";
     claude_p: "claude_p";
+    ig_collect: "ig_collect";
 }>;
 export type DevGenericTool = z.infer<typeof DevGenericToolSchema>;
 export declare const DEV_GENERIC_EXECUTORS: readonly ["laptop", "server"];
@@ -34,6 +39,7 @@ export declare const DevGenericJobSchema: z.ZodObject<{
     tool: z.ZodEnum<{
         mlx_whisper: "mlx_whisper";
         claude_p: "claude_p";
+        ig_collect: "ig_collect";
     }>;
     executor: z.ZodEnum<{
         laptop: "laptop";
@@ -59,6 +65,7 @@ export declare const DevGenericJobResultSchema: z.ZodObject<{
     tool: z.ZodEnum<{
         mlx_whisper: "mlx_whisper";
         claude_p: "claude_p";
+        ig_collect: "ig_collect";
     }>;
     state: z.ZodEnum<{
         failed: "failed";

@@ -14,6 +14,7 @@ export declare const DevGenericClaimRequestSchema: z.ZodObject<{
     tools: z.ZodArray<z.ZodEnum<{
         mlx_whisper: "mlx_whisper";
         claude_p: "claude_p";
+        ig_collect: "ig_collect";
     }>>;
 }, z.core.$strict>;
 export type DevGenericClaimRequest = z.infer<typeof DevGenericClaimRequestSchema>;
@@ -39,6 +40,7 @@ export declare const DevGenericClaimResponseSchema: z.ZodDiscriminatedUnion<[z.Z
         tool: z.ZodEnum<{
             mlx_whisper: "mlx_whisper";
             claude_p: "claude_p";
+            ig_collect: "ig_collect";
         }>;
         executor: z.ZodEnum<{
             laptop: "laptop";
@@ -86,6 +88,7 @@ export declare const DevGenericCompleteRequestSchema: z.ZodObject<{
         tool: z.ZodEnum<{
             mlx_whisper: "mlx_whisper";
             claude_p: "claude_p";
+            ig_collect: "ig_collect";
         }>;
         state: z.ZodEnum<{
             failed: "failed";
