@@ -15,6 +15,11 @@ import { AssetRefSchema } from '../../../src/organization/asset.js';
 import {
   DevSessionBaseSchema, devSessionAssignmentCanonicalJson, parseDevSessionBlock, renderDevSessionBlock,
 } from '../../../src/capability/dev/session-assignment.js';
+import {
+  InternalPaperclipSeatReplyWakeResponseSchema,
+  PAPERCLIP_SEAT_REPLY_WAKE_VIA,
+  PaperclipSeatReplyWakeViaSchema,
+} from '../../../src/http/endpoints/internal-paperclip-seats.js';
 import { InternalLimitNoticeRequestSchema } from '../../../src/http/endpoints/internal-limit-notice.js';
 import {
   INTERNAL_WORK_STALLED_NOTICE_ERRORS, INTERNAL_WORK_STALLED_NOTICE_OUTCOMES,
@@ -439,10 +444,10 @@ const stalledNotice = {
 const stalledRequest = { tenantId: '1', ownerId: '1', notice: stalledNotice };
 
 describe('s7579 pacchetto-1-244-0', () => {
-  it('s7579_version: package and first release are 1.244.0 and retain 1.243.0', () => {
+  it('s7579_version: the 1.244.0 release stays in the changelog and the package version equals the first release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.244.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.244.0');
+    expect(changelog).toContain('## v1.244.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe(packageVersion());
     expect(changelog).toContain('## v1.243.0');
   });
 
@@ -566,5 +571,56 @@ describe('s7579 pacchetto-1-244-0', () => {
   it('s7579_map: the narrow-import map follows the package version', () => {
     const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
     expect(map.versione).toBe(packageVersion());
+  });
+});
+
+const wakeIssue = '11111111-1111-4111-8111-111111111111';
+const wakeRun = '22222222-2222-4222-8222-222222222222';
+const wakeOk = (v: unknown) => InternalPaperclipSeatReplyWakeResponseSchema.safeParse(v).success;
+
+describe('s8051 pacchetto-1-245-0', () => {
+  it('s8051_version: package and first release are 1.245.0 and retain 1.244.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.245.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.245.0');
+    expect(changelog).toContain('## v1.244.0');
+  });
+
+  it('s8051_via_controllo: woken with monitor_check and no run id is accepted; without issueId it is refused', () => {
+    expect(wakeOk({ result: 'woken', issueId: wakeIssue, via: 'monitor_check' })).toBe(true);
+    expect(wakeOk({ result: 'woken', via: 'monitor_check' })).toBe(false);
+  });
+
+  it('s8051_storico: today\'s answers parse as before; woken without runId or via stays refused', () => {
+    expect(wakeOk({ result: 'woken', issueId: wakeIssue, runId: wakeRun })).toBe(true);
+    expect(wakeOk({ result: 'not_waiting', issueId: wakeIssue })).toBe(true);
+    expect(wakeOk({ result: 'skipped', issueId: wakeIssue })).toBe(true);
+    expect(wakeOk({ result: 'duplicate' })).toBe(true);
+    expect(wakeOk({ result: 'duplicate', issueId: wakeIssue })).toBe(true);
+    expect(wakeOk({ result: 'woken', issueId: wakeIssue })).toBe(false);
+    expect(wakeOk({ result: 'woken', runId: wakeRun })).toBe(false);
+    expect(wakeOk({ result: 'not_waiting', issueId: wakeIssue, runId: wakeRun })).toBe(false);
+  });
+
+  it('s8051_via_stretto: via is refused with runId, disposition, another result or another value', () => {
+    expect(wakeOk({ result: 'woken', issueId: wakeIssue, runId: wakeRun, via: 'monitor_check' })).toBe(false);
+    expect(wakeOk({
+      result: 'woken', issueId: wakeIssue, via: 'monitor_check',
+      disposition: { outcome: 'commented', woke: true, issueId: wakeIssue },
+    })).toBe(false);
+    expect(wakeOk({ result: 'not_waiting', issueId: wakeIssue, via: 'monitor_check' })).toBe(false);
+    expect(wakeOk({ result: 'skipped', issueId: wakeIssue, via: 'monitor_check' })).toBe(false);
+    expect(wakeOk({ result: 'duplicate', via: 'monitor_check' })).toBe(false);
+    expect(wakeOk({ result: 'woken', issueId: wakeIssue, via: 'other' })).toBe(false);
+    expect(PaperclipSeatReplyWakeViaSchema.safeParse('monitor_check').success).toBe(true);
+    expect(PAPERCLIP_SEAT_REPLY_WAKE_VIA).toEqual(['monitor_check']);
+  });
+
+  it('s8051_map: the narrow-import map has the version and the new names', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
+    expect(map.versione).toBe('1.245.0');
+    const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
+    expect(text).toContain('PAPERCLIP_SEAT_REPLY_WAKE_VIA');
+    expect(text).toContain('PaperclipSeatReplyWakeViaSchema');
   });
 });

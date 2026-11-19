@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.245.0 — a reply wake can be handed to the issue's scheduled monitor (task 8051)
+
+- Additive: optional `via: 'monitor_check'` on a `woken` seat reply-wake answer without `runId` (new `PAPERCLIP_SEAT_REPLY_WAKE_VIA`, `PaperclipSeatReplyWakeViaSchema`). Paperclip runs the check on demand and answers `{ok:true}` with no run id, so the answer says how the agent was reached instead of inventing a run.
+- Today's answers parse unchanged; `woken` with neither `runId` nor `via` is still refused, and `via` is refused with `runId`, `disposition` or any other result. Consumers move their pin first.
+
 ## v1.244.0 — the stalled-work notice to a person has its contract (task 7579)
 
 - Additive: new narrow module `http/endpoints/internal-work-stalled-notice` defines the notice request and response, with a stable reference to the Paperclip issue and optional piece key, the repeated-request reason, occurrence (3 or more), `since`, observation time and an opaque receipt.

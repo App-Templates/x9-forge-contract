@@ -160,14 +160,26 @@ export const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = [
 ] as const;
 export const PaperclipSeatReplyWakeResultSchema = z.enum(PAPERCLIP_SEAT_REPLY_WAKE_RESULTS);
 
+/**
+ * How a `woken` answer reached the agent when no run id is known: `monitor_check` = cap-paperclip asked Paperclip to run the
+ * issue's scheduled monitor now (POST /api/issues/:id/monitor/check-now) and Paperclip wakes the assignee with `issue_monitor_due`.
+ */
+export const PAPERCLIP_SEAT_REPLY_WAKE_VIA = ['monitor_check'] as const;
+export const PaperclipSeatReplyWakeViaSchema = z.enum(PAPERCLIP_SEAT_REPLY_WAKE_VIA);
+export type PaperclipSeatReplyWakeVia = z.infer<typeof PaperclipSeatReplyWakeViaSchema>;
+
 export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
   result: PaperclipSeatReplyWakeResultSchema,
   issueId: z.uuid().optional(),
   runId: z.uuid().optional(),
   disposition: InboundEventDispositionSchema.optional(),
+  via: PaperclipSeatReplyWakeViaSchema.optional(),
 }).superRefine((value, ctx) => {
-  if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
+  if (value.result === 'woken' && (value.issueId === undefined || (value.runId === undefined && value.via === undefined))) {
     ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
+  }
+  if (value.via !== undefined && (value.result !== 'woken' || value.runId !== undefined || value.disposition !== undefined)) {
+    ctx.addIssue({ code: 'custom', message: 'via monitor_check is only a woken answer without runId and disposition', path: ['via'] });
   }
   if (value.result !== 'woken' && value.runId !== undefined) {
     ctx.addIssue({ code: 'custom', message: 'runId is only allowed with woken', path: ['runId'] });

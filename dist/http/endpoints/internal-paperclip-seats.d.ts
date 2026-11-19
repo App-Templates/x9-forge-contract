@@ -240,6 +240,15 @@ export declare const PaperclipSeatReplyWakeResultSchema: z.ZodEnum<{
     not_waiting: "not_waiting";
     no_mandate: "no_mandate";
 }>;
+/**
+ * How a `woken` answer reached the agent when no run id is known: `monitor_check` = cap-paperclip asked Paperclip to run the
+ * issue's scheduled monitor now (POST /api/issues/:id/monitor/check-now) and Paperclip wakes the assignee with `issue_monitor_due`.
+ */
+export declare const PAPERCLIP_SEAT_REPLY_WAKE_VIA: readonly ["monitor_check"];
+export declare const PaperclipSeatReplyWakeViaSchema: z.ZodEnum<{
+    monitor_check: "monitor_check";
+}>;
+export type PaperclipSeatReplyWakeVia = z.infer<typeof PaperclipSeatReplyWakeViaSchema>;
 export declare const InternalPaperclipSeatReplyWakeResponseSchema: z.ZodObject<{
     result: z.ZodEnum<{
         duplicate: "duplicate";
@@ -303,6 +312,9 @@ export declare const InternalPaperclipSeatReplyWakeResponseSchema: z.ZodObject<{
             }>;
         }, z.core.$strict>;
     }, z.core.$strict>], "outcome">>;
+    via: z.ZodOptional<z.ZodEnum<{
+        monitor_check: "monitor_check";
+    }>>;
 }, z.core.$strict>;
 /**
  * Error codes of a failed seat wake. They name whose fault the failure is.
@@ -400,6 +412,9 @@ export declare const internalPaperclipSeatReplyWakeContract: {
                 }>;
             }, z.core.$strict>;
         }, z.core.$strict>], "outcome">>;
+        via: z.ZodOptional<z.ZodEnum<{
+            monitor_check: "monitor_check";
+        }>>;
     }, z.core.$strict>;
     readonly errorResponseSchema: z.ZodObject<{
         ok: z.ZodLiteral<false>;
