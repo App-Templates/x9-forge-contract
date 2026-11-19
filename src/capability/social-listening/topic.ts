@@ -3,6 +3,7 @@ import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
 import { LabIngestIdSchema } from '../lab/tools.js';
 import { ResearchIdSchema, ResearchSourceSchema } from '../ricerca/research.js';
 import { AgentDaySchema } from '../ricerca/spend.js';
+import { VideoProjectIdSchema } from '../video/brief.js';
 import { SocialHandleSchema, SocialVerticalIdSchema } from './post.js';
 import { SocialFactSchema, SocialVerdictSchema, type SocialVerdict } from './verdict.js';
 
@@ -91,6 +92,8 @@ export const SocialTopicSchema = z.object({
   /** Set by the service after `lab_ingest` accepted the topic (D15). */
   wikiIngestId: LabIngestIdSchema.optional(),
   wikiSavedAt: IsoDateTimeSchema.optional(),
+  /** The cap-video project born from this topic's brief (P9). */
+  videoProjectId: VideoProjectIdSchema.optional(),
 }).strict().superRefine((t, ctx) => {
   if ((t.verdict === 'funziona' || t.verdict === 'da_provare') && t.facts.length < 1) {
     ctx.addIssue({ code: 'custom', path: ['facts'], message: 'verdict funziona/da_provare needs at least one fact' });

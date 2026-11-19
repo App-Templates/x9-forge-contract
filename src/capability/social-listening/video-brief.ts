@@ -5,7 +5,7 @@ import {
   VideoProjectStateSchema,
 } from '../video/brief.js';
 import { VideoBriefToolInputSchema, type VideoBriefToolInput } from '../video/tools.js';
-import { SocialTopicSchema } from './topic.js';
+import { SocialTopicSchema, type SocialTopic } from './topic.js';
 import type { SocialTopicGetOutput } from './tools.js';
 
 /**
@@ -47,6 +47,25 @@ export const SocialTopicBriefOutputSchema = z.strictObject({
   state: VideoProjectStateSchema,
 });
 export type SocialTopicBriefOutput = z.infer<typeof SocialTopicBriefOutputSchema>;
+
+/**
+ * The topic after its brief went out: `videoProjectId` is written only when cap-video's answer is about THIS topic
+ * (same topic id and same `social:<id>` reference). The last brief wins. Never throws.
+ */
+export function socialTopicAfterBrief(
+  topic: SocialTopic,
+  output: unknown,
+): { ok: true; topic: SocialTopic } | { ok: false; error: 'invalid_output' | 'topic_mismatch' | 'ref_mismatch' } {
+  const parsed = SocialTopicBriefOutputSchema.safeParse(output);
+  if (!parsed.success) return { ok: false, error: 'invalid_output' };
+  if (parsed.data.topicId !== topic.topicId) return { ok: false, error: 'topic_mismatch' };
+  if (parsed.data.externalRef !== SOCIAL_VIDEO_EXTERNAL_REF_PREFIX + topic.topicId) {
+    return { ok: false, error: 'ref_mismatch' };
+  }
+  const next = SocialTopicSchema.safeParse({ ...topic, videoProjectId: parsed.data.projectId });
+  if (!next.success) return { ok: false, error: 'invalid_output' };
+  return { ok: true, topic: next.data };
+}
 
 export const SocialTopicBriefToolErrorSchema = z.enum([
   'invalid_request', 'not_configured', 'unknown_topic', 'video_not_enabled', 'video_refused',
