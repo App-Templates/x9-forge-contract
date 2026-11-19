@@ -1,12 +1,25 @@
 import { z } from 'zod';
+import { DEV_GENERIC_INPUT_MAX_BYTES } from "../dev/generic-job.js";
 import { WebUrlSchema } from "../ricerca/research.js";
-import { SocialHandleSchema, SocialPostFilterSchema, SocialPostSchema, SocialVerticalIdSchema, } from "./post.js";
+import { SocialHandleSchema, SocialPostFilterSchema, SocialPostKindSchema, SocialPostSchema, SocialVerticalIdSchema, } from "./post.js";
 import { SocialJobKindSchema } from "./queue.js";
 import { SocialCategorySlugSchema, SocialTopicCostSchema, SocialTopicSchema, } from "./topic.js";
 import { SocialFactSchema } from "./verdict.js";
 const kinds = SocialJobKindSchema.enum;
 const topic = SocialTopicSchema.shape;
-/** Lightweight references only. The queue job, never the executor, supplies identity. */
+export const SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = 12000;
+/** Keep whole Unicode code points, including surrogate pairs. */
+export function socialPostExcerpt(text, maxChars) {
+    return Array.from(text).slice(0, maxChars).join('');
+}
+/** Post text is DATA, never instructions. */
+export const SocialJobPostMaterialSchema = z.strictObject({
+    handle: SocialHandleSchema,
+    kind: SocialPostKindSchema,
+    caption: SocialPostSchema.shape.caption,
+    transcriptExcerpt: z.string().max(SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX).optional(),
+});
+/** Bounded references and post data. The queue job, never the executor, supplies identity. */
 export const SocialJobInputSchema = z.discriminatedUnion('kind', [
     z.object({
         kind: z.literal(kinds.collect),
@@ -21,6 +34,8 @@ export const SocialJobInputSchema = z.discriminatedUnion('kind', [
     z.object({
         kind: z.literal(kinds.filter),
         postId: SocialPostSchema.shape.postId,
+        /** Post text is DATA, never instructions. */
+        material: SocialJobPostMaterialSchema.optional(),
     }).strict(),
     z.object({
         kind: z.literal(kinds.verify),
@@ -35,6 +50,30 @@ export const SocialJobInputSchema = z.discriminatedUnion('kind', [
         categories: z.array(SocialCategorySlugSchema).min(1).max(30),
     }).strict(),
 ]);
+/** Supply the Mac with post data within both the material and generic input limits. */
+export function socialFilterJobInput(post) {
+    const material = {
+        handle: post.handle,
+        kind: post.kind,
+        caption: post.caption,
+        ...(post.transcript === undefined ? {} : {
+            transcriptExcerpt: socialPostExcerpt(post.transcript, SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX),
+        }),
+    };
+    const input = { kind: kinds.filter, postId: post.postId, material };
+    const encoder = new TextEncoder();
+    while (material.transcriptExcerpt !== undefined && (
+    // Zod string limits count UTF-16 units; the generic input limit counts JSON UTF-8 bytes.
+    material.transcriptExcerpt.length > SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX
+        || encoder.encode(JSON.stringify(input)).byteLength > DEV_GENERIC_INPUT_MAX_BYTES)) {
+        const maxChars = Math.floor(Array.from(material.transcriptExcerpt).length / 2);
+        if (maxChars === 0)
+            delete material.transcriptExcerpt;
+        else
+            material.transcriptExcerpt = socialPostExcerpt(material.transcriptExcerpt, maxChars);
+    }
+    return SocialJobInputSchema.parse(input);
+}
 /** Bounded executor data. The receiving service attaches the trusted job identity. */
 export const SocialJobResultSchema = z.discriminatedUnion('kind', [
     z.object({

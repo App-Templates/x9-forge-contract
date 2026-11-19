@@ -63,6 +63,8 @@ export declare const SocialRoundStateSchema: z.ZodEnum<{
     cap_reached: "cap_reached";
 }>;
 export type SocialRoundState = z.infer<typeof SocialRoundStateSchema>;
+export declare const SOCIAL_ROUND_ENDED_STATES: readonly ["done", "failed", "cap_reached"];
+export declare function socialRoundEnded(state: unknown): state is (typeof SOCIAL_ROUND_ENDED_STATES)[number];
 /** State of the day's round for one vertical (D9, D20). */
 export declare const SocialRoundSchema: z.ZodObject<{
     identity: z.ZodObject<{
@@ -91,6 +93,7 @@ export declare const SocialRoundSchema: z.ZodObject<{
     topicsCount: z.ZodNumber;
     spentUsd: z.ZodNumber;
     capUsd: z.ZodOptional<z.ZodNumber>;
+    noticeSentAt: z.ZodOptional<z.ZodISODateTime>;
 }, z.core.$strict>;
 export type SocialRound = z.infer<typeof SocialRoundSchema>;
 //# sourceMappingURL=queue.d.ts.map

@@ -64,6 +64,7 @@ export declare const SocialRoundReadResponseSchema: z.ZodObject<{
         topicsCount: z.ZodNumber;
         spentUsd: z.ZodNumber;
         capUsd: z.ZodOptional<z.ZodNumber>;
+        noticeSentAt: z.ZodOptional<z.ZodISODateTime>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 /** Accept a complete round response only within the requested scope, vertical and day. */
@@ -123,6 +124,7 @@ export declare const socialRoundReadContract: {
             topicsCount: z.ZodNumber;
             spentUsd: z.ZodNumber;
             capUsd: z.ZodOptional<z.ZodNumber>;
+            noticeSentAt: z.ZodOptional<z.ZodISODateTime>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
 };

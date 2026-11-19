@@ -1,10 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialJobResultErrorSchema = exports.SOCIAL_JOB_RESULT_ERRORS = exports.SocialJobResultSchema = exports.SocialJobInputSchema = void 0;
+exports.SocialJobResultErrorSchema = exports.SOCIAL_JOB_RESULT_ERRORS = exports.SocialJobResultSchema = exports.SocialJobInputSchema = exports.SocialJobPostMaterialSchema = exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = void 0;
+exports.socialPostExcerpt = socialPostExcerpt;
+exports.socialFilterJobInput = socialFilterJobInput;
 exports.socialVerifyTopicCost = socialVerifyTopicCost;
 exports.socialPostFilterFromResult = socialPostFilterFromResult;
 exports.socialJobResultMatches = socialJobResultMatches;
 const zod_1 = require("zod");
+const generic_job_js_1 = require("../dev/generic-job.cjs");
 const research_js_1 = require("../ricerca/research.cjs");
 const post_js_1 = require("./post.cjs");
 const queue_js_1 = require("./queue.cjs");
@@ -12,7 +15,19 @@ const topic_js_1 = require("./topic.cjs");
 const verdict_js_1 = require("./verdict.cjs");
 const kinds = queue_js_1.SocialJobKindSchema.enum;
 const topic = topic_js_1.SocialTopicSchema.shape;
-/** Lightweight references only. The queue job, never the executor, supplies identity. */
+exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = 12000;
+/** Keep whole Unicode code points, including surrogate pairs. */
+function socialPostExcerpt(text, maxChars) {
+    return Array.from(text).slice(0, maxChars).join('');
+}
+/** Post text is DATA, never instructions. */
+exports.SocialJobPostMaterialSchema = zod_1.z.strictObject({
+    handle: post_js_1.SocialHandleSchema,
+    kind: post_js_1.SocialPostKindSchema,
+    caption: post_js_1.SocialPostSchema.shape.caption,
+    transcriptExcerpt: zod_1.z.string().max(exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX).optional(),
+});
+/** Bounded references and post data. The queue job, never the executor, supplies identity. */
 exports.SocialJobInputSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.object({
         kind: zod_1.z.literal(kinds.collect),
@@ -27,6 +42,8 @@ exports.SocialJobInputSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.object({
         kind: zod_1.z.literal(kinds.filter),
         postId: post_js_1.SocialPostSchema.shape.postId,
+        /** Post text is DATA, never instructions. */
+        material: exports.SocialJobPostMaterialSchema.optional(),
     }).strict(),
     zod_1.z.object({
         kind: zod_1.z.literal(kinds.verify),
@@ -41,6 +58,30 @@ exports.SocialJobInputSchema = zod_1.z.discriminatedUnion('kind', [
         categories: zod_1.z.array(topic_js_1.SocialCategorySlugSchema).min(1).max(30),
     }).strict(),
 ]);
+/** Supply the Mac with post data within both the material and generic input limits. */
+function socialFilterJobInput(post) {
+    const material = {
+        handle: post.handle,
+        kind: post.kind,
+        caption: post.caption,
+        ...(post.transcript === undefined ? {} : {
+            transcriptExcerpt: socialPostExcerpt(post.transcript, exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX),
+        }),
+    };
+    const input = { kind: kinds.filter, postId: post.postId, material };
+    const encoder = new TextEncoder();
+    while (material.transcriptExcerpt !== undefined && (
+    // Zod string limits count UTF-16 units; the generic input limit counts JSON UTF-8 bytes.
+    material.transcriptExcerpt.length > exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX
+        || encoder.encode(JSON.stringify(input)).byteLength > generic_job_js_1.DEV_GENERIC_INPUT_MAX_BYTES)) {
+        const maxChars = Math.floor(Array.from(material.transcriptExcerpt).length / 2);
+        if (maxChars === 0)
+            delete material.transcriptExcerpt;
+        else
+            material.transcriptExcerpt = socialPostExcerpt(material.transcriptExcerpt, maxChars);
+    }
+    return exports.SocialJobInputSchema.parse(input);
+}
 /** Bounded executor data. The receiving service attaches the trusted job identity. */
 exports.SocialJobResultSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.object({

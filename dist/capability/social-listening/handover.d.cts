@@ -10,4 +10,18 @@ export declare function socialRoundHandover(input: unknown): {
     action: 'hand_to_server';
     reason: 'fallback_time_reached' | 'day_passed';
 };
+export declare const SOCIAL_ROUND_FRESHNESS: readonly ["today", "yesterday_pending", "stale"];
+/** One rule for how old a round is, in the agent's timezone (shared by Forge and X9). */
+export declare function socialRoundFreshness(input: unknown): {
+    state: 'today';
+    daysOld: 0;
+} | {
+    state: 'yesterday_pending';
+    daysOld: 1;
+} | {
+    state: 'stale';
+    daysOld: number;
+} | {
+    state: 'invalid_input';
+};
 //# sourceMappingURL=handover.d.ts.map

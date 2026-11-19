@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.272.0 — social listening round end and freshness (tasks 3930, 3931)
+
+- `SOCIAL_ROUND_ENDED_STATES` and `socialRoundEnded` say whether a round is over (`done`, `failed`, `cap_reached`).
+- `SocialRoundSchema` gets an optional `noticeSentAt`, allowed only on ended rounds.
+- `socialRoundFreshness` says whether a round is of today, of yesterday and waiting for the next one, or stale, and how many days old it is, in the agent's timezone.
+- Additive; saved rounds without the new field stay valid.
+
 ## v1.271.0 — social listening generic jobs (tasks 3667, 3668)
 
 - `ig_collect` is a third generic tool of the executor (`DEV_GENERIC_JOB_TOOLS`); a claim may ask for every listed tool.

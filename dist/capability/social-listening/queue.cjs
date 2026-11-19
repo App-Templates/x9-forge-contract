@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialRoundSchema = exports.SocialRoundStateSchema = exports.SOCIAL_ROUND_STATES = exports.SocialJobSchema = exports.SocialJobStateSchema = exports.SOCIAL_JOB_STATES = exports.SocialJobKindSchema = exports.SOCIAL_JOB_KINDS = void 0;
+exports.SocialRoundSchema = exports.SOCIAL_ROUND_ENDED_STATES = exports.SocialRoundStateSchema = exports.SOCIAL_ROUND_STATES = exports.SocialJobSchema = exports.SocialJobStateSchema = exports.SOCIAL_JOB_STATES = exports.SocialJobKindSchema = exports.SOCIAL_JOB_KINDS = void 0;
+exports.socialRoundEnded = socialRoundEnded;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const spend_js_1 = require("../ricerca/spend.cjs");
@@ -40,6 +41,10 @@ exports.SocialJobSchema = zod_1.z.object({
 });
 exports.SOCIAL_ROUND_STATES = ['scheduled', 'running', 'done', 'failed', 'cap_reached'];
 exports.SocialRoundStateSchema = zod_1.z.enum(exports.SOCIAL_ROUND_STATES);
+exports.SOCIAL_ROUND_ENDED_STATES = ['done', 'failed', 'cap_reached'];
+function socialRoundEnded(state) {
+    return exports.SOCIAL_ROUND_ENDED_STATES.some(endedState => state === endedState);
+}
 /** State of the day's round for one vertical (D9, D20). */
 exports.SocialRoundSchema = zod_1.z.object({
     identity: capability_call_identity_js_1.CapabilityAgentScopeSchema,
@@ -56,8 +61,10 @@ exports.SocialRoundSchema = zod_1.z.object({
     topicsCount: zod_1.z.number().int().nonnegative(),
     spentUsd: zod_1.z.number().nonnegative().finite(),
     capUsd: zod_1.z.number().positive().finite().optional(),
+    /** When the end-of-round message (D21) was sent; absent until sent and on rounds saved before. */
+    noticeSentAt: IsoDateTimeSchema.optional(),
 }).strict().superRefine((r, ctx) => {
-    const ended = r.state === 'done' || r.state === 'failed' || r.state === 'cap_reached';
+    const ended = socialRoundEnded(r.state);
     if (r.finishedAt !== undefined && !ended) {
         ctx.addIssue({ code: 'custom', path: ['finishedAt'], message: 'finishedAt only with done, failed or cap_reached' });
     }
@@ -66,6 +73,9 @@ exports.SocialRoundSchema = zod_1.z.object({
     }
     if (r.state === 'cap_reached' && (r.track !== 'server' || r.capUsd === undefined)) {
         ctx.addIssue({ code: 'custom', path: ['state'], message: 'cap_reached only on the server track with capUsd' });
+    }
+    if (r.noticeSentAt !== undefined && !ended) {
+        ctx.addIssue({ code: 'custom', path: ['noticeSentAt'], message: 'noticeSentAt only with done, failed or cap_reached' });
     }
 });
 //# sourceMappingURL=queue.js.map
