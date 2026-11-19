@@ -21,21 +21,32 @@ import { PaperclipAgentIdSchema, PaperclipAssignAgentInputSchema, PaperclipAssig
 export const PAPERCLIP_NATIVE_WAIT_TOOLS = { checkLater: 'paperclip_check_later' };
 export const PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604_800;
 export const PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = 5;
+/** Paperclip refuses a monitor with maxAttempts above 100 (validators/issue.ts:419-425). */
+export const PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP = 100;
 /**
- * Paperclip wakes the owner at most `attempts` times in total: the count survives rearming
- * (server/src/services/issue-execution-policy.ts:221). After the last wake, rearming is refused and the owner acts.
- * A blocked wait cannot carry this field because a monitor never fires on a blocked issue.
+ * `attempts` = at most that many wake-ups FROM NOW, whatever the task already had. Paperclip keeps one count per task
+ * that is never reset and refuses a rearm when count >= maxAttempts (server/src/services/issue-execution-policy.ts:221),
+ * so the bridge writes maxAttempts = live count + attempts. A blocked wait cannot carry this field because a monitor
+ * never fires on a blocked issue.
  */
 export const PaperclipFollowUpSchema = z.strictObject({
     attempts: z.int().min(1).max(PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS),
-}).describe('Paperclip wakes the owner at most attempts times in total across rearms, then refuses rearming and the owner handles the next step; blocked waits have no monitor');
+}).describe(`Paperclip wakes the owner at most attempts times from now, whatever the task already had; after the last wake rearming is refused and the owner handles the next step. Paperclip's absolute cap is ${PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP} wake-ups per task: close to it fewer than attempts wake-ups may remain, and at the cap rearming is refused; blocked waits have no monitor`);
 /** The only monitor recovery policy the bridge uses; Paperclip supports three policies. */
 export const PAPERCLIP_MONITOR_RECOVERY_POLICIES = ['wake_owner'];
-/** The single builder of the monitor bounds sent to Paperclip; existing checks remain unbounded. */
-export function paperclipMonitorBounds(followUp) {
+/**
+ * The single builder of the monitor bounds sent to Paperclip; existing checks remain unbounded.
+ * `attemptCount` is the live count of the task, passed only with a followUp the agent just gave; a limit the task
+ * already holds is absolute and is written back with `attemptCount` omitted (0).
+ */
+export function paperclipMonitorBounds(followUp, attemptCount = 0) {
     if (followUp === undefined)
         return undefined;
-    return { maxAttempts: followUp.attempts, recoveryPolicy: PAPERCLIP_MONITOR_RECOVERY_POLICIES[0] };
+    const used = Number.isInteger(attemptCount) && attemptCount > 0 ? attemptCount : 0;
+    return {
+        maxAttempts: Math.min(used + followUp.attempts, PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP),
+        recoveryPolicy: PAPERCLIP_MONITOR_RECOVERY_POLICIES[0],
+    };
 }
 /** Exact refusal text copied from Paperclip server/src/services/issue-execution-policy.ts:75. */
 export const PAPERCLIP_MONITOR_EXHAUSTED_TEXT = 'Monitor bounds are already exhausted';

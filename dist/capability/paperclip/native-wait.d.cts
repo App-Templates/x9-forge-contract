@@ -19,10 +19,13 @@ export declare const PAPERCLIP_NATIVE_WAIT_TOOLS: {
 };
 export declare const PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604800;
 export declare const PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = 5;
+/** Paperclip refuses a monitor with maxAttempts above 100 (validators/issue.ts:419-425). */
+export declare const PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP = 100;
 /**
- * Paperclip wakes the owner at most `attempts` times in total: the count survives rearming
- * (server/src/services/issue-execution-policy.ts:221). After the last wake, rearming is refused and the owner acts.
- * A blocked wait cannot carry this field because a monitor never fires on a blocked issue.
+ * `attempts` = at most that many wake-ups FROM NOW, whatever the task already had. Paperclip keeps one count per task
+ * that is never reset and refuses a rearm when count >= maxAttempts (server/src/services/issue-execution-policy.ts:221),
+ * so the bridge writes maxAttempts = live count + attempts. A blocked wait cannot carry this field because a monitor
+ * never fires on a blocked issue.
  */
 export declare const PaperclipFollowUpSchema: z.ZodObject<{
     attempts: z.ZodInt;
@@ -30,8 +33,12 @@ export declare const PaperclipFollowUpSchema: z.ZodObject<{
 export type PaperclipFollowUp = z.infer<typeof PaperclipFollowUpSchema>;
 /** The only monitor recovery policy the bridge uses; Paperclip supports three policies. */
 export declare const PAPERCLIP_MONITOR_RECOVERY_POLICIES: readonly ["wake_owner"];
-/** The single builder of the monitor bounds sent to Paperclip; existing checks remain unbounded. */
-export declare function paperclipMonitorBounds(followUp: PaperclipFollowUp | undefined): {
+/**
+ * The single builder of the monitor bounds sent to Paperclip; existing checks remain unbounded.
+ * `attemptCount` is the live count of the task, passed only with a followUp the agent just gave; a limit the task
+ * already holds is absolute and is written back with `attemptCount` omitted (0).
+ */
+export declare function paperclipMonitorBounds(followUp: PaperclipFollowUp | undefined, attemptCount?: number): {
     maxAttempts: number;
     recoveryPolicy: (typeof PAPERCLIP_MONITOR_RECOVERY_POLICIES)[number];
 } | undefined;

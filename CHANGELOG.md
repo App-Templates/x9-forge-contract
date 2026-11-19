@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.240.0 — followUp attempts count from now: the monitor bounds builder adds the live attempt count of the task (task 7502)
+
+- `paperclipMonitorBounds(followUp, attemptCount = 0)` writes maxAttempts = live count + attempts, capped at 100 (`PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP`); the field text says "from now".
+- Additive: without the second argument the result is the one of 1.239.0. Consumers: cap-paperclip, once it moves its pin and passes the count it reads.
+
 ## v1.239.0 — The channels text says what the system does with files and proofs and no longer promises tools the agent does not have (task 7426)
 
 - The delivery lines of `communicationSectionLines()` say that the system carries the screenshots and documents of a development session to the issue when a piece is closed, as attachments and work products, that the agent only cites them in its comment and leaves no path of its own disk, and that outside a development session (Director, Lab, Research) nothing is promised; no first-person «carico», «registro» or «reopen» (7426).

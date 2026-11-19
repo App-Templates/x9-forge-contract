@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.239.0",
+  "versione": "1.240.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -887,6 +887,7 @@
       "PAPERCLIP_INTERACTION_STATUSES": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_ISSUE_IDENTIFIER_PATTERN": "@x9-forge/contracts/capability/paperclip/tools",
       "PAPERCLIP_MONITOR_EXHAUSTED_TEXT": "@x9-forge/contracts/capability/paperclip/native-wait",
+      "PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_MONITOR_RECOVERY_POLICIES": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_MOTIVO_COMMENTO_MANCANTE": "@x9-forge/contracts/capability/paperclip-protocollo/turno",
       "PAPERCLIP_NATIVE_WAIT_TOOLS": "@x9-forge/contracts/capability/paperclip/native-wait",
@@ -3396,6 +3397,7 @@
       "PAPERCLIP_INTERACTION_STATUSES": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_ISSUE_IDENTIFIER_PATTERN": "@x9-forge/contracts/capability/paperclip/tools",
       "PAPERCLIP_MONITOR_EXHAUSTED_TEXT": "@x9-forge/contracts/capability/paperclip/native-wait",
+      "PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_MONITOR_RECOVERY_POLICIES": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_NATIVE_WAIT_TOOLS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_QUESTION_EXPIRATION_REASONS": "@x9-forge/contracts/capability/paperclip/native-wait",

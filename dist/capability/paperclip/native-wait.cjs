@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PAPERCLIP_ASK_REFUSALS = exports.PaperclipNativeCreateIssueAgentInputSchema = exports.PaperclipNativeAssignAgentRefInputSchema = exports.PaperclipNativeAssignAgentInputSchema = exports.PaperclipNativeReviewAddressedInputSchema = exports.PaperclipAddressedAskSchema = exports.PAPERCLIP_ASK_TARGETS = exports.PAPERCLIP_ASK_DECLARED_CHOICES = exports.PaperclipConfirmationResultSchema = exports.PaperclipQuestionResultSchema = exports.PaperclipInteractionReadSchema = exports.PaperclipResolverPolicyReadSchema = exports.PaperclipResolverPolicySchema = exports.PaperclipContinuationPolicySchema = exports.PaperclipInteractionStatusSchema = exports.PaperclipInteractionKindSchema = exports.PAPERCLIP_CONFIRMATION_OUTCOMES = exports.PAPERCLIP_QUESTION_EXPIRATION_REASONS = exports.PAPERCLIP_QUESTION_OUTCOMES = exports.PAPERCLIP_RESOLVER_POLICY_ALIASES = exports.PAPERCLIP_RESOLVER_POLICIES = exports.PAPERCLIP_CONTINUATION_POLICIES = exports.PAPERCLIP_INTERACTION_STATUSES = exports.PAPERCLIP_INTERACTION_CREATABLE_KINDS = exports.PAPERCLIP_INTERACTION_KINDS = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PAPERCLIP_WAIT_REFUSALS = exports.PaperclipWaitingForSchema = exports.PaperclipWaitUnblockerSchema = exports.PAPERCLIP_WAIT_UNBLOCKERS = exports.PaperclipWaitsOnSchema = exports.PaperclipWaitRefSchema = exports.PAPERCLIP_WAIT_REF_KINDS = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_MONITOR_EXHAUSTED_TEXT = exports.PAPERCLIP_MONITOR_RECOVERY_POLICIES = exports.PaperclipFollowUpSchema = exports.PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
-exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipConfermaConPoliticheCorpoSchema = exports.PaperclipAskPersonInteractionBodySchema = void 0;
+exports.PaperclipNativeCreateIssueAgentInputSchema = exports.PaperclipNativeAssignAgentRefInputSchema = exports.PaperclipNativeAssignAgentInputSchema = exports.PaperclipNativeReviewAddressedInputSchema = exports.PaperclipAddressedAskSchema = exports.PAPERCLIP_ASK_TARGETS = exports.PAPERCLIP_ASK_DECLARED_CHOICES = exports.PaperclipConfirmationResultSchema = exports.PaperclipQuestionResultSchema = exports.PaperclipInteractionReadSchema = exports.PaperclipResolverPolicyReadSchema = exports.PaperclipResolverPolicySchema = exports.PaperclipContinuationPolicySchema = exports.PaperclipInteractionStatusSchema = exports.PaperclipInteractionKindSchema = exports.PAPERCLIP_CONFIRMATION_OUTCOMES = exports.PAPERCLIP_QUESTION_EXPIRATION_REASONS = exports.PAPERCLIP_QUESTION_OUTCOMES = exports.PAPERCLIP_RESOLVER_POLICY_ALIASES = exports.PAPERCLIP_RESOLVER_POLICIES = exports.PAPERCLIP_CONTINUATION_POLICIES = exports.PAPERCLIP_INTERACTION_STATUSES = exports.PAPERCLIP_INTERACTION_CREATABLE_KINDS = exports.PAPERCLIP_INTERACTION_KINDS = exports.PaperclipAnswerInteractionBodySchema = exports.PaperclipAskInteractionBodySchema = exports.PaperclipNativeAssignRefInputSchema = exports.PaperclipNativeAssignInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipAskSchema = exports.PaperclipCheckLaterSchema = exports.PAPERCLIP_WAIT_REFUSALS = exports.PaperclipWaitingForSchema = exports.PaperclipWaitUnblockerSchema = exports.PAPERCLIP_WAIT_UNBLOCKERS = exports.PaperclipWaitsOnSchema = exports.PaperclipWaitRefSchema = exports.PAPERCLIP_WAIT_REF_KINDS = exports.PAPERCLIP_INTERACTION_PENDING_WAKE = exports.PAPERCLIP_ANSWER_MAX = exports.PAPERCLIP_ASK_QUESTION_MAX = exports.PAPERCLIP_ASK_QUESTION_ID = exports.PAPERCLIP_MONITOR_EXHAUSTED_TEXT = exports.PAPERCLIP_MONITOR_RECOVERY_POLICIES = exports.PaperclipFollowUpSchema = exports.PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP = exports.PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipConfermaConPoliticheCorpoSchema = exports.PaperclipAskPersonInteractionBodySchema = exports.PAPERCLIP_ASK_REFUSALS = void 0;
 exports.paperclipMonitorBounds = paperclipMonitorBounds;
 exports.isPaperclipMonitorExhausted = isPaperclipMonitorExhausted;
 exports.paperclipWaitRefKey = paperclipWaitRefKey;
@@ -36,21 +36,32 @@ const tools_js_1 = require("./tools.cjs");
 exports.PAPERCLIP_NATIVE_WAIT_TOOLS = { checkLater: 'paperclip_check_later' };
 exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604_800;
 exports.PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS = 5;
+/** Paperclip refuses a monitor with maxAttempts above 100 (validators/issue.ts:419-425). */
+exports.PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP = 100;
 /**
- * Paperclip wakes the owner at most `attempts` times in total: the count survives rearming
- * (server/src/services/issue-execution-policy.ts:221). After the last wake, rearming is refused and the owner acts.
- * A blocked wait cannot carry this field because a monitor never fires on a blocked issue.
+ * `attempts` = at most that many wake-ups FROM NOW, whatever the task already had. Paperclip keeps one count per task
+ * that is never reset and refuses a rearm when count >= maxAttempts (server/src/services/issue-execution-policy.ts:221),
+ * so the bridge writes maxAttempts = live count + attempts. A blocked wait cannot carry this field because a monitor
+ * never fires on a blocked issue.
  */
 exports.PaperclipFollowUpSchema = zod_1.z.strictObject({
     attempts: zod_1.z.int().min(1).max(exports.PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS),
-}).describe('Paperclip wakes the owner at most attempts times in total across rearms, then refuses rearming and the owner handles the next step; blocked waits have no monitor');
+}).describe(`Paperclip wakes the owner at most attempts times from now, whatever the task already had; after the last wake rearming is refused and the owner handles the next step. Paperclip's absolute cap is ${exports.PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP} wake-ups per task: close to it fewer than attempts wake-ups may remain, and at the cap rearming is refused; blocked waits have no monitor`);
 /** The only monitor recovery policy the bridge uses; Paperclip supports three policies. */
 exports.PAPERCLIP_MONITOR_RECOVERY_POLICIES = ['wake_owner'];
-/** The single builder of the monitor bounds sent to Paperclip; existing checks remain unbounded. */
-function paperclipMonitorBounds(followUp) {
+/**
+ * The single builder of the monitor bounds sent to Paperclip; existing checks remain unbounded.
+ * `attemptCount` is the live count of the task, passed only with a followUp the agent just gave; a limit the task
+ * already holds is absolute and is written back with `attemptCount` omitted (0).
+ */
+function paperclipMonitorBounds(followUp, attemptCount = 0) {
     if (followUp === undefined)
         return undefined;
-    return { maxAttempts: followUp.attempts, recoveryPolicy: exports.PAPERCLIP_MONITOR_RECOVERY_POLICIES[0] };
+    const used = Number.isInteger(attemptCount) && attemptCount > 0 ? attemptCount : 0;
+    return {
+        maxAttempts: Math.min(used + followUp.attempts, exports.PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP),
+        recoveryPolicy: exports.PAPERCLIP_MONITOR_RECOVERY_POLICIES[0],
+    };
 }
 /** Exact refusal text copied from Paperclip server/src/services/issue-execution-policy.ts:75. */
 exports.PAPERCLIP_MONITOR_EXHAUSTED_TEXT = 'Monitor bounds are already exhausted';
