@@ -17,10 +17,11 @@ import * as sessionAcceptanceTemplates from '../../../src/capability/dev/session
 import * as sessionAcceptanceCoverage from '../../../src/capability/dev/session-acceptance-coverage.js';
 import * as sessionAcceptancePaperclip from '../../../src/capability/dev/session-acceptance-paperclip.js';
 import * as sessionAttestation from '../../../src/capability/dev/session-attestation.js';
+import * as sessionAcceptanceMandate from '../../../src/capability/dev/session-acceptance-mandate.js';
 import * as sessionMaterialLink from '../../../src/capability/dev/session-material-link.js';
 import * as sessionOutcome from '../../../src/capability/dev/session-outcome.js';
 
-const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...genericJob, ...genericChannel, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment, ...sessionAcceptance, ...sessionAcceptanceCatalog, ...sessionAcceptanceTemplates, ...sessionAcceptanceCoverage, ...sessionAcceptancePaperclip, ...sessionAttestation, ...sessionMaterialLink, ...sessionOutcome };
+const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...genericJob, ...genericChannel, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment, ...sessionAcceptance, ...sessionAcceptanceCatalog, ...sessionAcceptanceTemplates, ...sessionAcceptanceCoverage, ...sessionAcceptancePaperclip, ...sessionAttestation, ...sessionAcceptanceMandate, ...sessionMaterialLink, ...sessionOutcome };
 
 describe('capability/dev subpath', () => {
   it('re-exports every symbol of signed-command, config-state, production-job, production-result, production-artifact-content, production-config-match and production-progress', () => {
@@ -62,6 +63,9 @@ describe('capability/dev subpath', () => {
     }
     for (const name of Object.keys(sessionAttestation) as (keyof typeof sessionAttestation)[]) {
       expect(dev[name]).toBe(sessionAttestation[name]);
+    }
+    for (const name of Object.keys(sessionAcceptanceMandate) as (keyof typeof sessionAcceptanceMandate)[]) {
+      expect(dev[name]).toBe(sessionAcceptanceMandate[name]);
     }
     for (const name of Object.keys(sessionMaterialLink) as (keyof typeof sessionMaterialLink)[]) {
       expect(dev[name]).toBe(sessionMaterialLink[name]);
@@ -190,6 +194,9 @@ describe('capability/dev subpath', () => {
         'DevSessionAttestationSchema',
         'DevSessionManifestAttestationSchema',
         'devSessionAcceptanceVerdict',
+        'DEV_SESSION_MANDATE_ACCEPTANCE_PROBLEMS',
+        'devSessionMandateCriteria',
+        'devSessionMandateAcceptanceProblem',
         'DevSessionCommitSchema',
         'DevSessionDeliveredFileSchema',
         'DevSessionDeliverySchema',
