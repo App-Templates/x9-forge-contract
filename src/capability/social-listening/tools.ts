@@ -87,6 +87,29 @@ export const SocialRecapTopicSummarySchema = z.strictObject({
 
 const NonNegativeIntSchema = z.number().int().nonnegative();
 
+/** The agent's Ascolto page in Forge, relative to the caller's base URL. */
+export const SOCIAL_ASCOLTO_PAGE_PATH = '/agents/{slug}/ascolto' as const;
+
+/** Build a path from one slug segment without coercing untrusted values. */
+export function socialAscoltoPagePath(agentSlug: unknown): string | null {
+  if (
+    typeof agentSlug !== 'string' ||
+    agentSlug.length < 1 ||
+    agentSlug.length > 100 ||
+    /[/\\\u0000-\u001f\u007f-\u009f]/.test(agentSlug) ||
+    /^(?:\.|%2e){1,2}$/i.test(agentSlug)
+  ) {
+    return null;
+  }
+
+  try {
+    return SOCIAL_ASCOLTO_PAGE_PATH.replace('{slug}', encodeURIComponent(agentSlug));
+  } catch {
+    // encodeURIComponent rejects malformed UTF-16, such as a lone surrogate.
+    return null;
+  }
+}
+
 /** One shape for Telegram and X9 Live web. */
 export const SocialRecapOutputSchema = z.strictObject({
   verticalId: SocialVerticalIdSchema,
