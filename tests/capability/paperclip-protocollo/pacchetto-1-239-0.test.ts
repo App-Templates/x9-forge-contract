@@ -6,6 +6,11 @@ import { describe, expect, it } from 'vitest';
 import {
   PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP, PaperclipFollowUpSchema, paperclipMonitorBounds,
 } from '../../../src/capability/paperclip/native-wait.js';
+import {
+  ASSET_MISMATCH_FIELDS, AssetMismatchFieldSchema, INTERNAL_MEMORY_ASSET_REFUSAL_CODES,
+  InternalMemoryAssetMismatchRefusalSchema, InternalMemoryAssetRefusalCodeSchema, assetMismatchFieldOf,
+} from '../../../src/http/endpoints/internal-memory-assets.js';
+import { AssetRefSchema } from '../../../src/organization/asset.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const cleanEnv = { PATH: process.env.PATH ?? '', HOME: process.env.HOME ?? '' };
@@ -65,10 +70,10 @@ function builtFollowUp(mode: 'esm' | 'cjs'): unknown {
 }
 
 describe('s7502 pacchetto-1-240-0', () => {
-  it('s7502_version: package and first CHANGELOG release are 1.240.0', () => {
+  it('s7502_version: the CHANGELOG contains the 1.240.0 release and package matches the first one', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
     const firstRelease = /^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1];
-    expect(firstRelease).toBe('1.240.0');
+    expect(changelog).toContain('## v1.240.0');
     expect(packageVersion()).toBe(firstRelease);
   });
 
@@ -117,6 +122,75 @@ describe('s7502 pacchetto-1-240-0', () => {
   }
 
   it('s7502_map: narrow imports map matches the package version', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
+    expect(map.versione).toBe(packageVersion());
+  });
+});
+
+const NINE = ['tenantId', 'companyId', 'projectId', 'buSlug', 'origin', 'name', 'mediaType', 'sha256', 'sizeBytes'];
+
+function builtMismatch(mode: 'esm' | 'cjs'): unknown {
+  const body = `process.stdout.write(JSON.stringify({
+    fields: m.ASSET_MISMATCH_FIELDS,
+    read: m.assetMismatchFieldOf({ code: 'asset_mismatch', details: { field: 'sizeBytes' } }),
+    codes: m.INTERNAL_MEMORY_ASSET_REFUSAL_CODES,
+  }));`;
+  const script = mode === 'esm'
+    ? `const m = await import('./dist/http/endpoints/internal-memory-assets.js'); ${body}`
+    : `const m = require('./dist/http/endpoints/internal-memory-assets.cjs'); ${body}`;
+  const args = mode === 'esm' ? ['--input-type=module', '-e', script] : ['-e', script];
+  return JSON.parse(execFileSync(process.execPath, args, { cwd: root, env: cleanEnv, encoding: 'utf8' }));
+}
+
+describe('s7516 pacchetto-1-241-0', () => {
+  it('s7516_version: package and first CHANGELOG release are 1.241.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    const firstRelease = /^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1];
+    expect(firstRelease).toBe('1.241.0');
+    expect(packageVersion()).toBe(firstRelease);
+  });
+
+  it('s7516_codici: the two refusal codes', () => {
+    expect([...INTERNAL_MEMORY_ASSET_REFUSAL_CODES]).toEqual(['asset_foreign_business_unit', 'asset_mismatch']);
+    expect(InternalMemoryAssetRefusalCodeSchema.enum.asset_mismatch).toBe('asset_mismatch');
+  });
+
+  it('s7516_campi: the nine names in the order of the checks, each a key of the asset reference', () => {
+    expect([...ASSET_MISMATCH_FIELDS]).toEqual(NINE);
+    for (const name of ASSET_MISMATCH_FIELDS) expect(Object.keys(AssetRefSchema.shape)).toContain(name);
+    expect(AssetMismatchFieldSchema.safeParse('sha256').success).toBe(true);
+  });
+
+  it('s7516_rifiuto: with or without details; unknown field, wrong type and other code refused', () => {
+    const S = InternalMemoryAssetMismatchRefusalSchema;
+    expect(S.safeParse({ code: 'asset_mismatch', message: 'm' }).success).toBe(true);
+    expect(S.safeParse({ code: 'asset_mismatch', message: 'm', details: { field: 'name' } }).success).toBe(true);
+    expect(S.safeParse({ code: 'asset_mismatch', message: 'm', details: { field: 'password' } }).success).toBe(false);
+    expect(S.safeParse({ code: 'asset_mismatch', message: 'm', details: { field: 7 } }).success).toBe(false);
+    expect(S.safeParse({ code: 'content_not_found', message: 'm' }).success).toBe(false);
+  });
+
+  it('s7516_lettore: the reader gives the name or undefined, never throws', () => {
+    for (const field of NINE) {
+      expect(assetMismatchFieldOf({ code: 'asset_mismatch', details: { field } })).toBe(field);
+    }
+    expect(assetMismatchFieldOf({ code: 'content_not_found', details: { field: 'sha256' } })).toBeUndefined();
+    for (const details of [undefined, null, ['sha256'], 'sha256', { field: 'password' }, { field: ['sha256'] }]) {
+      expect(assetMismatchFieldOf({ code: 'asset_mismatch', details })).toBeUndefined();
+    }
+    expect(assetMismatchFieldOf({ code: 'asset_mismatch' })).toBeUndefined();
+  });
+
+  for (const mode of ['esm', 'cjs'] as const) {
+    it(`s7516_dist_${mode}: the built package has the names, the reader and the codes`, () => {
+      const built = builtMismatch(mode) as { fields: string[]; read: string; codes: string[] };
+      expect(built.fields).toEqual(NINE);
+      expect(built.read).toBe('sizeBytes');
+      expect(built.codes).toEqual(['asset_foreign_business_unit', 'asset_mismatch']);
+    });
+  }
+
+  it('s7516_map: narrow imports map matches the package version', () => {
     const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
     expect(map.versione).toBe(packageVersion());
   });

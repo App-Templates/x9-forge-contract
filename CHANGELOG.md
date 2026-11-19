@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.241.0 — the asset_mismatch refusal of a file read has its code, the name of the first mismatching field and the function that reads it (task 7516)
+
+- `INTERNAL_MEMORY_ASSET_REFUSAL_CODES` gains `asset_mismatch`; new `ASSET_MISMATCH_FIELDS` (nine names, in the order of the Memory checks), `AssetMismatchFieldSchema`, `InternalMemoryAssetMismatchRefusalSchema` (`{ code, message, details?: { field } }`) and `assetMismatchFieldOf(refusal)`, which never throws. Only the field name travels, never a value.
+- Additive; no stored data changes. Consumers: Memory (writes `details.field`), capability SDK and cap-qa (read it), after they move their pin.
+
 ## v1.240.0 — followUp attempts count from now: the monitor bounds builder adds the live attempt count of the task (task 7502)
 
 - `paperclipMonitorBounds(followUp, attemptCount = 0)` writes maxAttempts = live count + attempts, capped at 100 (`PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP`); the field text says "from now".

@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.240.0",
+  "versione": "1.241.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1684,6 +1684,7 @@
       "AGENT_CREDENTIAL_PORT_KEYS": "@x9-forge/contracts/http/endpoints/internal-vault-agent-credentials",
       "AGENT_CREDENTIAL_VAULT_SECRET_ENV": "@x9-forge/contracts/http/endpoints/internal-vault-agent-credentials",
       "AGENT_SPEND_MAX_DAYS": "@x9-forge/contracts/capability/ricerca/spend",
+      "ASSET_MISMATCH_FIELDS": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "ASSET_VERSION_REFUSALS": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
       "ActionPlanErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-memory-action-plans",
       "ActionPlanErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-action-plans",
@@ -1716,6 +1717,7 @@
       "AgentSpendResponseSchema": "@x9-forge/contracts/http/endpoints/internal-capability-agent",
       "AgentVoiceSourceParamsSchema": "@x9-forge/contracts/http/endpoints/internal-agent-voice-source",
       "AgentVoiceSourceSchema": "@x9-forge/contracts/http/endpoints/internal-agent-voice-source",
+      "AssetMismatchFieldSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "BridgeErrorResponseSchema": "@x9-forge/contracts/http/response",
       "BridgeHttpError": "@x9-forge/contracts/http/bridge-client",
       "BridgeResponseSchema": "@x9-forge/contracts/http/response",
@@ -1987,6 +1989,7 @@
       "InternalMemoryAssetListQuerySchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "InternalMemoryAssetListRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "InternalMemoryAssetListResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
+      "InternalMemoryAssetMismatchRefusalSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "InternalMemoryAssetReadRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "InternalMemoryAssetReadResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "InternalMemoryAssetRefusalCodeSchema": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
@@ -2202,6 +2205,7 @@
       "agentOrdinaryAuthorityContract": "@x9-forge/contracts/http/endpoints/internal-agents-ordinary-authority",
       "agentOrdinaryAuthorityPath": "@x9-forge/contracts/http/endpoints/internal-agents-ordinary-authority",
       "agentVoiceSourceOf": "@x9-forge/contracts/http/endpoints/internal-agent-voice-source",
+      "assetMismatchFieldOf": "@x9-forge/contracts/http/endpoints/internal-memory-assets",
       "cancelDevProductionJobContract": "@x9-forge/contracts/http/endpoints/internal-dev-cancel",
       "capAgentConfigPath": "@x9-forge/contracts/http/endpoints/internal-capability-agent",
       "capAgentGrowthPath": "@x9-forge/contracts/http/endpoints/internal-capability-agent",

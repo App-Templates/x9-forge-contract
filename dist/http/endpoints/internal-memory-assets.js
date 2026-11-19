@@ -11,9 +11,34 @@ export const INTERNAL_MEMORY_ASSET_CONTENT_PATH = '/internal/memory/assets/conte
  * Refusals of the asset routes that a caller acts on by code, never by message text.
  * - `asset_foreign_business_unit`: a generated document names a business unit whose lead is not the writer and the
  *   writer does not manage the organization (403). Storing it without `buSlug` makes it a project document.
+ * - `asset_mismatch`: the reference of a file read does not match the registered one (403); `details.field` names
+ *   the first field that differs, see `ASSET_MISMATCH_FIELDS`.
  */
-export const INTERNAL_MEMORY_ASSET_REFUSAL_CODES = ['asset_foreign_business_unit'];
+export const INTERNAL_MEMORY_ASSET_REFUSAL_CODES = ['asset_foreign_business_unit', 'asset_mismatch'];
 export const InternalMemoryAssetRefusalCodeSchema = z.enum(INTERNAL_MEMORY_ASSET_REFUSAL_CODES);
+/**
+ * Fields of an asset reference that the Memory compares on a read. The order is the order of the Memory checks:
+ * the first field that differs is the one named. Only the NAME of a field ever travels, never a registered or
+ * claimed value, so a refusal cannot leak what is stored.
+ */
+export const ASSET_MISMATCH_FIELDS = ['tenantId', 'companyId', 'projectId', 'buSlug', 'origin', 'name', 'mediaType', 'sha256', 'sizeBytes'];
+export const AssetMismatchFieldSchema = z.enum(ASSET_MISMATCH_FIELDS);
+/**
+ * Body of the `asset_mismatch` refusal (no `ok`: the Memory sends `{ code, message, details? }`). Not strict, so a
+ * reader keeps the field name if the Memory adds more; `details` is optional because an older Memory omits it.
+ */
+export const InternalMemoryAssetMismatchRefusalSchema = z.object({
+    code: z.literal('asset_mismatch'),
+    message: z.string().min(1),
+    details: z.object({ field: AssetMismatchFieldSchema }).optional(),
+});
+/** The name of the first mismatching field of an `asset_mismatch` refusal; `undefined` for anything else. Never throws. */
+export function assetMismatchFieldOf(refusal) {
+    if (refusal.code !== 'asset_mismatch')
+        return undefined;
+    const parsed = InternalMemoryAssetMismatchRefusalSchema.shape.details.safeParse(refusal.details);
+    return parsed.success ? parsed.data?.field : undefined;
+}
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
  * A `link` or `session` origin carries no bytes (the session file stays in its delivery branch, memory keeps
