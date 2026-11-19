@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CapabilityOrdinaryConfigWriteSchema, type CapabilityOrdinaryTarget, type CapabilityOrdinaryConfiguration } from "../../capability/ordinary-configuration.js";
+import { CapabilityOrdinaryConfigWriteSchema, type CapabilityOrdinaryTarget, type CapabilityOrdinaryConfiguration, type CapabilityOrdinaryConfigState, type CapabilityOrdinaryConfigWrite } from "../../capability/ordinary-configuration.js";
 import { parseCapabilityOrdinaryLifecycle, type CapabilityOrdinaryLifecycleAuthority } from "../../capability/ordinary-lifecycle.js";
 /**
  * A capability's routes for ONE agent it serves (v1.28.0, Phase 54).
@@ -405,6 +405,32 @@ export declare const CapabilityOrdinaryConfigQuerySchema: z.ZodObject<{
 }, z.core.$strict>;
 export declare function parseOrdinaryCapabilityAgentConfigGet(query: unknown, params: unknown, authority: Pick<CapabilityOrdinaryTarget, 'scope' | 'capability'>): z.infer<typeof CapabilityOrdinaryConfigQuerySchema>;
 export declare function parseOrdinaryCapabilityAgentConfigPut(body: unknown, params: unknown, authority: CapabilityOrdinaryTarget, currentVersion: number | null, masters?: readonly CapabilityOrdinaryConfiguration[]): z.infer<typeof CapabilityOrdinaryConfigWriteSchema>;
+/** Compose one complete next revision, retaining unchanged origins and validating the PUT rules. */
+export declare function composeOrdinaryCapabilityAgentConfigPut({ state, authority, values, requestId, masters }: {
+    state: CapabilityOrdinaryConfigState | null;
+    authority: CapabilityOrdinaryTarget;
+    values: Readonly<Record<string, unknown>>;
+    requestId: string;
+    masters?: readonly CapabilityOrdinaryConfiguration[];
+}): {
+    ok: true;
+    write: CapabilityOrdinaryConfigWrite;
+    changedKeys: string[];
+} | {
+    ok: false;
+    error: 'target_mismatch';
+} | {
+    ok: false;
+    error: 'unknown_parameter';
+    keys: string[];
+} | {
+    ok: false;
+    error: 'invalid_value';
+    keys: string[];
+} | {
+    ok: false;
+    error: 'invalid_write';
+};
 export declare function parseOrdinaryCapabilityLifecyclePut(body: unknown, params: unknown, authority: CapabilityOrdinaryLifecycleAuthority): ReturnType<typeof parseCapabilityOrdinaryLifecycle>;
 export declare const ordinaryCapabilityAgentConfigPutContract: {
     readonly bodySchema: z.ZodObject<{

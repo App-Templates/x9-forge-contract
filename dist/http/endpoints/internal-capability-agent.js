@@ -4,7 +4,7 @@ import { AGENT_SPEND_MAX_DAYS, AgentDaySchema, AgentSpendDaySchema } from "../..
 import { LabAgentConfigSchema } from "../../capability/lab/agent-config.js";
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from "../../capability/lab/competence.js";
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from "../../capability/capability-call-context.js";
-import { CapabilityOrdinaryConfigWriteSchema, CapabilityOrdinaryConfigStateSchema, parseCapabilityOrdinaryWrite } from "../../capability/ordinary-configuration.js";
+import { CapabilityOrdinaryConfigWriteSchema, CapabilityOrdinaryConfigStateSchema, CapabilityOrdinaryParameterSchema, parseCapabilityOrdinaryWrite, sameOrdinaryData } from "../../capability/ordinary-configuration.js";
 import { CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, parseCapabilityOrdinaryLifecycle } from "../../capability/ordinary-lifecycle.js";
 /**
  * A capability's routes for ONE agent it serves (v1.28.0, Phase 54).
@@ -158,6 +158,47 @@ export function parseOrdinaryCapabilityAgentConfigPut(body, params, authority, c
     if (path.agentId !== parsed.configuration.scope.agentId)
         throw new Error('Ordinary PUT path mismatch');
     return parsed;
+}
+/** Compose one complete next revision, retaining unchanged origins and validating the PUT rules. */
+export function composeOrdinaryCapabilityAgentConfigPut({ state, authority, values, requestId, masters = [] }) {
+    try {
+        if (state && (!sameCapabilityScope(state.scope, authority.scope) || state.capability !== authority.capability)) {
+            return { ok: false, error: 'target_mismatch' };
+        }
+        const unknownKeys = Object.getOwnPropertyNames(values)
+            .filter(key => !authority.parameters.some(parameter => parameter.key === key));
+        if (unknownKeys.length > 0)
+            return { ok: false, error: 'unknown_parameter', keys: unknownKeys };
+        const parameters = [], changedKeys = [], invalidKeys = [];
+        for (const parameter of authority.parameters) {
+            const changed = Object.hasOwn(values, parameter.key);
+            const previous = state?.desired?.parameters.find(entry => entry.parameter.key === parameter.key);
+            // An explicit value remains an override even when it equals the platform default.
+            const entry = changed ? { parameter, origin: { kind: 'agent_override' }, value: values[parameter.key] }
+                : previous && sameOrdinaryData(previous.parameter, parameter) ? previous
+                    : parameter.platformDefault !== undefined ? { parameter, origin: { kind: 'platform_default' }, value: parameter.platformDefault }
+                        : { parameter, origin: { kind: 'needs_choice' } };
+            const parsed = CapabilityOrdinaryParameterSchema.safeParse(entry);
+            if (!parsed.success)
+                invalidKeys.push(parameter.key);
+            else
+                parameters.push(parsed.data);
+            if (changed)
+                changedKeys.push(parameter.key);
+        }
+        if (invalidKeys.length > 0)
+            return { ok: false, error: 'invalid_value', keys: invalidKeys };
+        const currentVersion = state?.desired?.version ?? null;
+        const write = parseCapabilityOrdinaryWrite({
+            requestId, expectedVersion: currentVersion,
+            configuration: { format: 'ordinary-v2', scope: authority.scope, capability: authority.capability,
+                version: (currentVersion ?? 0) + 1, parameters },
+        }, authority, currentVersion, masters);
+        return { ok: true, write, changedKeys };
+    }
+    catch {
+        return { ok: false, error: 'invalid_write' };
+    }
 }
 export function parseOrdinaryCapabilityLifecyclePut(body, params, authority) {
     const parsed = parseCapabilityOrdinaryLifecycle(body, authority), path = CapabilityAgentParamsSchema.parse(params);

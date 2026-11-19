@@ -37,7 +37,7 @@ describe('s3618 social-listening subpath in the built package', () => {
     const [maggiore, minore] = pkg.version.split('.').map(Number);
     expect(maggiore).toBe(1);
     expect(minore).toBeGreaterThanOrEqual(260);
-    expect(minore).toBeLessThanOrEqual(269);
+    expect(minore).toBeLessThanOrEqual(279);
     expect(pkg.exports['./capability/social-listening']).toEqual({
       types: './dist/capability/social-listening/index.d.cts',
       import: './dist/capability/social-listening/index.js',

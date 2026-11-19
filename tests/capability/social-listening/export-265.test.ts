@@ -34,7 +34,7 @@ describe('s3649 social-listening 1.265.0 in the built package', () => {
     const [maggiore, minore] = pkg.version.split('.').map(Number);
     expect(maggiore).toBe(1);
     expect(minore).toBeGreaterThanOrEqual(265);
-    expect(minore).toBeLessThanOrEqual(269);
+    expect(minore).toBeLessThanOrEqual(279);
   });
 
   it('s3649 (b) the new symbols import from ESM', () => {

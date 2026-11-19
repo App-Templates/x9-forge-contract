@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.269.0",
+  "versione": "1.270.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2413,6 +2413,7 @@
       "coachSessionRevisionsReadContract": "@x9-forge/contracts/http/endpoints/coach-operational-read",
       "coachUsageObserveContract": "@x9-forge/contracts/http/endpoints/coach-operational-write",
       "completeDevGenericJobContract": "@x9-forge/contracts/http/endpoints/dev-generic-jobs",
+      "composeOrdinaryCapabilityAgentConfigPut": "@x9-forge/contracts/http/endpoints/internal-capability-agent",
       "connectReturnContract": "@x9-forge/contracts/http/endpoints/connect-public",
       "connectionCompletedContract": "@x9-forge/contracts/http/endpoints/internal-connection-completed",
       "consentDevelopmentSessionContract": "@x9-forge/contracts/http/endpoints/internal-development-sessions",

@@ -49,7 +49,7 @@ describe('s3630 social-listening 1.263.0 in the built package', () => {
     const [maggiore, minore] = pkg.version.split('.').map(Number);
     expect(maggiore).toBe(1);
     expect(minore).toBeGreaterThanOrEqual(260);
-    expect(minore).toBeLessThanOrEqual(269);
+    expect(minore).toBeLessThanOrEqual(279);
     expect(minore).toBeGreaterThanOrEqual(263);
   });
 
