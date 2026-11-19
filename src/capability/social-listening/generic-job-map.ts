@@ -4,8 +4,9 @@ import {
   type DevGenericJob,
   type DevGenericTool,
 } from '../dev/generic-job.js';
+import { RICERCA_TOOLS } from '../ricerca/tools.js';
 import { SocialJobInputSchema } from './job-io.js';
-import { SocialJobSchema, type SocialJob, type SocialJobKind } from './queue.js';
+import { SOCIAL_JOB_KINDS, SocialJobSchema, type SocialJob, type SocialJobKind } from './queue.js';
 import { readSocialGenericJob } from './routes.js';
 import type { SocialTrack } from './topic.js';
 
@@ -21,6 +22,34 @@ export const SOCIAL_TRACK_EXECUTOR: Record<SocialTrack, DevGenericExecutor> = {
   mac: 'laptop',
   server: 'server',
 };
+
+export type SocialJobRoute =
+  | { runner: 'executor'; executor: DevGenericExecutor; tool: DevGenericTool }
+  | { runner: 'capability'; capability: 'stt'; tool: 'transcribe' }
+  | { runner: 'capability'; capability: 'ricerca'; tool: typeof RICERCA_TOOLS.start }
+  | { runner: 'service'; source: 'meta_graph' };
+
+/** Route new jobs by track; server collection never uses Instagram cookies. */
+export function socialJobRoute(kind: SocialJobKind, track: SocialTrack): SocialJobRoute {
+  if (!SOCIAL_JOB_KINDS.includes(kind)) throw new TypeError('unknown_job_route');
+  if (track === 'mac') {
+    return { runner: 'executor', executor: 'laptop', tool: SOCIAL_JOB_TOOL[kind] };
+  }
+  if (track === 'server') {
+    switch (kind) {
+      case 'collect':
+        return { runner: 'service', source: 'meta_graph' };
+      case 'transcribe':
+        return { runner: 'capability', capability: 'stt', tool: 'transcribe' };
+      case 'verify':
+        return { runner: 'capability', capability: 'ricerca', tool: RICERCA_TOOLS.start };
+      case 'filter':
+      case 'group':
+        return { runner: 'executor', executor: 'server', tool: 'claude_p' };
+    }
+  }
+  throw new TypeError('unknown_job_route');
+}
 
 export const SOCIAL_JOB_LIMITS: Record<SocialJobKind, DevGenericJob['limits']> = {
   collect: { maxDurationSeconds: 900, maxAttempts: 3 },

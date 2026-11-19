@@ -4,6 +4,13 @@ import { SocialTrackSchema } from './topic.js';
 /** D24: daily pay-per-use server budget for one agent, in USD. */
 export const SOCIAL_SERVER_DAILY_CAP_DEFAULT_USD = 2;
 
+/** Placeholder until P0 measures the cost of a server verification. */
+export const SOCIAL_SERVER_VERIFY_ESTIMATE_USD = 0.25;
+
+export function socialServerVerifyEstimate(seenUsd: readonly number[]): number {
+  return seenUsd.reduce((estimate, usd) => Number.isFinite(usd) && usd >= 0 ? Math.max(estimate, usd) : estimate, SOCIAL_SERVER_VERIFY_ESTIMATE_USD);
+}
+
 export const SocialCapCheckSchema = z.object({
   track: SocialTrackSchema,
   capUsd: z.number().positive().finite(),
