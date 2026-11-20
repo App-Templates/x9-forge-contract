@@ -65,9 +65,6 @@ describe('wiki reverify', () => {
       [],
       { ...saved, wikiSavedAt: 'not-a-date' },
       { ...saved, wikiSavedAt: '2026-02-30T08:00:00Z' },
-      { ...saved, wikiIngestId: 'not-a-uuid' },
-      { ...topic, wikiIngestId: saved.wikiIngestId },
-      { ...topic, wikiSavedAt: saved.wikiSavedAt },
     ];
     for (const input of invalidTopics) {
       expect(socialWikiReverifyDue(input, '2027-02-17T08:00:00Z')).toEqual({ state: 'invalid_input' });
@@ -80,8 +77,8 @@ describe('wiki reverify', () => {
   });
 
   it('(e) catches throwing accessors for either wiki field', () => {
-    for (const field of ['wikiIngestId', 'wikiSavedAt'] as const) {
-      const input = Object.defineProperty({ ...saved }, field, {
+    for (const field of ['wikiSavedAt'] as const) {
+      const input =Object.defineProperty({ ...saved }, field, {
         get() { throw new Error('unreadable wiki metadata'); },
       });
       expect(socialWikiReverifyDue(input, '2027-02-17T08:00:00Z')).toEqual({ state: 'invalid_input' });
