@@ -28,6 +28,17 @@ const RECALL_PRIVACY_LEVELS = [
   'voice_biometric',
 ] as const;
 
+/** Maximum query length for recall callers and tool descriptions. */
+export const MEMORY_RECALL_QUERY_MAX_CHARS = 4096;
+/** Minimum result count for recall callers and tool descriptions. */
+export const MEMORY_RECALL_TOP_K_MIN = 1;
+/** Maximum result count for recall callers and tool descriptions. */
+export const MEMORY_RECALL_TOP_K_MAX = 20;
+/** Route default when a recall bundle request omits topK. */
+export const MEMORY_RECALL_TOP_K_DEFAULT = 8;
+/** Model tool default when the model omits topK. */
+export const MEMORY_RECALL_TOOL_TOP_K_DEFAULT = 5;
+
 export const InternalMemoryRecallBundleRequestSchema = z.object({
   tenantId: z.string().min(1).max(256),
   ownerId: z.string().min(1).max(256),
@@ -35,8 +46,11 @@ export const InternalMemoryRecallBundleRequestSchema = z.object({
   userId: z.string().min(1).max(256).optional(),
   mode: z.enum(['fast', 'standard', 'deep']).default('standard'),
   taskType: z.string().min(1).max(64).default('text'),
-  query: z.string().min(1).max(4096),
-  topK: z.number().int().min(1).max(20).default(8),
+  query: z.string().min(1).max(MEMORY_RECALL_QUERY_MAX_CHARS),
+  topK: z.number().int()
+    .min(MEMORY_RECALL_TOP_K_MIN)
+    .max(MEMORY_RECALL_TOP_K_MAX)
+    .default(MEMORY_RECALL_TOP_K_DEFAULT),
   latencyBudgetMs: z.number().int().min(50).max(2000).default(300),
   privacyLevelAllow: z.array(z.enum(RECALL_PRIVACY_LEVELS)).optional(),
   sourceTypeFilter: z.string().max(64).optional(),
@@ -104,6 +118,46 @@ export type InternalMemoryRecallBundleResponse = z.infer<
 >;
 
 export const INTERNAL_MEMORY_RECALL_BUNDLE_PATH = '/internal/memory/recall/bundle' as const;
+
+/**
+ * Fixed codes the memory_recall tool gives the model when the recall bundle
+ * does not answer 2xx; these codes are never the response body.
+ * richiamo_aziendale_non_attivo: organization recall is not configured; not retried.
+ * richiamo_rifiutato: the bundle refused the organization context, not a fault;
+ * the same call is never retried.
+ * richiamo_non_riuscito: any other answer or no answer, a fault; retry later.
+ */
+export const MEMORY_RECALL_TOOL_ERROR_CODES = [
+  'richiamo_aziendale_non_attivo',
+  'richiamo_non_riuscito',
+  'richiamo_rifiutato',
+] as const;
+export const MemoryRecallToolErrorCodeSchema = z.enum(MEMORY_RECALL_TOOL_ERROR_CODES);
+export type MemoryRecallToolErrorCode = z.infer<typeof MemoryRecallToolErrorCodeSchema>;
+
+export const MEMORY_RECALL_REFUSED_HTTP_STATUSES = [403] as const;
+
+/** The error field of the route's 503 response when organization recall is not configured. */
+export const MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR =
+  'organization recall not configured' as const;
+
+export function memoryRecallToolErrorCodeOf(answer: {
+  status?: number;
+  organizationRecallNotConfigured?: boolean;
+}): MemoryRecallToolErrorCode {
+  const { status, organizationRecallNotConfigured } = answer;
+  if (status === undefined) return 'richiamo_non_riuscito';
+  if (status >= 200 && status < 300) {
+    throw new RangeError('A successful recall bundle answer has no tool error code');
+  }
+  if (status === 503 && organizationRecallNotConfigured) {
+    return 'richiamo_aziendale_non_attivo';
+  }
+  if (MEMORY_RECALL_REFUSED_HTTP_STATUSES.some((refusedStatus) => refusedStatus === status)) {
+    return 'richiamo_rifiutato';
+  }
+  return 'richiamo_non_riuscito';
+}
 
 export const internalMemoryRecallBundleContract = {
   method: 'POST' as const,

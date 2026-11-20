@@ -2,6 +2,534 @@
 
 ## Non rilasciato
 
+## v1.300.0 — unione della linea di produzione (1.245.0, e7bf7c00) sopra la linea bacheca (1.158.0, c2947cf3)
+
+- Dalla produzione entrano le voci 1.159.0-1.245.0; dalla bacheca entrano i contratti della bacheca (fino a 1.158.0) e la chiave della persona del proprietario dalla porta pubblica del Vault.
+- Nessuno schema cambiato: ogni lato resta additivo rispetto alla sua linea d'origine; conflitti solo meccanici (versione, CHANGELOG, file generati).
+- `dist/` ricostruita dalla build.
+
+## v1.245.0 — a reply wake can be handed to the issue's scheduled monitor (task 8051)
+
+- Additive: optional `via: 'monitor_check'` on a `woken` seat reply-wake answer without `runId` (new `PAPERCLIP_SEAT_REPLY_WAKE_VIA`, `PaperclipSeatReplyWakeViaSchema`). Paperclip runs the check on demand and answers `{ok:true}` with no run id, so the answer says how the agent was reached instead of inventing a run.
+- Today's answers parse unchanged; `woken` with neither `runId` nor `via` is still refused, and `via` is refused with `runId`, `disposition` or any other result. Consumers move their pin first.
+
+## v1.244.0 — the stalled-work notice to a person has its contract (task 7579)
+
+- Additive: new narrow module `http/endpoints/internal-work-stalled-notice` defines the notice request and response, with a stable reference to the Paperclip issue and optional piece key, the repeated-request reason, occurrence (3 or more), `since`, observation time and an opaque receipt.
+- No existing contract changes; daily limit notices keep their own contract. Consumers move their pin first, then adopt this contract in agent-core and cap-paperclip. This package alone does not send an email or change Paperclip processes.
+
+## v1.243.0 — the capo–session acceptance contract (tasks 7560-7565 and 7564)
+
+- Additive: optional `acceptance` in the session assignment; old blocks keep their canonical form and digest. New criterion and input schemas, four versioned templates, a catalog of proofs and requirements, screen coverage derived from the requested screens, states and formats, Paperclip texts, attestation and verdict, and the mandate check (7560-7563, 7565).
+- `capability/dev` now imports `wire-creazione`. Built ESM, CJS, declarations and the narrow-import map carry the contract; its import-weight budget is remeasured (7564).
+- Consumers move their pin before adopting the contract. An old strict reader refuses the new field, so the order is bridge, vendor, readers, then writers. This package alone does not release the cap-dev or executor flows.
+
+## v1.242.0 — the session assignment carries an optional base (branch and expected commit) in the signed block (task 7571)
+
+- New `DevSessionBaseSchema` (`{ ramo, commit }`, strict; `ramo` is a plain branch name, never a ref path or `..`; `commit` a 40-digit lowercase SHA) and type `DevSessionBase`; `DevSessionAssignmentSchema` gains `base`, optional.
+- Additive. Assignments without `base` keep form and digest byte for byte (the literal digest of a 27/10 assignment is tested). An old strict reader refuses a block that carries `base`, so the order is bridge, vendor, readers, then writers.
+
+## v1.241.0 — the asset_mismatch refusal of a file read has its code, the name of the first mismatching field and the function that reads it (task 7516)
+
+- `INTERNAL_MEMORY_ASSET_REFUSAL_CODES` gains `asset_mismatch`; new `ASSET_MISMATCH_FIELDS` (nine names, in the order of the Memory checks), `AssetMismatchFieldSchema`, `InternalMemoryAssetMismatchRefusalSchema` (`{ code, message, details?: { field } }`) and `assetMismatchFieldOf(refusal)`, which never throws. Only the field name travels, never a value.
+- Additive; no stored data changes. Consumers: Memory (writes `details.field`), capability SDK and cap-qa (read it), after they move their pin.
+
+## v1.240.0 — followUp attempts count from now: the monitor bounds builder adds the live attempt count of the task (task 7502)
+
+- `paperclipMonitorBounds(followUp, attemptCount = 0)` writes maxAttempts = live count + attempts, capped at 100 (`PAPERCLIP_MONITOR_MAX_ATTEMPTS_CAP`); the field text says "from now".
+- Additive: without the second argument the result is the one of 1.239.0. Consumers: cap-paperclip, once it moves its pin and passes the count it reads.
+
+## v1.239.0 — The channels text says what the system does with files and proofs and no longer promises tools the agent does not have (task 7426)
+
+- The delivery lines of `communicationSectionLines()` say that the system carries the screenshots and documents of a development session to the issue when a piece is closed, as attachments and work products, that the agent only cites them in its comment and leaves no path of its own disk, and that outside a development session (Director, Lab, Research) nothing is promised; no first-person «carico», «registro» or «reopen» (7426).
+- Additive; the text of the section «Come si comunica» changes for every profile that imports it, once the consumer moves its pin of the bridge; no stored data changes. Consumers: the Forge profiles that import `communicationSection()`.
+
+## v1.238.0 — The list of the assets of a development session is a cap-dev contract on the same door as their bytes (task 7424)
+
+- Dev session assets list: `listDevSessionAssetsContract`, `DevSessionAssetsListRequestSchema`, `DevSessionAssetsListResponseSchema`, `DEV_SESSION_ASSETS_LIST_MAX` and `DevSessionAssetsListRefusalSchema` (7424).
+- Additive; no stored data changes. Consumers: cap-dev (serves the list), cap-paperclip (uploads the proofs of a delivery to the Paperclip task).
+
+## v1.237.0 — The channels text says how files and proofs travel (attachment, work product) and how a closed issue is reopened (task 7421)
+
+- Delivery channels: `PAPERCLIP_DELIVERY_CHANNELS`, `PaperclipDeliveryChannelSchema`, `PaperclipDeliveryChannel` and the new lines of `communicationSectionLines()` (7421).
+- Additive; the text of the section «Come si comunica» changes for every profile that imports it, once the consumer moves its pin of the bridge; no stored data changes. Consumers: the Forge profiles that import `communicationSection()`.
+
+## v1.236.0 — Paperclip contracts for the role-to-id translation, the issue view, addressed questions, the status-only wake, wake reasons, the wake context, attachments, manual wakes, work products and the cause of a failed run (tasks 7410-7419)
+
+- Role-to-id translation: `paperclipDestinatarioPerRuolo` (7410).
+- Issue view: `PaperclipElencoIncarichiSchema`, `paperclipCommentoPiuRecente`, `paperclipLinkIncarico` and `paperclipIdentificatoriNudi` (7411).
+- Addressed questions: `PaperclipAddressedAskSchema`, `decidePaperclipAsk`, `PaperclipAskPersonInteractionBodySchema` and the closed card vocabularies (7412).
+- Status-only wake: `paperclipTurnoSoloDisposizione` and the tolerant status-only fields (7413).
+- Wake reasons: `PAPERCLIP_WAKE_REASONS`, `paperclipWakeReasonKind` and `paperclipWakeEndsChildWait` (7414).
+- Wake context: the tolerant wake-context fields and `PaperclipCursoreCommentiSchema` (7415).
+- Attachments: `PaperclipAllegatoCaricaSchema` and `paperclipAllegatoCaricaSchema` (7416).
+- Manual wakes: `paperclipWakeupRequest`, `classifyPaperclipWakeAnswer`, `paperclipWakeIdempotencyKey` and `PaperclipRuntimeHeartbeatSchema` (7417).
+- Work products: `PaperclipProdottoCreaCorpoSchema` and `paperclipProdottoDaAllegato` (7418).
+- Failed run cause: `turnFailRun` and `TURN_FAILURE_CAUSES` (7419).
+- Additive, except that `fail_run` of `turn-disposition` now carries `cause` and `detail` (7419); no stored data changes. Consumers: the PC adoption tasks (cap-paperclip, cap-paperclip-protocollo).
+
+## v1.235.0 — Paperclip contracts for paths, states, issue creation, comments, the run, recipients by id, documents and approvals (tasks 7400-7407)
+
+- Paths: `paperclipPercorsi` and the issue-list and comment-query filters, with `paperclipPercorsoSenzaPrefisso`.
+- Issue states as one source: the seven states with `PAPERCLIP_TRANSIZIONI`, `paperclipTransizioneAmmessa` and `paperclipIngressoStato`; `PaperclipIssueStatusSchema` is the same object as `PaperclipStatoIncaricoSchema`.
+- Creation: the create bodies (`PaperclipIncaricoCorpoSchema`) and the deduplication outcome (`paperclipEsitoCreazione`).
+- Comments and updates: the extended bodies (`PaperclipAggiornaConCommentoCorpoSchema`) with attachments, `reopen`, `resume` (`paperclipRipresaAmmessa`) and the assignee by id.
+- The run: `PaperclipCorsaSchema` with its eight states, `paperclipCorsaPuoScrivere`, board-only cancellation and its confirmation on the same run.
+- Recipients by agent id: `PaperclipAgentIdSchema`, `PaperclipColleaguesSchema`; the old role-ref fields are deprecated.
+- Issue documents: `PaperclipDocumentoCreaCorpoSchema`, `paperclipDocumentoScritto`, the base revision and the plan confirmation with `continuationPolicy`.
+- Approvals: `PaperclipApprovalCreaCorpoSchema`, their types and states, and the budget-cap payload.
+- Additive; no stored data changes. Consumers: the PC adoption tasks (cap-paperclip, cap-paperclip-protocollo).
+
+## v1.234.0 — the assignment plan a seat is born with comes from the matrix (task 7364)
+
+- `capability/paperclip/role-assignment` exports `PaperclipBirthPlanSchema` (strict: permission `none` or `broad`, recipient protection `open` or `protected`, `canCreateAgents`), the type `PaperclipBirthPlan`, `PAPERCLIP_BIRTH_PLAN_REFUSALS` (`role_unknown`) and the pure, never-throwing `decideAssignmentBirthPlan(role: unknown, matrix = PAPERCLIP_ASSIGNMENT_MATRIX)`.
+- The rule is read from the matrix only, with no role name: a role with exactly one caller is protected, the broad permission goes to who can call a protected role, and `canCreateAgents` follows it. Today's four plans are those X9 writes now.
+- Additive: no existing value changes. Consumers: ec-x9/7368 (adoption) and 7370 (use). No stored data changes.
+
+## v1.233.0 — which assignment refusals are permission denials (task 7363)
+
+- `capability/paperclip/assignment-permission` exports `PAPERCLIP_ASSIGNMENT_PERMISSION_DENIALS` (`recipient_blocked`, `no_permission`, `recipient_not_in_list`, `recipient_not_in_branch`), the type `PaperclipAssignmentPermissionDenial` and the never-throwing predicate `isPaperclipAssignmentPermissionDenial(refusal: unknown)`. The other six refusals are wrong facts the bridge does not judge.
+- Additive: no existing value changes. Consumers: ec-x9/7368 (adoption) and 7369 (use, replacing the hand-copied codes in `seat-peers.ts`). No stored data changes. Import-weight caps remeasured (7362).
+
+## v1.232.0 — native Paperclip assignment permissions (task 7355)
+
+- New narrow module `capability/paperclip/assignment-permission`: strict `PaperclipAssignmentPermissionSchema` (none, broad, list, branch, list_and_branch), `PaperclipAssignmentOrganizationSchema` and `PaperclipAssignmentFactsSchema`.
+- Pure `decideAssignmentByPermission(facts: unknown)` decides from permission, explicit identities, organization and recipient protection only, with closed bases and refusals. Combined scopes require both the list and branch; branches include their roots and at most 50 parent edges. Blocked recipients refuse even broad grants; open recipients need no grant.
+- Deliberately rejects cycles, unsupported scope keys, project scopes and missing recipient ancestors. The existing assignment matrix and decision are unchanged. Consumers: ec-x9/7357 (adoption), 7351 and 7356 (use). Additive; no stored data or runtime behavior changes until adoption by X9.
+
+## v1.231.0 — generic executor job and the capability queue channel (tasks 3613-3614)
+
+- `capability/dev`: `DevGenericJobSchema`, `DevGenericJobResultSchema`, `DEV_GENERIC_JOB_TOOLS` (`mlx_whisper`, `claude_p`), `DEV_GENERIC_INPUT_MAX_BYTES` / `DEV_GENERIC_OUTPUT_MAX_BYTES`, `devGenericResultMatchesJob`, plus the channel schemas (claim, heartbeat, complete) and `selectDevGenericClaim`.
+- `http` (`endpoints`): the device-signed `claimDevGenericJobContract`, `heartbeatDevGenericJobContract` and `completeDevGenericJobContract` of `/connect/generic-jobs`.
+- Additive; no stored data changes: development and design jobs, the session assignment and the signed command v2 are unchanged.
+- Consumers: agent-x9 `tools/esecutore-laptop`, `services/esecutore-sessioni`, cap-dev and the capability that owns the queue (social listening).
+
+## v1.230.0 — who may give an assignment to whom, by role; the Lab starts research itself (task 7304)
+
+- New module `capability/paperclip/role-assignment` (subpath `@x9-forge/contracts/capability/paperclip/role-assignment`): `PAPERCLIP_ASSIGNMENT_MATRIX`, `PAPERCLIP_ASSIGNMENT_REFUSALS` and pure `decideAssignment(from, to)`.
+- Same table X9 applies in `seat-peers.ts:64-71,101`, minus Lab → Ricerca (Stefano 17/11): that pair is refused with `lab_starts_research_itself` and `useTool` = `RICERCA_TOOLS.start`; every other pair outside the table gets `assign_target_not_allowed`.
+- Additive. Consumers: ec-x9/7309 and forge-rel-059/7316. No stored data changes and no runtime behavior changes until X9 adopts it.
+
+## v1.229.0 — one email recipient admission policy for all four agent roles (task 7303)
+
+- Added `organization/email-recipient-policy`: strict `EmailRecipientFactsSchema`, pure `decideEmailRecipient(facts: unknown)`, closed recipient bases and role admission table. Director admits all four bases; business-unit leads admit certified referents, brief openers and certified thread senders; Lab and Ricerca admit only certified thread senders.
+- Added four refusal codes: `recipient_is_company_agent`, `recipient_not_certified`, `role_not_admitted`, `recipient_check_unavailable`. Company-agent refusals name the three Paperclip alternatives through `EMAIL_REFUSAL_CHANNELS`.
+- Callers supply scoped memory referents and the actual brief opener; the policy reads no settings. Certified referents take precedence over company mailboxes. Consumers: ec-x9/7306-7307. Additive; no stored data changes and no runtime behavior changes until adoption by X9.
+
+## v1.228.0 — the closed list of the seven Paperclip communication processes and the shared "Come si comunica" section (task 7302)
+
+- New module `capability/paperclip/communication-channels` (subpath `@x9-forge/contracts/capability/paperclip/communication-channels`): `PAPERCLIP_COMMUNICATION_CHANNELS` (seven identifiers, each with its Paperclip source), `PaperclipCommunicationChannelSchema`, `PAPERCLIP_CHANNEL_TOOLS` (tools taken from `PAPERCLIP_TOOLS`), `communicationSectionLines()` and `communicationSection()`.
+- The section says agent-to-agent email does not exist, lists the seven processes with their tools, and carries the rule on outside referents and on who starts research. One text for every profile.
+- Additive. Consumers: ec-x9/7305 and forge-rel-059/7310. No stored data changes.
+
+## v1.227.0 — scheduled checks declare how many times Paperclip wakes the owner (task 7293)
+
+- Added optional `followUp: { attempts }` (1 to 5, strict `PaperclipFollowUpSchema`, `PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS`) to `PaperclipCheckLaterSchema` and `PaperclipCheckLaterInputSchema`. A blocked wait still cannot be combined with a scheduled check.
+- Added pure `paperclipMonitorBounds(followUp)` as the single builder of `{ maxAttempts, recoveryPolicy: 'wake_owner' }` (`PAPERCLIP_MONITOR_RECOVERY_POLICIES`); without follow-up it returns `undefined`. Paperclip counts wakes across rearms.
+- Added `PAPERCLIP_MONITOR_EXHAUSTED_TEXT` and `isPaperclipMonitorExhausted(httpStatus, text)`: only HTTP 422 with the exact trimmed refusal text from Paperclip is recognized.
+- Corrected both monitor comments: Paperclip supports `timeoutAt`, `maxAttempts` and `recoveryPolicy`; the bridge uses attempt bounds with `wake_owner` and a one-week first-check bound.
+- Additive. Consumer: ec-x9/7297, after adoption 7294. No stored data changes: existing checks without `followUp` keep their current form. Live rearm counting is verified by the consumer task, not by the bridge.
+
+## v1.226.0 — a wait names the decisions and researches it expects, as data (task 7292)
+
+- Added `waitsOn` (optional, 1 to 20 unique references) to `PaperclipWaitingForSchema`, `PaperclipCheckLaterSchema` and `PaperclipCheckLaterInputSchema`. A reference is `{ kind: 'decision', requestId }` or `{ kind: 'research', researchId }` (`PAPERCLIP_WAIT_REF_KINDS`, `PaperclipWaitRefSchema`, `PaperclipWaitsOnSchema`, strict objects).
+- Added `paperclipWaitRefKey(ref)`: `decision:<id>` / `research:<id>`, the only key to compare references.
+- Additive. Consumers: ec-x9/7295-7296 (after the adoption 7294). No stored data changes: the Paperclip descriptor stays `{ owner, action }`, `waitsOn` is a call field kept by X9.
+
+## v1.225.0 — a wait says who unblocks it, and Paperclip's descriptor is built only for who Paperclip admits (task 7290)
+
+- `PaperclipWaitingForSchema` now requires `unblockedBy` (`PAPERCLIP_WAIT_UNBLOCKERS`: `self`, `external`, `company_agent`; `PaperclipWaitUnblockerSchema`). Without it, or with another value, the wait is refused; `action` stays free text and is never read to decide.
+- Added `PAPERCLIP_WAIT_REFUSALS` (`wait_for_company_agent`) and the pure `paperclipUnblockDescriptor(waitingFor, agentId)`: `{ ok: true, descriptor: { owner: { agentId }, action } }` for `self` and `external` (identical to what is stored in Paperclip today), `{ ok: false, refusal }` for `company_agent`; a non-uuid `agentId` throws.
+- Breaking for callers of `paperclip_review` with `waitingFor` (the field is mandatory). Consumer: ec-x9/7291. No stored data changes: `waitingFor` is a call field, Paperclip keeps only the descriptor.
+
+## v1.224.0 — «ask another agent» has the shape Paperclip documents (task 7275)
+
+- Added `ask: { roleRef, question }` to `PaperclipNativeReviewInputSchema` (only with `in_review`, never with `blockedByIssueIds`, `waitingFor`, `checkLater`; `PaperclipAskSchema`) and `answersInteractionId` (requires `comment`, the answer) to the new `PaperclipNativeAssignInputSchema` / `PaperclipNativeAssignRefInputSchema`.
+- Added pure builders `paperclipAskIdempotencyKey`, `paperclipAskInteractionBody` (kind `ask_user_questions`, `addresseeAgentId`, `wake_assignee`, two equal views, no `resolverPolicy`) and `paperclipAnswerInteractionBody` (trimmed free text, empty `optionIds`), validated by `PaperclipAskInteractionBodySchema` / `PaperclipAnswerInteractionBodySchema`; constants `PAPERCLIP_ASK_QUESTION_ID`, `PAPERCLIP_ASK_QUESTION_MAX`, `PAPERCLIP_ANSWER_MAX`, `PAPERCLIP_INTERACTION_PENDING_WAKE`.
+- Additive; nothing existing changes; no stored data changes. Consumers: cap-paperclip tasks 7276-7279.
+
+## v1.223.0 — the proof of recorded outcomes never contains `<` or `>` (task 7258)
+
+- Fixed: `boardRecoveryOutcomesBlock` now turns every `<` and `>` of the proof into a space (then collapses spaces), so the fence can never be closed. The v1.222.0 cleanup of `<<<`/`>>>` runs could be bypassed with composed inputs such as `<<>>><fine-esiti><<<>>`.
+- A lone `<` or `>` in a legitimate proof also disappears (`n < 3` shows as `n 3`); no shape, constant, sentence or limit changes.
+- Additive; no stored data changes. Consumer: cap-paperclip task 7259 (X9 adopts).
+
+## v1.222.0 — recorded outcomes of fallen Paperclip turns have a shape and a text block for the boss (task 7251)
+
+- Added `BOARD_RECOVERY_OUTCOME_VALUES` (`completed`, `not_performed`, `mixed`), `BOARD_RECOVERY_OUTCOME_WORDS` and `BoardRecoveryOutcomeSchema` (reads only `decision`: guid `runId`, `providerStopped: true`, outcome, trimmed proof 1-12000, optional ISO `recordedAt`; extra fields are dropped).
+- Added `BOARD_RECOVERY_OUTCOMES_SHOWN_MAX` (3), `BOARD_RECOVERY_OUTCOME_EVIDENCE_SHOWN_MAX` (1500), the fence markers and pure `boardRecoveryOutcomesBlock(raw): string | null`: newest first, proof stripped of `<<<`/`>>>` runs and control characters, cut to 1500, never throws.
+- Additive; no stored data changes. Consumer: cap-paperclip tasks 7255 (X9 adopts) and 7249.
+
+## v1.221.0 — the refusal classifier reads Paperclip's true texts (task 7244)
+
+- Fixed: `boardReconcileRefusalCode` now recognises the eight exact refusal texts of Paperclip v2026.1005.0, one by one (trimmed, case-sensitive); anything else stays `other_refusal`. The 7243 prefixes never matched real messages.
+- Rebuilt the narrow-imports map (it still named 1.219.0).
+- No shape, export or code changes.
+
+## v1.220.0 — true declaration for a closed Paperclip hold and a closed list of resolve refusals (task 7243)
+
+- Added `BOARD_RECONCILIATION_OUTCOMES` (`not_performed`, `mixed`; never `completed`), `BOARD_RECONCILIATION_FINISHED_RUN_STATUSES`, `BoardClosedHoldFactsSchema` and `BoardReconciliationSchema`.
+- Added `boardClosedHoldReconciliation(facts)`: derives the `executionReconciliation` declaration from facts read by the consumer; throws on an unfinished run or when the cause contradicts the writes.
+- Added the nine `BOARD_RECONCILE_REFUSALS`, schema, `BOARD_RECONCILE_REFUSAL_TEXT` and pure `boardReconcileRefusalCode(status, message)`.
+- Added strict `BoardReconcileRefusalLogSchema` and `renderBoardReconcileRefusalLog`: `riapertura_rifiutata azienda=… incarico=… agente=… stato=… codice=… ora=…`.
+- Additive; no stored data changes. Consumer: cap-paperclip tasks 7237-7242.
+
+## v1.219.0 — skipped Paperclip holds have a strict log line and an hourly repeat rule (task 7236)
+
+- Added the 26-entry `BOARD_HOLD_SKIP_REASONS` union, `BoardHoldSkipReasonSchema` and `BoardHoldSkipReason`, reusing both existing reason lists and their sentences.
+- Added strict `BoardHoldSkipLogSchema` and `BoardHoldSkipLog` with company UUID, issue identifier, Paperclip agent UUID, closed reason and required UTC timestamp. `renderBoardHoldSkipLog(log: BoardHoldSkipLog): string` validates the input and renders `fermo_non_riaperto azienda=<uuid> incarico=<id> agente=<uuid> motivo=<reason> ora=<at>`.
+- Added `BOARD_HOLD_SKIP_LOG_REPEAT_SECONDS = 3600` and pure `boardHoldSkipLogDue(previous: Pick<BoardHoldSkipLog, 'reason' | 'at'> | undefined, reason: BoardHoldSkipReason, nowMs: number): boolean`. A line is due on the first observation, a reason change or at least one hour since the previous line. The consumer owns history for each issue and supplies the current instant.
+- Consumer adoption is in cap-paperclip tasks 7237-7242.
+
+## v1.218.0 — closed Paperclip holds have separate resume shapes (task 7235)
+
+- Added `BOARD_CLOSED_HOLD_CAUSES`, `BoardClosedHoldCauseSchema` and `BoardClosedHoldCause` for infrastructure failures without changes or after writes. Existing `BOARD_RESUME_CAUSES`, keep reasons and sentences stay unchanged.
+- Added `BOARD_CLOSED_HOLD_MAX_AGE_SECONDS_DEFAULT/MIN/MAX` (259200/3600/432000) and `BOARD_CLOSED_HOLD_MAX_PER_ROUND_DEFAULT/MIN/MAX` (3/1/20); older holds need a person and excess reopens wait for the next round.
+- Added the twelve `BOARD_CLOSED_HOLD_REASONS`, `BoardClosedHoldReasonSchema`, `BoardClosedHoldReason` and exhaustive Italian `BOARD_CLOSED_HOLD_TEXT`.
+- Added `boardClosedHoldComment({ cause, attempt, max }): string`, with the shared resume prefix and a warning to reread comments and issue state after writes. `BoardResumeLogSchema` accepts the two new causes; its strict fields and renderer stay unchanged.
+- Additive; no stored data changes. Consumer: cap-paperclip adopts in tasks 7237-7242, after bridge task 7236; no consumer behaviour changes until adoption.
+
+## v1.217.0 — board resumes keep agents stopped for product reasons and can carry a UTC timestamp (task 7221)
+
+- Added `agent_not_available` to `BOARD_RESUME_KEEP_REASONS` with its fixed Italian sentence in `BOARD_RESUME_KEEP_TEXT`.
+- Added the closed `BOARD_RESUME_AGENT_STATUSES` list (`active`, `idle`, `running`, `error`) and `boardResumeAgentStatusAllowed(status: string | null | undefined): boolean`; every other value is refused.
+- Added optional `at: z.iso.datetime()` to the strict `BoardResumeLogSchema`; `renderBoardResumeLog` appends ` ora=<at>` last, after `identita` when present. Offsets and free text are refused; lines without `at` stay identical.
+- additive; no stored data changes. Consumers: cap-paperclip adopts the contract in tasks 7222-7223; no consumer behaviour changes until adoption.
+
+## v1.216.0 — the board-operator resume of a stopped issue has fixed shapes (task 7212)
+
+- New `capability/paperclip/board-resume` (reached by the existing `./capability/*` path, barrel untouched): closed list `BOARD_RESUME_CAUSES` (`refused_turn`, `stranded_infrastructure`, `interrupted_turn`), `BOARD_RESUME_KEEP_REASONS` with the exhaustive `BOARD_RESUME_KEEP_TEXT`, cautious defaults (`BOARD_RESUME_MAX_PER_ISSUE_DEFAULT = 2`, `BOARD_RESUME_MIN_GAP_SECONDS_DEFAULT = 1800`, `BOARD_RESUME_MIN_RUNS_LEFT = 2`), the strict `BoardResumeLogSchema` with `renderBoardResumeLog`, and the fixed comments `boardResumeComment`, `boardResumeNeedsPersonComment`, `boardResumeCommentKind`.
+- additive; new module, no stored shape changes; no production value in the bridge.
+- Consumers: cap-paperclip adopts it in the enrolment round (tasks 7213-7218).
+
+## v1.215.0 — an unavailable turn leaves a check-later on the task and the run succeeds; uncertain and failed still fail the run (task 7204)
+
+- `dispositionForTurnEnd` now returns `check_later` for `unavailable`, with `runSucceeds: true`, the shared `INTERRUPTED_RETRY_SECONDS = 1800` and `TURN_DISPOSITION_TEXT.interruptedNote(afterSeconds: number): string`. The note starts with `Turno interrotto:` and asks the agent to inspect existing work before repeating it; no limit service name is attached.
+- Existing schemas and stored shapes stay unchanged; the existing body builder preserves policy fields and replaces the monitor. `uncertain` and `failed` still return `fail_run`.
+- additive for the bridge; a consumer that treats `fail_run` as the only way to a failed run changes behaviour only when it adopts this version.
+- Consumers: cap-paperclip adds the three-restart limit in task 7205 and adopts this bridge in task 7206; existing blocked tasks are unchanged.
+
+## v1.214.0 — the session delivery event carries the run that opened the session (task 7208)
+
+- Added optional `sourceRunId` from the canonical `RunIdSchema` to the native `dev_delivered` wake event. It carries the Paperclip run in which the chief opened the session so cap-paperclip reads the issue from that run, never from the text.
+- additive and optional; events without it stay valid; a consumer that does not know the field refuses an event that carries it (strict object), so cap-paperclip adopts the bridge before cap-dev sends it.
+- Consumers adopt the bridge in tasks 7209 and 7210 before cap-dev sends the field in task 7220.
+
+## v1.213.0 — one rule gives a lead its shared mailbox label (task 7044)
+
+- Added `businessUnitLeadMailboxLabel({ agentId, businessUnit, projectId? })` to `organization/shared-mailbox`: the unit alone when `projectId` is absent or the id carries no project code (historical lead); otherwise `<unit> <projectId>` with characters outside letters, digits, space and hyphen replaced by `-`, cut to at most 40 as the first 34 characters (trailing spaces and hyphens removed) plus `-` and the 5-character project code of the id.
+- additive; no consumer changes behaviour until it adopts the function; labels already saved stay valid.
+
+## v1.212.0 — one rule says whether a lead belongs to a project (task 7036)
+
+- Added `businessUnitLeadProjectVerdict({ agentId, project, recipientProjectIds? })`, with the birth project code taking precedence over historical project recipients.
+- Closed `BUSINESS_UNIT_LEAD_PROJECT_VERDICTS` and `BusinessUnitLeadProjectVerdict`: `same_project`, `other_project`, `not_proven`. Consumers must backfill historical project recipients before treating `not_proven` as a refusal.
+- additive; no consumer changes behaviour until it adopts the function.
+
+## v1.211.0 — the research adapter is reserved to the two research slots (task 6949)
+
+- `MODEL_CONSUMER_ADAPTER_IDS` has two new frozen rows: `research_search` and `research_structure`, both `['ricerca-openai-responses']`.
+- New `modelConsumerAdapterReservedElsewhere(slotId, adapterId)`: true when the adapter is reserved to another slot and is not allowed for this one.
+- `consumerAccepts` now answers `adapter-not-allowed` for a research slot choice on another adapter.
+- Consumers: Forge (6952, after 6950 and 6951 align the tests), X9 none known: no x9 code calls `consumerAccepts` outside vendor and tests.
+
+## v1.210.0 — the lead of a unit is named by unit and project (task 6856)
+
+- Lead id form `capo-<unit>--<code>`; `<code>` = `businessUnitLeadProjectCode({ ownerId, companyId, projectId })` (FNV-1a 32 bit, base 36, 5 characters). The unit slug is at most 18 characters with a project (`BUSINESS_UNIT_LEAD_PROJECT_UNIT_SLUG_MAX`); no truncation, `businessUnitLeadAgentId` throws.
+- Four refusal codes in `BUSINESS_UNIT_LEAD_BIRTH_REFUSAL`: `progetto_mancante`, `reparto_troppo_lungo_per_progetto`, `capo_senza_gruppo_progetto`, `gruppo_progetto_assente`.
+- `businessUnitSlugOfLeadAgentId` reads both forms: old ids keep the same reading. New `businessUnitLeadProjectCodeOfAgentId`. `projectId` stays optional in the birth request.
+- Consumers: Forge (6857, 6960, 6858, 6963, 6859), X9 (6781, 6964, 6965, 6966, 6782, 6961, 6962).
+
+## v1.209.0 — one rule for the project key: a Paperclip UUID is not a project key (task 6955)
+
+- Added `PAPERCLIP_PROJECT_ID_REFUSAL` (`project_id_paperclip`), `isPaperclipProjectId(value)` and the fixed `PAPERCLIP_PROJECT_ID_REFUSAL_REASON` to `organization/asset`; no schema changes.
+- Consumers: X9 (cap-lab 6946, cap-ricerca 6957 after adoption), Forge none.
+
+- Added the plan save refusal `referent_email_not_declared` (task 6908); `details` remains allowed only with `action_plan_referent_version_mismatch`.
+- Consumers: X9 (6909, 6910).
+
+## v1.208.0 — run the chief's email came from, for the referent reply wake and the approval notice (task 6980)
+
+- Optional `sourceRunId` from the canonical `RunIdSchema` on the reply wake request and the native email wake event; the native request accepts it only in `reply` or `decision` mode.
+- Both wake responses add `source_run_unknown`, `source_run_without_issue`, `source_issue_not_agents` and `source_issue_closed`. The first three must not carry `issueId`; the closed issue refusal requires it.
+- optional fields and closed lists only; every service that parses the wake responses must adopt this version in the same release as the service that sends the new results.
+- Consumers: X9 (6981), Forge none.
+
+## v1.207.0 — a distinct refusal for a mandate that is not recorded (task 6920)
+
+- New refusal code `asset_version_mandate_not_recorded` in `ASSET_VERSION_REFUSALS`, distinct from `asset_version_key_not_in_mandate`.
+- No schema changes, one value added to a closed list.
+- Every consumer that parses the record response with the bridge schema must adopt this version in the same release as the service that sends the code.
+- Consumers: X9 (6921), Forge none.
+
+## v1.205.0 — the delivery referent is found by address, one rule for every service (task 6900)
+
+- New function `deliveryReferentAddress({ levels, requestedAddress? })`: the first level with rows decides, rows are counted by distinct address (`referentAddressKey`: trim + lowercase), not by row.
+- New refusal codes `DELIVERY_REFERENT_REFUSALS`: `delivery_referent_missing`, `delivery_referent_several_addresses`, `delivery_referent_address_differs`.
+- `referent_not_authorized` stays for a map row of another tenant, organization, client or project.
+- No stored shape changes.
+- Consumers: X9 (6901, 6902, 6903), Forge none.
+
+## v1.204.0 — reply and forward prefixes stripped in one place (task 6746)
+
+- New function `stripSharedMailboxReplyPrefixes(subject): { prefix, rest }`, used by `parseSharedMailboxSubjectLabel` and `decideSharedMailboxRoute` (the two copies of the expression are gone).
+- Recognised prefixes (case-insensitive, repeatable, optional `[n]` counter of 1-3 digits, colon with optional spaces): `re`, `r`, `fwd`, `fw`, `i`, `aw`, `wg`, `rif`.
+- A forwarded email labelled with a project reaches its Director.
+- On the Directors mailbox an unknown label after `Fw:` is refused like any unknown label; on the chiefs mailbox it still goes to the default.
+- No schema changes.
+- Consumers: X9 (6747), Forge none.
+
+## v1.203.0 — light tool error module and import budgets re-measured (tasks 6711, 6718)
+
+- New module `capability/tool-error-disposition` holds the fixed tool-error schemas; same names, still exported from `capability/tool-call`. In `dist/narrow-imports.json` the three tool-error schema names now point to `capability/tool-error-disposition` (old import paths keep working).
+- Import-heap budgets re-measured after 6711 (rule: measure × 1.05), each raised budget naming the contracts that made it grow: `./capability/dev` 22.5 MB, `./http` 111 MB / 320 modules, `./organization` 40 MB / 82 modules, `./http/*` 107.5 MB, `./organization/*` 28 MB.
+- New budget for `./capability/email-tools` (1 MB, 1 module).
+- Consumers: none.
+
+## v1.202.0 — stack decision tag recognised by its generated id shape (task 6709)
+
+- New constants `GENERATED_DECISION_REQUEST_ID_PREFIX` (`'dec_'`) and `GeneratedDecisionRequestIdSchema` (`dec_` + lowercase UUID, built from the prefix).
+- A bracket group is a stack tag only with a `dec_` + UUID id; any other word is a label (unknown on the Directors mailbox, so `[Decisione Rapide]` is refused, not sent to the default Director).
+- `DecisionRequestIdSchema` unchanged (stored ids and planIds).
+- Consumers: X9 (6729: tests with real ids), Forge none.
+
+## v1.201.0 — named audiences of the shared mailbox (task 6732)
+
+- New constants `BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE` (`'business_unit_leads'`, also what an absent `audience` means) and `DIRECTORS_MAILBOX_AUDIENCE` (`'directors'`).
+- `SHARED_MAILBOX_AUDIENCES` is built from them, same values and order.
+- No schema changes; consumers should name the audience, never read it by position.
+- Consumers: Forge (6733), X9 no obligation.
+
+## v1.200.0 — stack decision tag is not a holder label (task 6728)
+
+- New `isStackSubjectTag(group: string): boolean` recognizes the decision request tag using the shared subject label and request ID schema.
+- `decideSharedMailboxRoute` keeps thread ownership first, then reads consecutive leading bracket groups: holder label first, then a stack tag is skipped, then an unknown group is refused only for `directors`.
+- A reply to a decision opened before a mailbox became a Directors mailbox is no longer refused.
+- On the business unit leads mailbox a stack tag followed by a holder label reaches the holder.
+- No schema changes. Consumers: X9 (6729), before the mailbox seed (6717).
+
+## v1.199.0 — project name check before the Director birth (task 6720)
+
+- New `http/endpoints/internal-project-name-check`: `internalProjectNameCheckContract` (POST `/internal/paperclip/project-name-check`, secret, read only) asks whether the short name of a project is free in Paperclip for a company: `free` | `taken` with `existing_project` | `archived_project`; five named errors (`invalid_request`, `organization_unknown`, `not_configured`, `reader_unavailable`, `paperclip_unavailable`) each with its HTTP status.
+- Additive: no existing shape changes. Consumers: X9 (6721, 6723), Forge (6724-6726).
+
+## v1.198.0 — project id within the Director slug, project referent step and write contract, enrollment step order (tasks 6715-6716)
+
+- `ProjectIdSchema` allows at most 21 characters (`director-` + 21 = 30, the slug length of Forge agents); it tightens 1.196.0, which no consumer has adopted.
+- New creation step `project_referent` after `project_group`.
+- New `http/endpoints/internal-project-referent`: `internalProjectReferentWriteContract` (POST `/internal/company-map/project-referent`, secret) writes the `seed` referent entry at project level, with six named errors.
+- `PROJECT_DIRECTOR_ENROLLMENT_STEPS` is now in the order cap-paperclip does them: `paperclip_agent`, `paperclip_project`, `binding`, `seat`, `agent_key` (the key is written by the seat round, which needs the seat). No shape accepts or refuses anything different.
+- Consumers: X9 (6669, 6714), Forge (6686, 6700).
+
+## v1.197.0 — directors audience of the shared mailbox (task 6703)
+
+- `SharedMailboxSchema` gets an optional `audience` (`business_unit_leads` | `directors`, absent means the first); `sharedMailboxAudience` reads it. Holders are counted per audience: at least 2 for business unit leads, at least 1 for directors.
+- `decideSharedMailboxRoute` (thread, then label, then default) refuses with `label_unknown` a new email to a directors mailbox whose leading bracket group names no holder; `routeSharedMailboxMessage` keeps its shape and throws on a refusal.
+- `formatSharedMailboxSubjectLabel` and `sharedMailboxLabelFromName` write and derive subject labels.
+- Additive. Consumers: X9 (adoption, then cap-email), Forge (mailbox store and «Crea progetto»).
+
+## v1.196.0 — project Director rule, project create and project Director enrollment contracts (tasks 6666-6668)
+
+- `organization/project-director`: `projectDirector` decides who is the Director of a project, with four fixed refusals.
+- `http/endpoints/internal-project-create`: `internalProjectCreateContract` (create a project and its Director), `ProjectIdSchema` (at most 55 characters), `projectDirectorAgentId`, `contact`: `{ mailboxKind: 'own', address }` or `{ mailboxKind: 'shared', address, subjectLabel }`.
+- `http/endpoints/internal-project-director-enrollment`: `internalProjectDirectorEnrollmentContract` posts the project and the Director (named after the project) to `/internal/paperclip/project-director-enrollment`; the answer is `enrolled` with both Paperclip ids or `in_corso` with the step, and failures are one of seven fixed errors.
+- Additive: no existing schema changes. Consumers: X9 (adoption X0), Forge (F0).
+
+## v1.195.0 — daily run limit notice delivery to the owner (task 6592)
+
+- New narrow subpath `http/endpoints/internal-limit-notice`: `internalLimitNoticeContract` posts `{ tenantId, ownerId, notice }` to `/internal/limit-notice`. The notice must be a `daily_runs` or `daily_cost` one, name its agent and include `owner` among its recipients; spend notices keep their own path and are refused.
+- The answer is `{ ok: true, outcome: sent | already_sent }` or `{ ok: false, error }` with one of five fixed errors (`invalid_request`, `unauthorized`, `organization_unknown`, `email_unavailable`, `not_sent`).
+- Additive: no existing schema changes. Consumers: X9 adoption (6593), agent-core serves it (6594), cap-paperclip calls it (6595).
+
+## v1.194.0 — decision request state filter, recall limits, company spend error codes and typed lead review request (tasks 6576-6579)
+
+- `state` (`open` | `decided`) is an optional field of the chief's decision request list query; the project list for the Director stays unfiltered.
+- `MEMORY_RECALL_QUERY_MAX_CHARS`, `MEMORY_RECALL_TOP_K_MIN`, `MEMORY_RECALL_TOP_K_MAX`, `MEMORY_RECALL_TOP_K_DEFAULT` and `MEMORY_RECALL_TOOL_TOP_K_DEFAULT` are exported and used by the recall bundle schema; no value changes.
+- The company spend error body also names `unauthorized` and `invalid_config`, and `unreadSources` only holds `COMPANY_SPEND_CAPABILITY_SOURCES` (`ricerca`, `lab`), narrowing a field X9 only ever filled with those two.
+- `InternalMemoryAssetVersionReviewRequestSchema` keeps the type of `context`, and the redo-needs-reason rule is one exported function (`assetVersionRedoHasReason`).
+- Consumers: X9 adoption ec-x9/6581, then ec-x9/6582, 6583, 6497, 6584, 6585.
+
+## v1.193.0 — the note on an issue stopped by the spend cap carries the refusal sentence and the minutes to the next check (task 6543)
+
+- `TURN_DISPOSITION_TEXT.checkNoteWithReason(code, message, afterSeconds)`; `dispositionForTurnEnd` uses it only for a `budget_exhausted` refusal that carries a `message`, when the whole note fits the 500 characters of the field. Every other code, a refusal without message and a stop mid-turn keep today's note.
+- Additive: no schema changes. Consumers: X9 adoption (ec-x9/6544) and agent-core (ec-x9/6545), which composes the sentence with the 6542 notice; this version alone changes no note in production.
+
+## v1.192.0 — cap-dev answers with the outcomes and open sessions of the requested departments (task 6564)
+
+- New narrow subpath `http/endpoints/internal-dev-session-outcomes`: `devSessionOutcomesContract` posts the agent scope, the organization and 1–20 departments (project and unit), never a session number. The answer pairs every `DevSessionOutcome` and every open session (`queued` or `working`) with the scope of its own assignment, and reports `unreadable` (closed or discarded sessions without a valid block) and `omitted` (older sessions not read because of the service cap). Limits: 200 outcomes and 200 open sessions; nothing is cut silently.
+- Additive: no existing schema changes (`DevSessionOutcomeSchema` and `BusinessUnitStateScopeSchema` untouched), no endpoint barrel export. Consumers: X9 adoption (ec-x9/6565), cap-dev (ec-x9/6566) and agent-core (ec-x9/6567); this version alone enables no runtime behaviour.
+
+## v1.191.0 — department state facts come from one Memory contract (task 6530)
+
+- New narrow subpath `http/endpoints/internal-memory-business-unit-state`: `internalMemoryBusinessUnitStateContract` posts only the verified organization run context to Memory. Memory determines the role and visible department scopes; a caller with role `other` receives no departments.
+- A `listed` response carries each department's versions, delivery decisions and outcomes, lead reviews and assets for `deriveBusinessUnitStateSummary`. Consumers pair reviews with the department scope; the derivation ignores facts outside it. Limits are 20 departments and, per department, 1000 versions, 1000 decisions, 1000 reviews and 200 assets. Oversized complete facts produce `refused / state_too_large`, never a truncated list.
+- Additive: no existing or saved schema changes, including delivery requests with only `deliveryRef` and options without `effect`. No endpoint barrel export is added. Consumers: X9 adoption (ec-x9/6531), Memory (ec-x9/6532) and agent-core (ec-x9/6563); this version alone enables no runtime behaviour. Session outcomes follow in ec-x9/6564–6567.
+
+## v1.190.0 — an assignment accepts materials from another business unit of the same project (task 6533)
+
+- `DevSessionAssignmentSchema` no longer refuses an asset whose `buSlug` differs from the assignment's business unit (`material_foreign_business_unit` is gone); tenant, company and project are still checked in that order.
+- The service that copies the bytes decides who may read them, with `organizationAccess` (level `read`); only the owning unit writes (memory `asset_foreign_business_unit`, unchanged).
+- Widening only: no saved assignment becomes invalid. Consumers: X9 adoption (ec-x9/6535) and cap-dev (ec-x9/6536); this version alone does not enable the consumer behaviour.
+
+## v1.189.0 — the native wake knows the lifted spend cap (task 6526)
+
+- `http/endpoints/internal-paperclip-seats` adds the native-wake event `limit_lifted` (`limit: company_spend`, `revision`, `liftedAt`; requires `organizationId` and `identity`). No new result: `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS` stays at 11 entries; for this event `deferred` means the check was requested from Paperclip and `no_task` that no issue waits on the cap.
+- Additive; no existing event, result or saved shape is tightened. Consumers: cap-paperclip (ec-x9/6519) and agent-core (ec-x9/6520), after the adoption 6523 and configuration 6524.
+
+## v1.188.0 — spend cap waits carry a fixed Paperclip monitor name (task 6518)
+
+- `capability/paperclip/turn-disposition` adds `LIMIT_WAIT_SERVICE_NAME` (`X9 company spend cap`) and `waitsOnLimit(policy: unknown): boolean`, which reads only that exact monitor name and tolerates Paperclip's additional and nullable stored fields. Budget refusals and budget stops carry the name through `check_later.serviceName` into `executionPolicy.monitor.serviceName`; other waits keep no name and the default retry remains 3600 seconds.
+- Additive: `check_later` reuses the optional `PaperclipControlloSchema` service name rule; existing unnamed dispositions and write bodies remain valid. Consumers follow in tasks 6523 and 6519; automatic resumption requires the release chain including 6526, 6524 and 6520. No live behaviour changes from this contract release alone.
+
+## v1.187.0 — the Paperclip board key stays internal to the platform (task 6525)
+
+- `vault` adds `PAPERCLIP_ADMIN_TOKEN` to `PLATFORM_INTERNAL_CREDENTIAL_KEYS`: it is stripped from credential maps, rejected when writing agent contexts and forbidden in capability credential requirements. `PAPERCLIP_API_KEY` remains an ordinary agent credential.
+- Additive; no saved schema changes. Consumer: cap-paperclip (ec-x9/6362), whose event comment signer reads the board key by file (`PAPERCLIP_ADMIN_TOKEN_FILE`), as does the enroll process. Runtime behaviour requires that consumer and the ec-x9/6362–6366 release chain; X9 receives this version through its next ordinary bridge adoption.
+
+## v1.186.0 — the native wake knows the sent project delivery, and a fixed result for an email whose twin waits on others' blockers (task 6513)
+
+- `http/endpoints/internal-paperclip-seats` adds the native-wake event `project_delivered` (`projectId`, `messageId`, `sentAt`, `digest`; requires `organizationId` and `identity`) and the result `waiting_on_blockers` (requires `issueId`, no run or comment). `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS` goes from 10 to 11 entries.
+- Additive; no existing event, result or saved shape is tightened. Consumers: cap-paperclip (ec-x9/6515, 6516) and cap-email (ec-x9/6517), after the adoption 6514.
+
+## v1.185.0 — recall tool error codes and one rule for refused organization recall (task 6464)
+
+- `http/endpoints/internal-memory-recall-bundle` adds `MEMORY_RECALL_TOOL_ERROR_CODES`, `MemoryRecallToolErrorCodeSchema` / `MemoryRecallToolErrorCode`, `MEMORY_RECALL_REFUSED_HTTP_STATUSES` (`[403]`), `MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR` (`organization recall not configured`) and pure `memoryRecallToolErrorCodeOf({ status?, organizationRecallNotConfigured? })`. A 403 gives `richiamo_rifiutato` (never retry the same call); a 503 with organization recall not configured keeps `richiamo_aziendale_non_attivo` (not retried); other failures or no answer give `richiamo_non_riuscito` (retry later). A 2xx answer throws `RangeError`.
+- Additive; request, response and saved schemas are unchanged, and both existing model reason codes remain valid. Consumers: memory (ec-x9/6467), with adoption in ec-x9/6465; runtime behaviour requires those tasks.
+
+## v1.184.0 — the refusal of another department's business unit is a bridge code for the memory asset routes (task 6463)
+
+- `http/endpoints/internal-memory-assets` adds `INTERNAL_MEMORY_ASSET_REFUSAL_CODES` (`['asset_foreign_business_unit']`), `InternalMemoryAssetRefusalCodeSchema` and `InternalMemoryAssetRefusalCode`. Additive; no existing schema changes.
+- Consumers: memory (ec-x9/6466) and agent-core (draft ec-x9/6445) import the code instead of writing it by hand.
+
+## v1.183.0 — the department summary takes lead reviews and session outcomes paired with their scope and ignores other departments' (task 6355)
+
+- `organization/business-unit-state` adds `BusinessUnitStateLeadReview` (`{ scope, review }`) and `BusinessUnitStateSessionOutcome` (`{ scope, outcome }`); `deriveBusinessUnitStateSummary` now takes `leadReviews` and `sessionOutcomes` in those forms and ignores every entry whose tenant, organization, project or business unit differs from the requested scope (a review whose own `buSlug` differs is ignored too). The input change is incompatible for callers; no service calls the function today. No saved schema changes.
+- Consumers: agent-core (ec-x9/6389) passes, for each review, the scope of the request Memoria recorded it with (`http/endpoints/internal-memory-asset-versions.ts`: `context` and `projectId`) and, for each outcome, the scope of the session's assignment (`capability/dev/session-assignment.ts`).
+
+## v1.182.0 — mismatched delivery outcomes keep the existing decision pending (task 6354)
+
+- `organization/decision-request` tightens `deliveryDecisionDuplicate` so a missing outcome, an outcome for another request, or an approval by someone other than a referent or for a different subject keeps the existing request pending and returns `decision_already_pending`. A matching rejection permits another request, and a sound approval returns `decision_already_approved`, following the twin rule in `assetVersionDecisionState`.
+- The function signature and saved shapes are unchanged. Memoria will check before opening a request, with integration still pending. Runtime availability requires that consumer task.
+
+## v1.181.0 — research results carry the source admission count and a fixed explanation; additive (task 6353)
+
+- `capability/ricerca` adds strict `ResearchAdmissionSchema` / `ResearchAdmission`, `RESEARCH_NOT_OPENED_REASONS`, `ResearchNotOpenedReasonSchema` / `ResearchNotOpenedReason`, and pure `renderResearchAdmission(admission)`, one fixed Italian line. The count records the source rule, cited addresses, opened pages, admitted sources, dropped findings and an optional reason pages were not opened. Under `opened_only`, admitted sources cannot exceed opened pages; dropped findings with no opened pages require a reason, and no dropped findings forbids a reason.
+- `ResearchResultSchema` gains optional `admission`; existing saved results, sources and costs are unchanged. Consumers: cap-ricerca fills the count, cap-lab passes it to the agent, and Forge reads it. Release readers (including strict `lab_ingest` readers) on 1.181.0 before cap-ricerca starts writing the field. Runtime behaviour requires the X9 and Forge adoption tasks and the cap-ricerca page-opening and admission-count tasks.
+
+## v1.180.0 — the Lab notebook is read by page name too, and the answer says how each page was found or why it is empty; additive (task 6352)
+
+- `capability/lab` adds `slugs` (1-50 unique page names, optional) to `LabQueryInputSchema` and `LabReadPublishedInputSchema`; `matches` (`LabPageMatchSchema`, `matchedBy` from `LAB_PAGE_MATCH_KINDS`: `slug`, `all_words`, `any_word`) and `emptyReason` (`LAB_EMPTY_REASONS`: `no_match`, `slug_not_found`, `notebook_empty`) to both outputs. `matches`, when present, has exactly one entry per returned page; `emptyReason` only with no pages. `question` stays required; today's inputs and outputs still parse.
+- Consumers: cap-lab searches and fills the new fields (task D1-X); agent-core for the manifest. Readers of the output with the strict schema (for example cap-paperclip `approved-business-units-sources.ts`) need 1.180.0 before cap-lab writes the new fields.
+
+## v1.179.0 — seat wake errors have a body in the bridge and tell `wake_timeout` from `paperclip_unavailable`; additive (task 6351)
+
+- `http/endpoints/internal-paperclip-seats` adds `PAPERCLIP_SEAT_WAKE_ERROR_CODES` (`paperclip_unavailable`, `wake_timeout`), `PaperclipSeatWakeErrorCodeSchema` / `PaperclipSeatWakeErrorCode` and the strict `InternalPaperclipSeatWakeErrorResponseSchema` (`{ ok: false, error }`). The reply-wake and native-wake contracts gain `errorResponseSchema`; method, path, auth, body and success responses are unchanged, and the 502 body written today still parses.
+- Consumers: cap-paperclip writes the right code (task D3-X2); cap-email and the other wake callers read it. Which HTTP status carries it is cap-paperclip's choice.
+
+## v1.178.0 — a limit stop during a turn schedules a re-check; additive (task 6350)
+
+- `capability/paperclip/turn-disposition` adds `TURN_STOP_CODES`, `TurnStopCodeSchema` / `TurnStopCode` and a strict `stopped` turn end for `budget_exhausted` or `run_expired`, with optional retry seconds. Its disposition is `check_later` with a succeeding run, a fixed note preserving work already done, a one-hour default and a 60-second minimum. All six existing turn ends are unchanged; `failed` still fails the run even with a limit failure code. No persisted shape narrows and the Paperclip body builder is unchanged.
+- Consumers: cap-paperclip constructs `stopped` when agent-core reports a limit stop and executes the disposition and report as for a successful turn; agent-core provides that outcome in task N32. Runtime behaviour requires both consumers and the limit notice consumers from 1.177.0.
+
+## v1.177.0 — one fixed shape and sentence for a limit notice; additive (task 6349)
+
+- New `capability/paperclip/limit-notice`: strict `LimitNoticeSchema` (which cap, its value, the observed value, the threshold, what happened, when it resets, who is told) with six coherence rules, `nextUtcMidnight(iso)` and `renderLimitNotice(notice)`, one fixed Italian line. No cap value lives in the bridge; the barrel is untouched and no existing shape changes.
+- Consumers: cap-paperclip when it reads a wake skipped by a daily cap; agent-core for the 80% threshold and the spend refusal; whoever sends it delivers to Director and owner and deduplicates. The Paperclip cap behaviour (`heartbeat.daily_run_limit`, `heartbeat.daily_cost_limit`, UTC day) is read in its code, not proven live.
+
+## v1.176.0 — fixed inbound event disposition; additive (task 6348)
+
+- `capability/paperclip/inbound-event` adds strict `InboundEventDispositionSchema`, outcome and not-woken reason constants, and `inboundEmailDedupeKey(messageId: string): string` using the shared email message code. A comment requires an author distinct from the assignee and either a wake or a fixed not-woken reason; duplicates carry their deduplication key and refusals carry `ToolErrorDispositionSchema`.
+- Reply-wake and native-wake responses gain optional `disposition`. Woken comments must match the response result, issue and run; duplicates require the duplicate result. Existing result lists and responses without disposition are unchanged.
+- Consumers: cap-paperclip writes the comment and reads the wake outcome; cap-email sends a receipt only for `commented`. Strict readers of both wake responses must adopt 1.176.0 before cap-paperclip writes the field. Runtime availability requires the X9 consumer tasks.
+
+## v1.175.0 — one rule to find the referent of a unit, and the project in the birth request; additive (task 6347)
+
+- `organization/company-map` adds `referentForUnit({ entries, scope, referent })` and `REFERENT_FOR_UNIT_REFUSALS` (`referent_not_in_map`, `referent_superseded`): business unit level, then project, then client; the first level with an entry wins, highest version inside it; never crosses tenant, organization, client or project.
+- `BusinessUnitLeadBirthRequestSchema` (and so `PaperclipCreateBusinessUnitInputSchema`) gains optional `projectId`; absent = client level as before.
+- Consumers: cap-paperclip replaces its hand-written lookup; Forge factory (which reads only the client level today) must adopt 1.175.0 before X9 sends `projectId`, because the request is a strict schema.
+
+## v1.174.0 — the plan and the mandate carry the gap rule, sign-off points, keyed exchanges, addressed questions and source coverage; additive (task 6346)
+
+- `organization/action-plan` adds `ActionPlanGapRuleSchema` (`mark_and_proceed` | `stop_and_ask`) and `ActionPlanSignOffSchema` (key, signer `referent` | `director` | `owner`, form `decision_request` only), optional on each business unit as `gapRule` and `signOffs` (1-20, unique keys). The inline exchange and question shapes are now exported as `ActionPlanExchangeSchema` (new optional `key`) and `ActionPlanQuestionSchema` (new optional `askTo`: referent, owner, director or business unit), and the plan gains optional `sourceCoverage` (`ActionPlanSourceCoverageSchema`: topic, covered | partial | missing, dossier pages). `ActionPlanSubmissionSchema` checks, only when present, that sign-off keys belong to the unit (its section or an owned work breakdown item), exchange keys exist, `askTo.buSlug` is a plan unit and coverage pages are in the dossier.
+- `organization/business-unit-mandate`: `planSection` optionally carries `exchanges`, `questions` and `sourceCoverage`; every exchange in a mandate starts from or arrives at the mandate unit. `gapRule` and `signOffs` arrive with the unit already inside the plan section.
+- Nothing becomes required; plans and mandates saved before this version parse with the same canonical text and digest.
+- Consumers: Forge (Director profile and schema), cap-paperclip (composes the mandate), Memoria (saves plan and observations), agent-core. Strict readers must adopt 1.174.0 before the Director writes these fields.
+
+## v1.173.0 — mandate workplace and execution tools; additive (task 6345)
+
+- `organization/business-unit-mandate` adds `MandateWorkplaceSchema` / `MandateWorkplace` and `MandateWorkModeSchema` / `MandateWorkMode`. The reconciled mandate optionally carries the repository, relative folder, GitHub session board, plan executor and unique, disjoint allowed/excluded tool lists. Development sessions require a GitHub repository and a session board. These fields are service-owned and filled from unit configuration. Mandates and reconciled observations saved before this version remain valid with both fields absent.
+- Consumers are cap-paperclip (composes the mandate), Memoria (saves observations), cap-dev and agent-core (read it), and Forge (panel). Strict readers must adopt 1.173.0 before writers populate these fields. Consumer tasks provide runtime availability.
+
+## v1.172.0 — one decision per delivery and version; the referent reply handover carries text; additive (task 6344)
+
+- `organization/decision-request` adds `DELIVERY_DECISION_DUPLICATE_CODES`, `deliveryDecisionDuplicate` (pure, no clock: names `decision_already_pending` or `decision_already_approved` with the oldest request on the same piece, same asset version or, when not declared on both, same delivery file; a rejected request lets a new one through), `ReferentReplyHandoverSchema` (text plus a message id readable from `receivedBy`) and `decisionOutcomeFromHandover`. Nothing saved changes.
+- Consumers: Memoria refuses before opening a request; cap-email writes the handover.
+
+## v1.171.0 — il riepilogo di reparto è derivato dai fatti registrati; additivo (scheda 6343)
+
+- `organization/business-unit-state` aggiunge `BusinessUnitStateScopeSchema`, `BusinessUnitStateSummarySchema` e `deriveBusinessUnitStateSummary`, funzione pura senza orologio: per un reparto, ultima versione e stato di ogni chiave (solo via `deriveAssetVersionStates`), ultima approvata, decisioni di consegna aperte (anche doppie), materiali ricevuti (asset non nati da una sessione) ed esito dell'ultimo tentativo di ogni sessione. I fatti di altri perimetri sono ignorati. Nessuna forma salvata cambia.
+- Consumatori: agent-core lo compone a ogni turno di capo e del Director, da Memoria e cap-dev. Serve il registro delle versioni in Memoria e gli esiti di sessione scritti dall'esecutore (6342).
+
+## v1.170.0 — structured session outcomes and lead answers; additive (task 6342)
+
+- `capability/dev/session-outcome` adds strict `DevSessionOutcomeSchema` and `DevSessionAnswerSchema`, state/reason constants, full Git reference validation, canonical JSON and shared marker-block rendering/parsing. Non-delivered outcomes require a fixed tool error disposition; material failures name missing references; every outcome declares the executor version. Existing assignments, deliveries, verified results and persisted forms are unchanged.
+- Consumers: the laptop executor writes outcomes and reads lead answers; X9 cap-dev reads outcomes and writes answers. The executor must adopt 1.170.0 before cap-dev writes answer blocks. Runtime availability requires both consumer tasks.
+
+## v1.169.0 — canonical issue references and email message codes; additive (task 6341)
+
+- `capability/paperclip/tools` adds `PaperclipIssueIdentifierSchema`, `PaperclipIssueRefSchema`, `paperclipIssueRefKind` and five strict reference input schemas derived from the existing inputs. References accept UUIDs or bounded identifiers such as `GOO-104`; existing UUID-only inputs and persisted forms are unchanged.
+- `messaging/message-code` adds `EmailMessageCodeSchema`, `emailMessageCode` and `sameEmailMessage`. Bare message IDs receive angle brackets; surrounding whitespace is trimmed. The messaging barrel is unchanged.
+- Consumers: X9 cap-paperclip adopts reference inputs at tool boundaries and resolves identifiers to UUIDs; cap-email imports the shared message-code rule instead of its local module. Consumer adoption is required for runtime availability.
+
+## v1.168.0 — l'errore di uno strumento porta un esito a forma fissa (natura, ripetibilità, mossa) e una frase fissa per il modello; additivo (scheda 6340)
+
+- `capability/tool-call` aggiunge `TOOL_ERROR_NATURES`, `TOOL_ERROR_RETRIES`, `TOOL_ERROR_NEXT_MOVES`, `ToolErrorDispositionSchema` (stretto; `retryAfterSeconds` se e solo se `after_delay`; `never` se e solo se la mossa non è `retry_same`; un permesso rifiutato non si ripete), `renderToolErrorDisposition` (una riga, sempre la stessa per lo stesso esito) e `toolErrorDispositionOf`. `ToolCallErrorResponseSchema` riceve `disposition` facoltativo; `modelReason` e i codici `TOOL_*` non cambiano.
+- Consumatori: ogni capacità X9 che risponde errore e agent-core che lo porta al modello. Ordine di rilascio: chi legge con `InternalAgentToolDispatchResponseSchema` (stretto) adotta la 1.168.0 prima che chi scrive riempia il campo.
+
+## v1.167.0 — il Director ha sempre la capacità `dev`, solo in lettura; additivo per i dati salvati (scheda 6325)
+
+- `AGENT_ROLE_BASE_CAPABILITIES.director` aggiunge `dev`; nuova `AGENT_ROLE_READ_ONLY_CAPABILITIES` (`director: ['dev']`, gli altri ruoli vuoti). `roleScopePolicy` mette `{ read: 'allow', write: 'deny' }` sulle capacità di sola lettura del ruolo; il capo-bu mantiene le scritture di `dev`. `toolsForRole` e i manifesti non cambiano.
+- Consumatori: Forge factory (scheda 6335) applica la politica alla nascita; X9 non legge le capacità di base. I Director già nati non cambiano.
+
+## v1.166.0 — una sola regola di accesso all'organizzazione, a due livelli; additivo (scheda 6324)
+
+- `organization/organization-access` aggiunge `organizationAccess({ actor, resource, need, bindings })`, funzione pura: `read` per ogni membro attivo dell'organizzazione della risorsa (livello 1, come `allow_company_agent` di Paperclip), `manage` solo se tutti i legami attivi sono `director` (livello 2). Rifiuti: `foreign_tenant`, `foreign_owner`, `foreign_organization`, `not_member`, `role_unknown`, `role_ambiguous`, `director_only`. Più `ORGANIZATION_ACCESS_NEEDS`, `ORGANIZATION_ACCESS_REFUSALS` e `OrganizationAccessDecisionSchema`. Nessuna forma salvata, nessun contratto HTTP cambia.
+- Consumatori (adozione nelle schede successive): cap-dev, Memoria, cap-email, cap-paperclip via `@x9/capability-sdk`.
+
+## v1.165.0 — rotte del registro delle versioni degli asset di progetto; additivo (scheda 6306)
+
+- `http/endpoints/internal-memory-asset-versions` aggiunge quattro contratti POST con autenticazione `secret` e contesto organizzativo firmato: registrazione con versione precedente attesa e codici di rifiuto, elenco con stato derivato, ultima versione approvata (o `null`) e verifica del capo. Identità del creatore e del revisore risolte dal servizio; nessuna rotta o forma salvata esistente cambia.
+- Consumatori: X9 memory che serve le rotte, cap-dev e agent-core che le chiamano. Fruibilità con ec-x9 X1, X2, X4, X5 e X11; nessun cambiamento operativo dal solo aggiornamento del ponte.
+
+## v1.162.0 — l'opzione di una decisione dichiara il suo effetto e l'oggetto `delivery` porta la versione del pezzo; additivo (scheda 6307)
+
+- `DecisionRequestOptionSchema` accetta `effect?: 'approve' | 'request_changes' | 'reject'` (`DECISION_OPTION_EFFECTS`). Se un'opzione lo dichiara tutte lo dichiarano e almeno una è `approve`; una `confirmation_set` non li dichiara; con effetto diverso da `approve` la `label` ha almeno 3 caratteri. `decisionOutcomeFromEmailReply` registra `rejected` (motivo = `label`) per `request_changes` e `reject`: «chiedo modifiche» non diventa mai `approved`. Le richieste salvate senza `effect` si decidono come prima; nessun valore nuovo di `outcome`.
+- `DeliveryDecisionSubjectSchema` accetta `assetVersion?: { key, version }`; `decisionOutcomeMatchesSubject` lo confronta (assente da entrambe le parti = uguale). `deriveAssetVersionStates` assegna una decisione con `assetVersion` solo a quella versione.
+- Consumatori: X9 cap-email che apre le richieste di consegna, memory che le registra; Forge profili del capo. Versione 1.162.0 come richiesto dalla scheda 6307; le modifiche delle schede successive già presenti nel worktree restano conservate.
+
+## v1.164.0 — la consegna di progetto usa la derivazione unica dello stato delle decisioni
+
+- `organization/project-delivery` (6309) riusa `isLaterDecisionRequest` e `assetVersionDecisionState` di `organization/asset-version` per scegliere la richiesta e leggerne l'esito. La rifattura conserva comportamento, stati, impronte e registrazioni della consegna, compresa la lettura delle approvazioni sotto versioni precedenti del piano.
+- Consumatore X9 cap-email, `agent-x9/services/cap-email/src/tools/project-delivery.ts`. Fruibilità con l'adozione del ponte in cap-email e memory nello stesso rilascio della fetta A del magazzino degli asset.
+
+## v1.163.0 — il foglio di consegna è un campo firmato dell'incarico e il ponte controlla i file che cita; additivo
+
+- `DevSessionAssignmentSchema` accetta `deliveryPackage?: 'required' | 'optional'` (`DEV_SESSION_DELIVERY_PACKAGE_MODES`), uguale per `code` e `design`. Assente = incarico scritto prima della 1.163.0. Le prove del codice restano facoltative.
+- `organization/delivery-package` aggiunge `DELIVERY_PACKAGE_PROBLEM_CODES` (`manifest_missing`, `manifest_not_at_root`, `invalid_package`, `cited_file_missing`) e `deliveryPackageProblems(pkg, deliveredPaths)`, pura, che elenca tutti i problemi in ordine.
+- Consumatori previsti: cap-dev, che scrive il campo solo dopo che l'esecutore del portatile ha la 1.163.0 (`strictObject`); l'esecutore, che lo legge e usa la funzione; ec-x9 X9.
+
+## v1.160.0 — versioni degli asset di progetto e stato derivato dai fatti registrati; additivo
+
+- `organization/asset-version` (6305) aggiunge gli schemi dei file, della provenienza, dei record di versione e delle revisioni del capo, con i relativi tipi. I documenti del Director e del Lab possono avere provenienza senza sessione.
+- `ASSET_VERSION_STATES`, `ASSET_VERSION_TRANSITIONS`, `assetVersionTransitionAllowed(from, to)`, `isLaterDecisionRequest(a, b)`, `assetVersionDecisionState(request, outcome)`, `deriveAssetVersionStates({ versions, decisions, leadReviews })` e `latestApprovedAssetVersion(states, { buSlug, key })` sono esportati anche da `organization`. Una versione approvata diventa superata quando una versione successiva della stessa chiave viene approvata. I doppioni di versione producono `asset_version_duplicate`.
+- Consumatori previsti sono X9 memory, cap-dev e agent-core. La fruibilità richiede le rotte 6306 e l'adozione nelle schede ec-x9 X1, X2, X4 e X11.
+
+## v1.159.0 — la chiave stabile del pezzo da consegnare viene dal Mandato e viaggia nell'incarico di sessione; additivo
+
+- `organization/asset` (6304): nuovi `AssetKeySchema` (slug di 1-40 caratteri, come gli id del piano) e `AssetVersionRefSchema` (`key` + `version` intera ≥ 1), con i tipi `AssetKey` e `AssetVersionRef`.
+- `capability/dev/session-assignment` (6304): `DevSessionAssignmentSchema` riceve `deliverableKey` facoltativo; nuove `mandateDeliverableKeys(mandate)`, `devSessionDeliverableKeyProblem(assignment, mandate)` e `DEV_SESSION_DELIVERABLE_KEY_PROBLEMS`. Gli incarichi senza chiave restano validi e il loro testo canonico, quindi l'impronta, non cambia.
+- Consumatori: X9 cap-dev ed esecutore del portatile (devono avere la 1.159.0 prima che cap-dev scriva il campo: con un ponte vecchio `parseDevSessionBlock` rifiuta una chiave sconosciuta).
+
 ## v1.158.0 — unione della linea di produzione (1.157.0, 5fdcafb6) sopra la linea bacheca (1.150.0, 4c6e7eda)
 
 - Dalla produzione entrano `paperclip_assign` con `comment` e le voci 1.138.0-1.157.0; dalla bacheca entrano la chiave della persona del proprietario dalla porta pubblica del Vault e i contratti della bacheca.

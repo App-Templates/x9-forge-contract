@@ -20,13 +20,13 @@ export declare const AgentDeletionStepSchema: z.ZodEnum<{
     runtime: "runtime";
     workspace: "workspace";
     channels: "channels";
-    tombstone: "tombstone";
     admission: "admission";
+    tombstone: "tombstone";
     caches: "caches";
     "private-state": "private-state";
 }>;
 export type AgentDeletionStep = z.infer<typeof AgentDeletionStepSchema>;
-export declare const AGENT_DELETION_STEPS: ("context" | "runtime" | "workspace" | "channels" | "tombstone" | "admission" | "caches" | "private-state")[];
+export declare const AGENT_DELETION_STEPS: ("context" | "runtime" | "workspace" | "channels" | "admission" | "tombstone" | "caches" | "private-state")[];
 /** Machine codes only: no provider messages, file paths, tokens or free text diagnostics. */
 export declare const AgentDeletionFailureCodeSchema: z.ZodEnum<{
     timeout: "timeout";
@@ -45,8 +45,8 @@ export declare const AgentDeletionPieceSchema: z.ZodDiscriminatedUnion<[z.ZodObj
         runtime: "runtime";
         workspace: "workspace";
         channels: "channels";
-        tombstone: "tombstone";
         admission: "admission";
+        tombstone: "tombstone";
         caches: "caches";
         "private-state": "private-state";
     }>;
@@ -57,8 +57,8 @@ export declare const AgentDeletionPieceSchema: z.ZodDiscriminatedUnion<[z.ZodObj
         runtime: "runtime";
         workspace: "workspace";
         channels: "channels";
-        tombstone: "tombstone";
         admission: "admission";
+        tombstone: "tombstone";
         caches: "caches";
         "private-state": "private-state";
     }>;
@@ -69,8 +69,8 @@ export declare const AgentDeletionPieceSchema: z.ZodDiscriminatedUnion<[z.ZodObj
         runtime: "runtime";
         workspace: "workspace";
         channels: "channels";
-        tombstone: "tombstone";
         admission: "admission";
+        tombstone: "tombstone";
         caches: "caches";
         "private-state": "private-state";
     }>;
@@ -91,8 +91,8 @@ export declare const AgentDeletionPieceSchema: z.ZodDiscriminatedUnion<[z.ZodObj
         runtime: "runtime";
         workspace: "workspace";
         channels: "channels";
-        tombstone: "tombstone";
         admission: "admission";
+        tombstone: "tombstone";
         caches: "caches";
         "private-state": "private-state";
     }>;
@@ -130,8 +130,8 @@ export declare const AgentDeletionResultSchema: z.ZodObject<{
             runtime: "runtime";
             workspace: "workspace";
             channels: "channels";
-            tombstone: "tombstone";
             admission: "admission";
+            tombstone: "tombstone";
             caches: "caches";
             "private-state": "private-state";
         }>;
@@ -142,8 +142,8 @@ export declare const AgentDeletionResultSchema: z.ZodObject<{
             runtime: "runtime";
             workspace: "workspace";
             channels: "channels";
-            tombstone: "tombstone";
             admission: "admission";
+            tombstone: "tombstone";
             caches: "caches";
             "private-state": "private-state";
         }>;
@@ -154,8 +154,8 @@ export declare const AgentDeletionResultSchema: z.ZodObject<{
             runtime: "runtime";
             workspace: "workspace";
             channels: "channels";
-            tombstone: "tombstone";
             admission: "admission";
+            tombstone: "tombstone";
             caches: "caches";
             "private-state": "private-state";
         }>;
@@ -176,8 +176,8 @@ export declare const AgentDeletionResultSchema: z.ZodObject<{
             runtime: "runtime";
             workspace: "workspace";
             channels: "channels";
-            tombstone: "tombstone";
             admission: "admission";
+            tombstone: "tombstone";
             caches: "caches";
             "private-state": "private-state";
         }>;

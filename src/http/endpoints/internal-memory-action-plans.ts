@@ -47,6 +47,7 @@ export const ACTION_PLAN_ERROR_CODES = [
   'action_plan_scope_mismatch',
   'identity_uncertain',
   'action_plan_referent_version_mismatch',
+  'referent_email_not_declared',
 ] as const;
 export const ActionPlanErrorCodeSchema = z.enum(ACTION_PLAN_ERROR_CODES);
 export type ActionPlanErrorCode = z.infer<typeof ActionPlanErrorCodeSchema>;

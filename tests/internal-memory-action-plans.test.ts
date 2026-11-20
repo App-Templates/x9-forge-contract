@@ -115,13 +115,19 @@ describe('internal memory action plans contract', () => {
   });
 
   it('names its refusals', () => {
-    expect(ACTION_PLAN_ERROR_CODES).toEqual(['action_plan_conflict', 'action_plan_digest_mismatch', 'action_plan_scope_mismatch', 'identity_uncertain', 'action_plan_referent_version_mismatch']);
+    expect(ACTION_PLAN_ERROR_CODES).toEqual(['action_plan_conflict', 'action_plan_digest_mismatch', 'action_plan_scope_mismatch', 'identity_uncertain', 'action_plan_referent_version_mismatch', 'referent_email_not_declared']);
     expect(ActionPlanErrorResponseSchema.safeParse({ code: 'action_plan_conflict', message: 'x' }).success).toBe(true);
     expect(ActionPlanErrorResponseSchema.safeParse({ code: 'other', message: 'x' }).success).toBe(false);
   });
 
   const mismatch = { code: 'action_plan_referent_version_mismatch', message: 'x' } as const;
   const details = { buSlug: 'vendite', expectedVersion: 2, writtenVersion: 1 };
+
+  it('s6908 accepts referent_email_not_declared without details and refuses it with details', () => {
+    const body = { code: 'referent_email_not_declared', message: 'x' };
+    expect(ActionPlanErrorResponseSchema.parse(body)).toEqual(body);
+    expect(ActionPlanErrorResponseSchema.safeParse({ ...body, details }).success).toBe(false);
+  });
 
   it('s6232 puntatore-referente-al-salvataggio: the action plan save contract names action_plan_referent_version_mismatch and carries buSlug, expectedVersion and writtenVersion', () => {
     const body = { ...mismatch, details };

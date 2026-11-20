@@ -69,6 +69,14 @@ export const internalCompanySpendBusinessUnitReadContract = {
 export const CompanySpendSourceSchema = z.enum(['model', 'tool', 'ricerca', 'lab']);
 export type CompanySpendSource = z.infer<typeof CompanySpendSourceSchema>;
 
+/**
+ * The only sources X9 reads from a capability, and so the only ones it can
+ * fail to read. `model` and `tool` are metered by X9 itself and are never unread.
+ */
+export const COMPANY_SPEND_CAPABILITY_SOURCES = ['ricerca', 'lab'] as const satisfies readonly CompanySpendSource[];
+export const CompanySpendCapabilitySourceSchema = CompanySpendSourceSchema.extract(COMPANY_SPEND_CAPABILITY_SOURCES);
+export type CompanySpendCapabilitySource = z.infer<typeof CompanySpendCapabilitySourceSchema>;
+
 export const INTERNAL_COMPANY_SPEND_PATH = '/internal/companies/:company/spend' as const;
 
 /** `company` is the guard's company name, e.g. `good-choice`. */
@@ -104,7 +112,7 @@ export const InternalCompanySpendResponseSchema = z.strictObject({
       bySource: z.partialRecord(CompanySpendSourceSchema, z.int().min(0)),
     }),
   ),
-  unreadSources: z.array(CompanySpendSourceSchema),
+  unreadSources: z.array(CompanySpendCapabilitySourceSchema),
 });
 export type InternalCompanySpendResponse = z.infer<typeof InternalCompanySpendResponseSchema>;
 
@@ -121,7 +129,18 @@ export type InternalCompanySpendCapUpdateBody = z.infer<
 
 export const InternalCompanySpendErrorSchema = z.strictObject({
   ok: z.literal(false),
-  error: z.enum(['unknown_company', 'guard_off', 'stale_revision', 'below_business_units', 'invalid_request']),
+  error: z.enum([
+    'unknown_company',
+    'guard_off',
+    'stale_revision',
+    'below_business_units',
+    'invalid_request',
+    // The internal-secret guard did not let the call through (401).
+    'unauthorized',
+    // The requested cap leads to a configuration the guard refuses for a rule
+    // other than the business unit caps, which have `below_business_units`.
+    'invalid_config',
+  ]),
   currentRevision: z.int().min(0).optional(),
 });
 export type InternalCompanySpendError = z.infer<typeof InternalCompanySpendErrorSchema>;

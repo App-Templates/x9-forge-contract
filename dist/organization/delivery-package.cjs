@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeliveryPackageSchema = exports.DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS = exports.DELIVERY_PACKAGE_PREVIEW_EXTENSIONS = exports.DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS = exports.DELIVERY_PACKAGE_IMAGE_EXTENSIONS = exports.DELIVERY_PACKAGE_FILE_NAME = void 0;
+exports.DELIVERY_PACKAGE_PROBLEM_CODES = exports.DeliveryPackageSchema = exports.DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS = exports.DELIVERY_PACKAGE_PREVIEW_EXTENSIONS = exports.DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS = exports.DELIVERY_PACKAGE_IMAGE_EXTENSIONS = exports.DELIVERY_PACKAGE_FILE_NAME = void 0;
 exports.deliveryPackagePaths = deliveryPackagePaths;
+exports.deliveryPackageProblems = deliveryPackageProblems;
 const zod_1 = require("zod");
 exports.DELIVERY_PACKAGE_FILE_NAME = 'CONSEGNA.json';
 exports.DELIVERY_PACKAGE_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg'];
@@ -59,5 +60,38 @@ function deliveryPackagePaths(pkg) {
         ...(pkg.preview ? [pkg.preview.path] : []),
         ...(pkg.documents ?? []).map((document) => document.path),
     ];
+}
+exports.DELIVERY_PACKAGE_PROBLEM_CODES = [
+    'manifest_missing',
+    'manifest_not_at_root',
+    'invalid_package',
+    'cited_file_missing',
+];
+/**
+ * Every reason why a delivery does not carry a usable package, in order: no manifest at the root, each manifest outside
+ * the root, each schema problem of `pkg`, each cited file absent from the delivery. Pure: the caller lists the delivered
+ * paths (relative to the commit root). Call it when the package is required or present.
+ */
+function deliveryPackageProblems(pkg, deliveredPaths) {
+    const problems = [];
+    if (!deliveredPaths.includes(exports.DELIVERY_PACKAGE_FILE_NAME))
+        problems.push({ code: 'manifest_missing' });
+    for (const path of deliveredPaths) {
+        if (path.endsWith(`/${exports.DELIVERY_PACKAGE_FILE_NAME}`))
+            problems.push({ code: 'manifest_not_at_root', path });
+    }
+    const parsed = exports.DeliveryPackageSchema.safeParse(pkg);
+    if (!parsed.success) {
+        for (const issue of parsed.error.issues) {
+            problems.push({ code: 'invalid_package', path: issue.path.join('.'), message: issue.message });
+        }
+        return problems;
+    }
+    const delivered = new Set(deliveredPaths);
+    for (const path of deliveryPackagePaths(parsed.data)) {
+        if (!delivered.has(path))
+            problems.push({ code: 'cited_file_missing', path });
+    }
+    return problems;
 }
 //# sourceMappingURL=delivery-package.js.map

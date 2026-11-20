@@ -3,6 +3,7 @@ import { ZodError } from 'zod';
 import {
   TurnEndSchema,
   paperclipBodyForDisposition,
+  turnFailRun,
   type TurnDisposition,
 } from '../../src/capability/paperclip/turn-disposition.js';
 
@@ -45,7 +46,7 @@ it('s6193 without a current policy the body carries only the monitor', () => {
   }
   const ctx = { now: NOW, agentId: AGENT_ID, currentExecutionPolicy: { mode: 'normal' } };
   expect(paperclipBodyForDisposition({ kind: 'leave', runSucceeds: true }, ctx)).toBeNull();
-  expect(paperclipBodyForDisposition({ kind: 'fail_run', runSucceeds: false }, ctx)).toBeNull();
+  expect(paperclipBodyForDisposition(turnFailRun('turn_failed', 'x'), ctx)).toBeNull();
   expect(paperclipBodyForDisposition({ kind: 'close_not_executed', runSucceeds: true, comment: 'Paused.' }, ctx))
     .toEqual({ status: 'done', comment: 'Paused.' });
   expect(paperclipBodyForDisposition({ kind: 'block_for_owner', runSucceeds: true, action: 'Review.' }, ctx))

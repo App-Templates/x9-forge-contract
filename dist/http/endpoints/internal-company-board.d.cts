@@ -153,12 +153,26 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                     delivery: z.ZodString;
                 }, z.core.$strict>;
             }, z.core.$strict>], "kind">;
+            gapRule: z.ZodOptional<z.ZodEnum<{
+                mark_and_proceed: "mark_and_proceed";
+                stop_and_ask: "stop_and_ask";
+            }>>;
+            signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodString;
+                signer: z.ZodEnum<{
+                    owner: "owner";
+                    director: "director";
+                    referent: "referent";
+                }>;
+                form: z.ZodLiteral<"decision_request">;
+            }, z.core.$strict>>>;
         }, z.core.$strict>>;
         exchanges: z.ZodArray<z.ZodObject<{
             fromBu: z.ZodString;
             toBu: z.ZodString;
             what: z.ZodString;
             format: z.ZodString;
+            key: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;
         budget: z.ZodObject<{
             currency: z.ZodString;
@@ -187,7 +201,27 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
         questions: z.ZodArray<z.ZodObject<{
             question: z.ZodString;
             unlocks: z.ZodString;
+            askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                personRef: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"owner">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"director">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"business_unit">;
+                buSlug: z.ZodString;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>>;
+        sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            topic: z.ZodString;
+            status: z.ZodEnum<{
+                partial: "partial";
+                missing: "missing";
+                covered: "covered";
+            }>;
+            pages: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>>>;
         ifApproved: z.ZodObject<{
             startNow: z.ZodArray<z.ZodString>;
             startLater: z.ZodArray<z.ZodObject<{
@@ -243,6 +277,10 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -274,6 +312,11 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                 optionId: z.ZodString;
                 label: z.ZodString;
                 detail: z.ZodOptional<z.ZodString>;
+                effect: z.ZodOptional<z.ZodEnum<{
+                    approve: "approve";
+                    request_changes: "request_changes";
+                    reject: "reject";
+                }>>;
             }, z.core.$strict>>;
             requestedBy: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -342,6 +385,10 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -404,6 +451,10 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -579,12 +630,26 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                         delivery: z.ZodString;
                     }, z.core.$strict>;
                 }, z.core.$strict>], "kind">;
+                gapRule: z.ZodOptional<z.ZodEnum<{
+                    mark_and_proceed: "mark_and_proceed";
+                    stop_and_ask: "stop_and_ask";
+                }>>;
+                signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodString;
+                    signer: z.ZodEnum<{
+                        owner: "owner";
+                        director: "director";
+                        referent: "referent";
+                    }>;
+                    form: z.ZodLiteral<"decision_request">;
+                }, z.core.$strict>>>;
             }, z.core.$strict>>;
             exchanges: z.ZodArray<z.ZodObject<{
                 fromBu: z.ZodString;
                 toBu: z.ZodString;
                 what: z.ZodString;
                 format: z.ZodString;
+                key: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>>;
             budget: z.ZodObject<{
                 currency: z.ZodString;
@@ -613,7 +678,27 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
             questions: z.ZodArray<z.ZodObject<{
                 question: z.ZodString;
                 unlocks: z.ZodString;
+                askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    personRef: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"owner">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"director">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"business_unit">;
+                    buSlug: z.ZodString;
+                }, z.core.$strict>], "kind">>;
             }, z.core.$strict>>;
+            sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                topic: z.ZodString;
+                status: z.ZodEnum<{
+                    partial: "partial";
+                    missing: "missing";
+                    covered: "covered";
+                }>;
+                pages: z.ZodArray<z.ZodString>;
+            }, z.core.$strict>>>;
             ifApproved: z.ZodObject<{
                 startNow: z.ZodArray<z.ZodString>;
                 startLater: z.ZodArray<z.ZodObject<{
@@ -669,6 +754,10 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -700,6 +789,11 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                     optionId: z.ZodString;
                     label: z.ZodString;
                     detail: z.ZodOptional<z.ZodString>;
+                    effect: z.ZodOptional<z.ZodEnum<{
+                        approve: "approve";
+                        request_changes: "request_changes";
+                        reject: "reject";
+                    }>>;
                 }, z.core.$strict>>;
                 requestedBy: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -768,6 +862,10 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -830,6 +928,10 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1434,10 +1536,10 @@ export declare const internalCompanyBoardOverviewContract: {
                 kind: z.ZodEnum<{
                     ricerca: "ricerca";
                     approvazione: "approvazione";
+                    mandato: "mandato";
+                    materiale: "materiale";
                     passo: "passo";
                     messaggio: "messaggio";
-                    materiale: "materiale";
-                    mandato: "mandato";
                     richiesta_modifica: "richiesta_modifica";
                     tentativo_fallito: "tentativo_fallito";
                 }>;
@@ -1710,10 +1812,10 @@ export declare const internalCompanyBoardProjectContract: {
                 kind: z.ZodEnum<{
                     ricerca: "ricerca";
                     approvazione: "approvazione";
+                    mandato: "mandato";
+                    materiale: "materiale";
                     passo: "passo";
                     messaggio: "messaggio";
-                    materiale: "materiale";
-                    mandato: "mandato";
                     richiesta_modifica: "richiesta_modifica";
                     tentativo_fallito: "tentativo_fallito";
                 }>;
@@ -1749,10 +1851,10 @@ export declare const internalCompanyBoardProjectContract: {
             kind: z.ZodEnum<{
                 ricerca: "ricerca";
                 approvazione: "approvazione";
+                mandato: "mandato";
+                materiale: "materiale";
                 passo: "passo";
                 messaggio: "messaggio";
-                materiale: "materiale";
-                mandato: "mandato";
                 richiesta_modifica: "richiesta_modifica";
                 tentativo_fallito: "tentativo_fallito";
             }>;

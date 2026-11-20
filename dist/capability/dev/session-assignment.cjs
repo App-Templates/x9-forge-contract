@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DevSessionCommitSchema = exports.DevSessionAssignmentSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
+exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = exports.DevSessionAssignmentSchema = exports.DevSessionBaseSchema = exports.DevSessionCommitSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DEV_SESSION_DELIVERY_PACKAGE_MODES = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
+exports.mandateDeliverableKeys = mandateDeliverableKeys;
+exports.devSessionDeliverableKeyProblem = devSessionDeliverableKeyProblem;
 exports.devSessionBranch = devSessionBranch;
 exports.devSessionId = devSessionId;
 exports.devSessionAssignmentCanonicalJson = devSessionAssignmentCanonicalJson;
@@ -12,6 +14,7 @@ const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const asset_js_1 = require("../../organization/asset.cjs");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
+const session_acceptance_js_1 = require("./session-acceptance.cjs");
 /**
  * Incarico di sessione di una business unit (F4): il contratto fra chi lo apre (cap-dev di X9, per conto del capo
  * BU) e chi lo esegue (l'esecutore sul laptop del proprietario). L'incarico vive nel corpo di una issue della
@@ -37,6 +40,7 @@ exports.DEV_SESSION_MAX_MATERIALS = 20;
 exports.DEV_SESSION_BLOCK_MARKER = 'x9:dev-session:v1';
 /** Una sessione produce codice o design; gli altri tipi di produzione non passano da qui. */
 exports.DevSessionKindSchema = zod_1.z.enum(['code', 'design']);
+exports.DEV_SESSION_DELIVERY_PACKAGE_MODES = ['required', 'optional'];
 const REPO_PATTERN = /^[A-Za-z0-9-]{1,39}\/(?!\.{1,2}$)[A-Za-z0-9_.-]{1,100}$/;
 /** `owner/repo` su GitHub. */
 exports.DevSessionRepoSchema = zod_1.z.string().regex(REPO_PATTERN);
@@ -72,11 +76,21 @@ exports.DevSessionMaterialSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.strictObject({ kind: zod_1.z.literal('asset'), asset: asset_js_1.AssetRefSchema, note: NoteSchema.optional() }),
     zod_1.z.strictObject({ kind: zod_1.z.literal('github_link'), url: exports.DevSessionGitHubLinkSchema, note: NoteSchema.optional() }),
 ]);
+const CommitSchema = zod_1.z.string().regex(/^[0-9a-f]{40}$/);
+exports.DevSessionCommitSchema = CommitSchema;
+const BASE_BRANCH_PATTERN = /^(?!.*\.\.)(?!.*\/\/)(?!.*\.lock(?:\/|$))(?!.*[./]$)[A-Za-z0-9][A-Za-z0-9._\/-]{0,199}$/;
+/**
+ * Where the session starts from. `ramo` is a branch of the destination repository as the executor sees it after the
+ * fetch (never a ref path, never `..`); `commit` is the SHA the executor expects to find there, so a branch that moved
+ * is refused and never replaced silently.
+ */
+exports.DevSessionBaseSchema = zod_1.z.strictObject({ ramo: zod_1.z.string().regex(BASE_BRANCH_PATTERN), commit: CommitSchema });
 /**
  * L'incarico. Tutto ciò che identifica chi lo apre (tenant, owner, organizzazione, agente, business unit) è messo da
- * cap-dev dall'identità verificata della chiamata, mai dal modello. I materiali devono essere della stessa azienda,
- * dello stesso progetto e dello stesso tenant dell'incarico, e di nessun'altra business unit: se non lo sono,
- * l'incarico non è valido, sia in apertura sia in lettura.
+ * cap-dev dall'identità verificata della chiamata, mai dal modello. Materials must come from the same tenant, company
+ * and project as the assignment; any business unit of that project may supply them, because who may read a file is
+ * decided where its bytes are copied, with the organization rule of the bridge, and only the owning unit writes.
+ * If they do not, the assignment is not valid, both when opened and when read.
  */
 exports.DevSessionAssignmentSchema = zod_1.z.strictObject({
     version: zod_1.z.literal(1),
@@ -96,7 +110,21 @@ exports.DevSessionAssignmentSchema = zod_1.z.strictObject({
     /** Il mini piano della business unit per questo incarico. */
     miniPlan: zod_1.z.string().min(3).max(20000),
     materials: zod_1.z.array(exports.DevSessionMaterialSchema).max(exports.DEV_SESSION_MAX_MATERIALS),
+    /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
+    deliverableKey: asset_js_1.AssetKeySchema.optional(),
+    /**
+     * Whether the delivery package (`CONSEGNA.json`) is due. Same meaning for `code` and `design`, no link with
+     * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
+     */
+    deliveryPackage: zod_1.z.enum(exports.DEV_SESSION_DELIVERY_PACKAGE_MODES).optional(),
+    /** Absent before 1.243.0; when present, covered by the block digest. */
+    acceptance: session_acceptance_js_1.DevSessionAcceptanceSchema.optional(),
     destination: zod_1.z.strictObject({ repo: exports.DevSessionRepoSchema }),
+    /**
+     * Absent = the assignment starts from the main branch, as before; written only when present, so the canonical json
+     * and the digest of every assignment without it are byte-identical to 1.241.0.
+     */
+    base: exports.DevSessionBaseSchema.optional(),
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 }).superRefine((assignment, ctx) => {
     assignment.materials.forEach((material, index) => {
@@ -110,10 +138,43 @@ exports.DevSessionAssignmentSchema = zod_1.z.strictObject({
             mismatch('material_foreign_company');
         else if (asset.projectId !== assignment.projectId)
             mismatch('material_foreign_project');
-        else if (asset.buSlug !== undefined && asset.buSlug !== assignment.businessUnit.slug)
-            mismatch('material_foreign_business_unit');
     });
 });
+/**
+ * The deliverable keys a mandate hands to its business unit, in plan order: for a product plan the breakdown items the
+ * unit works on, otherwise the unit's own sections.
+ */
+function mandateDeliverableKeys(mandate) {
+    const { workBreakdown, businessUnit } = mandate.planSection;
+    if (mandate.planSection.deliveryShape === 'product' && workBreakdown !== undefined) {
+        return workBreakdown
+            .filter((item) => item.owners.some((owner) => owner.buSlug === businessUnit.buSlug))
+            .map((item) => item.id);
+    }
+    return (businessUnit.sections ?? []).map((section) => section.id);
+}
+exports.DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = [
+    'deliverable_key_missing',
+    'mandate_foreign_scope',
+    'mandate_foreign_business_unit',
+    'mandate_without_deliverables',
+    'deliverable_key_not_in_mandate',
+];
+/** First reason why the assignment's deliverable key does not come from this mandate, or `null` when it does. */
+function devSessionDeliverableKeyProblem(assignment, mandate) {
+    if (assignment.deliverableKey === undefined)
+        return 'deliverable_key_missing';
+    if (mandate.tenantId !== assignment.tenantId
+        || mandate.organizationId !== assignment.organizationId
+        || mandate.projectId !== assignment.projectId)
+        return 'mandate_foreign_scope';
+    if (mandate.planSection.businessUnit.buSlug !== assignment.businessUnit.slug)
+        return 'mandate_foreign_business_unit';
+    const keys = mandateDeliverableKeys(mandate);
+    if (keys.length === 0)
+        return 'mandate_without_deliverables';
+    return keys.includes(assignment.deliverableKey) ? null : 'deliverable_key_not_in_mandate';
+}
 /** Ramo di consegna dell'incarico aperto come issue `issueNumber`. */
 function devSessionBranch(issueNumber) {
     if (!Number.isSafeInteger(issueNumber) || issueNumber < 1)
@@ -187,8 +248,6 @@ function parseDevSessionBlock(body) {
 }
 // -- Consegna ------------------------------------------------------------------------------------------------------
 const Sha256Schema = zod_1.z.string().regex(/^[0-9a-f]{64}$/);
-const CommitSchema = zod_1.z.string().regex(/^[0-9a-f]{40}$/);
-exports.DevSessionCommitSchema = CommitSchema;
 /** Percorso relativo nel ramo di consegna: né assoluto, né con `..`, né con segmenti vuoti o con la barra inversa. */
 const DeliveredPathSchema = zod_1.z.string().min(1).max(1024).refine((path) => {
     if (path.startsWith('/') || path.includes('\\'))

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanBuObjectiveSchema = exports.ActionPlanProjectObjectiveSchema = exports.ActionPlanObjectiveSchema = exports.ActionPlanDossierPageSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanWorkBreakdownSchema = exports.ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = exports.ActionPlanWorkItemSchema = exports.ActionPlanWorkItemOwnerSchema = exports.ActionPlanDeliveryShapeSchema = exports.ACTION_PLAN_DELIVERY_SHAPES = exports.ActionPlanBuSectionSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanBuObjectiveSchema = exports.ActionPlanProjectObjectiveSchema = exports.ActionPlanObjectiveSchema = exports.ActionPlanDossierPageSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanSourceCoverageSchema = exports.ACTION_PLAN_SOURCE_COVERAGE_STATUSES = exports.ActionPlanQuestionSchema = exports.ActionPlanQuestionAddresseeSchema = exports.ActionPlanExchangeSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanSignOffSchema = exports.ACTION_PLAN_SIGN_OFF_FORMS = exports.ACTION_PLAN_SIGN_OFF_SIGNERS = exports.ActionPlanGapRuleSchema = exports.ACTION_PLAN_GAP_RULES = exports.ActionPlanWorkBreakdownSchema = exports.ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = exports.ActionPlanWorkItemSchema = exports.ActionPlanWorkItemOwnerSchema = exports.ActionPlanDeliveryShapeSchema = exports.ACTION_PLAN_DELIVERY_SHAPES = exports.ActionPlanBuSectionSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
 exports.canonicalJson = canonicalJson;
 exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
@@ -70,6 +70,18 @@ exports.ActionPlanWorkItemSchema = zod_1.z.strictObject({
 });
 exports.ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = 60;
 exports.ActionPlanWorkBreakdownSchema = zod_1.z.array(exports.ActionPlanWorkItemSchema).min(1).max(exports.ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS).refine((items) => new Set(items.map((item) => item.id)).size === items.length, { message: 'Work breakdown item ids must be unique' }).describe("L'alberatura del progetto (solo `product`): tutte le sezioni che l'utente userà, comprese errori, dati mancanti e misura, con le BU che ci lavorano. È la fonte delle cose da costruire: i mini-brief delle BU la ereditano.");
+/** What the lead does where a source is missing: mark the point «da verificare» and go on, or stop and ask. */
+exports.ACTION_PLAN_GAP_RULES = ['mark_and_proceed', 'stop_and_ask'];
+exports.ActionPlanGapRuleSchema = zod_1.z.enum(exports.ACTION_PLAN_GAP_RULES)
+    .describe('dove manca una fonte: `mark_and_proceed` segna «da verificare» e prosegue, `stop_and_ask` si ferma e chiede');
+exports.ACTION_PLAN_SIGN_OFF_SIGNERS = ['referent', 'director', 'owner'];
+exports.ACTION_PLAN_SIGN_OFF_FORMS = ['decision_request'];
+/** A piece of the unit that needs a formal sign-off, who signs and how (the only form is the e-mail decision request). */
+exports.ActionPlanSignOffSchema = zod_1.z.strictObject({
+    key: SlugSchema(1, 40).describe('la chiave del pezzo da firmare: id di una sezione della BU o di una voce dell’alberatura di cui è fra gli owner'),
+    signer: zod_1.z.enum(exports.ACTION_PLAN_SIGN_OFF_SIGNERS),
+    form: zod_1.z.literal(exports.ACTION_PLAN_SIGN_OFF_FORMS[0]),
+});
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 exports.ActionPlanBusinessUnitSchema = zod_1.z.strictObject({
     buSlug: SlugSchema(1, 30),
@@ -90,11 +102,40 @@ exports.ActionPlanBusinessUnitSchema = zod_1.z.strictObject({
     sections: zod_1.z.array(exports.ActionPlanBuSectionSchema).min(1).max(20).refine((sections) => new Set(sections.map((section) => section.id)).size === sections.length, { message: 'Section ids must be unique within the business unit' }).optional().describe('Le sezioni che questa BU costruisce dopo l’approvazione: la missione scomposta per questa BU, ognuna con cosa potrà fare l’utente. È il mini-brief che il capo riceve nel Mandato.'),
     roleAgents: zod_1.z.array(exports.ActionPlanRoleAgentSchema).max(20).optional(),
     start: exports.ActionPlanBuStartSchema,
+    gapRule: exports.ActionPlanGapRuleSchema.optional(),
+    signOffs: zod_1.z.array(exports.ActionPlanSignOffSchema).min(1).max(20).refine((signOffs) => new Set(signOffs.map((signOff) => signOff.key)).size === signOffs.length, { message: 'Sign-off keys must be unique within the business unit' }).optional().describe('i pezzi della BU che vanno firmati: quale, da chi, in che forma'),
 });
 const TextSchema = zod_1.z.string().min(1).max(2000);
 const BuSlugSchema = SlugSchema(1, 30);
 const MilestoneNumberSchema = zod_1.z.number().int().min(1);
 const DeliveryCriteriaSchema = zod_1.z.array(TextSchema).min(1).max(20);
+/** A delivery from one business unit to another; `key` names the piece handed over. */
+exports.ActionPlanExchangeSchema = zod_1.z.strictObject({
+    fromBu: BuSlugSchema,
+    toBu: BuSlugSchema,
+    what: TextSchema,
+    format: TextSchema,
+    key: SlugSchema(1, 40).optional().describe('la chiave del pezzo che passa: id di una sezione o di una voce dell’alberatura'),
+});
+/** Who an open question goes to. */
+exports.ActionPlanQuestionAddresseeSchema = zod_1.z.discriminatedUnion('kind', [
+    zod_1.z.strictObject({ kind: zod_1.z.literal('referent'), personRef: SlugSchema(1, 40) }),
+    zod_1.z.strictObject({ kind: zod_1.z.literal('owner') }),
+    zod_1.z.strictObject({ kind: zod_1.z.literal('director') }),
+    zod_1.z.strictObject({ kind: zod_1.z.literal('business_unit'), buSlug: BuSlugSchema }),
+]);
+exports.ActionPlanQuestionSchema = zod_1.z.strictObject({
+    question: TextSchema,
+    unlocks: TextSchema,
+    askTo: exports.ActionPlanQuestionAddresseeSchema.optional().describe('a chi va la domanda'),
+});
+exports.ACTION_PLAN_SOURCE_COVERAGE_STATUSES = ['covered', 'partial', 'missing'];
+/** How well the dossier covers a topic the plan depends on. */
+exports.ActionPlanSourceCoverageSchema = zod_1.z.strictObject({
+    topic: zod_1.z.string().min(1).max(200),
+    status: zod_1.z.enum(exports.ACTION_PLAN_SOURCE_COVERAGE_STATUSES),
+    pages: zod_1.z.array(wiki_js_1.WikiPageSchema.shape.slug).max(10).describe('le pagine del dossier che ne parlano'),
+});
 /** A person the plan proposes for the client company map; written only when the owner approves this plan version. */
 exports.ActionPlanReferentProposalSchema = zod_1.z.strictObject({
     personRef: SlugSchema(1, 40),
@@ -166,12 +207,7 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
     })).min(1).max(50),
     criticalPath: zod_1.z.array(zod_1.z.number().int()).min(1).max(50),
     businessUnits: zod_1.z.array(exports.ActionPlanBusinessUnitSchema).min(1).max(20),
-    exchanges: zod_1.z.array(zod_1.z.strictObject({
-        fromBu: BuSlugSchema,
-        toBu: BuSlugSchema,
-        what: TextSchema,
-        format: TextSchema,
-    })),
+    exchanges: zod_1.z.array(exports.ActionPlanExchangeSchema),
     budget: zod_1.z.strictObject({
         currency: TextSchema,
         total: zod_1.z.number().min(0),
@@ -186,7 +222,9 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
         blocks: zod_1.z.strictObject({ buSlug: BuSlugSchema, milestone: MilestoneNumberSchema }).optional(),
         neededBy: zod_1.z.iso.date().optional(),
     })),
-    questions: zod_1.z.array(zod_1.z.strictObject({ question: TextSchema, unlocks: TextSchema })),
+    questions: zod_1.z.array(exports.ActionPlanQuestionSchema),
+    sourceCoverage: zod_1.z.array(exports.ActionPlanSourceCoverageSchema).max(50).optional()
+        .describe('quanto il dossier copre gli argomenti da cui dipende il piano'),
     ifApproved: zod_1.z.strictObject({
         startNow: zod_1.z.array(BuSlugSchema),
         startLater: zod_1.z.array(zod_1.z.strictObject({ buSlug: BuSlugSchema, after: TextSchema })),
@@ -283,6 +321,55 @@ exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema.superRefine((
                     });
                 }
             });
+        });
+    });
+    const pieceKeys = new Set([
+        ...plan.businessUnits.flatMap((unit) => unit.sections?.map((section) => section.id) ?? []),
+        ...(plan.workBreakdown?.map((item) => item.id) ?? []),
+    ]);
+    plan.businessUnits.forEach((unit, index) => {
+        const unitKeys = new Set([
+            ...(unit.sections?.map((section) => section.id) ?? []),
+            ...(plan.workBreakdown?.filter((item) => item.owners.some((owner) => owner.buSlug === unit.buSlug)).map((item) => item.id) ?? []),
+        ]);
+        unit.signOffs?.forEach((signOff, position) => {
+            if (!unitKeys.has(signOff.key)) {
+                ctx.addIssue({
+                    code: 'custom',
+                    path: ['businessUnits', index, 'signOffs', position, 'key'],
+                    message: `Business unit ${unit.buSlug}: sign-off key ${signOff.key} is neither a section of the unit nor a work breakdown item it owns`,
+                });
+            }
+        });
+    });
+    plan.exchanges.forEach((exchange, index) => {
+        if (exchange.key !== undefined && !pieceKeys.has(exchange.key)) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['exchanges', index, 'key'],
+                message: `Exchange key ${exchange.key} is neither a section nor a work breakdown item of the plan`,
+            });
+        }
+    });
+    plan.questions.forEach((question, index) => {
+        if (question.askTo?.kind === 'business_unit' && !businessUnitSlugs.has(question.askTo.buSlug)) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['questions', index, 'askTo', 'buSlug'],
+                message: `Question is addressed to ${question.askTo.buSlug}, which is not a business unit of the plan`,
+            });
+        }
+    });
+    const dossierSlugs = new Set(plan.dossier?.map((page) => page.slug));
+    plan.sourceCoverage?.forEach((entry, index) => {
+        entry.pages.forEach((slug, position) => {
+            if (!dossierSlugs.has(slug)) {
+                ctx.addIssue({
+                    code: 'custom',
+                    path: ['sourceCoverage', index, 'pages', position],
+                    message: `Source coverage page ${slug} is not in the dossier`,
+                });
+            }
         });
     });
     if (shape === 'study' && plan.workBreakdown !== undefined) {

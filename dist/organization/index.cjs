@@ -39,6 +39,8 @@ __exportStar(require("./business-unit-lead.cjs"), exports);
 __exportStar(require("./agent-role.cjs"), exports);
 __exportStar(require("./decision-request.cjs"), exports);
 __exportStar(require("./asset.cjs"), exports);
+__exportStar(require("./asset-version.cjs"), exports);
+__exportStar(require("./business-unit-state.cjs"), exports);
 __exportStar(require("./shared-mailbox.cjs"), exports);
 __exportStar(require("./business-unit-type.cjs"), exports);
 __exportStar(require("./action-plan.cjs"), exports);
@@ -54,4 +56,5 @@ __exportStar(require("./company-board-director-summary.cjs"), exports);
 __exportStar(require("./company-board-unit-actions.cjs"), exports);
 __exportStar(require("./agent-request.cjs"), exports);
 __exportStar(require("./project-delivery.cjs"), exports);
+__exportStar(require("./organization-access.cjs"), exports);
 //# sourceMappingURL=index.js.map

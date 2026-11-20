@@ -154,12 +154,26 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
                     delivery: z.ZodString;
                 }, z.core.$strict>;
             }, z.core.$strict>], "kind">;
+            gapRule: z.ZodOptional<z.ZodEnum<{
+                mark_and_proceed: "mark_and_proceed";
+                stop_and_ask: "stop_and_ask";
+            }>>;
+            signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodString;
+                signer: z.ZodEnum<{
+                    owner: "owner";
+                    director: "director";
+                    referent: "referent";
+                }>;
+                form: z.ZodLiteral<"decision_request">;
+            }, z.core.$strict>>>;
         }, z.core.$strict>>;
         exchanges: z.ZodArray<z.ZodObject<{
             fromBu: z.ZodString;
             toBu: z.ZodString;
             what: z.ZodString;
             format: z.ZodString;
+            key: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;
         budget: z.ZodObject<{
             currency: z.ZodString;
@@ -188,7 +202,27 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
         questions: z.ZodArray<z.ZodObject<{
             question: z.ZodString;
             unlocks: z.ZodString;
+            askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                personRef: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"owner">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"director">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"business_unit">;
+                buSlug: z.ZodString;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>>;
+        sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            topic: z.ZodString;
+            status: z.ZodEnum<{
+                partial: "partial";
+                missing: "missing";
+                covered: "covered";
+            }>;
+            pages: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>>>;
         ifApproved: z.ZodObject<{
             startNow: z.ZodArray<z.ZodString>;
             startLater: z.ZodArray<z.ZodObject<{
@@ -380,12 +414,26 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
                     delivery: z.ZodString;
                 }, z.core.$strict>;
             }, z.core.$strict>], "kind">;
+            gapRule: z.ZodOptional<z.ZodEnum<{
+                mark_and_proceed: "mark_and_proceed";
+                stop_and_ask: "stop_and_ask";
+            }>>;
+            signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodString;
+                signer: z.ZodEnum<{
+                    owner: "owner";
+                    director: "director";
+                    referent: "referent";
+                }>;
+                form: z.ZodLiteral<"decision_request">;
+            }, z.core.$strict>>>;
         }, z.core.$strict>>;
         exchanges: z.ZodArray<z.ZodObject<{
             fromBu: z.ZodString;
             toBu: z.ZodString;
             what: z.ZodString;
             format: z.ZodString;
+            key: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;
         budget: z.ZodObject<{
             currency: z.ZodString;
@@ -414,7 +462,27 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
         questions: z.ZodArray<z.ZodObject<{
             question: z.ZodString;
             unlocks: z.ZodString;
+            askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                personRef: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"owner">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"director">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"business_unit">;
+                buSlug: z.ZodString;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>>;
+        sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            topic: z.ZodString;
+            status: z.ZodEnum<{
+                partial: "partial";
+                missing: "missing";
+                covered: "covered";
+            }>;
+            pages: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>>>;
         ifApproved: z.ZodObject<{
             startNow: z.ZodArray<z.ZodString>;
             startLater: z.ZodArray<z.ZodObject<{
@@ -449,13 +517,14 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
     status: z.ZodLiteral<"not_found">;
 }, z.core.$strict>], "status">;
 export type ActionPlanReadResponse = z.infer<typeof ActionPlanReadResponseSchema>;
-export declare const ACTION_PLAN_ERROR_CODES: readonly ["action_plan_conflict", "action_plan_digest_mismatch", "action_plan_scope_mismatch", "identity_uncertain", "action_plan_referent_version_mismatch"];
+export declare const ACTION_PLAN_ERROR_CODES: readonly ["action_plan_conflict", "action_plan_digest_mismatch", "action_plan_scope_mismatch", "identity_uncertain", "action_plan_referent_version_mismatch", "referent_email_not_declared"];
 export declare const ActionPlanErrorCodeSchema: z.ZodEnum<{
     identity_uncertain: "identity_uncertain";
     action_plan_conflict: "action_plan_conflict";
     action_plan_digest_mismatch: "action_plan_digest_mismatch";
     action_plan_scope_mismatch: "action_plan_scope_mismatch";
     action_plan_referent_version_mismatch: "action_plan_referent_version_mismatch";
+    referent_email_not_declared: "referent_email_not_declared";
 }>;
 export type ActionPlanErrorCode = z.infer<typeof ActionPlanErrorCodeSchema>;
 /**
@@ -475,6 +544,7 @@ export declare const ActionPlanErrorResponseSchema: z.ZodObject<{
         action_plan_digest_mismatch: "action_plan_digest_mismatch";
         action_plan_scope_mismatch: "action_plan_scope_mismatch";
         action_plan_referent_version_mismatch: "action_plan_referent_version_mismatch";
+        referent_email_not_declared: "referent_email_not_declared";
     }>;
     message: z.ZodString;
     details: z.ZodOptional<z.ZodObject<{
@@ -641,12 +711,26 @@ export declare const internalMemoryActionPlanSaveContract: {
                         delivery: z.ZodString;
                     }, z.core.$strict>;
                 }, z.core.$strict>], "kind">;
+                gapRule: z.ZodOptional<z.ZodEnum<{
+                    mark_and_proceed: "mark_and_proceed";
+                    stop_and_ask: "stop_and_ask";
+                }>>;
+                signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodString;
+                    signer: z.ZodEnum<{
+                        owner: "owner";
+                        director: "director";
+                        referent: "referent";
+                    }>;
+                    form: z.ZodLiteral<"decision_request">;
+                }, z.core.$strict>>>;
             }, z.core.$strict>>;
             exchanges: z.ZodArray<z.ZodObject<{
                 fromBu: z.ZodString;
                 toBu: z.ZodString;
                 what: z.ZodString;
                 format: z.ZodString;
+                key: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>>;
             budget: z.ZodObject<{
                 currency: z.ZodString;
@@ -675,7 +759,27 @@ export declare const internalMemoryActionPlanSaveContract: {
             questions: z.ZodArray<z.ZodObject<{
                 question: z.ZodString;
                 unlocks: z.ZodString;
+                askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    personRef: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"owner">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"director">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"business_unit">;
+                    buSlug: z.ZodString;
+                }, z.core.$strict>], "kind">>;
             }, z.core.$strict>>;
+            sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                topic: z.ZodString;
+                status: z.ZodEnum<{
+                    partial: "partial";
+                    missing: "missing";
+                    covered: "covered";
+                }>;
+                pages: z.ZodArray<z.ZodString>;
+            }, z.core.$strict>>>;
             ifApproved: z.ZodObject<{
                 startNow: z.ZodArray<z.ZodString>;
                 startLater: z.ZodArray<z.ZodObject<{
@@ -870,12 +974,26 @@ export declare const internalMemoryActionPlanReadContract: {
                         delivery: z.ZodString;
                     }, z.core.$strict>;
                 }, z.core.$strict>], "kind">;
+                gapRule: z.ZodOptional<z.ZodEnum<{
+                    mark_and_proceed: "mark_and_proceed";
+                    stop_and_ask: "stop_and_ask";
+                }>>;
+                signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodString;
+                    signer: z.ZodEnum<{
+                        owner: "owner";
+                        director: "director";
+                        referent: "referent";
+                    }>;
+                    form: z.ZodLiteral<"decision_request">;
+                }, z.core.$strict>>>;
             }, z.core.$strict>>;
             exchanges: z.ZodArray<z.ZodObject<{
                 fromBu: z.ZodString;
                 toBu: z.ZodString;
                 what: z.ZodString;
                 format: z.ZodString;
+                key: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>>;
             budget: z.ZodObject<{
                 currency: z.ZodString;
@@ -904,7 +1022,27 @@ export declare const internalMemoryActionPlanReadContract: {
             questions: z.ZodArray<z.ZodObject<{
                 question: z.ZodString;
                 unlocks: z.ZodString;
+                askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    personRef: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"owner">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"director">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"business_unit">;
+                    buSlug: z.ZodString;
+                }, z.core.$strict>], "kind">>;
             }, z.core.$strict>>;
+            sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                topic: z.ZodString;
+                status: z.ZodEnum<{
+                    partial: "partial";
+                    missing: "missing";
+                    covered: "covered";
+                }>;
+                pages: z.ZodArray<z.ZodString>;
+            }, z.core.$strict>>>;
             ifApproved: z.ZodObject<{
                 startNow: z.ZodArray<z.ZodString>;
                 startLater: z.ZodArray<z.ZodObject<{

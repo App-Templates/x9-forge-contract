@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AssetRefSchema = exports.AssetOriginSchema = exports.AssetTypeSchema = exports.AssetSha256Schema = exports.ASSET_ORIGIN_KINDS = void 0;
+exports.PAPERCLIP_PROJECT_ID_REFUSAL_REASON = exports.PAPERCLIP_PROJECT_ID_REFUSAL = exports.AssetRefSchema = exports.AssetOriginSchema = exports.AssetVersionRefSchema = exports.AssetKeySchema = exports.AssetTypeSchema = exports.AssetSha256Schema = exports.ASSET_ORIGIN_KINDS = void 0;
+exports.isPaperclipProjectId = isPaperclipProjectId;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const business_unit_lead_js_1 = require("./business-unit-lead.cjs");
@@ -8,6 +9,17 @@ exports.ASSET_ORIGIN_KINDS = ['email', 'archive', 'session', 'link', 'generated'
 exports.AssetSha256Schema = zod_1.z.string().regex(/^[0-9a-f]{64}$/);
 /** Kind of a company asset (logo, brand-book, price-list...), lowercase slug. */
 exports.AssetTypeSchema = zod_1.z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+/**
+ * Stable key of a deliverable piece: the id of the section or breakdown item of the approved action plan, inherited
+ * through the mandate. Never chosen by the session or by the model, so every new delivery of the same piece can be
+ * chained to the previous one.
+ */
+exports.AssetKeySchema = zod_1.z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+/** Reference to one version of a deliverable piece. */
+exports.AssetVersionRefSchema = zod_1.z.strictObject({
+    key: exports.AssetKeySchema,
+    version: zod_1.z.number().int().min(1),
+});
 const AssetIdSchema = zod_1.z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 /** Provenance of a company file, without embedding its contents. */
 exports.AssetOriginSchema = zod_1.z.discriminatedUnion('kind', [
@@ -66,4 +78,12 @@ exports.AssetRefSchema = zod_1.z.strictObject({
     providedBy: zod_1.z.strictObject({ personRef: exports.AssetTypeSchema }).optional(),
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 });
+/** Refusal code for a `projectId` that is the Paperclip project identifier (a UUID), not the project key. */
+exports.PAPERCLIP_PROJECT_ID_REFUSAL = 'project_id_paperclip';
+/** True only for a string shaped like a UUID (either case): the Paperclip project id, never a project key. */
+function isPaperclipProjectId(value) {
+    return typeof value === 'string' && zod_1.z.guid().safeParse(value).success;
+}
+/** Fixed refusal sentence; starts with the code and never contains the received value. */
+exports.PAPERCLIP_PROJECT_ID_REFUSAL_REASON = `${exports.PAPERCLIP_PROJECT_ID_REFUSAL}: il projectId passato è l'identificativo del progetto in Paperclip, non la chiave del progetto; usa la chiave scritta nella riga «Progetto:» del Mandato e richiama: non è stato fatto nulla`;
 //# sourceMappingURL=asset.js.map

@@ -1,10 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
+import { readFileSync } from 'node:fs';
 import {
-  PAPERCLIP_NATIVE_WAIT_TOOLS, PAPERCLIP_TOOLS, PaperclipCheckLaterInputSchema as CheckLater,
+  PAPERCLIP_ASK_QUESTION_ID, PAPERCLIP_INTERACTION_PENDING_WAKE, PaperclipAnswerInteractionBodySchema,
+  PaperclipAskInteractionBodySchema, PaperclipNativeAssignInputSchema as NativeAssign,
+  PaperclipNativeAssignRefInputSchema as NativeAssignRef, paperclipAnswerInteractionBody,
+  paperclipAskIdempotencyKey, paperclipAskInteractionBody,
+  PAPERCLIP_CHECK_LATER_MAX_SECONDS, PAPERCLIP_NATIVE_WAIT_TOOLS, PAPERCLIP_TOOLS, PaperclipCheckLaterInputSchema as CheckLater,
   PaperclipCheckLaterOutputSchema as CheckLaterOutput, PaperclipCreateIssueInputSchema as Create,
   PaperclipNativeCreateIssueInputSchema as NativeCreate, PaperclipNativeReviewInputSchema as NativeReview,
-  PaperclipReviewInputSchema as Review,
+  PaperclipReviewInputSchema as Review, PAPERCLIP_WAIT_REFUSALS, PAPERCLIP_WAIT_UNBLOCKERS, paperclipUnblockDescriptor,
+  PAPERCLIP_WAIT_REF_KINDS, PaperclipWaitRefSchema, PaperclipWaitsOnSchema, paperclipWaitRefKey,
+  PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS, PaperclipFollowUpSchema, PAPERCLIP_MONITOR_RECOVERY_POLICIES,
+  paperclipMonitorBounds, PAPERCLIP_MONITOR_EXHAUSTED_TEXT, isPaperclipMonitorExhausted,
 } from '../src/capability/paperclip/index.js';
 
 const issueId = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
@@ -22,7 +30,7 @@ describe('native review: blocked says what it waits for (P-04)', () => {
   it('accepts blocked with the tasks it waits for or with the action the agent owns', () => {
     const blockers = { issueId, status: 'blocked', blockedByIssueIds: [child, other] };
     expect(NativeReview.parse(blockers)).toEqual(blockers);
-    const external = { issueId, status: 'blocked', waitingFor: { action: 'Il referente manda gli accessi' }, comment: 'In attesa' };
+    const external = { issueId, status: 'blocked', waitingFor: { action: 'Il referente manda gli accessi', unblockedBy: 'external' }, comment: 'In attesa' };
     expect(NativeReview.parse(external)).toEqual(external);
   });
   it('refuses a wait reason without blocked', () => {
@@ -89,9 +97,10 @@ describe('check later: a one-shot Paperclip monitor (P-15)', () => {
   it('accepts a bounded delay and Paperclip-sized notes', () => {
     const input = { issueId, afterSeconds: 120, notes: 'Controllo lo stato della ricerca', serviceName: 'cap-ricerca' };
     expect(CheckLater.parse(input)).toEqual(input);
+    expect(CheckLater.parse({ ...input, afterSeconds: 3601 })).toEqual({ ...input, afterSeconds: 3601 });
   });
-  it('refuses delays outside 30..3600 s, oversized notes or service names, extra keys', () => {
-    for (const afterSeconds of [29, 3601, 1.5]) {
+  it('refuses delays outside 30..PAPERCLIP_CHECK_LATER_MAX_SECONDS s, oversized notes or service names, extra keys', () => {
+    for (const afterSeconds of [29, PAPERCLIP_CHECK_LATER_MAX_SECONDS + 1, 1.5]) {
       expect(CheckLater.safeParse({ issueId, afterSeconds, notes: 'x' }).success).toBe(false);
     }
     expect(CheckLater.safeParse({ issueId, afterSeconds: 60, notes: 'x'.repeat(501) }).success).toBe(false);
@@ -110,6 +119,256 @@ describe('check later: a one-shot Paperclip monitor (P-15)', () => {
   it('produces JSON schemas for a manifest', () => {
     for (const schema of [NativeReview, NativeCreate, CheckLater]) {
       expect(z.toJSONSchema(schema)).toMatchObject({ type: 'object' });
+    }
+  });
+});
+
+describe('s7275 chiedi-a-un-agente: ask in review and the answer in assign', () => {
+  const ask = { roleRef: 'director', question: 'Quale ambiente uso per la prova?' };
+  const issueRef = 'SOC-12';
+
+  it('(a) accepts ask only with in_review and no other wait', () => {
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask }).success).toBe(true);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', comment: 'Serve una decisione', ask }).success).toBe(true);
+    for (const status of ['done', 'blocked', 'in_progress']) {
+      expect(NativeReview.safeParse({ issueId, status, ask }).success).toBe(false);
+    }
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask, waitingFor: { action: 'x' } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask, blockedByIssueIds: [child] }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask, checkLater: { afterSeconds: 60, notes: 'x' } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, roleRef: '' } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, question: '' } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, question: 'q'.repeat(2001) } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, question: 'q'.repeat(2000) } }).success).toBe(true);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review', ask: { ...ask, extra: 1 } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_review' }).success).toBe(true);
+  });
+
+  it('(b) assign carries answersInteractionId only with the answer text', () => {
+    const base = { issueId, roleRef: 'sviluppo' };
+    for (const schema of [NativeAssign]) {
+      expect(schema.safeParse({ ...base, answersInteractionId: other, comment: 'Usa lo staging' }).success).toBe(true);
+      expect(schema.safeParse({ ...base, answersInteractionId: other }).success).toBe(false);
+      expect(schema.safeParse({ ...base, answersInteractionId: 'non-uuid', comment: 'x' }).success).toBe(false);
+      expect(schema.safeParse({ ...base, answersInteractionId: other, comment: 'x'.repeat(4001) }).success).toBe(false);
+      expect(schema.safeParse({ ...base, comment: 'x', surprise: 1 }).success).toBe(false);
+      expect(schema.safeParse(base).success).toBe(true);
+      expect(schema.safeParse({ ...base, comment: 'x' }).success).toBe(true);
+    }
+    const ref = { issueId: issueRef, roleRef: 'sviluppo' };
+    expect(NativeAssignRef.safeParse({ ...ref, answersInteractionId: other, comment: 'ok' }).success).toBe(true);
+    expect(NativeAssignRef.safeParse({ ...ref, answersInteractionId: other }).success).toBe(false);
+    expect(NativeAssignRef.safeParse(ref).success).toBe(true);
+    expect(NativeAssignRef.safeParse({ ...ref, answersInteractionId: other, comment: 'ok', surprise: 1 }).success).toBe(false);
+  });
+
+  it('(c) builds the Paperclip creation body with two equal views and no resolverPolicy', () => {
+    const key = paperclipAskIdempotencyKey(issueId, 'call-1');
+    expect(key).toBe(`ask:${issueId}:call-1`);
+    const body = paperclipAskInteractionBody({ question: ask.question, addresseeAgentId: child, idempotencyKey: key });
+    expect(PaperclipAskInteractionBodySchema.parse(body)).toEqual(body);
+    expect(Object.keys(body)).not.toContain('resolverPolicy');
+    expect(body.kind).toBe('ask_user_questions');
+    expect(body.continuationPolicy).toBe('wake_assignee');
+    expect(body.addresseeAgentId).toBe(child);
+    const [set] = body.payload.questionSet.questions;
+    const [view] = body.payload.questions;
+    expect(set).toMatchObject({ id: PAPERCLIP_ASK_QUESTION_ID, prompt: ask.question, required: true });
+    expect(view).toMatchObject({ id: set?.id, prompt: set?.prompt, required: set?.required });
+    expect(view?.options).toHaveLength(1);
+    expect(view?.options[0]?.freeText).toBe(true);
+    expect(PaperclipAskInteractionBodySchema.safeParse({ ...body, resolverPolicy: 'human_only' }).success).toBe(false);
+    expect(PaperclipAskInteractionBodySchema.safeParse({ ...body, addresseeAgentId: 'nope' }).success).toBe(false);
+    const diverging = { ...body, payload: { ...body.payload, questions: [{ ...view, prompt: 'altro' }] } };
+    expect(PaperclipAskInteractionBodySchema.safeParse(diverging).success).toBe(false);
+    expect(() => paperclipAskInteractionBody({ question: '', addresseeAgentId: child, idempotencyKey: key })).toThrow();
+    expect(() => paperclipAskInteractionBody({ question: 'q'.repeat(2001), addresseeAgentId: child, idempotencyKey: key })).toThrow();
+    expect(() => paperclipAskInteractionBody({ question: 'q', addresseeAgentId: child, idempotencyKey: 'k'.repeat(256) })).toThrow();
+    expect(() => paperclipAskIdempotencyKey(issueId, 'c'.repeat(300))).toThrow();
+    expect(PAPERCLIP_INTERACTION_PENDING_WAKE).toBe('interaction_pending');
+  });
+
+  it('(d) builds the answer body: trimmed text, empty optionIds, bounded', () => {
+    const body = paperclipAnswerInteractionBody('  Usa lo staging \n');
+    expect(body).toEqual({ answers: [{ questionId: PAPERCLIP_ASK_QUESTION_ID, optionIds: [], otherText: 'Usa lo staging' }] });
+    expect(PaperclipAnswerInteractionBodySchema.parse(body)).toEqual(body);
+    expect(() => paperclipAnswerInteractionBody('   ')).toThrow();
+    expect(() => paperclipAnswerInteractionBody('')).toThrow();
+    expect(() => paperclipAnswerInteractionBody('x'.repeat(4001))).toThrow();
+    expect(paperclipAnswerInteractionBody('x'.repeat(4000)).answers[0]?.otherText).toHaveLength(4000);
+    expect(paperclipAnswerInteractionBody(`${' '.repeat(10)}${'x'.repeat(4000)}`).answers[0]?.otherText).toHaveLength(4000);
+  });
+});
+
+describe('s7290 attesa-dichiarata: the wait says who unblocks it (closed list, text never read)', () => {
+  const agentId = 'f13dd515-1bad-4e0d-a697-7d19bfac6200';
+  const labAction = 'ripristino del servizio Lab per ingestione e pubblicazione dei risultati delle ricerche';
+  // Paperclip's strict unblock descriptor (validators/issue.ts:693-704), copied here: owner by agentId, action text, nothing else.
+  const PaperclipDescriptor = z.strictObject({ owner: z.strictObject({ agentId: z.uuid() }), action: z.string().min(1) });
+
+  it('(a) the lists are closed and exact', () => {
+    expect([...PAPERCLIP_WAIT_UNBLOCKERS]).toEqual(['self', 'external', 'company_agent']);
+    expect([...PAPERCLIP_WAIT_REFUSALS]).toEqual(['wait_for_company_agent']);
+  });
+  it('(b) unblockedBy is mandatory and only the three values pass', () => {
+    for (const unblockedBy of PAPERCLIP_WAIT_UNBLOCKERS) {
+      expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor: { action: 'x', unblockedBy } }).success).toBe(true);
+    }
+    for (const waitingFor of [{ action: 'x' }, { action: 'x', unblockedBy: 'board' }, { action: 'x', unblockedBy: 'user' },
+      { action: 'x', unblockedBy: 'Self' }, { action: 'x', unblockedBy: '' }, { action: 'x', unblockedBy: 'self', extra: 1 }]) {
+      expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor }).success).toBe(false);
+    }
+  });
+  it('(c) self and external give the descriptor X9 stores today (same keys, same order, strict Paperclip schema)', () => {
+    // Shapes copied from X9 director-lab-production-seats.test.ts:93 (Lab action) and director-ask-resume.test.ts:23.
+    for (const action of [labAction, 'Il referente manda gli accessi']) {
+      for (const unblockedBy of ['self', 'external'] as const) {
+        const out = paperclipUnblockDescriptor({ action, unblockedBy }, agentId);
+        expect(out).toEqual({ ok: true, descriptor: { owner: { agentId }, action } });
+        if (!out.ok) throw new Error('unexpected refusal');
+        expect(JSON.stringify(out.descriptor)).toBe(JSON.stringify({ owner: { agentId }, action }));
+        expect(Object.keys(out.descriptor)).toEqual(['owner', 'action']);
+        expect(PaperclipDescriptor.safeParse(out.descriptor).success).toBe(true);
+      }
+    }
+  });
+  it('(d) company_agent is refused with its reason and no descriptor, whatever the action says', () => {
+    for (const action of ['aspetto me stesso', 'aspetto il Director', labAction]) {
+      const out = paperclipUnblockDescriptor({ action, unblockedBy: 'company_agent' }, agentId);
+      expect(out).toEqual({ ok: false, refusal: 'wait_for_company_agent' });
+      expect('descriptor' in out).toBe(false);
+    }
+  });
+  it('(e) a non-uuid agentId throws', () => {
+    for (const bad of ['', 'director', '123']) {
+      expect(() => paperclipUnblockDescriptor({ action: 'x', unblockedBy: 'self' }, bad)).toThrow();
+    }
+  });
+});
+
+describe('s7292 attesa-con-legame: waitsOn names the decisions and researches a wait expects', () => {
+  const dec = { kind: 'decision', requestId: 'dec_6f1c2d3e-1bad-4e0d-a697-7d19bfac6100' } as const;
+  const res = { kind: 'research', researchId: 'res_ab12cd34' } as const;
+  const waitingFor = { action: 'Il referente risponde', unblockedBy: 'external' } as const;
+  const checkLaterBase = { afterSeconds: 600, notes: 'Controllo la ricerca' };
+  it('(a) the kinds are exactly decision and research', () => {
+    expect([...PAPERCLIP_WAIT_REF_KINDS]).toEqual(['decision', 'research']);
+  });
+  it('(b) waitingFor, checkLater of the review and the check-later input accept waitsOn', () => {
+    for (const waitsOn of [[dec], [res], [dec, res]]) {
+      const wait = { issueId, status: 'blocked', waitingFor: { ...waitingFor, waitsOn } };
+      expect(NativeReview.parse(wait)).toEqual(wait);
+      const later = { issueId, status: 'in_progress', checkLater: { ...checkLaterBase, waitsOn } };
+      expect(NativeReview.parse(later)).toEqual(later);
+      const input = { issueId, ...checkLaterBase, waitsOn };
+      expect(CheckLater.parse(input)).toEqual(input);
+    }
+  });
+  it('(c) refuses empty, too many, repeated, unknown, mixed, extra-key and malformed references', () => {
+    const many = Array.from({ length: 21 }, (_, i) => ({ kind: 'research', researchId: `r-${i}` }));
+    const bad: unknown[] = [[], many, [dec, dec], [res, { ...res }], [{ kind: 'other', requestId: 'abcdef' }],
+      [{ kind: 'decision', researchId: 'res_ab12cd34' }], [{ ...dec, researchId: 'x' }], [{ ...res, extra: 1 }],
+      [{ kind: 'decision', requestId: 'a b' }], [{ kind: 'decision', requestId: 'short' }], [{ kind: 'research', researchId: '' }]];
+    for (const waitsOn of bad) {
+      expect(PaperclipWaitsOnSchema.safeParse(waitsOn).success).toBe(false);
+      expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor: { ...waitingFor, waitsOn } }).success).toBe(false);
+      expect(CheckLater.safeParse({ issueId, ...checkLaterBase, waitsOn }).success).toBe(false);
+    }
+    expect(PaperclipWaitRefSchema.safeParse(dec).success).toBe(true);
+    expect(PaperclipWaitsOnSchema.safeParse(many.slice(0, 20)).success).toBe(true);
+  });
+  it('(d) the key carries the kind, so the same id of two kinds differs', () => {
+    expect(paperclipWaitRefKey({ kind: 'decision', requestId: 'abcdef' })).toBe('decision:abcdef');
+    expect(paperclipWaitRefKey({ kind: 'research', researchId: 'abcdef' })).toBe('research:abcdef');
+    expect(PaperclipWaitsOnSchema.safeParse([{ kind: 'decision', requestId: 'abcdef' }, { kind: 'research', researchId: 'abcdef' }]).success).toBe(true);
+  });
+  it('(e) without waitsOn everything stays valid', () => {
+    expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor }).success).toBe(true);
+    expect(NativeReview.safeParse({ issueId, status: 'in_progress', checkLater: checkLaterBase }).success).toBe(true);
+    expect(CheckLater.safeParse({ issueId, ...checkLaterBase }).success).toBe(true);
+  });
+});
+
+
+describe('s7293 ricontatto-del-referente: Paperclip counts the scheduled wakes', () => {
+  const checkLater = { afterSeconds: 172800, notes: 'Check whether the contact answered' };
+  const waitingFor = { action: 'The contact sends access', unblockedBy: 'external' } as const;
+  // Monitor shape: packages/shared/src/validators/issue.ts:390-430;
+  // recovery policies: packages/shared/src/constants.ts:532-536 (Paperclip).
+  const PaperclipMonitor = z.strictObject({
+    nextCheckAt: z.iso.datetime(),
+    notes: z.string().trim().min(1).max(500),
+    serviceName: z.string().trim().min(1).max(120).optional(),
+    timeoutAt: z.iso.datetime().optional(),
+    maxAttempts: z.int().min(1).optional(),
+    recoveryPolicy: z.enum(['wake_owner', 'create_recovery_issue', 'escalate_to_board']).optional(),
+  });
+
+  it('(a) accepts followUp in both checks and refuses malformed attempts', () => {
+    expect(PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS).toBe(5);
+    for (const attempts of [1, 2, 3, 4, 5]) {
+      const later = { ...checkLater, followUp: { attempts } };
+      const review = { issueId, status: 'in_progress', checkLater: later };
+      expect(NativeReview.parse(review)).toEqual(review);
+      expect(CheckLater.parse({ issueId, ...later })).toEqual({ issueId, ...later });
+    }
+    for (const followUp of [{ attempts: 0 }, { attempts: 6 }, { attempts: 1.5 }, {}, { attempts: 3, extra: true }]) {
+      expect(PaperclipFollowUpSchema.safeParse(followUp).success).toBe(false);
+      expect(NativeReview.safeParse({ issueId, status: 'in_progress', checkLater: { ...checkLater, followUp } }).success).toBe(false);
+      expect(CheckLater.safeParse({ issueId, ...checkLater, followUp }).success).toBe(false);
+    }
+  });
+
+  it('(b) a blocked wait still cannot carry followUp or a scheduled check', () => {
+    // Waiting and checking stay separate: a monitor never fires on a blocked issue.
+    expect(NativeReview.safeParse({ issueId, status: 'blocked', waitingFor,
+      checkLater: { ...checkLater, followUp: { attempts: 3 } } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'blocked',
+      waitingFor: { ...waitingFor, followUp: { attempts: 3 } } }).success).toBe(false);
+    expect(NativeReview.safeParse({ issueId, status: 'in_progress', waitingFor,
+      checkLater: { ...checkLater, followUp: { attempts: 3 } } }).success).toBe(false);
+  });
+
+  it('(c) builds only maxAttempts and wake_owner, or no bounds', () => {
+    expect([...PAPERCLIP_MONITOR_RECOVERY_POLICIES]).toEqual(['wake_owner']);
+    expect(paperclipMonitorBounds({ attempts: 3 })).toEqual({ maxAttempts: 3, recoveryPolicy: 'wake_owner' });
+    expect(paperclipMonitorBounds(undefined)).toBeUndefined();
+  });
+
+  it('(d) the bounds pass Paperclip monitor validation with the real field name', () => {
+    const monitor = { nextCheckAt: '2026-11-19T12:00:00.000Z', notes: checkLater.notes,
+      ...paperclipMonitorBounds({ attempts: 3 }) };
+    expect(PaperclipMonitor.parse(monitor)).toEqual({ nextCheckAt: monitor.nextCheckAt,
+      notes: checkLater.notes, maxAttempts: 3, recoveryPolicy: 'wake_owner' });
+    const { maxAttempts, ...rest } = monitor;
+    expect(PaperclipMonitor.safeParse({ ...rest, maxAttempt: maxAttempts }).success).toBe(false);
+  });
+
+  it('(e) recognizes only the exact exhausted text at status 422, after trim', () => {
+    const text = 'Monitor bounds are already exhausted';
+    expect(PAPERCLIP_MONITOR_EXHAUSTED_TEXT).toBe(text);
+    expect(isPaperclipMonitorExhausted(422, text)).toBe(true);
+    expect(isPaperclipMonitorExhausted(422, `  ${text}\n`)).toBe(true);
+    expect(isPaperclipMonitorExhausted(409, text)).toBe(false);
+    expect(isPaperclipMonitorExhausted(422, `${text} soon`)).toBe(false);
+    expect(isPaperclipMonitorExhausted(422, `Before: ${text}`)).toBe(false);
+    expect(isPaperclipMonitorExhausted(422, 'Another refusal')).toBe(false);
+    expect(isPaperclipMonitorExhausted(422, text.toLowerCase())).toBe(false);
+  });
+
+  it('(f) preserves existing in-flight checks and stored monitors without followUp', () => {
+    const review = { issueId, status: 'in_progress', checkLater };
+    expect(NativeReview.parse(review)).toEqual(review);
+    expect(CheckLater.parse({ issueId, ...checkLater })).toEqual({ issueId, ...checkLater });
+    expect(NativeReview.parse({ issueId, status: 'blocked', waitingFor })).toEqual({ issueId, status: 'blocked', waitingFor });
+    const stored = { nextCheckAt: '2026-11-19T12:00:00.000Z', notes: checkLater.notes, serviceName: 'cap-ricerca' };
+    expect(PaperclipMonitor.parse(stored)).toEqual(stored);
+    expect({ ...stored, ...paperclipMonitorBounds(undefined) }).toEqual(stored);
+  });
+
+  it('(g) both comments acknowledge Paperclip monitor bounds', () => {
+    for (const relative of ['../src/capability/paperclip/native-wait.ts', '../src/capability/paperclip-protocollo/wire-scritture.ts']) {
+      expect(readFileSync(new URL(relative, import.meta.url), 'utf8')).not.toContain('no time bounds');
     }
   });
 });

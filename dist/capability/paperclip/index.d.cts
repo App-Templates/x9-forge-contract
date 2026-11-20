@@ -121,6 +121,7 @@ export type PaperclipDecisionRecord = z.infer<typeof PaperclipDecisionRecordSche
 export * from "./tools.cjs";
 export * from "./enrollment.cjs";
 export * from "./native-wait.cjs";
+export * from "./recipient.cjs";
 export declare const PaperclipCommunicationRecordSchema: z.ZodObject<{
     schemaVersion: z.ZodLiteral<1>;
     communicationId: z.ZodString;

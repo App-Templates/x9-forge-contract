@@ -7,8 +7,8 @@ export declare const INTERNAL_COMPANY_BOARD_ACTION_PATH: "/internal/company-boar
 export declare const INTERNAL_PAPERCLIP_OWNER_ACTION_PATH: "/internal/paperclip/owner-action";
 /** The kinds are the keys of the unit actions of the board: one list, never redeclared. */
 export declare const OwnerActionKindSchema: z.ZodEnum<{
-    sveglia: "sveglia";
     via: "via";
+    sveglia: "sveglia";
     ferma: "ferma";
     riprendi: "riprendi";
 }>;
@@ -21,8 +21,8 @@ export declare const OwnerActionRequestSchema: z.ZodObject<{
     projectId: z.ZodString;
     buSlug: z.ZodString;
     kind: z.ZodEnum<{
-        sveglia: "sveglia";
         via: "via";
+        sveglia: "sveglia";
         ferma: "ferma";
         riprendi: "riprendi";
     }>;
@@ -71,8 +71,8 @@ export declare const OWNER_ACTION_HISTORY_KINDS: {
 export declare const OwnerActionResultSchema: z.ZodObject<{
     ok: z.ZodLiteral<true>;
     kind: z.ZodEnum<{
-        sveglia: "sveglia";
         via: "via";
+        sveglia: "sveglia";
         ferma: "ferma";
         riprendi: "riprendi";
     }>;
@@ -83,10 +83,10 @@ export declare const OwnerActionResultSchema: z.ZodObject<{
         kind: z.ZodEnum<{
             ricerca: "ricerca";
             approvazione: "approvazione";
+            mandato: "mandato";
+            materiale: "materiale";
             passo: "passo";
             messaggio: "messaggio";
-            materiale: "materiale";
-            mandato: "mandato";
             richiesta_modifica: "richiesta_modifica";
             tentativo_fallito: "tentativo_fallito";
         }>;
@@ -111,8 +111,8 @@ export declare const internalCompanyBoardActionContract: {
         projectId: z.ZodString;
         buSlug: z.ZodString;
         kind: z.ZodEnum<{
-            sveglia: "sveglia";
             via: "via";
+            sveglia: "sveglia";
             ferma: "ferma";
             riprendi: "riprendi";
         }>;
@@ -123,8 +123,8 @@ export declare const internalCompanyBoardActionContract: {
     readonly responseSchema: z.ZodUnion<readonly [z.ZodObject<{
         ok: z.ZodLiteral<true>;
         kind: z.ZodEnum<{
-            sveglia: "sveglia";
             via: "via";
+            sveglia: "sveglia";
             ferma: "ferma";
             riprendi: "riprendi";
         }>;
@@ -135,10 +135,10 @@ export declare const internalCompanyBoardActionContract: {
             kind: z.ZodEnum<{
                 ricerca: "ricerca";
                 approvazione: "approvazione";
+                mandato: "mandato";
+                materiale: "materiale";
                 passo: "passo";
                 messaggio: "messaggio";
-                materiale: "materiale";
-                mandato: "mandato";
                 richiesta_modifica: "richiesta_modifica";
                 tentativo_fallito: "tentativo_fallito";
             }>;
@@ -169,8 +169,8 @@ export declare const InternalPaperclipOwnerActionRequestSchema: z.ZodObject<{
     projectId: z.ZodString;
     buSlug: z.ZodString;
     kind: z.ZodEnum<{
-        sveglia: "sveglia";
         via: "via";
+        sveglia: "sveglia";
         ferma: "ferma";
         riprendi: "riprendi";
     }>;
@@ -196,8 +196,8 @@ export declare const internalPaperclipOwnerActionContract: {
         projectId: z.ZodString;
         buSlug: z.ZodString;
         kind: z.ZodEnum<{
-            sveglia: "sveglia";
             via: "via";
+            sveglia: "sveglia";
             ferma: "ferma";
             riprendi: "riprendi";
         }>;

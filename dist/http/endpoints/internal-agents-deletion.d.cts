@@ -78,8 +78,8 @@ export declare const agentDeletionContract: {
                 runtime: "runtime";
                 workspace: "workspace";
                 channels: "channels";
-                tombstone: "tombstone";
                 admission: "admission";
+                tombstone: "tombstone";
                 caches: "caches";
                 "private-state": "private-state";
             }>;
@@ -90,8 +90,8 @@ export declare const agentDeletionContract: {
                 runtime: "runtime";
                 workspace: "workspace";
                 channels: "channels";
-                tombstone: "tombstone";
                 admission: "admission";
+                tombstone: "tombstone";
                 caches: "caches";
                 "private-state": "private-state";
             }>;
@@ -102,8 +102,8 @@ export declare const agentDeletionContract: {
                 runtime: "runtime";
                 workspace: "workspace";
                 channels: "channels";
-                tombstone: "tombstone";
                 admission: "admission";
+                tombstone: "tombstone";
                 caches: "caches";
                 "private-state": "private-state";
             }>;
@@ -124,8 +124,8 @@ export declare const agentDeletionContract: {
                 runtime: "runtime";
                 workspace: "workspace";
                 channels: "channels";
-                tombstone: "tombstone";
                 admission: "admission";
+                tombstone: "tombstone";
                 caches: "caches";
                 "private-state": "private-state";
             }>;

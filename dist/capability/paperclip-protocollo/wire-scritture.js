@@ -71,7 +71,8 @@ export const PaperclipDescrittoreSbloccoSchema = z.strictObject({
     action: z.string().trim().min(1).max(2000),
 });
 // One-shot monitor, consumed by an issue_monitor_due wake; valid only in in_progress or
-// in_review (issue-execution-policy.ts:74,265-267); Paperclip sets no time bounds.
+// in_review (issue-execution-policy.ts:74,265-267). Paperclip supports timeoutAt, maxAttempts and
+// recoveryPolicy (validators/issue.ts:390-430); the bridge uses maxAttempts with wake_owner and a one-week first-check bound.
 export const PaperclipControlloSchema = z.strictObject({
     nextCheckAt: z.iso.datetime(),
     notes: z.string().trim().min(1).max(500),

@@ -11,6 +11,21 @@ export type AssetSha256 = z.infer<typeof AssetSha256Schema>;
 export const AssetTypeSchema = z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 export type AssetType = z.infer<typeof AssetTypeSchema>;
 
+/**
+ * Stable key of a deliverable piece: the id of the section or breakdown item of the approved action plan, inherited
+ * through the mandate. Never chosen by the session or by the model, so every new delivery of the same piece can be
+ * chained to the previous one.
+ */
+export const AssetKeySchema = z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+export type AssetKey = z.infer<typeof AssetKeySchema>;
+
+/** Reference to one version of a deliverable piece. */
+export const AssetVersionRefSchema = z.strictObject({
+  key: AssetKeySchema,
+  version: z.number().int().min(1),
+});
+export type AssetVersionRef = z.infer<typeof AssetVersionRefSchema>;
+
 const AssetIdSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 
 /** Provenance of a company file, without embedding its contents. */
@@ -79,3 +94,15 @@ export const AssetRefSchema = z.strictObject({
   createdAt: z.iso.datetime({ offset: true }),
 });
 export type AssetRef = z.infer<typeof AssetRefSchema>;
+
+/** Refusal code for a `projectId` that is the Paperclip project identifier (a UUID), not the project key. */
+export const PAPERCLIP_PROJECT_ID_REFUSAL = 'project_id_paperclip' as const;
+
+/** True only for a string shaped like a UUID (either case): the Paperclip project id, never a project key. */
+export function isPaperclipProjectId(value: unknown): boolean {
+  return typeof value === 'string' && z.guid().safeParse(value).success;
+}
+
+/** Fixed refusal sentence; starts with the code and never contains the received value. */
+export const PAPERCLIP_PROJECT_ID_REFUSAL_REASON =
+  `${PAPERCLIP_PROJECT_ID_REFUSAL}: il projectId passato è l'identificativo del progetto in Paperclip, non la chiave del progetto; usa la chiave scritta nella riga «Progetto:» del Mandato e richiama: non è stato fatto nulla`;

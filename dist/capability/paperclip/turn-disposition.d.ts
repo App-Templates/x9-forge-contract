@@ -4,6 +4,8 @@ import { type PaperclipDisposizioneCorpo } from "../paperclip-protocollo/wire-sc
 /**
  * What stays written on Paperclip when an organization turn ends is decided here and only here: a «not now» refusal
  * (spend cap, R&D pause, infrastructure not ready) is a wait Paperclip re-checks by itself, never a failed run.
+ * A turn stopped by a limit while working also schedules a re-check and succeeds, preserving work already done.
+ * An unavailable service schedules a cautious re-check; only failed and uncertain ends fail the run.
  */
 export type AdmissionRefusalClass = 'definitive' | 'not_now';
 /** A code added to ORGANIZATION_ADMISSION_REFUSAL_CODES without a class here does not compile. */
@@ -27,8 +29,45 @@ export declare const ADMISSION_REFUSAL_CLASS: {
     readonly rd_paused: "not_now";
 };
 export declare const NOT_NOW_DEFAULT_RETRY_SECONDS = 3600;
+export declare const INTERRUPTED_RETRY_SECONDS = 1800;
+export declare const LIMIT_WAIT_SERVICE_NAME = "X9 company spend cap";
+export declare const TURN_STOP_CODES: readonly ["budget_exhausted", "run_expired"];
+export declare const TurnStopCodeSchema: z.ZodEnum<{
+    budget_exhausted: "budget_exhausted";
+    run_expired: "run_expired";
+}>;
+export type TurnStopCode = z.infer<typeof TurnStopCodeSchema>;
+export declare const TURN_FAILURE_CAUSES: readonly ["turn_failed", "outcome_uncertain", "restart_count_unreadable"];
+export declare const TurnFailureCauseSchema: z.ZodEnum<{
+    turn_failed: "turn_failed";
+    outcome_uncertain: "outcome_uncertain";
+    restart_count_unreadable: "restart_count_unreadable";
+}>;
+export type TurnFailureCause = z.infer<typeof TurnFailureCauseSchema>;
+export declare const TURN_UNAVAILABLE_CAUSES: readonly ["no_response", "response_not_conforming", "error_without_body", "unknown_error_code", "status_mismatch"];
+export declare const TurnUnavailableCauseSchema: z.ZodEnum<{
+    no_response: "no_response";
+    response_not_conforming: "response_not_conforming";
+    error_without_body: "error_without_body";
+    unknown_error_code: "unknown_error_code";
+    status_mismatch: "status_mismatch";
+}>;
+export type TurnUnavailableCause = z.infer<typeof TurnUnavailableCauseSchema>;
 export declare const TURN_DISPOSITION_TEXT: {
+    readonly failedNote: (failureCode: string) => string;
+    readonly uncertainNote: () => string;
+    readonly restartCountNote: () => string;
+    readonly unavailableCause: {
+        no_response: string;
+        response_not_conforming: string;
+        error_without_body: string;
+        unknown_error_code: string;
+        status_mismatch: string;
+    };
     readonly checkNote: (code: OrganizationAdmissionRefusalCode) => string;
+    readonly checkNoteWithReason: (code: OrganizationAdmissionRefusalCode, message: string, afterSeconds: number) => string;
+    readonly stoppedNote: (code: TurnStopCode) => string;
+    readonly interruptedNote: (afterSeconds: number, cause?: TurnUnavailableCause) => string;
     readonly notExecutedComment: () => string;
     readonly unblockAction: (code: OrganizationAdmissionRefusalCode) => string;
 };
@@ -64,8 +103,22 @@ export declare const TurnEndSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"uncertain">;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"unavailable">;
+    cause: z.ZodOptional<z.ZodEnum<{
+        no_response: "no_response";
+        response_not_conforming: "response_not_conforming";
+        error_without_body: "error_without_body";
+        unknown_error_code: "unknown_error_code";
+        status_mismatch: "status_mismatch";
+    }>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"cancelled">;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"stopped">;
+    code: z.ZodEnum<{
+        budget_exhausted: "budget_exhausted";
+        run_expired: "run_expired";
+    }>;
+    retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>], "kind">;
 export type TurnEnd = z.infer<typeof TurnEndSchema>;
 export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -76,6 +129,7 @@ export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject
     runSucceeds: z.ZodLiteral<true>;
     afterSeconds: z.ZodNumber;
     notes: z.ZodString;
+    serviceName: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"close_not_executed">;
     runSucceeds: z.ZodLiteral<true>;
@@ -87,10 +141,22 @@ export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"fail_run">;
     runSucceeds: z.ZodLiteral<false>;
+    cause: z.ZodEnum<{
+        turn_failed: "turn_failed";
+        outcome_uncertain: "outcome_uncertain";
+        restart_count_unreadable: "restart_count_unreadable";
+    }>;
+    detail: z.ZodString;
 }, z.core.$strict>], "kind">;
 export type TurnDisposition = z.infer<typeof TurnDispositionSchema>;
-/** Only failed, uncertain and unavailable ends fail the run; a refusal never does. */
+/** The only way to build a valid `fail_run`: the cause and its text travel together. */
+export declare function turnFailRun(cause: TurnFailureCause, failureCode?: string): Extract<TurnDisposition, {
+    kind: 'fail_run';
+}>;
+/** Only failed and uncertain ends fail the run; refusals, limit stops and unavailable services never do. */
 export declare function dispositionForTurnEnd(end: TurnEnd): TurnDisposition;
+/** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */
+export declare function waitsOnLimit(policy: unknown): boolean;
 /** The write to make on the Paperclip issue, or null when nothing is written. The time enters only from `ctx.now`. */
 export declare function paperclipBodyForDisposition(d: TurnDisposition, ctx: {
     now: Date;

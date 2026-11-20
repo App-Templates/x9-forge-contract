@@ -55,6 +55,16 @@ export declare const CompanySpendSourceSchema: z.ZodEnum<{
     model: "model";
 }>;
 export type CompanySpendSource = z.infer<typeof CompanySpendSourceSchema>;
+/**
+ * The only sources X9 reads from a capability, and so the only ones it can
+ * fail to read. `model` and `tool` are metered by X9 itself and are never unread.
+ */
+export declare const COMPANY_SPEND_CAPABILITY_SOURCES: readonly ["ricerca", "lab"];
+export declare const CompanySpendCapabilitySourceSchema: z.ZodEnum<{
+    ricerca: "ricerca";
+    lab: "lab";
+}>;
+export type CompanySpendCapabilitySource = z.infer<typeof CompanySpendCapabilitySourceSchema>;
 export declare const INTERNAL_COMPANY_SPEND_PATH: "/internal/companies/:company/spend";
 /** `company` is the guard's company name, e.g. `good-choice`. */
 export declare const InternalCompanySpendParamsSchema: z.ZodObject<{
@@ -90,10 +100,8 @@ export declare const InternalCompanySpendResponseSchema: z.ZodObject<{
         }> & z.core.$partial, z.ZodInt>;
     }, z.core.$strict>>;
     unreadSources: z.ZodArray<z.ZodEnum<{
-        tool: "tool";
         ricerca: "ricerca";
         lab: "lab";
-        model: "model";
     }>>;
 }, z.core.$strict>;
 export type InternalCompanySpendResponse = z.infer<typeof InternalCompanySpendResponseSchema>;
@@ -109,6 +117,8 @@ export declare const InternalCompanySpendErrorSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
         invalid_request: "invalid_request";
+        invalid_config: "invalid_config";
+        unauthorized: "unauthorized";
         unknown_company: "unknown_company";
         guard_off: "guard_off";
         stale_revision: "stale_revision";
@@ -148,10 +158,8 @@ export declare const internalCompanySpendReadContract: {
             }> & z.core.$partial, z.ZodInt>;
         }, z.core.$strict>>;
         unreadSources: z.ZodArray<z.ZodEnum<{
-            tool: "tool";
             ricerca: "ricerca";
             lab: "lab";
-            model: "model";
         }>>;
     }, z.core.$strict>;
 };
@@ -193,10 +201,8 @@ export declare const internalCompanySpendCapUpdateContract: {
             }> & z.core.$partial, z.ZodInt>;
         }, z.core.$strict>>;
         unreadSources: z.ZodArray<z.ZodEnum<{
-            tool: "tool";
             ricerca: "ricerca";
             lab: "lab";
-            model: "model";
         }>>;
     }, z.core.$strict>;
 };

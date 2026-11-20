@@ -23,6 +23,8 @@ export * from "./business-unit-lead.js";
 export * from "./agent-role.js";
 export * from "./decision-request.js";
 export * from "./asset.js";
+export * from "./asset-version.js";
+export * from "./business-unit-state.js";
 export * from "./shared-mailbox.js";
 export * from "./business-unit-type.js";
 export * from "./action-plan.js";
@@ -38,4 +40,5 @@ export * from "./company-board-director-summary.js";
 export * from "./company-board-unit-actions.js";
 export * from "./agent-request.js";
 export * from "./project-delivery.js";
+export * from "./organization-access.js";
 //# sourceMappingURL=index.js.map

@@ -5,6 +5,7 @@ import {
   ToolCallReceiptSchema,
 } from '../organization/tool-call-correlation.js';
 import { CapabilityOrdinaryCallSnapshotSchema } from './ordinary-configuration.js';
+import { ToolErrorDispositionSchema } from './tool-error-disposition.js';
 
 /**
  * Request sent by X9 agent-core to a capability service.
@@ -93,6 +94,8 @@ export function toolErrorModelReasonOf(body: unknown): string | undefined {
   }
 }
 
+export * from './tool-error-disposition.js';
+
 export const ToolCallSuccessResponseSchema = z.object({
   callId: z.string().min(1),
   status: z.literal('success'),
@@ -106,6 +109,7 @@ export const ToolCallErrorResponseSchema = z.object({
   error: z.string(),
   code: z.enum(['TOOL_NOT_FOUND', 'TOOL_CALL_INVALID', 'TOOL_EXEC_FAILED']),
   modelReason: ToolErrorModelReasonSchema.optional(),
+  disposition: ToolErrorDispositionSchema.optional(),
   receipt: ToolCallReceiptSchema.optional(),
 });
 

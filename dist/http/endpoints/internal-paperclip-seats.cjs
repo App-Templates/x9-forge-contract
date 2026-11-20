@@ -1,10 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
+exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatWakeErrorResponseSchema = exports.PaperclipSeatWakeErrorCodeSchema = exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeViaSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_VIA = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.PAPERCLIP_SOURCE_RUN_REFUSALS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
 const zod_1 = require("zod");
+const inbound_event_js_1 = require("../../capability/paperclip/inbound-event.cjs");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
+const run_context_js_1 = require("../../organization/run-context.cjs");
 const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
 const agent_request_js_1 = require("../../organization/agent-request.cjs");
+const asset_js_1 = require("../../organization/asset.cjs");
 const decision_request_js_1 = require("../../organization/decision-request.cjs");
 const research_js_1 = require("../../capability/ricerca/research.cjs");
 const session_assignment_js_1 = require("../../capability/dev/session-assignment.cjs");
@@ -106,26 +109,75 @@ exports.InternalPaperclipSeatReplyWakeRequestSchema = zod_1.z.strictObject({
     organizationId: exports.InternalPaperclipSeatsQuerySchema.shape.organizationId,
     identity: participant_binding_js_1.ParticipantAgentIdentitySchema,
     messageId: zod_1.z.string().min(1).max(998).refine(v => v.trim().length > 0, 'Non-blank message id required'),
+    // The Paperclip run in which the agent sent the email this one answers; cap-paperclip reads the incarico from that run, never from the text.
+    sourceRunId: run_context_js_1.RunIdSchema.optional(),
 });
-exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = ['woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous'];
+exports.PAPERCLIP_SOURCE_RUN_REFUSALS = [
+    'source_run_unknown', // The run does not exist for this agent.
+    'source_run_without_issue', // The run has no incarico.
+    'source_issue_not_agents', // The incarico does not belong to this agent.
+    'source_issue_closed', // The incarico is closed.
+];
+exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = [
+    'woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous', ...exports.PAPERCLIP_SOURCE_RUN_REFUSALS,
+];
 exports.PaperclipSeatReplyWakeResultSchema = zod_1.z.enum(exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS);
+/**
+ * How a `woken` answer reached the agent when no run id is known: `monitor_check` = cap-paperclip asked Paperclip to run the
+ * issue's scheduled monitor now (POST /api/issues/:id/monitor/check-now) and Paperclip wakes the assignee with `issue_monitor_due`.
+ */
+exports.PAPERCLIP_SEAT_REPLY_WAKE_VIA = ['monitor_check'];
+exports.PaperclipSeatReplyWakeViaSchema = zod_1.z.enum(exports.PAPERCLIP_SEAT_REPLY_WAKE_VIA);
 exports.InternalPaperclipSeatReplyWakeResponseSchema = zod_1.z.strictObject({
     result: exports.PaperclipSeatReplyWakeResultSchema,
     issueId: zod_1.z.uuid().optional(),
     runId: zod_1.z.uuid().optional(),
+    disposition: inbound_event_js_1.InboundEventDispositionSchema.optional(),
+    via: exports.PaperclipSeatReplyWakeViaSchema.optional(),
 }).superRefine((value, ctx) => {
-    if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
+    if (value.result === 'woken' && (value.issueId === undefined || (value.runId === undefined && value.via === undefined))) {
         ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
+    }
+    if (value.via !== undefined && (value.result !== 'woken' || value.runId !== undefined || value.disposition !== undefined)) {
+        ctx.addIssue({ code: 'custom', message: 'via monitor_check is only a woken answer without runId and disposition', path: ['via'] });
     }
     if (value.result !== 'woken' && value.runId !== undefined) {
         ctx.addIssue({ code: 'custom', message: 'runId is only allowed with woken', path: ['runId'] });
     }
-    if ((value.result === 'skipped' || value.result === 'not_waiting') && value.issueId === undefined) {
+    if ((value.result === 'skipped' || value.result === 'not_waiting' || value.result === 'source_issue_closed') && value.issueId === undefined) {
         ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
     }
-    if ((value.result === 'no_mandate' || value.result === 'ambiguous') && value.issueId !== undefined) {
+    if ((value.result === 'no_mandate' || value.result === 'ambiguous' || value.result === 'source_run_unknown'
+        || value.result === 'source_run_without_issue' || value.result === 'source_issue_not_agents')
+        && value.issueId !== undefined) {
         ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
     }
+    const disposition = value.disposition;
+    if (disposition?.outcome === 'commented' && disposition.woke) {
+        if (value.result !== 'woken') {
+            ctx.addIssue({ code: 'custom', message: 'A woken disposition requires result woken', path: ['result'] });
+        }
+        if (value.issueId !== disposition.issueId) {
+            ctx.addIssue({ code: 'custom', message: 'Disposition issueId must match the response', path: ['disposition', 'issueId'] });
+        }
+        if (value.runId !== undefined && disposition.runId !== undefined && value.runId !== disposition.runId) {
+            ctx.addIssue({ code: 'custom', message: 'Disposition runId must match the response', path: ['disposition', 'runId'] });
+        }
+    }
+    if (disposition?.outcome === 'duplicate' && value.result !== 'duplicate') {
+        ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
+    }
+});
+/**
+ * Error codes of a failed seat wake. They name whose fault the failure is.
+ * - `paperclip_unavailable`: Paperclip answered with an error or could not be reached.
+ * - `wake_timeout`: OUR time limit ran out while Paperclip was answering; Paperclip is not in error.
+ */
+exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES = ['paperclip_unavailable', 'wake_timeout'];
+exports.PaperclipSeatWakeErrorCodeSchema = zod_1.z.enum(exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES);
+exports.InternalPaperclipSeatWakeErrorResponseSchema = zod_1.z.strictObject({
+    ok: zod_1.z.literal(false),
+    error: exports.PaperclipSeatWakeErrorCodeSchema,
 });
 exports.internalPaperclipSeatReplyWakeContract = {
     method: 'POST',
@@ -133,6 +185,7 @@ exports.internalPaperclipSeatReplyWakeContract = {
     authType: 'secret',
     bodySchema: exports.InternalPaperclipSeatReplyWakeRequestSchema,
     responseSchema: exports.InternalPaperclipSeatReplyWakeResponseSchema,
+    errorResponseSchema: exports.InternalPaperclipSeatWakeErrorResponseSchema,
 };
 exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = '/internal/paperclip/seats/native-wake';
 exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = ['request', 'reply', 'decision'];
@@ -148,6 +201,8 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         mode: zod_1.z.enum(exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES),
         // Memory A project of the decision request this email answers, when cap-email knows it; never guessed.
         projectRef: decision_request_js_1.DecisionRequestSchema.shape.projectId,
+        // The Paperclip run in which the agent sent the email this one answers; cap-paperclip reads the incarico from that run, never from the text.
+        sourceRunId: run_context_js_1.RunIdSchema.optional(),
         from: zod_1.z.string().min(1).max(320),
         subject: zod_1.z.string().min(1).max(300),
         receivedAt: zod_1.z.iso.datetime(),
@@ -175,6 +230,8 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         sessionIssue: session_assignment_js_1.DevSessionResultSchema.shape.issue,
         commit: session_assignment_js_1.DevSessionCommitSchema,
         projectId: session_assignment_js_1.DevSessionAssignmentSchema.shape.projectId,
+        // The Paperclip run in which the chief opened the session; cap-paperclip reads the issue from that run, never from the text.
+        sourceRunId: run_context_js_1.RunIdSchema.optional(),
     }),
     zod_1.z.strictObject({
         kind: zod_1.z.literal('work_stalled'),
@@ -198,6 +255,22 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         maxAttempts: zod_1.z.int().min(1).max(10),
     }).refine(e => e.attempt <= e.maxAttempts, { path: ['attempt'], message: 'attempt must not exceed maxAttempts' }),
     zod_1.z.strictObject({ kind: zod_1.z.literal('agent_request'), request: agent_request_js_1.AgentRequestSchema }),
+    // The final project delivery was sent and recorded (`ProjectDeliveryRecord` stage `sent`, kind `final`); `digest` is the
+    // reconciliation digest and makes the event idempotent; sent by cap-email, never by the model.
+    zod_1.z.strictObject({
+        kind: zod_1.z.literal('project_delivered'),
+        projectId: asset_js_1.AssetRefSchema.shape.projectId,
+        messageId: zod_1.z.string().min(1).max(512),
+        sentAt: zod_1.z.iso.datetime({ offset: true }),
+        digest: asset_js_1.AssetSha256Schema,
+    }),
+    // The company spend cap no longer holds this agent back; sent by agent-core, once per agent, never by the model.
+    zod_1.z.strictObject({
+        kind: zod_1.z.literal('limit_lifted'),
+        limit: zod_1.z.literal('company_spend'),
+        revision: zod_1.z.int().min(1),
+        liftedAt: zod_1.z.iso.datetime({ offset: true }),
+    }),
 ]);
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip
 // dell'agente, come il canale email di Paperclip: incarico assegnato a sé (sveglia d'assegnazione) oppure commento
@@ -231,6 +304,9 @@ exports.InternalPaperclipSeatNativeWakeRequestSchema = zod_1.z.strictObject({
         }
     }
     if (value.event.kind === 'email') {
+        if (value.event.mode === 'request' && value.event.sourceRunId !== undefined) {
+            ctx.addIssue({ code: 'custom', message: 'sourceRunId needs a reply or a decision', path: ['event', 'sourceRunId'] });
+        }
         const isDecision = value.event.mode === 'decision';
         if (isDecision && value.event.decision === undefined) {
             ctx.addIssue({ code: 'custom', message: 'decision mode requires decision', path: ['event', 'decision'] });
@@ -240,8 +316,13 @@ exports.InternalPaperclipSeatNativeWakeRequestSchema = zod_1.z.strictObject({
         }
     }
 });
+// For `limit_lifted`, `deferred` (with the issueId) means "check requested from Paperclip" and `no_task` means "no issue waiting on the cap".
 exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = [
     'opened', 'woken', 'deferred', 'duplicate', 'already_open', 'not_waiting', 'no_task', 'ambiguous', 'not_enabled', 'rate_limited',
+    // The event belongs to an existing open incarico of the seat that waits on open blockers held by other agents;
+    // Paperclip resumes it when they are done (`issue_blockers_resolved`), nothing was written and no run was started.
+    'waiting_on_blockers',
+    ...exports.PAPERCLIP_SOURCE_RUN_REFUSALS,
 ];
 exports.PaperclipSeatNativeWakeResultSchema = zod_1.z.enum(exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS);
 exports.InternalPaperclipSeatNativeWakeResponseSchema = zod_1.z.strictObject({
@@ -249,6 +330,7 @@ exports.InternalPaperclipSeatNativeWakeResponseSchema = zod_1.z.strictObject({
     issueId: zod_1.z.uuid().optional(),
     commentId: zod_1.z.uuid().optional(),
     runId: zod_1.z.uuid().optional(),
+    disposition: inbound_event_js_1.InboundEventDispositionSchema.optional(),
 }).superRefine((value, ctx) => {
     if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
         ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
@@ -259,13 +341,30 @@ exports.InternalPaperclipSeatNativeWakeResponseSchema = zod_1.z.strictObject({
     if (value.result !== 'woken' && value.commentId !== undefined) {
         ctx.addIssue({ code: 'custom', message: 'commentId is only allowed with woken', path: ['commentId'] });
     }
-    if ((value.result === 'opened' || value.result === 'deferred' || value.result === 'already_open' || value.result === 'not_waiting')
+    if ((value.result === 'opened' || value.result === 'deferred' || value.result === 'already_open' || value.result === 'not_waiting'
+        || value.result === 'waiting_on_blockers' || value.result === 'source_issue_closed')
         && value.issueId === undefined) {
         ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
     }
-    if ((value.result === 'no_task' || value.result === 'ambiguous' || value.result === 'not_enabled' || value.result === 'rate_limited')
+    if ((value.result === 'no_task' || value.result === 'ambiguous' || value.result === 'not_enabled' || value.result === 'rate_limited'
+        || value.result === 'source_run_unknown' || value.result === 'source_run_without_issue' || value.result === 'source_issue_not_agents')
         && value.issueId !== undefined) {
         ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+    }
+    const disposition = value.disposition;
+    if (disposition?.outcome === 'commented' && disposition.woke) {
+        if (value.result !== 'woken') {
+            ctx.addIssue({ code: 'custom', message: 'A woken disposition requires result woken', path: ['result'] });
+        }
+        if (value.issueId !== disposition.issueId) {
+            ctx.addIssue({ code: 'custom', message: 'Disposition issueId must match the response', path: ['disposition', 'issueId'] });
+        }
+        if (value.runId !== undefined && disposition.runId !== undefined && value.runId !== disposition.runId) {
+            ctx.addIssue({ code: 'custom', message: 'Disposition runId must match the response', path: ['disposition', 'runId'] });
+        }
+    }
+    if (disposition?.outcome === 'duplicate' && value.result !== 'duplicate') {
+        ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
     }
 });
 exports.internalPaperclipSeatNativeWakeContract = {
@@ -274,5 +373,6 @@ exports.internalPaperclipSeatNativeWakeContract = {
     authType: 'secret',
     bodySchema: exports.InternalPaperclipSeatNativeWakeRequestSchema,
     responseSchema: exports.InternalPaperclipSeatNativeWakeResponseSchema,
+    errorResponseSchema: exports.InternalPaperclipSeatWakeErrorResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map

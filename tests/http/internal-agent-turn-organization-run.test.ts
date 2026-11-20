@@ -148,7 +148,25 @@ describe('organization run response and refusals', () => {
   });
 
   it('riconosce ogni codice di rifiuto e non uno inventato', () => {
-    expect(ORGANIZATION_ADMISSION_REFUSAL_CODES).toHaveLength(15);
+    expect(ORGANIZATION_ADMISSION_REFUSAL_CODES).toEqual([
+      'organization_context_missing',
+      'organization_context_invalid',
+      'organization_attempt_invalid',
+      'run_correlation_mismatch',
+      'issuer_not_authorized',
+      'context_expired',
+      'organization_binding_unavailable',
+      'organization_binding_missing',
+      'organization_binding_ambiguous',
+      'tenant_mismatch',
+      'owner_mismatch',
+      'agent_identity_mismatch',
+      'agent_target_mismatch',
+      'organization_admission_unavailable',
+      'organization_tenant_unknown',
+      'budget_exhausted',
+      'rd_paused',
+    ]);
     for (const code of ORGANIZATION_ADMISSION_REFUSAL_CODES) {
       expect(OrganizationAdmissionRefusalCodeSchema.safeParse(code).success).toBe(true);
     }

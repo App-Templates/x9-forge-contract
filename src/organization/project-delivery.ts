@@ -2,9 +2,9 @@ import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { canonicalJson, type ActionPlan } from './action-plan.js';
 import { AssetRefSchema, AssetSha256Schema, type AssetRef } from './asset.js';
+import { assetVersionDecisionState, isLaterDecisionRequest } from './asset-version.js';
 import {
   DecisionRequestIdSchema,
-  decisionOutcomeMatchesSubject,
   type DecisionOutcome,
   type DecisionRequest,
 } from './decision-request.js';
@@ -257,12 +257,6 @@ type Decision = { request: DecisionRequest; outcome: DecisionOutcome | null };
 type DeliverySubject = Extract<NonNullable<DecisionRequest['subject']>, { kind: 'delivery' }>;
 type PlanVersion = { plan: ActionPlan; approvedAt: string };
 
-/** Latest request wins: by creation instant, then by the greater requestId. */
-function isLater(a: DecisionRequest, b: DecisionRequest): boolean {
-  const delta = Date.parse(a.createdAt) - Date.parse(b.createdAt);
-  return delta !== 0 ? delta > 0 : a.requestId > b.requestId;
-}
-
 function pieceOf(
   plan: ActionPlan, buSlug: string, since: number, decisions: readonly Decision[], assets: readonly AssetRef[],
   approvals: ReadonlyMap<number, number>, planVersions: readonly PlanVersion[],
@@ -274,21 +268,20 @@ function pieceOf(
     if (decision.request.tenantId !== plan.tenantId
       || subject.organizationId !== plan.organizationId || subject.projectId !== plan.projectId) continue;
     if (Date.parse(decision.request.createdAt) < since) continue;
-    if (latest === undefined || isLater(decision.request, latest.request)) latest = { ...decision, subject };
+    if (latest === undefined || isLaterDecisionRequest(decision.request, latest.request)) latest = { ...decision, subject };
   }
   if (latest === undefined) return { buSlug, state: 'missing' };
   const { request } = latest;
   const { deliveryRef } = latest.subject;
-  // An outcome that answers another request is ignored: it never counts as a decision.
-  const outcome = latest.outcome?.requestId === request.requestId ? latest.outcome : null;
-  if (outcome === null) return { buSlug, state: 'pending', requestId: request.requestId, deliveryRef };
-  if (outcome.outcome === 'rejected') {
+  const { outcome } = latest;
+  const decisionState = assetVersionDecisionState(request, outcome);
+  if (decisionState === 'awaiting_decision') return { buSlug, state: 'pending', requestId: request.requestId, deliveryRef };
+  if (decisionState === null || outcome === null) return { buSlug, state: 'missing' };
+  if (decisionState === 'changes_requested') {
     return { buSlug, state: 'rejected', requestId: request.requestId, deliveryRef, decidedAt: outcome.decidedAt };
   }
   const stored = assets.find((asset) => asset.assetId === deliveryRef.assetId);
-  const sound = outcome.decidedBy.kind === 'referent'
-    && decisionOutcomeMatchesSubject(request, outcome)
-    && stored !== undefined && stored.sha256 === deliveryRef.sha256 && stored.buSlug === buSlug
+  const sound = stored !== undefined && stored.sha256 === deliveryRef.sha256 && stored.buSlug === buSlug
     && stored.projectId === plan.projectId;
   if (!sound) return { buSlug, state: 'missing' };
   const approved: ProjectDeliveryPiece = { buSlug, state: 'approved', requestId: request.requestId, deliveryRef, decidedAt: outcome.decidedAt };
