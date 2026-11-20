@@ -85,9 +85,9 @@ export declare const AssetVersionStateSchema: z.ZodEnum<{
     approved: "approved";
     changes_requested: "changes_requested";
     delivered: "delivered";
-    superseded: "superseded";
     rejected_by_lead: "rejected_by_lead";
     awaiting_decision: "awaiting_decision";
+    superseded: "superseded";
 }>;
 export type AssetVersionState = z.infer<typeof AssetVersionStateSchema>;
 export declare const ASSET_VERSION_TRANSITIONS: Readonly<Record<AssetVersionState, readonly AssetVersionState[]>>;

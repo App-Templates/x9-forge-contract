@@ -49,8 +49,8 @@ export declare const MemoryStatusSchema: z.ZodEnum<{
     rejected: "rejected";
     draft: "draft";
     archived: "archived";
-    invalidated: "invalidated";
     superseded: "superseded";
+    invalidated: "invalidated";
     redacted: "redacted";
     needs_review: "needs_review";
 }>;

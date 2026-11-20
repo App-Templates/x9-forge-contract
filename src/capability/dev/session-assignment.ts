@@ -3,6 +3,7 @@ import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
 import { AssetKeySchema, AssetRefSchema } from '../../organization/asset.js';
 import type { ReconciledMandate } from '../../organization/business-unit-mandate.js';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
+import { SessionIdSchema } from '../../organization/asset-version.js';
 import { DevSessionAcceptanceSchema } from './session-acceptance.js';
 
 /**
@@ -191,6 +192,28 @@ export function devSessionId(issueNumber: number): string {
   return `R${issueNumber}`;
 }
 
+/**
+ * Paperclip issue identifier: `<company prefix>-<issue number>`. The number is per company, so the prefix is what
+ * keeps two companies on the same repo from sharing a session name or a branch. Written once, used by both names.
+ */
+const PAPERCLIP_IDENTIFIER = /^[A-Z][A-Z0-9]{1,15}-[1-9][0-9]*$/;
+
+function assertPaperclipIdentifier(identifier: string): void {
+  if (!PAPERCLIP_IDENTIFIER.test(identifier)) throw new Error('identifier must be a Paperclip issue identifier');
+}
+
+/** Session id from a Paperclip identifier (`GOO-214`); `R<n>` stays with `devSessionId`. */
+export function devSessionIdFromIdentifier(identifier: string): string {
+  assertPaperclipIdentifier(identifier);
+  return identifier;
+}
+
+/** Delivery branch from a Paperclip identifier (`consegna/GOO-214`), a valid git ref by construction of the rule. */
+export function devSessionBranchFromIdentifier(identifier: string): string {
+  assertPaperclipIdentifier(identifier);
+  return `${DEV_SESSION_BRANCH_PREFIX}${identifier}`;
+}
+
 function sortKeys(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(sortKeys);
   if (value !== null && typeof value === 'object') {
@@ -361,7 +384,7 @@ export const DevSessionResultFileSchema = z.strictObject({
 
 /** Risultato di una sessione consegnata e verificata: nessuna consegna «fatta» senza commit e file verificati. */
 export const DevSessionResultSchema = z.strictObject({
-  sessionId: z.string().regex(/^R[1-9][0-9]*$/),
+  sessionId: SessionIdSchema,
   issue: z.number().int().min(1),
   scope: CapabilityAgentScopeSchema,
   repo: DevSessionRepoSchema,
@@ -371,5 +394,10 @@ export const DevSessionResultSchema = z.strictObject({
   summary: z.string().max(12000),
   files: z.array(DevSessionResultFileSchema).min(1).max(DEV_SESSION_MAX_FILES),
   assets: z.array(AssetRefSchema).min(1).max(DEV_SESSION_MAX_FILES),
+}).superRefine((result, ctx) => {
+  // Only the Paperclip form carries the issue number in the name; `R<n>` is left unchecked as before.
+  if (PAPERCLIP_IDENTIFIER.test(result.sessionId) && result.sessionId.slice(result.sessionId.indexOf('-') + 1) !== String(result.issue)) {
+    ctx.addIssue({ code: 'custom', path: ['issue'], message: 'session_id_issue_mismatch' });
+  }
 });
 export type DevSessionResult = z.infer<typeof DevSessionResultSchema>;

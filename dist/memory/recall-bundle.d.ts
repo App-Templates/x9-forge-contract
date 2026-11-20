@@ -23,8 +23,8 @@ export declare const MemoryEntrySchema: z.ZodObject<{
         rejected: "rejected";
         draft: "draft";
         archived: "archived";
-        invalidated: "invalidated";
         superseded: "superseded";
+        invalidated: "invalidated";
         redacted: "redacted";
         needs_review: "needs_review";
     }>;
@@ -86,8 +86,8 @@ export declare const RecallBundleSchema: z.ZodObject<{
             rejected: "rejected";
             draft: "draft";
             archived: "archived";
-            invalidated: "invalidated";
             superseded: "superseded";
+            invalidated: "invalidated";
             redacted: "redacted";
             needs_review: "needs_review";
         }>;
@@ -114,8 +114,8 @@ export declare const RecallBundleSchema: z.ZodObject<{
             rejected: "rejected";
             draft: "draft";
             archived: "archived";
-            invalidated: "invalidated";
             superseded: "superseded";
+            invalidated: "invalidated";
             redacted: "redacted";
             needs_review: "needs_review";
         }>;
@@ -142,8 +142,8 @@ export declare const RecallBundleSchema: z.ZodObject<{
             rejected: "rejected";
             draft: "draft";
             archived: "archived";
-            invalidated: "invalidated";
             superseded: "superseded";
+            invalidated: "invalidated";
             redacted: "redacted";
             needs_review: "needs_review";
         }>;
@@ -170,8 +170,8 @@ export declare const RecallBundleSchema: z.ZodObject<{
             rejected: "rejected";
             draft: "draft";
             archived: "archived";
-            invalidated: "invalidated";
             superseded: "superseded";
+            invalidated: "invalidated";
             redacted: "redacted";
             needs_review: "needs_review";
         }>;

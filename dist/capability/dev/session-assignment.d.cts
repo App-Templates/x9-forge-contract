@@ -275,6 +275,10 @@ export declare function devSessionDeliverableKeyProblem(assignment: DevSessionAs
 export declare function devSessionBranch(issueNumber: number): string;
 /** Identificativo di sessione negli asset di origine `session`: `R<numero della issue>`. */
 export declare function devSessionId(issueNumber: number): string;
+/** Session id from a Paperclip identifier (`GOO-214`); `R<n>` stays with `devSessionId`. */
+export declare function devSessionIdFromIdentifier(identifier: string): string;
+/** Delivery branch from a Paperclip identifier (`consegna/GOO-214`), a valid git ref by construction of the rule. */
+export declare function devSessionBranchFromIdentifier(identifier: string): string;
 /**
  * Testo canonico dell'incarico (chiavi ordinate, nessuno spazio): chi apre ne calcola lo SHA-256 e lo scrive nel
  * blocco; chi legge lo ricalcola. Il ponte non calcola l'impronta: la calcola il servizio.

@@ -12,12 +12,15 @@ import {
   DevSessionResultSchema,
   devSessionAssignmentCanonicalJson,
   devSessionBranch,
+  devSessionBranchFromIdentifier,
   devSessionId,
+  devSessionIdFromIdentifier,
   parseDevSessionBlock,
   parseDevSessionDelivery,
   renderDevSessionBlock,
   renderDevSessionDelivery,
 } from '../../../src/capability/dev/session-assignment.js';
+import { DevSessionOutcomeSchema } from '../../../src/capability/dev/session-outcome.js';
 import type { AssetRef } from '../../../src/organization/asset.js';
 
 const sha = (text: string) => createHash('sha256').update(text).digest('hex');
@@ -411,5 +414,61 @@ describe('DevSessionResultSchema', () => {
     expect(DevSessionResultSchema.safeParse({ ...result, assets: [] }).success).toBe(false);
     const { commit: _commit, ...withoutCommit } = result;
     expect(DevSessionResultSchema.safeParse(withoutCommit).success).toBe(false);
+  });
+});
+
+describe('s8036 nomi con prefisso', () => {
+  const scope = { tenantId: 'tenant-1', ownerId: '7', agentId: 'capo-sviluppo' };
+  const build = (sessionId: string, issue: number) => ({
+    sessionId,
+    issue,
+    scope,
+    repo: 'App-Templates/goodchoice-backtest',
+    branch: `consegna/${issue}`,
+    commit: COMMIT,
+    link: `https://github.com/App-Templates/goodchoice-backtest/tree/${COMMIT}`,
+    summary: 'Fatto.',
+    files: [{
+      path: 'app/index.html', name: 'index.html', sha256: 'a'.repeat(64), sizeBytes: 120, mediaType: 'text/html',
+      link: `https://github.com/App-Templates/goodchoice-backtest/blob/${COMMIT}/app/index.html`,
+    }],
+    assets: [{
+      ...asset, assetId: 'asset-1', name: 'index.html', mediaType: 'text/html',
+      origin: { kind: 'session', sessionId, repo: 'App-Templates/goodchoice-backtest', commit: COMMIT, path: 'app/index.html' },
+    }],
+  });
+
+  it('s8036_nomi: the Paperclip identifier names the session and the branch; other forms are refused', () => {
+    expect(devSessionIdFromIdentifier('GOO-214')).toBe('GOO-214');
+    expect(devSessionBranchFromIdentifier('GOO-214')).toBe('consegna/GOO-214');
+    for (const bad of ['R5', 'goo-214', 'GOO-0', 'GOO-', '5', 'GOO-214/../x', '']) {
+      expect(() => devSessionIdFromIdentifier(bad), bad).toThrow('identifier must be a Paperclip issue identifier');
+      expect(() => devSessionBranchFromIdentifier(bad), bad).toThrow('identifier must be a Paperclip issue identifier');
+    }
+    expect(devSessionBranchFromIdentifier('GOO-5')).not.toBe(devSessionBranchFromIdentifier('FET-5'));
+    expect(devSessionBranch(5)).toBe('consegna/5');
+  });
+
+  it('s8036_risultato: the number of a Paperclip name must be the issue; R<n> is unchecked as before', () => {
+    expect(DevSessionResultSchema.safeParse(build('GOO-214', 214)).success).toBe(true);
+    const wrong = DevSessionResultSchema.safeParse(build('GOO-214', 215));
+    expect(wrong.success).toBe(false);
+    expect(wrong.error?.issues.some((i) => i.message === 'session_id_issue_mismatch' && i.path.join('.') === 'issue')).toBe(true);
+    expect(DevSessionResultSchema.safeParse(build('R214', 215)).success).toBe(true);
+  });
+
+  it('s8036_storico: results and outcomes saved with R56 still parse unchanged', () => {
+    const saved = build('R56', 56);
+    expect(DevSessionResultSchema.parse(saved)).toEqual(saved);
+    const outcome = {
+      version: 1 as const, sessionId: 'R56', attempt: 1, state: 'failed' as const,
+      reason: { code: 'materials_not_obtained' as const, text: 'materiali non ottenuti dopo 3 richieste' },
+      missingMaterials: [{ ref: 'https://github.com/acme/orto/tree/consegna/20', error: 'riferimento non trovato' }],
+      disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } as const,
+      executorVersion: '0.1.0', createdAt: '2026-11-11T16:00:00+01:00',
+    };
+    expect(DevSessionOutcomeSchema.parse(outcome)).toEqual(outcome);
+    expect(devSessionId(5)).toBe('R5');
+    expect(devSessionBranch(5)).toBe('consegna/5');
   });
 });

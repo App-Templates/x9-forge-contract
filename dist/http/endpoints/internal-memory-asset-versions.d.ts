@@ -190,9 +190,9 @@ export declare const InternalMemoryAssetVersionListResponseSchema: z.ZodObject<{
             approved: "approved";
             changes_requested: "changes_requested";
             delivered: "delivered";
-            superseded: "superseded";
             rejected_by_lead: "rejected_by_lead";
             awaiting_decision: "awaiting_decision";
+            superseded: "superseded";
         }>;
         requestId: z.ZodOptional<z.ZodString>;
         decidedAt: z.ZodOptional<z.ZodISODateTime>;
@@ -512,9 +512,9 @@ export declare const internalMemoryAssetVersionListContract: {
                 approved: "approved";
                 changes_requested: "changes_requested";
                 delivered: "delivered";
-                superseded: "superseded";
                 rejected_by_lead: "rejected_by_lead";
                 awaiting_decision: "awaiting_decision";
+                superseded: "superseded";
             }>;
             requestId: z.ZodOptional<z.ZodString>;
             decidedAt: z.ZodOptional<z.ZodISODateTime>;

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.251.0 — a session and its branch can be named by the Paperclip identifier (task 8036)
+
+- Additive in `capability/dev/session-assignment`: `devSessionIdFromIdentifier` and `devSessionBranchFromIdentifier` (`GOO-214` gives `GOO-214` and `consegna/GOO-214`); the verified result accepts both name forms, and a Paperclip name must carry the result's `issue` number (`session_id_issue_mismatch`).
+- `R<n>`, `devSessionId` and `devSessionBranch` are unchanged. Consumers move their pin first.
+
 ## v1.250.0 — a session id may be a Paperclip identifier (task 8035)
 
 - Additive: `organization/asset-version` exports `SessionIdSchema`, reused by asset version provenance to accept Paperclip identifiers (`<company prefix>-<n>`) and distinguish sessions from different companies.

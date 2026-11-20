@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.250.0",
+  "versione": "1.251.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1400,10 +1400,12 @@
       "devSessionAnswerCanonicalJson": "@x9-forge/contracts/capability/dev/session-outcome",
       "devSessionAssignmentCanonicalJson": "@x9-forge/contracts/capability/dev/session-assignment",
       "devSessionBranch": "@x9-forge/contracts/capability/dev/session-assignment",
+      "devSessionBranchFromIdentifier": "@x9-forge/contracts/capability/dev/session-assignment",
       "devSessionCoverageMissing": "@x9-forge/contracts/capability/dev/session-acceptance-coverage",
       "devSessionCoverageSlots": "@x9-forge/contracts/capability/dev/session-acceptance-coverage",
       "devSessionDeliverableKeyProblem": "@x9-forge/contracts/capability/dev/session-assignment",
       "devSessionId": "@x9-forge/contracts/capability/dev/session-assignment",
+      "devSessionIdFromIdentifier": "@x9-forge/contracts/capability/dev/session-assignment",
       "devSessionMandateAcceptanceProblem": "@x9-forge/contracts/capability/dev/session-acceptance-mandate",
       "devSessionMandateCriteria": "@x9-forge/contracts/capability/dev/session-acceptance-mandate",
       "devSessionMaterialKey": "@x9-forge/contracts/capability/dev/session-material-link",

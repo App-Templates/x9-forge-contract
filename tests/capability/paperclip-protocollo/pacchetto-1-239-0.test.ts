@@ -689,10 +689,9 @@ describe('s8034 pacchetto-1-249-0', () => {
 });
 
 describe('s8035 pacchetto-1-250-0', () => {
-  it('s8035_version: package and first release are 1.250.0 and retain 1.249.0', () => {
+  it('s8035_version: the package keeps the 1.250.0 and 1.249.0 releases in the changelog', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.250.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.250.0');
+    expect(changelog).toContain('## v1.250.0');
     expect(changelog).toContain('## v1.249.0');
   });
 
@@ -701,8 +700,23 @@ describe('s8035 pacchetto-1-250-0', () => {
       versione: string;
       barili: Record<string, Record<string, string>>;
     };
-    expect(map.versione).toBe('1.250.0');
+    expect(map.versione).toBe(packageVersion());
     expect(map.barili['@x9-forge/contracts/organization']?.SessionIdSchema)
       .toBe('@x9-forge/contracts/organization/asset-version');
+  });
+});
+
+describe('s8036 pacchetto-1-251-0', () => {
+  it('s8036_version: package and first release are 1.251.0 and retain 1.250.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.251.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.251.0');
+    expect(changelog).toContain('## v1.250.0');
+  });
+
+  it('s8036_map: the narrow-import map has the version and the identifier-based branch name', () => {
+    const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.251.0');
+    expect(text).toContain('devSessionBranchFromIdentifier');
   });
 });
