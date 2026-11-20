@@ -26,9 +26,9 @@ console.log('OK');
 `;
 
 describe('s3939 social listening server track in package 1.274.0', () => {
-  it('s3939 (a) package.json has a version in the 1.274.0-1.279.0 band', () => {
+  it('s3939 (a) package.json has a version in the 1.274.0-1.280.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.27[4-9]\.0$/);
+    expect(pkg.version).toMatch(/^1\.(27[4-9]|280)\.0$/);
   });
 
   it('s3939 (b) the symbols work from ESM', () => {

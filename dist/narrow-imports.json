@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.279.0",
+  "versione": "1.280.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1557,6 +1557,7 @@
       "SOCIAL_ROUND_FRESHNESS": "@x9-forge/contracts/capability/social-listening/handover",
       "SOCIAL_ROUND_STATES": "@x9-forge/contracts/capability/social-listening/queue",
       "SOCIAL_SERVER_DAILY_CAP_DEFAULT_USD": "@x9-forge/contracts/capability/social-listening/cap",
+      "SOCIAL_SERVER_STEP_ERRORS": "@x9-forge/contracts/capability/social-listening/server-step-errors",
       "SOCIAL_SERVER_VERIFY_ESTIMATE_USD": "@x9-forge/contracts/capability/social-listening/cap",
       "SOCIAL_TITLE_LINKING_WORDS": "@x9-forge/contracts/capability/social-listening/group",
       "SOCIAL_TOPIC_RESEARCH_RESULT_TOOLS": "@x9-forge/contracts/capability/social-listening/topic-research-result",
@@ -1644,6 +1645,7 @@
       "SocialRoundReadResponseSchema": "@x9-forge/contracts/capability/social-listening/routes",
       "SocialRoundSchema": "@x9-forge/contracts/capability/social-listening/queue",
       "SocialRoundStateSchema": "@x9-forge/contracts/capability/social-listening/queue",
+      "SocialServerStepErrorSchema": "@x9-forge/contracts/capability/social-listening/server-step-errors",
       "SocialTopicBriefInputSchema": "@x9-forge/contracts/capability/social-listening/video-brief",
       "SocialTopicBriefOutputSchema": "@x9-forge/contracts/capability/social-listening/video-brief",
       "SocialTopicBriefToolErrorSchema": "@x9-forge/contracts/capability/social-listening/video-brief",
@@ -1673,6 +1675,7 @@
       "SocialVerticalsListInputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialVerticalsListOutputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "decideSocialFavoriteAdd": "@x9-forge/contracts/capability/social-listening/favorites",
+      "isSocialServerStepError": "@x9-forge/contracts/capability/social-listening/server-step-errors",
       "listSocialFavorites": "@x9-forge/contracts/capability/social-listening/favorites",
       "parseSocialVideoExternalRef": "@x9-forge/contracts/capability/social-listening/video-brief",
       "rankSocialCreators": "@x9-forge/contracts/capability/social-listening/creators",

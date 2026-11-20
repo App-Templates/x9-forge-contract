@@ -26,9 +26,9 @@ console.log('OK');
 `;
 
 describe('s3936 social listening job material in package 1.273.0', () => {
-  it('s3936 (a) package.json has a version in the 1.273.0-1.279.0 band', () => {
+  it('s3936 (a) package.json has a version in the 1.273.0-1.280.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.27[3-9]\.0$/);
+    expect(pkg.version).toMatch(/^1\.(27[3-9]|280)\.0$/);
   });
 
   it('s3936 (b) the symbols work from ESM', () => {

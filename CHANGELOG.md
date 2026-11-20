@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.280.0 — social listening server step error codes (task 3956)
+
+- `SOCIAL_SERVER_STEP_ERRORS`, `SocialServerStepErrorSchema`, the `SocialServerStepError` type and `isSocialServerStepError` are new.
+- No existing symbol changes.
+
 ## v1.279.0 — social listening extended research result tool and wiki research_not_ready error (tasks 3953, 3954)
 
 - `SOCIAL_TOPIC_RESEARCH_RESULT_TOOLS`, `SocialTopicResearchResultInputSchema`, `SocialTopicResearchResultOutputSchema` and `SocialTopicResearchResultToolErrorSchema` are new.

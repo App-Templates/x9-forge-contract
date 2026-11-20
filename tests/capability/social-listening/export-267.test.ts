@@ -44,7 +44,7 @@ console.log('OK');
 describe('s3693 social-listening 1.267.0 in the built package', () => {
   it('s3693 (a) package.json has version 1.267.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.2(6[7-9]|7\d)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(2(6[7-9]|7\d)|280)\.0$/);
   });
 
   it('s3693 (b) recap link, post filter and verify cost import from ESM', () => {

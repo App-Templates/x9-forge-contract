@@ -43,7 +43,7 @@ function fill(load: (spec: string) => string): string {
 describe('s3711 the two lines in one package 1.268.0', () => {
   it('s3711 (a) package.json has version 1.268.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.2(6[89]|7\d)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(2(6[89]|7\d)|280)\.0$/);
   });
 
   it('s3711 (b) contracts of both lines import from ESM', () => {
