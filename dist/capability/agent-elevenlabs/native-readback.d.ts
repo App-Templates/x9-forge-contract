@@ -160,8 +160,8 @@ export declare const ElevenLabsNativeConfigReadbackSchema: z.ZodDiscriminatedUni
         error: "error";
         unknown: "unknown";
         mismatch: "mismatch";
-        missing: "missing";
         stale: "stale";
+        missing: "missing";
     }>;
     requestId: z.ZodString;
     mapping: z.ZodObject<{

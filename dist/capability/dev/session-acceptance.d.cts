@@ -53,9 +53,9 @@ export declare const DevSessionAcceptanceInputSchema: z.ZodObject<{
     }, z.core.$strict>>>;
     behaviors: z.ZodOptional<z.ZodArray<z.ZodString>>;
     states: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+        errore: "errore";
         pieno: "pieno";
         vuoto: "vuoto";
-        errore: "errore";
         caricamento: "caricamento";
     }>>>;
     formats: z.ZodOptional<z.ZodArray<z.ZodEnum<{
@@ -97,9 +97,9 @@ export declare const DevSessionAcceptanceSchema: z.ZodObject<{
         }, z.core.$strict>>>;
         behaviors: z.ZodOptional<z.ZodArray<z.ZodString>>;
         states: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+            errore: "errore";
             pieno: "pieno";
             vuoto: "vuoto";
-            errore: "errore";
             caricamento: "caricamento";
         }>>>;
         formats: z.ZodOptional<z.ZodArray<z.ZodEnum<{

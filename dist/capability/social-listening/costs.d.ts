@@ -15,8 +15,8 @@ export type SocialCostsReportInput = z.infer<typeof SocialCostsReportInputSchema
 export declare const SocialCostsRoundSchema: z.ZodObject<{
     day: z.ZodString;
     track: z.ZodEnum<{
-        server: "server";
         mac: "mac";
+        server: "server";
     }>;
     postsSeen: z.ZodInt;
     spentUsd: z.ZodNumber;
@@ -43,8 +43,8 @@ export declare const SocialCostsReportOutputSchema: z.ZodObject<{
     rounds: z.ZodArray<z.ZodObject<{
         day: z.ZodString;
         track: z.ZodEnum<{
-            server: "server";
             mac: "mac";
+            server: "server";
         }>;
         postsSeen: z.ZodInt;
         spentUsd: z.ZodNumber;

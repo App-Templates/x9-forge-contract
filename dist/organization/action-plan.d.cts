@@ -216,8 +216,8 @@ export declare const ActionPlanSourceCoverageSchema: z.ZodObject<{
     topic: z.ZodString;
     status: z.ZodEnum<{
         partial: "partial";
-        missing: "missing";
         covered: "covered";
+        missing: "missing";
     }>;
     pages: z.ZodArray<z.ZodString>;
 }, z.core.$strict>;
@@ -458,8 +458,8 @@ export declare const ActionPlanSchema: z.ZodObject<{
         topic: z.ZodString;
         status: z.ZodEnum<{
             partial: "partial";
-            missing: "missing";
             covered: "covered";
+            missing: "missing";
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
@@ -525,6 +525,17 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
             buSlug: z.ZodString;
         }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
+    analysis: z.ZodObject<{
+        startingPoint: z.ZodString;
+        marketAndAlternatives: z.ZodObject<{
+            text: z.ZodString;
+            sources: z.ZodArray<z.ZodURL>;
+        }, z.core.$strict>;
+        recommendedMethod: z.ZodObject<{
+            method: z.ZodString;
+            why: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
     strategy: z.ZodObject<{
         approach: z.ZodString;
         choices: z.ZodArray<z.ZodString>;
@@ -539,17 +550,6 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         product: "product";
         study: "study";
     }>>;
-    analysis: z.ZodObject<{
-        startingPoint: z.ZodString;
-        marketAndAlternatives: z.ZodObject<{
-            text: z.ZodString;
-            sources: z.ZodArray<z.ZodURL>;
-        }, z.core.$strict>;
-        recommendedMethod: z.ZodObject<{
-            method: z.ZodString;
-            why: z.ZodString;
-        }, z.core.$strict>;
-    }, z.core.$strict>;
     objectiveTree: z.ZodObject<{
         project: z.ZodObject<{
             expectedResult: z.ZodString;
@@ -680,8 +680,8 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         topic: z.ZodString;
         status: z.ZodEnum<{
             partial: "partial";
-            missing: "missing";
             covered: "covered";
+            missing: "missing";
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
@@ -756,6 +756,17 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
             buSlug: z.ZodString;
         }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
+    analysis: z.ZodObject<{
+        startingPoint: z.ZodString;
+        marketAndAlternatives: z.ZodObject<{
+            text: z.ZodString;
+            sources: z.ZodArray<z.ZodURL>;
+        }, z.core.$strict>;
+        recommendedMethod: z.ZodObject<{
+            method: z.ZodString;
+            why: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
     strategy: z.ZodObject<{
         approach: z.ZodString;
         choices: z.ZodArray<z.ZodString>;
@@ -770,17 +781,6 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         product: "product";
         study: "study";
     }>>;
-    analysis: z.ZodObject<{
-        startingPoint: z.ZodString;
-        marketAndAlternatives: z.ZodObject<{
-            text: z.ZodString;
-            sources: z.ZodArray<z.ZodURL>;
-        }, z.core.$strict>;
-        recommendedMethod: z.ZodObject<{
-            method: z.ZodString;
-            why: z.ZodString;
-        }, z.core.$strict>;
-    }, z.core.$strict>;
     objectiveTree: z.ZodObject<{
         project: z.ZodObject<{
             expectedResult: z.ZodString;
@@ -911,8 +911,8 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         topic: z.ZodString;
         status: z.ZodEnum<{
             partial: "partial";
-            missing: "missing";
             covered: "covered";
+            missing: "missing";
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
@@ -1140,8 +1140,8 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
         topic: z.ZodString;
         status: z.ZodEnum<{
             partial: "partial";
-            missing: "missing";
             covered: "covered";
+            missing: "missing";
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;

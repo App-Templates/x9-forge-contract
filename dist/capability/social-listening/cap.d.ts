@@ -6,8 +6,8 @@ export declare const SOCIAL_SERVER_VERIFY_ESTIMATE_USD = 0.25;
 export declare function socialServerVerifyEstimate(seenUsd: readonly number[]): number;
 export declare const SocialCapCheckSchema: z.ZodObject<{
     track: z.ZodEnum<{
-        server: "server";
         mac: "mac";
+        server: "server";
     }>;
     capUsd: z.ZodNumber;
     spentUsd: z.ZodNumber;

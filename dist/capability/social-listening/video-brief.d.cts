@@ -7,9 +7,13 @@ import type { SocialTopicGetOutput } from "./tools.cjs";
  *
  * The X9 service calls cap-video with the SAME identity envelope as the call it received; identity never comes
  * from the input (R-33). The request shape is cap-video's own (R-14): nothing is copied here.
+ * `text` is read-only: the model uses it before `video_brief_create`.
+ * `link` writes the project reference: the caller uses it after receiving cap-video's response.
  */
 export declare const SOCIAL_TOPIC_VIDEO_TOOLS: {
     readonly brief: "social_topic_brief";
+    readonly text: "social_topic_brief_text";
+    readonly link: "social_topic_video_link";
 };
 export declare const SOCIAL_VIDEO_EXTERNAL_REF_PREFIX = "social:";
 /** `social:<topicId>`: the common reference the video project carries back to its topic. */
@@ -54,6 +58,52 @@ export declare const SocialTopicBriefOutputSchema: z.ZodObject<{
     }>;
 }, z.core.$strict>;
 export type SocialTopicBriefOutput = z.infer<typeof SocialTopicBriefOutputSchema>;
+export declare const SocialTopicBriefTextInputSchema: z.ZodObject<{
+    topicId: z.ZodString;
+}, z.core.$strict>;
+export type SocialTopicBriefTextInput = z.infer<typeof SocialTopicBriefTextInputSchema>;
+export declare const SocialTopicBriefTextOutputSchema: z.ZodObject<{
+    topicId: z.ZodString;
+    brief: z.ZodString;
+    externalRef: z.ZodString;
+}, z.core.$strict>;
+export type SocialTopicBriefTextOutput = z.infer<typeof SocialTopicBriefTextOutputSchema>;
+export declare const SocialTopicVideoLinkInputSchema: z.ZodObject<{
+    topicId: z.ZodString;
+    externalRef: z.ZodString;
+    projectId: z.ZodString;
+    state: z.ZodEnum<{
+        failed: "failed";
+        created: "created";
+        delivered: "delivered";
+        planning: "planning";
+        awaiting_approval: "awaiting_approval";
+        producing: "producing";
+    }>;
+}, z.core.$strict>;
+export type SocialTopicVideoLinkInput = z.infer<typeof SocialTopicVideoLinkInputSchema>;
+export declare const SocialTopicVideoLinkOutputSchema: z.ZodObject<{
+    topicId: z.ZodString;
+    projectId: z.ZodString;
+    state: z.ZodEnum<{
+        failed: "failed";
+        created: "created";
+        delivered: "delivered";
+        planning: "planning";
+        awaiting_approval: "awaiting_approval";
+        producing: "producing";
+    }>;
+}, z.core.$strict>;
+export type SocialTopicVideoLinkOutput = z.infer<typeof SocialTopicVideoLinkOutputSchema>;
+export declare const SocialTopicVideoToolErrorSchema: z.ZodEnum<{
+    invalid_request: "invalid_request";
+    not_configured: "not_configured";
+    unknown_topic: "unknown_topic";
+    topic_mismatch: "topic_mismatch";
+    ref_mismatch: "ref_mismatch";
+    invalid_output: "invalid_output";
+}>;
+export type SocialTopicVideoToolError = z.infer<typeof SocialTopicVideoToolErrorSchema>;
 /**
  * The topic after its brief went out: `videoProjectId` is written only when cap-video's answer is about THIS topic
  * (same topic id and same `social:<id>` reference). The last brief wins. Never throws.
@@ -96,6 +146,8 @@ export declare const SocialTopicBriefToolErrorSchema: z.ZodEnum<{
 export type SocialTopicBriefToolError = z.infer<typeof SocialTopicBriefToolErrorSchema>;
 /** Brief text in Italian; over the limit, whole facts are dropped from the end, never cut in half. */
 export declare function socialTopicVideoBriefText(topic: SocialTopicGetOutput): string;
+/** Verified topic text and reference for a subsequent `video_brief_create` call. */
+export declare function socialTopicBriefTextOutput(topic: SocialTopicGetOutput): SocialTopicBriefTextOutput;
 /** The request of `video_brief_create`, validated with cap-video's own schema. */
 export declare function socialTopicVideoBriefInput(topic: SocialTopicGetOutput, choices: Omit<SocialTopicBriefInput, 'topicId'>): VideoBriefToolInput;
 //# sourceMappingURL=video-brief.d.ts.map

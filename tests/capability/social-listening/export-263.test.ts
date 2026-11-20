@@ -44,7 +44,7 @@ console.log(ok ? 'OK' : 'KO');
 `;
 
 describe('s3630 social-listening 1.263.0 in the built package', () => {
-  it('s3630 (a) package.json has version 1.263.0', () => {
+  it('s3630 (a) package.json has version 1.287.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string };
     const [maggiore, minore] = pkg.version.split('.').map(Number);
     expect(maggiore).toBe(1);

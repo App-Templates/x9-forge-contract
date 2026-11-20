@@ -7,8 +7,14 @@ import { SocialTopicSchema } from "./topic.js";
  *
  * The X9 service calls cap-video with the SAME identity envelope as the call it received; identity never comes
  * from the input (R-33). The request shape is cap-video's own (R-14): nothing is copied here.
+ * `text` is read-only: the model uses it before `video_brief_create`.
+ * `link` writes the project reference: the caller uses it after receiving cap-video's response.
  */
-export const SOCIAL_TOPIC_VIDEO_TOOLS = { brief: 'social_topic_brief' };
+export const SOCIAL_TOPIC_VIDEO_TOOLS = {
+    brief: 'social_topic_brief',
+    text: 'social_topic_brief_text',
+    link: 'social_topic_video_link',
+};
 export const SOCIAL_VIDEO_EXTERNAL_REF_PREFIX = 'social:';
 const TopicIdSchema = SocialTopicSchema.shape.topicId;
 const BRIEF_MAX = 6000;
@@ -34,6 +40,21 @@ export const SocialTopicBriefOutputSchema = z.strictObject({
     projectId: VideoProjectIdSchema,
     state: VideoProjectStateSchema,
 });
+export const SocialTopicBriefTextInputSchema = z.strictObject({ topicId: TopicIdSchema });
+export const SocialTopicBriefTextOutputSchema = z.strictObject({
+    topicId: TopicIdSchema,
+    brief: z.string().min(1).max(BRIEF_MAX),
+    externalRef: VideoBriefRequestSchema.shape.externalRef.unwrap(),
+});
+export const SocialTopicVideoLinkInputSchema = SocialTopicBriefOutputSchema;
+export const SocialTopicVideoLinkOutputSchema = z.strictObject({
+    topicId: TopicIdSchema,
+    projectId: VideoProjectIdSchema,
+    state: VideoProjectStateSchema,
+});
+export const SocialTopicVideoToolErrorSchema = z.enum([
+    'invalid_request', 'not_configured', 'unknown_topic', 'topic_mismatch', 'ref_mismatch', 'invalid_output',
+]);
 /**
  * The topic after its brief went out: `videoProjectId` is written only when cap-video's answer is about THIS topic
  * (same topic id and same `social:<id>` reference). The last brief wins. Never throws.
@@ -98,6 +119,15 @@ export function socialTopicVideoBriefText(topic) {
             return text;
     }
     return build(0, false);
+}
+/** Verified topic text and reference for a subsequent `video_brief_create` call. */
+export function socialTopicBriefTextOutput(topic) {
+    const externalRef = socialVideoExternalRef(topic.topicId);
+    return SocialTopicBriefTextOutputSchema.parse({
+        topicId: topic.topicId,
+        brief: socialTopicVideoBriefText(topic),
+        externalRef,
+    });
 }
 /** The request of `video_brief_create`, validated with cap-video's own schema. */
 export function socialTopicVideoBriefInput(topic, choices) {

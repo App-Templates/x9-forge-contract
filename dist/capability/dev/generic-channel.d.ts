@@ -5,8 +5,8 @@ export declare const DevGenericClaimRequestSchema: z.ZodObject<{
     version: z.ZodLiteral<1>;
     executorId: z.ZodString;
     executor: z.ZodEnum<{
-        laptop: "laptop";
         server: "server";
+        laptop: "laptop";
     }>;
     tenantId: z.ZodString;
     ownerId: z.ZodString;
@@ -43,8 +43,8 @@ export declare const DevGenericClaimResponseSchema: z.ZodDiscriminatedUnion<[z.Z
             ig_collect: "ig_collect";
         }>;
         executor: z.ZodEnum<{
-            laptop: "laptop";
             server: "server";
+            laptop: "laptop";
         }>;
         input: z.ZodRecord<z.ZodString, z.ZodJSONSchema>;
         configVersion: z.ZodNumber;

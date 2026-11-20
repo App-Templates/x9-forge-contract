@@ -33,8 +33,8 @@ export declare const SOCIAL_MEASUREMENT_KINDS: readonly ["post_analysis", "exten
 export declare const SocialCostMeasurementSchema: z.ZodObject<{
     measurementId: z.ZodString;
     track: z.ZodEnum<{
-        server: "server";
         mac: "mac";
+        server: "server";
     }>;
     kind: z.ZodEnum<{
         post_analysis: "post_analysis";

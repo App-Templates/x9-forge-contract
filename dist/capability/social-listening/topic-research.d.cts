@@ -10,6 +10,12 @@ import type { SocialTopicGetOutput } from "./tools.cjs";
 export declare const SOCIAL_TOPIC_RESEARCH_TOOLS: {
     readonly start: "social_topic_research";
 };
+/** Fixed caller-specific research limits for the $0.30 ceiling (D18). */
+export declare const SOCIAL_RESEARCH_NARROW_PARAMS: {
+    readonly maxToolCalls: 1;
+    readonly searchContextSize: "low";
+    readonly reasoningEffort: "low";
+};
 export declare const SocialTopicResearchInputSchema: z.ZodObject<{
     topicId: z.ZodString;
 }, z.core.$strict>;
@@ -28,6 +34,7 @@ export declare const SocialTopicResearchOutputSchema: z.ZodObject<{
 export type SocialTopicResearchOutput = z.infer<typeof SocialTopicResearchOutputSchema>;
 export declare const SocialTopicResearchToolErrorSchema: z.ZodEnum<{
     invalid_request: "invalid_request";
+    research_budget_exhausted: "research_budget_exhausted";
     not_configured: "not_configured";
     unknown_topic: "unknown_topic";
     already_researched: "already_researched";

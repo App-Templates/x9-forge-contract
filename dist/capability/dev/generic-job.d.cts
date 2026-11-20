@@ -13,8 +13,8 @@ export declare const DevGenericToolSchema: z.ZodEnum<{
 export type DevGenericTool = z.infer<typeof DevGenericToolSchema>;
 export declare const DEV_GENERIC_EXECUTORS: readonly ["laptop", "server"];
 export declare const DevGenericExecutorSchema: z.ZodEnum<{
-    laptop: "laptop";
     server: "server";
+    laptop: "laptop";
 }>;
 export type DevGenericExecutor = z.infer<typeof DevGenericExecutorSchema>;
 export declare const DEV_GENERIC_INPUT_MAX_BYTES = 32768;
@@ -42,8 +42,8 @@ export declare const DevGenericJobSchema: z.ZodObject<{
         ig_collect: "ig_collect";
     }>;
     executor: z.ZodEnum<{
-        laptop: "laptop";
         server: "server";
+        laptop: "laptop";
     }>;
     input: z.ZodRecord<z.ZodString, z.ZodJSONSchema>;
     configVersion: z.ZodNumber;

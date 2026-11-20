@@ -82,8 +82,8 @@ export declare const SocialRecapTopicSummarySchema: z.ZodObject<{
     cost: z.ZodObject<{
         usd: z.ZodNumber;
         track: z.ZodEnum<{
-            server: "server";
             mac: "mac";
+            server: "server";
         }>;
         uncertain: z.ZodBoolean;
     }, z.core.$strict>;
@@ -109,8 +109,8 @@ export declare const SocialRecapOutputSchema: z.ZodObject<{
     /** Whether the returned round predates `requestedDay`; present only with `requestedDay`. */
     stale: z.ZodOptional<z.ZodBoolean>;
     track: z.ZodEnum<{
-        server: "server";
         mac: "mac";
+        server: "server";
     }>;
     finishedAt: z.ZodNullable<z.ZodISODateTime>;
     counts: z.ZodObject<Record<"funziona" | "da_provare" | "non_funziona" | "fuffa", z.ZodNumber>, z.core.$strict>;
@@ -132,8 +132,8 @@ export declare const SocialRecapOutputSchema: z.ZodObject<{
         cost: z.ZodObject<{
             usd: z.ZodNumber;
             track: z.ZodEnum<{
-                server: "server";
                 mac: "mac";
+                server: "server";
             }>;
             uncertain: z.ZodBoolean;
         }, z.core.$strict>;
@@ -167,8 +167,8 @@ export declare const SocialTopicGetOutputSchema: z.ZodObject<{
     cost: z.ZodObject<{
         usd: z.ZodNumber;
         track: z.ZodEnum<{
-            server: "server";
             mac: "mac";
+            server: "server";
         }>;
         uncertain: z.ZodBoolean;
     }, z.core.$strict>;

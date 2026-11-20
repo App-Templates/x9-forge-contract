@@ -41,9 +41,9 @@ console.log('OK');
 `;
 
 describe('s3948 social listening spend, recap cost per post and Ascolto page path in package 1.276.0', () => {
-  it('s3948 (a) package.json has a version in the 1.276.0-1.284.0 band', () => {
+  it('s3948 (a) package.json has a version in the 1.276.0-1.287.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(27[6-9]|28[0-5])\.0$/);
+    expect(pkg.version).toMatch(/^1\.(27[6-9]|28[0-57])\.0$/);
   });
 
   it('s3948 (b) the symbols work from ESM', () => {

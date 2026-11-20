@@ -190,11 +190,11 @@ export declare const VideoDriveFileIdSchema: z.ZodString;
 export type VideoDriveFileId = z.infer<typeof VideoDriveFileIdSchema>;
 export declare const VideoFootageSyncFileStatusSchema: z.ZodEnum<{
     in_corso: "in_corso";
-    errore: "errore";
     in_coda: "in_coda";
     aggiunta: "aggiunta";
     gia_nell_archivio: "gia_nell_archivio";
     rifiutata: "rifiutata";
+    errore: "errore";
 }>;
 export type VideoFootageSyncFileStatus = z.infer<typeof VideoFootageSyncFileStatusSchema>;
 /** The engine's reasons, plus the two cap-video sees itself before downloading (over the byte limit, not a video type). */
@@ -214,11 +214,11 @@ export declare const VideoFootageSyncFileSchema: z.ZodObject<{
     name: z.ZodString;
     status: z.ZodEnum<{
         in_corso: "in_corso";
-        errore: "errore";
         in_coda: "in_coda";
         aggiunta: "aggiunta";
         gia_nell_archivio: "gia_nell_archivio";
         rifiutata: "rifiutata";
+        errore: "errore";
     }>;
     footageId: z.ZodOptional<z.ZodString>;
     reason: z.ZodOptional<z.ZodEnum<{
@@ -241,11 +241,11 @@ export declare const VideoFootageSyncResponseSchema: z.ZodDiscriminatedUnion<[z.
         name: z.ZodString;
         status: z.ZodEnum<{
             in_corso: "in_corso";
-            errore: "errore";
             in_coda: "in_coda";
             aggiunta: "aggiunta";
             gia_nell_archivio: "gia_nell_archivio";
             rifiutata: "rifiutata";
+            errore: "errore";
         }>;
         footageId: z.ZodOptional<z.ZodString>;
         reason: z.ZodOptional<z.ZodEnum<{

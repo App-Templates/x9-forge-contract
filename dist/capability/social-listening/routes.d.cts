@@ -46,8 +46,8 @@ export declare const SocialRoundReadResponseSchema: z.ZodObject<{
         verticalId: z.ZodString;
         day: z.ZodString;
         track: z.ZodEnum<{
-            server: "server";
             mac: "mac";
+            server: "server";
         }>;
         state: z.ZodEnum<{
             failed: "failed";
@@ -106,8 +106,8 @@ export declare const socialRoundReadContract: {
             verticalId: z.ZodString;
             day: z.ZodString;
             track: z.ZodEnum<{
-                server: "server";
                 mac: "mac";
+                server: "server";
             }>;
             state: z.ZodEnum<{
                 failed: "failed";

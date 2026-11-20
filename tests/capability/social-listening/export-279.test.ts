@@ -28,9 +28,9 @@ console.log('OK');
 `;
 
 describe('s3955 public extended research result in package 1.279.0', () => {
-  it('s3955 (a) package.json has version 1.279.0', () => {
+  it('s3955 (a) package.json has version 1.287.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(279|28[0-5])\.0$/);
+    expect(pkg.version).toMatch(/^1\.(279|28[0-57])\.0$/);
   });
 
   it('s3955 (b) the public research result exports work from ESM', () => {

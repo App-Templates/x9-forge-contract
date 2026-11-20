@@ -8133,4 +8133,92 @@ export declare const ordinaryCapabilityLifecyclePutContract: {
         agentId: z.ZodString;
     }, z.core.$strip>;
 };
+/**
+ * POST /internal/capability/agents/:agentId/adoption-decisions — a manual decision on a social-listening adoption proposal.
+ * Forge's factory, which knows the verified role of the caller (owner or superadmin), calls the listening service with
+ * `INTERNAL_SECRET_HEADER`; the service checks `scope.agentId === :agentId` (`agent_mismatch`, as the other routes) and
+ * applies `socialAdoptionDecision`. Never a model tool (D13): the tool envelope has no role field, and a role written by
+ * the model is worth nothing (R-33).
+ */
+export declare const SocialAdoptionDecideBodySchema: z.ZodObject<{
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    actorRole: z.ZodEnum<{
+        superadmin: "superadmin";
+        owner: "owner";
+    }>;
+    input: z.ZodObject<{
+        proposalId: z.ZodString;
+        decision: z.ZodEnum<{
+            rejected: "rejected";
+            adopted: "adopted";
+        }>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const SocialAdoptionDecideErrorSchema: z.ZodObject<{
+    error: z.ZodEnum<{
+        invalid_request: "invalid_request";
+        unknown_topic: "unknown_topic";
+        unknown_proposal: "unknown_proposal";
+        not_allowed: "not_allowed";
+        already_decided: "already_decided";
+    }>;
+}, z.core.$strict>;
+export declare const socialAdoptionDecideContract: {
+    readonly method: "POST";
+    readonly path: "/internal/capability/agents/:agentId/adoption-decisions";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly bodySchema: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        actorRole: z.ZodEnum<{
+            superadmin: "superadmin";
+            owner: "owner";
+        }>;
+        input: z.ZodObject<{
+            proposalId: z.ZodString;
+            decision: z.ZodEnum<{
+                rejected: "rejected";
+                adopted: "adopted";
+            }>;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        proposal: z.ZodObject<{
+            identity: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            proposalId: z.ZodString;
+            topicId: z.ZodString;
+            kind: z.ZodEnum<{
+                skill: "skill";
+                rule: "rule";
+                mod: "mod";
+            }>;
+            text: z.ZodString;
+            state: z.ZodEnum<{
+                proposed: "proposed";
+                rejected: "rejected";
+                adopted: "adopted";
+            }>;
+            proposedAt: z.ZodISODateTime;
+            decidedBy: z.ZodOptional<z.ZodEnum<{
+                superadmin: "superadmin";
+                owner: "owner";
+            }>>;
+            decidedAt: z.ZodOptional<z.ZodISODateTime>;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+};
 //# sourceMappingURL=internal-capability-agent.d.ts.map

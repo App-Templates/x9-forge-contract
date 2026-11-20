@@ -32,4 +32,6 @@ export * from "./video-brief.js";
 export * from "./save-wiki.js";
 export * from "./topic-research.js";
 export * from "./topic-research-result.js";
+export { SOCIAL_OPTIMIZED_COST_PER_POST_USD, SOCIAL_COST_NEAR_TOLERANCE, socialCostVsEstimate } from "./optimized-estimate.js";
+export { SocialRoundOptimizationSchema, socialRoundOptimization, type SocialRoundOptimization } from "./optimization-report.js";
 //# sourceMappingURL=index.d.ts.map

@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialPostAnalysisSchema = exports.SocialPostToolSchema = exports.SocialFactSchema = exports.SocialTopicSchema = exports.SocialTopicCostSchema = exports.SocialTopicSourceSchema = exports.SocialTopicFactSchema = exports.SocialTopicTitleSchema = exports.SOCIAL_TOPIC_TITLE_MAX = exports.SocialTrackSchema = exports.SOCIAL_TRACKS = exports.SOCIAL_VERDICT_TRUTH_SCORE = exports.SocialVerdictSchema = exports.SOCIAL_VERDICTS = exports.socialCategoryInVertical = exports.SocialVerticalSchema = exports.SocialCategorySchema = exports.SocialCategorySlugSchema = exports.SocialPostFilterSchema = exports.SocialPostSchema = exports.SocialPostKindSchema = exports.SOCIAL_POST_KINDS = exports.SocialFollowedProfileSchema = exports.SocialVerticalIdSchema = exports.SocialHandleSchema = exports.SocialProviderSchema = exports.SOCIAL_PROVIDERS = void 0;
+exports.socialRoundOptimization = exports.SocialRoundOptimizationSchema = exports.socialCostVsEstimate = exports.SOCIAL_COST_NEAR_TOLERANCE = exports.SOCIAL_OPTIMIZED_COST_PER_POST_USD = exports.SocialPostAnalysisSchema = exports.SocialPostToolSchema = exports.SocialFactSchema = exports.SocialTopicSchema = exports.SocialTopicCostSchema = exports.SocialTopicSourceSchema = exports.SocialTopicFactSchema = exports.SocialTopicTitleSchema = exports.SOCIAL_TOPIC_TITLE_MAX = exports.SocialTrackSchema = exports.SOCIAL_TRACKS = exports.SOCIAL_VERDICT_TRUTH_SCORE = exports.SocialVerdictSchema = exports.SOCIAL_VERDICTS = exports.socialCategoryInVertical = exports.SocialVerticalSchema = exports.SocialCategorySchema = exports.SocialCategorySlugSchema = exports.SocialPostFilterSchema = exports.SocialPostSchema = exports.SocialPostKindSchema = exports.SOCIAL_POST_KINDS = exports.SocialFollowedProfileSchema = exports.SocialVerticalIdSchema = exports.SocialHandleSchema = exports.SocialProviderSchema = exports.SOCIAL_PROVIDERS = void 0;
 /**
  * social-listening contracts — sub-path `@x9-forge/contracts/capability/social-listening`.
  *
@@ -76,4 +76,11 @@ __exportStar(require("./video-brief.cjs"), exports);
 __exportStar(require("./save-wiki.cjs"), exports);
 __exportStar(require("./topic-research.cjs"), exports);
 __exportStar(require("./topic-research-result.cjs"), exports);
+var optimized_estimate_js_1 = require("./optimized-estimate.cjs");
+Object.defineProperty(exports, "SOCIAL_OPTIMIZED_COST_PER_POST_USD", { enumerable: true, get: function () { return optimized_estimate_js_1.SOCIAL_OPTIMIZED_COST_PER_POST_USD; } });
+Object.defineProperty(exports, "SOCIAL_COST_NEAR_TOLERANCE", { enumerable: true, get: function () { return optimized_estimate_js_1.SOCIAL_COST_NEAR_TOLERANCE; } });
+Object.defineProperty(exports, "socialCostVsEstimate", { enumerable: true, get: function () { return optimized_estimate_js_1.socialCostVsEstimate; } });
+var optimization_report_js_1 = require("./optimization-report.cjs");
+Object.defineProperty(exports, "SocialRoundOptimizationSchema", { enumerable: true, get: function () { return optimization_report_js_1.SocialRoundOptimizationSchema; } });
+Object.defineProperty(exports, "socialRoundOptimization", { enumerable: true, get: function () { return optimization_report_js_1.socialRoundOptimization; } });
 //# sourceMappingURL=index.js.map

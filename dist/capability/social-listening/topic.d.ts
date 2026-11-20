@@ -29,8 +29,8 @@ export declare const SOCIAL_VERDICT_TRUTH_SCORE: {
 /** The track that did the work (D9). */
 export declare const SOCIAL_TRACKS: readonly ["mac", "server"];
 export declare const SocialTrackSchema: z.ZodEnum<{
-    server: "server";
     mac: "mac";
+    server: "server";
 }>;
 export type SocialTrack = z.infer<typeof SocialTrackSchema>;
 /** Short title: under 32 characters. */
@@ -52,8 +52,8 @@ export type SocialTopicSource = z.infer<typeof SocialTopicSourceSchema>;
 export declare const SocialTopicCostSchema: z.ZodObject<{
     usd: z.ZodNumber;
     track: z.ZodEnum<{
-        server: "server";
         mac: "mac";
+        server: "server";
     }>;
     uncertain: z.ZodBoolean;
 }, z.core.$strict>;
@@ -91,8 +91,8 @@ export declare const SocialTopicSchema: z.ZodObject<{
     cost: z.ZodObject<{
         usd: z.ZodNumber;
         track: z.ZodEnum<{
-            server: "server";
             mac: "mac";
+            server: "server";
         }>;
         uncertain: z.ZodBoolean;
     }, z.core.$strict>;

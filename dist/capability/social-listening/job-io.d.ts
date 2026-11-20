@@ -122,6 +122,10 @@ export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         }, z.core.$strict>>;
         caption: z.ZodString;
         transcript: z.ZodOptional<z.ZodString>;
+        publishedAt: z.ZodISODateTime;
+        handle: z.ZodString;
+        collectedAt: z.ZodISODateTime;
+        postId: z.ZodString;
         analysis: z.ZodOptional<z.ZodObject<{
             verdict: z.ZodEnum<{
                 funziona: "funziona";
@@ -142,10 +146,6 @@ export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             }, z.core.$strict>>;
             analyzedAt: z.ZodISODateTime;
         }, z.core.$strict>>;
-        handle: z.ZodString;
-        publishedAt: z.ZodISODateTime;
-        collectedAt: z.ZodISODateTime;
-        postId: z.ZodString;
     }, z.core.$strict>>;
     hasMore: z.ZodBoolean;
 }, z.core.$strict>, z.ZodObject<{
@@ -197,9 +197,9 @@ export declare function socialVerifyTopicCost(result: SocialJobResult, track: So
 export declare function socialPostFilterFromResult(result: SocialJobResult, filteredAt: string): SocialPostFilter;
 export declare const SOCIAL_JOB_RESULT_ERRORS: readonly ["kind_mismatch", "post_mismatch", "topic_mismatch", "job_not_running"];
 export declare const SocialJobResultErrorSchema: z.ZodEnum<{
+    topic_mismatch: "topic_mismatch";
     kind_mismatch: "kind_mismatch";
     post_mismatch: "post_mismatch";
-    topic_mismatch: "topic_mismatch";
     job_not_running: "job_not_running";
 }>;
 export type SocialJobResultMatch = {

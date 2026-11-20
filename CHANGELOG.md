@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.287.0 — social listening: narrow extended research, adoption decision route, video brief tools (tasks 9760, 9761, 9762)
+
+- `socialTopicResearchRequest` sends `SOCIAL_RESEARCH_NARROW_PARAMS` (1 tool call, low search context, low reasoning effort) so extended research fits the 0.30 USD budget.
+- `SocialTopicResearchToolErrorSchema` gains `research_budget_exhausted`.
+- `socialAdoptionDecideContract` in `http/endpoints` exposes POST `/internal/capability/agents/:agentId/adoption-decisions`, with body `scope`, `actorRole` (`owner` or `superadmin`) and `input`.
+- `SOCIAL_TOPIC_VIDEO_TOOLS` gains `text` (`social_topic_brief_text`) and `link` (`social_topic_video_link`), with `SocialTopicBriefTextInputSchema`, `SocialTopicBriefTextOutputSchema`, `SocialTopicVideoLinkInputSchema` and `SocialTopicVideoLinkOutputSchema`.
+- No existing output changes.
+
 ## v1.285.0 — social listening: the recap carries the Ascolto page link first (task 9700)
 
 - `SocialRecapOutputSchema` gains optional `pageLine` and moves `pageUrl` before `verticalId`.

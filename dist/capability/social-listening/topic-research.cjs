@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialTopicResearchToolErrorSchema = exports.SocialTopicResearchOutputSchema = exports.SocialTopicResearchInputSchema = exports.SOCIAL_TOPIC_RESEARCH_TOOLS = void 0;
+exports.SocialTopicResearchToolErrorSchema = exports.SocialTopicResearchOutputSchema = exports.SocialTopicResearchInputSchema = exports.SOCIAL_RESEARCH_NARROW_PARAMS = exports.SOCIAL_TOPIC_RESEARCH_TOOLS = void 0;
 exports.socialTopicResearchRequest = socialTopicResearchRequest;
 exports.socialTopicResearchDecision = socialTopicResearchDecision;
 const zod_1 = require("zod");
@@ -13,6 +13,8 @@ const topic_js_1 = require("./topic.cjs");
  * Neither identity nor budget comes from the tool input.
  */
 exports.SOCIAL_TOPIC_RESEARCH_TOOLS = { start: 'social_topic_research' };
+/** Fixed caller-specific research limits for the $0.30 ceiling (D18). */
+exports.SOCIAL_RESEARCH_NARROW_PARAMS = { maxToolCalls: 1, searchContextSize: 'low', reasoningEffort: 'low' };
 const TopicIdSchema = topic_js_1.SocialTopicSchema.shape.topicId;
 exports.SocialTopicResearchInputSchema = zod_1.z.strictObject({ topicId: TopicIdSchema });
 exports.SocialTopicResearchOutputSchema = zod_1.z.strictObject({
@@ -22,7 +24,7 @@ exports.SocialTopicResearchOutputSchema = zod_1.z.strictObject({
 });
 exports.SocialTopicResearchToolErrorSchema = zod_1.z.enum([
     'invalid_request', 'not_configured', 'unknown_topic', 'already_researched',
-    'research_cap_reached', 'research_not_enabled',
+    'research_cap_reached', 'research_not_enabled', 'research_budget_exhausted',
 ]);
 /** Build research_start's request using the agent's budget and cap-ricerca's own schema. */
 function socialTopicResearchRequest(topic, research) {
@@ -35,6 +37,7 @@ function socialTopicResearchRequest(topic, research) {
         question,
         goal: "Approfondire con fonti aperte un argomento dell'ascolto social: confermare o smentire i fatti",
         maxUsd: research.maxUsdPerResearch,
+        params: exports.SOCIAL_RESEARCH_NARROW_PARAMS,
     });
 }
 /** The caller owns the daily ledger; reuse the microdollar cap check before reserving research. */

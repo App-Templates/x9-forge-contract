@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialTopicBriefToolErrorSchema = exports.SOCIAL_VIDEO_TOOLS = exports.SOCIAL_VIDEO_CAPABILITY = exports.SocialTopicBriefOutputSchema = exports.SocialTopicBriefInputSchema = exports.SOCIAL_VIDEO_EXTERNAL_REF_PREFIX = exports.SOCIAL_TOPIC_VIDEO_TOOLS = void 0;
+exports.SocialTopicBriefToolErrorSchema = exports.SOCIAL_VIDEO_TOOLS = exports.SOCIAL_VIDEO_CAPABILITY = exports.SocialTopicVideoToolErrorSchema = exports.SocialTopicVideoLinkOutputSchema = exports.SocialTopicVideoLinkInputSchema = exports.SocialTopicBriefTextOutputSchema = exports.SocialTopicBriefTextInputSchema = exports.SocialTopicBriefOutputSchema = exports.SocialTopicBriefInputSchema = exports.SOCIAL_VIDEO_EXTERNAL_REF_PREFIX = exports.SOCIAL_TOPIC_VIDEO_TOOLS = void 0;
 exports.socialVideoExternalRef = socialVideoExternalRef;
 exports.parseSocialVideoExternalRef = parseSocialVideoExternalRef;
 exports.socialTopicAfterBrief = socialTopicAfterBrief;
 exports.socialTopicBriefOutputFromVideo = socialTopicBriefOutputFromVideo;
 exports.socialTopicVideoBriefText = socialTopicVideoBriefText;
+exports.socialTopicBriefTextOutput = socialTopicBriefTextOutput;
 exports.socialTopicVideoBriefInput = socialTopicVideoBriefInput;
 const zod_1 = require("zod");
 const brief_js_1 = require("../video/brief.cjs");
@@ -16,8 +17,14 @@ const topic_js_1 = require("./topic.cjs");
  *
  * The X9 service calls cap-video with the SAME identity envelope as the call it received; identity never comes
  * from the input (R-33). The request shape is cap-video's own (R-14): nothing is copied here.
+ * `text` is read-only: the model uses it before `video_brief_create`.
+ * `link` writes the project reference: the caller uses it after receiving cap-video's response.
  */
-exports.SOCIAL_TOPIC_VIDEO_TOOLS = { brief: 'social_topic_brief' };
+exports.SOCIAL_TOPIC_VIDEO_TOOLS = {
+    brief: 'social_topic_brief',
+    text: 'social_topic_brief_text',
+    link: 'social_topic_video_link',
+};
 exports.SOCIAL_VIDEO_EXTERNAL_REF_PREFIX = 'social:';
 const TopicIdSchema = topic_js_1.SocialTopicSchema.shape.topicId;
 const BRIEF_MAX = 6000;
@@ -43,6 +50,21 @@ exports.SocialTopicBriefOutputSchema = zod_1.z.strictObject({
     projectId: brief_js_1.VideoProjectIdSchema,
     state: brief_js_1.VideoProjectStateSchema,
 });
+exports.SocialTopicBriefTextInputSchema = zod_1.z.strictObject({ topicId: TopicIdSchema });
+exports.SocialTopicBriefTextOutputSchema = zod_1.z.strictObject({
+    topicId: TopicIdSchema,
+    brief: zod_1.z.string().min(1).max(BRIEF_MAX),
+    externalRef: brief_js_1.VideoBriefRequestSchema.shape.externalRef.unwrap(),
+});
+exports.SocialTopicVideoLinkInputSchema = exports.SocialTopicBriefOutputSchema;
+exports.SocialTopicVideoLinkOutputSchema = zod_1.z.strictObject({
+    topicId: TopicIdSchema,
+    projectId: brief_js_1.VideoProjectIdSchema,
+    state: brief_js_1.VideoProjectStateSchema,
+});
+exports.SocialTopicVideoToolErrorSchema = zod_1.z.enum([
+    'invalid_request', 'not_configured', 'unknown_topic', 'topic_mismatch', 'ref_mismatch', 'invalid_output',
+]);
 /**
  * The topic after its brief went out: `videoProjectId` is written only when cap-video's answer is about THIS topic
  * (same topic id and same `social:<id>` reference). The last brief wins. Never throws.
@@ -107,6 +129,15 @@ function socialTopicVideoBriefText(topic) {
             return text;
     }
     return build(0, false);
+}
+/** Verified topic text and reference for a subsequent `video_brief_create` call. */
+function socialTopicBriefTextOutput(topic) {
+    const externalRef = socialVideoExternalRef(topic.topicId);
+    return exports.SocialTopicBriefTextOutputSchema.parse({
+        topicId: topic.topicId,
+        brief: socialTopicVideoBriefText(topic),
+        externalRef,
+    });
 }
 /** The request of `video_brief_create`, validated with cap-video's own schema. */
 function socialTopicVideoBriefInput(topic, choices) {

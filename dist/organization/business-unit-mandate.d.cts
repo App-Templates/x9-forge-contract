@@ -215,8 +215,8 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
             topic: z.ZodString;
             status: z.ZodEnum<{
                 partial: "partial";
-                missing: "missing";
                 covered: "covered";
+                missing: "missing";
             }>;
             pages: z.ZodArray<z.ZodString>;
         }, z.core.$strict>>>;
@@ -450,8 +450,8 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                 topic: z.ZodString;
                 status: z.ZodEnum<{
                     partial: "partial";
-                    missing: "missing";
                     covered: "covered";
+                    missing: "missing";
                 }>;
                 pages: z.ZodArray<z.ZodString>;
             }, z.core.$strict>>>;
@@ -725,8 +725,8 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                     topic: z.ZodString;
                     status: z.ZodEnum<{
                         partial: "partial";
-                        missing: "missing";
                         covered: "covered";
+                        missing: "missing";
                     }>;
                     pages: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>>;

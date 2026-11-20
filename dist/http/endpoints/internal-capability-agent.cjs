@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ordinaryCapabilityLifecyclePutContract = exports.ordinaryCapabilityAgentConfigGetContract = exports.ordinaryCapabilityAgentConfigPutContract = exports.CapabilityOrdinaryConfigQuerySchema = exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.socialAgentSpendContract = exports.videoAgentSpendContract = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
+exports.socialAdoptionDecideContract = exports.SocialAdoptionDecideErrorSchema = exports.SocialAdoptionDecideBodySchema = exports.ordinaryCapabilityLifecyclePutContract = exports.ordinaryCapabilityAgentConfigGetContract = exports.ordinaryCapabilityAgentConfigPutContract = exports.CapabilityOrdinaryConfigQuerySchema = exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.socialAgentSpendContract = exports.videoAgentSpendContract = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
 exports.selectCapabilityAgentConfigFormat = selectCapabilityAgentConfigFormat;
 exports.parseOrdinaryCapabilityAgentConfigGet = parseOrdinaryCapabilityAgentConfigGet;
 exports.parseOrdinaryCapabilityAgentConfigPut = parseOrdinaryCapabilityAgentConfigPut;
@@ -12,6 +12,8 @@ const spend_js_1 = require("../../capability/ricerca/spend.cjs");
 const agent_config_js_2 = require("../../capability/lab/agent-config.cjs");
 const competence_js_1 = require("../../capability/lab/competence.cjs");
 const capability_call_context_js_1 = require("../../capability/capability-call-context.cjs");
+const save_wiki_js_1 = require("../../capability/social-listening/save-wiki.cjs");
+const parameters_js_1 = require("../../capability/parameters.cjs");
 const ordinary_configuration_js_1 = require("../../capability/ordinary-configuration.cjs");
 const ordinary_lifecycle_js_1 = require("../../capability/ordinary-lifecycle.cjs");
 /**
@@ -223,4 +225,25 @@ function parseOrdinaryCapabilityLifecyclePut(body, params, authority) {
 exports.ordinaryCapabilityAgentConfigPutContract = { ...exports.ricercaAgentConfigPutContract, bodySchema: ordinary_configuration_js_1.CapabilityOrdinaryConfigWriteSchema, responseSchema: ordinary_configuration_js_1.CapabilityOrdinaryConfigStateSchema };
 exports.ordinaryCapabilityAgentConfigGetContract = { ...exports.ricercaAgentConfigGetContract, querySchema: exports.CapabilityOrdinaryConfigQuerySchema, responseSchema: ordinary_configuration_js_1.CapabilityOrdinaryConfigStateSchema };
 exports.ordinaryCapabilityLifecyclePutContract = { ...exports.ricercaAgentConfigPutContract, bodySchema: ordinary_lifecycle_js_1.CapabilityOrdinaryLifecycleRequestSchema, responseSchema: ordinary_lifecycle_js_1.CapabilityOrdinaryLifecycleReceiptSchema };
+/**
+ * POST /internal/capability/agents/:agentId/adoption-decisions — a manual decision on a social-listening adoption proposal.
+ * Forge's factory, which knows the verified role of the caller (owner or superadmin), calls the listening service with
+ * `INTERNAL_SECRET_HEADER`; the service checks `scope.agentId === :agentId` (`agent_mismatch`, as the other routes) and
+ * applies `socialAdoptionDecision`. Never a model tool (D13): the tool envelope has no role field, and a role written by
+ * the model is worth nothing (R-33).
+ */
+exports.SocialAdoptionDecideBodySchema = zod_1.z.strictObject({
+    scope: capability_call_context_js_1.CapabilityAgentScopeSchema,
+    actorRole: parameters_js_1.CapabilityParameterEditorRoleSchema,
+    input: save_wiki_js_1.SocialAdoptionDecideInputSchema,
+});
+exports.SocialAdoptionDecideErrorSchema = zod_1.z.strictObject({ error: save_wiki_js_1.SocialAdoptionToolErrorSchema });
+exports.socialAdoptionDecideContract = {
+    method: 'POST',
+    path: '/internal/capability/agents/:agentId/adoption-decisions',
+    authType: 'secret',
+    paramsSchema: exports.CapabilityAgentParamsSchema,
+    bodySchema: exports.SocialAdoptionDecideBodySchema,
+    responseSchema: save_wiki_js_1.SocialAdoptionDecideOutputSchema,
+};
 //# sourceMappingURL=internal-capability-agent.js.map

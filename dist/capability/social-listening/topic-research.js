@@ -8,6 +8,8 @@ import { SocialTopicSchema } from "./topic.js";
  * Neither identity nor budget comes from the tool input.
  */
 export const SOCIAL_TOPIC_RESEARCH_TOOLS = { start: 'social_topic_research' };
+/** Fixed caller-specific research limits for the $0.30 ceiling (D18). */
+export const SOCIAL_RESEARCH_NARROW_PARAMS = { maxToolCalls: 1, searchContextSize: 'low', reasoningEffort: 'low' };
 const TopicIdSchema = SocialTopicSchema.shape.topicId;
 export const SocialTopicResearchInputSchema = z.strictObject({ topicId: TopicIdSchema });
 export const SocialTopicResearchOutputSchema = z.strictObject({
@@ -17,7 +19,7 @@ export const SocialTopicResearchOutputSchema = z.strictObject({
 });
 export const SocialTopicResearchToolErrorSchema = z.enum([
     'invalid_request', 'not_configured', 'unknown_topic', 'already_researched',
-    'research_cap_reached', 'research_not_enabled',
+    'research_cap_reached', 'research_not_enabled', 'research_budget_exhausted',
 ]);
 /** Build research_start's request using the agent's budget and cap-ricerca's own schema. */
 export function socialTopicResearchRequest(topic, research) {
@@ -30,6 +32,7 @@ export function socialTopicResearchRequest(topic, research) {
         question,
         goal: "Approfondire con fonti aperte un argomento dell'ascolto social: confermare o smentire i fatti",
         maxUsd: research.maxUsdPerResearch,
+        params: SOCIAL_RESEARCH_NARROW_PARAMS,
     });
 }
 /** The caller owns the daily ledger; reuse the microdollar cap check before reserving research. */
