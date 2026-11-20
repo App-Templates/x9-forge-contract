@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AGENT_ROLE_BASE_CAPABILITIES = exports.AgentRoleSchema = exports.AGENT_ROLES = exports.RICERCA_ROLE = exports.LAB_ROLE = exports.BUSINESS_UNIT_LEAD_ROLE = exports.DIRECTOR_ROLE = void 0;
+exports.AGENT_ROLE_READ_ONLY_CAPABILITIES = exports.AGENT_ROLE_BASE_CAPABILITIES = exports.AgentRoleSchema = exports.AGENT_ROLES = exports.RICERCA_ROLE = exports.LAB_ROLE = exports.BUSINESS_UNIT_LEAD_ROLE = exports.DIRECTOR_ROLE = void 0;
 exports.roleCapabilities = roleCapabilities;
 const zod_1 = require("zod");
 /** Agent role responsible for directing the company. */
@@ -15,10 +15,17 @@ exports.AGENT_ROLES = [exports.DIRECTOR_ROLE, exports.BUSINESS_UNIT_LEAD_ROLE, e
 exports.AgentRoleSchema = zod_1.z.enum(exports.AGENT_ROLES);
 /** Capabilities every role is born with; the role fixes them, nobody can remove them. */
 exports.AGENT_ROLE_BASE_CAPABILITIES = {
-    [exports.DIRECTOR_ROLE]: ['email', 'memory', 'lab', 'ricerca', 'paperclip'],
+    [exports.DIRECTOR_ROLE]: ['email', 'memory', 'lab', 'ricerca', 'paperclip', 'dev'],
     [exports.BUSINESS_UNIT_LEAD_ROLE]: ['email', 'memory', 'lab', 'qa', 'ricerca', 'paperclip'],
     [exports.LAB_ROLE]: ['ricerca', 'lab', 'email', 'memory'],
     [exports.RICERCA_ROLE]: ['ricerca', 'lab', 'email', 'memory'],
+};
+/** Base capabilities the role only reads: the role reads, the writes stay with the lead. */
+exports.AGENT_ROLE_READ_ONLY_CAPABILITIES = {
+    [exports.DIRECTOR_ROLE]: ['dev'],
+    [exports.BUSINESS_UNIT_LEAD_ROLE]: [],
+    [exports.LAB_ROLE]: [],
+    [exports.RICERCA_ROLE]: [],
 };
 /** Base capabilities of the role followed by the extras, without duplicates. */
 function roleCapabilities(role, extra = []) {

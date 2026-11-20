@@ -367,6 +367,31 @@ export declare const capToolCallContract: {
             TOOL_EXEC_FAILED: "TOOL_EXEC_FAILED";
         }>;
         modelReason: z.ZodOptional<z.ZodString>;
+        disposition: z.ZodOptional<z.ZodObject<{
+            nature: z.ZodEnum<{
+                cancelled: "cancelled";
+                invalid_request: "invalid_request";
+                technical_failure: "technical_failure";
+                permission_refused: "permission_refused";
+                limit_reached: "limit_reached";
+                missing_data: "missing_data";
+            }>;
+            retry: z.ZodEnum<{
+                never: "never";
+                next_turn: "next_turn";
+                after_delay: "after_delay";
+            }>;
+            retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+            nextMove: z.ZodEnum<{
+                stop: "stop";
+                retry_same: "retry_same";
+                fix_input: "fix_input";
+                ask_director: "ask_director";
+                ask_referent: "ask_referent";
+                ask_owner: "ask_owner";
+                wait_event: "wait_event";
+            }>;
+        }, z.core.$strict>>;
         receipt: z.ZodOptional<z.ZodObject<{
             runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
             attemptId: z.ZodString;

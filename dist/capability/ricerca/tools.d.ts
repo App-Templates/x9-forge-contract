@@ -19,6 +19,7 @@ export declare const RicercaToolErrorSchema: z.ZodEnum<{
     invalid_request: "invalid_request";
     not_configured: "not_configured";
     max_usd_above_agent: "max_usd_above_agent";
+    params_above_agent: "params_above_agent";
     unknown_parent: "unknown_parent";
     unknown_research: "unknown_research";
     not_ready: "not_ready";
@@ -32,6 +33,19 @@ export declare const ResearchStartInputSchema: z.ZodObject<{
     labGapsRef: z.ZodOptional<z.ZodString>;
     projectId: z.ZodOptional<z.ZodString>;
     maxUsd: z.ZodOptional<z.ZodNumber>;
+    params: z.ZodOptional<z.ZodObject<{
+        searchContextSize: z.ZodOptional<z.ZodEnum<{
+            low: "low";
+            medium: "medium";
+            high: "high";
+        }>>;
+        reasoningEffort: z.ZodOptional<z.ZodEnum<{
+            low: "low";
+            medium: "medium";
+            high: "high";
+        }>>;
+        maxToolCalls: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export declare const ResearchStartOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
@@ -90,6 +104,22 @@ export declare const ResearchResultOutputSchema: z.ZodObject<{
         webCalls: z.ZodNumber;
         uncertain: z.ZodBoolean;
     }, z.core.$strict>;
+    admission: z.ZodOptional<z.ZodObject<{
+        rule: z.ZodEnum<{
+            opened_only: "opened_only";
+            opened_or_search_result: "opened_or_search_result";
+        }>;
+        cited: z.ZodNumber;
+        opened: z.ZodNumber;
+        admitted: z.ZodNumber;
+        droppedFindings: z.ZodNumber;
+        notOpenedReason: z.ZodOptional<z.ZodEnum<{
+            web_exhausted: "web_exhausted";
+            research_budget_exhausted: "research_budget_exhausted";
+            day_budget_exhausted: "day_budget_exhausted";
+            nothing_to_open: "nothing_to_open";
+        }>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ResearchStartInput = z.infer<typeof ResearchStartInputSchema>;
 export type ResearchStartOutput = z.infer<typeof ResearchStartOutputSchema>;

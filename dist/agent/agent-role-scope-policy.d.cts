@@ -11,7 +11,7 @@ export interface RoleScopePolicyInput {
 }
 /**
  * Birth policy of a role (Director, business-unit lead): free read everywhere, write allowed on the
- * capabilities of the profile, write elsewhere asks for human approval.
+ * capabilities of the profile (denied on the ones the role only reads), write elsewhere asks for human approval.
  */
 export declare function roleScopePolicy(input: RoleScopePolicyInput): AgentScopePolicy;
 //# sourceMappingURL=agent-role-scope-policy.d.ts.map

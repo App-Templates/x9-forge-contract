@@ -224,12 +224,18 @@ export declare const InternalPaperclipSeatReplyWakeRequestSchema: z.ZodObject<{
         vaultAgentId: z.ZodNumber;
     }, z.core.$strict>;
     messageId: z.ZodString;
+    sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
 }, z.core.$strict>;
-export declare const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS: readonly ["woken", "skipped", "duplicate", "not_waiting", "no_mandate", "ambiguous"];
+export declare const PAPERCLIP_SOURCE_RUN_REFUSALS: readonly ["source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
+export declare const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS: readonly ["woken", "skipped", "duplicate", "not_waiting", "no_mandate", "ambiguous", "source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
 export declare const PaperclipSeatReplyWakeResultSchema: z.ZodEnum<{
     duplicate: "duplicate";
     skipped: "skipped";
     ambiguous: "ambiguous";
+    source_run_unknown: "source_run_unknown";
+    source_run_without_issue: "source_run_without_issue";
+    source_issue_not_agents: "source_issue_not_agents";
+    source_issue_closed: "source_issue_closed";
     woken: "woken";
     not_waiting: "not_waiting";
     no_mandate: "no_mandate";
@@ -239,13 +245,84 @@ export declare const InternalPaperclipSeatReplyWakeResponseSchema: z.ZodObject<{
         duplicate: "duplicate";
         skipped: "skipped";
         ambiguous: "ambiguous";
+        source_run_unknown: "source_run_unknown";
+        source_run_without_issue: "source_run_without_issue";
+        source_issue_not_agents: "source_issue_not_agents";
+        source_issue_closed: "source_issue_closed";
         woken: "woken";
         not_waiting: "not_waiting";
         no_mandate: "no_mandate";
     }>;
     issueId: z.ZodOptional<z.ZodUUID>;
     runId: z.ZodOptional<z.ZodUUID>;
+    disposition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        outcome: z.ZodLiteral<"commented">;
+        issueId: z.ZodUUID;
+        commentId: z.ZodUUID;
+        assigneeAgentId: z.ZodUUID;
+        authorAgentId: z.ZodNullable<z.ZodUUID>;
+        woke: z.ZodBoolean;
+        runId: z.ZodOptional<z.ZodUUID>;
+        notWokenReason: z.ZodOptional<z.ZodEnum<{
+            unknown: "unknown";
+            issue_closed: "issue_closed";
+            run_alive: "run_alive";
+            daily_run_limit: "daily_run_limit";
+            daily_cost_limit: "daily_cost_limit";
+        }>>;
+    }, z.core.$strict>, z.ZodObject<{
+        outcome: z.ZodLiteral<"duplicate">;
+        dedupeKey: z.ZodString;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        commentId: z.ZodOptional<z.ZodUUID>;
+    }, z.core.$strict>, z.ZodObject<{
+        outcome: z.ZodLiteral<"refused">;
+        disposition: z.ZodObject<{
+            nature: z.ZodEnum<{
+                cancelled: "cancelled";
+                invalid_request: "invalid_request";
+                technical_failure: "technical_failure";
+                permission_refused: "permission_refused";
+                limit_reached: "limit_reached";
+                missing_data: "missing_data";
+            }>;
+            retry: z.ZodEnum<{
+                never: "never";
+                next_turn: "next_turn";
+                after_delay: "after_delay";
+            }>;
+            retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+            nextMove: z.ZodEnum<{
+                stop: "stop";
+                retry_same: "retry_same";
+                fix_input: "fix_input";
+                ask_director: "ask_director";
+                ask_referent: "ask_referent";
+                ask_owner: "ask_owner";
+                wait_event: "wait_event";
+            }>;
+        }, z.core.$strict>;
+    }, z.core.$strict>], "outcome">>;
 }, z.core.$strict>;
+/**
+ * Error codes of a failed seat wake. They name whose fault the failure is.
+ * - `paperclip_unavailable`: Paperclip answered with an error or could not be reached.
+ * - `wake_timeout`: OUR time limit ran out while Paperclip was answering; Paperclip is not in error.
+ */
+export declare const PAPERCLIP_SEAT_WAKE_ERROR_CODES: readonly ["paperclip_unavailable", "wake_timeout"];
+export declare const PaperclipSeatWakeErrorCodeSchema: z.ZodEnum<{
+    paperclip_unavailable: "paperclip_unavailable";
+    wake_timeout: "wake_timeout";
+}>;
+export type PaperclipSeatWakeErrorCode = z.infer<typeof PaperclipSeatWakeErrorCodeSchema>;
+export declare const InternalPaperclipSeatWakeErrorResponseSchema: z.ZodObject<{
+    ok: z.ZodLiteral<false>;
+    error: z.ZodEnum<{
+        paperclip_unavailable: "paperclip_unavailable";
+        wake_timeout: "wake_timeout";
+    }>;
+}, z.core.$strict>;
+export type InternalPaperclipSeatWakeErrorResponse = z.infer<typeof InternalPaperclipSeatWakeErrorResponseSchema>;
 export declare const internalPaperclipSeatReplyWakeContract: {
     readonly method: "POST";
     readonly path: "/internal/paperclip/seats/reply-wake";
@@ -258,18 +335,78 @@ export declare const internalPaperclipSeatReplyWakeContract: {
             vaultAgentId: z.ZodNumber;
         }, z.core.$strict>;
         messageId: z.ZodString;
+        sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         result: z.ZodEnum<{
             duplicate: "duplicate";
             skipped: "skipped";
             ambiguous: "ambiguous";
+            source_run_unknown: "source_run_unknown";
+            source_run_without_issue: "source_run_without_issue";
+            source_issue_not_agents: "source_issue_not_agents";
+            source_issue_closed: "source_issue_closed";
             woken: "woken";
             not_waiting: "not_waiting";
             no_mandate: "no_mandate";
         }>;
         issueId: z.ZodOptional<z.ZodUUID>;
         runId: z.ZodOptional<z.ZodUUID>;
+        disposition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            outcome: z.ZodLiteral<"commented">;
+            issueId: z.ZodUUID;
+            commentId: z.ZodUUID;
+            assigneeAgentId: z.ZodUUID;
+            authorAgentId: z.ZodNullable<z.ZodUUID>;
+            woke: z.ZodBoolean;
+            runId: z.ZodOptional<z.ZodUUID>;
+            notWokenReason: z.ZodOptional<z.ZodEnum<{
+                unknown: "unknown";
+                issue_closed: "issue_closed";
+                run_alive: "run_alive";
+                daily_run_limit: "daily_run_limit";
+                daily_cost_limit: "daily_cost_limit";
+            }>>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"duplicate">;
+            dedupeKey: z.ZodString;
+            issueId: z.ZodOptional<z.ZodUUID>;
+            commentId: z.ZodOptional<z.ZodUUID>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"refused">;
+            disposition: z.ZodObject<{
+                nature: z.ZodEnum<{
+                    cancelled: "cancelled";
+                    invalid_request: "invalid_request";
+                    technical_failure: "technical_failure";
+                    permission_refused: "permission_refused";
+                    limit_reached: "limit_reached";
+                    missing_data: "missing_data";
+                }>;
+                retry: z.ZodEnum<{
+                    never: "never";
+                    next_turn: "next_turn";
+                    after_delay: "after_delay";
+                }>;
+                retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+                nextMove: z.ZodEnum<{
+                    stop: "stop";
+                    retry_same: "retry_same";
+                    fix_input: "fix_input";
+                    ask_director: "ask_director";
+                    ask_referent: "ask_referent";
+                    ask_owner: "ask_owner";
+                    wait_event: "wait_event";
+                }>;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "outcome">>;
+    }, z.core.$strict>;
+    readonly errorResponseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodEnum<{
+            paperclip_unavailable: "paperclip_unavailable";
+            wake_timeout: "wake_timeout";
+        }>;
     }, z.core.$strict>;
 };
 export type InternalPaperclipSeatReplyWakeRequest = z.infer<typeof InternalPaperclipSeatReplyWakeRequestSchema>;
@@ -298,6 +435,7 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
         request: "request";
     }>;
     projectRef: z.ZodOptional<z.ZodString>;
+    sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
     from: z.ZodString;
     subject: z.ZodString;
     receivedAt: z.ZodISODateTime;
@@ -337,6 +475,7 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
     sessionIssue: z.ZodNumber;
     commit: z.ZodString;
     projectId: z.ZodString;
+    sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"work_stalled">;
     issueId: z.ZodUUID;
@@ -397,6 +536,17 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
         }, z.core.$strict>>;
         requestedAt: z.ZodISODateTime;
     }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"project_delivered">;
+    projectId: z.ZodString;
+    messageId: z.ZodString;
+    sentAt: z.ZodISODateTime;
+    digest: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"limit_lifted">;
+    limit: z.ZodLiteral<"company_spend">;
+    revision: z.ZodInt;
+    liftedAt: z.ZodISODateTime;
 }, z.core.$strict>], "kind">;
 export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
     scope: z.ZodObject<{
@@ -421,6 +571,7 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             request: "request";
         }>;
         projectRef: z.ZodOptional<z.ZodString>;
+        sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
         from: z.ZodString;
         subject: z.ZodString;
         receivedAt: z.ZodISODateTime;
@@ -460,6 +611,7 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         sessionIssue: z.ZodNumber;
         commit: z.ZodString;
         projectId: z.ZodString;
+        sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"work_stalled">;
         issueId: z.ZodUUID;
@@ -520,20 +672,36 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             }, z.core.$strict>>;
             requestedAt: z.ZodISODateTime;
         }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"project_delivered">;
+        projectId: z.ZodString;
+        messageId: z.ZodString;
+        sentAt: z.ZodISODateTime;
+        digest: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"limit_lifted">;
+        limit: z.ZodLiteral<"company_spend">;
+        revision: z.ZodInt;
+        liftedAt: z.ZodISODateTime;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
-export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited"];
+export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited", "waiting_on_blockers", "source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
 export declare const PaperclipSeatNativeWakeResultSchema: z.ZodEnum<{
     duplicate: "duplicate";
     ambiguous: "ambiguous";
     opened: "opened";
     deferred: "deferred";
+    source_run_unknown: "source_run_unknown";
+    source_run_without_issue: "source_run_without_issue";
+    source_issue_not_agents: "source_issue_not_agents";
+    source_issue_closed: "source_issue_closed";
     woken: "woken";
     not_waiting: "not_waiting";
     already_open: "already_open";
     no_task: "no_task";
     not_enabled: "not_enabled";
     rate_limited: "rate_limited";
+    waiting_on_blockers: "waiting_on_blockers";
 }>;
 export declare const InternalPaperclipSeatNativeWakeResponseSchema: z.ZodObject<{
     result: z.ZodEnum<{
@@ -541,16 +709,69 @@ export declare const InternalPaperclipSeatNativeWakeResponseSchema: z.ZodObject<
         ambiguous: "ambiguous";
         opened: "opened";
         deferred: "deferred";
+        source_run_unknown: "source_run_unknown";
+        source_run_without_issue: "source_run_without_issue";
+        source_issue_not_agents: "source_issue_not_agents";
+        source_issue_closed: "source_issue_closed";
         woken: "woken";
         not_waiting: "not_waiting";
         already_open: "already_open";
         no_task: "no_task";
         not_enabled: "not_enabled";
         rate_limited: "rate_limited";
+        waiting_on_blockers: "waiting_on_blockers";
     }>;
     issueId: z.ZodOptional<z.ZodUUID>;
     commentId: z.ZodOptional<z.ZodUUID>;
     runId: z.ZodOptional<z.ZodUUID>;
+    disposition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        outcome: z.ZodLiteral<"commented">;
+        issueId: z.ZodUUID;
+        commentId: z.ZodUUID;
+        assigneeAgentId: z.ZodUUID;
+        authorAgentId: z.ZodNullable<z.ZodUUID>;
+        woke: z.ZodBoolean;
+        runId: z.ZodOptional<z.ZodUUID>;
+        notWokenReason: z.ZodOptional<z.ZodEnum<{
+            unknown: "unknown";
+            issue_closed: "issue_closed";
+            run_alive: "run_alive";
+            daily_run_limit: "daily_run_limit";
+            daily_cost_limit: "daily_cost_limit";
+        }>>;
+    }, z.core.$strict>, z.ZodObject<{
+        outcome: z.ZodLiteral<"duplicate">;
+        dedupeKey: z.ZodString;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        commentId: z.ZodOptional<z.ZodUUID>;
+    }, z.core.$strict>, z.ZodObject<{
+        outcome: z.ZodLiteral<"refused">;
+        disposition: z.ZodObject<{
+            nature: z.ZodEnum<{
+                cancelled: "cancelled";
+                invalid_request: "invalid_request";
+                technical_failure: "technical_failure";
+                permission_refused: "permission_refused";
+                limit_reached: "limit_reached";
+                missing_data: "missing_data";
+            }>;
+            retry: z.ZodEnum<{
+                never: "never";
+                next_turn: "next_turn";
+                after_delay: "after_delay";
+            }>;
+            retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+            nextMove: z.ZodEnum<{
+                stop: "stop";
+                retry_same: "retry_same";
+                fix_input: "fix_input";
+                ask_director: "ask_director";
+                ask_referent: "ask_referent";
+                ask_owner: "ask_owner";
+                wait_event: "wait_event";
+            }>;
+        }, z.core.$strict>;
+    }, z.core.$strict>], "outcome">>;
 }, z.core.$strict>;
 export declare const internalPaperclipSeatNativeWakeContract: {
     readonly method: "POST";
@@ -579,6 +800,7 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 request: "request";
             }>;
             projectRef: z.ZodOptional<z.ZodString>;
+            sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
             from: z.ZodString;
             subject: z.ZodString;
             receivedAt: z.ZodISODateTime;
@@ -618,6 +840,7 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             sessionIssue: z.ZodNumber;
             commit: z.ZodString;
             projectId: z.ZodString;
+            sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"work_stalled">;
             issueId: z.ZodUUID;
@@ -678,6 +901,17 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 }, z.core.$strict>>;
                 requestedAt: z.ZodISODateTime;
             }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"project_delivered">;
+            projectId: z.ZodString;
+            messageId: z.ZodString;
+            sentAt: z.ZodISODateTime;
+            digest: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"limit_lifted">;
+            limit: z.ZodLiteral<"company_spend">;
+            revision: z.ZodInt;
+            liftedAt: z.ZodISODateTime;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -686,16 +920,76 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             ambiguous: "ambiguous";
             opened: "opened";
             deferred: "deferred";
+            source_run_unknown: "source_run_unknown";
+            source_run_without_issue: "source_run_without_issue";
+            source_issue_not_agents: "source_issue_not_agents";
+            source_issue_closed: "source_issue_closed";
             woken: "woken";
             not_waiting: "not_waiting";
             already_open: "already_open";
             no_task: "no_task";
             not_enabled: "not_enabled";
             rate_limited: "rate_limited";
+            waiting_on_blockers: "waiting_on_blockers";
         }>;
         issueId: z.ZodOptional<z.ZodUUID>;
         commentId: z.ZodOptional<z.ZodUUID>;
         runId: z.ZodOptional<z.ZodUUID>;
+        disposition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            outcome: z.ZodLiteral<"commented">;
+            issueId: z.ZodUUID;
+            commentId: z.ZodUUID;
+            assigneeAgentId: z.ZodUUID;
+            authorAgentId: z.ZodNullable<z.ZodUUID>;
+            woke: z.ZodBoolean;
+            runId: z.ZodOptional<z.ZodUUID>;
+            notWokenReason: z.ZodOptional<z.ZodEnum<{
+                unknown: "unknown";
+                issue_closed: "issue_closed";
+                run_alive: "run_alive";
+                daily_run_limit: "daily_run_limit";
+                daily_cost_limit: "daily_cost_limit";
+            }>>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"duplicate">;
+            dedupeKey: z.ZodString;
+            issueId: z.ZodOptional<z.ZodUUID>;
+            commentId: z.ZodOptional<z.ZodUUID>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"refused">;
+            disposition: z.ZodObject<{
+                nature: z.ZodEnum<{
+                    cancelled: "cancelled";
+                    invalid_request: "invalid_request";
+                    technical_failure: "technical_failure";
+                    permission_refused: "permission_refused";
+                    limit_reached: "limit_reached";
+                    missing_data: "missing_data";
+                }>;
+                retry: z.ZodEnum<{
+                    never: "never";
+                    next_turn: "next_turn";
+                    after_delay: "after_delay";
+                }>;
+                retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
+                nextMove: z.ZodEnum<{
+                    stop: "stop";
+                    retry_same: "retry_same";
+                    fix_input: "fix_input";
+                    ask_director: "ask_director";
+                    ask_referent: "ask_referent";
+                    ask_owner: "ask_owner";
+                    wait_event: "wait_event";
+                }>;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "outcome">>;
+    }, z.core.$strict>;
+    readonly errorResponseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodEnum<{
+            paperclip_unavailable: "paperclip_unavailable";
+            wake_timeout: "wake_timeout";
+        }>;
     }, z.core.$strict>;
 };
 export type InternalPaperclipSeatNativeWakeRequest = z.infer<typeof InternalPaperclipSeatNativeWakeRequestSchema>;

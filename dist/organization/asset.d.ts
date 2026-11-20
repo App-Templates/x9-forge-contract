@@ -5,6 +5,19 @@ export type AssetSha256 = z.infer<typeof AssetSha256Schema>;
 /** Kind of a company asset (logo, brand-book, price-list...), lowercase slug. */
 export declare const AssetTypeSchema: z.ZodString;
 export type AssetType = z.infer<typeof AssetTypeSchema>;
+/**
+ * Stable key of a deliverable piece: the id of the section or breakdown item of the approved action plan, inherited
+ * through the mandate. Never chosen by the session or by the model, so every new delivery of the same piece can be
+ * chained to the previous one.
+ */
+export declare const AssetKeySchema: z.ZodString;
+export type AssetKey = z.infer<typeof AssetKeySchema>;
+/** Reference to one version of a deliverable piece. */
+export declare const AssetVersionRefSchema: z.ZodObject<{
+    key: z.ZodString;
+    version: z.ZodNumber;
+}, z.core.$strict>;
+export type AssetVersionRef = z.infer<typeof AssetVersionRefSchema>;
 /** Provenance of a company file, without embedding its contents. */
 export declare const AssetOriginSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"email">;
@@ -83,4 +96,10 @@ export declare const AssetRefSchema: z.ZodObject<{
     createdAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type AssetRef = z.infer<typeof AssetRefSchema>;
+/** Refusal code for a `projectId` that is the Paperclip project identifier (a UUID), not the project key. */
+export declare const PAPERCLIP_PROJECT_ID_REFUSAL: "project_id_paperclip";
+/** True only for a string shaped like a UUID (either case): the Paperclip project id, never a project key. */
+export declare function isPaperclipProjectId(value: unknown): boolean;
+/** Fixed refusal sentence; starts with the code and never contains the received value. */
+export declare const PAPERCLIP_PROJECT_ID_REFUSAL_REASON: string;
 //# sourceMappingURL=asset.d.ts.map

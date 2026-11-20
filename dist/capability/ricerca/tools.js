@@ -20,6 +20,7 @@ export const RicercaToolErrorSchema = z.enum([
     'invalid_request',
     'not_configured',
     'max_usd_above_agent',
+    'params_above_agent',
     'unknown_parent',
     'unknown_research',
     'not_ready',

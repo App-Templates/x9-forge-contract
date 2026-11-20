@@ -17,15 +17,15 @@ import { z } from 'zod';
  * @see .planning/REQUIREMENTS.md §VORIG-01
  */
 export declare const VoiceCallIntentSchema: z.ZodEnum<{
+    social: "social";
+    other: "other";
     reminder: "reminder";
     information: "information";
     sales: "sales";
     legal: "legal";
     logistics: "logistics";
-    social: "social";
-    other: "other";
 }>;
 export type VoiceCallIntent = z.infer<typeof VoiceCallIntentSchema>;
 /** Ordered tuple of all intent values — use for iteration / exhaustiveness tests. */
-export declare const VOICE_CALL_INTENTS: ("reminder" | "information" | "sales" | "legal" | "logistics" | "social" | "other")[];
+export declare const VOICE_CALL_INTENTS: ("social" | "other" | "reminder" | "information" | "sales" | "legal" | "logistics")[];
 //# sourceMappingURL=intent.d.ts.map

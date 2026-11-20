@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
+exports.ReferentReplyHandoverSchema = exports.DELIVERY_DECISION_DUPLICATE_CODES = exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionOptionEffectSchema = exports.DECISION_OPTION_EFFECTS = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
 exports.confirmationSetDigest = confirmationSetDigest;
 exports.decisionOutcomeMatchesSubject = decisionOutcomeMatchesSubject;
 exports.decisionRequestSubjectLabel = decisionRequestSubjectLabel;
 exports.decisionRequestHeaderMatches = decisionRequestHeaderMatches;
 exports.decisionOutcomeFromEmailReply = decisionOutcomeFromEmailReply;
+exports.deliveryDecisionDuplicate = deliveryDecisionDuplicate;
+exports.decisionOutcomeFromHandover = decisionOutcomeFromHandover;
 const node_crypto_1 = require("node:crypto");
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
@@ -20,10 +22,16 @@ const OptionIdSchema = zod_1.z
     .string()
     .max(40)
     .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+/** What choosing an option means; an option that does not approve is recorded as a rejection. */
+exports.DECISION_OPTION_EFFECTS = ['approve', 'request_changes', 'reject'];
+exports.DecisionOptionEffectSchema = zod_1.z.enum(exports.DECISION_OPTION_EFFECTS);
 exports.DecisionRequestOptionSchema = zod_1.z.strictObject({
     optionId: OptionIdSchema,
     label: zod_1.z.string().min(1).max(200),
     detail: zod_1.z.string().min(1).max(2000).optional(),
+    effect: exports.DecisionOptionEffectSchema.optional(),
+}).refine((option) => option.effect === undefined || option.effect === 'approve' || option.label.length >= 3, {
+    path: ['label'], message: 'An option that does not approve needs a label of at least 3 characters (it becomes the reason)',
 });
 /** What a decision is about: an exact plan version, confirmation set or immutable delivery. */
 exports.DECISION_SUBJECT_KINDS = ['action_plan', 'vertical_plan', 'confirmation', 'delivery', 'confirmation_set'];
@@ -90,6 +98,7 @@ exports.DeliveryDecisionSubjectSchema = zod_1.z.strictObject({
         assetId: asset_js_1.AssetRefSchema.shape.assetId,
         sha256: asset_js_1.AssetSha256Schema,
     }),
+    assetVersion: asset_js_1.AssetVersionRefSchema.optional(),
 });
 exports.DecisionSubjectSchema = zod_1.z.discriminatedUnion('kind', [
     PlanDecisionSubjectSchema,
@@ -117,6 +126,18 @@ exports.DecisionRequestSchema = zod_1.z.strictObject({
     channel: exports.DecisionRequestChannelSchema,
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 }).superRefine((request, ctx) => {
+    const effects = request.options.map((option) => option.effect);
+    if (effects.some((effect) => effect !== undefined)) {
+        if (effects.some((effect) => effect === undefined)) {
+            ctx.addIssue({ code: 'custom', path: ['options'], message: 'When one option declares an effect, all must' });
+        }
+        if (!effects.includes('approve')) {
+            ctx.addIssue({ code: 'custom', path: ['options'], message: 'Options that declare effects need at least one approve' });
+        }
+        if (request.subject?.kind === 'confirmation_set') {
+            ctx.addIssue({ code: 'custom', path: ['options'], message: 'A confirmation set does not declare option effects' });
+        }
+    }
     if (request.subject?.kind === 'delivery') {
         if (!('kind' in request.addressedTo)) {
             ctx.addIssue({ code: 'custom', path: ['addressedTo'], message: 'Delivery requires a referent' });
@@ -186,7 +207,8 @@ function decisionOutcomeMatchesSubject(request, outcome) {
     if (a.kind === 'delivery' || b.kind === 'delivery') {
         return a.kind === 'delivery' && b.kind === 'delivery'
             && a.organizationId === b.organizationId && a.projectId === b.projectId && a.buSlug === b.buSlug
-            && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
+            && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256
+            && a.assetVersion?.key === b.assetVersion?.key && a.assetVersion?.version === b.assetVersion?.version;
     }
     return a.kind === b.kind && a.planId === b.planId && a.planVersion === b.planVersion && a.digest === b.digest;
 }
@@ -270,9 +292,90 @@ function decisionOutcomeFromEmailReply(input) {
     if (confirmationSet && optionId !== 'confermo') {
         return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
     }
+    if (option.effect === 'request_changes' || option.effect === 'reject') {
+        return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
+    }
     return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({
             ...base, outcome: 'approved', optionId,
             ...(reply.referentChanges !== undefined ? { referentChanges: reply.referentChanges } : {}),
         }) };
+}
+/** Why a new delivery decision request is refused: the same piece already has one open or approved. */
+exports.DELIVERY_DECISION_DUPLICATE_CODES = ['decision_already_pending', 'decision_already_approved'];
+// Same ordering as `isLaterDecisionRequest` (asset-version imports this module, so it cannot be imported here).
+function isOlderRequest(a, b) {
+    const delta = Date.parse(a.createdAt) - Date.parse(b.createdAt);
+    return delta !== 0 ? delta < 0 : a.requestId < b.requestId;
+}
+function sameDeliveryPiece(a, b) {
+    if (a.assetVersion !== undefined && b.assetVersion !== undefined) {
+        return a.assetVersion.key === b.assetVersion.key && a.assetVersion.version === b.assetVersion.version;
+    }
+    return a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
+}
+function deliveryDecisionState(request, outcome) {
+    if (outcome === null || outcome.requestId !== request.requestId)
+        return 'pending';
+    if (outcome.outcome === 'rejected')
+        return 'rejected';
+    if (outcome.decidedBy.kind !== 'referent' || !decisionOutcomeMatchesSubject(request, outcome))
+        return 'pending';
+    return 'approved';
+}
+/**
+ * Names the oldest existing request that makes `candidate` a duplicate, or null. A rejected request
+ * does not block a new one; plans and confirmation sets never pass through here.
+ * Missing, unrelated or unsound outcomes stay pending, matching the twin rule in `assetVersionDecisionState`.
+ */
+function deliveryDecisionDuplicate(candidate, existing) {
+    const wanted = candidate.subject;
+    if (wanted?.kind !== 'delivery')
+        return null;
+    let found;
+    for (const { request, outcome } of existing) {
+        const subject = request.subject;
+        if (subject?.kind !== 'delivery' || request.requestId === candidate.requestId)
+            continue;
+        if (request.tenantId !== candidate.tenantId || request.organizationId !== candidate.organizationId
+            || request.projectId !== candidate.projectId || subject.buSlug !== wanted.buSlug)
+            continue;
+        if (!sameDeliveryPiece(wanted, subject))
+            continue;
+        const state = deliveryDecisionState(request, outcome);
+        if (state === 'rejected')
+            continue;
+        const code = state === 'pending' ? 'decision_already_pending' : 'decision_already_approved';
+        if (found === undefined || isOlderRequest(request, found.request))
+            found = { request, code };
+    }
+    return found === undefined ? null : { code: found.code, requestId: found.request.requestId };
+}
+/** The referent's reply as handed to the unit: carries the text and a message the service can re-read from `receivedBy`. */
+exports.ReferentReplyHandoverSchema = zod_1.z.strictObject({
+    tenantId: zod_1.z.string().min(1),
+    organizationId: zod_1.z.string().min(1).max(64),
+    projectId: zod_1.z.string().min(1).max(64),
+    toBuSlug: asset_js_1.AssetRefSchema.shape.buSlug.unwrap(),
+    receivedBy: participant_binding_js_1.ParticipantAgentIdentitySchema,
+    referent: ReferentSchema,
+    messageId: zod_1.z.string().min(1).max(998),
+    receivedAt: zod_1.z.iso.datetime({ offset: true }),
+    text: zod_1.z.string().min(1).max(4000),
+    requestId: exports.DecisionRequestIdSchema.optional(),
+});
+/** Records an interpreted reply from a handover; scope and request must match, the rest is `decisionOutcomeFromEmailReply`. */
+function decisionOutcomeFromHandover(input) {
+    const { request, reply, handover } = input;
+    const subject = request.subject;
+    if (handover.requestId === undefined || handover.requestId !== request.requestId
+        || handover.tenantId !== request.tenantId || handover.organizationId !== request.organizationId
+        || handover.projectId !== request.projectId
+        || subject?.kind !== 'delivery' || handover.toBuSlug !== subject.buSlug) {
+        return { ok: false, code: 'mismatch' };
+    }
+    return decisionOutcomeFromEmailReply({
+        request, reply, from: { email: handover.referent.email },
+        receivedAt: handover.receivedAt, messageId: handover.messageId,
+    });
 }
 //# sourceMappingURL=decision-request.js.map

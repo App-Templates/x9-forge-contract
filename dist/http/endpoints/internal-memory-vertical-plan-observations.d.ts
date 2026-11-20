@@ -42,6 +42,10 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+        assetVersion: z.ZodOptional<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;
@@ -231,6 +235,10 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -293,6 +301,10 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -359,6 +371,10 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -548,6 +564,10 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -610,6 +630,10 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -677,6 +701,10 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -866,6 +894,10 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -928,6 +960,10 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1030,6 +1066,10 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -1219,6 +1259,10 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                             assetId: z.ZodString;
                             sha256: z.ZodString;
                         }, z.core.$strict>;
+                        assetVersion: z.ZodOptional<z.ZodObject<{
+                            key: z.ZodString;
+                            version: z.ZodNumber;
+                        }, z.core.$strict>>;
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"confirmation_set">;
                         planId: z.ZodString;
@@ -1281,6 +1325,10 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                             assetId: z.ZodString;
                             sha256: z.ZodString;
                         }, z.core.$strict>;
+                        assetVersion: z.ZodOptional<z.ZodObject<{
+                            key: z.ZodString;
+                            version: z.ZodNumber;
+                        }, z.core.$strict>>;
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"confirmation_set">;
                         planId: z.ZodString;
@@ -1362,6 +1410,10 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -1551,6 +1603,10 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1613,6 +1669,10 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1678,6 +1738,10 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -1867,6 +1931,10 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                             assetId: z.ZodString;
                             sha256: z.ZodString;
                         }, z.core.$strict>;
+                        assetVersion: z.ZodOptional<z.ZodObject<{
+                            key: z.ZodString;
+                            version: z.ZodNumber;
+                        }, z.core.$strict>>;
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"confirmation_set">;
                         planId: z.ZodString;
@@ -1929,6 +1997,10 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                             assetId: z.ZodString;
                             sha256: z.ZodString;
                         }, z.core.$strict>;
+                        assetVersion: z.ZodOptional<z.ZodObject<{
+                            key: z.ZodString;
+                            version: z.ZodNumber;
+                        }, z.core.$strict>>;
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"confirmation_set">;
                         planId: z.ZodString;

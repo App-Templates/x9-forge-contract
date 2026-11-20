@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { readFileSync, writeFileSync, realpathSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
@@ -34,6 +34,7 @@ const distHashes = path => {
   return hashes;
 };
 let root = bridgeRoot;
+let packageRoot = bridgeRoot;
 let manifest = readManifest(bridgeRoot);
 let provenance;
 if (consumerMode) {
@@ -64,6 +65,7 @@ if (consumerMode) {
   assert.equal(bridgeDependency[1], dependency, 'Native consumer specifier must pin expected SHA');
   assert.ok(bridgeDependency[2].startsWith(remote + '(') || bridgeDependency[2] === remote, 'Native consumer resolution must use expected remote SHA');
   assert.equal(readFileSync(join(installRoot, 'node_modules/.pnpm/lock.yaml'), 'utf8'), lock, 'Installed virtual-store lock must match frozen consumer lock');
+  packageRoot = installedRoot;
   manifest = readManifest(installedRoot);
   assert.equal(manifest.version, options['expected-version'], 'Installed version must match release');
   assert.equal(manifest.name, '@x9-forge/contracts', 'Installed package identity must match');
@@ -73,31 +75,80 @@ if (consumerMode) {
   assert.deepEqual(hashes, distHashes(expectedBridge), 'Every installed distribution file must match candidate');
   provenance = { consumer: root, installRoot, installedRoot, sha: options['expected-sha'], version: manifest.version, distFiles: Object.keys(hashes).length, hashes };
 }
-const results = [];
-for (const subpath of Object.keys(manifest.exports)) {
-  const specifier = manifest.name + (subpath === '.' ? '' : subpath.slice(1));
-  for (const format of ['import', 'require']) {
-    const expression = format === 'import' ? `await import(${JSON.stringify(specifier)})` : `require(${JSON.stringify(specifier)})`;
-    const contextExpression = format === 'import' ? `await import('${manifest.name}/capability')` : `require('${manifest.name}/capability')`;
-    const source = `${format === 'import' ? "import assert from 'node:assert/strict';" : "const assert = require('node:assert/strict');"}
+const MAX_PARALLEL = 8;
+const TIMEOUT_MS = 15000;
+const listJsFiles = directory => {
+  const files = [];
+  const walk = current => {
+    for (const entry of readdirSync(current, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+      const file = join(current, entry.name);
+      if (entry.isDirectory()) walk(file);
+      else if (entry.isFile() && entry.name.endsWith('.js')) files.push(relative(directory, file).split(sep).join('/').slice(0, -3));
+    }
+  };
+  walk(directory);
+  return files;
+};
+// Exact keys keep the full check; a `/*` key is a pattern, so every concrete module it exposes is checked on its own.
+const tasks = [];
+let narrowSubpaths = 0;
+for (const [subpath, target] of Object.entries(manifest.exports)) {
+  if (!subpath.includes('*')) {
+    tasks.push({ subpath, specifier: manifest.name + (subpath === '.' ? '' : subpath.slice(1)), narrow: false });
+    continue;
+  }
+  assert.ok(subpath.indexOf('*') === subpath.length - 1, `Unsupported export pattern: ${subpath}`);
+  const importTarget = typeof target === 'string' ? target : target.import;
+  assert.ok(typeof importTarget === 'string' && importTarget.endsWith('/*.js'), `Pattern must have an import target ending in /*.js: ${subpath}`);
+  const directory = resolve(packageRoot, importTarget.slice(0, -'*.js'.length));
+  const prefix = subpath.slice(1, -1);
+  const modules = listJsFiles(directory);
+  assert.ok(modules.length > 0, `Pattern ${subpath} must expose at least one module`);
+  for (const module of modules) {
+    narrowSubpaths++;
+    tasks.push({ subpath: `${subpath.slice(0, -1)}${module}`, specifier: manifest.name + prefix + module, narrow: true });
+  }
+}
+const runCheck = ({ subpath, specifier, narrow }, format) => new Promise(resolveCheck => {
+  const expression = format === 'import' ? `await import(${JSON.stringify(specifier)})` : `require(${JSON.stringify(specifier)})`;
+  const contextExpression = format === 'import' ? `await import('${manifest.name}/capability')` : `require('${manifest.name}/capability')`;
+  const source = narrow
+    ? `${expression};`
+    : `${format === 'import' ? "import assert from 'node:assert/strict';" : "const assert = require('node:assert/strict');"}
       const first = ${expression};
       assert.ok(Object.keys(first).length > 0, 'Public entrypoint must expose its contract');
       const capability = ${contextExpression};
       const request = { identity: { tenantId: 'synthetic-tenant', ownerId: 'synthetic-owner', agentId: 'synthetic-agent' }, capability: 'ricerca', keys: ['SYNTHETIC_PROVIDER_KEY'] };
       assert.equal(capability.CapabilityCallContextRequestSchema.safeParse(request).success, true, 'Deferred canonical key schema must validate after first import');
       assert.equal(capability.CapabilityCallContextRequestSchema.safeParse({ ...request, keys: ['invalid key'] }).success, false, 'Deferred key restrictions must remain active');`;
-    const args = [...(format === 'import' ? ['--input-type=module'] : []), '-e', source];
-    const child = spawnSync(process.execPath, args, { cwd: root, env: process.env, encoding: 'utf8', timeout: 15000 });
+  const args = [...(format === 'import' ? ['--input-type=module'] : []), '-e', source];
+  const child = spawn(process.execPath, args, { cwd: root, env: process.env, stdio: ['ignore', 'ignore', 'pipe'] });
+  let stderr = '';
+  let spawnError;
+  let timedOut = false;
+  child.stderr.on('data', chunk => { if (stderr.length < 20000) stderr += chunk; });
+  child.on('error', error => { spawnError = error; });
+  const timer = setTimeout(() => { timedOut = true; child.kill('SIGKILL'); }, TIMEOUT_MS);
+  child.on('close', (status, signal) => {
+    clearTimeout(timer);
     let failure = null;
     try {
-      assert.equal(child.status, 0, `${specifier} first ${format} must initialize; ${child.error?.message ?? child.stderr}`);
+      assert.equal(status, 0, `${specifier} first ${format} must initialize; ${spawnError?.message ?? (timedOut ? 'timed out' : stderr)}`);
     } catch (error) { failure = { name: error.name, message: error.message }; }
-    const result = { subpath, format, passed: failure === null, status: child.status, signal: child.signal, failure };
-    results.push(result);
-    console.log(`${result.passed ? 'PASS' : 'FAIL'} ${format} ${subpath}`);
+    resolveCheck({ subpath, format, passed: failure === null, status, signal, failure });
+  });
+});
+const jobs = tasks.flatMap(task => ['import', 'require'].map(format => ({ task, format })));
+const results = new Array(jobs.length);
+let nextJob = 0;
+await Promise.all(Array.from({ length: Math.min(MAX_PARALLEL, jobs.length) }, async () => {
+  while (nextJob < jobs.length) {
+    const index = nextJob++;
+    results[index] = await runCheck(jobs[index].task, jobs[index].format);
   }
-}
-const report = { node: process.version, publicSubpaths: Object.keys(manifest.exports).length, passed: results.filter(value => value.passed).length, total: results.length, results };
+}));
+for (const result of results) console.log(`${result.passed ? 'PASS' : 'FAIL'} ${result.format} ${result.subpath}`);
+const report = { node: process.version, publicSubpaths: Object.keys(manifest.exports).length, narrowSubpaths, passed: results.filter(value => value.passed).length, total: results.length, results };
 if (provenance) report.provenance = provenance;
 if (reportPath) writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
 console.log(`${report.passed}/${report.total} first-entrypoint checks`);

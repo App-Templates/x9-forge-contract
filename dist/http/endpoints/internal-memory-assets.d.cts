@@ -5,6 +5,16 @@ export declare const INTERNAL_MEMORY_ASSETS_LIST_PATH: "/internal/memory/assets/
 export declare const INTERNAL_MEMORY_ASSET_READ_PATH: "/internal/memory/assets/read";
 export declare const INTERNAL_MEMORY_ASSET_CONTENT_PATH: "/internal/memory/assets/content";
 /**
+ * Refusals of the asset routes that a caller acts on by code, never by message text.
+ * - `asset_foreign_business_unit`: a generated document names a business unit whose lead is not the writer and the
+ *   writer does not manage the organization (403). Storing it without `buSlug` makes it a project document.
+ */
+export declare const INTERNAL_MEMORY_ASSET_REFUSAL_CODES: readonly ["asset_foreign_business_unit"];
+export declare const InternalMemoryAssetRefusalCodeSchema: z.ZodEnum<{
+    asset_foreign_business_unit: "asset_foreign_business_unit";
+}>;
+export type InternalMemoryAssetRefusalCode = z.infer<typeof InternalMemoryAssetRefusalCodeSchema>;
+/**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
  * A `link` or `session` origin carries no bytes (the session file stays in its delivery branch, memory keeps
  * the card); every other origin requires `contentBase64`.

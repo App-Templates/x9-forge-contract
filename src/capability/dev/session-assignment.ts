@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
-import { AssetRefSchema } from '../../organization/asset.js';
+import { AssetKeySchema, AssetRefSchema } from '../../organization/asset.js';
+import type { ReconciledMandate } from '../../organization/business-unit-mandate.js';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
 
 /**
@@ -31,6 +32,8 @@ export const DEV_SESSION_BLOCK_MARKER = 'x9:dev-session:v1' as const;
 /** Una sessione produce codice o design; gli altri tipi di produzione non passano da qui. */
 export const DevSessionKindSchema = z.enum(['code', 'design']);
 export type DevSessionKind = z.infer<typeof DevSessionKindSchema>;
+
+export const DEV_SESSION_DELIVERY_PACKAGE_MODES = ['required', 'optional'] as const;
 
 const REPO_PATTERN = /^[A-Za-z0-9-]{1,39}\/(?!\.{1,2}$)[A-Za-z0-9_.-]{1,100}$/;
 
@@ -71,9 +74,10 @@ export type DevSessionMaterial = z.infer<typeof DevSessionMaterialSchema>;
 
 /**
  * L'incarico. Tutto ciò che identifica chi lo apre (tenant, owner, organizzazione, agente, business unit) è messo da
- * cap-dev dall'identità verificata della chiamata, mai dal modello. I materiali devono essere della stessa azienda,
- * dello stesso progetto e dello stesso tenant dell'incarico, e di nessun'altra business unit: se non lo sono,
- * l'incarico non è valido, sia in apertura sia in lettura.
+ * cap-dev dall'identità verificata della chiamata, mai dal modello. Materials must come from the same tenant, company
+ * and project as the assignment; any business unit of that project may supply them, because who may read a file is
+ * decided where its bytes are copied, with the organization rule of the bridge, and only the owning unit writes.
+ * If they do not, the assignment is not valid, both when opened and when read.
  */
 export const DevSessionAssignmentSchema = z.strictObject({
   version: z.literal(1),
@@ -93,6 +97,13 @@ export const DevSessionAssignmentSchema = z.strictObject({
   /** Il mini piano della business unit per questo incarico. */
   miniPlan: z.string().min(3).max(20000),
   materials: z.array(DevSessionMaterialSchema).max(DEV_SESSION_MAX_MATERIALS),
+  /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
+  deliverableKey: AssetKeySchema.optional(),
+  /**
+   * Whether the delivery package (`CONSEGNA.json`) is due. Same meaning for `code` and `design`, no link with
+   * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
+   */
+  deliveryPackage: z.enum(DEV_SESSION_DELIVERY_PACKAGE_MODES).optional(),
   destination: z.strictObject({ repo: DevSessionRepoSchema }),
   createdAt: z.iso.datetime({ offset: true }),
 }).superRefine((assignment, ctx) => {
@@ -103,10 +114,49 @@ export const DevSessionAssignmentSchema = z.strictObject({
     if (asset.tenantId !== assignment.tenantId) mismatch('material_foreign_tenant');
     else if (asset.companyId !== assignment.companyId) mismatch('material_foreign_company');
     else if (asset.projectId !== assignment.projectId) mismatch('material_foreign_project');
-    else if (asset.buSlug !== undefined && asset.buSlug !== assignment.businessUnit.slug) mismatch('material_foreign_business_unit');
   });
 });
 export type DevSessionAssignment = z.infer<typeof DevSessionAssignmentSchema>;
+
+/**
+ * The deliverable keys a mandate hands to its business unit, in plan order: for a product plan the breakdown items the
+ * unit works on, otherwise the unit's own sections.
+ */
+export function mandateDeliverableKeys(mandate: ReconciledMandate): string[] {
+  const { workBreakdown, businessUnit } = mandate.planSection;
+  if (mandate.planSection.deliveryShape === 'product' && workBreakdown !== undefined) {
+    return workBreakdown
+      .filter((item) => item.owners.some((owner) => owner.buSlug === businessUnit.buSlug))
+      .map((item) => item.id);
+  }
+  return (businessUnit.sections ?? []).map((section) => section.id);
+}
+
+export const DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = [
+  'deliverable_key_missing',
+  'mandate_foreign_scope',
+  'mandate_foreign_business_unit',
+  'mandate_without_deliverables',
+  'deliverable_key_not_in_mandate',
+] as const;
+export type DevSessionDeliverableKeyProblem = (typeof DEV_SESSION_DELIVERABLE_KEY_PROBLEMS)[number];
+
+/** First reason why the assignment's deliverable key does not come from this mandate, or `null` when it does. */
+export function devSessionDeliverableKeyProblem(
+  assignment: DevSessionAssignment,
+  mandate: ReconciledMandate,
+): DevSessionDeliverableKeyProblem | null {
+  if (assignment.deliverableKey === undefined) return 'deliverable_key_missing';
+  if (
+    mandate.tenantId !== assignment.tenantId
+    || mandate.organizationId !== assignment.organizationId
+    || mandate.projectId !== assignment.projectId
+  ) return 'mandate_foreign_scope';
+  if (mandate.planSection.businessUnit.buSlug !== assignment.businessUnit.slug) return 'mandate_foreign_business_unit';
+  const keys = mandateDeliverableKeys(mandate);
+  if (keys.length === 0) return 'mandate_without_deliverables';
+  return keys.includes(assignment.deliverableKey) ? null : 'deliverable_key_not_in_mandate';
+}
 
 /** Ramo di consegna dell'incarico aperto come issue `issueNumber`. */
 export function devSessionBranch(issueNumber: number): string {

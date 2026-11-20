@@ -172,6 +172,10 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -234,6 +238,10 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -301,6 +309,10 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+        assetVersion: z.ZodOptional<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;
@@ -490,6 +502,10 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -552,6 +568,10 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;

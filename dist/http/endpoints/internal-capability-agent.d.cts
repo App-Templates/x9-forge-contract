@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CapabilityOrdinaryConfigWriteSchema, type CapabilityOrdinaryTarget, type CapabilityOrdinaryConfiguration } from "../../capability/ordinary-configuration.cjs";
+import { CapabilityOrdinaryConfigWriteSchema, type CapabilityOrdinaryTarget, type CapabilityOrdinaryConfiguration, type CapabilityOrdinaryConfigState, type CapabilityOrdinaryConfigWrite } from "../../capability/ordinary-configuration.cjs";
 import { parseCapabilityOrdinaryLifecycle, type CapabilityOrdinaryLifecycleAuthority } from "../../capability/ordinary-lifecycle.cjs";
 /**
  * A capability's routes for ONE agent it serves (v1.28.0, Phase 54).
@@ -201,6 +201,7 @@ export declare const AgentSpendResponseSchema: z.ZodObject<{
             video: "video";
             ricerca: "ricerca";
             lab: "lab";
+            social: "social";
         }>;
         day: z.ZodString;
         spentUsd: z.ZodNumber;
@@ -234,6 +235,7 @@ export declare const ricercaAgentSpendContract: {
                 video: "video";
                 ricerca: "ricerca";
                 lab: "lab";
+                social: "social";
             }>;
             day: z.ZodString;
             spentUsd: z.ZodNumber;
@@ -269,6 +271,7 @@ export declare const labAgentSpendContract: {
                 video: "video";
                 ricerca: "ricerca";
                 lab: "lab";
+                social: "social";
             }>;
             day: z.ZodString;
             spentUsd: z.ZodNumber;
@@ -304,6 +307,43 @@ export declare const videoAgentSpendContract: {
                 video: "video";
                 ricerca: "ricerca";
                 lab: "lab";
+                social: "social";
+            }>;
+            day: z.ZodString;
+            spentUsd: z.ZodNumber;
+            reservedUsd: z.ZodNumber;
+            capUsd: z.ZodNumber;
+            calls: z.ZodNumber;
+            webCalls: z.ZodNumber;
+            budgetStops: z.ZodNumber;
+            budgetReachedAt: z.ZodNullable<z.ZodISODateTime>;
+            overrunAt: z.ZodNullable<z.ZodISODateTime>;
+        }, z.core.$strict>>;
+        queuedNow: z.ZodNumber;
+    }, z.core.$strict>;
+};
+/** cap-social-listening reports the same per-agent spend shape and path as cap-ricerca; its rows carry capability "social". */
+export declare const socialAgentSpendContract: {
+    readonly method: "GET";
+    readonly path: "/internal/capability/agents/:agentId/spend";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly querySchema: z.ZodObject<{
+        from: z.ZodString;
+        to: z.ZodString;
+        tenantId: z.ZodOptional<z.ZodString>;
+        ownerId: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        days: z.ZodArray<z.ZodObject<{
+            agentId: z.ZodString;
+            capability: z.ZodEnum<{
+                video: "video";
+                ricerca: "ricerca";
+                lab: "lab";
+                social: "social";
             }>;
             day: z.ZodString;
             spentUsd: z.ZodNumber;
@@ -401,6 +441,32 @@ export declare const CapabilityOrdinaryConfigQuerySchema: z.ZodObject<{
 }, z.core.$strict>;
 export declare function parseOrdinaryCapabilityAgentConfigGet(query: unknown, params: unknown, authority: Pick<CapabilityOrdinaryTarget, 'scope' | 'capability'>): z.infer<typeof CapabilityOrdinaryConfigQuerySchema>;
 export declare function parseOrdinaryCapabilityAgentConfigPut(body: unknown, params: unknown, authority: CapabilityOrdinaryTarget, currentVersion: number | null, masters?: readonly CapabilityOrdinaryConfiguration[]): z.infer<typeof CapabilityOrdinaryConfigWriteSchema>;
+/** Compose one complete next revision, retaining unchanged origins and validating the PUT rules. */
+export declare function composeOrdinaryCapabilityAgentConfigPut({ state, authority, values, requestId, masters }: {
+    state: CapabilityOrdinaryConfigState | null;
+    authority: CapabilityOrdinaryTarget;
+    values: Readonly<Record<string, unknown>>;
+    requestId: string;
+    masters?: readonly CapabilityOrdinaryConfiguration[];
+}): {
+    ok: true;
+    write: CapabilityOrdinaryConfigWrite;
+    changedKeys: string[];
+} | {
+    ok: false;
+    error: 'target_mismatch';
+} | {
+    ok: false;
+    error: 'unknown_parameter';
+    keys: string[];
+} | {
+    ok: false;
+    error: 'invalid_value';
+    keys: string[];
+} | {
+    ok: false;
+    error: 'invalid_write';
+};
 export declare function parseOrdinaryCapabilityLifecyclePut(body: unknown, params: unknown, authority: CapabilityOrdinaryLifecycleAuthority): ReturnType<typeof parseCapabilityOrdinaryLifecycle>;
 export declare const ordinaryCapabilityAgentConfigPutContract: {
     readonly bodySchema: z.ZodObject<{

@@ -1,0 +1,32 @@
+import { z } from 'zod';
+/** D24: daily pay-per-use server budget for one agent, in USD. */
+export declare const SOCIAL_SERVER_DAILY_CAP_DEFAULT_USD = 2;
+/** Placeholder until P0 measures the cost of a server verification. */
+export declare const SOCIAL_SERVER_VERIFY_ESTIMATE_USD = 0.25;
+export declare function socialServerVerifyEstimate(seenUsd: readonly number[]): number;
+export declare const SocialCapCheckSchema: z.ZodObject<{
+    track: z.ZodEnum<{
+        server: "server";
+        mac: "mac";
+    }>;
+    capUsd: z.ZodNumber;
+    spentUsd: z.ZodNumber;
+    estimateUsd: z.ZodNumber;
+}, z.core.$strict>;
+/** Check the agent's day total before reserving a call; the service owns the ledger and day. */
+export declare function socialCapDecision(input: unknown): {
+    ok: true;
+    capped: false;
+} | {
+    ok: true;
+    capped: true;
+    remainingUsd: number;
+} | {
+    ok: false;
+    reason: 'cap_reached';
+    remainingUsd: number;
+} | {
+    ok: false;
+    reason: 'invalid_input';
+};
+//# sourceMappingURL=cap.d.ts.map

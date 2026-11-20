@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- intentional: in-scope `z` is required for TS to emit portable .d.ts (see scripts/check-portable-dts.mjs).
 import { z } from 'zod';
 import { CapabilityAgentParamsSchema, AgentConfigSavedSchema } from './internal-capability-agent.js';
 import { DevAgentConfigSchema, DevAgentConfigStateSchema } from '../../capability/dev/config-state.js';

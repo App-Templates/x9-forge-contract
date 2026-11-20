@@ -56,6 +56,8 @@ export const KNOWN_CREDENTIAL_KEYS = [
     'FIGMA_TOKEN', // cap-dev, lettura Figma, per agente
     'DEV_SIGNING_PRIVATE_KEY',
     'PAPERCLIP_API_KEY', // P01 — native Paperclip agent API key; per agent, never platform-wide
+    'META_GRAPH_TOKEN', // social-listening, per agent
+    'META_IG_BUSINESS_ID', // social-listening, per agent
 ];
 /**
  * Agent credentials schema.
@@ -115,6 +117,8 @@ export const AgentCredentialsSchema = z
     FIGMA_TOKEN: z.string().optional(),
     DEV_SIGNING_PRIVATE_KEY: z.string().optional(),
     PAPERCLIP_API_KEY: z.string().optional(),
+    META_GRAPH_TOKEN: z.string().optional(),
+    META_IG_BUSINESS_ID: z.string().optional(),
 })
     .catchall(z.string());
 /**

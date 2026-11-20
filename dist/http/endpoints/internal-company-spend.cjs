@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalCompanySpendCapUpdateContract = exports.internalCompanySpendReadContract = exports.InternalCompanySpendErrorSchema = exports.InternalCompanySpendCapUpdateBodySchema = exports.InternalCompanySpendResponseSchema = exports.InternalCompanySpendParamsSchema = exports.INTERNAL_COMPANY_SPEND_PATH = exports.CompanySpendSourceSchema = exports.internalCompanySpendBusinessUnitReadContract = exports.InternalCompanySpendBusinessUnitResponseSchema = exports.InternalCompanySpendBusinessUnitQuerySchema = exports.InternalCompanySpendBusinessUnitParamsSchema = exports.INTERNAL_COMPANY_SPEND_BUSINESS_UNIT_PATH = void 0;
+exports.internalCompanySpendCapUpdateContract = exports.internalCompanySpendReadContract = exports.InternalCompanySpendErrorSchema = exports.InternalCompanySpendCapUpdateBodySchema = exports.InternalCompanySpendResponseSchema = exports.InternalCompanySpendParamsSchema = exports.INTERNAL_COMPANY_SPEND_PATH = exports.CompanySpendCapabilitySourceSchema = exports.COMPANY_SPEND_CAPABILITY_SOURCES = exports.CompanySpendSourceSchema = exports.internalCompanySpendBusinessUnitReadContract = exports.InternalCompanySpendBusinessUnitResponseSchema = exports.InternalCompanySpendBusinessUnitQuerySchema = exports.InternalCompanySpendBusinessUnitParamsSchema = exports.INTERNAL_COMPANY_SPEND_BUSINESS_UNIT_PATH = void 0;
 const zod_1 = require("zod");
 const business_unit_lead_js_1 = require("../../organization/business-unit-lead.cjs");
 exports.INTERNAL_COMPANY_SPEND_BUSINESS_UNIT_PATH = '/internal/companies/:companyId/business-units/:buSlug/spend';
@@ -54,6 +54,12 @@ exports.internalCompanySpendBusinessUnitReadContract = {
 };
 /** Spend sources of the company guard; the same list agent-core meters. */
 exports.CompanySpendSourceSchema = zod_1.z.enum(['model', 'tool', 'ricerca', 'lab']);
+/**
+ * The only sources X9 reads from a capability, and so the only ones it can
+ * fail to read. `model` and `tool` are metered by X9 itself and are never unread.
+ */
+exports.COMPANY_SPEND_CAPABILITY_SOURCES = ['ricerca', 'lab'];
+exports.CompanySpendCapabilitySourceSchema = exports.CompanySpendSourceSchema.extract(exports.COMPANY_SPEND_CAPABILITY_SOURCES);
 exports.INTERNAL_COMPANY_SPEND_PATH = '/internal/companies/:company/spend';
 /** `company` is the guard's company name, e.g. `good-choice`. */
 exports.InternalCompanySpendParamsSchema = zod_1.z.strictObject({
@@ -83,7 +89,7 @@ exports.InternalCompanySpendResponseSchema = zod_1.z.strictObject({
         estimated: zod_1.z.boolean(),
         bySource: zod_1.z.partialRecord(exports.CompanySpendSourceSchema, zod_1.z.int().min(0)),
     })),
-    unreadSources: zod_1.z.array(exports.CompanySpendSourceSchema),
+    unreadSources: zod_1.z.array(exports.CompanySpendCapabilitySourceSchema),
 });
 /** `since` restarts the counter (reset); `revision` is the one the caller read. */
 exports.InternalCompanySpendCapUpdateBodySchema = zod_1.z.strictObject({
@@ -94,7 +100,18 @@ exports.InternalCompanySpendCapUpdateBodySchema = zod_1.z.strictObject({
 });
 exports.InternalCompanySpendErrorSchema = zod_1.z.strictObject({
     ok: zod_1.z.literal(false),
-    error: zod_1.z.enum(['unknown_company', 'guard_off', 'stale_revision', 'below_business_units', 'invalid_request']),
+    error: zod_1.z.enum([
+        'unknown_company',
+        'guard_off',
+        'stale_revision',
+        'below_business_units',
+        'invalid_request',
+        // The internal-secret guard did not let the call through (401).
+        'unauthorized',
+        // The requested cap leads to a configuration the guard refuses for a rule
+        // other than the business unit caps, which have `below_business_units`.
+        'invalid_config',
+    ]),
     currentRevision: zod_1.z.int().min(0).optional(),
 });
 exports.internalCompanySpendReadContract = {

@@ -1,10 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.COMPANY_MAP_CONFIRM_OPTIONS = exports.CompanyMapAnyEntrySchema = exports.CompanyMapAccessEntrySchema = exports.CompanyMapAssetEntrySchema = exports.CompanyMapResponsibilityEntrySchema = exports.CompanyMapPersonEntrySchema = exports.CompanyMapEntrySchema = exports.CompanyMapAccessFieldsSchema = exports.CompanyMapAssetFieldsSchema = exports.CompanyMapResponsibilityFieldsSchema = exports.CompanyMapPersonFieldsSchema = exports.CompanyMapReferentFieldsSchema = exports.CompanyMapConfirmTargetSchema = exports.CompanyMapVersionFieldsSchema = exports.CompanyMapScopeFieldsSchema = exports.CompanyMapSourceSchema = exports.CompanyMapEntryKindSchema = exports.COMPANY_MAP_ENTRY_KINDS = exports.CompanyMapLevelSchema = exports.COMPANY_MAP_LEVELS = void 0;
+exports.DELIVERY_REFERENT_REFUSALS = exports.REFERENT_FOR_UNIT_REFUSALS = exports.COMPANY_MAP_CONFIRM_OPTIONS = exports.CompanyMapAnyEntrySchema = exports.CompanyMapAccessEntrySchema = exports.CompanyMapAssetEntrySchema = exports.CompanyMapResponsibilityEntrySchema = exports.CompanyMapPersonEntrySchema = exports.CompanyMapEntrySchema = exports.CompanyMapAccessFieldsSchema = exports.CompanyMapAssetFieldsSchema = exports.CompanyMapResponsibilityFieldsSchema = exports.CompanyMapPersonFieldsSchema = exports.CompanyMapReferentFieldsSchema = exports.CompanyMapConfirmTargetSchema = exports.CompanyMapVersionFieldsSchema = exports.CompanyMapScopeFieldsSchema = exports.CompanyMapSourceSchema = exports.CompanyMapEntryKindSchema = exports.COMPANY_MAP_ENTRY_KINDS = exports.CompanyMapLevelSchema = exports.COMPANY_MAP_LEVELS = void 0;
 exports.checkCompanyMapLevelScope = checkCompanyMapLevelScope;
 exports.companyMapConfirmationSubject = companyMapConfirmationSubject;
 exports.companyMapConfirmationSetSubject = companyMapConfirmationSetSubject;
 exports.companyMapEntryKey = companyMapEntryKey;
+exports.referentForUnit = referentForUnit;
+exports.referentAddressKey = referentAddressKey;
+exports.deliveryReferentAddress = deliveryReferentAddress;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const asset_js_1 = require("./asset.cjs");
@@ -205,5 +208,62 @@ function companyMapEntryKey(entry) {
         default:
             return entry.personRef;
     }
+}
+/** Refusal codes of the referent lookup. */
+exports.REFERENT_FOR_UNIT_REFUSALS = ['referent_not_in_map', 'referent_superseded'];
+/**
+ * One rule to find the referent of a unit: business unit level, then project, then client.
+ * The first level with a matching entry wins; within it the highest version. Never crosses
+ * tenant, organization, client or project.
+ */
+function referentForUnit(input) {
+    const { entries, scope, referent } = input;
+    const sameReferent = entries.filter((entry) => entry.tenantId === scope.tenantId &&
+        entry.organizationId === scope.organizationId &&
+        entry.clientId === scope.clientId &&
+        entry.personRef === referent.personRef);
+    const levels = [
+        ['business_unit', (e) => e.level === 'business_unit' && e.projectId === scope.projectId && e.buSlug === scope.buSlug],
+        ['project', (e) => e.level === 'project' && e.projectId === scope.projectId],
+        ['client', (e) => e.level === 'client'],
+    ];
+    for (const [level, matches] of levels) {
+        const found = sameReferent.filter(matches);
+        if (found.length === 0)
+            continue;
+        const entry = found.reduce((best, candidate) => (candidate.version > best.version ? candidate : best));
+        if (referent.entryVersion !== undefined && referent.entryVersion !== entry.version) {
+            return { ok: false, code: 'referent_superseded' };
+        }
+        return { ok: true, entry, level };
+    }
+    return { ok: false, code: 'referent_not_in_map' };
+}
+/** Refusal codes of the delivery referent lookup (one per cause). */
+exports.DELIVERY_REFERENT_REFUSALS = [
+    'delivery_referent_missing',
+    'delivery_referent_several_addresses',
+    'delivery_referent_address_differs',
+];
+/** Comparison key of a referent address: trimmed and lowercased. */
+function referentAddressKey(email) {
+    return email.trim().toLowerCase();
+}
+/**
+ * One rule to find the address a delivery goes to. The first level with at least one row
+ * decides; its rows are counted by distinct address, not by row. Pure: reads and writes nothing.
+ */
+function deliveryReferentAddress(input) {
+    const decisive = input.levels.find((candidate) => candidate.entries.length > 0);
+    if (decisive === undefined)
+        return { ok: false, code: 'delivery_referent_missing' };
+    const addresses = new Set(decisive.entries.map((entry) => referentAddressKey(entry.email)));
+    if (addresses.size > 1)
+        return { ok: false, code: 'delivery_referent_several_addresses' };
+    const [email] = [...addresses];
+    if (input.requestedAddress !== undefined && referentAddressKey(input.requestedAddress) !== email) {
+        return { ok: false, code: 'delivery_referent_address_differs' };
+    }
+    return { ok: true, email, level: decisive.level, personRefs: decisive.entries.map((entry) => entry.personRef) };
 }
 //# sourceMappingURL=company-map.js.map

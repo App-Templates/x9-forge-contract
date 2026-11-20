@@ -40,6 +40,7 @@ exports.ACTION_PLAN_ERROR_CODES = [
     'action_plan_scope_mismatch',
     'identity_uncertain',
     'action_plan_referent_version_mismatch',
+    'referent_email_not_declared',
 ];
 exports.ActionPlanErrorCodeSchema = zod_1.z.enum(exports.ACTION_PLAN_ERROR_CODES);
 /**

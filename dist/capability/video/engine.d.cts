@@ -130,8 +130,8 @@ export declare const VideoEngineRunStageSchema: z.ZodEnum<{
 }>;
 export type VideoEngineRunStage = z.infer<typeof VideoEngineRunStageSchema>;
 export declare const VideoEngineApproveStageSchema: z.ZodEnum<{
-    frames: "frames";
     plan: "plan";
+    frames: "frames";
     final: "final";
 }>;
 export type VideoEngineApproveStage = z.infer<typeof VideoEngineApproveStageSchema>;
@@ -139,8 +139,8 @@ export declare const VideoEngineRevisionSchema: z.ZodNumber;
 export declare const VideoEnginePlanRequestSchema: z.ZodObject<{}, z.core.$strict>;
 export declare const VideoEngineApproveRequestSchema: z.ZodObject<{
     stage: z.ZodEnum<{
-        frames: "frames";
         plan: "plan";
+        frames: "frames";
         final: "final";
     }>;
     revision: z.ZodNumber;
@@ -168,8 +168,8 @@ export type VideoEngineRouteRunStage = z.infer<typeof VideoEngineRouteRunStageSc
 /** Stages the engine route accepts on approve; the facade drives a subset (`VideoEngineApproveStageSchema`). */
 export declare const VideoEngineRouteApproveStageSchema: z.ZodEnum<{
     voice: "voice";
-    frames: "frames";
     plan: "plan";
+    frames: "frames";
     final: "final";
     references: "references";
 }>;
@@ -185,8 +185,8 @@ export type VideoEngineRoutePlanRequest = z.infer<typeof VideoEngineRoutePlanReq
 export declare const VideoEngineRouteApproveRequestSchema: z.ZodObject<{
     stage: z.ZodEnum<{
         voice: "voice";
-        frames: "frames";
         plan: "plan";
+        frames: "frames";
         final: "final";
         references: "references";
     }>;

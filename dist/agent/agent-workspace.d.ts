@@ -3279,6 +3279,8 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
         FIGMA_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
+        META_GRAPH_TOKEN: z.ZodOptional<z.ZodString>;
+        META_IG_BUSINESS_ID: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -5137,6 +5139,8 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
         FIGMA_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
+        META_GRAPH_TOKEN: z.ZodOptional<z.ZodString>;
+        META_IG_BUSINESS_ID: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;

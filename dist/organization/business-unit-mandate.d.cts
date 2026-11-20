@@ -42,6 +42,32 @@ export declare const MandateReconciliationSchema: z.ZodDiscriminatedUnion<[z.Zod
     }, z.core.$strict>>;
 }, z.core.$strict>], "outcome">;
 export type MandateReconciliation = z.infer<typeof MandateReconciliationSchema>;
+/** Repository, relative working folder and GitHub session board configured for the unit. */
+export declare const MandateWorkplaceSchema: z.ZodObject<{
+    repository: z.ZodObject<{
+        host: z.ZodEnum<{
+            bitbucket: "bitbucket";
+            github: "github";
+        }>;
+        repo: z.ZodString;
+    }, z.core.$strict>;
+    folder: z.ZodOptional<z.ZodString>;
+    sessionBoard: z.ZodOptional<z.ZodObject<{
+        repo: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type MandateWorkplace = z.infer<typeof MandateWorkplaceSchema>;
+/** Execution mode and tool permissions configured for the unit. */
+export declare const MandateWorkModeSchema: z.ZodObject<{
+    executor: z.ZodEnum<{
+        agent: "agent";
+        night: "night";
+        dev_session: "dev_session";
+    }>;
+    allowedTools: z.ZodArray<z.ZodString>;
+    excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+}, z.core.$strict>;
+export type MandateWorkMode = z.infer<typeof MandateWorkModeSchema>;
 /** Versioned sources and their reconciliation, embedded in a business unit brief. */
 export declare const ReconciledMandateSchema: z.ZodObject<{
     tenantId: z.ZodString;
@@ -105,6 +131,19 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                     delivery: z.ZodString;
                 }, z.core.$strict>;
             }, z.core.$strict>], "kind">;
+            gapRule: z.ZodOptional<z.ZodEnum<{
+                mark_and_proceed: "mark_and_proceed";
+                stop_and_ask: "stop_and_ask";
+            }>>;
+            signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodString;
+                signer: z.ZodEnum<{
+                    owner: "owner";
+                    director: "director";
+                    referent: "referent";
+                }>;
+                form: z.ZodLiteral<"decision_request">;
+            }, z.core.$strict>>>;
         }, z.core.$strict>;
         /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
         project: z.ZodOptional<z.ZodObject<{
@@ -147,6 +186,40 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                 does: z.ZodString;
             }, z.core.$strict>>;
         }, z.core.$strict>>>;
+        /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+        exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            fromBu: z.ZodString;
+            toBu: z.ZodString;
+            what: z.ZodString;
+            format: z.ZodString;
+            key: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>>;
+        /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+        questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            question: z.ZodString;
+            unlocks: z.ZodString;
+            askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                personRef: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"owner">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"director">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"business_unit">;
+                buSlug: z.ZodString;
+            }, z.core.$strict>], "kind">>;
+        }, z.core.$strict>>>;
+        /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+        sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            topic: z.ZodString;
+            status: z.ZodEnum<{
+                partial: "partial";
+                missing: "missing";
+                covered: "covered";
+            }>;
+            pages: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>;
     decision: z.ZodObject<{
         requestId: z.ZodString;
@@ -187,6 +260,30 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
         }, z.core.$strict>>;
     }, z.core.$strict>], "outcome">;
     reconciledAt: z.ZodISODateTime;
+    /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+    workplace: z.ZodOptional<z.ZodObject<{
+        repository: z.ZodObject<{
+            host: z.ZodEnum<{
+                bitbucket: "bitbucket";
+                github: "github";
+            }>;
+            repo: z.ZodString;
+        }, z.core.$strict>;
+        folder: z.ZodOptional<z.ZodString>;
+        sessionBoard: z.ZodOptional<z.ZodObject<{
+            repo: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+    /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+    workMode: z.ZodOptional<z.ZodObject<{
+        executor: z.ZodEnum<{
+            agent: "agent";
+            night: "night";
+            dev_session: "dev_session";
+        }>;
+        allowedTools: z.ZodArray<z.ZodString>;
+        excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ReconciledMandate = z.infer<typeof ReconciledMandateSchema>;
 export declare const MandateAttemptObservationIdSchema: z.ZodString;
@@ -269,6 +366,19 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                         delivery: z.ZodString;
                     }, z.core.$strict>;
                 }, z.core.$strict>], "kind">;
+                gapRule: z.ZodOptional<z.ZodEnum<{
+                    mark_and_proceed: "mark_and_proceed";
+                    stop_and_ask: "stop_and_ask";
+                }>>;
+                signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodString;
+                    signer: z.ZodEnum<{
+                        owner: "owner";
+                        director: "director";
+                        referent: "referent";
+                    }>;
+                    form: z.ZodLiteral<"decision_request">;
+                }, z.core.$strict>>>;
             }, z.core.$strict>;
             /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
             project: z.ZodOptional<z.ZodObject<{
@@ -311,6 +421,40 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                     does: z.ZodString;
                 }, z.core.$strict>>;
             }, z.core.$strict>>>;
+            /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+            exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                fromBu: z.ZodString;
+                toBu: z.ZodString;
+                what: z.ZodString;
+                format: z.ZodString;
+                key: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>>;
+            /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+            questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                question: z.ZodString;
+                unlocks: z.ZodString;
+                askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    personRef: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"owner">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"director">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"business_unit">;
+                    buSlug: z.ZodString;
+                }, z.core.$strict>], "kind">>;
+            }, z.core.$strict>>>;
+            /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+            sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                topic: z.ZodString;
+                status: z.ZodEnum<{
+                    partial: "partial";
+                    missing: "missing";
+                    covered: "covered";
+                }>;
+                pages: z.ZodArray<z.ZodString>;
+            }, z.core.$strict>>>;
         }, z.core.$strict>;
         decision: z.ZodObject<{
             requestId: z.ZodString;
@@ -351,6 +495,30 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
             }, z.core.$strict>>;
         }, z.core.$strict>], "outcome">;
         reconciledAt: z.ZodISODateTime;
+        /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+        workplace: z.ZodOptional<z.ZodObject<{
+            repository: z.ZodObject<{
+                host: z.ZodEnum<{
+                    bitbucket: "bitbucket";
+                    github: "github";
+                }>;
+                repo: z.ZodString;
+            }, z.core.$strict>;
+            folder: z.ZodOptional<z.ZodString>;
+            sessionBoard: z.ZodOptional<z.ZodObject<{
+                repo: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+        workMode: z.ZodOptional<z.ZodObject<{
+            executor: z.ZodEnum<{
+                agent: "agent";
+                night: "night";
+                dev_session: "dev_session";
+            }>;
+            allowedTools: z.ZodArray<z.ZodString>;
+            excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
     eventId: z.ZodString;
     at: z.ZodISODateTime;
@@ -358,8 +526,8 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
     kind: z.ZodLiteral<"blocked">;
     reason: z.ZodEnum<{
         conflict: "conflict";
-        missing: "missing";
         referent_superseded: "referent_superseded";
+        missing: "missing";
     }>;
     eventId: z.ZodString;
     at: z.ZodISODateTime;
@@ -473,6 +641,19 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                             delivery: z.ZodString;
                         }, z.core.$strict>;
                     }, z.core.$strict>], "kind">;
+                    gapRule: z.ZodOptional<z.ZodEnum<{
+                        mark_and_proceed: "mark_and_proceed";
+                        stop_and_ask: "stop_and_ask";
+                    }>>;
+                    signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        key: z.ZodString;
+                        signer: z.ZodEnum<{
+                            owner: "owner";
+                            director: "director";
+                            referent: "referent";
+                        }>;
+                        form: z.ZodLiteral<"decision_request">;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
                 project: z.ZodOptional<z.ZodObject<{
@@ -515,6 +696,40 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                         does: z.ZodString;
                     }, z.core.$strict>>;
                 }, z.core.$strict>>>;
+                /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+                exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    fromBu: z.ZodString;
+                    toBu: z.ZodString;
+                    what: z.ZodString;
+                    format: z.ZodString;
+                    key: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>>;
+                /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+                questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    question: z.ZodString;
+                    unlocks: z.ZodString;
+                    askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"referent">;
+                        personRef: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"owner">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"director">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"business_unit">;
+                        buSlug: z.ZodString;
+                    }, z.core.$strict>], "kind">>;
+                }, z.core.$strict>>>;
+                /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+                sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    topic: z.ZodString;
+                    status: z.ZodEnum<{
+                        partial: "partial";
+                        missing: "missing";
+                        covered: "covered";
+                    }>;
+                    pages: z.ZodArray<z.ZodString>;
+                }, z.core.$strict>>>;
             }, z.core.$strict>;
             decision: z.ZodObject<{
                 requestId: z.ZodString;
@@ -555,6 +770,30 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                 }, z.core.$strict>>;
             }, z.core.$strict>], "outcome">;
             reconciledAt: z.ZodISODateTime;
+            /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+            workplace: z.ZodOptional<z.ZodObject<{
+                repository: z.ZodObject<{
+                    host: z.ZodEnum<{
+                        bitbucket: "bitbucket";
+                        github: "github";
+                    }>;
+                    repo: z.ZodString;
+                }, z.core.$strict>;
+                folder: z.ZodOptional<z.ZodString>;
+                sessionBoard: z.ZodOptional<z.ZodObject<{
+                    repo: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
+            /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+            workMode: z.ZodOptional<z.ZodObject<{
+                executor: z.ZodEnum<{
+                    agent: "agent";
+                    night: "night";
+                    dev_session: "dev_session";
+                }>;
+                allowedTools: z.ZodArray<z.ZodString>;
+                excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>>;
         }, z.core.$strict>;
         eventId: z.ZodString;
         at: z.ZodISODateTime;
@@ -562,8 +801,8 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
         kind: z.ZodLiteral<"blocked">;
         reason: z.ZodEnum<{
             conflict: "conflict";
-            missing: "missing";
             referent_superseded: "referent_superseded";
+            missing: "missing";
         }>;
         eventId: z.ZodString;
         at: z.ZodISODateTime;

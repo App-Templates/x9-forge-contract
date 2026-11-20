@@ -1,0 +1,1 @@
+{"version":3,"file":"message-code.d.ts","sourceRoot":"","sources":["../../src/messaging/message-code.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,CAAC,EAAE,MAAM,KAAK,CAAC;AAExB,eAAO,MAAM,sBAAsB,aAAuD,CAAC;AAE3F,4EAA4E;AAC5E,wBAAgB,gBAAgB,CAAC,EAAE,EAAE,MAAM,GAAG,MAAM,CAGnD;AAED,wBAAgB,gBAAgB,CAAC,CAAC,EAAE,MAAM,EAAE,CAAC,EAAE,MAAM,GAAG,OAAO,CAE9D"}

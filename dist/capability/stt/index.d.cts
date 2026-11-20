@@ -109,4 +109,36 @@ export declare const TranscribeResponseSchema: z.ZodObject<{
     }>;
 }, z.core.$strip>;
 export type TranscribeResponse = z.infer<typeof TranscribeResponseSchema>;
+/** Cost boundary for media-file transcription, independent of the Telegram limit. */
+export declare const STT_MEDIA_MAX_DURATION_SEC = 600;
+/**
+ * Validate only URL syntax. The consuming service must enforce its domain allowlist
+ * and reject internal addresses before fetching media, including after redirects.
+ */
+export declare const TranscribeMediaUrlSchema: z.ZodString;
+/** Identity is supplied by the authenticated ToolCallRequest envelope. */
+export declare const TranscribeMediaRequestSchema: z.ZodObject<{
+    mediaUrl: z.ZodString;
+    durationSec: z.ZodNumber;
+    mimeType: z.ZodOptional<z.ZodString>;
+    languageHint: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type TranscribeMediaRequest = z.infer<typeof TranscribeMediaRequestSchema>;
+/**
+ * Select the source before parsing: the legacy Telegram schema strips unknown
+ * fields, so parsing it first could silently discard an ambiguous media source.
+ * Both sources keep the existing TranscribeResponseSchema and provider choices.
+ */
+export declare function parseTranscribeInput(raw: unknown): {
+    ok: true;
+    kind: 'telegram';
+    request: TranscribeRequest;
+} | {
+    ok: true;
+    kind: 'media';
+    request: TranscribeMediaRequest;
+} | {
+    ok: false;
+    error: 'transcribe_source_ambiguous' | 'invalid_transcribe_input';
+};
 //# sourceMappingURL=index.d.ts.map

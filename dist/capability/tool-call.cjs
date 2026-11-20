@@ -1,4 +1,18 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolErrorModelReasonSchema = exports.TOOL_ERROR_MODEL_REASON_MAX_CHARS = exports.ToolCallRequestSchema = void 0;
 exports.toolErrorModelReasonOf = toolErrorModelReasonOf;
@@ -6,6 +20,7 @@ const zod_1 = require("zod");
 const internal_memory_extract_js_1 = require("../http/endpoints/internal-memory-extract.cjs");
 const tool_call_correlation_js_1 = require("../organization/tool-call-correlation.cjs");
 const ordinary_configuration_js_1 = require("./ordinary-configuration.cjs");
+const tool_error_disposition_js_1 = require("./tool-error-disposition.cjs");
 /**
  * Request sent by X9 agent-core to a capability service.
  *
@@ -86,6 +101,7 @@ function toolErrorModelReasonOf(body) {
         return undefined;
     }
 }
+__exportStar(require("./tool-error-disposition.cjs"), exports);
 exports.ToolCallSuccessResponseSchema = zod_1.z.object({
     callId: zod_1.z.string().min(1),
     status: zod_1.z.literal('success'),
@@ -98,6 +114,7 @@ exports.ToolCallErrorResponseSchema = zod_1.z.object({
     error: zod_1.z.string(),
     code: zod_1.z.enum(['TOOL_NOT_FOUND', 'TOOL_CALL_INVALID', 'TOOL_EXEC_FAILED']),
     modelReason: exports.ToolErrorModelReasonSchema.optional(),
+    disposition: tool_error_disposition_js_1.ToolErrorDispositionSchema.optional(),
     receipt: tool_call_correlation_js_1.ToolCallReceiptSchema.optional(),
 });
 /**

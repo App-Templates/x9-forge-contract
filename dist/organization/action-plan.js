@@ -65,6 +65,18 @@ export const ActionPlanWorkItemSchema = z.strictObject({
 });
 export const ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = 60;
 export const ActionPlanWorkBreakdownSchema = z.array(ActionPlanWorkItemSchema).min(1).max(ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS).refine((items) => new Set(items.map((item) => item.id)).size === items.length, { message: 'Work breakdown item ids must be unique' }).describe("L'alberatura del progetto (solo `product`): tutte le sezioni che l'utente userà, comprese errori, dati mancanti e misura, con le BU che ci lavorano. È la fonte delle cose da costruire: i mini-brief delle BU la ereditano.");
+/** What the lead does where a source is missing: mark the point «da verificare» and go on, or stop and ask. */
+export const ACTION_PLAN_GAP_RULES = ['mark_and_proceed', 'stop_and_ask'];
+export const ActionPlanGapRuleSchema = z.enum(ACTION_PLAN_GAP_RULES)
+    .describe('dove manca una fonte: `mark_and_proceed` segna «da verificare» e prosegue, `stop_and_ask` si ferma e chiede');
+export const ACTION_PLAN_SIGN_OFF_SIGNERS = ['referent', 'director', 'owner'];
+export const ACTION_PLAN_SIGN_OFF_FORMS = ['decision_request'];
+/** A piece of the unit that needs a formal sign-off, who signs and how (the only form is the e-mail decision request). */
+export const ActionPlanSignOffSchema = z.strictObject({
+    key: SlugSchema(1, 40).describe('la chiave del pezzo da firmare: id di una sezione della BU o di una voce dell’alberatura di cui è fra gli owner'),
+    signer: z.enum(ACTION_PLAN_SIGN_OFF_SIGNERS),
+    form: z.literal(ACTION_PLAN_SIGN_OFF_FORMS[0]),
+});
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 export const ActionPlanBusinessUnitSchema = z.strictObject({
     buSlug: SlugSchema(1, 30),
@@ -85,11 +97,40 @@ export const ActionPlanBusinessUnitSchema = z.strictObject({
     sections: z.array(ActionPlanBuSectionSchema).min(1).max(20).refine((sections) => new Set(sections.map((section) => section.id)).size === sections.length, { message: 'Section ids must be unique within the business unit' }).optional().describe('Le sezioni che questa BU costruisce dopo l’approvazione: la missione scomposta per questa BU, ognuna con cosa potrà fare l’utente. È il mini-brief che il capo riceve nel Mandato.'),
     roleAgents: z.array(ActionPlanRoleAgentSchema).max(20).optional(),
     start: ActionPlanBuStartSchema,
+    gapRule: ActionPlanGapRuleSchema.optional(),
+    signOffs: z.array(ActionPlanSignOffSchema).min(1).max(20).refine((signOffs) => new Set(signOffs.map((signOff) => signOff.key)).size === signOffs.length, { message: 'Sign-off keys must be unique within the business unit' }).optional().describe('i pezzi della BU che vanno firmati: quale, da chi, in che forma'),
 });
 const TextSchema = z.string().min(1).max(2000);
 const BuSlugSchema = SlugSchema(1, 30);
 const MilestoneNumberSchema = z.number().int().min(1);
 const DeliveryCriteriaSchema = z.array(TextSchema).min(1).max(20);
+/** A delivery from one business unit to another; `key` names the piece handed over. */
+export const ActionPlanExchangeSchema = z.strictObject({
+    fromBu: BuSlugSchema,
+    toBu: BuSlugSchema,
+    what: TextSchema,
+    format: TextSchema,
+    key: SlugSchema(1, 40).optional().describe('la chiave del pezzo che passa: id di una sezione o di una voce dell’alberatura'),
+});
+/** Who an open question goes to. */
+export const ActionPlanQuestionAddresseeSchema = z.discriminatedUnion('kind', [
+    z.strictObject({ kind: z.literal('referent'), personRef: SlugSchema(1, 40) }),
+    z.strictObject({ kind: z.literal('owner') }),
+    z.strictObject({ kind: z.literal('director') }),
+    z.strictObject({ kind: z.literal('business_unit'), buSlug: BuSlugSchema }),
+]);
+export const ActionPlanQuestionSchema = z.strictObject({
+    question: TextSchema,
+    unlocks: TextSchema,
+    askTo: ActionPlanQuestionAddresseeSchema.optional().describe('a chi va la domanda'),
+});
+export const ACTION_PLAN_SOURCE_COVERAGE_STATUSES = ['covered', 'partial', 'missing'];
+/** How well the dossier covers a topic the plan depends on. */
+export const ActionPlanSourceCoverageSchema = z.strictObject({
+    topic: z.string().min(1).max(200),
+    status: z.enum(ACTION_PLAN_SOURCE_COVERAGE_STATUSES),
+    pages: z.array(WikiPageSchema.shape.slug).max(10).describe('le pagine del dossier che ne parlano'),
+});
 /** A person the plan proposes for the client company map; written only when the owner approves this plan version. */
 export const ActionPlanReferentProposalSchema = z.strictObject({
     personRef: SlugSchema(1, 40),
@@ -161,12 +202,7 @@ export const ActionPlanSchema = z.strictObject({
     })).min(1).max(50),
     criticalPath: z.array(z.number().int()).min(1).max(50),
     businessUnits: z.array(ActionPlanBusinessUnitSchema).min(1).max(20),
-    exchanges: z.array(z.strictObject({
-        fromBu: BuSlugSchema,
-        toBu: BuSlugSchema,
-        what: TextSchema,
-        format: TextSchema,
-    })),
+    exchanges: z.array(ActionPlanExchangeSchema),
     budget: z.strictObject({
         currency: TextSchema,
         total: z.number().min(0),
@@ -181,7 +217,9 @@ export const ActionPlanSchema = z.strictObject({
         blocks: z.strictObject({ buSlug: BuSlugSchema, milestone: MilestoneNumberSchema }).optional(),
         neededBy: z.iso.date().optional(),
     })),
-    questions: z.array(z.strictObject({ question: TextSchema, unlocks: TextSchema })),
+    questions: z.array(ActionPlanQuestionSchema),
+    sourceCoverage: z.array(ActionPlanSourceCoverageSchema).max(50).optional()
+        .describe('quanto il dossier copre gli argomenti da cui dipende il piano'),
     ifApproved: z.strictObject({
         startNow: z.array(BuSlugSchema),
         startLater: z.array(z.strictObject({ buSlug: BuSlugSchema, after: TextSchema })),
@@ -278,6 +316,55 @@ export const ActionPlanSubmissionSchema = ActionPlanDraftSchema.superRefine((pla
                     });
                 }
             });
+        });
+    });
+    const pieceKeys = new Set([
+        ...plan.businessUnits.flatMap((unit) => unit.sections?.map((section) => section.id) ?? []),
+        ...(plan.workBreakdown?.map((item) => item.id) ?? []),
+    ]);
+    plan.businessUnits.forEach((unit, index) => {
+        const unitKeys = new Set([
+            ...(unit.sections?.map((section) => section.id) ?? []),
+            ...(plan.workBreakdown?.filter((item) => item.owners.some((owner) => owner.buSlug === unit.buSlug)).map((item) => item.id) ?? []),
+        ]);
+        unit.signOffs?.forEach((signOff, position) => {
+            if (!unitKeys.has(signOff.key)) {
+                ctx.addIssue({
+                    code: 'custom',
+                    path: ['businessUnits', index, 'signOffs', position, 'key'],
+                    message: `Business unit ${unit.buSlug}: sign-off key ${signOff.key} is neither a section of the unit nor a work breakdown item it owns`,
+                });
+            }
+        });
+    });
+    plan.exchanges.forEach((exchange, index) => {
+        if (exchange.key !== undefined && !pieceKeys.has(exchange.key)) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['exchanges', index, 'key'],
+                message: `Exchange key ${exchange.key} is neither a section nor a work breakdown item of the plan`,
+            });
+        }
+    });
+    plan.questions.forEach((question, index) => {
+        if (question.askTo?.kind === 'business_unit' && !businessUnitSlugs.has(question.askTo.buSlug)) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['questions', index, 'askTo', 'buSlug'],
+                message: `Question is addressed to ${question.askTo.buSlug}, which is not a business unit of the plan`,
+            });
+        }
+    });
+    const dossierSlugs = new Set(plan.dossier?.map((page) => page.slug));
+    plan.sourceCoverage?.forEach((entry, index) => {
+        entry.pages.forEach((slug, position) => {
+            if (!dossierSlugs.has(slug)) {
+                ctx.addIssue({
+                    code: 'custom',
+                    path: ['sourceCoverage', index, 'pages', position],
+                    message: `Source coverage page ${slug} is not in the dossier`,
+                });
+            }
         });
     });
     if (shape === 'study' && plan.workBreakdown !== undefined) {

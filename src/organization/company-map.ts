@@ -252,3 +252,85 @@ export function companyMapEntryKey(
       return entry.personRef;
   }
 }
+
+/** Refusal codes of the referent lookup. */
+export const REFERENT_FOR_UNIT_REFUSALS = ['referent_not_in_map', 'referent_superseded'] as const;
+export type ReferentForUnitRefusal = (typeof REFERENT_FOR_UNIT_REFUSALS)[number];
+
+export type ReferentForUnitResult =
+  | { ok: true; entry: CompanyMapEntry; level: CompanyMapLevel }
+  | { ok: false; code: ReferentForUnitRefusal };
+
+/**
+ * One rule to find the referent of a unit: business unit level, then project, then client.
+ * The first level with a matching entry wins; within it the highest version. Never crosses
+ * tenant, organization, client or project.
+ */
+export function referentForUnit(input: {
+  entries: readonly CompanyMapEntry[];
+  scope: { tenantId: string; organizationId: string; clientId: string; projectId: string; buSlug: string };
+  referent: { personRef: string; entryVersion?: number | undefined };
+}): ReferentForUnitResult {
+  const { entries, scope, referent } = input;
+  const sameReferent = entries.filter(
+    (entry) =>
+      entry.tenantId === scope.tenantId &&
+      entry.organizationId === scope.organizationId &&
+      entry.clientId === scope.clientId &&
+      entry.personRef === referent.personRef,
+  );
+  const levels: Array<[CompanyMapLevel, (entry: CompanyMapEntry) => boolean]> = [
+    ['business_unit', (e) => e.level === 'business_unit' && e.projectId === scope.projectId && e.buSlug === scope.buSlug],
+    ['project', (e) => e.level === 'project' && e.projectId === scope.projectId],
+    ['client', (e) => e.level === 'client'],
+  ];
+  for (const [level, matches] of levels) {
+    const found = sameReferent.filter(matches);
+    if (found.length === 0) continue;
+    const entry = found.reduce((best, candidate) => (candidate.version > best.version ? candidate : best));
+    if (referent.entryVersion !== undefined && referent.entryVersion !== entry.version) {
+      return { ok: false, code: 'referent_superseded' };
+    }
+    return { ok: true, entry, level };
+  }
+  return { ok: false, code: 'referent_not_in_map' };
+}
+
+/** Refusal codes of the delivery referent lookup (one per cause). */
+export const DELIVERY_REFERENT_REFUSALS = [
+  'delivery_referent_missing',
+  'delivery_referent_several_addresses',
+  'delivery_referent_address_differs',
+] as const;
+export type DeliveryReferentRefusal = (typeof DELIVERY_REFERENT_REFUSALS)[number];
+
+export type DeliveryReferentResult =
+  | { ok: true; email: string; level: 'business_unit' | 'project'; personRefs: string[] }
+  | { ok: false; code: DeliveryReferentRefusal };
+
+/** Comparison key of a referent address: trimmed and lowercased. */
+export function referentAddressKey(email: string): string {
+  return email.trim().toLowerCase();
+}
+
+/**
+ * One rule to find the address a delivery goes to. The first level with at least one row
+ * decides; its rows are counted by distinct address, not by row. Pure: reads and writes nothing.
+ */
+export function deliveryReferentAddress(input: {
+  levels: ReadonlyArray<{
+    level: 'business_unit' | 'project';
+    entries: ReadonlyArray<{ personRef: string; email: string }>;
+  }>;
+  requestedAddress?: string | undefined;
+}): DeliveryReferentResult {
+  const decisive = input.levels.find((candidate) => candidate.entries.length > 0);
+  if (decisive === undefined) return { ok: false, code: 'delivery_referent_missing' };
+  const addresses = new Set(decisive.entries.map((entry) => referentAddressKey(entry.email)));
+  if (addresses.size > 1) return { ok: false, code: 'delivery_referent_several_addresses' };
+  const [email] = [...addresses] as [string];
+  if (input.requestedAddress !== undefined && referentAddressKey(input.requestedAddress) !== email) {
+    return { ok: false, code: 'delivery_referent_address_differs' };
+  }
+  return { ok: true, email, level: decisive.level, personRefs: decisive.entries.map((entry) => entry.personRef) };
+}

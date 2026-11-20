@@ -38,9 +38,9 @@ export declare const COMPANY_BOARD_HISTORY_KINDS: readonly ["passo", "messaggio"
 export declare const CompanyBoardHistoryKindSchema: z.ZodEnum<{
     ricerca: "ricerca";
     approvazione: "approvazione";
+    materiale: "materiale";
     passo: "passo";
     messaggio: "messaggio";
-    materiale: "materiale";
     mandato: "mandato";
     richiesta_modifica: "richiesta_modifica";
     tentativo_fallito: "tentativo_fallito";
@@ -164,9 +164,9 @@ export declare const CompanyBoardHistoryEntrySchema: z.ZodObject<{
     kind: z.ZodEnum<{
         ricerca: "ricerca";
         approvazione: "approvazione";
+        materiale: "materiale";
         passo: "passo";
         messaggio: "messaggio";
-        materiale: "materiale";
         mandato: "mandato";
         richiesta_modifica: "richiesta_modifica";
         tentativo_fallito: "tentativo_fallito";
@@ -310,9 +310,9 @@ export declare const CompanyBoardUnitSchema: z.ZodObject<{
         kind: z.ZodEnum<{
             ricerca: "ricerca";
             approvazione: "approvazione";
+            materiale: "materiale";
             passo: "passo";
             messaggio: "messaggio";
-            materiale: "materiale";
             mandato: "mandato";
             richiesta_modifica: "richiesta_modifica";
             tentativo_fallito: "tentativo_fallito";
@@ -521,9 +521,9 @@ export declare const CompanyBoardSchema: z.ZodObject<{
             kind: z.ZodEnum<{
                 ricerca: "ricerca";
                 approvazione: "approvazione";
+                materiale: "materiale";
                 passo: "passo";
                 messaggio: "messaggio";
-                materiale: "materiale";
                 mandato: "mandato";
                 richiesta_modifica: "richiesta_modifica";
                 tentativo_fallito: "tentativo_fallito";
@@ -560,9 +560,9 @@ export declare const CompanyBoardSchema: z.ZodObject<{
         kind: z.ZodEnum<{
             ricerca: "ricerca";
             approvazione: "approvazione";
+            materiale: "materiale";
             passo: "passo";
             messaggio: "messaggio";
-            materiale: "materiale";
             mandato: "mandato";
             richiesta_modifica: "richiesta_modifica";
             tentativo_fallito: "tentativo_fallito";
@@ -852,9 +852,9 @@ export declare const CompanyOverviewProjectSchema: z.ZodObject<{
         kind: z.ZodEnum<{
             ricerca: "ricerca";
             approvazione: "approvazione";
+            materiale: "materiale";
             passo: "passo";
             messaggio: "messaggio";
-            materiale: "materiale";
             mandato: "mandato";
             richiesta_modifica: "richiesta_modifica";
             tentativo_fallito: "tentativo_fallito";
@@ -1158,9 +1158,9 @@ export declare const CompanyOverviewSchema: z.ZodObject<{
             kind: z.ZodEnum<{
                 ricerca: "ricerca";
                 approvazione: "approvazione";
+                materiale: "materiale";
                 passo: "passo";
                 messaggio: "messaggio";
-                materiale: "materiale";
                 mandato: "mandato";
                 richiesta_modifica: "richiesta_modifica";
                 tentativo_fallito: "tentativo_fallito";

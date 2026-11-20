@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalMemoryAssetContentContract = exports.internalMemoryAssetReadContract = exports.internalMemoryAssetListContract = exports.internalMemoryAssetIngestContract = exports.InternalMemoryAssetContentResponseSchema = exports.InternalMemoryAssetContentRequestSchema = exports.InternalMemoryAssetReadResponseSchema = exports.InternalMemoryAssetReadRequestSchema = exports.InternalMemoryAssetListResponseSchema = exports.InternalMemoryAssetListQuerySchema = exports.InternalMemoryAssetListRequestSchema = exports.InternalMemoryAssetIngestResponseSchema = exports.InternalMemoryAssetIngestRequestSchema = exports.INTERNAL_MEMORY_ASSET_CONTENT_PATH = exports.INTERNAL_MEMORY_ASSET_READ_PATH = exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = exports.INTERNAL_MEMORY_ASSETS_PATH = void 0;
+exports.internalMemoryAssetContentContract = exports.internalMemoryAssetReadContract = exports.internalMemoryAssetListContract = exports.internalMemoryAssetIngestContract = exports.InternalMemoryAssetContentResponseSchema = exports.InternalMemoryAssetContentRequestSchema = exports.InternalMemoryAssetReadResponseSchema = exports.InternalMemoryAssetReadRequestSchema = exports.InternalMemoryAssetListResponseSchema = exports.InternalMemoryAssetListQuerySchema = exports.InternalMemoryAssetListRequestSchema = exports.InternalMemoryAssetIngestResponseSchema = exports.InternalMemoryAssetIngestRequestSchema = exports.InternalMemoryAssetRefusalCodeSchema = exports.INTERNAL_MEMORY_ASSET_REFUSAL_CODES = exports.INTERNAL_MEMORY_ASSET_CONTENT_PATH = exports.INTERNAL_MEMORY_ASSET_READ_PATH = exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = exports.INTERNAL_MEMORY_ASSETS_PATH = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../../agent/agent-identity.cjs");
 const asset_js_1 = require("../../organization/asset.cjs");
@@ -10,6 +10,13 @@ exports.INTERNAL_MEMORY_ASSETS_PATH = '/internal/memory/assets';
 exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = '/internal/memory/assets/list';
 exports.INTERNAL_MEMORY_ASSET_READ_PATH = '/internal/memory/assets/read';
 exports.INTERNAL_MEMORY_ASSET_CONTENT_PATH = '/internal/memory/assets/content';
+/**
+ * Refusals of the asset routes that a caller acts on by code, never by message text.
+ * - `asset_foreign_business_unit`: a generated document names a business unit whose lead is not the writer and the
+ *   writer does not manage the organization (403). Storing it without `buSlug` makes it a project document.
+ */
+exports.INTERNAL_MEMORY_ASSET_REFUSAL_CODES = ['asset_foreign_business_unit'];
+exports.InternalMemoryAssetRefusalCodeSchema = zod_1.z.enum(exports.INTERNAL_MEMORY_ASSET_REFUSAL_CODES);
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
  * A `link` or `session` origin carries no bytes (the session file stays in its delivery branch, memory keeps

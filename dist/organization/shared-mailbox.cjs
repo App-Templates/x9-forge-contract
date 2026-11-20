@@ -1,13 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
+exports.GeneratedDecisionRequestIdSchema = exports.GENERATED_DECISION_REQUEST_ID_PREFIX = exports.SHARED_MAILBOX_REFUSAL_REASONS = exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxAudienceSchema = exports.SHARED_MAILBOX_AUDIENCES = exports.DIRECTORS_MAILBOX_AUDIENCE = exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
+exports.sharedMailboxAudience = sharedMailboxAudience;
 exports.parseSharedMailboxesFile = parseSharedMailboxesFile;
+exports.stripSharedMailboxReplyPrefixes = stripSharedMailboxReplyPrefixes;
 exports.parseSharedMailboxSubjectLabel = parseSharedMailboxSubjectLabel;
+exports.isStackSubjectTag = isStackSubjectTag;
+exports.decideSharedMailboxRoute = decideSharedMailboxRoute;
 exports.routeSharedMailboxMessage = routeSharedMailboxMessage;
+exports.formatSharedMailboxSubjectLabel = formatSharedMailboxSubjectLabel;
+exports.sharedMailboxLabelFromName = sharedMailboxLabelFromName;
+exports.businessUnitLeadMailboxLabel = businessUnitLeadMailboxLabel;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const agent_email_inbox_js_1 = require("../messaging/agent-email-inbox.cjs");
 const business_unit_lead_js_1 = require("./business-unit-lead.cjs");
+const decision_request_js_1 = require("./decision-request.cjs");
 exports.SharedMailboxLabelSchema = zod_1.z.string().min(1).max(40)
     .regex(/^[\p{L}\p{N}][\p{L}\p{N} -]*$/u);
 exports.SharedMailboxHolderSchema = zod_1.z.strictObject({
@@ -15,16 +23,27 @@ exports.SharedMailboxHolderSchema = zod_1.z.strictObject({
     label: exports.SharedMailboxLabelSchema,
     displayName: zod_1.z.string().min(1).max(120),
 });
-/** One company inbox, shared by the Director and business unit leads. */
+/** Audience of the company mailbox shared by the business unit leads, also what an absent `audience` means. */
+exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE = 'business_unit_leads';
+/** Audience of the company mailbox shared by the project Directors. */
+exports.DIRECTORS_MAILBOX_AUDIENCE = 'directors';
+exports.SHARED_MAILBOX_AUDIENCES = [exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE, exports.DIRECTORS_MAILBOX_AUDIENCE];
+exports.SharedMailboxAudienceSchema = zod_1.z.enum(exports.SHARED_MAILBOX_AUDIENCES);
+/** One company inbox, shared by the Director and business unit leads, or by the project Directors. */
 exports.SharedMailboxSchema = zod_1.z.strictObject({
     mailboxId: zod_1.z.string().min(1).max(128),
     tenantId: business_unit_lead_js_1.BusinessUnitLeadBirthRequestSchema.shape.tenantId,
     companyId: business_unit_lead_js_1.BusinessUnitLeadBirthRequestSchema.shape.company.shape.companyId,
     providerInboxId: agent_email_inbox_js_1.AgentEmailInboxSchema.shape.provider_inbox_id,
     address: zod_1.z.email(),
-    holders: zod_1.z.array(exports.SharedMailboxHolderSchema).min(2).max(50),
+    holders: zod_1.z.array(exports.SharedMailboxHolderSchema).min(1).max(50),
     defaultAgentId: agent_identity_js_1.AgentIdSchema,
+    /** Absent means `business_unit_leads`. */
+    audience: exports.SharedMailboxAudienceSchema.optional(),
 }).superRefine((mailbox, ctx) => {
+    if (mailbox.audience !== exports.DIRECTORS_MAILBOX_AUDIENCE && mailbox.holders.length < 2) {
+        ctx.addIssue({ code: 'custom', path: ['holders'], message: 'A business unit leads mailbox needs at least 2 holders' });
+    }
     const agentIds = new Set();
     const labels = new Set();
     mailbox.holders.forEach((holder, index) => {
@@ -42,6 +61,9 @@ exports.SharedMailboxSchema = zod_1.z.strictObject({
         ctx.addIssue({ code: 'custom', path: ['defaultAgentId'], message: 'Default agent must be a mailbox holder' });
     }
 });
+function sharedMailboxAudience(mailbox) {
+    return mailbox.audience ?? exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE;
+}
 /** Relative to the contexts directory shared by Forge and cap-email. */
 exports.SHARED_MAILBOXES_FILE = 'companies/shared-mailboxes.json';
 exports.SharedMailboxFileEntrySchema = zod_1.z.strictObject({
@@ -85,26 +107,102 @@ exports.SharedMailboxThreadSchema = zod_1.z.strictObject({
     openedAt: zod_1.z.iso.datetime({ offset: true }),
 });
 exports.SHARED_MAILBOX_ROUTE_VIAS = ['thread', 'label', 'default'];
+// reply and forward prefixes of the common mail clients (it, en, de), each with an optional counter such as `Re[2]:`
+const REPLY_PREFIXES = /^(?:\s*(?:re|r|fwd|fw|i|aw|wg|rif)(?:\[\d{1,3}\])?\s*:\s*)*/i;
+/** Splits the leading reply/forward prefixes from the rest of the subject; `prefix` keeps its spaces, `rest` has none in front. */
+function stripSharedMailboxReplyPrefixes(subject) {
+    const prefix = REPLY_PREFIXES.exec(subject)[0];
+    return { prefix, rest: subject.slice(prefix.length).trimStart() };
+}
 function parseSharedMailboxSubjectLabel(subject) {
-    const unprefixed = subject.replace(/^(?:\s*(?:re|r|fwd|i):\s*)*/i, '').trimStart();
+    const unprefixed = stripSharedMailboxReplyPrefixes(subject).rest;
     const match = /^\[([^\]]+)\]/u.exec(unprefixed);
     if (!match)
         return null;
     const label = exports.SharedMailboxLabelSchema.safeParse(match[1]);
     return label.success ? label.data : null;
 }
-/** Preserve conversation ownership before considering a subject label. */
-function routeSharedMailboxMessage(input) {
+exports.SHARED_MAILBOX_REFUSAL_REASONS = ['label_unknown'];
+const REFUSED_LABEL_MAX_LENGTH = 80;
+/** prefix of the request id the stack generates for a decision (X9 email-request-decision) */
+exports.GENERATED_DECISION_REQUEST_ID_PREFIX = 'dec_';
+/** shape of the request id the stack generates for a decision, `dec_` + lowercase UUID; stored ids are read with the wider DecisionRequestIdSchema */
+exports.GeneratedDecisionRequestIdSchema = decision_request_js_1.DecisionRequestIdSchema.regex(new RegExp(`^${exports.GENERATED_DECISION_REQUEST_ID_PREFIX}[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`));
+/** a bracket group written by the stack itself (decision request tag): never a holder label */
+function isStackSubjectTag(group) {
+    const match = /^(\S+)\s+(\S+)$/u.exec(group.trim());
+    return match !== null
+        && match[1].toLowerCase() === decision_request_js_1.DECISION_REQUEST_SUBJECT_LABEL.toLowerCase()
+        && exports.GeneratedDecisionRequestIdSchema.safeParse(match[2]).success;
+}
+/** Thread first, then leading holders or stack tags; directors refuse an unknown group. */
+function decideSharedMailboxRoute(input) {
     const { mailbox, threads, providerThreadId, subject } = input;
     const thread = threads.find((candidate) => candidate.mailboxId === mailbox.mailboxId
         && candidate.providerThreadId === providerThreadId
         && mailbox.holders.some((holder) => holder.agentId === candidate.agentId));
     if (thread)
         return { agentId: thread.agentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[0] };
-    const label = parseSharedMailboxSubjectLabel(subject);
-    const holder = label === null ? undefined : mailbox.holders.find((candidate) => candidate.label.toLowerCase() === label.toLowerCase());
-    if (holder)
-        return { agentId: holder.agentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[1] };
+    let remaining = stripSharedMailboxReplyPrefixes(subject).rest;
+    for (let group = /^\[([^\]]*)\]/u.exec(remaining); group; group = /^\[([^\]]*)\]/u.exec(remaining)) {
+        const text = group[1];
+        const label = exports.SharedMailboxLabelSchema.safeParse(text);
+        const holder = label.success ? mailbox.holders.find((candidate) => candidate.label.toLowerCase() === label.data.toLowerCase()) : undefined;
+        if (holder)
+            return { agentId: holder.agentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[1] };
+        if (isStackSubjectTag(text)) {
+            remaining = remaining.slice(group[0].length).trimStart();
+            continue;
+        }
+        if (sharedMailboxAudience(mailbox) === exports.DIRECTORS_MAILBOX_AUDIENCE) {
+            return { via: 'refused', reason: exports.SHARED_MAILBOX_REFUSAL_REASONS[0], label: text.slice(0, REFUSED_LABEL_MAX_LENGTH) };
+        }
+        break;
+    }
     return { agentId: mailbox.defaultAgentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[2] };
+}
+/** Same shape as ever; throws on a refusal so a caller that ignores refusals never delivers to the default. */
+function routeSharedMailboxMessage(input) {
+    const decision = decideSharedMailboxRoute(input);
+    if (decision.via === 'refused') {
+        throw new Error(`Shared mailbox message refused: ${decision.reason} (${decision.label})`);
+    }
+    return decision;
+}
+/** `[label]` as written in a subject; the label must be valid and read back unchanged. */
+function formatSharedMailboxSubjectLabel(label) {
+    const valid = exports.SharedMailboxLabelSchema.parse(label);
+    const subject = `[${valid}]`;
+    if (parseSharedMailboxSubjectLabel(subject) !== valid) {
+        throw new Error('Shared mailbox label does not read back from its subject');
+    }
+    return subject;
+}
+/** A valid label from a project name: collapse spaces, drop characters a label refuses, cap at 40. */
+function sharedMailboxLabelFromName(name) {
+    const cleaned = name.replace(/[^\p{L}\p{N} -]/gu, '').replace(/ {2,}/g, ' ')
+        .replace(/^[^\p{L}\p{N}]+/u, '').slice(0, 40).trimEnd();
+    const label = exports.SharedMailboxLabelSchema.safeParse(cleaned);
+    if (!label.success)
+        throw new Error('Project name has no characters usable as a mailbox label');
+    return label.data;
+}
+const LEAD_LABEL_MAX_LENGTH = 40;
+const LEAD_LABEL_HEAD_LENGTH = 34;
+/**
+ * The shared mailbox label of a business unit lead: the unit alone for a historical lead (or without a project),
+ * `<unit> <project>` for a lead whose id carries the project code, cut deterministically to 40 characters.
+ * The composed label applies only to such a lead; checking an already saved holder still accepts the unit alone (no migration, R-37).
+ */
+function businessUnitLeadMailboxLabel(input) {
+    const unit = exports.SharedMailboxLabelSchema.parse(input.businessUnit);
+    const code = input.projectId === undefined ? null : (0, business_unit_lead_js_1.businessUnitLeadProjectCodeOfAgentId)(input.agentId);
+    if (input.projectId === undefined || code === null)
+        return unit;
+    const text = `${unit} ${input.projectId}`.replace(/[^\p{L}\p{N} -]/gu, '-');
+    if (text.length <= LEAD_LABEL_MAX_LENGTH)
+        return exports.SharedMailboxLabelSchema.parse(text);
+    const head = text.slice(0, LEAD_LABEL_HEAD_LENGTH).replace(/[ -]+$/u, '');
+    return exports.SharedMailboxLabelSchema.parse(`${head}-${code}`);
 }
 //# sourceMappingURL=shared-mailbox.js.map

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalMemoryDecisionRequestProjectListContract = exports.internalMemoryDecisionRequestListContract = exports.internalMemoryDecisionRequestOutcomeContract = exports.internalMemoryDecisionRequestReadContract = exports.internalMemoryDecisionRequestCreateContract = exports.DecisionRequestErrorResponseSchema = exports.DecisionRequestErrorCodeSchema = exports.InternalMemoryDecisionRequestOutcomeResponseSchema = exports.InternalMemoryDecisionRequestProjectListResponseSchema = exports.InternalMemoryDecisionRequestProjectCursorSchema = exports.InternalMemoryDecisionRequestProjectListQuerySchema = exports.InternalMemoryDecisionRequestListResponseSchema = exports.InternalMemoryDecisionRequestListQuerySchema = exports.InternalMemoryDecisionRequestReadResponseSchema = exports.InternalMemoryDecisionRequestCreateResponseSchema = exports.InternalMemoryDecisionRequestQuerySchema = exports.InternalMemoryDecisionRequestParamsSchema = exports.INTERNAL_MEMORY_DECISION_REQUEST_PROJECT_LIST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH = void 0;
+exports.internalMemoryDecisionRequestProjectListContract = exports.internalMemoryDecisionRequestListContract = exports.internalMemoryDecisionRequestOutcomeContract = exports.internalMemoryDecisionRequestReadContract = exports.internalMemoryDecisionRequestCreateContract = exports.DecisionRequestErrorResponseSchema = exports.DecisionRequestErrorCodeSchema = exports.InternalMemoryDecisionRequestOutcomeResponseSchema = exports.InternalMemoryDecisionRequestProjectListResponseSchema = exports.InternalMemoryDecisionRequestProjectCursorSchema = exports.InternalMemoryDecisionRequestProjectListQuerySchema = exports.InternalMemoryDecisionRequestListResponseSchema = exports.InternalMemoryDecisionRequestListQuerySchema = exports.InternalMemoryDecisionRequestStateSchema = exports.InternalMemoryDecisionRequestReadResponseSchema = exports.InternalMemoryDecisionRequestCreateResponseSchema = exports.InternalMemoryDecisionRequestQuerySchema = exports.InternalMemoryDecisionRequestParamsSchema = exports.INTERNAL_MEMORY_DECISION_REQUEST_PROJECT_LIST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../../agent/agent-identity.cjs");
 const decision_request_js_1 = require("../../organization/decision-request.cjs");
@@ -23,14 +23,17 @@ exports.InternalMemoryDecisionRequestReadResponseSchema = zod_1.z.discriminatedU
     zod_1.z.strictObject({ request: decision_request_js_1.DecisionRequestSchema, state: zod_1.z.literal('open'), outcome: zod_1.z.null() }),
     zod_1.z.strictObject({ request: decision_request_js_1.DecisionRequestSchema, state: zod_1.z.literal('decided'), outcome: decision_request_js_1.DecisionOutcomeSchema }),
 ]);
+exports.InternalMemoryDecisionRequestStateSchema = zod_1.z.enum(['open', 'decided']);
 /**
  * List (1.66.0, stage probes T3/T7 and readers that do not know the request id): the requests opened by one agent,
- * optionally only those whose subject is one plan, newest first. Same scope rule as the read: tenant and agent.
+ * optionally restricted to one subject plan and to one state, newest first.
+ * Same scope rule as the read: tenant and agent.
  */
 exports.InternalMemoryDecisionRequestListQuerySchema = zod_1.z.strictObject({
     tenantId: decision_request_js_1.DecisionRequestSchema.shape.tenantId,
     agentId: agent_identity_js_1.AgentIdSchema,
     planId: decision_request_js_1.DecisionRequestIdSchema.optional(),
+    state: exports.InternalMemoryDecisionRequestStateSchema.optional(),
     limit: zod_1.z.coerce.number().int().min(1).max(100).optional(),
 });
 exports.InternalMemoryDecisionRequestListResponseSchema = zod_1.z.strictObject({
@@ -112,7 +115,10 @@ exports.internalMemoryDecisionRequestOutcomeContract = {
     bodySchema: decision_request_js_1.DecisionOutcomeSchema,
     responseSchema: exports.InternalMemoryDecisionRequestOutcomeResponseSchema,
 };
-/** List: 200 with the agent's requests (newest first); an unknown agent answers an empty list, never another's. */
+/**
+ * List: 200 with the agent's requests, restricted to the requested state when
+ * state is provided, always newest first. An unknown agent answers an empty list, never another's.
+ */
 exports.internalMemoryDecisionRequestListContract = {
     method: 'GET',
     path: exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH,

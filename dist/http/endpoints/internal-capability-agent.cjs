@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ordinaryCapabilityLifecyclePutContract = exports.ordinaryCapabilityAgentConfigGetContract = exports.ordinaryCapabilityAgentConfigPutContract = exports.CapabilityOrdinaryConfigQuerySchema = exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.videoAgentSpendContract = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
+exports.ordinaryCapabilityLifecyclePutContract = exports.ordinaryCapabilityAgentConfigGetContract = exports.ordinaryCapabilityAgentConfigPutContract = exports.CapabilityOrdinaryConfigQuerySchema = exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.socialAgentSpendContract = exports.videoAgentSpendContract = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
 exports.selectCapabilityAgentConfigFormat = selectCapabilityAgentConfigFormat;
 exports.parseOrdinaryCapabilityAgentConfigGet = parseOrdinaryCapabilityAgentConfigGet;
 exports.parseOrdinaryCapabilityAgentConfigPut = parseOrdinaryCapabilityAgentConfigPut;
+exports.composeOrdinaryCapabilityAgentConfigPut = composeOrdinaryCapabilityAgentConfigPut;
 exports.parseOrdinaryCapabilityLifecyclePut = parseOrdinaryCapabilityLifecyclePut;
 const zod_1 = require("zod");
 const agent_config_js_1 = require("../../capability/ricerca/agent-config.cjs");
@@ -116,6 +117,8 @@ exports.ricercaAgentSpendContract = {
 exports.labAgentSpendContract = { ...exports.ricercaAgentSpendContract };
 /** cap-video reports the same per-agent spend shape and path as cap-ricerca. */
 exports.videoAgentSpendContract = { ...exports.ricercaAgentSpendContract };
+/** cap-social-listening reports the same per-agent spend shape and path as cap-ricerca; its rows carry capability "social". */
+exports.socialAgentSpendContract = { ...exports.ricercaAgentSpendContract };
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 exports.AgentGrowthResponseSchema = zod_1.z.object({
     agentId: agent_config_js_1.CapabilityAgentIdSchema,
@@ -169,6 +172,47 @@ function parseOrdinaryCapabilityAgentConfigPut(body, params, authority, currentV
     if (path.agentId !== parsed.configuration.scope.agentId)
         throw new Error('Ordinary PUT path mismatch');
     return parsed;
+}
+/** Compose one complete next revision, retaining unchanged origins and validating the PUT rules. */
+function composeOrdinaryCapabilityAgentConfigPut({ state, authority, values, requestId, masters = [] }) {
+    try {
+        if (state && (!(0, capability_call_context_js_1.sameCapabilityScope)(state.scope, authority.scope) || state.capability !== authority.capability)) {
+            return { ok: false, error: 'target_mismatch' };
+        }
+        const unknownKeys = Object.getOwnPropertyNames(values)
+            .filter(key => !authority.parameters.some(parameter => parameter.key === key));
+        if (unknownKeys.length > 0)
+            return { ok: false, error: 'unknown_parameter', keys: unknownKeys };
+        const parameters = [], changedKeys = [], invalidKeys = [];
+        for (const parameter of authority.parameters) {
+            const changed = Object.hasOwn(values, parameter.key);
+            const previous = state?.desired?.parameters.find(entry => entry.parameter.key === parameter.key);
+            // An explicit value remains an override even when it equals the platform default.
+            const entry = changed ? { parameter, origin: { kind: 'agent_override' }, value: values[parameter.key] }
+                : previous && (0, ordinary_configuration_js_1.sameOrdinaryData)(previous.parameter, parameter) ? previous
+                    : parameter.platformDefault !== undefined ? { parameter, origin: { kind: 'platform_default' }, value: parameter.platformDefault }
+                        : { parameter, origin: { kind: 'needs_choice' } };
+            const parsed = ordinary_configuration_js_1.CapabilityOrdinaryParameterSchema.safeParse(entry);
+            if (!parsed.success)
+                invalidKeys.push(parameter.key);
+            else
+                parameters.push(parsed.data);
+            if (changed)
+                changedKeys.push(parameter.key);
+        }
+        if (invalidKeys.length > 0)
+            return { ok: false, error: 'invalid_value', keys: invalidKeys };
+        const currentVersion = state?.desired?.version ?? null;
+        const write = (0, ordinary_configuration_js_1.parseCapabilityOrdinaryWrite)({
+            requestId, expectedVersion: currentVersion,
+            configuration: { format: 'ordinary-v2', scope: authority.scope, capability: authority.capability,
+                version: (currentVersion ?? 0) + 1, parameters },
+        }, authority, currentVersion, masters);
+        return { ok: true, write, changedKeys };
+    }
+    catch {
+        return { ok: false, error: 'invalid_write' };
+    }
 }
 function parseOrdinaryCapabilityLifecyclePut(body, params, authority) {
     const parsed = (0, ordinary_lifecycle_js_1.parseCapabilityOrdinaryLifecycle)(body, authority), path = exports.CapabilityAgentParamsSchema.parse(params);

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { ReconciledMandate } from "../../organization/business-unit-mandate.js";
 /**
  * Incarico di sessione di una business unit (F4): il contratto fra chi lo apre (cap-dev di X9, per conto del capo
  * BU) e chi lo esegue (l'esecutore sul laptop del proprietario). L'incarico vive nel corpo di una issue della
@@ -28,6 +29,7 @@ export declare const DevSessionKindSchema: z.ZodEnum<{
     design: "design";
 }>;
 export type DevSessionKind = z.infer<typeof DevSessionKindSchema>;
+export declare const DEV_SESSION_DELIVERY_PACKAGE_MODES: readonly ["required", "optional"];
 /** `owner/repo` su GitHub. */
 export declare const DevSessionRepoSchema: z.ZodString;
 /**
@@ -87,9 +89,10 @@ export declare const DevSessionMaterialSchema: z.ZodDiscriminatedUnion<[z.ZodObj
 export type DevSessionMaterial = z.infer<typeof DevSessionMaterialSchema>;
 /**
  * L'incarico. Tutto ciò che identifica chi lo apre (tenant, owner, organizzazione, agente, business unit) è messo da
- * cap-dev dall'identità verificata della chiamata, mai dal modello. I materiali devono essere della stessa azienda,
- * dello stesso progetto e dello stesso tenant dell'incarico, e di nessun'altra business unit: se non lo sono,
- * l'incarico non è valido, sia in apertura sia in lettura.
+ * cap-dev dall'identità verificata della chiamata, mai dal modello. Materials must come from the same tenant, company
+ * and project as the assignment; any business unit of that project may supply them, because who may read a file is
+ * decided where its bytes are copied, with the organization rule of the bridge, and only the owning unit writes.
+ * If they do not, the assignment is not valid, both when opened and when read.
  */
 export declare const DevSessionAssignmentSchema: z.ZodObject<{
     version: z.ZodLiteral<1>;
@@ -161,12 +164,31 @@ export declare const DevSessionAssignmentSchema: z.ZodObject<{
         url: z.ZodString;
         note: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>], "kind">>;
+    /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
+    deliverableKey: z.ZodOptional<z.ZodString>;
+    /**
+     * Whether the delivery package (`CONSEGNA.json`) is due. Same meaning for `code` and `design`, no link with
+     * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
+     */
+    deliveryPackage: z.ZodOptional<z.ZodEnum<{
+        optional: "optional";
+        required: "required";
+    }>>;
     destination: z.ZodObject<{
         repo: z.ZodString;
     }, z.core.$strict>;
     createdAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type DevSessionAssignment = z.infer<typeof DevSessionAssignmentSchema>;
+/**
+ * The deliverable keys a mandate hands to its business unit, in plan order: for a product plan the breakdown items the
+ * unit works on, otherwise the unit's own sections.
+ */
+export declare function mandateDeliverableKeys(mandate: ReconciledMandate): string[];
+export declare const DEV_SESSION_DELIVERABLE_KEY_PROBLEMS: readonly ["deliverable_key_missing", "mandate_foreign_scope", "mandate_foreign_business_unit", "mandate_without_deliverables", "deliverable_key_not_in_mandate"];
+export type DevSessionDeliverableKeyProblem = (typeof DEV_SESSION_DELIVERABLE_KEY_PROBLEMS)[number];
+/** First reason why the assignment's deliverable key does not come from this mandate, or `null` when it does. */
+export declare function devSessionDeliverableKeyProblem(assignment: DevSessionAssignment, mandate: ReconciledMandate): DevSessionDeliverableKeyProblem | null;
 /** Ramo di consegna dell'incarico aperto come issue `issueNumber`. */
 export declare function devSessionBranch(issueNumber: number): string;
 /** Identificativo di sessione negli asset di origine `session`: `R<numero della issue>`. */

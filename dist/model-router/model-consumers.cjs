@@ -6,6 +6,7 @@ exports.registeredModelConsumerDefinitions = registeredModelConsumerDefinitions;
 exports.findModelConsumer = findModelConsumer;
 exports.findModelConsumerDefinition = findModelConsumerDefinition;
 exports.modelConsumerAcceptsAdapter = modelConsumerAcceptsAdapter;
+exports.modelConsumerAdapterReservedElsewhere = modelConsumerAdapterReservedElsewhere;
 const zod_1 = require("zod");
 const parameters_js_1 = require("../capability/parameters.cjs");
 const model_slot_js_1 = require("./model-slot.cjs");
@@ -88,17 +89,30 @@ function findModelConsumerDefinition(slotId) {
     return found === undefined ? undefined : structuredClone(found);
 }
 /**
- * The only adapters a consumer installs through, when it is not "any supported adapter" (v1.75.0). The Lab digest runs on
- * its dedicated Responses adapter: a descriptor with the right provider and model but another adapter is refused by
- * cap-lab after the birth, so the producer of a birth checks it before (one rule for X9 and Forge).
+ * The only adapters a consumer installs through, when it is not "any supported adapter" (v1.75.0). The Lab digest and the
+ * two research slots run on their dedicated Responses adapters: a descriptor with the right provider and model but another
+ * adapter is refused by the capability after the birth, so the producer of a birth checks it before (one rule for X9 and Forge).
  */
 exports.MODEL_CONSUMER_ADAPTER_IDS = Object.freeze({
     lab_digest: Object.freeze(['lab-openai-responses']),
+    // the research models run on the dedicated research adapter; the two slots are one linked selection
+    research_search: Object.freeze(['ricerca-openai-responses']),
+    research_structure: Object.freeze(['ricerca-openai-responses']),
 });
 /** true when the slot has no adapter restriction, or the adapter is one of its allowed ones. */
 function modelConsumerAcceptsAdapter(slotId, adapterId) {
     if (typeof slotId !== 'string' || !Object.hasOwn(exports.MODEL_CONSUMER_ADAPTER_IDS, slotId))
         return true;
     return typeof adapterId === 'string' && exports.MODEL_CONSUMER_ADAPTER_IDS[slotId].includes(adapterId);
+}
+/** true when the adapter is reserved to another slot and is not one of the allowed adapters of this one. */
+function modelConsumerAdapterReservedElsewhere(slotId, adapterId) {
+    if (typeof adapterId !== 'string')
+        return false;
+    if (typeof slotId !== 'string')
+        return false;
+    if (Object.hasOwn(exports.MODEL_CONSUMER_ADAPTER_IDS, slotId) && exports.MODEL_CONSUMER_ADAPTER_IDS[slotId].includes(adapterId))
+        return false;
+    return Object.entries(exports.MODEL_CONSUMER_ADAPTER_IDS).some(([key, ids]) => key !== slotId && ids.includes(adapterId));
 }
 //# sourceMappingURL=model-consumers.js.map

@@ -100,4 +100,55 @@ export const TranscribeResponseSchema = z.object({
     durationSec: z.number().int().nonnegative(),
     provider: TranscribeProviderSchema,
 });
+/** Cost boundary for media-file transcription, independent of the Telegram limit. */
+export const STT_MEDIA_MAX_DURATION_SEC = 600;
+/**
+ * Validate only URL syntax. The consuming service must enforce its domain allowlist
+ * and reject internal addresses before fetching media, including after redirects.
+ */
+export const TranscribeMediaUrlSchema = z.string().max(2000).refine(value => {
+    try {
+        const url = new URL(value);
+        return url.protocol === 'https:' && url.username === '' && url.password === ''
+            && !value.includes('#');
+    }
+    catch {
+        return false;
+    }
+}, { message: 'Expected an HTTPS media URL without credentials or a fragment' });
+/** Identity is supplied by the authenticated ToolCallRequest envelope. */
+export const TranscribeMediaRequestSchema = z.strictObject({
+    mediaUrl: TranscribeMediaUrlSchema,
+    durationSec: z.number().int().nonnegative().max(STT_MEDIA_MAX_DURATION_SEC),
+    mimeType: z.string().min(1).optional(),
+    languageHint: z.string().regex(/^[a-z]{2}$/).optional(),
+});
+/**
+ * Select the source before parsing: the legacy Telegram schema strips unknown
+ * fields, so parsing it first could silently discard an ambiguous media source.
+ * Both sources keep the existing TranscribeResponseSchema and provider choices.
+ */
+export function parseTranscribeInput(raw) {
+    try {
+        if (typeof raw === 'object' && raw !== null) {
+            if ('telegramFileUrl' in raw && 'mediaUrl' in raw) {
+                return { ok: false, error: 'transcribe_source_ambiguous' };
+            }
+            if ('mediaUrl' in raw) {
+                const parsed = TranscribeMediaRequestSchema.safeParse(raw);
+                return parsed.success
+                    ? { ok: true, kind: 'media', request: parsed.data }
+                    : { ok: false, error: 'invalid_transcribe_input' };
+            }
+        }
+        const parsed = TranscribeRequestSchema.safeParse(raw);
+        return parsed.success
+            ? { ok: true, kind: 'telegram', request: parsed.data }
+            : { ok: false, error: 'invalid_transcribe_input' };
+    }
+    catch {
+        // Unknown input may contain throwing getters or proxies; never expose them.
+        return { ok: false, error: 'invalid_transcribe_input' };
+    }
+}
 //# sourceMappingURL=index.js.map

@@ -88,6 +88,19 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                             delivery: z.ZodString;
                         }, z.core.$strict>;
                     }, z.core.$strict>], "kind">;
+                    gapRule: z.ZodOptional<z.ZodEnum<{
+                        mark_and_proceed: "mark_and_proceed";
+                        stop_and_ask: "stop_and_ask";
+                    }>>;
+                    signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        key: z.ZodString;
+                        signer: z.ZodEnum<{
+                            owner: "owner";
+                            director: "director";
+                            referent: "referent";
+                        }>;
+                        form: z.ZodLiteral<"decision_request">;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 project: z.ZodOptional<z.ZodObject<{
                     objective: z.ZodObject<{
@@ -126,6 +139,37 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                         buSlug: z.ZodString;
                         does: z.ZodString;
                     }, z.core.$strict>>;
+                }, z.core.$strict>>>;
+                exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    fromBu: z.ZodString;
+                    toBu: z.ZodString;
+                    what: z.ZodString;
+                    format: z.ZodString;
+                    key: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>>;
+                questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    question: z.ZodString;
+                    unlocks: z.ZodString;
+                    askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"referent">;
+                        personRef: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"owner">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"director">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"business_unit">;
+                        buSlug: z.ZodString;
+                    }, z.core.$strict>], "kind">>;
+                }, z.core.$strict>>>;
+                sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    topic: z.ZodString;
+                    status: z.ZodEnum<{
+                        partial: "partial";
+                        missing: "missing";
+                        covered: "covered";
+                    }>;
+                    pages: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>>;
             }, z.core.$strict>;
             decision: z.ZodObject<{
@@ -167,6 +211,28 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                 }, z.core.$strict>>;
             }, z.core.$strict>], "outcome">;
             reconciledAt: z.ZodISODateTime;
+            workplace: z.ZodOptional<z.ZodObject<{
+                repository: z.ZodObject<{
+                    host: z.ZodEnum<{
+                        bitbucket: "bitbucket";
+                        github: "github";
+                    }>;
+                    repo: z.ZodString;
+                }, z.core.$strict>;
+                folder: z.ZodOptional<z.ZodString>;
+                sessionBoard: z.ZodOptional<z.ZodObject<{
+                    repo: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
+            workMode: z.ZodOptional<z.ZodObject<{
+                executor: z.ZodEnum<{
+                    agent: "agent";
+                    night: "night";
+                    dev_session: "dev_session";
+                }>;
+                allowedTools: z.ZodArray<z.ZodString>;
+                excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>>;
         }, z.core.$strict>;
         eventId: z.ZodString;
         at: z.ZodISODateTime;
@@ -174,8 +240,8 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
         kind: z.ZodLiteral<"blocked">;
         reason: z.ZodEnum<{
             conflict: "conflict";
-            missing: "missing";
             referent_superseded: "referent_superseded";
+            missing: "missing";
         }>;
         eventId: z.ZodString;
         at: z.ZodISODateTime;
@@ -290,6 +356,19 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                                 delivery: z.ZodString;
                             }, z.core.$strict>;
                         }, z.core.$strict>], "kind">;
+                        gapRule: z.ZodOptional<z.ZodEnum<{
+                            mark_and_proceed: "mark_and_proceed";
+                            stop_and_ask: "stop_and_ask";
+                        }>>;
+                        signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            key: z.ZodString;
+                            signer: z.ZodEnum<{
+                                owner: "owner";
+                                director: "director";
+                                referent: "referent";
+                            }>;
+                            form: z.ZodLiteral<"decision_request">;
+                        }, z.core.$strict>>>;
                     }, z.core.$strict>;
                     project: z.ZodOptional<z.ZodObject<{
                         objective: z.ZodObject<{
@@ -328,6 +407,37 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                             buSlug: z.ZodString;
                             does: z.ZodString;
                         }, z.core.$strict>>;
+                    }, z.core.$strict>>>;
+                    exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        fromBu: z.ZodString;
+                        toBu: z.ZodString;
+                        what: z.ZodString;
+                        format: z.ZodString;
+                        key: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>>;
+                    questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        question: z.ZodString;
+                        unlocks: z.ZodString;
+                        askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            kind: z.ZodLiteral<"referent">;
+                            personRef: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"owner">;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"director">;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"business_unit">;
+                            buSlug: z.ZodString;
+                        }, z.core.$strict>], "kind">>;
+                    }, z.core.$strict>>>;
+                    sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        topic: z.ZodString;
+                        status: z.ZodEnum<{
+                            partial: "partial";
+                            missing: "missing";
+                            covered: "covered";
+                        }>;
+                        pages: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 decision: z.ZodObject<{
@@ -369,6 +479,28 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                     }, z.core.$strict>>;
                 }, z.core.$strict>], "outcome">;
                 reconciledAt: z.ZodISODateTime;
+                workplace: z.ZodOptional<z.ZodObject<{
+                    repository: z.ZodObject<{
+                        host: z.ZodEnum<{
+                            bitbucket: "bitbucket";
+                            github: "github";
+                        }>;
+                        repo: z.ZodString;
+                    }, z.core.$strict>;
+                    folder: z.ZodOptional<z.ZodString>;
+                    sessionBoard: z.ZodOptional<z.ZodObject<{
+                        repo: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                workMode: z.ZodOptional<z.ZodObject<{
+                    executor: z.ZodEnum<{
+                        agent: "agent";
+                        night: "night";
+                        dev_session: "dev_session";
+                    }>;
+                    allowedTools: z.ZodArray<z.ZodString>;
+                    excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                }, z.core.$strict>>;
             }, z.core.$strict>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -376,8 +508,8 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
             kind: z.ZodLiteral<"blocked">;
             reason: z.ZodEnum<{
                 conflict: "conflict";
-                missing: "missing";
                 referent_superseded: "referent_superseded";
+                missing: "missing";
             }>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -493,6 +625,19 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                                 delivery: z.ZodString;
                             }, z.core.$strict>;
                         }, z.core.$strict>], "kind">;
+                        gapRule: z.ZodOptional<z.ZodEnum<{
+                            mark_and_proceed: "mark_and_proceed";
+                            stop_and_ask: "stop_and_ask";
+                        }>>;
+                        signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            key: z.ZodString;
+                            signer: z.ZodEnum<{
+                                owner: "owner";
+                                director: "director";
+                                referent: "referent";
+                            }>;
+                            form: z.ZodLiteral<"decision_request">;
+                        }, z.core.$strict>>>;
                     }, z.core.$strict>;
                     project: z.ZodOptional<z.ZodObject<{
                         objective: z.ZodObject<{
@@ -531,6 +676,37 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                             buSlug: z.ZodString;
                             does: z.ZodString;
                         }, z.core.$strict>>;
+                    }, z.core.$strict>>>;
+                    exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        fromBu: z.ZodString;
+                        toBu: z.ZodString;
+                        what: z.ZodString;
+                        format: z.ZodString;
+                        key: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>>;
+                    questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        question: z.ZodString;
+                        unlocks: z.ZodString;
+                        askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            kind: z.ZodLiteral<"referent">;
+                            personRef: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"owner">;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"director">;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"business_unit">;
+                            buSlug: z.ZodString;
+                        }, z.core.$strict>], "kind">>;
+                    }, z.core.$strict>>>;
+                    sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        topic: z.ZodString;
+                        status: z.ZodEnum<{
+                            partial: "partial";
+                            missing: "missing";
+                            covered: "covered";
+                        }>;
+                        pages: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 decision: z.ZodObject<{
@@ -572,6 +748,28 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                     }, z.core.$strict>>;
                 }, z.core.$strict>], "outcome">;
                 reconciledAt: z.ZodISODateTime;
+                workplace: z.ZodOptional<z.ZodObject<{
+                    repository: z.ZodObject<{
+                        host: z.ZodEnum<{
+                            bitbucket: "bitbucket";
+                            github: "github";
+                        }>;
+                        repo: z.ZodString;
+                    }, z.core.$strict>;
+                    folder: z.ZodOptional<z.ZodString>;
+                    sessionBoard: z.ZodOptional<z.ZodObject<{
+                        repo: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                workMode: z.ZodOptional<z.ZodObject<{
+                    executor: z.ZodEnum<{
+                        agent: "agent";
+                        night: "night";
+                        dev_session: "dev_session";
+                    }>;
+                    allowedTools: z.ZodArray<z.ZodString>;
+                    excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                }, z.core.$strict>>;
             }, z.core.$strict>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -579,8 +777,8 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
             kind: z.ZodLiteral<"blocked">;
             reason: z.ZodEnum<{
                 conflict: "conflict";
-                missing: "missing";
                 referent_superseded: "referent_superseded";
+                missing: "missing";
             }>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -729,6 +927,19 @@ export declare const internalMemoryMandateObservationReadContract: {
                                     delivery: z.ZodString;
                                 }, z.core.$strict>;
                             }, z.core.$strict>], "kind">;
+                            gapRule: z.ZodOptional<z.ZodEnum<{
+                                mark_and_proceed: "mark_and_proceed";
+                                stop_and_ask: "stop_and_ask";
+                            }>>;
+                            signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                key: z.ZodString;
+                                signer: z.ZodEnum<{
+                                    owner: "owner";
+                                    director: "director";
+                                    referent: "referent";
+                                }>;
+                                form: z.ZodLiteral<"decision_request">;
+                            }, z.core.$strict>>>;
                         }, z.core.$strict>;
                         project: z.ZodOptional<z.ZodObject<{
                             objective: z.ZodObject<{
@@ -767,6 +978,37 @@ export declare const internalMemoryMandateObservationReadContract: {
                                 buSlug: z.ZodString;
                                 does: z.ZodString;
                             }, z.core.$strict>>;
+                        }, z.core.$strict>>>;
+                        exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            fromBu: z.ZodString;
+                            toBu: z.ZodString;
+                            what: z.ZodString;
+                            format: z.ZodString;
+                            key: z.ZodOptional<z.ZodString>;
+                        }, z.core.$strict>>>;
+                        questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            question: z.ZodString;
+                            unlocks: z.ZodString;
+                            askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                kind: z.ZodLiteral<"referent">;
+                                personRef: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"owner">;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"director">;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"business_unit">;
+                                buSlug: z.ZodString;
+                            }, z.core.$strict>], "kind">>;
+                        }, z.core.$strict>>>;
+                        sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            topic: z.ZodString;
+                            status: z.ZodEnum<{
+                                partial: "partial";
+                                missing: "missing";
+                                covered: "covered";
+                            }>;
+                            pages: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>>;
                     }, z.core.$strict>;
                     decision: z.ZodObject<{
@@ -808,6 +1050,28 @@ export declare const internalMemoryMandateObservationReadContract: {
                         }, z.core.$strict>>;
                     }, z.core.$strict>], "outcome">;
                     reconciledAt: z.ZodISODateTime;
+                    workplace: z.ZodOptional<z.ZodObject<{
+                        repository: z.ZodObject<{
+                            host: z.ZodEnum<{
+                                bitbucket: "bitbucket";
+                                github: "github";
+                            }>;
+                            repo: z.ZodString;
+                        }, z.core.$strict>;
+                        folder: z.ZodOptional<z.ZodString>;
+                        sessionBoard: z.ZodOptional<z.ZodObject<{
+                            repo: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>;
+                    workMode: z.ZodOptional<z.ZodObject<{
+                        executor: z.ZodEnum<{
+                            agent: "agent";
+                            night: "night";
+                            dev_session: "dev_session";
+                        }>;
+                        allowedTools: z.ZodArray<z.ZodString>;
+                        excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;
@@ -815,8 +1079,8 @@ export declare const internalMemoryMandateObservationReadContract: {
                 kind: z.ZodLiteral<"blocked">;
                 reason: z.ZodEnum<{
                     conflict: "conflict";
-                    missing: "missing";
                     referent_superseded: "referent_superseded";
+                    missing: "missing";
                 }>;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;
@@ -944,6 +1208,19 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                 delivery: z.ZodString;
                             }, z.core.$strict>;
                         }, z.core.$strict>], "kind">;
+                        gapRule: z.ZodOptional<z.ZodEnum<{
+                            mark_and_proceed: "mark_and_proceed";
+                            stop_and_ask: "stop_and_ask";
+                        }>>;
+                        signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            key: z.ZodString;
+                            signer: z.ZodEnum<{
+                                owner: "owner";
+                                director: "director";
+                                referent: "referent";
+                            }>;
+                            form: z.ZodLiteral<"decision_request">;
+                        }, z.core.$strict>>>;
                     }, z.core.$strict>;
                     project: z.ZodOptional<z.ZodObject<{
                         objective: z.ZodObject<{
@@ -982,6 +1259,37 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                             buSlug: z.ZodString;
                             does: z.ZodString;
                         }, z.core.$strict>>;
+                    }, z.core.$strict>>>;
+                    exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        fromBu: z.ZodString;
+                        toBu: z.ZodString;
+                        what: z.ZodString;
+                        format: z.ZodString;
+                        key: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>>;
+                    questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        question: z.ZodString;
+                        unlocks: z.ZodString;
+                        askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            kind: z.ZodLiteral<"referent">;
+                            personRef: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"owner">;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"director">;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"business_unit">;
+                            buSlug: z.ZodString;
+                        }, z.core.$strict>], "kind">>;
+                    }, z.core.$strict>>>;
+                    sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        topic: z.ZodString;
+                        status: z.ZodEnum<{
+                            partial: "partial";
+                            missing: "missing";
+                            covered: "covered";
+                        }>;
+                        pages: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 decision: z.ZodObject<{
@@ -1023,6 +1331,28 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                     }, z.core.$strict>>;
                 }, z.core.$strict>], "outcome">;
                 reconciledAt: z.ZodISODateTime;
+                workplace: z.ZodOptional<z.ZodObject<{
+                    repository: z.ZodObject<{
+                        host: z.ZodEnum<{
+                            bitbucket: "bitbucket";
+                            github: "github";
+                        }>;
+                        repo: z.ZodString;
+                    }, z.core.$strict>;
+                    folder: z.ZodOptional<z.ZodString>;
+                    sessionBoard: z.ZodOptional<z.ZodObject<{
+                        repo: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                workMode: z.ZodOptional<z.ZodObject<{
+                    executor: z.ZodEnum<{
+                        agent: "agent";
+                        night: "night";
+                        dev_session: "dev_session";
+                    }>;
+                    allowedTools: z.ZodArray<z.ZodString>;
+                    excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                }, z.core.$strict>>;
             }, z.core.$strict>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -1030,8 +1360,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
             kind: z.ZodLiteral<"blocked">;
             reason: z.ZodEnum<{
                 conflict: "conflict";
-                missing: "missing";
                 referent_superseded: "referent_superseded";
+                missing: "missing";
             }>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -1145,6 +1475,19 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                     delivery: z.ZodString;
                                 }, z.core.$strict>;
                             }, z.core.$strict>], "kind">;
+                            gapRule: z.ZodOptional<z.ZodEnum<{
+                                mark_and_proceed: "mark_and_proceed";
+                                stop_and_ask: "stop_and_ask";
+                            }>>;
+                            signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                key: z.ZodString;
+                                signer: z.ZodEnum<{
+                                    owner: "owner";
+                                    director: "director";
+                                    referent: "referent";
+                                }>;
+                                form: z.ZodLiteral<"decision_request">;
+                            }, z.core.$strict>>>;
                         }, z.core.$strict>;
                         project: z.ZodOptional<z.ZodObject<{
                             objective: z.ZodObject<{
@@ -1183,6 +1526,37 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                 buSlug: z.ZodString;
                                 does: z.ZodString;
                             }, z.core.$strict>>;
+                        }, z.core.$strict>>>;
+                        exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            fromBu: z.ZodString;
+                            toBu: z.ZodString;
+                            what: z.ZodString;
+                            format: z.ZodString;
+                            key: z.ZodOptional<z.ZodString>;
+                        }, z.core.$strict>>>;
+                        questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            question: z.ZodString;
+                            unlocks: z.ZodString;
+                            askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                kind: z.ZodLiteral<"referent">;
+                                personRef: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"owner">;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"director">;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"business_unit">;
+                                buSlug: z.ZodString;
+                            }, z.core.$strict>], "kind">>;
+                        }, z.core.$strict>>>;
+                        sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            topic: z.ZodString;
+                            status: z.ZodEnum<{
+                                partial: "partial";
+                                missing: "missing";
+                                covered: "covered";
+                            }>;
+                            pages: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>>;
                     }, z.core.$strict>;
                     decision: z.ZodObject<{
@@ -1224,6 +1598,28 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                         }, z.core.$strict>>;
                     }, z.core.$strict>], "outcome">;
                     reconciledAt: z.ZodISODateTime;
+                    workplace: z.ZodOptional<z.ZodObject<{
+                        repository: z.ZodObject<{
+                            host: z.ZodEnum<{
+                                bitbucket: "bitbucket";
+                                github: "github";
+                            }>;
+                            repo: z.ZodString;
+                        }, z.core.$strict>;
+                        folder: z.ZodOptional<z.ZodString>;
+                        sessionBoard: z.ZodOptional<z.ZodObject<{
+                            repo: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>;
+                    workMode: z.ZodOptional<z.ZodObject<{
+                        executor: z.ZodEnum<{
+                            agent: "agent";
+                            night: "night";
+                            dev_session: "dev_session";
+                        }>;
+                        allowedTools: z.ZodArray<z.ZodString>;
+                        excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;
@@ -1231,8 +1627,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                 kind: z.ZodLiteral<"blocked">;
                 reason: z.ZodEnum<{
                     conflict: "conflict";
-                    missing: "missing";
                     referent_superseded: "referent_superseded";
+                    missing: "missing";
                 }>;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;

@@ -16,8 +16,11 @@ export const AgentDaySchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d =
 /** Longest window of one agent spend request, days (inclusive). */
 export const AGENT_SPEND_MAX_DAYS = 400;
 
-/** The capabilities that report spend this way. */
-export const SpendingCapabilitySchema = z.enum(['ricerca', 'lab', 'video']);
+/**
+ * The capabilities that report spend this way. For `social`, `spentUsd` is the closed cost of the round on the
+ * pay-per-use track plus the agent's extended researches of the day, and `capUsd` its daily ceiling.
+ */
+export const SpendingCapabilitySchema = z.enum(['ricerca', 'lab', 'video', 'social']);
 export type SpendingCapability = z.infer<typeof SpendingCapabilitySchema>;
 
 export const AgentSpendDaySchema = z.object({

@@ -1,7 +1,10 @@
 import { z } from 'zod';
+import { InboundEventDispositionSchema } from '../../capability/paperclip/inbound-event.js';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
+import { RunIdSchema } from '../../organization/run-context.js';
 import { CapabilityAgentScopeSchema } from '../../capability/capability-call-identity.js';
 import { AgentRequestSchema } from '../../organization/agent-request.js';
+import { AssetRefSchema, AssetSha256Schema } from '../../organization/asset.js';
 import { DecisionOutcomeSchema, DecisionRequestIdSchema, DecisionRequestSchema } from '../../organization/decision-request.js';
 import { ResearchIdSchema, ResearchStateSchema } from '../../capability/ricerca/research.js';
 import {
@@ -141,15 +144,27 @@ export const InternalPaperclipSeatReplyWakeRequestSchema = z.strictObject({
   organizationId: InternalPaperclipSeatsQuerySchema.shape.organizationId,
   identity: ParticipantAgentIdentitySchema,
   messageId: z.string().min(1).max(998).refine(v => v.trim().length > 0, 'Non-blank message id required'),
+  // The Paperclip run in which the agent sent the email this one answers; cap-paperclip reads the incarico from that run, never from the text.
+  sourceRunId: RunIdSchema.optional(),
 });
 
-export const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = ['woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous'] as const;
+export const PAPERCLIP_SOURCE_RUN_REFUSALS = [
+  'source_run_unknown', // The run does not exist for this agent.
+  'source_run_without_issue', // The run has no incarico.
+  'source_issue_not_agents', // The incarico does not belong to this agent.
+  'source_issue_closed', // The incarico is closed.
+] as const;
+
+export const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = [
+  'woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous', ...PAPERCLIP_SOURCE_RUN_REFUSALS,
+] as const;
 export const PaperclipSeatReplyWakeResultSchema = z.enum(PAPERCLIP_SEAT_REPLY_WAKE_RESULTS);
 
 export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
   result: PaperclipSeatReplyWakeResultSchema,
   issueId: z.uuid().optional(),
   runId: z.uuid().optional(),
+  disposition: InboundEventDispositionSchema.optional(),
 }).superRefine((value, ctx) => {
   if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
     ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
@@ -157,13 +172,47 @@ export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
   if (value.result !== 'woken' && value.runId !== undefined) {
     ctx.addIssue({ code: 'custom', message: 'runId is only allowed with woken', path: ['runId'] });
   }
-  if ((value.result === 'skipped' || value.result === 'not_waiting') && value.issueId === undefined) {
+  if ((value.result === 'skipped' || value.result === 'not_waiting' || value.result === 'source_issue_closed') && value.issueId === undefined) {
     ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
   }
-  if ((value.result === 'no_mandate' || value.result === 'ambiguous') && value.issueId !== undefined) {
+  if (
+    (value.result === 'no_mandate' || value.result === 'ambiguous' || value.result === 'source_run_unknown'
+      || value.result === 'source_run_without_issue' || value.result === 'source_issue_not_agents')
+    && value.issueId !== undefined
+  ) {
     ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
   }
+  const disposition = value.disposition;
+  if (disposition?.outcome === 'commented' && disposition.woke) {
+    if (value.result !== 'woken') {
+      ctx.addIssue({ code: 'custom', message: 'A woken disposition requires result woken', path: ['result'] });
+    }
+    if (value.issueId !== disposition.issueId) {
+      ctx.addIssue({ code: 'custom', message: 'Disposition issueId must match the response', path: ['disposition', 'issueId'] });
+    }
+    if (value.runId !== undefined && disposition.runId !== undefined && value.runId !== disposition.runId) {
+      ctx.addIssue({ code: 'custom', message: 'Disposition runId must match the response', path: ['disposition', 'runId'] });
+    }
+  }
+  if (disposition?.outcome === 'duplicate' && value.result !== 'duplicate') {
+    ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
+  }
 });
+
+/**
+ * Error codes of a failed seat wake. They name whose fault the failure is.
+ * - `paperclip_unavailable`: Paperclip answered with an error or could not be reached.
+ * - `wake_timeout`: OUR time limit ran out while Paperclip was answering; Paperclip is not in error.
+ */
+export const PAPERCLIP_SEAT_WAKE_ERROR_CODES = ['paperclip_unavailable', 'wake_timeout'] as const;
+export const PaperclipSeatWakeErrorCodeSchema = z.enum(PAPERCLIP_SEAT_WAKE_ERROR_CODES);
+export type PaperclipSeatWakeErrorCode = z.infer<typeof PaperclipSeatWakeErrorCodeSchema>;
+
+export const InternalPaperclipSeatWakeErrorResponseSchema = z.strictObject({
+  ok: z.literal(false),
+  error: PaperclipSeatWakeErrorCodeSchema,
+});
+export type InternalPaperclipSeatWakeErrorResponse = z.infer<typeof InternalPaperclipSeatWakeErrorResponseSchema>;
 
 export const internalPaperclipSeatReplyWakeContract = {
   method: 'POST' as const,
@@ -171,6 +220,7 @@ export const internalPaperclipSeatReplyWakeContract = {
   authType: 'secret' as const,
   bodySchema: InternalPaperclipSeatReplyWakeRequestSchema,
   responseSchema: InternalPaperclipSeatReplyWakeResponseSchema,
+  errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
 } as const;
 
 export type InternalPaperclipSeatReplyWakeRequest = z.infer<typeof InternalPaperclipSeatReplyWakeRequestSchema>;
@@ -195,6 +245,8 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     mode: z.enum(PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES),
     // Memory A project of the decision request this email answers, when cap-email knows it; never guessed.
     projectRef: DecisionRequestSchema.shape.projectId,
+    // The Paperclip run in which the agent sent the email this one answers; cap-paperclip reads the incarico from that run, never from the text.
+    sourceRunId: RunIdSchema.optional(),
     from: z.string().min(1).max(320),
     subject: z.string().min(1).max(300),
     receivedAt: z.iso.datetime(),
@@ -225,6 +277,8 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     sessionIssue: DevSessionResultSchema.shape.issue,
     commit: DevSessionCommitSchema,
     projectId: DevSessionAssignmentSchema.shape.projectId,
+    // The Paperclip run in which the chief opened the session; cap-paperclip reads the issue from that run, never from the text.
+    sourceRunId: RunIdSchema.optional(),
   }),
   z.strictObject({
     kind: z.literal('work_stalled'),
@@ -248,6 +302,22 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     maxAttempts: z.int().min(1).max(10),
   }).refine(e => e.attempt <= e.maxAttempts, { path: ['attempt'], message: 'attempt must not exceed maxAttempts' }),
   z.strictObject({ kind: z.literal('agent_request'), request: AgentRequestSchema }),
+  // The final project delivery was sent and recorded (`ProjectDeliveryRecord` stage `sent`, kind `final`); `digest` is the
+  // reconciliation digest and makes the event idempotent; sent by cap-email, never by the model.
+  z.strictObject({
+    kind: z.literal('project_delivered'),
+    projectId: AssetRefSchema.shape.projectId,
+    messageId: z.string().min(1).max(512),
+    sentAt: z.iso.datetime({ offset: true }),
+    digest: AssetSha256Schema,
+  }),
+  // The company spend cap no longer holds this agent back; sent by agent-core, once per agent, never by the model.
+  z.strictObject({
+    kind: z.literal('limit_lifted'),
+    limit: z.literal('company_spend'),
+    revision: z.int().min(1),
+    liftedAt: z.iso.datetime({ offset: true }),
+  }),
 ]);
 
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip
@@ -282,6 +352,9 @@ export const InternalPaperclipSeatNativeWakeRequestSchema = z.strictObject({
     }
   }
   if (value.event.kind === 'email') {
+    if (value.event.mode === 'request' && value.event.sourceRunId !== undefined) {
+      ctx.addIssue({ code: 'custom', message: 'sourceRunId needs a reply or a decision', path: ['event', 'sourceRunId'] });
+    }
     const isDecision = value.event.mode === 'decision';
     if (isDecision && value.event.decision === undefined) {
       ctx.addIssue({ code: 'custom', message: 'decision mode requires decision', path: ['event', 'decision'] });
@@ -292,8 +365,13 @@ export const InternalPaperclipSeatNativeWakeRequestSchema = z.strictObject({
   }
 });
 
+// For `limit_lifted`, `deferred` (with the issueId) means "check requested from Paperclip" and `no_task` means "no issue waiting on the cap".
 export const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = [
   'opened', 'woken', 'deferred', 'duplicate', 'already_open', 'not_waiting', 'no_task', 'ambiguous', 'not_enabled', 'rate_limited',
+  // The event belongs to an existing open incarico of the seat that waits on open blockers held by other agents;
+  // Paperclip resumes it when they are done (`issue_blockers_resolved`), nothing was written and no run was started.
+  'waiting_on_blockers',
+  ...PAPERCLIP_SOURCE_RUN_REFUSALS,
 ] as const;
 export const PaperclipSeatNativeWakeResultSchema = z.enum(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS);
 
@@ -302,6 +380,7 @@ export const InternalPaperclipSeatNativeWakeResponseSchema = z.strictObject({
   issueId: z.uuid().optional(),
   commentId: z.uuid().optional(),
   runId: z.uuid().optional(),
+  disposition: InboundEventDispositionSchema.optional(),
 }).superRefine((value, ctx) => {
   if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
     ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
@@ -313,16 +392,33 @@ export const InternalPaperclipSeatNativeWakeResponseSchema = z.strictObject({
     ctx.addIssue({ code: 'custom', message: 'commentId is only allowed with woken', path: ['commentId'] });
   }
   if (
-    (value.result === 'opened' || value.result === 'deferred' || value.result === 'already_open' || value.result === 'not_waiting')
+    (value.result === 'opened' || value.result === 'deferred' || value.result === 'already_open' || value.result === 'not_waiting'
+      || value.result === 'waiting_on_blockers' || value.result === 'source_issue_closed')
     && value.issueId === undefined
   ) {
     ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
   }
   if (
-    (value.result === 'no_task' || value.result === 'ambiguous' || value.result === 'not_enabled' || value.result === 'rate_limited')
+    (value.result === 'no_task' || value.result === 'ambiguous' || value.result === 'not_enabled' || value.result === 'rate_limited'
+      || value.result === 'source_run_unknown' || value.result === 'source_run_without_issue' || value.result === 'source_issue_not_agents')
     && value.issueId !== undefined
   ) {
     ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+  }
+  const disposition = value.disposition;
+  if (disposition?.outcome === 'commented' && disposition.woke) {
+    if (value.result !== 'woken') {
+      ctx.addIssue({ code: 'custom', message: 'A woken disposition requires result woken', path: ['result'] });
+    }
+    if (value.issueId !== disposition.issueId) {
+      ctx.addIssue({ code: 'custom', message: 'Disposition issueId must match the response', path: ['disposition', 'issueId'] });
+    }
+    if (value.runId !== undefined && disposition.runId !== undefined && value.runId !== disposition.runId) {
+      ctx.addIssue({ code: 'custom', message: 'Disposition runId must match the response', path: ['disposition', 'runId'] });
+    }
+  }
+  if (disposition?.outcome === 'duplicate' && value.result !== 'duplicate') {
+    ctx.addIssue({ code: 'custom', message: 'A duplicate disposition requires result duplicate', path: ['result'] });
   }
 });
 
@@ -332,6 +428,7 @@ export const internalPaperclipSeatNativeWakeContract = {
   authType: 'secret' as const,
   bodySchema: InternalPaperclipSeatNativeWakeRequestSchema,
   responseSchema: InternalPaperclipSeatNativeWakeResponseSchema,
+  errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
 } as const;
 
 export type InternalPaperclipSeatNativeWakeRequest = z.infer<typeof InternalPaperclipSeatNativeWakeRequestSchema>;

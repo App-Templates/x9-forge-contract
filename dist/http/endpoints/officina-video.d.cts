@@ -217,8 +217,8 @@ export declare const officinaVideoApproveContract: {
     readonly requestSchema: z.ZodObject<{
         stage: z.ZodEnum<{
             voice: "voice";
-            frames: "frames";
             plan: "plan";
+            frames: "frames";
             final: "final";
             references: "references";
         }>;

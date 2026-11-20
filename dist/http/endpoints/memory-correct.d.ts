@@ -40,8 +40,8 @@ export declare const memoryCorrectContract: {
         }>;
         target_type: z.ZodEnum<{
             rule: "rule";
-            episode: "episode";
             fact: "fact";
+            episode: "episode";
             entity: "entity";
             alias: "alias";
         }>;

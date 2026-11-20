@@ -29,8 +29,9 @@
  * - `CONNECT_FIGMA_CLIENT_SECRET` — Figma OAuth client secret, only Connessioni; never projected into an agent.
  * - `CONNECT_VAULT_SECRET` — segreto del servizio Connessioni verso il Vault; mai proiettato in un agente.
  * - `RICERCA_DATABASE_URL` — connessione Postgres di cap-ricerca, solo quel servizio; mai proiettata in un agente.
+ * - `PAPERCLIP_ADMIN_TOKEN` — Paperclip board key, read only by platform services from a file; never projected into an agent.
  */
-export declare const PLATFORM_INTERNAL_CREDENTIAL_KEYS: readonly ["TELEGRAM_SESSION_STRING", "APPROVALS_SIGNING_KEY", "CONNECT_GOOGLE_CLIENT_ID", "CONNECT_GOOGLE_CLIENT_SECRET", "CONNECT_BITBUCKET_CLIENT_ID", "CONNECT_BITBUCKET_CLIENT_SECRET", "CONNECT_FIGMA_CLIENT_ID", "CONNECT_FIGMA_CLIENT_SECRET", "CONNECT_VAULT_SECRET", "AGENT_CREDENTIAL_VAULT_SECRET", "RICERCA_DATABASE_URL"];
+export declare const PLATFORM_INTERNAL_CREDENTIAL_KEYS: readonly ["TELEGRAM_SESSION_STRING", "APPROVALS_SIGNING_KEY", "CONNECT_GOOGLE_CLIENT_ID", "CONNECT_GOOGLE_CLIENT_SECRET", "CONNECT_BITBUCKET_CLIENT_ID", "CONNECT_BITBUCKET_CLIENT_SECRET", "CONNECT_FIGMA_CLIENT_ID", "CONNECT_FIGMA_CLIENT_SECRET", "CONNECT_VAULT_SECRET", "AGENT_CREDENTIAL_VAULT_SECRET", "RICERCA_DATABASE_URL", "PAPERCLIP_ADMIN_TOKEN"];
 export type PlatformInternalCredentialKey = (typeof PLATFORM_INTERNAL_CREDENTIAL_KEYS)[number];
 export declare function isPlatformInternalCredentialKey(key: string): key is PlatformInternalCredentialKey;
 /** Copy of `credentials` without platform-internal keys (input untouched). */

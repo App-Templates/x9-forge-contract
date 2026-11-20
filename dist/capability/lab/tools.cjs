@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LabBriefGapsOutputSchema = exports.LabBriefGapsInputSchema = exports.LabReadPublishedOutputSchema = exports.LabReadPublishedInputSchema = exports.LabPublishOutputSchema = exports.LabPublishInputSchema = exports.LabPublicationRecipientSchema = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabWithdrawOutputSchema = exports.LabWithdrawInputSchema = exports.LabIngestDocumentSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
+exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LabBriefGapsOutputSchema = exports.LabBriefGapsInputSchema = exports.LabReadPublishedOutputSchema = exports.LabReadPublishedInputSchema = exports.LabPublishOutputSchema = exports.LabPublishInputSchema = exports.LabPublicationRecipientSchema = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabEmptyReasonSchema = exports.LAB_EMPTY_REASONS = exports.LabPageMatchSchema = exports.LAB_PAGE_MATCH_KINDS = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabWithdrawOutputSchema = exports.LabWithdrawInputSchema = exports.LabIngestDocumentSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
 const zod_1 = require("zod");
 const asset_js_1 = require("../../organization/asset.cjs");
 const knowledge_publication_js_1 = require("../../organization/knowledge-publication.cjs");
@@ -72,14 +72,40 @@ exports.LabIngestStatusOutputSchema = zod_1.z.object({
 }).strict().refine(result => result.state === 'completed'
     ? result.sourcesStored !== undefined && result.pagesTouched !== undefined && result.claimsAdded !== undefined
     : result.sourcesStored === undefined && result.pagesTouched === undefined && result.claimsAdded === undefined, { message: 'counts are present only for completed ingests' });
+/** How a page was found: by its page name, with all the words, or with at least one word. */
+exports.LAB_PAGE_MATCH_KINDS = ['slug', 'all_words', 'any_word'];
+exports.LabPageMatchSchema = zod_1.z.strictObject({
+    slug: wiki_js_1.WikiPageSchema.shape.slug,
+    matchedBy: zod_1.z.enum(exports.LAB_PAGE_MATCH_KINDS),
+});
+/** Why an answer has no pages. */
+exports.LAB_EMPTY_REASONS = ['no_match', 'slug_not_found', 'notebook_empty'];
+exports.LabEmptyReasonSchema = zod_1.z.enum(exports.LAB_EMPTY_REASONS);
+const LabSlugsSchema = zod_1.z.array(wiki_js_1.WikiPageSchema.shape.slug).min(1).max(50).refine(slugs => new Set(slugs).size === slugs.length, { message: 'Page names must be unique' });
+/** `matches`, when present, has exactly one entry per returned page, same slugs, no repeats. */
+function matchesCoverPages(output) {
+    if (output.matches === undefined)
+        return true;
+    const matched = new Set(output.matches.map(match => match.slug));
+    const paged = new Set(output.pages.map(page => page.slug));
+    return matched.size === output.matches.length
+        && paged.size === output.pages.length
+        && matched.size === paged.size
+        && [...paged].every(slug => matched.has(slug));
+}
 exports.LabQueryInputSchema = zod_1.z.object({
     question: zod_1.z.string().trim().min(1).max(2000),
     limit: zod_1.z.number().int().min(1).max(50).optional(),
+    slugs: LabSlugsSchema.optional(),
 }).strict();
 exports.LabQueryOutputSchema = zod_1.z.object({
     pages: zod_1.z.array(wiki_js_1.WikiPageSchema).max(50),
     claims: zod_1.z.array(wiki_js_1.WikiClaimSchema).max(200),
-}).strict();
+    matches: zod_1.z.array(exports.LabPageMatchSchema).max(50).optional(),
+    emptyReason: exports.LabEmptyReasonSchema.optional(),
+}).strict()
+    .refine(output => matchesCoverPages(output), { message: 'matches must have exactly one entry per page' })
+    .refine(output => output.emptyReason === undefined || output.pages.length === 0, { message: 'emptyReason is only for an answer without pages' });
 exports.LabGapsInputSchema = zod_1.z.object({ limit: zod_1.z.number().int().min(1).max(50).optional() }).strict();
 exports.LabGapsOutputSchema = zod_1.z.object({ gaps: zod_1.z.array(competence_js_1.CompetenceGapSchema).max(50) }).strict();
 exports.LabCompetenceInputSchema = zod_1.z.object({}).strict();
@@ -110,6 +136,7 @@ exports.LabReadPublishedInputSchema = zod_1.z.strictObject({
     recipient: exports.LabPublicationRecipientSchema,
     query: exports.LabQueryInputSchema.shape.question.optional(),
     limit: exports.LabQueryInputSchema.shape.limit,
+    slugs: exports.LabQueryInputSchema.shape.slugs,
 });
 exports.LabReadPublishedOutputSchema = zod_1.z.strictObject({
     pages: zod_1.z.array(zod_1.z.strictObject({
@@ -120,7 +147,11 @@ exports.LabReadPublishedOutputSchema = zod_1.z.strictObject({
         content: wiki_js_1.WikiPageSchema.shape.body,
         contradicts: knowledge_publication_js_1.KnowledgePublicationSchema.shape.contradicts,
     })).max(50),
-});
+    matches: zod_1.z.array(exports.LabPageMatchSchema).max(50).optional(),
+    emptyReason: exports.LabEmptyReasonSchema.optional(),
+})
+    .refine(output => matchesCoverPages(output), { message: 'matches must have exactly one entry per page' })
+    .refine(output => output.emptyReason === undefined || output.pages.length === 0, { message: 'emptyReason is only for an answer without pages' });
 exports.LabBriefGapsInputSchema = zod_1.z.strictObject({
     topics: zod_1.z.array(exports.LabQueryInputSchema.shape.question).min(1).max(20).refine(topics => new Set(topics).size === topics.length, { message: 'Brief topics must be unique' }),
     clientId: asset_js_1.AssetRefSchema.shape.companyId,

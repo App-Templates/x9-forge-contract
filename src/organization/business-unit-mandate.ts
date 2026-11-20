@@ -2,14 +2,18 @@ import { z } from 'zod';
 import { WikiPageSchema } from '../capability/lab/wiki.js';
 import {
   ActionPlanBuObjectiveSchema,
+  ActionPlanBuExecutorSchema,
   ActionPlanBusinessUnitSchema,
   ActionPlanDeliveryShapeSchema,
+  ActionPlanExchangeSchema,
   ActionPlanObjectiveSchema,
   ActionPlanProjectObjectiveSchema,
+  ActionPlanQuestionSchema,
   ActionPlanReferentRefSchema,
+  ActionPlanSourceCoverageSchema,
   ActionPlanWorkBreakdownSchema,
 } from './action-plan.js';
-import { AssetRefSchema, AssetSha256Schema } from './asset.js';
+import { AssetOriginSchema, AssetRefSchema, AssetSha256Schema } from './asset.js';
 import { CompanyMapScopeFieldsSchema } from './company-map.js';
 import { DecisionRequestIdSchema } from './decision-request.js';
 import { ParticipantAgentIdentitySchema } from './participant-binding.js';
@@ -43,6 +47,44 @@ export const MandateReconciliationSchema = z.discriminatedUnion('outcome', [
 ]);
 export type MandateReconciliation = z.infer<typeof MandateReconciliationSchema>;
 
+/** Repository, relative working folder and GitHub session board configured for the unit. */
+export const MandateWorkplaceSchema = z.strictObject({
+  repository: z.strictObject({
+    host: z.enum(['github', 'bitbucket']),
+    repo: AssetOriginSchema.options[2].shape.repo.unwrap(),
+  }),
+  folder: z.string().min(1).max(512).refine(
+    (folder) => !folder.startsWith('/') && !/^[A-Za-z]:/.test(folder) && !folder.includes('\\') &&
+      !folder.split('/').some((segment) => segment === '' || segment === '..'),
+    { message: 'Working folder must be relative and contain no backslashes, empty or parent segments' },
+  ).optional(),
+  sessionBoard: z.strictObject({
+    repo: AssetOriginSchema.options[2].shape.repo.unwrap(),
+  }).optional(),
+});
+export type MandateWorkplace = z.infer<typeof MandateWorkplaceSchema>;
+
+const MandateToolNamesSchema = z.array(z.string().regex(/^[a-z][a-z0-9_]{2,63}$/)).max(40).refine(
+  (tools) => new Set(tools).size === tools.length,
+  { message: 'Tool names must be unique' },
+);
+
+/** Execution mode and tool permissions configured for the unit. */
+export const MandateWorkModeSchema = z.strictObject({
+  executor: ActionPlanBuExecutorSchema,
+  allowedTools: MandateToolNamesSchema.min(1),
+  excludedTools: MandateToolNamesSchema.optional(),
+}).superRefine((mode, ctx) => {
+  if (mode.excludedTools?.some((tool) => mode.allowedTools.includes(tool))) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Allowed and excluded tools must be disjoint',
+      path: ['excludedTools'],
+    });
+  }
+});
+export type MandateWorkMode = z.infer<typeof MandateWorkModeSchema>;
+
 /** Versioned sources and their reconciliation, embedded in a business unit brief. */
 export const ReconciledMandateSchema = z.strictObject({
   tenantId: AssetRefSchema.shape.tenantId,
@@ -64,6 +106,12 @@ export const ReconciledMandateSchema = z.strictObject({
     deliveryShape: ActionPlanDeliveryShapeSchema.optional(),
     /** The whole project breakdown (product plans): the unit sees its items and where they sit. */
     workBreakdown: ActionPlanWorkBreakdownSchema.optional(),
+    /** The deliveries to or from this unit, as the plan writes them. Absent in mandates saved before 1.174.0. */
+    exchanges: z.array(ActionPlanExchangeSchema).optional(),
+    /** The plan's open questions and to whom they go. Absent in mandates saved before 1.174.0. */
+    questions: z.array(ActionPlanQuestionSchema).optional(),
+    /** How the dossier covers the topics the plan depends on. Absent in mandates saved before 1.174.0. */
+    sourceCoverage: z.array(ActionPlanSourceCoverageSchema).max(50).optional(),
   }),
   decision: z.strictObject({
     requestId: DecisionRequestIdSchema,
@@ -76,7 +124,34 @@ export const ReconciledMandateSchema = z.strictObject({
   })).max(100),
   reconciliation: MandateReconciliationSchema,
   reconciledAt: z.iso.datetime({ offset: true }),
+  /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+  workplace: MandateWorkplaceSchema.optional(),
+  /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+  workMode: MandateWorkModeSchema.optional(),
 }).superRefine((mandate, ctx) => {
+  if (mandate.workMode !== undefined && mandate.workMode.executor !== mandate.planSection.businessUnit.executor) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Work mode executor must match the plan business unit executor',
+      path: ['workMode', 'executor'],
+    });
+  }
+  if (mandate.workMode?.executor === 'dev_session') {
+    if (mandate.workplace?.sessionBoard === undefined) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Development sessions require a session board',
+        path: ['workplace', 'sessionBoard'],
+      });
+    }
+    if (mandate.workplace?.repository.host !== 'github') {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Development sessions require a GitHub repository',
+        path: ['workplace', 'repository', 'host'],
+      });
+    }
+  }
   if (mandate.decision.planVersion !== mandate.planSection.planVersion) {
     ctx.addIssue({
       code: 'custom',
@@ -99,6 +174,16 @@ export const ReconciledMandateSchema = z.strictObject({
       path: ['planSection', 'workBreakdown'],
     });
   }
+  const unitSlug = mandate.planSection.businessUnit.buSlug;
+  mandate.planSection.exchanges?.forEach((exchange, index) => {
+    if (exchange.fromBu !== unitSlug && exchange.toBu !== unitSlug) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Every exchange of the mandate must start from or arrive at the business unit of the mandate',
+        path: ['planSection', 'exchanges', index],
+      });
+    }
+  });
   if (new Set(mandate.notebookPages.map((page) => page.slug)).size !== mandate.notebookPages.length) {
     ctx.addIssue({ code: 'custom', message: 'Notebook page slugs must be unique', path: ['notebookPages'] });
   }

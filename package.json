@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.158.0",
+  "version": "1.301.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -22,6 +22,7 @@
       "./capability/tts": "./src/capability/tts/index.ts",
       "./capability/voice-live": "./src/capability/voice-live/index.ts",
       "./capability/ricerca": "./src/capability/ricerca/index.ts",
+      "./capability/social-listening": "./src/capability/social-listening/index.ts",
       "./capability/lab": "./src/capability/lab/index.ts",
       "./capability/video": "./src/capability/video/index.ts",
       "./http": "./src/http/index.ts",
@@ -103,6 +104,11 @@
       "types": "./dist/capability/ricerca/index.d.cts",
       "import": "./dist/capability/ricerca/index.js",
       "require": "./dist/capability/ricerca/index.cjs"
+    },
+    "./capability/social-listening": {
+      "types": "./dist/capability/social-listening/index.d.cts",
+      "import": "./dist/capability/social-listening/index.js",
+      "require": "./dist/capability/social-listening/index.cjs"
     },
     "./capability/lab": {
       "types": "./dist/capability/lab/index.d.cts",

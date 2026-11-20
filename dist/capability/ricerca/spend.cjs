@@ -16,8 +16,11 @@ exports.AgentDaySchema = zod_1.z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d 
 }, 'not a calendar date');
 /** Longest window of one agent spend request, days (inclusive). */
 exports.AGENT_SPEND_MAX_DAYS = 400;
-/** The capabilities that report spend this way. */
-exports.SpendingCapabilitySchema = zod_1.z.enum(['ricerca', 'lab', 'video']);
+/**
+ * The capabilities that report spend this way. For `social`, `spentUsd` is the closed cost of the round on the
+ * pay-per-use track plus the agent's extended researches of the day, and `capUsd` its daily ceiling.
+ */
+exports.SpendingCapabilitySchema = zod_1.z.enum(['ricerca', 'lab', 'video', 'social']);
 exports.AgentSpendDaySchema = zod_1.z.object({
     agentId: agent_config_js_1.CapabilityAgentIdSchema,
     capability: exports.SpendingCapabilitySchema,
