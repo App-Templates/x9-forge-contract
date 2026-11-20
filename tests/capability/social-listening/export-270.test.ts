@@ -34,9 +34,9 @@ console.log('OK');
 `;
 
 describe('s3718 the ordinary-v2 composition in package 1.270.0', () => {
-  it('s3718 (a) package.json has a version in the 1.270.0-1.281.0 band', () => {
+  it('s3718 (a) package.json has a version in the 1.270.0-1.283.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(27\d|28[0-2])\.0$/);
+    expect(pkg.version).toMatch(/^1\.(27\d|28[0-3])\.0$/);
   });
 
   it('s3718 (b) the composition works from ESM', () => {

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.283.0 — social listening: server verification runs on the server executor (task 3960)
+
+- `socialJobRoute('verify', 'server')` now returns `{ runner: 'executor', executor: 'server', tool: 'claude_p' }` instead of the cap-ricerca route.
+- The `SocialJobRoute` type, the Mac routes and the extended research tools are unchanged; no new symbol.
+
 ## v1.282.0 — dev session acceptance contracts from the ec-ponte line (tasks 3924-3927)
 
 - New: the acceptance criterion and the optional `acceptance`/`base` fields of the session assignment, the templates and evidence catalog, the Paperclip texts and image coverage, the session attestation with the requirements verdict and the Mandate criteria check.

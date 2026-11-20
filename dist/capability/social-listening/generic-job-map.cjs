@@ -4,7 +4,6 @@ exports.SOCIAL_JOB_LIMITS = exports.SOCIAL_TRACK_EXECUTOR = exports.SOCIAL_JOB_T
 exports.socialJobRoute = socialJobRoute;
 exports.socialGenericJobFor = socialGenericJobFor;
 const generic_job_js_1 = require("../dev/generic-job.cjs");
-const tools_js_1 = require("../ricerca/tools.cjs");
 const job_io_js_1 = require("./job-io.cjs");
 const queue_js_1 = require("./queue.cjs");
 const routes_js_1 = require("./routes.cjs");
@@ -32,8 +31,7 @@ function socialJobRoute(kind, track) {
                 return { runner: 'service', source: 'meta_graph' };
             case 'transcribe':
                 return { runner: 'capability', capability: 'stt', tool: 'transcribe' };
-            case 'verify':
-                return { runner: 'capability', capability: 'ricerca', tool: tools_js_1.RICERCA_TOOLS.start };
+            case 'verify': // D10 standard verification: server executor, same step as the Mac
             case 'filter':
             case 'group':
                 return { runner: 'executor', executor: 'server', tool: 'claude_p' };

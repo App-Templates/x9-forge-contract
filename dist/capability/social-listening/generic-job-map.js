@@ -1,5 +1,4 @@
 import { DevGenericJobSchema, } from "../dev/generic-job.js";
-import { RICERCA_TOOLS } from "../ricerca/tools.js";
 import { SocialJobInputSchema } from "./job-io.js";
 import { SOCIAL_JOB_KINDS, SocialJobSchema } from "./queue.js";
 import { readSocialGenericJob } from "./routes.js";
@@ -27,8 +26,7 @@ export function socialJobRoute(kind, track) {
                 return { runner: 'service', source: 'meta_graph' };
             case 'transcribe':
                 return { runner: 'capability', capability: 'stt', tool: 'transcribe' };
-            case 'verify':
-                return { runner: 'capability', capability: 'ricerca', tool: RICERCA_TOOLS.start };
+            case 'verify': // D10 standard verification: server executor, same step as the Mac
             case 'filter':
             case 'group':
                 return { runner: 'executor', executor: 'server', tool: 'claude_p' };
