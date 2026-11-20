@@ -4,6 +4,8 @@ import { AGENT_SPEND_MAX_DAYS, AgentDaySchema, AgentSpendDaySchema } from '../..
 import { LabAgentConfigSchema } from '../../capability/lab/agent-config.js';
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from '../../capability/lab/competence.js';
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../../capability/capability-call-context.js';
+import { SocialAdoptionDecideInputSchema, SocialAdoptionDecideOutputSchema, SocialAdoptionToolErrorSchema } from '../../capability/social-listening/save-wiki.js';
+import { CapabilityParameterEditorRoleSchema } from '../../capability/parameters.js';
 import { CapabilityOrdinaryConfigWriteSchema, CapabilityOrdinaryConfigStateSchema, CapabilityOrdinaryParameterSchema, parseCapabilityOrdinaryWrite, sameOrdinaryData, type CapabilityOrdinaryTarget, type CapabilityOrdinaryConfiguration, type CapabilityOrdinaryConfigState, type CapabilityOrdinaryConfigWrite, type CapabilityOrdinaryParameter } from '../../capability/ordinary-configuration.js';
 import { CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, parseCapabilityOrdinaryLifecycle, type CapabilityOrdinaryLifecycleAuthority } from '../../capability/ordinary-lifecycle.js';
 
@@ -231,3 +233,25 @@ export function parseOrdinaryCapabilityLifecyclePut(body: unknown, params: unkno
 export const ordinaryCapabilityAgentConfigPutContract = { ...ricercaAgentConfigPutContract, bodySchema: CapabilityOrdinaryConfigWriteSchema, responseSchema: CapabilityOrdinaryConfigStateSchema } as const;
 export const ordinaryCapabilityAgentConfigGetContract = { ...ricercaAgentConfigGetContract, querySchema: CapabilityOrdinaryConfigQuerySchema, responseSchema: CapabilityOrdinaryConfigStateSchema } as const;
 export const ordinaryCapabilityLifecyclePutContract = { ...ricercaAgentConfigPutContract, bodySchema: CapabilityOrdinaryLifecycleRequestSchema, responseSchema: CapabilityOrdinaryLifecycleReceiptSchema } as const;
+
+/**
+ * POST /internal/capability/agents/:agentId/adoption-decisions — a manual decision on a social-listening adoption proposal.
+ * Forge's factory, which knows the verified role of the caller (owner or superadmin), calls the listening service with
+ * `INTERNAL_SECRET_HEADER`; the service checks `scope.agentId === :agentId` (`agent_mismatch`, as the other routes) and
+ * applies `socialAdoptionDecision`. Never a model tool (D13): the tool envelope has no role field, and a role written by
+ * the model is worth nothing (R-33).
+ */
+export const SocialAdoptionDecideBodySchema = z.strictObject({
+  scope: CapabilityAgentScopeSchema,
+  actorRole: CapabilityParameterEditorRoleSchema,
+  input: SocialAdoptionDecideInputSchema,
+});
+export const SocialAdoptionDecideErrorSchema = z.strictObject({ error: SocialAdoptionToolErrorSchema });
+export const socialAdoptionDecideContract = {
+  method: 'POST' as const,
+  path: '/internal/capability/agents/:agentId/adoption-decisions' as const,
+  authType: 'secret' as const,
+  paramsSchema: CapabilityAgentParamsSchema,
+  bodySchema: SocialAdoptionDecideBodySchema,
+  responseSchema: SocialAdoptionDecideOutputSchema,
+} as const;
