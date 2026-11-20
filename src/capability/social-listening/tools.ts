@@ -118,6 +118,16 @@ export function socialAscoltoPageLine(pageUrl: string): string {
   return SOCIAL_ASCOLTO_PAGE_LINE_PREFIX + pageUrl;
 }
 
+/**
+ * Why a failed round failed: a short code and one sentence in Italian for the user;
+ * present only when the round state is `failed`; never the raw job error (it may hold addresses or private data).
+ */
+export const SocialRecapEndReasonSchema = z.strictObject({
+  code: z.string().regex(/^[a-z][a-z0-9_]{0,47}$/),
+  text: z.string().min(1).max(200),
+});
+export type SocialRecapEndReason = z.infer<typeof SocialRecapEndReasonSchema>;
+
 /** One shape for Telegram and X9 Live web. */
 export const SocialRecapOutputSchema = z.strictObject({
   /** Ready-to-send line with the Ascolto page link; the first thing in the result. */
@@ -142,6 +152,7 @@ export const SocialRecapOutputSchema = z.strictObject({
   spentUsd: z.number().nonnegative().finite(),
   /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
   costPerPostUsd: z.number().nonnegative().finite().optional(),
+  endReason: SocialRecapEndReasonSchema.optional(),
   topics: z.array(SocialRecapTopicSummarySchema).max(50),
 }).superRefine((r, ctx) => {
   if (r.pageLine !== undefined && (r.pageUrl === undefined || r.pageLine !== socialAscoltoPageLine(r.pageUrl))) {
