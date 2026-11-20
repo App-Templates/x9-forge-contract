@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialRecapOutputSchema = exports.SOCIAL_ASCOLTO_PAGE_PATH = exports.SocialRecapTopicSummarySchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
+exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialRecapOutputSchema = exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX = exports.SOCIAL_ASCOLTO_PAGE_PATH = exports.SocialRecapTopicSummarySchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
 exports.socialAscoltoPagePath = socialAscoltoPagePath;
+exports.socialAscoltoPageLine = socialAscoltoPageLine;
 const zod_1 = require("zod");
 const research_js_1 = require("../ricerca/research.cjs");
 const spend_js_1 = require("../ricerca/spend.cjs");
@@ -87,8 +88,18 @@ function socialAscoltoPagePath(agentSlug) {
         return null;
     }
 }
+/** The sentence that introduces the Ascolto page link; written once, here. */
+exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX = 'Apri la pagina Ascolto: ';
+/** Ready-to-send line with the Ascolto page link. */
+function socialAscoltoPageLine(pageUrl) {
+    return exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX + pageUrl;
+}
 /** One shape for Telegram and X9 Live web. */
 exports.SocialRecapOutputSchema = zod_1.z.strictObject({
+    /** Ready-to-send line with the Ascolto page link; the first thing in the result. */
+    pageLine: zod_1.z.string().max(400).optional(),
+    /** Link to the agent's Ascolto page in Forge, up front so the model sees it before the topics; absent when the service has no page template or cannot resolve the agent slug. */
+    pageUrl: research_js_1.WebUrlSchema.optional(),
     verticalId: post_js_1.SocialVerticalIdSchema,
     day: spend_js_1.AgentDaySchema,
     /** The requested day, paired with `stale`; absent on recaps built before freshness metadata. */
@@ -103,9 +114,10 @@ exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
     costPerPostUsd: zod_1.z.number().nonnegative().finite().optional(),
     topics: zod_1.z.array(exports.SocialRecapTopicSummarySchema).max(50),
-    /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
-    pageUrl: research_js_1.WebUrlSchema.optional(),
 }).superRefine((r, ctx) => {
+    if (r.pageLine !== undefined && (r.pageUrl === undefined || r.pageLine !== socialAscoltoPageLine(r.pageUrl))) {
+        ctx.addIssue({ code: 'custom', path: ['pageLine'], message: 'pageLine must be socialAscoltoPageLine(pageUrl)' });
+    }
     if ((r.requestedDay === undefined) !== (r.stale === undefined)) {
         ctx.addIssue({
             code: 'custom',

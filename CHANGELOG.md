@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.285.0 — social listening: the recap carries the Ascolto page link first (task 9700)
+
+- `SocialRecapOutputSchema` gains optional `pageLine` and moves `pageUrl` before `verticalId`.
+- `pageLine` must equal `socialAscoltoPageLine(pageUrl)`; recaps with only `pageUrl` stay valid.
+- New exports: `SOCIAL_ASCOLTO_PAGE_LINE_PREFIX` and `socialAscoltoPageLine`.
+
 ## v1.284.0 — social listening: recap of the last finished round before the requested day (task 3962)
 
 - `SocialRecapInputSchema.day` now carries a description for the model.

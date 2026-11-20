@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.284.0",
+  "versione": "1.285.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1567,6 +1567,7 @@
       "SOCIAL_ADOPTION_KINDS": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SOCIAL_ADOPTION_STATES": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SOCIAL_ADOPTION_TOOLS": "@x9-forge/contracts/capability/social-listening/save-wiki",
+      "SOCIAL_ASCOLTO_PAGE_LINE_PREFIX": "@x9-forge/contracts/capability/social-listening/tools",
       "SOCIAL_ASCOLTO_PAGE_PATH": "@x9-forge/contracts/capability/social-listening/tools",
       "SOCIAL_COSTS_REPORT_MAX_DAYS": "@x9-forge/contracts/capability/social-listening/costs",
       "SOCIAL_COSTS_TOOLS": "@x9-forge/contracts/capability/social-listening/costs",
@@ -1731,6 +1732,7 @@
       "selectSocialRound": "@x9-forge/contracts/capability/social-listening/routes",
       "shortenSocialTopicTitle": "@x9-forge/contracts/capability/social-listening/import",
       "socialAdoptionDecision": "@x9-forge/contracts/capability/social-listening/save-wiki",
+      "socialAscoltoPageLine": "@x9-forge/contracts/capability/social-listening/tools",
       "socialAscoltoPagePath": "@x9-forge/contracts/capability/social-listening/tools",
       "socialCapDecision": "@x9-forge/contracts/capability/social-listening/cap",
       "socialCategoryInVertical": "@x9-forge/contracts/capability/social-listening/topic",

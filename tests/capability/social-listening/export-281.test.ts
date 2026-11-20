@@ -29,7 +29,7 @@ console.log('OK');
 describe('s3959 public cap-video tool names and brief output in package 1.281.0', () => {
   it('s3959 (a) package.json has version 1.281.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(281|282|283|284)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(281|282|283|284|285)\.0$/);
   });
 
   it('s3959 (b) the public cap-video tool and brief exports work from ESM', () => {

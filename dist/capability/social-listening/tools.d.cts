@@ -92,8 +92,16 @@ export declare const SocialRecapTopicSummarySchema: z.ZodObject<{
 export declare const SOCIAL_ASCOLTO_PAGE_PATH: "/agents/{slug}/ascolto";
 /** Build a path from one slug segment without coercing untrusted values. */
 export declare function socialAscoltoPagePath(agentSlug: unknown): string | null;
+/** The sentence that introduces the Ascolto page link; written once, here. */
+export declare const SOCIAL_ASCOLTO_PAGE_LINE_PREFIX: "Apri la pagina Ascolto: ";
+/** Ready-to-send line with the Ascolto page link. */
+export declare function socialAscoltoPageLine(pageUrl: string): string;
 /** One shape for Telegram and X9 Live web. */
 export declare const SocialRecapOutputSchema: z.ZodObject<{
+    /** Ready-to-send line with the Ascolto page link; the first thing in the result. */
+    pageLine: z.ZodOptional<z.ZodString>;
+    /** Link to the agent's Ascolto page in Forge, up front so the model sees it before the topics; absent when the service has no page template or cannot resolve the agent slug. */
+    pageUrl: z.ZodOptional<z.ZodString>;
     verticalId: z.ZodString;
     day: z.ZodString;
     /** The requested day, paired with `stale`; absent on recaps built before freshness metadata. */
@@ -130,8 +138,6 @@ export declare const SocialRecapOutputSchema: z.ZodObject<{
             uncertain: z.ZodBoolean;
         }, z.core.$strict>;
     }, z.core.$strict>>;
-    /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
-    pageUrl: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export declare const SocialTopicGetOutputSchema: z.ZodObject<{
     topicId: z.ZodString;

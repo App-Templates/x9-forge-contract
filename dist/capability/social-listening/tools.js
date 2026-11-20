@@ -83,8 +83,18 @@ export function socialAscoltoPagePath(agentSlug) {
         return null;
     }
 }
+/** The sentence that introduces the Ascolto page link; written once, here. */
+export const SOCIAL_ASCOLTO_PAGE_LINE_PREFIX = 'Apri la pagina Ascolto: ';
+/** Ready-to-send line with the Ascolto page link. */
+export function socialAscoltoPageLine(pageUrl) {
+    return SOCIAL_ASCOLTO_PAGE_LINE_PREFIX + pageUrl;
+}
 /** One shape for Telegram and X9 Live web. */
 export const SocialRecapOutputSchema = z.strictObject({
+    /** Ready-to-send line with the Ascolto page link; the first thing in the result. */
+    pageLine: z.string().max(400).optional(),
+    /** Link to the agent's Ascolto page in Forge, up front so the model sees it before the topics; absent when the service has no page template or cannot resolve the agent slug. */
+    pageUrl: WebUrlSchema.optional(),
     verticalId: SocialVerticalIdSchema,
     day: AgentDaySchema,
     /** The requested day, paired with `stale`; absent on recaps built before freshness metadata. */
@@ -99,9 +109,10 @@ export const SocialRecapOutputSchema = z.strictObject({
     /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
     costPerPostUsd: z.number().nonnegative().finite().optional(),
     topics: z.array(SocialRecapTopicSummarySchema).max(50),
-    /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
-    pageUrl: WebUrlSchema.optional(),
 }).superRefine((r, ctx) => {
+    if (r.pageLine !== undefined && (r.pageUrl === undefined || r.pageLine !== socialAscoltoPageLine(r.pageUrl))) {
+        ctx.addIssue({ code: 'custom', path: ['pageLine'], message: 'pageLine must be socialAscoltoPageLine(pageUrl)' });
+    }
     if ((r.requestedDay === undefined) !== (r.stale === undefined)) {
         ctx.addIssue({
             code: 'custom',
