@@ -62,7 +62,7 @@ export const SocialTopicSaveWikiOutputSchema = z.strictObject({
 export type SocialTopicSaveWikiOutput = z.infer<typeof SocialTopicSaveWikiOutputSchema>;
 
 export const SocialTopicWikiToolErrorSchema = z.enum([
-  'invalid_request', 'not_configured', 'unknown_topic', 'nothing_to_save', 'lab_not_enabled',
+  'invalid_request', 'not_configured', 'unknown_topic', 'nothing_to_save', 'lab_not_enabled', 'research_not_ready',
 ]);
 export type SocialTopicWikiToolError = z.infer<typeof SocialTopicWikiToolErrorSchema>;
 
