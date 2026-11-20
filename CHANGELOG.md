@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.252.0 — cap-dev can ask cap-paperclip to open a session child (task 8037)
+
+- Additive route contract `internalPaperclipSeatSessionChildContract`: a verified chief identity and source run, a valid session block up to 100000 characters, and a `dev-session:` key of at most 255 characters. The company creation route preserves the company-wide seven-day idempotency key; the children route does not.
+- Results are `opened`, `duplicate`, `executor_missing`, `executor_ambiguous` and the source-run refusals. Only `opened` and `duplicate` carry the child UUID, Paperclip identifier and executor UUID; `duplicate` replays the original child without creating one.
+- The wake contract is unchanged. Consumers move their pin first; this package alone does not open sessions or release the consumer flow.
+
 ## v1.251.0 — a session and its branch can be named by the Paperclip identifier (task 8036)
 
 - Additive in `capability/dev/session-assignment`: `devSessionIdFromIdentifier` and `devSessionBranchFromIdentifier` (`GOO-214` gives `GOO-214` and `consegna/GOO-214`); the verified result accepts both name forms, and a Paperclip name must carry the result's `issue` number (`session_id_issue_mismatch`).

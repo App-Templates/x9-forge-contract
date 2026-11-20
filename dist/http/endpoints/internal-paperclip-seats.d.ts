@@ -1011,4 +1011,92 @@ export type InternalPaperclipSeatNativeWakeRequest = z.infer<typeof InternalPape
 export type InternalPaperclipSeatNativeWakeResponse = z.infer<typeof InternalPaperclipSeatNativeWakeResponseSchema>;
 export type PaperclipSeatNativeWakeEvent = z.infer<typeof PaperclipSeatNativeWakeEventSchema>;
 export type PaperclipSeatNativeWakeResult = z.infer<typeof PaperclipSeatNativeWakeResultSchema>;
+export declare const INTERNAL_PAPERCLIP_SEAT_SESSION_CHILD_PATH: "/internal/paperclip/seats/session-child";
+export declare const DEV_SESSION_PAPERCLIP_DESCRIPTION_MAX = 100000;
+export declare const InternalPaperclipSeatSessionChildRequestSchema: z.ZodObject<{
+    organizationId: z.ZodString;
+    identity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    sourceRunId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+    sessionKey: z.ZodString;
+    title: z.ZodString;
+    description: z.ZodString;
+}, z.core.$strict>;
+export declare const PAPERCLIP_SEAT_SESSION_CHILD_RESULTS: readonly ["opened", "duplicate", "executor_missing", "executor_ambiguous", "source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
+export declare const PaperclipSeatSessionChildResultSchema: z.ZodEnum<{
+    duplicate: "duplicate";
+    opened: "opened";
+    source_run_unknown: "source_run_unknown";
+    source_run_without_issue: "source_run_without_issue";
+    source_issue_not_agents: "source_issue_not_agents";
+    source_issue_closed: "source_issue_closed";
+    executor_missing: "executor_missing";
+    executor_ambiguous: "executor_ambiguous";
+}>;
+export declare const InternalPaperclipSeatSessionChildResponseSchema: z.ZodObject<{
+    result: z.ZodEnum<{
+        duplicate: "duplicate";
+        opened: "opened";
+        source_run_unknown: "source_run_unknown";
+        source_run_without_issue: "source_run_without_issue";
+        source_issue_not_agents: "source_issue_not_agents";
+        source_issue_closed: "source_issue_closed";
+        executor_missing: "executor_missing";
+        executor_ambiguous: "executor_ambiguous";
+    }>;
+    issueId: z.ZodOptional<z.ZodUUID>;
+    identifier: z.ZodOptional<z.ZodString>;
+    executorAgentId: z.ZodOptional<z.ZodUUID>;
+}, z.core.$strict>;
+/**
+ * cap-paperclip writes POST /api/companies/:companyId/issues with
+ * { title, description, parentId, assigneeAgentId, status: 'todo', idempotencyKey: sessionKey }.
+ * Never use /issues/:id/children: that route silently ignores the idempotency key.
+ * The key includes the chief's session number and attempt, and is company-wide for seven days.
+ */
+export declare const internalPaperclipSeatSessionChildContract: {
+    readonly method: "POST";
+    readonly path: "/internal/paperclip/seats/session-child";
+    readonly authType: "secret";
+    readonly bodySchema: z.ZodObject<{
+        organizationId: z.ZodString;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        sourceRunId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        sessionKey: z.ZodString;
+        title: z.ZodString;
+        description: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        result: z.ZodEnum<{
+            duplicate: "duplicate";
+            opened: "opened";
+            source_run_unknown: "source_run_unknown";
+            source_run_without_issue: "source_run_without_issue";
+            source_issue_not_agents: "source_issue_not_agents";
+            source_issue_closed: "source_issue_closed";
+            executor_missing: "executor_missing";
+            executor_ambiguous: "executor_ambiguous";
+        }>;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        identifier: z.ZodOptional<z.ZodString>;
+        executorAgentId: z.ZodOptional<z.ZodUUID>;
+    }, z.core.$strict>;
+    readonly errorResponseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodEnum<{
+            paperclip_unavailable: "paperclip_unavailable";
+            wake_timeout: "wake_timeout";
+        }>;
+    }, z.core.$strict>;
+};
+export type InternalPaperclipSeatSessionChildRequest = z.infer<typeof InternalPaperclipSeatSessionChildRequestSchema>;
+export type InternalPaperclipSeatSessionChildResponse = z.infer<typeof InternalPaperclipSeatSessionChildResponseSchema>;
+export type PaperclipSeatSessionChildResult = z.infer<typeof PaperclipSeatSessionChildResultSchema>;
 //# sourceMappingURL=internal-paperclip-seats.d.ts.map

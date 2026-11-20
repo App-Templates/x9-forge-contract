@@ -707,16 +707,35 @@ describe('s8035 pacchetto-1-250-0', () => {
 });
 
 describe('s8036 pacchetto-1-251-0', () => {
-  it('s8036_version: package and first release are 1.251.0 and retain 1.250.0', () => {
+  it('s8036_version: the 1.251.0 release stays in the changelog and retains 1.250.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.251.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.251.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.251.0');
     expect(changelog).toContain('## v1.250.0');
   });
 
   it('s8036_map: the narrow-import map has the version and the identifier-based branch name', () => {
     const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
-    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.251.0');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe(packageVersion());
     expect(text).toContain('devSessionBranchFromIdentifier');
+  });
+});
+
+describe('s8037 pacchetto-1-252-0', () => {
+  it('s8037_version: package and first release are 1.252.0 and retain 1.251.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.252.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.252.0');
+    expect(changelog).toContain('## v1.251.0');
+  });
+
+  it('s8037_map: the narrow-import map has the version and the session child contract', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
+      versione: string;
+      barili: Record<string, Record<string, string>>;
+    };
+    expect(map.versione).toBe('1.252.0');
+    expect(map.barili['@x9-forge/contracts/http']?.internalPaperclipSeatSessionChildContract)
+      .toBe('@x9-forge/contracts/http/endpoints/internal-paperclip-seats');
   });
 });

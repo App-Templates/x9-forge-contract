@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { InboundEventDispositionSchema } from '../../capability/paperclip/inbound-event.js';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
 import { RunIdSchema } from '../../organization/run-context.js';
+import { SessionIdSchema } from '../../organization/asset-version.js';
 import { CapabilityAgentScopeSchema } from '../../capability/capability-call-identity.js';
 import { AgentRequestSchema } from '../../organization/agent-request.js';
 import { AssetRefSchema, AssetSha256Schema } from '../../organization/asset.js';
@@ -11,6 +12,7 @@ import {
   DevSessionAssignmentSchema,
   DevSessionCommitSchema,
   DevSessionResultSchema,
+  parseDevSessionBlock,
 } from '../../capability/dev/session-assignment.js';
 import {
   PaperclipActivityInputSchema,
@@ -447,3 +449,63 @@ export type InternalPaperclipSeatNativeWakeRequest = z.infer<typeof InternalPape
 export type InternalPaperclipSeatNativeWakeResponse = z.infer<typeof InternalPaperclipSeatNativeWakeResponseSchema>;
 export type PaperclipSeatNativeWakeEvent = z.infer<typeof PaperclipSeatNativeWakeEventSchema>;
 export type PaperclipSeatNativeWakeResult = z.infer<typeof PaperclipSeatNativeWakeResultSchema>;
+
+export const INTERNAL_PAPERCLIP_SEAT_SESSION_CHILD_PATH = '/internal/paperclip/seats/session-child' as const;
+// Paperclip takes up to 10 MB; the session block is larger than the 20000-character bridge creation body.
+export const DEV_SESSION_PAPERCLIP_DESCRIPTION_MAX = 100000;
+
+export const InternalPaperclipSeatSessionChildRequestSchema = z.strictObject({
+  organizationId: InternalPaperclipSeatsQuerySchema.shape.organizationId,
+  // cap-dev supplies the chief's identity from the verified call, never from the model.
+  identity: ParticipantAgentIdentitySchema,
+  // cap-paperclip reads the parent from the chief's run, never from the description.
+  sourceRunId: RunIdSchema,
+  sessionKey: z.string().min(1).max(255).regex(/^dev-session:[A-Za-z0-9._:-]+$/),
+  title: DevSessionAssignmentSchema.shape.title,
+  description: z.string().min(1).max(DEV_SESSION_PAPERCLIP_DESCRIPTION_MAX)
+    .refine(description => parseDevSessionBlock(description).ok, 'session_block_invalid'),
+});
+
+export const PAPERCLIP_SEAT_SESSION_CHILD_RESULTS = [
+  'opened', 'duplicate', 'executor_missing', 'executor_ambiguous', ...PAPERCLIP_SOURCE_RUN_REFUSALS,
+] as const;
+export const PaperclipSeatSessionChildResultSchema = z.enum(PAPERCLIP_SEAT_SESSION_CHILD_RESULTS);
+
+// duplicate means Paperclip answered 200 with the same child; nothing was created.
+export const InternalPaperclipSeatSessionChildResponseSchema = z.strictObject({
+  result: PaperclipSeatSessionChildResultSchema,
+  issueId: z.uuid().optional(),
+  // This route returns a Paperclip child, so the legacy R<n> session form cannot identify it.
+  identifier: SessionIdSchema.refine(identifier => identifier.includes('-'),
+    'Paperclip identifier required').optional(),
+  executorAgentId: z.uuid().optional(),
+}).superRefine((value, ctx) => {
+  const hasChild = value.result === 'opened' || value.result === 'duplicate';
+  for (const field of ['issueId', 'identifier', 'executorAgentId'] as const) {
+    if (hasChild && value[field] === undefined) {
+      ctx.addIssue({ code: 'custom', message: `${value.result} requires ${field}`, path: [field] });
+    }
+    if (!hasChild && value[field] !== undefined) {
+      ctx.addIssue({ code: 'custom', message: `${value.result} must not carry ${field}`, path: [field] });
+    }
+  }
+});
+
+/**
+ * cap-paperclip writes POST /api/companies/:companyId/issues with
+ * { title, description, parentId, assigneeAgentId, status: 'todo', idempotencyKey: sessionKey }.
+ * Never use /issues/:id/children: that route silently ignores the idempotency key.
+ * The key includes the chief's session number and attempt, and is company-wide for seven days.
+ */
+export const internalPaperclipSeatSessionChildContract = {
+  method: 'POST' as const,
+  path: INTERNAL_PAPERCLIP_SEAT_SESSION_CHILD_PATH,
+  authType: 'secret' as const,
+  bodySchema: InternalPaperclipSeatSessionChildRequestSchema,
+  responseSchema: InternalPaperclipSeatSessionChildResponseSchema,
+  errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
+} as const;
+
+export type InternalPaperclipSeatSessionChildRequest = z.infer<typeof InternalPaperclipSeatSessionChildRequestSchema>;
+export type InternalPaperclipSeatSessionChildResponse = z.infer<typeof InternalPaperclipSeatSessionChildResponseSchema>;
+export type PaperclipSeatSessionChildResult = z.infer<typeof PaperclipSeatSessionChildResultSchema>;
