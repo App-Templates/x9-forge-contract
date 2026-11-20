@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.276.0",
+  "versione": "1.277.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1523,6 +1523,8 @@
       "SOCIAL_ADOPTION_STATES": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SOCIAL_ADOPTION_TOOLS": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SOCIAL_ASCOLTO_PAGE_PATH": "@x9-forge/contracts/capability/social-listening/tools",
+      "SOCIAL_COSTS_REPORT_MAX_DAYS": "@x9-forge/contracts/capability/social-listening/costs",
+      "SOCIAL_COSTS_TOOLS": "@x9-forge/contracts/capability/social-listening/costs",
       "SOCIAL_CREATORS_RANK_DAYS_DEFAULT": "@x9-forge/contracts/capability/social-listening/creators",
       "SOCIAL_CREATORS_RANK_LIMIT_DEFAULT": "@x9-forge/contracts/capability/social-listening/creators",
       "SOCIAL_CREATORS_TOOLS": "@x9-forge/contracts/capability/social-listening/creators",
@@ -1586,6 +1588,11 @@
       "SocialCategorySlugSchema": "@x9-forge/contracts/capability/social-listening/topic",
       "SocialClockTimeSchema": "@x9-forge/contracts/capability/social-listening/config",
       "SocialCostMeasurementSchema": "@x9-forge/contracts/capability/social-listening/fact-memory",
+      "SocialCostsAuthorSchema": "@x9-forge/contracts/capability/social-listening/costs",
+      "SocialCostsReportInputSchema": "@x9-forge/contracts/capability/social-listening/costs",
+      "SocialCostsReportOutputSchema": "@x9-forge/contracts/capability/social-listening/costs",
+      "SocialCostsRoundSchema": "@x9-forge/contracts/capability/social-listening/costs",
+      "SocialCostsToolErrorSchema": "@x9-forge/contracts/capability/social-listening/costs",
       "SocialCreatorRankSchema": "@x9-forge/contracts/capability/social-listening/creators",
       "SocialCreatorsRankInputSchema": "@x9-forge/contracts/capability/social-listening/creators",
       "SocialCreatorsRankOutputSchema": "@x9-forge/contracts/capability/social-listening/creators",

@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.277.0 — social listening costs report tool (task 3949)
+
+- `SOCIAL_COSTS_TOOLS`, `SocialCostsReportInputSchema` and `SocialCostsReportOutputSchema` describe the read-only `social_costs_report` tool.
+- The output is checked for coherence: each round's cost per post matches spend over posts seen, the server average matches the summed server rounds, and each author's monthly cost comes from `socialMonthlyCostPerAuthor`.
+- Additive; `SOCIAL_LISTENING_TOOLS` is unchanged.
+
 ## v1.276.0 — social listening spend route, recap cost per post and Ascolto page path (tasks 3945, 3946, 3947)
 
 - `socialAgentSpendContract` exposes the same spend path and shape as the other capabilities, with rows whose capability is `social`.
