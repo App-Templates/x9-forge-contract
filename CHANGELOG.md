@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.284.0 — social listening: recap of the last finished round before the requested day (task 3962)
+
+- `SocialRecapInputSchema.day` now carries a description for the model.
+- `SocialRecapOutputSchema` gains optional `requestedDay` and `stale`: both or neither must be present; `stale` is true exactly when `day` differs from `requestedDay`, and `day` is never after `requestedDay`.
+- `unknown_vertical` is unchanged; outputs without the new fields stay valid.
+
 ## v1.283.0 — social listening: server verification runs on the server executor (task 3960)
 
 - `socialJobRoute('verify', 'server')` now returns `{ runner: 'executor', executor: 'server', tool: 'claude_p' }` instead of the cap-ricerca route.

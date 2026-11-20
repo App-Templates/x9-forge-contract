@@ -43,7 +43,7 @@ exports.SOCIAL_FOLLOWED_PROFILES_MAX = 100;
 exports.SocialRecapInputSchema = zod_1.z.strictObject({
     verticalId: post_js_1.SocialVerticalIdSchema.optional(),
     /** Without `day`: the last finished round. */
-    day: spend_js_1.AgentDaySchema.optional(),
+    day: spend_js_1.AgentDaySchema.optional().describe("Giorno richiesto (AAAA-MM-GG); se non c'è un giro finito quel giorno si riceve l'ultimo giro finito prima. Senza giorno: l'ultimo giro finito."),
 });
 exports.SocialTopicGetInputSchema = zod_1.z.strictObject({ topicId: zod_1.z.string().min(1).max(100) });
 exports.SocialProfilesListInputSchema = zod_1.z.strictObject({ verticalId: post_js_1.SocialVerticalIdSchema.optional() });
@@ -91,6 +91,10 @@ function socialAscoltoPagePath(agentSlug) {
 exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     verticalId: post_js_1.SocialVerticalIdSchema,
     day: spend_js_1.AgentDaySchema,
+    /** The requested day, paired with `stale`; absent on recaps built before freshness metadata. */
+    requestedDay: spend_js_1.AgentDaySchema.optional(),
+    /** Whether the returned round predates `requestedDay`; present only with `requestedDay`. */
+    stale: zod_1.z.boolean().optional(),
     track: topic_js_1.SocialTrackSchema,
     finishedAt: zod_1.z.iso.datetime({ offset: true }).nullable(),
     counts: zod_1.z.strictObject(Object.fromEntries(topic_js_1.SOCIAL_VERDICTS.map(v => [v, NonNegativeIntSchema]))),
@@ -102,6 +106,21 @@ exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
     pageUrl: research_js_1.WebUrlSchema.optional(),
 }).superRefine((r, ctx) => {
+    if ((r.requestedDay === undefined) !== (r.stale === undefined)) {
+        ctx.addIssue({
+            code: 'custom',
+            path: [r.requestedDay === undefined ? 'requestedDay' : 'stale'],
+            message: 'requestedDay and stale must be present together',
+        });
+    }
+    if (r.requestedDay !== undefined && r.stale !== undefined) {
+        if (r.stale !== (r.day !== r.requestedDay)) {
+            ctx.addIssue({ code: 'custom', path: ['stale'], message: 'stale must match whether day differs from requestedDay' });
+        }
+        if (r.day > r.requestedDay) {
+            ctx.addIssue({ code: 'custom', path: ['requestedDay'], message: 'requestedDay must not precede day' });
+        }
+    }
     if (r.costPerPostUsd === undefined)
         return;
     if (r.costPerPostUsd !== (0, fact_memory_js_1.socialCostPerPost)({ spentUsd: r.spentUsd, postsSeen: r.postsSeen })) {

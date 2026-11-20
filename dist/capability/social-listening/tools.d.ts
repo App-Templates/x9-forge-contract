@@ -96,6 +96,10 @@ export declare function socialAscoltoPagePath(agentSlug: unknown): string | null
 export declare const SocialRecapOutputSchema: z.ZodObject<{
     verticalId: z.ZodString;
     day: z.ZodString;
+    /** The requested day, paired with `stale`; absent on recaps built before freshness metadata. */
+    requestedDay: z.ZodOptional<z.ZodString>;
+    /** Whether the returned round predates `requestedDay`; present only with `requestedDay`. */
+    stale: z.ZodOptional<z.ZodBoolean>;
     track: z.ZodEnum<{
         server: "server";
         mac: "mac";
