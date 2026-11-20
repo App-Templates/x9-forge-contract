@@ -41,8 +41,7 @@ export function socialJobRoute(kind: SocialJobKind, track: SocialTrack): SocialJ
         return { runner: 'service', source: 'meta_graph' };
       case 'transcribe':
         return { runner: 'capability', capability: 'stt', tool: 'transcribe' };
-      case 'verify':
-        return { runner: 'capability', capability: 'ricerca', tool: RICERCA_TOOLS.start };
+      case 'verify': // D10 standard verification: server executor, same step as the Mac
       case 'filter':
       case 'group':
         return { runner: 'executor', executor: 'server', tool: 'claude_p' };

@@ -4,6 +4,7 @@ import {
   SOCIAL_JOB_KINDS,
   SOCIAL_JOB_TOOL,
   SOCIAL_SERVER_VERIFY_ESTIMATE_USD,
+  SOCIAL_TRACK_EXECUTOR,
   socialCapDecision,
   socialJobRoute,
   socialServerVerifyEstimate,
@@ -24,7 +25,7 @@ describe('social job routing and server verification reservation', () => {
     const expected: Record<SocialJobKind, SocialJobRoute> = {
       collect: { runner: 'service', source: 'meta_graph' },
       transcribe: { runner: 'capability', capability: 'stt', tool: 'transcribe' },
-      verify: { runner: 'capability', capability: 'ricerca', tool: RICERCA_TOOLS.start },
+      verify: { runner: 'executor', executor: 'server', tool: 'claude_p' },
       filter: { runner: 'executor', executor: 'server', tool: 'claude_p' },
       group: { runner: 'executor', executor: 'server', tool: 'claude_p' },
     };
@@ -37,6 +38,13 @@ describe('social job routing and server verification reservation', () => {
         expect(route.tool).not.toBe('mlx_whisper');
       }
     }
+  });
+
+  it('(f) s3960 the server verify runs on the server executor with the Mac verify tool', () => {
+    expect(socialJobRoute('verify', 'server')).toEqual({
+      runner: 'executor', executor: SOCIAL_TRACK_EXECUTOR.server, tool: SOCIAL_JOB_TOOL.verify,
+    });
+    expect(socialJobRoute('verify', 'mac').tool === socialJobRoute('verify', 'server').tool).toBe(true);
   });
 
   it('(c) rejects unknown tracks and job kinds with a TypeError', () => {
