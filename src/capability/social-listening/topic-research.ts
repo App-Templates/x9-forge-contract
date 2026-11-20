@@ -17,6 +17,9 @@ import type { SocialTopicGetOutput } from './tools.js';
  */
 export const SOCIAL_TOPIC_RESEARCH_TOOLS = { start: 'social_topic_research' } as const;
 
+/** Fixed caller-specific research limits for the $0.30 ceiling (D18). */
+export const SOCIAL_RESEARCH_NARROW_PARAMS = { maxToolCalls: 1, searchContextSize: 'low', reasoningEffort: 'low' } as const;
+
 const TopicIdSchema = SocialTopicSchema.shape.topicId;
 
 export const SocialTopicResearchInputSchema = z.strictObject({ topicId: TopicIdSchema });
@@ -31,7 +34,7 @@ export type SocialTopicResearchOutput = z.infer<typeof SocialTopicResearchOutput
 
 export const SocialTopicResearchToolErrorSchema = z.enum([
   'invalid_request', 'not_configured', 'unknown_topic', 'already_researched',
-  'research_cap_reached', 'research_not_enabled',
+  'research_cap_reached', 'research_not_enabled', 'research_budget_exhausted',
 ]);
 export type SocialTopicResearchToolError = z.infer<typeof SocialTopicResearchToolErrorSchema>;
 
@@ -49,6 +52,7 @@ export function socialTopicResearchRequest(
     question,
     goal: "Approfondire con fonti aperte un argomento dell'ascolto social: confermare o smentire i fatti",
     maxUsd: research.maxUsdPerResearch,
+    params: SOCIAL_RESEARCH_NARROW_PARAMS,
   });
 }
 

@@ -62,6 +62,7 @@ describe('social_topic_research', () => {
       question: `Verifica e approfondisci: ${topic.title}. ${topic.summary}`,
       goal: "Approfondire con fonti aperte un argomento dell'ascolto social: confermare o smentire i fatti",
       maxUsd: 0.3,
+      params: { maxToolCalls: 1, searchContextSize: 'low', reasoningEffort: 'low' },
     });
     expect(socialTopicResearchRequest(topic, { maxUsdPerResearch: 0.2, dailyCapUsd: 0.8 }).maxUsd).toBe(0.2);
     expect(() => socialTopicResearchRequest(topic, { ...research, maxUsdPerResearch: -1 })).toThrow();
@@ -121,7 +122,7 @@ describe('social_topic_research', () => {
     }
     expect(SocialTopicResearchToolErrorSchema.options).toEqual([
       'invalid_request', 'not_configured', 'unknown_topic', 'already_researched',
-      'research_cap_reached', 'research_not_enabled',
+      'research_cap_reached', 'research_not_enabled', 'research_budget_exhausted',
     ]);
   });
 });
