@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.282.0 — dev session acceptance contracts from the ec-ponte line (tasks 3924-3927)
+
+- New: the acceptance criterion and the optional `acceptance`/`base` fields of the session assignment, the templates and evidence catalog, the Paperclip texts and image coverage, the session attestation with the requirements verdict and the Mandate criteria check.
+- Identical to ec-ponte 1.243.0 (tasks 7560-7565, 7571); no existing symbol changes.
+- Assignments without the new fields keep the same canonical JSON and digest.
+
 ## v1.281.0 — social listening: names of the cap-video tools the Ascolto calls and the brief output (task 3958)
 
 - `SOCIAL_VIDEO_CAPABILITY`, `SOCIAL_VIDEO_TOOLS` and `socialTopicBriefOutputFromVideo` are new.

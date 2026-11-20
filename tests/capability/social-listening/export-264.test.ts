@@ -25,7 +25,7 @@ console.log(t === 'Pulizia Android TV' && m.SOCIAL_TOPIC_TITLE_MAX === 31 ? 'OK'
 describe('s3633 social-listening 1.264.0 in the built package', () => {
   it('s3633 (a) package.json has a version in the 1.264.0-1.281.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(2(6[4-9]|7\d)|28[01])\.\d+$/);
+    expect(pkg.version).toMatch(/^1\.(2(6[4-9]|7\d)|28[0-2])\.\d+$/);
   });
 
   it('s3633 (b) the short title closes on the last full word from ESM', () => {

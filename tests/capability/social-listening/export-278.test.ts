@@ -41,7 +41,7 @@ console.log('OK');
 describe('s3952 public topic wiki reverify rule in package 1.278.0', () => {
   it('s3952 (a) package.json has a version in the 1.278.0-1.281.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(27[8-9]|28[01])\.0$/);
+    expect(pkg.version).toMatch(/^1\.(27[8-9]|28[0-2])\.0$/);
   });
 
   it('s3952 (b) the public topic rule works from ESM', () => {

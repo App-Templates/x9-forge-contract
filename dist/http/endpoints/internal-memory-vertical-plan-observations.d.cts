@@ -107,8 +107,8 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
                     budget: "budget";
                     reviewer: "reviewer";
                     executor: "executor";
-                    rd_dossier: "rd_dossier";
                     criteria: "criteria";
+                    rd_dossier: "rd_dossier";
                 }>;
                 asset: z.ZodObject<{
                     assetId: z.ZodString;
@@ -436,8 +436,8 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                         budget: "budget";
                         reviewer: "reviewer";
                         executor: "executor";
-                        rd_dossier: "rd_dossier";
                         criteria: "criteria";
+                        rd_dossier: "rd_dossier";
                     }>;
                     asset: z.ZodObject<{
                         assetId: z.ZodString;
@@ -766,8 +766,8 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                         budget: "budget";
                         reviewer: "reviewer";
                         executor: "executor";
-                        rd_dossier: "rd_dossier";
                         criteria: "criteria";
+                        rd_dossier: "rd_dossier";
                     }>;
                     asset: z.ZodObject<{
                         assetId: z.ZodString;
@@ -1131,8 +1131,8 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                             budget: "budget";
                             reviewer: "reviewer";
                             executor: "executor";
-                            rd_dossier: "rd_dossier";
                             criteria: "criteria";
+                            rd_dossier: "rd_dossier";
                         }>;
                         asset: z.ZodObject<{
                             assetId: z.ZodString;
@@ -1475,8 +1475,8 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                         budget: "budget";
                         reviewer: "reviewer";
                         executor: "executor";
-                        rd_dossier: "rd_dossier";
                         criteria: "criteria";
+                        rd_dossier: "rd_dossier";
                     }>;
                     asset: z.ZodObject<{
                         assetId: z.ZodString;
@@ -1803,8 +1803,8 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                             budget: "budget";
                             reviewer: "reviewer";
                             executor: "executor";
-                            rd_dossier: "rd_dossier";
                             criteria: "criteria";
+                            rd_dossier: "rd_dossier";
                         }>;
                         asset: z.ZodObject<{
                             assetId: z.ZodString;
