@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.289.0 — social listening: optional endReason on the recap of a failed round (task 9860)
+
+- Task 9860: `SocialRecapOutputSchema` gains optional `endReason`, validated by `SocialRecapEndReasonSchema`, with a code and text explaining why the round ended.
+- Additive only; recaps without `endReason` stay valid and `SOCIAL_LISTENING_TOOLS` is unchanged.
+
 ## v1.288.0 — social listening: optimized round estimate, round optimization report and P0 cost table (tasks 9800, 9801, 9802)
 
 - Task 9800: `SOCIAL_OPTIMIZED_COST_PER_POST_USD`, `SOCIAL_COST_NEAR_TOLERANCE` and `socialCostVsEstimate` tell whether a measured cost per post is near the optimized round estimate.

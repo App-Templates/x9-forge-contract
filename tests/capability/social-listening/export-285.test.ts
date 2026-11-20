@@ -44,9 +44,9 @@ console.log('OK');
 `;
 
 describe('s9701 recap page link first in package 1.285.0', () => {
-  it('s9701 (a) package.json has version 1.288.0', () => {
+  it('s9701 (a) package.json has version 1.289.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(285|287|288)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(285|287|288|289)\.0$/);
   });
 
   it('s9701 (b) the recap page line works from ESM', () => {

@@ -30,9 +30,9 @@ console.log('OK');
 `;
 
 describe('s3928 dev session acceptance contracts in package 1.282.0', () => {
-  it('s3928 (a) package.json has a version in the 1.282.0-1.288.0 band', () => {
+  it('s3928 (a) package.json has a version in the 1.282.0-1.289.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(282|283|284|285|287|288)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(282|283|284|285|287|288|289)\.0$/);
   });
 
   it('s3928 (b) the session acceptance exports work from ESM', () => {

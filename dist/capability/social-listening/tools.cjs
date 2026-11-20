@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialRecapOutputSchema = exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX = exports.SOCIAL_ASCOLTO_PAGE_PATH = exports.SocialRecapTopicSummarySchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
+exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialRecapOutputSchema = exports.SocialRecapEndReasonSchema = exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX = exports.SOCIAL_ASCOLTO_PAGE_PATH = exports.SocialRecapTopicSummarySchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
 exports.socialAscoltoPagePath = socialAscoltoPagePath;
 exports.socialAscoltoPageLine = socialAscoltoPageLine;
 const zod_1 = require("zod");
@@ -94,6 +94,14 @@ exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX = 'Apri la pagina Ascolto: ';
 function socialAscoltoPageLine(pageUrl) {
     return exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX + pageUrl;
 }
+/**
+ * Why a failed round failed: a short code and one sentence in Italian for the user;
+ * present only when the round state is `failed`; never the raw job error (it may hold addresses or private data).
+ */
+exports.SocialRecapEndReasonSchema = zod_1.z.strictObject({
+    code: zod_1.z.string().regex(/^[a-z][a-z0-9_]{0,47}$/),
+    text: zod_1.z.string().min(1).max(200),
+});
 /** One shape for Telegram and X9 Live web. */
 exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     /** Ready-to-send line with the Ascolto page link; the first thing in the result. */
@@ -113,6 +121,7 @@ exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     spentUsd: zod_1.z.number().nonnegative().finite(),
     /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
     costPerPostUsd: zod_1.z.number().nonnegative().finite().optional(),
+    endReason: exports.SocialRecapEndReasonSchema.optional(),
     topics: zod_1.z.array(exports.SocialRecapTopicSummarySchema).max(50),
 }).superRefine((r, ctx) => {
     if (r.pageLine !== undefined && (r.pageUrl === undefined || r.pageLine !== socialAscoltoPageLine(r.pageUrl))) {

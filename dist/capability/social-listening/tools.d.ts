@@ -96,6 +96,15 @@ export declare function socialAscoltoPagePath(agentSlug: unknown): string | null
 export declare const SOCIAL_ASCOLTO_PAGE_LINE_PREFIX: "Apri la pagina Ascolto: ";
 /** Ready-to-send line with the Ascolto page link. */
 export declare function socialAscoltoPageLine(pageUrl: string): string;
+/**
+ * Why a failed round failed: a short code and one sentence in Italian for the user;
+ * present only when the round state is `failed`; never the raw job error (it may hold addresses or private data).
+ */
+export declare const SocialRecapEndReasonSchema: z.ZodObject<{
+    code: z.ZodString;
+    text: z.ZodString;
+}, z.core.$strict>;
+export type SocialRecapEndReason = z.infer<typeof SocialRecapEndReasonSchema>;
 /** One shape for Telegram and X9 Live web. */
 export declare const SocialRecapOutputSchema: z.ZodObject<{
     /** Ready-to-send line with the Ascolto page link; the first thing in the result. */
@@ -118,6 +127,10 @@ export declare const SocialRecapOutputSchema: z.ZodObject<{
     spentUsd: z.ZodNumber;
     /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
     costPerPostUsd: z.ZodOptional<z.ZodNumber>;
+    endReason: z.ZodOptional<z.ZodObject<{
+        code: z.ZodString;
+        text: z.ZodString;
+    }, z.core.$strict>>;
     topics: z.ZodArray<z.ZodObject<{
         topicId: z.ZodString;
         title: z.ZodString;

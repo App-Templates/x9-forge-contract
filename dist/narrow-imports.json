@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.288.0",
+  "versione": "1.289.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1693,6 +1693,7 @@
       "SocialProfilesListInputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialProfilesListOutputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialProviderSchema": "@x9-forge/contracts/capability/social-listening/post",
+      "SocialRecapEndReasonSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialRecapInputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialRecapOutputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialRecapTopicSummarySchema": "@x9-forge/contracts/capability/social-listening/tools",
