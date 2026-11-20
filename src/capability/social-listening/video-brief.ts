@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   VideoBriefRequestSchema,
+  VideoBriefResponseSchema,
   VideoProjectIdSchema,
   VideoProjectStateSchema,
 } from '../video/brief.js';
@@ -65,6 +66,34 @@ export function socialTopicAfterBrief(
   const next = SocialTopicSchema.safeParse({ ...topic, videoProjectId: parsed.data.projectId });
   if (!next.success) return { ok: false, error: 'invalid_output' };
   return { ok: true, topic: next.data };
+}
+
+/**
+ * Name of the capability in the agent's registry, and the cap-video tools the social page calls through the
+ * factory's generic capability route. Their schemas stay in `capability/video` (`VideoBriefToolInputSchema`,
+ * `VideoPresetsListToolInputSchema`, `VideoPresetsListResponseSchema`, `VideoBriefResponseSchema`).
+ */
+export const SOCIAL_VIDEO_CAPABILITY = 'video' as const;
+export const SOCIAL_VIDEO_TOOLS = { brief: 'video_brief_create', presets: 'video_presets_list' } as const;
+
+/**
+ * cap-video's brief response as the topic output: only project and state are kept (identity, preset, mode and
+ * budget are dropped). Never throws.
+ */
+export function socialTopicBriefOutputFromVideo(
+  topicId: unknown,
+  response: unknown,
+): { ok: true; output: SocialTopicBriefOutput } | { ok: false; error: 'invalid_output' } {
+  const id = TopicIdSchema.safeParse(topicId);
+  const video = VideoBriefResponseSchema.safeParse(response);
+  if (!id.success || !video.success) return { ok: false, error: 'invalid_output' };
+  const output = SocialTopicBriefOutputSchema.safeParse({
+    topicId: id.data,
+    externalRef: socialVideoExternalRef(id.data),
+    projectId: video.data.projectId,
+    state: video.data.state,
+  });
+  return output.success ? { ok: true, output: output.data } : { ok: false, error: 'invalid_output' };
 }
 
 export const SocialTopicBriefToolErrorSchema = z.enum([
