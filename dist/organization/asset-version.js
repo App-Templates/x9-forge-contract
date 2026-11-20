@@ -7,10 +7,13 @@ export const AssetVersionFileSchema = z.strictObject({
     assetId: AssetRefSchema.shape.assetId,
     sha256: AssetRefSchema.shape.sha256,
 });
+// A session id is R<n> (GitHub issue, until the executor moves to Paperclip) or the Paperclip identifier
+// <company prefix>-<n>; the prefix tells two companies' sessions apart (consumers key on this schema, R-14).
+export const SessionIdSchema = z.string().regex(/^(?:R[1-9][0-9]*|[A-Z][A-Z0-9]{1,15}-[1-9][0-9]*)$/);
 export const AssetVersionProvenanceSchema = z.strictObject({
     createdBy: ParticipantAgentIdentitySchema,
     paperclipIssueId: z.uuid().optional(),
-    sessionId: z.string().regex(/^R[1-9][0-9]*$/).optional(),
+    sessionId: SessionIdSchema.optional(),
     repo: AssetOriginSchema.options[2].shape.repo,
     branch: z.string().min(1).optional(),
     commit: AssetOriginSchema.options[2].shape.commit,

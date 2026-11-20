@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ASSET_VERSION_DUPLICATE = exports.ASSET_VERSION_TRANSITIONS = exports.AssetVersionStateSchema = exports.ASSET_VERSION_STATES = exports.AssetVersionLeadReviewSchema = exports.ASSET_VERSION_REDO_REASON_MESSAGE = exports.AssetVersionRecordSchema = exports.AssetVersionProvenanceSchema = exports.AssetVersionFileSchema = void 0;
+exports.ASSET_VERSION_DUPLICATE = exports.ASSET_VERSION_TRANSITIONS = exports.AssetVersionStateSchema = exports.ASSET_VERSION_STATES = exports.AssetVersionLeadReviewSchema = exports.ASSET_VERSION_REDO_REASON_MESSAGE = exports.AssetVersionRecordSchema = exports.AssetVersionProvenanceSchema = exports.SessionIdSchema = exports.AssetVersionFileSchema = void 0;
 exports.assetVersionRedoHasReason = assetVersionRedoHasReason;
 exports.assetVersionTransitionAllowed = assetVersionTransitionAllowed;
 exports.isLaterDecisionRequest = isLaterDecisionRequest;
@@ -16,10 +16,13 @@ exports.AssetVersionFileSchema = zod_1.z.strictObject({
     assetId: asset_js_1.AssetRefSchema.shape.assetId,
     sha256: asset_js_1.AssetRefSchema.shape.sha256,
 });
+// A session id is R<n> (GitHub issue, until the executor moves to Paperclip) or the Paperclip identifier
+// <company prefix>-<n>; the prefix tells two companies' sessions apart (consumers key on this schema, R-14).
+exports.SessionIdSchema = zod_1.z.string().regex(/^(?:R[1-9][0-9]*|[A-Z][A-Z0-9]{1,15}-[1-9][0-9]*)$/);
 exports.AssetVersionProvenanceSchema = zod_1.z.strictObject({
     createdBy: participant_binding_js_1.ParticipantAgentIdentitySchema,
     paperclipIssueId: zod_1.z.uuid().optional(),
-    sessionId: zod_1.z.string().regex(/^R[1-9][0-9]*$/).optional(),
+    sessionId: exports.SessionIdSchema.optional(),
     repo: asset_js_1.AssetOriginSchema.options[2].shape.repo,
     branch: zod_1.z.string().min(1).optional(),
     commit: asset_js_1.AssetOriginSchema.options[2].shape.commit,

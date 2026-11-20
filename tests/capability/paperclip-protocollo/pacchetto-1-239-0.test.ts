@@ -674,16 +674,35 @@ describe('s8033 pacchetto-1-248-0', () => {
 });
 
 describe('s8034 pacchetto-1-249-0', () => {
-  it('s8034_version: package and first release are 1.249.0 and retain 1.248.0', () => {
+  it('s8034_version: the 1.249.0 release stays in the changelog and retains 1.248.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.249.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.249.0');
+    expect(changelog).toContain('## v1.249.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe(packageVersion());
     expect(changelog).toContain('## v1.248.0');
   });
 
   it('s8034_map: the narrow-import map has the version and the built module carries the Paperclip state table', () => {
     const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
-    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.249.0');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe(packageVersion());
     expect(text).toContain('DEV_SESSION_PAPERCLIP_STATE');
+  });
+});
+
+describe('s8035 pacchetto-1-250-0', () => {
+  it('s8035_version: package and first release are 1.250.0 and retain 1.249.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.250.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.250.0');
+    expect(changelog).toContain('## v1.249.0');
+  });
+
+  it('s8035_map: the narrow-import map has the version and the shared session identifier schema', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
+      versione: string;
+      barili: Record<string, Record<string, string>>;
+    };
+    expect(map.versione).toBe('1.250.0');
+    expect(map.barili['@x9-forge/contracts/organization']?.SessionIdSchema)
+      .toBe('@x9-forge/contracts/organization/asset-version');
   });
 });

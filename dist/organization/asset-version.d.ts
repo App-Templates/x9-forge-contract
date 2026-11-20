@@ -6,6 +6,7 @@ export declare const AssetVersionFileSchema: z.ZodObject<{
     sha256: z.ZodString;
 }, z.core.$strict>;
 export type AssetVersionFile = z.infer<typeof AssetVersionFileSchema>;
+export declare const SessionIdSchema: z.ZodString;
 export declare const AssetVersionProvenanceSchema: z.ZodObject<{
     createdBy: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;

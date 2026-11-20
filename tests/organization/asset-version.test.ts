@@ -7,6 +7,7 @@ import {
   AssetVersionLeadReviewSchema,
   AssetVersionProvenanceSchema,
   AssetVersionRecordSchema,
+  SessionIdSchema,
   assetVersionDecisionState,
   assetVersionTransitionAllowed,
   deriveAssetVersionStates,
@@ -49,6 +50,36 @@ function sessionAsset(sessionId: string, fingerprint: string): AssetRef {
 const r20 = sessionAsset('R20', 'a');
 const r22 = sessionAsset('R22', 'b');
 const r24 = sessionAsset('R24', 'c');
+
+describe('s8035 identificativo di sessione', () => {
+  it('s8035_forma: accepts company-prefixed and legacy identifiers and refuses malformed ones', () => {
+    for (const id of ['GOO-214', 'FET-1', 'ABCA-12', 'R51', 'AB-1', 'A1-2', 'A'.repeat(16) + '-1']) {
+      expect(SessionIdSchema.safeParse(id).success, id).toBe(true);
+    }
+    for (const id of [
+      'goo-214', 'GOO-0', 'GOO-', '-214', 'GOO-214x', 'R0', 'R51x', 'r51', '',
+      'A'.repeat(40), 'GOO 214', 'A-1', 'A'.repeat(17) + '-1', 'GOO-01',
+    ]) {
+      expect(SessionIdSchema.safeParse(id).success, id).toBe(false);
+    }
+  });
+
+  it('s8035_provenienza: a Paperclip session with its branch parses and a branch still requires a session', () => {
+    const provenance = { createdBy: lead, sessionId: 'GOO-214', repo, commit, branch: 'consegna/GOO-214' };
+    expect(AssetVersionProvenanceSchema.parse(provenance)).toEqual(provenance);
+    expect(AssetVersionProvenanceSchema.safeParse({
+      createdBy: lead, repo, commit, branch: 'consegna/GOO-214',
+    }).success).toBe(false);
+  });
+
+  it('s8035_storico: saved R20, R22 and R24 provenances parse without changing their objects', () => {
+    for (const [sessionId, branch] of [['R20', 'consegna/20'], ['R22', 'consegna/22'], ['R24', 'consegna/24']]) {
+      // Keep the saved provenance shape independent of the schema under test.
+      const provenance = { createdBy: lead, sessionId, repo, commit, branch };
+      expect(AssetVersionProvenanceSchema.parse(provenance)).toEqual(provenance);
+    }
+  });
+});
 
 function fileOf(asset: AssetRef) {
   return AssetVersionFileSchema.parse({ assetId: asset.assetId, sha256: asset.sha256 });

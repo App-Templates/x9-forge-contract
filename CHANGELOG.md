@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.250.0 — a session id may be a Paperclip identifier (task 8035)
+
+- Additive: `organization/asset-version` exports `SessionIdSchema`, reused by asset version provenance to accept Paperclip identifiers (`<company prefix>-<n>`) and distinguish sessions from different companies.
+- `R<n>` keeps parsing; nothing else changes. Consumers move their pin first.
+
 ## v1.249.0 — session outcomes map to Paperclip issue states and delivery products (task 8034)
 
 - Additive in `capability/dev/session-outcome`: `DEV_SESSION_PAPERCLIP_STATE` (outcome state to Paperclip status, yes/no question and lead wake), `DEV_SESSION_PAPERCLIP_OPEN_STATUS`, `DEV_SESSION_PAPERCLIP_WORK_STATUS`, the proof attachment schema, its limit (`DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES`, 10 MiB) and `devSessionProofAttachmentDecision`, plus `DevSessionPaperclipProductsInputSchema` and `devSessionPaperclipProducts` (branch, commit, one artifact per proof).

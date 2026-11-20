@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.249.0",
+  "versione": "1.250.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2953,6 +2953,7 @@
       "ScenarioCorpusSchema": "@x9-forge/contracts/organization/scenario",
       "ScenarioVersionRefSchema": "@x9-forge/contracts/organization/scenario",
       "ScenarioVersionSchema": "@x9-forge/contracts/organization/scenario",
+      "SessionIdSchema": "@x9-forge/contracts/organization/asset-version",
       "SharedMailboxAudienceSchema": "@x9-forge/contracts/organization/shared-mailbox",
       "SharedMailboxFileEntrySchema": "@x9-forge/contracts/organization/shared-mailbox",
       "SharedMailboxHolderSchema": "@x9-forge/contracts/organization/shared-mailbox",
