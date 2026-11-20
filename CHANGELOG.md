@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.288.0 — social listening: optimized round estimate, round optimization report and P0 cost table (tasks 9800, 9801, 9802)
+
+- Task 9800: `SOCIAL_OPTIMIZED_COST_PER_POST_USD`, `SOCIAL_COST_NEAR_TOLERANCE` and `socialCostVsEstimate` tell whether a measured cost per post is near the optimized round estimate.
+- Task 9801: `SocialRoundOptimizationSchema`, `SocialRoundOptimization` and `socialRoundOptimization` report posts kept and discarded, topics, reused facts and the cost against the estimate.
+- Task 9802: `SocialP0TableSchema`, `SocialP0Table`, `socialP0Table` and the `SOCIAL_P0_*` constants build the P0 cost table from measurements and list what is still missing.
+- Additive only; `SOCIAL_LISTENING_TOOLS` is unchanged.
+
 ## v1.287.0 — social listening: narrow extended research, adoption decision route, video brief tools (tasks 9760, 9761, 9762)
 
 - `socialTopicResearchRequest` sends `SOCIAL_RESEARCH_NARROW_PARAMS` (1 tool call, low search context, low reasoning effort) so extended research fits the 0.30 USD budget.

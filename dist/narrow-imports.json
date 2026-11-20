@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.287.0",
+  "versione": "1.288.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1599,6 +1599,9 @@
       "SOCIAL_MEASUREMENT_KINDS": "@x9-forge/contracts/capability/social-listening/fact-memory",
       "SOCIAL_META_MEDIA_FIELDS": "@x9-forge/contracts/capability/social-listening/import",
       "SOCIAL_OPTIMIZED_COST_PER_POST_USD": "@x9-forge/contracts/capability/social-listening/optimized-estimate",
+      "SOCIAL_P0_KEEP_RATIOS": "@x9-forge/contracts/capability/social-listening/p0-table",
+      "SOCIAL_P0_MISSING_GROUPS": "@x9-forge/contracts/capability/social-listening/p0-table",
+      "SOCIAL_P0_POSTS_PER_DAY": "@x9-forge/contracts/capability/social-listening/p0-table",
       "SOCIAL_POST_KINDS": "@x9-forge/contracts/capability/social-listening/post",
       "SOCIAL_PROVIDERS": "@x9-forge/contracts/capability/social-listening/post",
       "SOCIAL_RESEARCH_NARROW_PARAMS": "@x9-forge/contracts/capability/social-listening/topic-research",
@@ -1677,6 +1680,7 @@
       "SocialListeningAgentConfigSchema": "@x9-forge/contracts/capability/social-listening/config",
       "SocialListeningToolErrorSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialMetaMediaSchema": "@x9-forge/contracts/capability/social-listening/import",
+      "SocialP0TableSchema": "@x9-forge/contracts/capability/social-listening/p0-table",
       "SocialPostAnalysisSchema": "@x9-forge/contracts/capability/social-listening/verdict",
       "SocialPostFilterSchema": "@x9-forge/contracts/capability/social-listening/post",
       "SocialPostKindSchema": "@x9-forge/contracts/capability/social-listening/post",
@@ -1767,6 +1771,7 @@
       "socialMeasurementSummary": "@x9-forge/contracts/capability/social-listening/fact-memory",
       "socialMetaBusinessDiscoveryFields": "@x9-forge/contracts/capability/social-listening/import",
       "socialMonthlyCostPerAuthor": "@x9-forge/contracts/capability/social-listening/fact-memory",
+      "socialP0Table": "@x9-forge/contracts/capability/social-listening/p0-table",
       "socialPostExcerpt": "@x9-forge/contracts/capability/social-listening/job-io",
       "socialPostFilterFromResult": "@x9-forge/contracts/capability/social-listening/job-io",
       "socialPostFromMetaMedia": "@x9-forge/contracts/capability/social-listening/import",

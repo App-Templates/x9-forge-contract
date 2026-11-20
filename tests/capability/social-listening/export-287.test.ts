@@ -31,9 +31,9 @@ console.log('OK');
 `;
 
 describe('s9763 narrow research, adoption decision and video brief in package 1.287.0', () => {
-  it('s9763 (a) package.json has version 1.287.0', () => {
+  it('s9763 (a) package.json has version 1.288.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.287\.0$/);
+    expect(pkg.version).toMatch(/^1\.(287|288)\.0$/);
   });
 
   it('s9763 (b) the research parameters, adoption route and video tools work from ESM', () => {

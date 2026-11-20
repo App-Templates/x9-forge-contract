@@ -34,4 +34,5 @@ export * from "./topic-research.cjs";
 export * from "./topic-research-result.cjs";
 export { SOCIAL_OPTIMIZED_COST_PER_POST_USD, SOCIAL_COST_NEAR_TOLERANCE, socialCostVsEstimate } from "./optimized-estimate.cjs";
 export { SocialRoundOptimizationSchema, socialRoundOptimization, type SocialRoundOptimization } from "./optimization-report.cjs";
+export { SOCIAL_P0_POSTS_PER_DAY, SOCIAL_P0_KEEP_RATIOS, SOCIAL_P0_MISSING_GROUPS, SocialP0TableSchema, socialP0Table, type SocialP0Table, } from "./p0-table.cjs";
 //# sourceMappingURL=index.d.ts.map
