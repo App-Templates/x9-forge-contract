@@ -626,15 +626,30 @@ describe('s8051 pacchetto-1-245-0', () => {
 });
 
 describe('s8079 pacchetto-1-246-0', () => {
-  it('s8079_version: package and first release are 1.246.0 and retain 1.245.0', () => {
+  it('s8079_version: the 1.246.0 release stays in the changelog and retains 1.245.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.246.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.246.0');
+    expect(changelog).toContain('## v1.246.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe(packageVersion());
     expect(changelog).toContain('## v1.245.0');
   });
 
-  it('s8079_map: the narrow-import map has version 1.246.0', () => {
+  it('s8079_map: the narrow-import map follows the package version', () => {
     const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
-    expect(map.versione).toBe('1.246.0');
+    expect(map.versione).toBe(packageVersion());
+  });
+});
+
+describe('s8098 pacchetto-1-247-0', () => {
+  it('s8098_version: package and first release are 1.247.0 and retain 1.246.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.247.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.247.0');
+    expect(changelog).toContain('## v1.246.0');
+  });
+
+  it('s8098_map: the narrow-import map has the version and the new list', () => {
+    const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.247.0');
+    expect(text).toContain('DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES');
   });
 });

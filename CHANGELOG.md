@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.247.0 — the codes of the session acceptance checks have a list (task 8098)
+
+- Additive: `DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES` in `capability/dev/session-acceptance` lists the ten codes the acceptance schema checks use as messages, so a consumer can key a move on each code without copying them by hand. Same strings, same paths; no schema changes.
+- The template problems (`DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS`) keep their own list. Consumers move their pin first.
+
 ## v1.246.0 — the development template asks for a clean install (task 8079)
 
 - Additive: catalog check `S-11` (attestor executor, new need `clean_install`) joins the form criteria of `sviluppo-pezzo-app`, which stays at version 1. The design templates are unchanged.

@@ -7,6 +7,7 @@ export declare const DEV_SESSION_INPUT_DATA: readonly ["veri", "di_prova", "da_i
 export declare const DEV_SESSION_INPUT_STATES: readonly ["pieno", "vuoto", "errore", "caricamento"];
 export declare const DEV_SESSION_INPUT_FORMATS: readonly ["telefono", "computer"];
 export declare const DEV_SESSION_INPUT_VISUAL_SOURCES: readonly ["figma", "tavola_approvata", "nessuna"];
+export declare const DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES: readonly ["reference_iff_return", "executor_only_from_catalog", "mandate_not_session", "unit_only_mandate", "proof_script_name", "screens_not_unique", "behaviors_not_unique", "list_not_unique", "visual_reference_rule", "criterion_ids_not_unique"];
 export declare const DevSessionAttestorSchema: z.ZodEnum<{
     sessione: "sessione";
     esecutore: "esecutore";

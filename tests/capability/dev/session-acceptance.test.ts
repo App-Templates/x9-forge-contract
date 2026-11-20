@@ -289,3 +289,66 @@ it('s7560_alias uses the Paperclip limits rather than copying their numbers', ()
   expect(source).not.toMatch(/=\s*(?:20|500)\b/);
 });
 
+
+describe('s8098 codici dei controlli', () => {
+  const issueMessages = (value: unknown): string[] => {
+    const result = DevSessionAcceptanceSchema.safeParse(value);
+    expect(result.success).toBe(false);
+    return result.success ? [] : result.error.issues.map((issue) => issue.message);
+  };
+  const withCriteria = (...list: Record<string, unknown>[]) => ({ ...acceptance, criteria: list });
+  const withInput = (input: Record<string, unknown>) => ({ ...acceptance, input });
+  const duplicateNames = [{ name: 'home', purpose: 'Open' }, { name: 'home', purpose: 'Again' }];
+  const cases: [string, unknown][] = [
+    ['reference_iff_return', withCriteria({ ...criterion, origin: 'mandato', attestor: 'referente', reference: 'x' })],
+    ['executor_only_from_catalog', withCriteria({ ...criterion, attestor: 'esecutore' })],
+    ['mandate_not_session', withCriteria({ ...criterion, origin: 'mandato', attestor: 'sessione' })],
+    ['unit_only_mandate', withCriteria({ ...criterion, unit: 'unit' })],
+    ['proof_script_name', withInput({ proofScripts: ['Bad Name'] })],
+    ['screens_not_unique', withInput({ screens: duplicateNames })],
+    ['behaviors_not_unique', withInput({ behaviors: ['apri', 'apri'] })],
+    ['list_not_unique', withInput({ states: ['pieno', 'pieno'] })],
+    ['visual_reference_rule', withInput({ visualSource: { kind: 'figma' } })],
+    ['criterion_ids_not_unique', withCriteria(criterion, criterion)],
+  ];
+
+  it.each(cases)('s8098_messaggi: %s', (code, value) => {
+    expect(issueMessages(value)).toContain(code);
+  });
+
+  it('s8098_elenco: the list has ten unique codes and equals the messages the checks produce', () => {
+    const list = acceptanceContract.DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES;
+    expect(list).toHaveLength(10);
+    expect(new Set(list).size).toBe(10);
+    const produced = new Set(cases.flatMap(([, value]) => issueMessages(value)));
+    expect([...produced].sort()).toEqual([...list].sort());
+    const optional = { ...acceptance, template: { id: 'web-app', version: 1, optionalIds: ['a', 'a'] } };
+    expect(issueMessages(optional)).toContain('list_not_unique');
+    const formats = withInput({ formats: ['telefono', 'telefono'] });
+    expect(issueMessages(formats)).toContain('list_not_unique');
+  });
+
+  it('s8098_storico: a saved R56-shaped contract still parses unchanged; an executor criterion is still refused', () => {
+    const saved = {
+      version: 1,
+      template: { id: 'sviluppo-pezzo-app', version: 1 },
+      input: {
+        userPath: ['Opens the backtest', 'Reads the result'],
+        data: 'di_prova',
+        proofScripts: ['test:unit', 'test:build'],
+        screens: [{ name: 'home', purpose: 'Open' }, { name: 'risultato', purpose: 'Read' }],
+        behaviors: ['apri', 'leggi'],
+        states: ['pieno', 'vuoto', 'errore', 'caricamento'],
+        formats: ['telefono'],
+        visualSource: { kind: 'tavola_approvata', reference: 'asset-design-1' },
+      },
+      criteria: [
+        { id: 'm-1', text: 'The mandate holds.', attestor: 'referente', proof: 'Decision.', origin: 'mandato' },
+        { id: 'c-1', text: 'The capo asks.', attestor: 'sessione', proof: 'Attestation.', origin: 'capo' },
+      ],
+    };
+    expect(DevSessionAcceptanceSchema.parse(saved)).toEqual(saved);
+    const refused = DevSessionAcceptanceSchema.safeParse({ ...saved, criteria: [{ ...saved.criteria[0], attestor: 'esecutore' }] });
+    expect(refused.success).toBe(false);
+  });
+});
