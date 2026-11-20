@@ -55,7 +55,7 @@ exports.SocialTopicSaveWikiOutputSchema = zod_1.z.strictObject({
     state: zod_1.z.literal('queued'),
 });
 exports.SocialTopicWikiToolErrorSchema = zod_1.z.enum([
-    'invalid_request', 'not_configured', 'unknown_topic', 'nothing_to_save', 'lab_not_enabled',
+    'invalid_request', 'not_configured', 'unknown_topic', 'nothing_to_save', 'lab_not_enabled', 'research_not_ready',
 ]);
 /**
  * The request of `lab_ingest`, validated with cap-lab's own schema. With an extended research the research itself is

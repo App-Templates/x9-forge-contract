@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.278.0",
+  "versione": "1.279.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1559,6 +1559,7 @@
       "SOCIAL_SERVER_DAILY_CAP_DEFAULT_USD": "@x9-forge/contracts/capability/social-listening/cap",
       "SOCIAL_SERVER_VERIFY_ESTIMATE_USD": "@x9-forge/contracts/capability/social-listening/cap",
       "SOCIAL_TITLE_LINKING_WORDS": "@x9-forge/contracts/capability/social-listening/group",
+      "SOCIAL_TOPIC_RESEARCH_RESULT_TOOLS": "@x9-forge/contracts/capability/social-listening/topic-research-result",
       "SOCIAL_TOPIC_RESEARCH_TOOLS": "@x9-forge/contracts/capability/social-listening/topic-research",
       "SOCIAL_TOPIC_TITLE_ISSUES": "@x9-forge/contracts/capability/social-listening/group",
       "SOCIAL_TOPIC_TITLE_MAX": "@x9-forge/contracts/capability/social-listening/topic",
@@ -1652,6 +1653,9 @@
       "SocialTopicGetOutputSchema": "@x9-forge/contracts/capability/social-listening/tools",
       "SocialTopicResearchInputSchema": "@x9-forge/contracts/capability/social-listening/topic-research",
       "SocialTopicResearchOutputSchema": "@x9-forge/contracts/capability/social-listening/topic-research",
+      "SocialTopicResearchResultInputSchema": "@x9-forge/contracts/capability/social-listening/topic-research-result",
+      "SocialTopicResearchResultOutputSchema": "@x9-forge/contracts/capability/social-listening/topic-research-result",
+      "SocialTopicResearchResultToolErrorSchema": "@x9-forge/contracts/capability/social-listening/topic-research-result",
       "SocialTopicResearchToolErrorSchema": "@x9-forge/contracts/capability/social-listening/topic-research",
       "SocialTopicSaveWikiInputSchema": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SocialTopicSaveWikiOutputSchema": "@x9-forge/contracts/capability/social-listening/save-wiki",

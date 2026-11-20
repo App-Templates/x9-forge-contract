@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.279.0 — social listening extended research result tool and wiki research_not_ready error (tasks 3953, 3954)
+
+- `SOCIAL_TOPIC_RESEARCH_RESULT_TOOLS`, `SocialTopicResearchResultInputSchema`, `SocialTopicResearchResultOutputSchema` and `SocialTopicResearchResultToolErrorSchema` are new.
+- `SocialTopicWikiToolErrorSchema` gains the additive value `research_not_ready`.
+- `SOCIAL_TOPIC_RESEARCH_TOOLS` is unchanged.
+
 ## v1.278.0 — social listening wiki reverify rule reads the public topic (task 3951)
 
 - `socialWikiReverifyDue` now validates only `wikiSavedAt`, so it accepts the topic with or without `identity` (the public `social_topic_get` output has none).

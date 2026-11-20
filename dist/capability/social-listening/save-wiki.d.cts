@@ -45,6 +45,7 @@ export declare const SocialTopicWikiToolErrorSchema: z.ZodEnum<{
     unknown_topic: "unknown_topic";
     nothing_to_save: "nothing_to_save";
     lab_not_enabled: "lab_not_enabled";
+    research_not_ready: "research_not_ready";
 }>;
 export type SocialTopicWikiToolError = z.infer<typeof SocialTopicWikiToolErrorSchema>;
 export type SocialTopicLabIngestResult = {

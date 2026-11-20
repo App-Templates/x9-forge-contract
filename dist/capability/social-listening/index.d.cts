@@ -30,4 +30,5 @@ export { SocialFactSchema, SocialPostToolSchema, SocialPostAnalysisSchema, type 
 export * from "./video-brief.cjs";
 export * from "./save-wiki.cjs";
 export * from "./topic-research.cjs";
+export * from "./topic-research-result.cjs";
 //# sourceMappingURL=index.d.ts.map
