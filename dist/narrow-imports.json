@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.280.0",
+  "versione": "1.281.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1572,7 +1572,9 @@
       "SOCIAL_VERDICT_TRUTH_SCORE": "@x9-forge/contracts/capability/social-listening/topic",
       "SOCIAL_VERIFY_EXCERPT_MAX": "@x9-forge/contracts/capability/social-listening/job-io",
       "SOCIAL_VERIFY_POSTS_MAX": "@x9-forge/contracts/capability/social-listening/job-io",
+      "SOCIAL_VIDEO_CAPABILITY": "@x9-forge/contracts/capability/social-listening/video-brief",
       "SOCIAL_VIDEO_EXTERNAL_REF_PREFIX": "@x9-forge/contracts/capability/social-listening/video-brief",
+      "SOCIAL_VIDEO_TOOLS": "@x9-forge/contracts/capability/social-listening/video-brief",
       "SOCIAL_WIKI_REVERIFY_DAYS": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SocialAdoptionDecideInputSchema": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "SocialAdoptionDecideOutputSchema": "@x9-forge/contracts/capability/social-listening/save-wiki",
@@ -1718,6 +1720,7 @@
       "socialRoundReadContract": "@x9-forge/contracts/capability/social-listening/routes",
       "socialServerVerifyEstimate": "@x9-forge/contracts/capability/social-listening/cap",
       "socialTopicAfterBrief": "@x9-forge/contracts/capability/social-listening/video-brief",
+      "socialTopicBriefOutputFromVideo": "@x9-forge/contracts/capability/social-listening/video-brief",
       "socialTopicLabIngestInput": "@x9-forge/contracts/capability/social-listening/save-wiki",
       "socialTopicResearchDecision": "@x9-forge/contracts/capability/social-listening/topic-research",
       "socialTopicResearchRequest": "@x9-forge/contracts/capability/social-listening/topic-research",

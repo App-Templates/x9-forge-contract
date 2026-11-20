@@ -29,12 +29,12 @@ console.log(ok ? 'OK' : 'KO');
 `;
 
 describe('s3649 social-listening 1.265.0 in the built package', () => {
-  it('s3649 (a) package.json has a version in the 1.265.0-1.280.0 band', () => {
+  it('s3649 (a) package.json has a version in the 1.265.0-1.281.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string };
     const [maggiore, minore] = pkg.version.split('.').map(Number);
     expect(maggiore).toBe(1);
     expect(minore).toBeGreaterThanOrEqual(265);
-    expect(minore).toBeLessThanOrEqual(280);
+    expect(minore).toBeLessThanOrEqual(281);
   });
 
   it('s3649 (b) the new symbols import from ESM', () => {

@@ -26,9 +26,9 @@ console.log('OK');
 `;
 
 describe('s3944 social listening wiki, adoption, video project and P0 measurement in package 1.275.0', () => {
-  it('s3944 (a) package.json has a version in the 1.275.0-1.280.0 band', () => {
+  it('s3944 (a) package.json has a version in the 1.275.0-1.281.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(27[5-9]|280)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(27[5-9]|28[01])\.0$/);
   });
 
   it('s3944 (b) the symbols work from ESM', () => {

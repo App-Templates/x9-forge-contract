@@ -65,6 +65,27 @@ export declare function socialTopicAfterBrief(topic: SocialTopic, output: unknow
     ok: false;
     error: 'invalid_output' | 'topic_mismatch' | 'ref_mismatch';
 };
+/**
+ * Name of the capability in the agent's registry, and the cap-video tools the social page calls through the
+ * factory's generic capability route. Their schemas stay in `capability/video` (`VideoBriefToolInputSchema`,
+ * `VideoPresetsListToolInputSchema`, `VideoPresetsListResponseSchema`, `VideoBriefResponseSchema`).
+ */
+export declare const SOCIAL_VIDEO_CAPABILITY: "video";
+export declare const SOCIAL_VIDEO_TOOLS: {
+    readonly brief: "video_brief_create";
+    readonly presets: "video_presets_list";
+};
+/**
+ * cap-video's brief response as the topic output: only project and state are kept (identity, preset, mode and
+ * budget are dropped). Never throws.
+ */
+export declare function socialTopicBriefOutputFromVideo(topicId: unknown, response: unknown): {
+    ok: true;
+    output: SocialTopicBriefOutput;
+} | {
+    ok: false;
+    error: 'invalid_output';
+};
 export declare const SocialTopicBriefToolErrorSchema: z.ZodEnum<{
     invalid_request: "invalid_request";
     not_configured: "not_configured";

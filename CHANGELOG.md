@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.281.0 — social listening: names of the cap-video tools the Ascolto calls and the brief output (task 3958)
+
+- `SOCIAL_VIDEO_CAPABILITY`, `SOCIAL_VIDEO_TOOLS` and `socialTopicBriefOutputFromVideo` are new.
+- No existing symbol changes.
+
 ## v1.280.0 — social listening server step error codes (task 3956)
 
 - `SOCIAL_SERVER_STEP_ERRORS`, `SocialServerStepErrorSchema`, the `SocialServerStepError` type and `isSocialServerStepError` are new.
