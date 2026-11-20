@@ -7,8 +7,13 @@ import {
   PAPERCLIP_ASSIGNMENT_MATRIX,
   PAPERCLIP_ASSIGNMENT_REFUSALS,
   PAPERCLIP_BIRTH_PLAN_REFUSALS,
+  PAPERCLIP_EXECUTOR_BIRTH_PLAN,
+  PAPERCLIP_EXECUTOR_ROLE,
+  PAPERCLIP_SESSION_ASSIGNMENT_MATRIX,
+  PAPERCLIP_SESSION_ROLES,
   PaperclipBirthPlanSchema,
   decideAssignment,
+  decideSessionAssignment,
   decideAssignmentBirthPlan,
   type PaperclipBirthPlan,
 } from '../src/capability/paperclip/role-assignment.js';
@@ -206,5 +211,69 @@ describe('s7372 piano-alla-nascita prove mancanti', () => {
     expect(PaperclipBirthPlanSchema.safeParse({ ...valid, extra: 1 }).success).toBe(false);
     expect(PaperclipBirthPlanSchema.safeParse({ ...valid, permission: { form: 'broad', extra: 1 } }).success).toBe(false);
     expect(PaperclipBirthPlanSchema.safeParse({ ...valid, permission: { form: 'none', extra: 1 } }).success).toBe(false);
+  });
+});
+
+describe('s8033 esecutore', () => {
+  // Hand-written table: the eleven allowed pairs (today's nine plus lead→executor and executor→lead).
+  const ALLOWED: Record<string, readonly string[]> = {
+    director: ['capo-bu', 'lab', 'ricerca'],
+    'capo-bu': ['lab', 'director', 'esecutore'],
+    lab: ['capo-bu', 'director'],
+    ricerca: ['lab', 'director'],
+    esecutore: ['capo-bu'],
+  };
+
+  it('s8033_matrice: 25 pairs over five roles, eleven allowed, the rest refused with the closed code', () => {
+    expect(PAPERCLIP_EXECUTOR_ROLE).toBe('esecutore');
+    expect([...PAPERCLIP_SESSION_ROLES]).toEqual([...AGENT_ROLES, 'esecutore']);
+    const all = PAPERCLIP_SESSION_ROLES.flatMap((from) => PAPERCLIP_SESSION_ROLES.map((to) => [from, to] as const));
+    expect(all).toHaveLength(25);
+    let allowed = 0;
+    for (const [from, to] of all) {
+      const decision = decideSessionAssignment(from, to);
+      if (ALLOWED[from]!.includes(to)) {
+        allowed += 1;
+        expect(decision).toEqual({ ok: true });
+      } else if (from === 'lab' && to === 'ricerca') {
+        expect(decision).toEqual({ ok: false, refusal: 'lab_starts_research_itself', useTool: RICERCA_TOOLS.start });
+      } else {
+        expect(decision).toEqual({ ok: false, refusal: 'assign_target_not_allowed' });
+      }
+    }
+    expect(allowed).toBe(11);
+    for (const from of ['director', 'lab', 'ricerca'] as const) {
+      expect(decideSessionAssignment(from, 'esecutore')).toEqual({ ok: false, refusal: 'assign_target_not_allowed' });
+    }
+    for (const to of ['director', 'lab', 'ricerca', 'esecutore'] as const) {
+      expect(decideSessionAssignment('esecutore', to)).toEqual({ ok: false, refusal: 'assign_target_not_allowed' });
+    }
+    for (const bad of ['intruder', 'toString', '__proto__'] as unknown as AgentRole[]) {
+      expect(decideSessionAssignment(bad, 'capo-bu')).toEqual({ ok: false, refusal: 'assign_target_not_allowed' });
+      expect(decideSessionAssignment('capo-bu', bad)).toEqual({ ok: false, refusal: 'assign_target_not_allowed' });
+    }
+    expect(PAPERCLIP_SESSION_ASSIGNMENT_MATRIX.esecutore).toEqual(['capo-bu']);
+  });
+
+  it('s8033_piano: the executor birth plan is none / open / cannot create agents', () => {
+    expect(PaperclipBirthPlanSchema.parse(PAPERCLIP_EXECUTOR_BIRTH_PLAN)).toEqual({
+      permission: { form: 'none' },
+      recipientProtection: 'open',
+      canCreateAgents: false,
+    });
+  });
+
+  it('s8033_storico: today\'s matrix and the four birth plans are unchanged', () => {
+    expect(PAPERCLIP_ASSIGNMENT_MATRIX).toEqual(EXPECTED);
+    const plans = {
+      director: { permission: { form: 'broad' }, recipientProtection: 'open', canCreateAgents: true },
+      'capo-bu': { permission: { form: 'none' }, recipientProtection: 'open', canCreateAgents: false },
+      lab: { permission: { form: 'none' }, recipientProtection: 'open', canCreateAgents: false },
+      ricerca: { permission: { form: 'none' }, recipientProtection: 'protected', canCreateAgents: false },
+    };
+    for (const role of AGENT_ROLES) {
+      expect(decideAssignmentBirthPlan(role)).toEqual({ ok: true, plan: plans[role] });
+    }
+    expect(decideAssignmentBirthPlan('esecutore')).toEqual({ ok: false, refusal: 'role_unknown' });
   });
 });

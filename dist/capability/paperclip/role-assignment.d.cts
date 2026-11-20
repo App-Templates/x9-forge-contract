@@ -61,4 +61,26 @@ export type PaperclipBirthPlanDecision = {
  * not broad must be written false.
  */
 export declare function decideAssignmentBirthPlan(role: unknown, matrix?: Readonly<Record<AgentRole, readonly AgentRole[]>>): PaperclipBirthPlanDecision;
+/**
+ * The laptop executor: one Paperclip agent per company (task 8033). It is NOT in `AGENT_ROLES` on purpose: a role there
+ * would be read by identity, email policy and the per-role tables, and with it in the matrix the birth plan would see
+ * the executor as having a single caller (the lead), hence «protected», and would make the lead «broad» with
+ * `canCreateAgents` true: a lead that creates agents, never decided.
+ */
+export declare const PAPERCLIP_EXECUTOR_ROLE: "esecutore";
+/** The four roles of today plus the executor: the roles a session assignment can name. */
+export declare const PAPERCLIP_SESSION_ROLES: readonly ["director", "capo-bu", "lab", "ricerca", "esecutore"];
+export type PaperclipSessionRole = (typeof PAPERCLIP_SESSION_ROLES)[number];
+/**
+ * Who may give a session assignment to whom: today's matrix, plus lead → executor and executor → lead (the result goes
+ * back to the lead who asked). No other role reaches the executor, and the executor reaches nobody else.
+ */
+export declare const PAPERCLIP_SESSION_ASSIGNMENT_MATRIX: Readonly<Record<PaperclipSessionRole, readonly PaperclipSessionRole[]>>;
+/** Pure: same rules and codes as `decideAssignment`, over the session roles. Unknown roles are refused, never thrown. */
+export declare function decideSessionAssignment(from: PaperclipSessionRole, to: PaperclipSessionRole): PaperclipAssignmentDecision;
+/**
+ * The executor is born «open» with no permission: it accepts only children of a known lead (checked by the executor
+ * itself, outside the bridge), and «protected» would force the lead to hold the broad permission.
+ */
+export declare const PAPERCLIP_EXECUTOR_BIRTH_PLAN: PaperclipBirthPlan;
 //# sourceMappingURL=role-assignment.d.ts.map

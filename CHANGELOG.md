@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.248.0 — the session executor is a role the lead can assign to (task 8033)
+
+- Additive: `capability/paperclip/role-assignment` gains `PAPERCLIP_EXECUTOR_ROLE` (`esecutore`), `PAPERCLIP_SESSION_ROLES`, `PAPERCLIP_SESSION_ASSIGNMENT_MATRIX` (today's nine pairs plus lead → executor and executor → lead, eleven of twenty-five), `decideSessionAssignment` and `PAPERCLIP_EXECUTOR_BIRTH_PLAN` (no permission, open, cannot create agents).
+- `AGENT_ROLES`, the assignment matrix, `decideAssignment` and today's birth plans are unchanged: the executor is not an `AgentRole`, so the lead does not become broad. Consumers move their pin first.
+
 ## v1.247.0 — the codes of the session acceptance checks have a list (task 8098)
 
 - Additive: `DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES` in `capability/dev/session-acceptance` lists the ten codes the acceptance schema checks use as messages, so a consumer can key a move on each code without copying them by hand. Same strings, same paths; no schema changes.

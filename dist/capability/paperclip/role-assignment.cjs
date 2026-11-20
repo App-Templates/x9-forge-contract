@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PAPERCLIP_BIRTH_PLAN_REFUSALS = exports.PaperclipBirthPlanSchema = exports.PAPERCLIP_ASSIGNMENT_REFUSALS = exports.PAPERCLIP_ASSIGNMENT_MATRIX = void 0;
+exports.PAPERCLIP_EXECUTOR_BIRTH_PLAN = exports.PAPERCLIP_SESSION_ASSIGNMENT_MATRIX = exports.PAPERCLIP_SESSION_ROLES = exports.PAPERCLIP_EXECUTOR_ROLE = exports.PAPERCLIP_BIRTH_PLAN_REFUSALS = exports.PaperclipBirthPlanSchema = exports.PAPERCLIP_ASSIGNMENT_REFUSALS = exports.PAPERCLIP_ASSIGNMENT_MATRIX = void 0;
 exports.decideAssignment = decideAssignment;
 exports.decideAssignmentBirthPlan = decideAssignmentBirthPlan;
+exports.decideSessionAssignment = decideSessionAssignment;
 const zod_1 = require("zod");
 const agent_role_js_1 = require("../../organization/agent-role.cjs");
 const tools_js_1 = require("../ricerca/tools.cjs");
@@ -71,4 +72,39 @@ function decideAssignmentBirthPlan(role, matrix = exports.PAPERCLIP_ASSIGNMENT_M
         },
     };
 }
+/**
+ * The laptop executor: one Paperclip agent per company (task 8033). It is NOT in `AGENT_ROLES` on purpose: a role there
+ * would be read by identity, email policy and the per-role tables, and with it in the matrix the birth plan would see
+ * the executor as having a single caller (the lead), hence «protected», and would make the lead «broad» with
+ * `canCreateAgents` true: a lead that creates agents, never decided.
+ */
+exports.PAPERCLIP_EXECUTOR_ROLE = 'esecutore';
+/** The four roles of today plus the executor: the roles a session assignment can name. */
+exports.PAPERCLIP_SESSION_ROLES = [...agent_role_js_1.AGENT_ROLES, exports.PAPERCLIP_EXECUTOR_ROLE];
+/**
+ * Who may give a session assignment to whom: today's matrix, plus lead → executor and executor → lead (the result goes
+ * back to the lead who asked). No other role reaches the executor, and the executor reaches nobody else.
+ */
+exports.PAPERCLIP_SESSION_ASSIGNMENT_MATRIX = {
+    ...exports.PAPERCLIP_ASSIGNMENT_MATRIX,
+    'capo-bu': [...exports.PAPERCLIP_ASSIGNMENT_MATRIX['capo-bu'], exports.PAPERCLIP_EXECUTOR_ROLE],
+    [exports.PAPERCLIP_EXECUTOR_ROLE]: ['capo-bu'],
+};
+const isSessionRole = (value) => exports.PAPERCLIP_SESSION_ROLES.includes(value);
+/** Pure: same rules and codes as `decideAssignment`, over the session roles. Unknown roles are refused, never thrown. */
+function decideSessionAssignment(from, to) {
+    if (!isSessionRole(from) || !isSessionRole(to))
+        return { ok: false, refusal: 'assign_target_not_allowed' };
+    if (exports.PAPERCLIP_SESSION_ASSIGNMENT_MATRIX[from].includes(to))
+        return { ok: true };
+    if (from === 'lab' && to === 'ricerca') {
+        return { ok: false, refusal: 'lab_starts_research_itself', useTool: tools_js_1.RICERCA_TOOLS.start };
+    }
+    return { ok: false, refusal: 'assign_target_not_allowed' };
+}
+/**
+ * The executor is born «open» with no permission: it accepts only children of a known lead (checked by the executor
+ * itself, outside the bridge), and «protected» would force the lead to hold the broad permission.
+ */
+exports.PAPERCLIP_EXECUTOR_BIRTH_PLAN = { permission: { form: 'none' }, recipientProtection: 'open', canCreateAgents: false };
 //# sourceMappingURL=role-assignment.js.map
