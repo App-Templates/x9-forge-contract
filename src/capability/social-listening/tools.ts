@@ -59,7 +59,7 @@ export const SOCIAL_FOLLOWED_PROFILES_MAX = 100;
 export const SocialRecapInputSchema = z.strictObject({
   verticalId: SocialVerticalIdSchema.optional(),
   /** Without `day`: the last finished round. */
-  day: AgentDaySchema.optional(),
+  day: AgentDaySchema.optional().describe("Giorno richiesto (AAAA-MM-GG); se non c'è un giro finito quel giorno si riceve l'ultimo giro finito prima. Senza giorno: l'ultimo giro finito."),
 });
 export const SocialTopicGetInputSchema = z.strictObject({ topicId: z.string().min(1).max(100) });
 export const SocialProfilesListInputSchema = z.strictObject({ verticalId: SocialVerticalIdSchema.optional() });
@@ -114,6 +114,10 @@ export function socialAscoltoPagePath(agentSlug: unknown): string | null {
 export const SocialRecapOutputSchema = z.strictObject({
   verticalId: SocialVerticalIdSchema,
   day: AgentDaySchema,
+  /** The requested day, paired with `stale`; absent on recaps built before freshness metadata. */
+  requestedDay: AgentDaySchema.optional(),
+  /** Whether the returned round predates `requestedDay`; present only with `requestedDay`. */
+  stale: z.boolean().optional(),
   track: SocialTrackSchema,
   finishedAt: z.iso.datetime({ offset: true }).nullable(),
   counts: z.strictObject(
@@ -130,6 +134,21 @@ export const SocialRecapOutputSchema = z.strictObject({
   /** Link to the agent's Ascolto page in Forge; absent when the service has no page template or cannot resolve the agent slug. */
   pageUrl: WebUrlSchema.optional(),
 }).superRefine((r, ctx) => {
+  if ((r.requestedDay === undefined) !== (r.stale === undefined)) {
+    ctx.addIssue({
+      code: 'custom',
+      path: [r.requestedDay === undefined ? 'requestedDay' : 'stale'],
+      message: 'requestedDay and stale must be present together',
+    });
+  }
+  if (r.requestedDay !== undefined && r.stale !== undefined) {
+    if (r.stale !== (r.day !== r.requestedDay)) {
+      ctx.addIssue({ code: 'custom', path: ['stale'], message: 'stale must match whether day differs from requestedDay' });
+    }
+    if (r.day > r.requestedDay) {
+      ctx.addIssue({ code: 'custom', path: ['requestedDay'], message: 'requestedDay must not precede day' });
+    }
+  }
   if (r.costPerPostUsd === undefined) return;
   if (r.costPerPostUsd !== socialCostPerPost({ spentUsd: r.spentUsd, postsSeen: r.postsSeen })) {
     ctx.addIssue({ code: 'custom', path: ['costPerPostUsd'], message: 'costPerPostUsd must match spentUsd / postsSeen' });
