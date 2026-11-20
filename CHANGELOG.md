@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.246.0 — the development template asks for a clean install (task 8079)
+
+- Additive: catalog check `S-11` (attestor executor, new need `clean_install`) joins the form criteria of `sviluppo-pezzo-app`, which stays at version 1. The design templates are unchanged.
+- Saved contracts parse and resolve unchanged and gain S-11 for the executor; a free criterion with attestor `esecutore` or id `S-11` is still refused. No schema changes.
+- Consumers (executor and cap-dev) move their pin together, because each expands the template with its own copy.
+
 ## v1.245.0 — a reply wake can be handed to the issue's scheduled monitor (task 8051)
 
 - Additive: optional `via: 'monitor_check'` on a `woken` seat reply-wake answer without `runId` (new `PAPERCLIP_SEAT_REPLY_WAKE_VIA`, `PaperclipSeatReplyWakeViaSchema`). Paperclip runs the check on demand and answers `{ok:true}` with no run id, so the answer says how the agent was reached instead of inventing a run.

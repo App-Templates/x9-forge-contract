@@ -128,6 +128,7 @@ describe('session acceptance coverage and Paperclip', () => {
       '- S-07 (esecutore): I file cambiati stanno nel perimetro',
       '- S-08 (sessione): Che cosa è stato fatto e che cosa no, in parole',
       "- S-10 (referente): L'utente può usare il pezzo",
+      "- S-11 (esecutore): Il lavoro si costruisce da un'installazione pulita: se il progetto ha un package.json, le dipendenze si installano dal lockfile consegnato prima delle prove",
       '- S-03 (esecutore): Le prove nel browser passano dopo il commit',
     ].join('\n'));
     expect(developmentReference.length).toBeLessThan(4000);

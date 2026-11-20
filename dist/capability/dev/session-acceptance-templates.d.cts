@@ -18,7 +18,7 @@ export declare const DEV_SESSION_TEMPLATES: {
         readonly supportedEngines: readonly ["codex", "claude"];
         readonly requiredInput: readonly ["userPath", "data", "proofScripts", "visualSource"];
         readonly materials: readonly ["visual_images"];
-        readonly formCriteria: readonly ["S-01", "S-02", "S-05", "S-07", "S-08", "S-10"];
+        readonly formCriteria: readonly ["S-01", "S-02", "S-05", "S-07", "S-08", "S-10", "S-11"];
         readonly optionalCriteria: readonly ["S-03", "S-04", "S-06", "S-09"];
     };
     readonly 'design-sito': {

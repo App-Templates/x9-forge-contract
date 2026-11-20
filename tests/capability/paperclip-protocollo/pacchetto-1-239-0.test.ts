@@ -579,10 +579,10 @@ const wakeRun = '22222222-2222-4222-8222-222222222222';
 const wakeOk = (v: unknown) => InternalPaperclipSeatReplyWakeResponseSchema.safeParse(v).success;
 
 describe('s8051 pacchetto-1-245-0', () => {
-  it('s8051_version: package and first release are 1.245.0 and retain 1.244.0', () => {
+  it('s8051_version: the 1.245.0 release stays in the changelog and retains 1.244.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.245.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.245.0');
+    expect(changelog).toContain('## v1.245.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe(packageVersion());
     expect(changelog).toContain('## v1.244.0');
   });
 
@@ -618,9 +618,23 @@ describe('s8051 pacchetto-1-245-0', () => {
 
   it('s8051_map: the narrow-import map has the version and the new names', () => {
     const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
-    expect(map.versione).toBe('1.245.0');
+    expect(map.versione).toBe(packageVersion());
     const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
     expect(text).toContain('PAPERCLIP_SEAT_REPLY_WAKE_VIA');
     expect(text).toContain('PaperclipSeatReplyWakeViaSchema');
+  });
+});
+
+describe('s8079 pacchetto-1-246-0', () => {
+  it('s8079_version: package and first release are 1.246.0 and retain 1.245.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.246.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.246.0');
+    expect(changelog).toContain('## v1.245.0');
+  });
+
+  it('s8079_map: the narrow-import map has version 1.246.0', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
+    expect(map.versione).toBe('1.246.0');
   });
 });

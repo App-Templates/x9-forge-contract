@@ -66,7 +66,7 @@ describe('s7562_forma', () => {
     expect(DEV_SESSION_ATTESTATION_STATUSES).toEqual(['soddisfatto', 'non_soddisfatto', 'da_revisionare']);
     expect(DEV_SESSION_PROOF_ORIGINS).toEqual(['base', 'esecutore', 'sessione']);
     expect(DEV_SESSION_RESPONSIBLES).toEqual(['sessione', 'capo', 'referente', 'director']);
-    expect(DEV_SESSION_ATTESTATION_MAX_ENTRIES).toBe(39);
+    expect(DEV_SESSION_ATTESTATION_MAX_ENTRIES).toBe(40);
     expect(DEV_SESSION_ATTESTATION_MAX_ENTRIES).toBe(DEV_SESSION_ACCEPTANCE_MAX_CRITERIA + Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG).length);
     expect(DEV_SESSION_VERDICT_PROBLEMS).toEqual([
       'requirements_unresolved', 'criterion_unknown', 'attestor_not_session', 'attestor_not_executor',
@@ -175,13 +175,13 @@ describe('s7562_forma', () => {
     }
   });
 
-  it('validates the attestation and manifest including 39 entries and 100 indexed proofs', () => {
+  it('validates the attestation and manifest including 40 entries and 100 indexed proofs', () => {
     const attestation = { version: 1, entries: [satisfied(), negative, review] };
     expect(DevSessionAttestationSchema.parse(attestation)).toEqual(attestation);
     expect(DevSessionAttestationSchema.parse({ version: 1, entries: [] }).entries).toEqual([]);
-    const entries = Array.from({ length: 39 }, (_, index) => satisfied(`C-${index}`));
-    expect(DevSessionAttestationSchema.parse({ version: 1, entries }).entries).toHaveLength(39);
-    rejects(DevSessionAttestationSchema, { version: 1, entries: [...entries, satisfied('C-39')] }, ['entries'], 'too_big');
+    const entries = Array.from({ length: 40 }, (_, index) => satisfied(`C-${index}`));
+    expect(DevSessionAttestationSchema.parse({ version: 1, entries }).entries).toHaveLength(40);
+    rejects(DevSessionAttestationSchema, { version: 1, entries: [...entries, satisfied('C-40')] }, ['entries'], 'too_big');
     rejects(DevSessionAttestationSchema, { ...attestation, version: 2 }, ['version'], 'invalid_value');
     rejects(DevSessionAttestationSchema, { entries: [] }, ['version'], 'invalid_value');
     rejects(DevSessionAttestationSchema, { version: 1 }, ['entries'], 'invalid_type');
@@ -225,6 +225,7 @@ describe('session acceptance verdict', () => {
         ...['S-01', 'S-02', 'S-05', 'S-07'].map((id) => ({ id, attestor: 'esecutore', origin: 'modello', status: 'soddisfatto', proofPath: `proofs/${id}.txt`, proofOrigin: 'base' })),
         { id: 'S-08', attestor: 'sessione', origin: 'modello', status: 'soddisfatto', proofPath: 'proofs/S-08.txt', proofOrigin: 'sessione' },
         { id: 'S-10', attestor: 'referente', origin: 'modello', status: 'in_attesa' },
+        { id: 'S-11', attestor: 'esecutore', origin: 'modello', status: 'soddisfatto', proofPath: 'proofs/S-11.txt', proofOrigin: 'base' },
         { id: 'C-01', attestor: 'sessione', origin: 'capo', status: 'soddisfatto', proofPath: 'proofs/C-01.txt', proofOrigin: 'sessione' },
         { id: 'C-02', attestor: 'revisore', origin: 'mandato', status: 'in_attesa' },
       ],

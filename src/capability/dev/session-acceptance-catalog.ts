@@ -1,7 +1,7 @@
 import type { DevSessionAttestor } from './session-acceptance.js';
 
 // Capabilities of the checking program; a session cannot supply these proofs itself.
-export const DEV_SESSION_ACCEPTANCE_NEEDS = ['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list'] as const;
+export const DEV_SESSION_ACCEPTANCE_NEEDS = ['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install'] as const;
 
 type CatalogEntry = {
   attestor: DevSessionAttestor;
@@ -107,5 +107,13 @@ export const DEV_SESSION_ACCEPTANCE_CATALOG = {
     attestor: 'referente', needs: [],
     text: "L'utente può usare il pezzo",
     proof: "risposta alla richiesta di decisione, con l'anteprima",
+  },
+  // Stefano, 20/11: the work must build from a clean install (R56 failed because the executor
+  // re-ran the proofs without dependencies while the session's build was green). Without a
+  // package.json the executor attests that there was nothing to install.
+  'S-11': {
+    attestor: 'esecutore', needs: ['clean_install'],
+    text: "Il lavoro si costruisce da un'installazione pulita: se il progetto ha un package.json, le dipendenze si installano dal lockfile consegnato prima delle prove",
+    proof: "uscita dell'installazione lanciata da lui sull'albero del commit, prima delle prove",
   },
 } as const satisfies Record<string, CatalogEntry>;
