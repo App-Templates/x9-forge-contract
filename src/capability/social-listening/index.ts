@@ -74,3 +74,4 @@ export { SocialFactSchema, SocialPostToolSchema, SocialPostAnalysisSchema, type 
 export * from './video-brief.js';
 export * from './save-wiki.js';
 export * from './topic-research.js';
+export * from './topic-research-result.js';
