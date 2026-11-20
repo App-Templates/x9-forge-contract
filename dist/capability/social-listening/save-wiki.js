@@ -13,10 +13,16 @@ import { socialVideoExternalRef } from "./video-brief.js";
  */
 export const SOCIAL_TOPIC_WIKI_TOOLS = { save: 'social_topic_save_wiki' };
 export const SOCIAL_WIKI_REVERIFY_DAYS = 90;
-/** Elapsed whole days since wiki acceptance; the caller supplies the current time. */
+const WikiReverifyInputSchema = z.object({ wikiSavedAt: SocialTopicSchema.shape.wikiSavedAt });
+/**
+ * Elapsed whole days since wiki acceptance; the caller supplies the current time.
+ *
+ * Accepts the topic with or without `identity` (the shape of `SocialTopicGetOutput` and of `SocialTopic`) and reads
+ * only `wikiSavedAt`; every other field is ignored.
+ */
 export function socialWikiReverifyDue(topic, nowIso) {
     try {
-        const parsed = SocialTopicSchema.safeParse(topic);
+        const parsed = WikiReverifyInputSchema.safeParse(topic);
         const now = SocialTopicSchema.shape.computedAt.safeParse(nowIso);
         if (!parsed.success || !now.success)
             return { state: 'invalid_input' };

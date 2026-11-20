@@ -19,10 +19,16 @@ const video_brief_js_1 = require("./video-brief.cjs");
  */
 exports.SOCIAL_TOPIC_WIKI_TOOLS = { save: 'social_topic_save_wiki' };
 exports.SOCIAL_WIKI_REVERIFY_DAYS = 90;
-/** Elapsed whole days since wiki acceptance; the caller supplies the current time. */
+const WikiReverifyInputSchema = zod_1.z.object({ wikiSavedAt: topic_js_1.SocialTopicSchema.shape.wikiSavedAt });
+/**
+ * Elapsed whole days since wiki acceptance; the caller supplies the current time.
+ *
+ * Accepts the topic with or without `identity` (the shape of `SocialTopicGetOutput` and of `SocialTopic`) and reads
+ * only `wikiSavedAt`; every other field is ignored.
+ */
 function socialWikiReverifyDue(topic, nowIso) {
     try {
-        const parsed = topic_js_1.SocialTopicSchema.safeParse(topic);
+        const parsed = WikiReverifyInputSchema.safeParse(topic);
         const now = topic_js_1.SocialTopicSchema.shape.computedAt.safeParse(nowIso);
         if (!parsed.success || !now.success)
             return { state: 'invalid_input' };

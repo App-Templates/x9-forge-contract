@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.278.0 — social listening wiki reverify rule reads the public topic (task 3951)
+
+- `socialWikiReverifyDue` now validates only `wikiSavedAt`, so it accepts the topic with or without `identity` (the public `social_topic_get` output has none).
+- Same states and same 90-day threshold; no new symbol.
+- Behaviour change: a topic with `wikiIngestId` but no `wikiSavedAt` (or the reverse) is no longer `invalid_input` here; `SocialTopicSchema` still rejects it.
+
 ## v1.277.0 — social listening costs report tool (task 3949)
 
 - `SOCIAL_COSTS_TOOLS`, `SocialCostsReportInputSchema` and `SocialCostsReportOutputSchema` describe the read-only `social_costs_report` tool.
