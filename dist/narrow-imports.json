@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.248.0",
+  "versione": "1.249.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1321,6 +1321,10 @@
       "DEV_SESSION_OUTCOME_BLOCK_MARKER": "@x9-forge/contracts/capability/dev/session-outcome",
       "DEV_SESSION_OUTCOME_REASONS": "@x9-forge/contracts/capability/dev/session-outcome",
       "DEV_SESSION_OUTCOME_STATES": "@x9-forge/contracts/capability/dev/session-outcome",
+      "DEV_SESSION_PAPERCLIP_OPEN_STATUS": "@x9-forge/contracts/capability/dev/session-outcome",
+      "DEV_SESSION_PAPERCLIP_STATE": "@x9-forge/contracts/capability/dev/session-outcome",
+      "DEV_SESSION_PAPERCLIP_WORK_STATUS": "@x9-forge/contracts/capability/dev/session-outcome",
+      "DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES": "@x9-forge/contracts/capability/dev/session-outcome",
       "DEV_SESSION_PROOF_ORIGINS": "@x9-forge/contracts/capability/dev/session-attestation",
       "DEV_SESSION_REQUIREMENT_ORIGINS": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "DEV_SESSION_REQUIREMENT_PROBLEMS": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
@@ -1377,6 +1381,8 @@
       "DevSessionMaterialLinkSchema": "@x9-forge/contracts/capability/dev/session-material-link",
       "DevSessionMaterialSchema": "@x9-forge/contracts/capability/dev/session-assignment",
       "DevSessionOutcomeSchema": "@x9-forge/contracts/capability/dev/session-outcome",
+      "DevSessionPaperclipProductsInputSchema": "@x9-forge/contracts/capability/dev/session-outcome",
+      "DevSessionProofAttachmentSchema": "@x9-forge/contracts/capability/dev/session-outcome",
       "DevSessionRepoSchema": "@x9-forge/contracts/capability/dev/session-assignment",
       "DevSessionResultFileSchema": "@x9-forge/contracts/capability/dev/session-assignment",
       "DevSessionResultSchema": "@x9-forge/contracts/capability/dev/session-assignment",
@@ -1403,6 +1409,8 @@
       "devSessionMaterialKey": "@x9-forge/contracts/capability/dev/session-material-link",
       "devSessionMaterialSignedMessage": "@x9-forge/contracts/capability/dev/session-material-link",
       "devSessionOutcomeCanonicalJson": "@x9-forge/contracts/capability/dev/session-outcome",
+      "devSessionPaperclipProducts": "@x9-forge/contracts/capability/dev/session-outcome",
+      "devSessionProofAttachmentDecision": "@x9-forge/contracts/capability/dev/session-outcome",
       "devSessionRequirements": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "devSessionTemplateSupportsEngine": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "isDevProductionArtifactChunkForArtifact": "@x9-forge/contracts/capability/dev/production-artifact-content",

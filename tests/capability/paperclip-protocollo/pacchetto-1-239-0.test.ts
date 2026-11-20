@@ -655,20 +655,35 @@ describe('s8098 pacchetto-1-247-0', () => {
 });
 
 describe('s8033 pacchetto-1-248-0', () => {
-  it('s8033_version: package and first release are 1.248.0 and retain 1.247.0', () => {
+  it('s8033_version: the 1.248.0 release stays in the changelog and retains 1.247.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.248.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.248.0');
+    expect(changelog).toContain('## v1.248.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe(packageVersion());
     expect(changelog).toContain('## v1.247.0');
   });
 
   it('s8033_map: the narrow-import map has the version and the built module carries the session matrix', () => {
     const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
-    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.248.0');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe(packageVersion());
     // role-assignment is reached by its own subpath, not through a barrel, so the map does not list it: check the build.
     for (const file of ['js', 'cjs', 'd.ts']) {
       const built = readFileSync(resolve(root, `dist/capability/paperclip/role-assignment.${file}`), 'utf8');
       expect(built).toContain('PAPERCLIP_SESSION_ASSIGNMENT_MATRIX');
     }
+  });
+});
+
+describe('s8034 pacchetto-1-249-0', () => {
+  it('s8034_version: package and first release are 1.249.0 and retain 1.248.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.249.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.249.0');
+    expect(changelog).toContain('## v1.248.0');
+  });
+
+  it('s8034_map: the narrow-import map has the version and the built module carries the Paperclip state table', () => {
+    const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.249.0');
+    expect(text).toContain('DEV_SESSION_PAPERCLIP_STATE');
   });
 });

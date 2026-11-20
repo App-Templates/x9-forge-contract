@@ -1,6 +1,8 @@
 import { z } from 'zod';
+import type { PaperclipStatoIncarico } from "../paperclip-protocollo/wire-letture.js";
 export declare const DEV_SESSION_OUTCOME_BLOCK_MARKER: "x9:dev-session-outcome:v1";
 export declare const DEV_SESSION_OUTCOME_STATES: readonly ["delivered", "failed", "discarded", "waiting_materials", "waiting_answer"];
+export type DevSessionOutcomeState = typeof DEV_SESSION_OUTCOME_STATES[number];
 export declare const DEV_SESSION_OUTCOME_REASONS: {
     readonly delivered: readonly ["tests_green", "no_tests_declared"];
     readonly failed: readonly ["tests_red", "session_error", "executor_error", "not_published", "materials_not_obtained", "outcome_not_recorded"];
@@ -182,5 +184,72 @@ export declare function parseDevSessionAnswerBlock(body: string): {
     ok: false;
     reason: DevSessionAnswerBlockFailure;
 };
+/**
+ * Where each outcome state lands on the child issue, whether it carries a yes/no question and which
+ * wake reaches the lead. Every write by the executor needs a live run of the executor itself
+ * (`in_progress` lives only as long as the run; with a finished run Paperclip answers 409); a retry
+ * is a new child, a closed one is never reopened.
+ */
+export declare const DEV_SESSION_PAPERCLIP_STATE: Readonly<Record<DevSessionOutcomeState, {
+    status: PaperclipStatoIncarico;
+    question: boolean;
+    wakesLead: 'interaction_pending' | 'issue_children_completed';
+}>>;
+/** `todo` is the default for an assigned issue (execution-semantics.md:536-538). */
+export declare const DEV_SESSION_PAPERCLIP_OPEN_STATUS: "todo";
+/** Only while the run lives: a finished run can no longer write it. */
+export declare const DEV_SESSION_PAPERCLIP_WORK_STATUS: "in_progress";
+/** Paperclip refuses attachments above 10 MiB by default (attachment-types.ts:164-165, PAPERCLIP_ATTACHMENT_MAX_BYTES). */
+export declare const DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES: number;
+export declare const DevSessionProofAttachmentSchema: z.ZodObject<{
+    attachmentId: z.ZodGUID;
+    name: z.ZodString;
+    mediaType: z.ZodString;
+    sha256: z.ZodString;
+    sizeBytes: z.ZodNumber;
+}, z.core.$strict>;
+export type DevSessionProofAttachment = z.infer<typeof DevSessionProofAttachmentSchema>;
+/** A file above the limit stays only in the git branch and the outcome says so. */
+export declare function devSessionProofAttachmentDecision(sizeBytes: number, maxBytes?: number): {
+    attach: true;
+} | {
+    attach: false;
+    reason: 'too_large';
+};
+export declare const DevSessionPaperclipProductsInputSchema: z.ZodObject<{
+    repo: z.ZodString;
+    branch: z.ZodString;
+    commit: z.ZodString;
+    manifestSha256: z.ZodString;
+    proofs: z.ZodArray<z.ZodObject<{
+        attachmentId: z.ZodGUID;
+        name: z.ZodString;
+        mediaType: z.ZodString;
+        sha256: z.ZodString;
+        sizeBytes: z.ZodNumber;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type DevSessionPaperclipProductsInput = z.infer<typeof DevSessionPaperclipProductsInputSchema>;
+export type DevSessionPaperclipProduct = {
+    type: 'branch' | 'commit';
+    provider: 'github';
+    externalId: string;
+    title: string;
+    url: string;
+    metadata?: {
+        repo: string;
+        manifestSha256: string;
+    };
+} | {
+    type: 'artifact';
+    provider: 'paperclip';
+    externalId: string;
+    title: string;
+    metadata: {
+        attachmentId: string;
+    };
+};
+/** Work products of a delivery in order: branch, commit, then one artifact per proof. */
+export declare function devSessionPaperclipProducts(input: DevSessionPaperclipProductsInput): DevSessionPaperclipProduct[];
 export {};
 //# sourceMappingURL=session-outcome.d.ts.map

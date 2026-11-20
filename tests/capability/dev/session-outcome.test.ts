@@ -6,11 +6,19 @@ import {
   DEV_SESSION_OUTCOME_BLOCK_MARKER,
   DEV_SESSION_OUTCOME_REASONS,
   DEV_SESSION_OUTCOME_STATES,
+  DEV_SESSION_PAPERCLIP_OPEN_STATUS,
+  DEV_SESSION_PAPERCLIP_STATE,
+  DEV_SESSION_PAPERCLIP_WORK_STATUS,
+  DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES,
   DevSessionAnswerSchema,
   DevSessionGitRefSchema,
   DevSessionOutcomeSchema,
+  DevSessionPaperclipProductsInputSchema,
+  DevSessionProofAttachmentSchema,
   devSessionAnswerCanonicalJson,
   devSessionOutcomeCanonicalJson,
+  devSessionPaperclipProducts,
+  devSessionProofAttachmentDecision,
   parseDevSessionAnswerBlock,
   parseDevSessionOutcomeBlock,
   renderDevSessionAnswerBlock,
@@ -22,6 +30,10 @@ import {
   parseDevSessionBlock,
   renderDevSessionBlock,
 } from '../../../src/capability/dev/session-assignment.js';
+
+import { PaperclipProdottoCreaCorpoSchema } from '../../../src/capability/paperclip-protocollo/wire-prodotti.js';
+import { PaperclipStatoIncaricoSchema } from '../../../src/capability/paperclip-protocollo/wire-letture.js';
+import { PAPERCLIP_WAKE_REASONS } from '../../../src/capability/paperclip-protocollo/turno.js';
 
 const sha = (text: string) => createHash('sha256').update(text).digest('hex');
 const createdAt = '2026-11-11T16:00:00+01:00';
@@ -223,5 +235,88 @@ describe('shared block codec', () => {
     const answerBlock = renderDevSessionAnswerBlock(answer, sha(devSessionAnswerCanonicalJson(answer)));
     expect(parseDevSessionOutcomeBlock(`${body}\n${answerBlock}`).ok).toBe(true);
     expect(parseDevSessionAnswerBlock(`${body}\n${answerBlock}`).ok).toBe(true);
+  });
+});
+
+describe('s8034 stato paperclip', () => {
+  const hex = (c: string) => c.repeat(64);
+  const proof = (n: number) => ({
+    attachmentId: `00000000-0000-4000-8000-00000000000${n % 10}`.replace(/.$/, String(n % 10)),
+    name: `prova-${n}.txt`, mediaType: 'text/plain', sha256: hex('a'), sizeBytes: 10 + n,
+  });
+  const products = (proofs: unknown[]) => ({
+    repo: 'acme/orto', branch: 'refs/heads/consegna/20', commit: 'c'.repeat(40), manifestSha256: hex('b'), proofs,
+  });
+
+  it('s8034_tabella: every outcome state has its Paperclip state, question and lead wake written by hand', () => {
+    const expected = {
+      waiting_materials: { status: 'in_review', question: true, wakesLead: 'interaction_pending' },
+      waiting_answer: { status: 'in_review', question: true, wakesLead: 'interaction_pending' },
+      delivered: { status: 'done', question: false, wakesLead: 'issue_children_completed' },
+      failed: { status: 'cancelled', question: false, wakesLead: 'issue_children_completed' },
+      discarded: { status: 'cancelled', question: false, wakesLead: 'issue_children_completed' },
+    } as const;
+    expect(Object.keys(DEV_SESSION_PAPERCLIP_STATE).sort()).toEqual([...DEV_SESSION_OUTCOME_STATES].sort());
+    for (const state of DEV_SESSION_OUTCOME_STATES) {
+      const entry = DEV_SESSION_PAPERCLIP_STATE[state];
+      expect(entry, state).toEqual(expected[state]);
+      expect(PaperclipStatoIncaricoSchema.safeParse(entry.status).success).toBe(true);
+      expect((PAPERCLIP_WAKE_REASONS as readonly string[]).includes(entry.wakesLead)).toBe(true);
+      if (entry.status === 'in_review') expect(entry.question).toBe(true);
+      expect(entry.status).not.toBe('in_progress');
+    }
+    expect(DEV_SESSION_PAPERCLIP_OPEN_STATUS).toBe('todo');
+    expect(DEV_SESSION_PAPERCLIP_WORK_STATUS).toBe('in_progress');
+  });
+
+  it('s8034_prodotti: branch, commit and one artifact per proof, in that order, in the real Paperclip shape', () => {
+    const proofs = [proof(1), proof(2), proof(3)];
+    const out = devSessionPaperclipProducts(DevSessionPaperclipProductsInputSchema.parse(products(proofs)));
+    expect(out.map((p) => p.type)).toEqual(['branch', 'commit', 'artifact', 'artifact', 'artifact']);
+    for (const p of out) expect(PaperclipProdottoCreaCorpoSchema.safeParse(p).success, p.title).toBe(true);
+    expect(out[0]).toMatchObject({ provider: 'github', externalId: 'refs/heads/consegna/20', url: 'https://github.com/acme/orto/tree/refs/heads/consegna/20' });
+    expect(out[1]).toMatchObject({
+      provider: 'github', externalId: 'c'.repeat(40), url: `https://github.com/acme/orto/commit/${'c'.repeat(40)}`,
+      metadata: { repo: 'acme/orto', manifestSha256: hex('b') },
+    });
+    expect(out[2]).toEqual({ type: 'artifact', provider: 'paperclip', externalId: proofs[0]!.attachmentId, title: 'prova-1.txt', metadata: { attachmentId: proofs[0]!.attachmentId } });
+    expect(devSessionPaperclipProducts(DevSessionPaperclipProductsInputSchema.parse(products([]))).map((p) => p.type)).toEqual(['branch', 'commit']);
+    expect(DevSessionPaperclipProductsInputSchema.safeParse(products(Array.from({ length: 21 }, (_, i) => proof(i)))).success).toBe(false);
+    expect(DevSessionPaperclipProductsInputSchema.safeParse(products(Array.from({ length: 20 }, (_, i) => proof(i)))).success).toBe(true);
+  });
+
+  it('s8034_limite: 10 MiB passes, one byte more stays in the git branch, a higher limit argument is honoured', () => {
+    expect(DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES).toBe(10 * 1024 * 1024);
+    expect(devSessionProofAttachmentDecision(10 * 1024 * 1024)).toEqual({ attach: true });
+    expect(devSessionProofAttachmentDecision(10 * 1024 * 1024 + 1)).toEqual({ attach: false, reason: 'too_large' });
+    expect(devSessionProofAttachmentDecision(10 * 1024 * 1024 + 1, 20 * 1024 * 1024)).toEqual({ attach: true });
+    expect(DevSessionProofAttachmentSchema.safeParse({ ...proof(1), sizeBytes: 0 }).success).toBe(false);
+    expect(DevSessionProofAttachmentSchema.safeParse(proof(1)).success).toBe(true);
+    expect(DevSessionProofAttachmentSchema.safeParse({ ...proof(1), extra: 1 }).success).toBe(false);
+  });
+
+  it('s8034_storico: saved outcome blocks of every state still parse unchanged and the lists are identical', () => {
+    for (const state of DEV_SESSION_OUTCOME_STATES) {
+      const code = DEV_SESSION_OUTCOME_REASONS[state][0];
+      const cancelled = code === 'cancelled_by_answer' || code === 'closed_on_board';
+      const raw = {
+        ...outcome, state, reason: { code, text: code },
+        disposition: state === 'delivered' ? undefined : { ...disposition, nature: cancelled ? 'cancelled' : 'technical_failure' },
+        missingMaterials: code === 'materials_requested' ? missingMaterials : undefined,
+        commit: state === 'delivered' ? 'c'.repeat(40) : undefined,
+      };
+      const digest = sha(devSessionOutcomeCanonicalJson(raw));
+      const parsed = parseDevSessionOutcomeBlock(renderDevSessionOutcomeBlock(raw, digest));
+      expect(parsed.ok, state).toBe(true);
+    }
+    expect(DevSessionOutcomeSchema.parse(outcome)).toEqual(outcome);
+    expect([...DEV_SESSION_OUTCOME_STATES]).toEqual(['delivered', 'failed', 'discarded', 'waiting_materials', 'waiting_answer']);
+    expect(DEV_SESSION_OUTCOME_REASONS).toEqual({
+      delivered: ['tests_green', 'no_tests_declared'],
+      failed: ['tests_red', 'session_error', 'executor_error', 'not_published', 'materials_not_obtained', 'outcome_not_recorded'],
+      discarded: ['cancelled_by_answer', 'closed_on_board', 'duplicate_assignment', 'assignment_refused'],
+      waiting_materials: ['materials_requested'],
+      waiting_answer: ['answer_requested', 'retry_or_cancel_requested'],
+    });
   });
 });

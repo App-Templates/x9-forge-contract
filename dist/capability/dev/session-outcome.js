@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import { AssetSha256Schema } from "../../organization/asset.js";
 import { ToolErrorDispositionSchema } from "../tool-error-disposition.js";
-import { DEV_SESSION_MAX_MATERIALS, DevSessionCommitSchema, DevSessionMaterialSchema, DevSessionRepoSchema, DevSessionResultSchema, } from "./session-assignment.js";
+import { DEV_SESSION_MAX_FILES, DEV_SESSION_MAX_MATERIALS, DevSessionCommitSchema, DevSessionMaterialSchema, DevSessionRepoSchema, DevSessionResultSchema, } from "./session-assignment.js";
 export const DEV_SESSION_OUTCOME_BLOCK_MARKER = 'x9:dev-session-outcome:v1';
 export const DEV_SESSION_OUTCOME_STATES = ['delivered', 'failed', 'discarded', 'waiting_materials', 'waiting_answer'];
 export const DEV_SESSION_OUTCOME_REASONS = {
@@ -139,5 +140,57 @@ export function renderDevSessionAnswerBlock(raw, digest) {
 export function parseDevSessionAnswerBlock(body) {
     const parsed = answerCodec.parse(body);
     return parsed.ok ? { ok: true, answer: parsed.value, digest: parsed.digest } : parsed;
+}
+// ---------------------------------------------------------------------------
+// Paperclip mapping (task 8034): the outcome state as the Paperclip issue sees it.
+// ---------------------------------------------------------------------------
+/**
+ * Where each outcome state lands on the child issue, whether it carries a yes/no question and which
+ * wake reaches the lead. Every write by the executor needs a live run of the executor itself
+ * (`in_progress` lives only as long as the run; with a finished run Paperclip answers 409); a retry
+ * is a new child, a closed one is never reopened.
+ */
+export const DEV_SESSION_PAPERCLIP_STATE = {
+    delivered: { status: 'done', question: false, wakesLead: 'issue_children_completed' },
+    failed: { status: 'cancelled', question: false, wakesLead: 'issue_children_completed' },
+    discarded: { status: 'cancelled', question: false, wakesLead: 'issue_children_completed' },
+    waiting_materials: { status: 'in_review', question: true, wakesLead: 'interaction_pending' },
+    waiting_answer: { status: 'in_review', question: true, wakesLead: 'interaction_pending' },
+};
+/** `todo` is the default for an assigned issue (execution-semantics.md:536-538). */
+export const DEV_SESSION_PAPERCLIP_OPEN_STATUS = 'todo';
+/** Only while the run lives: a finished run can no longer write it. */
+export const DEV_SESSION_PAPERCLIP_WORK_STATUS = 'in_progress';
+/** Paperclip refuses attachments above 10 MiB by default (attachment-types.ts:164-165, PAPERCLIP_ATTACHMENT_MAX_BYTES). */
+export const DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES = 10 * 1024 * 1024;
+export const DevSessionProofAttachmentSchema = z.strictObject({
+    attachmentId: z.guid(),
+    name: z.string().min(1).max(255),
+    mediaType: z.string().min(1).max(255),
+    sha256: AssetSha256Schema,
+    sizeBytes: z.number().int().min(1),
+});
+/** A file above the limit stays only in the git branch and the outcome says so. */
+export function devSessionProofAttachmentDecision(sizeBytes, maxBytes = DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES) {
+    return sizeBytes > maxBytes ? { attach: false, reason: 'too_large' } : { attach: true };
+}
+export const DevSessionPaperclipProductsInputSchema = z.strictObject({
+    repo: DevSessionRepoSchema,
+    branch: DevSessionGitRefSchema,
+    commit: DevSessionCommitSchema,
+    manifestSha256: AssetSha256Schema,
+    proofs: z.array(DevSessionProofAttachmentSchema).max(DEV_SESSION_MAX_FILES),
+});
+/** Work products of a delivery in order: branch, commit, then one artifact per proof. */
+export function devSessionPaperclipProducts(input) {
+    const base = `https://github.com/${input.repo}`;
+    return [
+        { type: 'branch', provider: 'github', externalId: input.branch, title: input.branch, url: `${base}/tree/${input.branch}` },
+        {
+            type: 'commit', provider: 'github', externalId: input.commit, title: input.commit.slice(0, 12), url: `${base}/commit/${input.commit}`,
+            metadata: { repo: input.repo, manifestSha256: input.manifestSha256 },
+        },
+        ...input.proofs.map((proof) => ({ type: 'artifact', provider: 'paperclip', externalId: proof.attachmentId, title: proof.name, metadata: { attachmentId: proof.attachmentId } })),
+    ];
 }
 //# sourceMappingURL=session-outcome.js.map

@@ -1,13 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DevSessionAnswerSchema = exports.DevSessionGitRefSchema = exports.DEV_SESSION_ANSWER_KINDS = exports.DEV_SESSION_ANSWER_BLOCK_MARKER = exports.DevSessionOutcomeSchema = exports.DEV_SESSION_OUTCOME_REASONS = exports.DEV_SESSION_OUTCOME_STATES = exports.DEV_SESSION_OUTCOME_BLOCK_MARKER = void 0;
+exports.DevSessionPaperclipProductsInputSchema = exports.DevSessionProofAttachmentSchema = exports.DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES = exports.DEV_SESSION_PAPERCLIP_WORK_STATUS = exports.DEV_SESSION_PAPERCLIP_OPEN_STATUS = exports.DEV_SESSION_PAPERCLIP_STATE = exports.DevSessionAnswerSchema = exports.DevSessionGitRefSchema = exports.DEV_SESSION_ANSWER_KINDS = exports.DEV_SESSION_ANSWER_BLOCK_MARKER = exports.DevSessionOutcomeSchema = exports.DEV_SESSION_OUTCOME_REASONS = exports.DEV_SESSION_OUTCOME_STATES = exports.DEV_SESSION_OUTCOME_BLOCK_MARKER = void 0;
 exports.devSessionOutcomeCanonicalJson = devSessionOutcomeCanonicalJson;
 exports.renderDevSessionOutcomeBlock = renderDevSessionOutcomeBlock;
 exports.parseDevSessionOutcomeBlock = parseDevSessionOutcomeBlock;
 exports.devSessionAnswerCanonicalJson = devSessionAnswerCanonicalJson;
 exports.renderDevSessionAnswerBlock = renderDevSessionAnswerBlock;
 exports.parseDevSessionAnswerBlock = parseDevSessionAnswerBlock;
+exports.devSessionProofAttachmentDecision = devSessionProofAttachmentDecision;
+exports.devSessionPaperclipProducts = devSessionPaperclipProducts;
 const zod_1 = require("zod");
+const asset_js_1 = require("../../organization/asset.cjs");
 const tool_error_disposition_js_1 = require("../tool-error-disposition.cjs");
 const session_assignment_js_1 = require("./session-assignment.cjs");
 exports.DEV_SESSION_OUTCOME_BLOCK_MARKER = 'x9:dev-session-outcome:v1';
@@ -148,5 +151,57 @@ function renderDevSessionAnswerBlock(raw, digest) {
 function parseDevSessionAnswerBlock(body) {
     const parsed = answerCodec.parse(body);
     return parsed.ok ? { ok: true, answer: parsed.value, digest: parsed.digest } : parsed;
+}
+// ---------------------------------------------------------------------------
+// Paperclip mapping (task 8034): the outcome state as the Paperclip issue sees it.
+// ---------------------------------------------------------------------------
+/**
+ * Where each outcome state lands on the child issue, whether it carries a yes/no question and which
+ * wake reaches the lead. Every write by the executor needs a live run of the executor itself
+ * (`in_progress` lives only as long as the run; with a finished run Paperclip answers 409); a retry
+ * is a new child, a closed one is never reopened.
+ */
+exports.DEV_SESSION_PAPERCLIP_STATE = {
+    delivered: { status: 'done', question: false, wakesLead: 'issue_children_completed' },
+    failed: { status: 'cancelled', question: false, wakesLead: 'issue_children_completed' },
+    discarded: { status: 'cancelled', question: false, wakesLead: 'issue_children_completed' },
+    waiting_materials: { status: 'in_review', question: true, wakesLead: 'interaction_pending' },
+    waiting_answer: { status: 'in_review', question: true, wakesLead: 'interaction_pending' },
+};
+/** `todo` is the default for an assigned issue (execution-semantics.md:536-538). */
+exports.DEV_SESSION_PAPERCLIP_OPEN_STATUS = 'todo';
+/** Only while the run lives: a finished run can no longer write it. */
+exports.DEV_SESSION_PAPERCLIP_WORK_STATUS = 'in_progress';
+/** Paperclip refuses attachments above 10 MiB by default (attachment-types.ts:164-165, PAPERCLIP_ATTACHMENT_MAX_BYTES). */
+exports.DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES = 10 * 1024 * 1024;
+exports.DevSessionProofAttachmentSchema = zod_1.z.strictObject({
+    attachmentId: zod_1.z.guid(),
+    name: zod_1.z.string().min(1).max(255),
+    mediaType: zod_1.z.string().min(1).max(255),
+    sha256: asset_js_1.AssetSha256Schema,
+    sizeBytes: zod_1.z.number().int().min(1),
+});
+/** A file above the limit stays only in the git branch and the outcome says so. */
+function devSessionProofAttachmentDecision(sizeBytes, maxBytes = exports.DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES) {
+    return sizeBytes > maxBytes ? { attach: false, reason: 'too_large' } : { attach: true };
+}
+exports.DevSessionPaperclipProductsInputSchema = zod_1.z.strictObject({
+    repo: session_assignment_js_1.DevSessionRepoSchema,
+    branch: exports.DevSessionGitRefSchema,
+    commit: session_assignment_js_1.DevSessionCommitSchema,
+    manifestSha256: asset_js_1.AssetSha256Schema,
+    proofs: zod_1.z.array(exports.DevSessionProofAttachmentSchema).max(session_assignment_js_1.DEV_SESSION_MAX_FILES),
+});
+/** Work products of a delivery in order: branch, commit, then one artifact per proof. */
+function devSessionPaperclipProducts(input) {
+    const base = `https://github.com/${input.repo}`;
+    return [
+        { type: 'branch', provider: 'github', externalId: input.branch, title: input.branch, url: `${base}/tree/${input.branch}` },
+        {
+            type: 'commit', provider: 'github', externalId: input.commit, title: input.commit.slice(0, 12), url: `${base}/commit/${input.commit}`,
+            metadata: { repo: input.repo, manifestSha256: input.manifestSha256 },
+        },
+        ...input.proofs.map((proof) => ({ type: 'artifact', provider: 'paperclip', externalId: proof.attachmentId, title: proof.name, metadata: { attachmentId: proof.attachmentId } })),
+    ];
 }
 //# sourceMappingURL=session-outcome.js.map

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.249.0 — session outcomes map to Paperclip issue states and delivery products (task 8034)
+
+- Additive in `capability/dev/session-outcome`: `DEV_SESSION_PAPERCLIP_STATE` (outcome state to Paperclip status, yes/no question and lead wake), `DEV_SESSION_PAPERCLIP_OPEN_STATUS`, `DEV_SESSION_PAPERCLIP_WORK_STATUS`, the proof attachment schema, its limit (`DEV_SESSION_PROOF_ATTACHMENT_MAX_BYTES`, 10 MiB) and `devSessionProofAttachmentDecision`, plus `DevSessionPaperclipProductsInputSchema` and `devSessionPaperclipProducts` (branch, commit, one artifact per proof).
+- Outcome states, reasons, schemas and blocks are unchanged. Consumers move their pin first.
+
 ## v1.248.0 — the session executor is a role the lead can assign to (task 8033)
 
 - Additive: `capability/paperclip/role-assignment` gains `PAPERCLIP_EXECUTOR_ROLE` (`esecutore`), `PAPERCLIP_SESSION_ROLES`, `PAPERCLIP_SESSION_ASSIGNMENT_MATRIX` (today's nine pairs plus lead → executor and executor → lead, eleven of twenty-five), `decideSessionAssignment` and `PAPERCLIP_EXECUTOR_BIRTH_PLAN` (no permission, open, cannot create agents).
