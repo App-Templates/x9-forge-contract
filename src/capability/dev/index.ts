@@ -8,6 +8,13 @@ export * from './production-config-match.js';
 export * from './production-progress.js';
 export * from './production-artifact-content.js';
 export * from './session-assignment.js';
+export * from './session-acceptance.js';
+export * from './session-acceptance-catalog.js';
+export * from './session-acceptance-templates.js';
+export * from './session-acceptance-coverage.js';
+export * from './session-acceptance-paperclip.js';
+export * from './session-attestation.js';
+export * from './session-acceptance-mandate.js';
 export * from './session-outcome.js';
 export {
   DEV_SESSION_EXECUTOR_LABEL_PREFIX,
