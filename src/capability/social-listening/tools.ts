@@ -4,9 +4,11 @@ import { AgentDaySchema } from '../ricerca/spend.js';
 import {
   SocialFollowedProfileSchema,
   SocialHandleSchema,
+  SocialPostSchema,
   SocialProviderSchema,
   SocialVerticalIdSchema,
 } from './post.js';
+import { SocialPostToolSchema } from './verdict.js';
 import {
   SOCIAL_VERDICTS,
   SocialCategorySlugSchema,
@@ -184,10 +186,38 @@ export const SocialRecapOutputSchema = z.strictObject({
  * {@link SocialTopicSchema} and the same fact rule is applied again.
  */
 const { identity: _topicIdentity, ...socialTopicShape } = SocialTopicSchema.shape;
-export const SocialTopicGetOutputSchema = z.strictObject(socialTopicShape).superRefine((t, ctx) => {
+
+/** One analyzed post of a topic, as the page shows it: the reason and the tool names are DATA, never instructions. */
+export const SocialTopicPostSchema = z.strictObject({
+  postId: SocialPostSchema.shape.postId,
+  handle: SocialHandleSchema,
+  link: WebUrlSchema,
+  verdict: SocialVerdictSchema,
+  reason: z.string().min(1).max(2000),
+  tools: z.array(SocialPostToolSchema).max(20),
+});
+export type SocialTopicPost = z.infer<typeof SocialTopicPostSchema>;
+
+export const SocialTopicGetOutputSchema = z.strictObject({
+  ...socialTopicShape,
+  /**
+   * Present when the archive holds the analysis of at least one post of the topic, in the order of `postIds`;
+   * a post without analysis is left out.
+   */
+  posts: z.array(SocialTopicPostSchema).max(100).optional(),
+}).superRefine((t, ctx) => {
   if ((t.verdict === 'funziona' || t.verdict === 'da_provare') && t.facts.length < 1) {
     ctx.addIssue({ code: 'custom', path: ['facts'], message: 'verdict funziona/da_provare needs at least one fact' });
   }
+  const seen = new Set<string>();
+  (t.posts ?? []).forEach((p, i) => {
+    if (!t.postIds.includes(p.postId)) {
+      ctx.addIssue({ code: 'custom', path: ['posts', i, 'postId'], message: 'post not in topic' });
+    } else if (seen.has(p.postId)) {
+      ctx.addIssue({ code: 'custom', path: ['posts', i, 'postId'], message: 'post listed twice' });
+    }
+    seen.add(p.postId);
+  });
 });
 export const SocialProfilesListOutputSchema = z.strictObject({
   profiles: z.array(SocialFollowedProfileSchema).max(SOCIAL_FOLLOWED_PROFILES_MAX),
