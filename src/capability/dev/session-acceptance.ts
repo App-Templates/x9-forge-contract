@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { AssetKeySchema } from '../../organization/asset.js';
+import { DecisionRequestIdSchema } from '../../organization/decision-request.js';
 import type { ToolErrorDisposition } from '../tool-error-disposition.js';
 import { PAPERCLIP_CRITERI_MASSIMI, PAPERCLIP_CRITERIO_MAX } from '../paperclip-protocollo/wire-creazione.js';
 
@@ -26,13 +27,36 @@ export type DevSessionCriterionOrigin = z.infer<typeof DevSessionCriterionOrigin
 const CriterionIdSchema = z.string().min(1).max(40).regex(/^[A-Za-z0-9]+([-_.][A-Za-z0-9]+)*$/);
 const CriterionTextSchema = z.string().trim().min(1).max(DEV_SESSION_CRITERION_TEXT_MAX);
 
+// References carry identity only; consumers must verify the referenced requirement or decision.
+export const DevSessionCriterionReferenceSchema = z.union([
+  z.string().trim().min(1).max(200),
+  z.discriminatedUnion('kind', [
+    z.strictObject({
+      kind: z.literal('requirement'),
+      id: CriterionIdSchema,
+    }),
+    z.strictObject({ kind: z.literal('decision'), requestId: DecisionRequestIdSchema }),
+  ]),
+]);
+export type DevSessionCriterionReference = z.infer<typeof DevSessionCriterionReferenceSchema>;
+
+export const DevSessionCorrectionReasonSchema = z.discriminatedUnion('kind', [
+  z.strictObject({
+    kind: z.literal('requirements'),
+    ids: z.array(CriterionIdSchema).min(1).max(DEV_SESSION_ACCEPTANCE_MAX_CRITERIA)
+      .refine((ids) => new Set(ids).size === ids.length, ruleIssue('list_not_unique')),
+  }),
+  z.strictObject({ kind: z.literal('decision'), requestId: DecisionRequestIdSchema }),
+]);
+export type DevSessionCorrectionReason = z.infer<typeof DevSessionCorrectionReasonSchema>;
+
 export const DevSessionCriterionSchema = z.strictObject({
   id: CriterionIdSchema,
   text: CriterionTextSchema,
   attestor: DevSessionAttestorSchema,
   proof: CriterionTextSchema,
   origin: DevSessionCriterionOriginSchema,
-  reference: z.string().trim().min(1).max(200).optional(),
+  reference: DevSessionCriterionReferenceSchema.optional(),
   unit: AssetKeySchema.max(30).optional(),
 }).superRefine((criterion, ctx) => {
   if ((criterion.origin === 'ritorno') !== (criterion.reference !== undefined)) ctx.addIssue({ code: 'custom', path: ['reference'], message: ruleIssue('reference_iff_return') });
@@ -59,6 +83,7 @@ export const DevSessionAcceptanceInputSchema = z.strictObject({
   // One sentence on what the user will be able to do. Optional here so saved forms keep parsing unchanged;
   // whether it is required is a service check, not a retroactive schema restriction.
   objective: z.string().trim().min(1).max(500).optional(),
+  correctionReason: DevSessionCorrectionReasonSchema.optional(),
   userPath: z.array(CriterionTextSchema).min(1).max(20).optional(),
   data: z.enum(DEV_SESSION_INPUT_DATA).optional(),
   // A script name is resolved by the consumer, so shell commands cannot cross this boundary.

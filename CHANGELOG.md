@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.275.0 — typed correction reasons and references preserve saved free text (task 8280)
+
+- Additive in `capability/dev/session-acceptance`: `DevSessionCriterionReferenceSchema` and its type accept the historical trimmed 1–200 character string or a strict typed requirement (`kind`, `id`) or decision (`kind`, `requestId`) reference. `DevSessionCorrectionReasonSchema` and its type carry either 1–`DEV_SESSION_ACCEPTANCE_MAX_CRITERIA` unique criterion ids or a decision request id, reusing `DecisionRequestIdSchema`. Optional `input.correctionReason` is included by the existing assignment canonicalization and block; no parallel field, default, new required input, endpoint or revision counter. Model versions stay 1 and saved free references remain unchanged. Shapes do not prove existence: consumer verification and decision-source discovery remain separate tasks.
+- REGRESSIONE: s8280 motivo-tipato: contratto di correzione nella forma di R56, modello versione 1 e criterion origin ritorno con reference stringa; oggi reference oggetto e ingresso.correctionReason sono rifiutati dallo strict. Dopo i nuovi riferimenti passano e sono conservati nel canonico, la reference libera salvata e l'assenza del motivo passano identiche. Fixture ricostruita dalla forma della scheda; i blocchi veri della 51 e di R56 restano alla coordinatrice.
+
 ## v1.274.0 — explicit document pieces are projected from the saved mandate (task 8393)
 
 - Additive in `organization/business-unit-mandate`, re-exported by `organization`: `ActionPlanDocumentPieceSchema` and its type, picked from `ActionPlanBuSectionSchema` (`id`, `title`, `expectedGoal`, `deliveryCriteria`, `documentFormat`, `documentSources`), and pure `mandateDocumentPieces(mandate: ReconciledMandate): ActionPlanDocumentPiece[]`. Only sections declaring format or sources are projected, in plan order with unchanged criteria; no input mutation or inference from unit name, executor or delivery shape. Legacy mandates return `[]`; absence is not verification. No task, reviewer or closure is created. Inert until adoption (8394) and consumption (8395).
