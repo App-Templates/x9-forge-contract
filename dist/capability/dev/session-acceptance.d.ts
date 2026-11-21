@@ -57,6 +57,7 @@ export declare const DevSessionLookSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type DevSessionLook = z.infer<typeof DevSessionLookSchema>;
 export declare const DevSessionAcceptanceInputSchema: z.ZodObject<{
+    objective: z.ZodOptional<z.ZodString>;
     userPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
     data: z.ZodOptional<z.ZodEnum<{
         veri: "veri";
@@ -100,6 +101,39 @@ export declare const DevSessionAcceptanceInputSchema: z.ZodObject<{
         tryPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
+export declare const DEV_SESSION_CODE_OPENING_MOVES: {
+    readonly objective_missing: {
+        readonly field: "objective";
+        readonly actor: "capo";
+        readonly move: "Scrivi in una frase che cosa potrà fare l'utente, ricavandola dal mandato del pezzo, e ripeti la richiesta.";
+        readonly disposition: {
+            readonly nature: "missing_data";
+            readonly retry: "never";
+            readonly nextMove: "fix_input";
+        };
+    };
+    readonly piece_missing: {
+        readonly field: "piece";
+        readonly actor: "capo";
+        readonly move: "Indica la chiave del pezzo da costruire nella richiesta e ripetila.";
+        readonly disposition: {
+            readonly nature: "missing_data";
+            readonly retry: "never";
+            readonly nextMove: "fix_input";
+        };
+    };
+    readonly base_required: {
+        readonly field: "base";
+        readonly actor: "capo";
+        readonly move: "Indica nella richiesta il ramo e il commit della versione suggerita dal servizio come base e ripetila.";
+        readonly disposition: {
+            readonly nature: "missing_data";
+            readonly retry: "never";
+            readonly nextMove: "fix_input";
+        };
+    };
+};
+export type DevSessionCodeOpeningCode = keyof typeof DEV_SESSION_CODE_OPENING_MOVES;
 export type DevSessionAcceptanceInput = z.infer<typeof DevSessionAcceptanceInputSchema>;
 export declare const DevSessionAcceptanceSchema: z.ZodObject<{
     version: z.ZodLiteral<1>;
@@ -109,6 +143,7 @@ export declare const DevSessionAcceptanceSchema: z.ZodObject<{
         optionalIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>;
     input: z.ZodObject<{
+        objective: z.ZodOptional<z.ZodString>;
         userPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
         data: z.ZodOptional<z.ZodEnum<{
             veri: "veri";

@@ -47,6 +47,9 @@ export const DevSessionLookSchema = z.strictObject({
 });
 // Presence is owned by the chosen template; the wire contract only validates supplied inputs.
 export const DevSessionAcceptanceInputSchema = z.strictObject({
+    // One sentence on what the user will be able to do. Optional here so saved forms keep parsing unchanged;
+    // whether it is required is a service check, not a retroactive schema restriction.
+    objective: z.string().trim().min(1).max(500).optional(),
     userPath: z.array(CriterionTextSchema).min(1).max(20).optional(),
     data: z.enum(DEV_SESSION_INPUT_DATA).optional(),
     // A script name is resolved by the consumer, so shell commands cannot cross this boundary.
@@ -69,6 +72,13 @@ export const DevSessionAcceptanceInputSchema = z.strictObject({
     retouch: z.strictObject({ target: CriterionTextSchema, defect: CriterionTextSchema }).optional(),
     look: DevSessionLookSchema.optional(),
 });
+// Moves for refused code-session openings. Deliberately NOT in DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES: adding codes
+// there would break consumers' exhaustive tables before they adopt this version.
+export const DEV_SESSION_CODE_OPENING_MOVES = {
+    objective_missing: { field: 'objective', actor: 'capo', move: "Scrivi in una frase che cosa potrà fare l'utente, ricavandola dal mandato del pezzo, e ripeti la richiesta.", disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
+    piece_missing: { field: 'piece', actor: 'capo', move: 'Indica la chiave del pezzo da costruire nella richiesta e ripetila.', disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
+    base_required: { field: 'base', actor: 'capo', move: 'Indica nella richiesta il ramo e il commit della versione suggerita dal servizio come base e ripetila.', disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
+};
 export const DevSessionAcceptanceSchema = z.strictObject({
     version: z.literal(1),
     template: z.strictObject({

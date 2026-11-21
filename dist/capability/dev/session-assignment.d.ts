@@ -194,6 +194,7 @@ export declare const DevSessionAssignmentSchema: z.ZodObject<{
             optionalIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
         }, z.core.$strict>;
         input: z.ZodObject<{
+            objective: z.ZodOptional<z.ZodString>;
             userPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
             data: z.ZodOptional<z.ZodEnum<{
                 veri: "veri";

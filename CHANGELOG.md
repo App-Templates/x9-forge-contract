@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.269.0 — optional objective in the acceptance input, and moves for refused code openings (task 8260)
+
+- Additive in `capability/dev/session-acceptance`: `input.objective` (trimmed, 1-500 chars, optional, strict object unchanged) and `DEV_SESSION_CODE_OPENING_MOVES` (`objective_missing`, `piece_missing`, `base_required`: field, actor `capo`, one move, `missing_data`/`never`/`fix_input` disposition). The codes are not in `DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES`. Saved forms without `objective` parse and serialize identically. Consumers: 8262 (pin), 8263-8265 (checks).
+- REGRESSIONE: s8260 obiettivo-nella-forma: contratto con la forma di R56 (versione 1, modello sviluppo-pezzo-app versione 1, input userPath/data/proofScripts/visualSource, criteria con origin capo), con input.objective aggiunto: oggi lo schema strict lo rifiuta; dopo lo legge e lo conserva. Senza objective la forma salvata passa identica.
+
 ## v1.268.0 — the Director's answer has an outcome, and when it is not a go-ahead it says how to fix (task 8250)
 
 - Additive in `capability/paperclip/native-wait`: optional `answer` in `paperclip_review` (`PaperclipDirectorAnswerSchema`: `outcome` approved | not_approved | forbidden, `howToFix` { move, who, tool? }, `liftCondition` blocked_by_issue | check_after bounded like `checkLater`), allowed only with `status: done` and no ask or wait; `paperclipDirectorAnswerLines(answer)` composes the fixed lines. Closures without `answer` are unchanged. Consumers: 8251 (pin), 8252 (service check).

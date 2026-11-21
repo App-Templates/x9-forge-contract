@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DEV_SESSION_LOOK_DELIVERY_PROBLEMS = exports.DEV_SESSION_LOOK_OPENING_PROBLEMS = exports.DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES = exports.DEV_SESSION_LOOK_LABELS = exports.DevSessionAcceptanceSchema = exports.DevSessionAcceptanceInputSchema = exports.DevSessionLookSchema = exports.DevSessionLookKindSchema = exports.DEV_SESSION_LOOK_KINDS = exports.DevSessionCriterionSchema = exports.DevSessionCriterionOriginSchema = exports.DevSessionAttestorSchema = exports.DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES = exports.DEV_SESSION_INPUT_VISUAL_SOURCES = exports.DEV_SESSION_INPUT_FORMATS = exports.DEV_SESSION_INPUT_STATES = exports.DEV_SESSION_INPUT_DATA = exports.DEV_SESSION_CRITERION_ORIGINS = exports.DEV_SESSION_ATTESTORS = exports.DEV_SESSION_CRITERION_TEXT_MAX = exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA = void 0;
+exports.DEV_SESSION_LOOK_DELIVERY_PROBLEMS = exports.DEV_SESSION_LOOK_OPENING_PROBLEMS = exports.DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES = exports.DEV_SESSION_LOOK_LABELS = exports.DevSessionAcceptanceSchema = exports.DEV_SESSION_CODE_OPENING_MOVES = exports.DevSessionAcceptanceInputSchema = exports.DevSessionLookSchema = exports.DevSessionLookKindSchema = exports.DEV_SESSION_LOOK_KINDS = exports.DevSessionCriterionSchema = exports.DevSessionCriterionOriginSchema = exports.DevSessionAttestorSchema = exports.DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES = exports.DEV_SESSION_INPUT_VISUAL_SOURCES = exports.DEV_SESSION_INPUT_FORMATS = exports.DEV_SESSION_INPUT_STATES = exports.DEV_SESSION_INPUT_DATA = exports.DEV_SESSION_CRITERION_ORIGINS = exports.DEV_SESSION_ATTESTORS = exports.DEV_SESSION_CRITERION_TEXT_MAX = exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA = void 0;
 exports.devSessionLookKindOfBytes = devSessionLookKindOfBytes;
 exports.devSessionLookKindOfMediaType = devSessionLookKindOfMediaType;
 exports.devSessionLookOpeningProblem = devSessionLookOpeningProblem;
@@ -54,6 +54,9 @@ exports.DevSessionLookSchema = zod_1.z.strictObject({
 });
 // Presence is owned by the chosen template; the wire contract only validates supplied inputs.
 exports.DevSessionAcceptanceInputSchema = zod_1.z.strictObject({
+    // One sentence on what the user will be able to do. Optional here so saved forms keep parsing unchanged;
+    // whether it is required is a service check, not a retroactive schema restriction.
+    objective: zod_1.z.string().trim().min(1).max(500).optional(),
     userPath: zod_1.z.array(CriterionTextSchema).min(1).max(20).optional(),
     data: zod_1.z.enum(exports.DEV_SESSION_INPUT_DATA).optional(),
     // A script name is resolved by the consumer, so shell commands cannot cross this boundary.
@@ -76,6 +79,13 @@ exports.DevSessionAcceptanceInputSchema = zod_1.z.strictObject({
     retouch: zod_1.z.strictObject({ target: CriterionTextSchema, defect: CriterionTextSchema }).optional(),
     look: exports.DevSessionLookSchema.optional(),
 });
+// Moves for refused code-session openings. Deliberately NOT in DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES: adding codes
+// there would break consumers' exhaustive tables before they adopt this version.
+exports.DEV_SESSION_CODE_OPENING_MOVES = {
+    objective_missing: { field: 'objective', actor: 'capo', move: "Scrivi in una frase che cosa potrà fare l'utente, ricavandola dal mandato del pezzo, e ripeti la richiesta.", disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
+    piece_missing: { field: 'piece', actor: 'capo', move: 'Indica la chiave del pezzo da costruire nella richiesta e ripetila.', disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
+    base_required: { field: 'base', actor: 'capo', move: 'Indica nella richiesta il ramo e il commit della versione suggerita dal servizio come base e ripetila.', disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
+};
 exports.DevSessionAcceptanceSchema = zod_1.z.strictObject({
     version: zod_1.z.literal(1),
     template: zod_1.z.strictObject({
