@@ -9,6 +9,7 @@ import {
   type SocialPostKind,
 } from './post.js';
 import {
+  SOCIAL_TOPIC_ANGLE_MAX,
   SOCIAL_TOPIC_TITLE_MAX,
   SocialTopicSchema,
   socialCategoryInVertical,
@@ -230,6 +231,17 @@ export type SocialImportTopicResult =
   | { ok: true; topic: SocialTopic }
   | { ok: false; error: 'vertical_mismatch' | 'category_not_in_vertical' | 'invalid_timestamp' | 'invalid_topic' };
 
+/** Trims the legacy story angle and cuts it at a word boundary within the contract maximum. */
+function socialImportAngle(raw: string): string | undefined {
+  const text = raw.trim();
+  if (text === '') return undefined;
+  if (text.length <= SOCIAL_TOPIC_ANGLE_MAX) return text;
+  const head = text.slice(0, SOCIAL_TOPIC_ANGLE_MAX);
+  const atBoundary = /\s/.test(text.charAt(SOCIAL_TOPIC_ANGLE_MAX));
+  const cut = atBoundary ? head : head.slice(0, Math.max(head.search(/\s\S*$/), 0));
+  return cut.trimEnd() || head;
+}
+
 export function socialImportTopic(row: unknown, ctx: SocialImportTopicContext): SocialImportTopicResult {
   const parsed = SocialLegacyClusterRowSchema.safeParse(row);
   if (!parsed.success) {
@@ -244,6 +256,7 @@ export function socialImportTopic(row: unknown, ctx: SocialImportTopicContext): 
   if (!identity.success) return { ok: false, error: 'invalid_topic' };
   const computedAt = socialImportTimestamp(legacy.calcolato_il);
   if (computedAt === null) return { ok: false, error: 'invalid_timestamp' };
+  const angle = socialImportAngle(legacy.angolo_story);
   const topic = SocialTopicSchema.safeParse({
     identity: identity.data,
     topicId: ctx.topicId,
@@ -258,6 +271,7 @@ export function socialImportTopic(row: unknown, ctx: SocialImportTopicContext): 
     heat: legacy.hype,
     postIds: legacy.post_ids,
     creators: legacy.creator,
+    ...(angle === undefined ? {} : { angle }),
     cost: { usd: 0, track: 'mac', uncertain: true },
     computedAt,
   });
