@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.254.0 — session acceptance contracts have a shared Paperclip document (task 8160)
+
+- Add pure `devSessionContractDocumentKey(issueNumber)` and `devSessionContractDocumentBody({ acceptance, issueNumber, digest, base?, deliverableKey? })` in `capability/dev/session-acceptance-paperclip`: stable `contratto-r<n>` keys and Markdown with the supplied digest, template, starting base, preview path and every resolved criterion grouped by attestor, with proof and origin (including return references).
+- Normalize backslashes before producing the document and validate the Paperclip key and write body. The sealed machine block stays on the session board; saved acceptance contracts and existing functions are unchanged.
+- Consumers provide the digest and write the document and its revisions in follow-up tasks 8161, 8151 and 8152; this package makes no Paperclip calls.
+- REGRESSIONE: s8160 chiave-e-testo: con il contratto vero di R61 (modello `sviluppo-pezzo-app` versione 1, ingresso con `userPath`, `data`, `proofScripts`, `visualSource`, criteri di tre origini) oggi non esiste né la chiave né il testo (rosso: import indefinito); dopo `devSessionContractDocumentKey(61)` dà `contratto-r61` e il testo elenca ogni criterio con id, chi lo attesta, la prova e da dove viene, più l'impronta, senza nessuna sequenza `\n` letterale (verde).
+
 ## v1.253.0 — the session acceptance contract says what the referent receives to look at (task 8115)
 
 - Additive optional `look` in the acceptance input (`prototipo`, `immagine` or `documento`, with an optional `tryPath`): it describes the `preview` file of CONSEGNA.json. Saved contracts without `look` are unchanged and parse as before.

@@ -740,16 +740,32 @@ describe('s8037 pacchetto-1-252-0', () => {
 });
 
 describe('s8115 pacchetto-1-253-0', () => {
-  it('s8115_version: package and first release are 1.253.0 and retain 1.252.0', () => {
+  it('s8115_version: the 1.253.0 release stays in the changelog and retains 1.252.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.253.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.253.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.253.0');
     expect(changelog).toContain('## v1.252.0');
   });
 
   it('s8115_map: the narrow-import map has the version and the kind-by-bytes function', () => {
     const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
-    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.253.0');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe(packageVersion());
     expect(text).toContain('devSessionLookKindOfBytes');
+  });
+});
+
+describe('s8160 pacchetto-1-254-0', () => {
+  it('s8160_version: package and first release are 1.254.0 and retain 1.253.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.254.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.254.0');
+    expect(changelog).toContain('## v1.253.0');
+  });
+
+  it('s8160_map: the narrow-import map has the version and the session contract document functions', () => {
+    const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.254.0');
+    expect(text).toContain('devSessionContractDocumentKey');
+    expect(text).toContain('devSessionContractDocumentBody');
   });
 });
