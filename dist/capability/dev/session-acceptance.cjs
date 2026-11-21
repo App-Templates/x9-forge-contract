@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DEV_SESSION_LOOK_DELIVERY_PROBLEMS = exports.DEV_SESSION_LOOK_OPENING_PROBLEMS = exports.DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES = exports.DEV_SESSION_LOOK_LABELS = exports.DevSessionAcceptanceSchema = exports.DEV_SESSION_CODE_OPENING_MOVES = exports.DevSessionAcceptanceInputSchema = exports.DevSessionLookSchema = exports.DevSessionLookKindSchema = exports.DEV_SESSION_LOOK_KINDS = exports.DevSessionCriterionSchema = exports.DevSessionCriterionOriginSchema = exports.DevSessionAttestorSchema = exports.DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES = exports.DEV_SESSION_INPUT_VISUAL_SOURCES = exports.DEV_SESSION_INPUT_FORMATS = exports.DEV_SESSION_INPUT_STATES = exports.DEV_SESSION_INPUT_DATA = exports.DEV_SESSION_CRITERION_ORIGINS = exports.DEV_SESSION_ATTESTORS = exports.DEV_SESSION_CRITERION_TEXT_MAX = exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA = void 0;
+exports.DEV_SESSION_LOOK_DELIVERY_PROBLEMS = exports.DEV_SESSION_LOOK_OPENING_PROBLEMS = exports.DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES = exports.DEV_SESSION_LOOK_LABELS = exports.DevSessionAcceptanceSchema = exports.DEV_SESSION_CODE_OPENING_MOVES = exports.DevSessionAcceptanceInputSchema = exports.DevSessionLookSchema = exports.DevSessionLookKindSchema = exports.DEV_SESSION_LOOK_KINDS = exports.DevSessionCriterionSchema = exports.DevSessionCorrectionReasonSchema = exports.DevSessionCriterionReferenceSchema = exports.DevSessionCriterionOriginSchema = exports.DevSessionAttestorSchema = exports.DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES = exports.DEV_SESSION_INPUT_VISUAL_SOURCES = exports.DEV_SESSION_INPUT_FORMATS = exports.DEV_SESSION_INPUT_STATES = exports.DEV_SESSION_INPUT_DATA = exports.DEV_SESSION_CRITERION_ORIGINS = exports.DEV_SESSION_ATTESTORS = exports.DEV_SESSION_CRITERION_TEXT_MAX = exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA = void 0;
 exports.devSessionLookKindOfBytes = devSessionLookKindOfBytes;
 exports.devSessionLookKindOfMediaType = devSessionLookKindOfMediaType;
 exports.devSessionLookOpeningProblem = devSessionLookOpeningProblem;
 exports.devSessionLookDeliveryProblem = devSessionLookDeliveryProblem;
 const zod_1 = require("zod");
 const asset_js_1 = require("../../organization/asset.cjs");
+const decision_request_js_1 = require("../../organization/decision-request.cjs");
 const wire_creazione_js_1 = require("../paperclip-protocollo/wire-creazione.cjs");
 // Only variable criteria consume Paperclip slots; versioned template checks live in the catalog.
 exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA = wire_creazione_js_1.PAPERCLIP_CRITERI_MASSIMI;
@@ -25,13 +26,32 @@ exports.DevSessionAttestorSchema = zod_1.z.enum(exports.DEV_SESSION_ATTESTORS);
 exports.DevSessionCriterionOriginSchema = zod_1.z.enum(exports.DEV_SESSION_CRITERION_ORIGINS);
 const CriterionIdSchema = zod_1.z.string().min(1).max(40).regex(/^[A-Za-z0-9]+([-_.][A-Za-z0-9]+)*$/);
 const CriterionTextSchema = zod_1.z.string().trim().min(1).max(exports.DEV_SESSION_CRITERION_TEXT_MAX);
+// References carry identity only; consumers must verify the referenced requirement or decision.
+exports.DevSessionCriterionReferenceSchema = zod_1.z.union([
+    zod_1.z.string().trim().min(1).max(200),
+    zod_1.z.discriminatedUnion('kind', [
+        zod_1.z.strictObject({
+            kind: zod_1.z.literal('requirement'),
+            id: CriterionIdSchema,
+        }),
+        zod_1.z.strictObject({ kind: zod_1.z.literal('decision'), requestId: decision_request_js_1.DecisionRequestIdSchema }),
+    ]),
+]);
+exports.DevSessionCorrectionReasonSchema = zod_1.z.discriminatedUnion('kind', [
+    zod_1.z.strictObject({
+        kind: zod_1.z.literal('requirements'),
+        ids: zod_1.z.array(CriterionIdSchema).min(1).max(exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA)
+            .refine((ids) => new Set(ids).size === ids.length, ruleIssue('list_not_unique')),
+    }),
+    zod_1.z.strictObject({ kind: zod_1.z.literal('decision'), requestId: decision_request_js_1.DecisionRequestIdSchema }),
+]);
 exports.DevSessionCriterionSchema = zod_1.z.strictObject({
     id: CriterionIdSchema,
     text: CriterionTextSchema,
     attestor: exports.DevSessionAttestorSchema,
     proof: CriterionTextSchema,
     origin: exports.DevSessionCriterionOriginSchema,
-    reference: zod_1.z.string().trim().min(1).max(200).optional(),
+    reference: exports.DevSessionCriterionReferenceSchema.optional(),
     unit: asset_js_1.AssetKeySchema.max(30).optional(),
 }).superRefine((criterion, ctx) => {
     if ((criterion.origin === 'ritorno') !== (criterion.reference !== undefined))
@@ -57,6 +77,7 @@ exports.DevSessionAcceptanceInputSchema = zod_1.z.strictObject({
     // One sentence on what the user will be able to do. Optional here so saved forms keep parsing unchanged;
     // whether it is required is a service check, not a retroactive schema restriction.
     objective: zod_1.z.string().trim().min(1).max(500).optional(),
+    correctionReason: exports.DevSessionCorrectionReasonSchema.optional(),
     userPath: zod_1.z.array(CriterionTextSchema).min(1).max(20).optional(),
     data: zod_1.z.enum(exports.DEV_SESSION_INPUT_DATA).optional(),
     // A script name is resolved by the consumer, so shell commands cannot cross this boundary.

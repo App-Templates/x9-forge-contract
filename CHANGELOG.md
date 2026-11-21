@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.276.0 — mandate requirements reuse the session criterion contract (task 8340)
+
+- Additive in `organization/mandate-requirement`: `MandateRequirementSchema` and `MandateRequirement` derive from `DevSessionCriterionSchema`, restricting origin to `mandato`. The base keeps ownership of id, text, proof, reference and optional unit validation, and permits only referent/reviewer attestations for mandate criteria. Available through the existing `organization/*` export without an aggregate export or plan/mandate cycle. No saved schema, default, version field or consumer changes; inert until adopted by the plan.
+- REGRESSIONE: s8340 principale: un criterio `lista-spesa.1` con testo, attestor `referente`, proof non vuota e origin `mandato` prima non ha una forma importabile dal piano; dopo passa `MandateRequirementSchema`. Le stringhe legacy restano valide nei loro schemi. Fixture di codice dalla forma documentata, non una cattura di produzione; la lettura dei mandati GOO-172/179/180 e la prova dal vivo restano alla coordinatrice.
+
 ## v1.275.0 — typed correction reasons and references preserve saved free text (task 8280)
 
 - Additive in `capability/dev/session-acceptance`: `DevSessionCriterionReferenceSchema` and its type accept the historical trimmed 1–200 character string or a strict typed requirement (`kind`, `id`) or decision (`kind`, `requestId`) reference. `DevSessionCorrectionReasonSchema` and its type carry either 1–`DEV_SESSION_ACCEPTANCE_MAX_CRITERIA` unique criterion ids or a decision request id, reusing `DecisionRequestIdSchema`. Optional `input.correctionReason` is included by the existing assignment canonicalization and block; no parallel field, default, new required input, endpoint or revision counter. Model versions stay 1 and saved free references remain unchanged. Shapes do not prove existence: consumer verification and decision-source discovery remain separate tasks.

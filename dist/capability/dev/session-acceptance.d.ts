@@ -21,6 +21,22 @@ export declare const DevSessionCriterionOriginSchema: z.ZodEnum<{
     ritorno: "ritorno";
 }>;
 export type DevSessionCriterionOrigin = z.infer<typeof DevSessionCriterionOriginSchema>;
+export declare const DevSessionCriterionReferenceSchema: z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"requirement">;
+    id: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"decision">;
+    requestId: z.ZodString;
+}, z.core.$strict>], "kind">]>;
+export type DevSessionCriterionReference = z.infer<typeof DevSessionCriterionReferenceSchema>;
+export declare const DevSessionCorrectionReasonSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"requirements">;
+    ids: z.ZodArray<z.ZodString>;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"decision">;
+    requestId: z.ZodString;
+}, z.core.$strict>], "kind">;
+export type DevSessionCorrectionReason = z.infer<typeof DevSessionCorrectionReasonSchema>;
 export declare const DevSessionCriterionSchema: z.ZodObject<{
     id: z.ZodString;
     text: z.ZodString;
@@ -36,7 +52,13 @@ export declare const DevSessionCriterionSchema: z.ZodObject<{
         mandato: "mandato";
         ritorno: "ritorno";
     }>;
-    reference: z.ZodOptional<z.ZodString>;
+    reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"requirement">;
+        id: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"decision">;
+        requestId: z.ZodString;
+    }, z.core.$strict>], "kind">]>>;
     unit: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type DevSessionCriterion = z.infer<typeof DevSessionCriterionSchema>;
@@ -58,6 +80,13 @@ export declare const DevSessionLookSchema: z.ZodObject<{
 export type DevSessionLook = z.infer<typeof DevSessionLookSchema>;
 export declare const DevSessionAcceptanceInputSchema: z.ZodObject<{
     objective: z.ZodOptional<z.ZodString>;
+    correctionReason: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"requirements">;
+        ids: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"decision">;
+        requestId: z.ZodString;
+    }, z.core.$strict>], "kind">>;
     userPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
     data: z.ZodOptional<z.ZodEnum<{
         veri: "veri";
@@ -144,6 +173,13 @@ export declare const DevSessionAcceptanceSchema: z.ZodObject<{
     }, z.core.$strict>;
     input: z.ZodObject<{
         objective: z.ZodOptional<z.ZodString>;
+        correctionReason: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"requirements">;
+            ids: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"decision">;
+            requestId: z.ZodString;
+        }, z.core.$strict>], "kind">>;
         userPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
         data: z.ZodOptional<z.ZodEnum<{
             veri: "veri";
@@ -202,7 +238,13 @@ export declare const DevSessionAcceptanceSchema: z.ZodObject<{
             mandato: "mandato";
             ritorno: "ritorno";
         }>;
-        reference: z.ZodOptional<z.ZodString>;
+        reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"requirement">;
+            id: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"decision">;
+            requestId: z.ZodString;
+        }, z.core.$strict>], "kind">]>>;
         unit: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
 }, z.core.$strict>;

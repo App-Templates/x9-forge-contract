@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.274.0",
+  "versione": "1.276.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1387,8 +1387,10 @@
       "DevSessionAttestorSchema": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DevSessionBaseSchema": "@x9-forge/contracts/capability/dev/session-assignment",
       "DevSessionCommitSchema": "@x9-forge/contracts/capability/dev/session-assignment",
+      "DevSessionCorrectionReasonSchema": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DevSessionCoverageImageSchema": "@x9-forge/contracts/capability/dev/session-acceptance-coverage",
       "DevSessionCriterionOriginSchema": "@x9-forge/contracts/capability/dev/session-acceptance",
+      "DevSessionCriterionReferenceSchema": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DevSessionCriterionSchema": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DevSessionDeliveredFileSchema": "@x9-forge/contracts/capability/dev/session-assignment",
       "DevSessionDeliverySchema": "@x9-forge/contracts/capability/dev/session-assignment",
