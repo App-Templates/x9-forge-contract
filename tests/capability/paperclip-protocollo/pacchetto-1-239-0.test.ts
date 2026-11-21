@@ -755,17 +755,36 @@ describe('s8115 pacchetto-1-253-0', () => {
 });
 
 describe('s8160 pacchetto-1-254-0', () => {
-  it('s8160_version: package and first release are 1.254.0 and retain 1.253.0', () => {
+  it('s8160_version: package matches the first release and retains 1.254.0 and 1.253.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.254.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.254.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.254.0');
     expect(changelog).toContain('## v1.253.0');
   });
 
   it('s8160_map: the narrow-import map has the version and the session contract document functions', () => {
     const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
-    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.254.0');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe(packageVersion());
     expect(text).toContain('devSessionContractDocumentKey');
     expect(text).toContain('devSessionContractDocumentBody');
+  });
+});
+
+describe('s8161 pacchetto-1-255-0', () => {
+  it('s8161_version: package and first release are 1.255.0 and retain 1.254.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.255.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.255.0');
+    expect(changelog).toContain('## v1.254.0');
+  });
+
+  it('s8161_map: the narrow-import map has version 1.255.0 and the session contract route', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
+      versione: string;
+      barili: Record<string, Record<string, string>>;
+    };
+    expect(map.versione).toBe('1.255.0');
+    expect(map.barili['@x9-forge/contracts/http']?.internalPaperclipSeatSessionContractContract)
+      .toBe('@x9-forge/contracts/http/endpoints/internal-paperclip-seats');
   });
 });

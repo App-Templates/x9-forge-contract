@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalPaperclipSeatSessionChildContract = exports.InternalPaperclipSeatSessionChildResponseSchema = exports.PaperclipSeatSessionChildResultSchema = exports.PAPERCLIP_SEAT_SESSION_CHILD_RESULTS = exports.InternalPaperclipSeatSessionChildRequestSchema = exports.DEV_SESSION_PAPERCLIP_DESCRIPTION_MAX = exports.INTERNAL_PAPERCLIP_SEAT_SESSION_CHILD_PATH = exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatWakeErrorResponseSchema = exports.PaperclipSeatWakeErrorCodeSchema = exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeViaSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_VIA = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.PAPERCLIP_SOURCE_RUN_REFUSALS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
+exports.PaperclipSeatSessionContractResultSchema = exports.PAPERCLIP_SEAT_SESSION_CONTRACT_RESULTS = exports.InternalPaperclipSeatSessionContractRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_SESSION_CONTRACT_PATH = exports.internalPaperclipSeatSessionChildContract = exports.InternalPaperclipSeatSessionChildResponseSchema = exports.PaperclipSeatSessionChildResultSchema = exports.PAPERCLIP_SEAT_SESSION_CHILD_RESULTS = exports.InternalPaperclipSeatSessionChildRequestSchema = exports.DEV_SESSION_PAPERCLIP_DESCRIPTION_MAX = exports.INTERNAL_PAPERCLIP_SEAT_SESSION_CHILD_PATH = exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatWakeErrorResponseSchema = exports.PaperclipSeatWakeErrorCodeSchema = exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeViaSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_VIA = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.PAPERCLIP_SOURCE_RUN_REFUSALS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
+exports.internalPaperclipSeatSessionContractContract = exports.InternalPaperclipSeatSessionContractResponseSchema = void 0;
 const zod_1 = require("zod");
 const inbound_event_js_1 = require("../../capability/paperclip/inbound-event.cjs");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
 const run_context_js_1 = require("../../organization/run-context.cjs");
 const asset_version_js_1 = require("../../organization/asset-version.cjs");
+const session_acceptance_paperclip_js_1 = require("../../capability/dev/session-acceptance-paperclip.cjs");
+const wire_documenti_js_1 = require("../../capability/paperclip-protocollo/wire-documenti.cjs");
 const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
 const agent_request_js_1 = require("../../organization/agent-request.cjs");
 const asset_js_1 = require("../../organization/asset.cjs");
@@ -424,6 +427,51 @@ exports.internalPaperclipSeatSessionChildContract = {
     authType: 'secret',
     bodySchema: exports.InternalPaperclipSeatSessionChildRequestSchema,
     responseSchema: exports.InternalPaperclipSeatSessionChildResponseSchema,
+    errorResponseSchema: exports.InternalPaperclipSeatWakeErrorResponseSchema,
+};
+exports.INTERNAL_PAPERCLIP_SEAT_SESSION_CONTRACT_PATH = '/internal/paperclip/seats/session-contract';
+exports.InternalPaperclipSeatSessionContractRequestSchema = zod_1.z.strictObject({
+    organizationId: exports.InternalPaperclipSeatsQuerySchema.shape.organizationId,
+    // The verified chief identity and run let cap-paperclip resolve the issue without trusting a model-supplied issue id.
+    identity: participant_binding_js_1.ParticipantAgentIdentitySchema,
+    sourceRunId: run_context_js_1.RunIdSchema,
+    // Stop before deriving the document key: its shared helper throws for nonpositive numbers.
+    issueNumber: zod_1.z.int().refine(value => value > 0, { message: 'Positive issue number required', abort: true }),
+    document: zod_1.z.strictObject({
+        key: wire_documenti_js_1.PaperclipDocumentoChiaveSchema,
+        title: wire_documenti_js_1.PaperclipDocumentoScriviCorpoSchema.shape.title,
+        body: wire_documenti_js_1.PaperclipDocumentoScriviCorpoSchema.shape.body,
+        changeSummary: wire_documenti_js_1.PaperclipDocumentoScriviCorpoSchema.shape.changeSummary,
+    }),
+}).superRefine((value, ctx) => { if (value.document.key !== (0, session_acceptance_paperclip_js_1.devSessionContractDocumentKey)(value.issueNumber))
+    ctx.addIssue({ code: 'custom', path: ['document', 'key'], message: 'document_key_not_session_contract' }); });
+exports.PAPERCLIP_SEAT_SESSION_CONTRACT_RESULTS = [
+    'written', 'unchanged', 'not_enabled', ...exports.PAPERCLIP_SOURCE_RUN_REFUSALS,
+];
+exports.PaperclipSeatSessionContractResultSchema = zod_1.z.enum(exports.PAPERCLIP_SEAT_SESSION_CONTRACT_RESULTS);
+exports.InternalPaperclipSeatSessionContractResponseSchema = zod_1.z.strictObject({
+    result: exports.PaperclipSeatSessionContractResultSchema,
+    issueId: zod_1.z.uuid().optional(),
+    revisionNumber: zod_1.z.int().min(1).optional(),
+}).superRefine((value, ctx) => {
+    // Both successful results identify the stored revision; refusals must not claim a document was found or written.
+    const hasDocument = value.result === 'written' || value.result === 'unchanged';
+    for (const field of ['issueId', 'revisionNumber']) {
+        if (hasDocument && value[field] === undefined) {
+            ctx.addIssue({ code: 'custom', message: `${value.result} requires ${field}`, path: [field] });
+        }
+        if (!hasDocument && value[field] !== undefined) {
+            ctx.addIssue({ code: 'custom', message: `${value.result} must not carry ${field}`, path: [field] });
+        }
+    }
+});
+// cap-paperclip reads the latest revision before PUT and uses the chief's source run as the Paperclip write context.
+exports.internalPaperclipSeatSessionContractContract = {
+    method: 'POST',
+    path: exports.INTERNAL_PAPERCLIP_SEAT_SESSION_CONTRACT_PATH,
+    authType: 'secret',
+    bodySchema: exports.InternalPaperclipSeatSessionContractRequestSchema,
+    responseSchema: exports.InternalPaperclipSeatSessionContractResponseSchema,
     errorResponseSchema: exports.InternalPaperclipSeatWakeErrorResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map

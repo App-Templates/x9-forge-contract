@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.255.0 — cap-dev can request the session contract document on the chief's issue (task 8161)
+
+- Additive `internalPaperclipSeatSessionContractContract`: secret-authenticated POST `/internal/paperclip/seats/session-contract`, with verified organization, chief identity, source run, positive session issue number and a strict document using the existing Paperclip wire validators. Its key must match `devSessionContractDocumentKey(issueNumber)`.
+- `written` and `unchanged` require the issue UUID and positive revision number; `not_enabled` and source-run refusals carry neither. Existing routes are unchanged; consumers implement and call the route in tasks 8151 and 8152.
+- REGRESSIONE: s8161 rotta-del-contratto: con la richiesta vera di R61 (identità del capo sviluppo, corsia di Paperclip, chiave `contratto-r61`, corpo di 8 KB) oggi non esiste né il percorso né lo schema (rosso: import indefinito); dopo la richiesta passa e le tre forme dell'esito (`written`, `unchanged`, rifiuti della corsia) passano lo schema dell'esito (verde).
+
 ## v1.254.0 — session acceptance contracts have a shared Paperclip document (task 8160)
 
 - Add pure `devSessionContractDocumentKey(issueNumber)` and `devSessionContractDocumentBody({ acceptance, issueNumber, digest, base?, deliverableKey? })` in `capability/dev/session-acceptance-paperclip`: stable `contratto-r<n>` keys and Markdown with the supplied digest, template, starting base, preview path and every resolved criterion grouped by attestor, with proof and origin (including return references).

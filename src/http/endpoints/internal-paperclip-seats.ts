@@ -3,6 +3,11 @@ import { InboundEventDispositionSchema } from '../../capability/paperclip/inboun
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
 import { RunIdSchema } from '../../organization/run-context.js';
 import { SessionIdSchema } from '../../organization/asset-version.js';
+import { devSessionContractDocumentKey } from '../../capability/dev/session-acceptance-paperclip.js';
+import {
+  PaperclipDocumentoChiaveSchema,
+  PaperclipDocumentoScriviCorpoSchema,
+} from '../../capability/paperclip-protocollo/wire-documenti.js';
 import { CapabilityAgentScopeSchema } from '../../capability/capability-call-identity.js';
 import { AgentRequestSchema } from '../../organization/agent-request.js';
 import { AssetRefSchema, AssetSha256Schema } from '../../organization/asset.js';
@@ -509,3 +514,56 @@ export const internalPaperclipSeatSessionChildContract = {
 export type InternalPaperclipSeatSessionChildRequest = z.infer<typeof InternalPaperclipSeatSessionChildRequestSchema>;
 export type InternalPaperclipSeatSessionChildResponse = z.infer<typeof InternalPaperclipSeatSessionChildResponseSchema>;
 export type PaperclipSeatSessionChildResult = z.infer<typeof PaperclipSeatSessionChildResultSchema>;
+
+export const INTERNAL_PAPERCLIP_SEAT_SESSION_CONTRACT_PATH = '/internal/paperclip/seats/session-contract' as const;
+
+export const InternalPaperclipSeatSessionContractRequestSchema = z.strictObject({
+  organizationId: InternalPaperclipSeatsQuerySchema.shape.organizationId,
+  // The verified chief identity and run let cap-paperclip resolve the issue without trusting a model-supplied issue id.
+  identity: ParticipantAgentIdentitySchema,
+  sourceRunId: RunIdSchema,
+  // Stop before deriving the document key: its shared helper throws for nonpositive numbers.
+  issueNumber: z.int().refine(value => value > 0, { message: 'Positive issue number required', abort: true }),
+  document: z.strictObject({
+    key: PaperclipDocumentoChiaveSchema,
+    title: PaperclipDocumentoScriviCorpoSchema.shape.title,
+    body: PaperclipDocumentoScriviCorpoSchema.shape.body,
+    changeSummary: PaperclipDocumentoScriviCorpoSchema.shape.changeSummary,
+  }),
+}).superRefine((value, ctx) => { if (value.document.key !== devSessionContractDocumentKey(value.issueNumber)) ctx.addIssue({ code: 'custom', path: ['document', 'key'], message: 'document_key_not_session_contract' }); });
+
+export const PAPERCLIP_SEAT_SESSION_CONTRACT_RESULTS = [
+  'written', 'unchanged', 'not_enabled', ...PAPERCLIP_SOURCE_RUN_REFUSALS,
+] as const;
+export const PaperclipSeatSessionContractResultSchema = z.enum(PAPERCLIP_SEAT_SESSION_CONTRACT_RESULTS);
+
+export const InternalPaperclipSeatSessionContractResponseSchema = z.strictObject({
+  result: PaperclipSeatSessionContractResultSchema,
+  issueId: z.uuid().optional(),
+  revisionNumber: z.int().min(1).optional(),
+}).superRefine((value, ctx) => {
+  // Both successful results identify the stored revision; refusals must not claim a document was found or written.
+  const hasDocument = value.result === 'written' || value.result === 'unchanged';
+  for (const field of ['issueId', 'revisionNumber'] as const) {
+    if (hasDocument && value[field] === undefined) {
+      ctx.addIssue({ code: 'custom', message: `${value.result} requires ${field}`, path: [field] });
+    }
+    if (!hasDocument && value[field] !== undefined) {
+      ctx.addIssue({ code: 'custom', message: `${value.result} must not carry ${field}`, path: [field] });
+    }
+  }
+});
+
+// cap-paperclip reads the latest revision before PUT and uses the chief's source run as the Paperclip write context.
+export const internalPaperclipSeatSessionContractContract = {
+  method: 'POST' as const,
+  path: INTERNAL_PAPERCLIP_SEAT_SESSION_CONTRACT_PATH,
+  authType: 'secret' as const,
+  bodySchema: InternalPaperclipSeatSessionContractRequestSchema,
+  responseSchema: InternalPaperclipSeatSessionContractResponseSchema,
+  errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
+} as const;
+
+export type InternalPaperclipSeatSessionContractRequest = z.infer<typeof InternalPaperclipSeatSessionContractRequestSchema>;
+export type InternalPaperclipSeatSessionContractResponse = z.infer<typeof InternalPaperclipSeatSessionContractResponseSchema>;
+export type PaperclipSeatSessionContractResult = z.infer<typeof PaperclipSeatSessionContractResultSchema>;

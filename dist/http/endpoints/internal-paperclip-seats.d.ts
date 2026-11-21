@@ -1099,4 +1099,88 @@ export declare const internalPaperclipSeatSessionChildContract: {
 export type InternalPaperclipSeatSessionChildRequest = z.infer<typeof InternalPaperclipSeatSessionChildRequestSchema>;
 export type InternalPaperclipSeatSessionChildResponse = z.infer<typeof InternalPaperclipSeatSessionChildResponseSchema>;
 export type PaperclipSeatSessionChildResult = z.infer<typeof PaperclipSeatSessionChildResultSchema>;
+export declare const INTERNAL_PAPERCLIP_SEAT_SESSION_CONTRACT_PATH: "/internal/paperclip/seats/session-contract";
+export declare const InternalPaperclipSeatSessionContractRequestSchema: z.ZodObject<{
+    organizationId: z.ZodString;
+    identity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    sourceRunId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+    issueNumber: z.ZodInt;
+    document: z.ZodObject<{
+        key: z.ZodString;
+        title: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        body: z.ZodString;
+        changeSummary: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const PAPERCLIP_SEAT_SESSION_CONTRACT_RESULTS: readonly ["written", "unchanged", "not_enabled", "source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
+export declare const PaperclipSeatSessionContractResultSchema: z.ZodEnum<{
+    unchanged: "unchanged";
+    source_run_unknown: "source_run_unknown";
+    source_run_without_issue: "source_run_without_issue";
+    source_issue_not_agents: "source_issue_not_agents";
+    source_issue_closed: "source_issue_closed";
+    not_enabled: "not_enabled";
+    written: "written";
+}>;
+export declare const InternalPaperclipSeatSessionContractResponseSchema: z.ZodObject<{
+    result: z.ZodEnum<{
+        unchanged: "unchanged";
+        source_run_unknown: "source_run_unknown";
+        source_run_without_issue: "source_run_without_issue";
+        source_issue_not_agents: "source_issue_not_agents";
+        source_issue_closed: "source_issue_closed";
+        not_enabled: "not_enabled";
+        written: "written";
+    }>;
+    issueId: z.ZodOptional<z.ZodUUID>;
+    revisionNumber: z.ZodOptional<z.ZodInt>;
+}, z.core.$strict>;
+export declare const internalPaperclipSeatSessionContractContract: {
+    readonly method: "POST";
+    readonly path: "/internal/paperclip/seats/session-contract";
+    readonly authType: "secret";
+    readonly bodySchema: z.ZodObject<{
+        organizationId: z.ZodString;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        sourceRunId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        issueNumber: z.ZodInt;
+        document: z.ZodObject<{
+            key: z.ZodString;
+            title: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            body: z.ZodString;
+            changeSummary: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        result: z.ZodEnum<{
+            unchanged: "unchanged";
+            source_run_unknown: "source_run_unknown";
+            source_run_without_issue: "source_run_without_issue";
+            source_issue_not_agents: "source_issue_not_agents";
+            source_issue_closed: "source_issue_closed";
+            not_enabled: "not_enabled";
+            written: "written";
+        }>;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        revisionNumber: z.ZodOptional<z.ZodInt>;
+    }, z.core.$strict>;
+    readonly errorResponseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodEnum<{
+            paperclip_unavailable: "paperclip_unavailable";
+            wake_timeout: "wake_timeout";
+        }>;
+    }, z.core.$strict>;
+};
+export type InternalPaperclipSeatSessionContractRequest = z.infer<typeof InternalPaperclipSeatSessionContractRequestSchema>;
+export type InternalPaperclipSeatSessionContractResponse = z.infer<typeof InternalPaperclipSeatSessionContractResponseSchema>;
+export type PaperclipSeatSessionContractResult = z.infer<typeof PaperclipSeatSessionContractResultSchema>;
 //# sourceMappingURL=internal-paperclip-seats.d.ts.map
