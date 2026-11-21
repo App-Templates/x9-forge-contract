@@ -1009,3 +1009,18 @@ describe('s8229 pacchetto-1-267-0', () => {
     expect(map.versione).toBe(packageVersion());
   });
 });
+
+describe('s8250 pacchetto-1-268-0', () => {
+  it('s8250_version: package and first release are 1.268.0 and retain the previous release', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.268.0');
+    expect(changelog).toContain('## v1.267.0');
+    expect(changelog).toContain('REGRESSIONE: s8250 risposta-del-director');
+  });
+
+  it('s8250_map: the narrow-import map carries the version', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
+    expect(map.versione).toBe(packageVersion());
+  });
+});

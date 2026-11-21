@@ -119,6 +119,64 @@ export const PaperclipCheckLaterSchema = z.strictObject({
 /** A decision asked of another agent (resolved from `roleRef` by the consumer): Paperclip interaction + task in_review. */
 export const PaperclipAskSchema = z.strictObject({ roleRef: Text.max(120), question: Text.max(PAPERCLIP_ASK_QUESTION_MAX) });
 /**
+ * The Director's answer to a request has an outcome. When it is not a go-ahead it says how to fix (one move, who makes it,
+ * which tool), and a prohibition also says what lifts it, using the two native forms of waiting Paperclip has: a blocker
+ * on an issue or a scheduled check. Additive and optional: closures without `answer` are unchanged (the service enforces it, 8252).
+ */
+export const PAPERCLIP_ANSWER_OUTCOMES = ['approved', 'not_approved', 'forbidden'];
+export const PAPERCLIP_ANSWER_ACTORS = ['asker', 'director', 'referent'];
+export const PaperclipAnswerHowToFixSchema = z.strictObject({
+    move: Text.max(500),
+    who: z.enum(PAPERCLIP_ANSWER_ACTORS),
+    tool: Text.max(80).optional(),
+});
+export const PaperclipAnswerLiftConditionSchema = z.discriminatedUnion('kind', [
+    z.strictObject({ kind: z.literal('blocked_by_issue'), issueId: z.uuid() }),
+    z.strictObject({
+        kind: z.literal('check_after'),
+        afterSeconds: z.number().int().min(30).max(PAPERCLIP_CHECK_LATER_MAX_SECONDS),
+    }),
+]);
+export const PaperclipDirectorAnswerSchema = z.strictObject({
+    outcome: z.enum(PAPERCLIP_ANSWER_OUTCOMES),
+    howToFix: PaperclipAnswerHowToFixSchema.optional(),
+    liftCondition: PaperclipAnswerLiftConditionSchema.optional(),
+}).superRefine((value, ctx) => {
+    if (value.outcome === 'approved') {
+        if (value.howToFix !== undefined)
+            ctx.addIssue({ code: 'custom', path: ['howToFix'], message: 'An approval carries no howToFix' });
+        if (value.liftCondition !== undefined)
+            ctx.addIssue({ code: 'custom', path: ['liftCondition'], message: 'An approval carries no liftCondition' });
+    }
+    if (value.outcome !== 'approved' && value.howToFix === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['howToFix'], message: 'An answer that is not a go-ahead says how to fix' });
+    }
+    if (value.outcome === 'not_approved' && value.liftCondition !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['liftCondition'], message: 'Only a prohibition carries a liftCondition' });
+    }
+    if (value.outcome === 'forbidden' && value.liftCondition === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['liftCondition'], message: 'A prohibition says what lifts it' });
+    }
+});
+const ANSWER_OUTCOME_LINES = { approved: 'Esito: approvato.', not_approved: 'Esito: non approvato.', forbidden: 'Esito: vietato.' };
+const ANSWER_ACTOR_WORDS = { asker: 'tu', director: 'il Director', referent: 'il referente' };
+/** Fixed Italian lines (the readers are the company's agents) composed from the answer; pure. */
+export function paperclipDirectorAnswerLines(answer) {
+    const lines = [ANSWER_OUTCOME_LINES[answer.outcome]];
+    if (answer.howToFix !== undefined) {
+        const tool = answer.howToFix.tool === undefined ? '' : `; strumento: ${answer.howToFix.tool}`;
+        lines.push(`Come correggere: ${answer.howToFix.move} (chi: ${ANSWER_ACTOR_WORDS[answer.howToFix.who]}${tool}).`);
+    }
+    const lift = answer.liftCondition;
+    if (lift?.kind === 'blocked_by_issue') {
+        lines.push(`Il divieto cade quando l'incarico ${lift.issueId} è chiuso: blocca il tuo incarico con blockedByIssueIds.`);
+    }
+    else if (lift?.kind === 'check_after') {
+        lines.push(`Il divieto va ricontrollato fra ${lift.afterSeconds} secondi: usa un controllo programmato (checkLater afterSeconds ${lift.afterSeconds}).`);
+    }
+    return lines.join('\n');
+}
+/**
  * `paperclip_review` with every durable disposition Paperclip accepts: `blocked` with what it waits for (tasks, or the
  * external action the agent owns), or the task kept `in_progress` with a scheduled check of an async job (P-15). The
  * check lives in review, not in a tool of its own, because a new write tool needs a policy decision of the agent
@@ -129,11 +187,16 @@ const NativeReviewBase = PaperclipReviewInputSchema.extend({
     blockedByIssueIds: IssueIds.optional(),
     waitingFor: PaperclipWaitingForSchema.optional(),
     checkLater: PaperclipCheckLaterSchema.optional(),
+    answer: PaperclipDirectorAnswerSchema.optional(),
 });
 function checkNativeReview(value, ctx) {
     if (value.ask !== undefined && (value.status !== 'in_review' || value.blockedByIssueIds !== undefined
         || value.waitingFor !== undefined || value.checkLater !== undefined)) {
         ctx.addIssue({ code: 'custom', path: ['ask'], message: 'ask requires status in_review and no other wait' });
+    }
+    if (value.answer !== undefined && (value.status !== 'done' || value.ask !== undefined || value.blockedByIssueIds !== undefined
+        || value.waitingFor !== undefined || value.checkLater !== undefined)) {
+        ctx.addIssue({ code: 'custom', path: ['answer'], message: 'answer requires status done and no ask or wait' });
     }
     if ((value.blockedByIssueIds !== undefined || value.waitingFor !== undefined) && value.status !== 'blocked') {
         ctx.addIssue({ code: 'custom', path: ['status'], message: 'A wait reason requires status blocked' });

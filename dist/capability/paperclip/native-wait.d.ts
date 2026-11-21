@@ -145,6 +145,55 @@ export declare const PaperclipAskSchema: z.ZodObject<{
     roleRef: z.ZodString;
     question: z.ZodString;
 }, z.core.$strict>;
+/**
+ * The Director's answer to a request has an outcome. When it is not a go-ahead it says how to fix (one move, who makes it,
+ * which tool), and a prohibition also says what lifts it, using the two native forms of waiting Paperclip has: a blocker
+ * on an issue or a scheduled check. Additive and optional: closures without `answer` are unchanged (the service enforces it, 8252).
+ */
+export declare const PAPERCLIP_ANSWER_OUTCOMES: readonly ["approved", "not_approved", "forbidden"];
+export declare const PAPERCLIP_ANSWER_ACTORS: readonly ["asker", "director", "referent"];
+export declare const PaperclipAnswerHowToFixSchema: z.ZodObject<{
+    move: z.ZodString;
+    who: z.ZodEnum<{
+        director: "director";
+        referent: "referent";
+        asker: "asker";
+    }>;
+    tool: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export declare const PaperclipAnswerLiftConditionSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"blocked_by_issue">;
+    issueId: z.ZodUUID;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"check_after">;
+    afterSeconds: z.ZodNumber;
+}, z.core.$strict>], "kind">;
+export declare const PaperclipDirectorAnswerSchema: z.ZodObject<{
+    outcome: z.ZodEnum<{
+        approved: "approved";
+        not_approved: "not_approved";
+        forbidden: "forbidden";
+    }>;
+    howToFix: z.ZodOptional<z.ZodObject<{
+        move: z.ZodString;
+        who: z.ZodEnum<{
+            director: "director";
+            referent: "referent";
+            asker: "asker";
+        }>;
+        tool: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>;
+    liftCondition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"blocked_by_issue">;
+        issueId: z.ZodUUID;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"check_after">;
+        afterSeconds: z.ZodNumber;
+    }, z.core.$strict>], "kind">>;
+}, z.core.$strict>;
+export type PaperclipDirectorAnswer = z.infer<typeof PaperclipDirectorAnswerSchema>;
+/** Fixed Italian lines (the readers are the company's agents) composed from the answer; pure. */
+export declare function paperclipDirectorAnswerLines(answer: PaperclipDirectorAnswer): string;
 export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
     comment: z.ZodOptional<z.ZodString>;
@@ -184,6 +233,29 @@ export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
         followUp: z.ZodOptional<z.ZodObject<{
             attempts: z.ZodInt;
         }, z.core.$strict>>;
+    }, z.core.$strict>>;
+    answer: z.ZodOptional<z.ZodObject<{
+        outcome: z.ZodEnum<{
+            approved: "approved";
+            not_approved: "not_approved";
+            forbidden: "forbidden";
+        }>;
+        howToFix: z.ZodOptional<z.ZodObject<{
+            move: z.ZodString;
+            who: z.ZodEnum<{
+                director: "director";
+                referent: "referent";
+                asker: "asker";
+            }>;
+            tool: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>;
+        liftCondition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"blocked_by_issue">;
+            issueId: z.ZodUUID;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"check_after">;
+            afterSeconds: z.ZodNumber;
+        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
     ask: z.ZodOptional<z.ZodObject<{
         roleRef: z.ZodString;
@@ -431,6 +503,29 @@ export declare const PaperclipNativeReviewAddressedInputSchema: z.ZodObject<{
         followUp: z.ZodOptional<z.ZodObject<{
             attempts: z.ZodInt;
         }, z.core.$strict>>;
+    }, z.core.$strict>>;
+    answer: z.ZodOptional<z.ZodObject<{
+        outcome: z.ZodEnum<{
+            approved: "approved";
+            not_approved: "not_approved";
+            forbidden: "forbidden";
+        }>;
+        howToFix: z.ZodOptional<z.ZodObject<{
+            move: z.ZodString;
+            who: z.ZodEnum<{
+                director: "director";
+                referent: "referent";
+                asker: "asker";
+            }>;
+            tool: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>;
+        liftCondition: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"blocked_by_issue">;
+            issueId: z.ZodUUID;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"check_after">;
+            afterSeconds: z.ZodNumber;
+        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
     ask: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
         to: z.ZodLiteral<"agent">;

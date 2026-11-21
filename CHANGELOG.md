@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.268.0 — the Director's answer has an outcome, and when it is not a go-ahead it says how to fix (task 8250)
+
+- Additive in `capability/paperclip/native-wait`: optional `answer` in `paperclip_review` (`PaperclipDirectorAnswerSchema`: `outcome` approved | not_approved | forbidden, `howToFix` { move, who, tool? }, `liftCondition` blocked_by_issue | check_after bounded like `checkLater`), allowed only with `status: done` and no ask or wait; `paperclipDirectorAnswerLines(answer)` composes the fixed lines. Closures without `answer` are unchanged. Consumers: 8251 (pin), 8252 (service check).
+- REGRESSIONE: s8250 risposta-del-director: con una risposta «non approvato» senza la mossa per correggere, oggi il campo `answer` non esiste e `PaperclipNativeReviewInputSchema` rifiuta la chiave (rosso: forma inesistente); dopo, una risposta con esito `not_approved` e `howToFix` passa e le righe composte dicono esito, mossa e chi; senza `howToFix` è rifiutata; un divieto senza condizione è rifiutato; una chiusura senza `answer` (la forma di oggi) passa identica.
+
 ## v1.267.0 — a file above Paperclip's attachment cap goes by link, as a `document` work product (task 8229)
 
 - `DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES` is now 10 MiB, the Paperclip issue attachment cap (`wire-allegati.ts`); it was 30 MiB (8220) and no consumer uses it yet. `DELIVERY_PACKAGE_FILE_MAX_BYTES` stays 25 MiB.
