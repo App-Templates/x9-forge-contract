@@ -98,6 +98,7 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                             technicalConstraints: z.ZodArray<z.ZodString>;
                             outOfScope: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>;
+                        outputForm: z.ZodOptional<z.ZodString>;
                         milestone: z.ZodNumber;
                         needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             buSlug: z.ZodString;
@@ -248,6 +249,7 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                         technicalConstraints: z.ZodArray<z.ZodString>;
                         outOfScope: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>;
+                    outputForm: z.ZodOptional<z.ZodString>;
                     milestone: z.ZodNumber;
                     owners: z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;
@@ -480,6 +482,7 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                                 technicalConstraints: z.ZodArray<z.ZodString>;
                                 outOfScope: z.ZodArray<z.ZodString>;
                             }, z.core.$strict>>;
+                            outputForm: z.ZodOptional<z.ZodString>;
                             milestone: z.ZodNumber;
                             needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                 buSlug: z.ZodString;
@@ -630,6 +633,7 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                             technicalConstraints: z.ZodArray<z.ZodString>;
                             outOfScope: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>;
+                        outputForm: z.ZodOptional<z.ZodString>;
                         milestone: z.ZodNumber;
                         owners: z.ZodArray<z.ZodObject<{
                             buSlug: z.ZodString;
@@ -863,6 +867,7 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                                 technicalConstraints: z.ZodArray<z.ZodString>;
                                 outOfScope: z.ZodArray<z.ZodString>;
                             }, z.core.$strict>>;
+                            outputForm: z.ZodOptional<z.ZodString>;
                             milestone: z.ZodNumber;
                             needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                 buSlug: z.ZodString;
@@ -1013,6 +1018,7 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                             technicalConstraints: z.ZodArray<z.ZodString>;
                             outOfScope: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>;
+                        outputForm: z.ZodOptional<z.ZodString>;
                         milestone: z.ZodNumber;
                         owners: z.ZodArray<z.ZodObject<{
                             buSlug: z.ZodString;
@@ -1279,6 +1285,7 @@ export declare const internalMemoryMandateObservationReadContract: {
                                     technicalConstraints: z.ZodArray<z.ZodString>;
                                     outOfScope: z.ZodArray<z.ZodString>;
                                 }, z.core.$strict>>;
+                                outputForm: z.ZodOptional<z.ZodString>;
                                 milestone: z.ZodNumber;
                                 needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                     buSlug: z.ZodString;
@@ -1429,6 +1436,7 @@ export declare const internalMemoryMandateObservationReadContract: {
                                 technicalConstraints: z.ZodArray<z.ZodString>;
                                 outOfScope: z.ZodArray<z.ZodString>;
                             }, z.core.$strict>>;
+                            outputForm: z.ZodOptional<z.ZodString>;
                             milestone: z.ZodNumber;
                             owners: z.ZodArray<z.ZodObject<{
                                 buSlug: z.ZodString;
@@ -1674,6 +1682,7 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                 technicalConstraints: z.ZodArray<z.ZodString>;
                                 outOfScope: z.ZodArray<z.ZodString>;
                             }, z.core.$strict>>;
+                            outputForm: z.ZodOptional<z.ZodString>;
                             milestone: z.ZodNumber;
                             needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                 buSlug: z.ZodString;
@@ -1824,6 +1833,7 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                             technicalConstraints: z.ZodArray<z.ZodString>;
                             outOfScope: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>;
+                        outputForm: z.ZodOptional<z.ZodString>;
                         milestone: z.ZodNumber;
                         owners: z.ZodArray<z.ZodObject<{
                             buSlug: z.ZodString;
@@ -2055,6 +2065,7 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                     technicalConstraints: z.ZodArray<z.ZodString>;
                                     outOfScope: z.ZodArray<z.ZodString>;
                                 }, z.core.$strict>>;
+                                outputForm: z.ZodOptional<z.ZodString>;
                                 milestone: z.ZodNumber;
                                 needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                     buSlug: z.ZodString;
@@ -2205,6 +2216,7 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                 technicalConstraints: z.ZodArray<z.ZodString>;
                                 outOfScope: z.ZodArray<z.ZodString>;
                             }, z.core.$strict>>;
+                            outputForm: z.ZodOptional<z.ZodString>;
                             milestone: z.ZodNumber;
                             owners: z.ZodArray<z.ZodObject<{
                                 buSlug: z.ZodString;

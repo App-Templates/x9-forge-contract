@@ -135,6 +135,12 @@ const SpecificationsSchema = z.strictObject({
   outOfScope: z.array(SpecificationTextSchema).max(20),
 });
 
+// The precise delivery form of one piece, written by the Director and approved with the plan. Free text on purpose:
+// it is never derived from the department, the title or deliveryShape, and it is not an enum of production types.
+const PieceOutputFormSchema = z.string().trim().min(1).max(500);
+// One declaration shared by sections and work items. No default: a saved plan without it must parse unchanged.
+const PieceOutputFormFieldSchema = PieceOutputFormSchema.optional();
+
 export const ActionPlanBuSectionSchema = z.strictObject({
   id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
   title: z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
@@ -144,6 +150,7 @@ export const ActionPlanBuSectionSchema = z.strictObject({
   requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
   // Optional without a default so historical pieces never acquire invented specifications.
   specifications: SpecificationsSchema.optional(),
+  outputForm: PieceOutputFormFieldSchema.describe('la forma concreta della consegna del pezzo'),
   milestone: z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
   needsFrom: z.array(z.strictObject({
     buSlug: SlugSchema(1, 30),
@@ -177,6 +184,7 @@ export const ActionPlanWorkItemSchema = z.strictObject({
     .describe('come si verifica che è finita'),
   requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
   specifications: SpecificationsSchema.optional(),
+  outputForm: PieceOutputFormFieldSchema.describe('la forma concreta della consegna del pezzo'),
   milestone: z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
   owners: z.array(ActionPlanWorkItemOwnerSchema).max(10)
     .describe('le BU che ci lavorano e cosa fa ciascuna; ogni voce foglia ne ha almeno una'),

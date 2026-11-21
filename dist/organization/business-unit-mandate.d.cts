@@ -142,6 +142,7 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                     technicalConstraints: z.ZodArray<z.ZodString>;
                     outOfScope: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>;
+                outputForm: z.ZodOptional<z.ZodString>;
                 milestone: z.ZodNumber;
                 needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -295,6 +296,7 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                 technicalConstraints: z.ZodArray<z.ZodString>;
                 outOfScope: z.ZodArray<z.ZodString>;
             }, z.core.$strict>>;
+            outputForm: z.ZodOptional<z.ZodString>;
             milestone: z.ZodNumber;
             owners: z.ZodArray<z.ZodObject<{
                 buSlug: z.ZodString;
@@ -557,6 +559,7 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                         technicalConstraints: z.ZodArray<z.ZodString>;
                         outOfScope: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>;
+                    outputForm: z.ZodOptional<z.ZodString>;
                     milestone: z.ZodNumber;
                     needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;
@@ -710,6 +713,7 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                     technicalConstraints: z.ZodArray<z.ZodString>;
                     outOfScope: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>;
+                outputForm: z.ZodOptional<z.ZodString>;
                 milestone: z.ZodNumber;
                 owners: z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -946,6 +950,7 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                             technicalConstraints: z.ZodArray<z.ZodString>;
                             outOfScope: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>;
+                        outputForm: z.ZodOptional<z.ZodString>;
                         milestone: z.ZodNumber;
                         needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             buSlug: z.ZodString;
@@ -1099,6 +1104,7 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                         technicalConstraints: z.ZodArray<z.ZodString>;
                         outOfScope: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>;
+                    outputForm: z.ZodOptional<z.ZodString>;
                     milestone: z.ZodNumber;
                     owners: z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;

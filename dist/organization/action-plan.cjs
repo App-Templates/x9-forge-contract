@@ -115,6 +115,11 @@ const SpecificationsSchema = zod_1.z.strictObject({
     technicalConstraints: zod_1.z.array(SpecificationTextSchema).max(20),
     outOfScope: zod_1.z.array(SpecificationTextSchema).max(20),
 });
+// The precise delivery form of one piece, written by the Director and approved with the plan. Free text on purpose:
+// it is never derived from the department, the title or deliveryShape, and it is not an enum of production types.
+const PieceOutputFormSchema = zod_1.z.string().trim().min(1).max(500);
+// One declaration shared by sections and work items. No default: a saved plan without it must parse unchanged.
+const PieceOutputFormFieldSchema = PieceOutputFormSchema.optional();
 exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
     id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
     title: zod_1.z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
@@ -124,6 +129,7 @@ exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
     requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
     // Optional without a default so historical pieces never acquire invented specifications.
     specifications: SpecificationsSchema.optional(),
+    outputForm: PieceOutputFormFieldSchema.describe('la forma concreta della consegna del pezzo'),
     milestone: zod_1.z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
     needsFrom: zod_1.z.array(zod_1.z.strictObject({
         buSlug: SlugSchema(1, 30),
@@ -151,6 +157,7 @@ exports.ActionPlanWorkItemSchema = zod_1.z.strictObject({
         .describe('come si verifica che è finita'),
     requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
     specifications: SpecificationsSchema.optional(),
+    outputForm: PieceOutputFormFieldSchema.describe('la forma concreta della consegna del pezzo'),
     milestone: zod_1.z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
     owners: zod_1.z.array(exports.ActionPlanWorkItemOwnerSchema).max(10)
         .describe('le BU che ci lavorano e cosa fa ciascuna; ogni voce foglia ne ha almeno una'),

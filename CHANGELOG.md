@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.279.0 — each piece can declare the concrete form of its delivery (task 8343)
+
+- Add optional `outputForm` to `ActionPlanBuSectionSchema` and `ActionPlanWorkItemSchema`: trimmed text of 1–500 characters, declared once as `PieceOutputFormFieldSchema` and shared by both. No default, no enum of production types, never derived from department, title or `deliveryShape`; `product`/`study` are unchanged. Saved plans, submissions and mandates without it parse unchanged and gain no key.
+- REGRESSIONE: s8343 principale: il pezzo lista-spesa con outputForm prototipo navigabile prima è rifiutato come campo sconosciuto; dopo è salvabile e leggibile nel Mandato senza cambiare product/study. Fixture di codice nella forma documentata, non una cattura di produzione; la prova dal vivo (Dispensa Pronta) resta alla coordinatrice.
+
 ## v1.278.0 — plan pieces can declare input data, technical constraints and exclusions (task 8342)
 
 - Add optional `specifications` to `ActionPlanBuSectionSchema` and `ActionPlanWorkItemSchema`, using one strict internal shape with required `inputData`, `technicalConstraints` and `outOfScope` arrays. Each list accepts 0–20 trimmed texts of 1–500 characters, reusing the file's description and list bounds. Empty lists remain explicit; absent specifications gain no key or default. Existing plan, submission and mandate schemas carry the complete pieces without a second source or consumer changes.

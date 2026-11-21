@@ -1288,6 +1288,7 @@ export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObj
                         technicalConstraints: z.ZodArray<z.ZodString>;
                         outOfScope: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>;
+                    outputForm: z.ZodOptional<z.ZodString>;
                     milestone: z.ZodNumber;
                     needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;
@@ -1438,6 +1439,7 @@ export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObj
                     technicalConstraints: z.ZodArray<z.ZodString>;
                     outOfScope: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>;
+                outputForm: z.ZodOptional<z.ZodString>;
                 milestone: z.ZodNumber;
                 owners: z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -1640,6 +1642,7 @@ export declare const internalPaperclipSeatSessionMandateContract: {
                             technicalConstraints: z.ZodArray<z.ZodString>;
                             outOfScope: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>;
+                        outputForm: z.ZodOptional<z.ZodString>;
                         milestone: z.ZodNumber;
                         needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             buSlug: z.ZodString;
@@ -1790,6 +1793,7 @@ export declare const internalPaperclipSeatSessionMandateContract: {
                         technicalConstraints: z.ZodArray<z.ZodString>;
                         outOfScope: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>;
+                    outputForm: z.ZodOptional<z.ZodString>;
                     milestone: z.ZodNumber;
                     owners: z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;

@@ -115,6 +115,7 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
                 technicalConstraints: z.ZodArray<z.ZodString>;
                 outOfScope: z.ZodArray<z.ZodString>;
             }, z.core.$strict>>;
+            outputForm: z.ZodOptional<z.ZodString>;
             milestone: z.ZodNumber;
             owners: z.ZodArray<z.ZodObject<{
                 buSlug: z.ZodString;
@@ -193,6 +194,7 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
                     technicalConstraints: z.ZodArray<z.ZodString>;
                     outOfScope: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>;
+                outputForm: z.ZodOptional<z.ZodString>;
                 milestone: z.ZodNumber;
                 needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -489,6 +491,7 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
                 technicalConstraints: z.ZodArray<z.ZodString>;
                 outOfScope: z.ZodArray<z.ZodString>;
             }, z.core.$strict>>;
+            outputForm: z.ZodOptional<z.ZodString>;
             milestone: z.ZodNumber;
             owners: z.ZodArray<z.ZodObject<{
                 buSlug: z.ZodString;
@@ -567,6 +570,7 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
                     technicalConstraints: z.ZodArray<z.ZodString>;
                     outOfScope: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>;
+                outputForm: z.ZodOptional<z.ZodString>;
                 milestone: z.ZodNumber;
                 needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -900,6 +904,7 @@ export declare const internalMemoryActionPlanSaveContract: {
                     technicalConstraints: z.ZodArray<z.ZodString>;
                     outOfScope: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>;
+                outputForm: z.ZodOptional<z.ZodString>;
                 milestone: z.ZodNumber;
                 owners: z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -978,6 +983,7 @@ export declare const internalMemoryActionPlanSaveContract: {
                         technicalConstraints: z.ZodArray<z.ZodString>;
                         outOfScope: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>;
+                    outputForm: z.ZodOptional<z.ZodString>;
                     milestone: z.ZodNumber;
                     needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;
@@ -1277,6 +1283,7 @@ export declare const internalMemoryActionPlanReadContract: {
                     technicalConstraints: z.ZodArray<z.ZodString>;
                     outOfScope: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>;
+                outputForm: z.ZodOptional<z.ZodString>;
                 milestone: z.ZodNumber;
                 owners: z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -1355,6 +1362,7 @@ export declare const internalMemoryActionPlanReadContract: {
                         technicalConstraints: z.ZodArray<z.ZodString>;
                         outOfScope: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>;
+                    outputForm: z.ZodOptional<z.ZodString>;
                     milestone: z.ZodNumber;
                     needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;
