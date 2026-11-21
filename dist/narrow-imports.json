@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.300.0",
+  "versione": "1.302.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1291,6 +1291,7 @@
       "DEV_SESSION_ACCEPTANCE_CATALOG": "@x9-forge/contracts/capability/dev/session-acceptance-catalog",
       "DEV_SESSION_ACCEPTANCE_MAX_CRITERIA": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DEV_SESSION_ACCEPTANCE_NEEDS": "@x9-forge/contracts/capability/dev/session-acceptance-catalog",
+      "DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "DEV_SESSION_ANSWER_BLOCK_MARKER": "@x9-forge/contracts/capability/dev/session-outcome",
       "DEV_SESSION_ANSWER_KINDS": "@x9-forge/contracts/capability/dev/session-outcome",

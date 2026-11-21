@@ -11,11 +11,12 @@ import {
   type DevSessionAcceptance,
 } from '../../../src/capability/dev/session-acceptance.js';
 import { DevSessionAssignmentSchema, DevSessionKindSchema, type DevSessionAssignment } from '../../../src/capability/dev/session-assignment.js';
+import { devSessionAcceptanceVerdict } from '../../../src/capability/dev/session-attestation.js';
 import { DevelopmentSessionEngineSchema } from '../../../src/capability/connect/development-session.js';
 
 const criterion = { id: 'piece-save', text: 'The user can save.', attestor: 'revisore' as const, proof: 'Observe the saved item.', origin: 'capo' as const };
 const siteForm = ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-08', 'D-09', 'D-11'];
-const codeForm = ['S-01', 'S-02', 'S-05', 'S-07', 'S-08', 'S-10'];
+const codeForm = ['S-01', 'S-02', 'S-05', 'S-07', 'S-08', 'S-10', 'S-11'];
 const codeOptional = ['S-03', 'S-04', 'S-06', 'S-09'];
 
 function acceptance(): DevSessionAcceptance {
@@ -45,7 +46,7 @@ function assignment(): DevSessionAssignment {
 
 describe('s7561', () => {
   it('s7561_catalogo', () => {
-    expect(DEV_SESSION_ACCEPTANCE_NEEDS).toEqual(['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list']);
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS).toEqual(['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install']);
     const expected = {
       'D-01': ['esecutore', ['skill_log']], 'D-02': ['esecutore', ['gate']],
       'D-03': ['esecutore', ['detector']], 'D-04': ['esecutore', ['static_scan']],
@@ -56,10 +57,11 @@ describe('s7561', () => {
       'S-05': ['esecutore', ['prove_run']], 'S-06': ['referente', []],
       'S-07': ['esecutore', ['file_list']], 'S-08': ['sessione', []],
       'S-09': ['esecutore', ['package']], 'S-10': ['referente', []],
+      'S-11': ['esecutore', ['clean_install']],
     };
     expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG).sort()).toEqual(Object.keys(expected).sort());
-    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(19);
-    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(19);
+    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(20);
+    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(20);
     for (const [id, entry] of Object.entries(DEV_SESSION_ACCEPTANCE_CATALOG)) {
       expect([entry.attestor, entry.needs]).toEqual(expected[id as keyof typeof expected]);
       expect(entry.attestor === 'esecutore').toBe(entry.needs.length > 0);
@@ -118,8 +120,8 @@ describe('s7561', () => {
     expect(result.ok).toBe(true);
     if (!result.ok) throw new Error(result.code);
     expect(result.requirements.map((entry) => entry.id)).toEqual([...codeForm, 'S-09', 'S-03', 'piece-save', 'mandate-check', 'return-check']);
-    expect(result.requirements.slice(0, 8)).toEqual([...codeForm, 'S-09', 'S-03'].map((id) => ({ id, ...DEV_SESSION_ACCEPTANCE_CATALOG[id as keyof typeof DEV_SESSION_ACCEPTANCE_CATALOG], origin: 'modello' })));
-    expect(result.requirements.slice(8)).toEqual(value.criteria.map((entry) => ({ ...entry, needs: [] })));
+    expect(result.requirements.slice(0, codeForm.length + 2)).toEqual([...codeForm, 'S-09', 'S-03'].map((id) => ({ id, ...DEV_SESSION_ACCEPTANCE_CATALOG[id as keyof typeof DEV_SESSION_ACCEPTANCE_CATALOG], origin: 'modello' })));
+    expect(result.requirements.slice(codeForm.length + 2)).toEqual(value.criteria.map((entry) => ({ ...entry, needs: [] })));
     const failures: [DevSessionAcceptance, string][] = [
       [{ ...value, template: { id: 'unknown', version: 2 } }, 'template_unknown'],
       [{ ...value, template: { id: 'constructor', version: 1 } }, 'template_unknown'],
@@ -203,5 +205,73 @@ describe('s7561', () => {
     delete value.acceptance;
     value.materials = [];
     expect(devSessionAcceptanceTemplateProblem(value)).toBeNull();
+  });
+});
+
+const savedR56 = {
+  version: 1,
+  template: { id: 'sviluppo-pezzo-app', version: 1 },
+  input: {
+    userPath: ['Apre il backtest', 'Sceglie il periodo', 'Lancia il calcolo', 'Legge il risultato'],
+    data: 'di_prova',
+    proofScripts: ['test:unit', 'test:build', 'test:lint', 'test:types', 'test:path', 'test:smoke'],
+    screens: [{ name: 'home', purpose: 'Open' }, { name: 'periodo', purpose: 'Pick' }, { name: 'calcolo', purpose: 'Run' }, { name: 'risultato', purpose: 'Read' }],
+    behaviors: ['apri', 'scegli', 'lancia', 'leggi', 'riprova'],
+    states: ['pieno', 'vuoto', 'errore', 'caricamento'],
+    formats: ['telefono'],
+    visualSource: { kind: 'tavola_approvata', reference: 'asset-design-1' },
+  },
+  criteria: [
+    { id: 'm-1', text: 'The mandate holds.', attestor: 'referente', proof: 'Decision.', origin: 'mandato' },
+    { id: 'm-2', text: 'The mandate also holds.', attestor: 'referente', proof: 'Decision.', origin: 'mandato' },
+    { id: 'm-3', text: 'Third.', attestor: 'referente', proof: 'Decision.', origin: 'mandato' },
+    { id: 'c-1', text: 'The capo asks.', attestor: 'sessione', proof: 'Attestation.', origin: 'capo' },
+    { id: 'c-2', text: 'The capo asks more.', attestor: 'sessione', proof: 'Attestation.', origin: 'capo' },
+    { id: 'c-3', text: 'And more.', attestor: 'sessione', proof: 'Attestation.', origin: 'capo' },
+    { id: 'c-4', text: 'Last.', attestor: 'sessione', proof: 'Attestation.', origin: 'capo' },
+  ],
+};
+
+describe('s8079 installazione pulita', () => {
+  it('s8079_catalogo', () => {
+    const entry = DEV_SESSION_ACCEPTANCE_CATALOG['S-11'];
+    expect(entry.attestor).toBe('esecutore');
+    expect(entry.needs).toEqual(['clean_install']);
+    expect(entry.text).toContain('installazione pulita');
+    expect(entry.text).toContain('package.json');
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-1)).toBe('clean_install');
+  });
+
+  it('s8079_modello', () => {
+    const form = DEV_SESSION_TEMPLATES['sviluppo-pezzo-app'].formCriteria;
+    expect(form.at(-1)).toBe('S-11');
+    expect(DEV_SESSION_TEMPLATES['sviluppo-pezzo-app'].version).toBe(1);
+    for (const id of ['design-sito', 'design-schermata-app', 'design-ritocco'] as const) {
+      expect((DEV_SESSION_TEMPLATES[id].formCriteria as readonly string[]).includes('S-11')).toBe(false);
+    }
+  });
+
+  it('s8079_contratto_salvato: saved version 1 contracts resolve with S-11', () => {
+    const parsed = DevSessionAcceptanceSchema.parse(savedR56);
+    expect(parsed).toEqual(savedR56);
+    const result = devSessionRequirements(parsed);
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error(result.code);
+    expect(result.requirements.map((entry) => entry.id)).toEqual([...codeForm, ...savedR56.criteria.map((entry) => entry.id)]);
+    expect(result.requirements.find((entry) => entry.id === 'S-11')).toMatchObject({ attestor: 'esecutore', origin: 'modello', needs: ['clean_install'] });
+    const verdict = devSessionAcceptanceVerdict({ acceptance: parsed, attestation: { version: 1, entries: [] }, results: [], attempt: 1, contractDigest: 'a'.repeat(64), proofs: [] });
+    const missing = (code: string) => verdict.problems.filter((problem) => problem.code === code).map((problem) => problem.criterionId);
+    expect(missing('executor_result_missing')).toContain('S-11');
+    expect(missing('entry_missing').sort()).toEqual(['S-08', 'c-1', 'c-2', 'c-3', 'c-4']);
+  });
+
+  it('s8079_libero_rifiutato', () => {
+    const free = { id: 'x-1', text: 'Free.', attestor: 'esecutore', proof: 'Self.', origin: 'capo' };
+    const refused = DevSessionAcceptanceSchema.safeParse({ ...savedR56, criteria: [free] });
+    expect(refused.success).toBe(false);
+    if (refused.success) throw new Error('Expected refusal');
+    expect(refused.error.issues).toContainEqual(expect.objectContaining({ path: ['criteria', 0, 'attestor'], message: 'executor_only_from_catalog' }));
+    const clash = DevSessionAcceptanceSchema.parse({ ...savedR56, criteria: [{ ...free, id: 'S-11', attestor: 'sessione' }] });
+    expect(devSessionRequirements(clash)).toEqual({ ok: false, code: 'criterion_id_clashes_catalog' });
   });
 });

@@ -1,4 +1,4 @@
-export declare const DEV_SESSION_ACCEPTANCE_NEEDS: readonly ["commit", "prove_run", "browser", "screenshot", "skill_log", "gate", "detector", "static_scan", "package", "file_list"];
+export declare const DEV_SESSION_ACCEPTANCE_NEEDS: readonly ["commit", "prove_run", "browser", "screenshot", "skill_log", "gate", "detector", "static_scan", "package", "file_list", "clean_install"];
 export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
     readonly 'D-01': {
         readonly attestor: "esecutore";
@@ -113,6 +113,12 @@ export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
         readonly needs: readonly [];
         readonly text: "L'utente può usare il pezzo";
         readonly proof: "risposta alla richiesta di decisione, con l'anteprima";
+    };
+    readonly 'S-11': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["clean_install"];
+        readonly text: "Il lavoro si costruisce da un'installazione pulita: se il progetto ha un package.json, le dipendenze si installano dal lockfile consegnato prima delle prove";
+        readonly proof: "uscita dell'installazione lanciata da lui sull'albero del commit, prima delle prove";
     };
 };
 //# sourceMappingURL=session-acceptance-catalog.d.ts.map

@@ -15,10 +15,14 @@ exports.DEV_SESSION_TEMPLATE_MATERIALS = ['visual_images', 'retouch_file'];
 // Skill tool log line used as proof; reopen when Codex leaves the same proof.
 const DESIGN_ENGINES = ['claude'];
 exports.DEV_SESSION_TEMPLATES = {
+    // Contract: S-11 joins the form criteria while the template stays at version 1. The capo writes
+    // the version and devSessionRequirements demands equality, so bumping to 2 would reject saved
+    // contracts (R56) and every capo that still writes 1. Form criteria are not stored in the
+    // contract: each consumer expands them from its own copy of this package.
     'sviluppo-pezzo-app': {
         version: 1, productKind: 'code', supportedEngines: ['codex', 'claude'],
         requiredInput: ['userPath', 'data', 'proofScripts', 'visualSource'], materials: ['visual_images'],
-        formCriteria: ['S-01', 'S-02', 'S-05', 'S-07', 'S-08', 'S-10'],
+        formCriteria: ['S-01', 'S-02', 'S-05', 'S-07', 'S-08', 'S-10', 'S-11'],
         optionalCriteria: ['S-03', 'S-04', 'S-06', 'S-09'],
     },
     'design-sito': {

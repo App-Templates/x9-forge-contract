@@ -2,11 +2,28 @@
 
 ## Non rilasciato
 
+## v1.302.0 — unione della linea di produzione (1.247.0, 360e5b5bd) sopra la linea bacheca (1.300.0, b7389bd4)
+
+- Dalla produzione entrano la 1.246.0 (criterio S-11 «installazione pulita», 8079) e la 1.247.0 (elenco `DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES`, 8098) sopra la 1.245.0; dalla bacheca restano i contratti della 1.300.0 e la chiave della persona del proprietario dalla porta pubblica del Vault.
+- Nessuno schema cambiato: ogni lato resta additivo rispetto alla sua linea d'origine; conflitti solo meccanici (versione, CHANGELOG, file generati). La 1.301.0 è del ponte di Forge e non è in questa linea.
+- `dist/` ricostruita dalla build.
+
 ## v1.300.0 — unione della linea di produzione (1.245.0, e7bf7c00) sopra la linea bacheca (1.158.0, c2947cf3)
 
 - Dalla produzione entrano le voci 1.159.0-1.245.0; dalla bacheca entrano i contratti della bacheca (fino a 1.158.0) e la chiave della persona del proprietario dalla porta pubblica del Vault.
 - Nessuno schema cambiato: ogni lato resta additivo rispetto alla sua linea d'origine; conflitti solo meccanici (versione, CHANGELOG, file generati).
 - `dist/` ricostruita dalla build.
+
+## v1.247.0 — the codes of the session acceptance checks have a list (task 8098)
+
+- Additive: `DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES` in `capability/dev/session-acceptance` lists the ten codes the acceptance schema checks use as messages, so a consumer can key a move on each code without copying them by hand. Same strings, same paths; no schema changes.
+- The template problems (`DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS`) keep their own list. Consumers move their pin first.
+
+## v1.246.0 — the development template asks for a clean install (task 8079)
+
+- Additive: catalog check `S-11` (attestor executor, new need `clean_install`) joins the form criteria of `sviluppo-pezzo-app`, which stays at version 1. The design templates are unchanged.
+- Saved contracts parse and resolve unchanged and gain S-11 for the executor; a free criterion with attestor `esecutore` or id `S-11` is still refused. No schema changes.
+- Consumers (executor and cap-dev) move their pin together, because each expands the template with its own copy.
 
 ## v1.245.0 — a reply wake can be handed to the issue's scheduled monitor (task 8051)
 
