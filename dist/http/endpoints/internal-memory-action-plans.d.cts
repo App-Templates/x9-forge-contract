@@ -334,8 +334,8 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
             topic: z.ZodString;
             status: z.ZodEnum<{
                 partial: "partial";
-                missing: "missing";
                 covered: "covered";
+                missing: "missing";
             }>;
             pages: z.ZodArray<z.ZodString>;
         }, z.core.$strict>>>;
@@ -710,8 +710,8 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
             topic: z.ZodString;
             status: z.ZodEnum<{
                 partial: "partial";
-                missing: "missing";
                 covered: "covered";
+                missing: "missing";
             }>;
             pages: z.ZodArray<z.ZodString>;
         }, z.core.$strict>>>;
@@ -1123,8 +1123,8 @@ export declare const internalMemoryActionPlanSaveContract: {
                 topic: z.ZodString;
                 status: z.ZodEnum<{
                     partial: "partial";
-                    missing: "missing";
                     covered: "covered";
+                    missing: "missing";
                 }>;
                 pages: z.ZodArray<z.ZodString>;
             }, z.core.$strict>>>;
@@ -1502,8 +1502,8 @@ export declare const internalMemoryActionPlanReadContract: {
                 topic: z.ZodString;
                 status: z.ZodEnum<{
                     partial: "partial";
-                    missing: "missing";
                     covered: "covered";
+                    missing: "missing";
                 }>;
                 pages: z.ZodArray<z.ZodString>;
             }, z.core.$strict>>>;

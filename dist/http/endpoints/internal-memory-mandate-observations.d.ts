@@ -282,8 +282,8 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                     topic: z.ZodString;
                     status: z.ZodEnum<{
                         partial: "partial";
-                        missing: "missing";
                         covered: "covered";
+                        missing: "missing";
                     }>;
                     pages: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>>;
@@ -666,8 +666,8 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                         topic: z.ZodString;
                         status: z.ZodEnum<{
                             partial: "partial";
-                            missing: "missing";
                             covered: "covered";
+                            missing: "missing";
                         }>;
                         pages: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>>;
@@ -1051,8 +1051,8 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                         topic: z.ZodString;
                         status: z.ZodEnum<{
                             partial: "partial";
-                            missing: "missing";
                             covered: "covered";
+                            missing: "missing";
                         }>;
                         pages: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>>;
@@ -1469,8 +1469,8 @@ export declare const internalMemoryMandateObservationReadContract: {
                             topic: z.ZodString;
                             status: z.ZodEnum<{
                                 partial: "partial";
-                                missing: "missing";
                                 covered: "covered";
+                                missing: "missing";
                             }>;
                             pages: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>>;
@@ -1866,8 +1866,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                         topic: z.ZodString;
                         status: z.ZodEnum<{
                             partial: "partial";
-                            missing: "missing";
                             covered: "covered";
+                            missing: "missing";
                         }>;
                         pages: z.ZodArray<z.ZodString>;
                     }, z.core.$strict>>>;
@@ -2249,8 +2249,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                             topic: z.ZodString;
                             status: z.ZodEnum<{
                                 partial: "partial";
-                                missing: "missing";
                                 covered: "covered";
+                                missing: "missing";
                             }>;
                             pages: z.ZodArray<z.ZodString>;
                         }, z.core.$strict>>>;

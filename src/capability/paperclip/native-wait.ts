@@ -2,6 +2,10 @@ import { z } from 'zod';
 import { DecisionRequestIdSchema } from '../../organization/decision-request.js';
 import { ResearchIdSchema } from '../ricerca/research.js';
 import { PaperclipConfermaCorpoSchema } from '../paperclip-protocollo/wire-scritture.js';
+import { PAPERCLIP_CRITERI_MASSIMI, PAPERCLIP_CRITERIO_MAX } from '../paperclip-protocollo/wire-creazione.js';
+import { AssetSha256Schema } from '../../organization/asset.js';
+import { LabPublicationRecipientSchema } from '../lab/tools.js';
+import { WikiPageSchema } from '../lab/wiki.js';
 import {
   PaperclipAgentIdSchema, PaperclipAssignAgentInputSchema, PaperclipAssignAgentRefInputSchema, PaperclipAssignInputSchema,
   PaperclipAssignRefInputSchema, PaperclipCreateIssueAgentInputSchema, PaperclipCreateIssueInputSchema, PaperclipIssueViewSchema,
@@ -223,6 +227,109 @@ export function paperclipDirectorAnswerLines(answer: PaperclipDirectorAnswer): s
 }
 
 /**
+ * Lab requests (8382). The Lab used to receive free text: the topics never reached acceptanceCriteria and the closing
+ * did not say which pages cover each topic. `labRequest` carries question, why and topics (written by the asker); the
+ * parent and the addressee are service data, never trusted from the model. Additive and optional: the general create
+ * contract is unchanged (8386 will require it for new Lab requests). No plan is required, the Director may ask the Lab
+ * before a plan exists.
+ */
+const LabText = (max: number) => z.string().trim().min(1).max(max);
+const LabTopic = LabText(PAPERCLIP_CRITERIO_MAX);
+const uniqueTexts = (values: readonly string[]): boolean => new Set(values).size === values.length;
+export const PaperclipLabRequestSchema = z.strictObject({
+  question: LabText(2000),
+  why: LabText(2000),
+  topics: z.array(LabTopic).min(1).max(PAPERCLIP_CRITERI_MASSIMI).refine(uniqueTexts, 'Topics must be unique'),
+  recipient: LabPublicationRecipientSchema,
+});
+export type PaperclipLabRequest = z.infer<typeof PaperclipLabRequestSchema>;
+
+/** Native acceptance criteria are exactly the requested topics, not a second list with other names. */
+export function paperclipLabAcceptanceCriteria(request: PaperclipLabRequest): string[] {
+  return [...request.topics];
+}
+
+const LabPageSchema = z.strictObject({ slug: WikiPageSchema.shape.slug, version: WikiPageSchema.shape.version, digest: AssetSha256Schema });
+const LabTopicRowSchema = z.discriminatedUnion('coverage', [
+  z.strictObject({ topic: LabTopic, coverage: z.literal('covered'), pages: z.array(LabPageSchema).min(1).max(50) }),
+  z.strictObject({ topic: LabTopic, coverage: z.literal('gap'), reason: LabText(2000) }),
+]);
+/** One row per requested topic: covered by published pages (slug, version, digest) or a declared gap with its reason. */
+export const PaperclipLabAnswerSchema = z.strictObject({
+  topics: z.array(LabTopicRowSchema).min(1).max(PAPERCLIP_CRITERI_MASSIMI)
+    .refine(rows => uniqueTexts(rows.map(row => row.topic)), 'A topic is answered once'),
+});
+export type PaperclipLabAnswer = z.infer<typeof PaperclipLabAnswerSchema>;
+
+/** Undefined when the answer has exactly one row for every requested topic and no other; else the problem. */
+export function paperclipLabCoverageProblem(request: PaperclipLabRequest, answer: PaperclipLabAnswer): string | undefined {
+  const requested = new Set(request.topics);
+  const answered = new Set(answer.topics.map(row => row.topic));
+  if (requested.size !== answered.size) return 'The answer must have exactly one row for each requested topic';
+  if (answer.topics.length !== answered.size) return 'A topic is answered more than once';
+  for (const topic of answered) if (!requested.has(topic)) return `Topic not requested: ${topic}`;
+  return undefined;
+}
+
+/** What the asker decides on the Lab's answer: the parent is kept open, never closed by this review. */
+export const PAPERCLIP_LAB_REVIEW_OUTCOMES = ['accepted', 'changes_requested'] as const;
+export const PaperclipLabReviewSchema = z.strictObject({
+  childIssueId: z.uuid(),
+  answerCommentId: z.uuid(),
+  outcome: z.enum(PAPERCLIP_LAB_REVIEW_OUTCOMES),
+  comment: LabText(4000),
+  missingTopics: z.array(LabTopic).min(1).max(PAPERCLIP_CRITERI_MASSIMI).refine(uniqueTexts, 'Missing topics must be unique').optional(),
+}).superRefine((value, ctx) => {
+  if (value.outcome === 'accepted' && value.missingTopics !== undefined) {
+    ctx.addIssue({ code: 'custom', path: ['missingTopics'], message: 'An accepted answer has no missing topics' });
+  }
+  if (value.outcome === 'changes_requested' && value.missingTopics === undefined) {
+    ctx.addIssue({ code: 'custom', path: ['missingTopics'], message: 'changes_requested names the missing topics' });
+  }
+});
+export type PaperclipLabReview = z.infer<typeof PaperclipLabReviewSchema>;
+
+/** The service-verified facts the request record adds to the contract; the model never supplies them. */
+export const PaperclipLabRequestRecordSchema = PaperclipLabRequestSchema.safeExtend({
+  requesterAgentId: z.uuid(), parentIssueId: z.uuid(),
+});
+export type PaperclipLabRequestRecord = z.infer<typeof PaperclipLabRequestRecordSchema>;
+
+const LAB_MARKERS = { request: 'x9-lab-request:v1', answer: 'x9-lab-answer:v1', review: 'x9-lab-review:v1' } as const;
+/** The records are service-owned: model prose may not carry any of their delimiters. */
+export function paperclipLabFreeTextProblem(text: string): string | undefined {
+  return Object.values(LAB_MARKERS).some(marker => text.includes(marker)) ? 'Reserved Lab record marker in free text' : undefined;
+}
+function labRecord(marker: string, value: unknown): string {
+  const json = JSON.stringify(value);
+  const problem = paperclipLabFreeTextProblem(json);
+  if (problem !== undefined) throw new Error(problem);
+  return '```' + marker + '\n' + json + '\n```';
+}
+/** Absent marker = historical text (undefined); a broken or doubled record throws, never falls back. */
+function parseLabRecord<T>(marker: string, text: string, schema: z.ZodType<T>): T | undefined {
+  const count = text.split(marker).length - 1;
+  if (count === 0) return undefined;
+  if (count !== 1) throw new Error(`Expected exactly one ${marker} record`);
+  const match = new RegExp('(?:^|\\r?\\n)```' + marker + '\\r?\\n([\\s\\S]*?)\\r?\\n```(?=\\r?\\n|$)').exec(text);
+  if (match === null) throw new Error(`Malformed ${marker} record`);
+  return schema.parse(JSON.parse(match[1]!));
+}
+export const paperclipLabRequestRecord = (value: PaperclipLabRequestRecord): string =>
+  labRecord(LAB_MARKERS.request, PaperclipLabRequestRecordSchema.parse(value));
+export const parsePaperclipLabRequestRecord = (text: string): PaperclipLabRequestRecord | undefined =>
+  parseLabRecord(LAB_MARKERS.request, text, PaperclipLabRequestRecordSchema);
+/** The comment id is given by Paperclip when the record is posted, never by the Lab: it is not in the record. */
+export const paperclipLabAnswerRecord = (value: PaperclipLabAnswer): string =>
+  labRecord(LAB_MARKERS.answer, PaperclipLabAnswerSchema.parse(value));
+export const parsePaperclipLabAnswerRecord = (text: string): PaperclipLabAnswer | undefined =>
+  parseLabRecord(LAB_MARKERS.answer, text, PaperclipLabAnswerSchema);
+export const paperclipLabReviewRecord = (value: PaperclipLabReview): string =>
+  labRecord(LAB_MARKERS.review, PaperclipLabReviewSchema.parse(value));
+export const parsePaperclipLabReviewRecord = (text: string): PaperclipLabReview | undefined =>
+  parseLabRecord(LAB_MARKERS.review, text, PaperclipLabReviewSchema);
+
+/**
  * `paperclip_review` with every durable disposition Paperclip accepts: `blocked` with what it waits for (tasks, or the
  * external action the agent owns), or the task kept `in_progress` with a scheduled check of an async job (P-15). The
  * check lives in review, not in a tool of its own, because a new write tool needs a policy decision of the agent
@@ -235,6 +342,8 @@ const NativeReviewBase = PaperclipReviewInputSchema.extend({
   checkLater: PaperclipCheckLaterSchema.optional(),
   answer: PaperclipDirectorAnswerSchema.optional(),
   resolution: PaperclipDirectorResolutionSchema.optional(),
+  labAnswer: PaperclipLabAnswerSchema.optional(),
+  labReview: PaperclipLabReviewSchema.optional(),
 });
 type NativeReviewValue = z.infer<typeof NativeReviewBase> & { ask?: unknown };
 /** The resolution rules; each one needs the answer (8250) to be present, which the first guard enforces on its own. */
@@ -261,7 +370,24 @@ function checkResolution(value: NativeReviewValue, ctx: z.RefinementCtx, routes:
     issue('answer', 'clearance needs an approved answer');
   }
 }
+/** labAnswer closes the child as a result the asker must judge; labReview concerns the parent, which stays open. */
+function checkLabReview(value: NativeReviewValue, ctx: z.RefinementCtx): void {
+  const issue = (path: string, message: string) => ctx.addIssue({ code: 'custom', path: [path], message });
+  const others = value.ask !== undefined || value.blockedByIssueIds !== undefined || value.waitingFor !== undefined
+    || value.resolution !== undefined || value.answer !== undefined;
+  if (value.labAnswer !== undefined) {
+    if (value.status !== 'done' || others || value.checkLater !== undefined || value.labReview !== undefined) {
+      issue('labAnswer', 'labAnswer requires status done and no other wait, answer, resolution or labReview');
+    }
+  }
+  if (value.labReview !== undefined) {
+    if (value.status !== 'in_progress' || value.checkLater === undefined || others) {
+      issue('labReview', 'labReview keeps the parent in_progress with checkLater, never done, without answer, resolution or ask');
+    }
+  }
+}
 function checkNativeReview(value: NativeReviewValue, ctx: z.RefinementCtx): void {
+  checkLabReview(value, ctx);
   if (value.ask !== undefined && (value.status !== 'in_review' || value.blockedByIssueIds !== undefined
     || value.waitingFor !== undefined || value.checkLater !== undefined)) {
     ctx.addIssue({ code: 'custom', path: ['ask'], message: 'ask requires status in_review and no other wait' });
@@ -293,6 +419,20 @@ export const PaperclipNativeCreateIssueInputSchema = PaperclipCreateIssueInputSc
     ctx.addIssue({ code: 'custom', path: ['waitForChild'], message: 'Waiting for a child requires parentIssueId and assigneeRoleRef' });
   }
 });
+
+/** Create inputs (by role, by id, and their native forms with waitForChild) that can also carry `labRequest`. */
+const LabRequestField = { labRequest: PaperclipLabRequestSchema.optional() };
+function checkWaitForChild(value: { waitForChild?: boolean | undefined; parentIssueId?: string | undefined }, ctx: z.RefinementCtx, assignee: unknown, name: string): void {
+  if (value.waitForChild === true && (value.parentIssueId === undefined || assignee === undefined)) {
+    ctx.addIssue({ code: 'custom', path: ['waitForChild'], message: `Waiting for a child requires parentIssueId and ${name}` });
+  }
+}
+export const PaperclipLabCreateIssueInputSchema = PaperclipCreateIssueInputSchema.extend(LabRequestField);
+export const PaperclipLabCreateIssueAgentInputSchema = PaperclipCreateIssueAgentInputSchema.extend(LabRequestField);
+export const PaperclipLabNativeCreateIssueInputSchema = PaperclipCreateIssueInputSchema.extend({ waitForChild: z.boolean().optional(), ...LabRequestField })
+  .superRefine((value, ctx) => checkWaitForChild(value, ctx, value.assigneeRoleRef, 'assigneeRoleRef'));
+export const PaperclipLabNativeCreateIssueAgentInputSchema = PaperclipCreateIssueAgentInputSchema.extend({ waitForChild: z.boolean().optional(), ...LabRequestField })
+  .superRefine((value, ctx) => checkWaitForChild(value, ctx, value.assigneeAgentId, 'assigneeAgentId'));
 
 const AnswerFields = {
   answersInteractionId: z.uuid().optional(),

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.287.0 — Lab request and answer share the same topics, with versioned pages and declared gaps (task 8382)
+
+- Add `PaperclipLabRequestSchema` (question, why, 1–20 unique topics of at most 500 characters, recipient), optional `labRequest` on the create inputs by role, by id and their native forms (`PaperclipLab*CreateIssue*InputSchema`), and `paperclipLabAcceptanceCriteria` (native criteria = exactly the topics). Add `PaperclipLabAnswerSchema` (one row per topic: `covered` with pages slug/version/digest, or `gap` with a reason) and `paperclipLabCoverageProblem(request, answer)`. Add optional `labAnswer` (status done, alone) and `labReview` (parent kept in_progress with checkLater, never done) on the native review inputs, plus the records `x9-lab-request:v1`, `x9-lab-answer:v1`, `x9-lab-review:v1` (`paperclipLab*Record`, `parsePaperclipLab*Record`) and `paperclipLabFreeTextProblem`. The general create contract is unchanged; requiring `labRequest` is task 8386, the check before closing the parent is service task 8389. No consumer is active until the X9 tasks.
+- REGRESSIONE: s8382 regressione: con il figlio Lab della forma osservata per GOO-173/183/184, oggi non esistono labRequest e labAnswer; dopo due argomenti producono due criteri nativi e la risposta può coprirne uno con una pagina pubblicata e dichiarare la lacuna dell'altro; omissioni e argomenti inventati falliscono. Forme ricostruite dalle fonti, non estratti di produzione.
+
 ## v1.286.0 — the code template admits an opening without proofScripts when the chief wrote a criterion for the new step (task 8407)
 
 - Add `devSessionHasChiefStepCriterion(criteria)`: true when a criterion has origin `capo` and attestor `sessione`. `devSessionAcceptanceTemplateProblem` no longer reports `proofScripts` as `input_missing` in that case, because the session writes the proof (Stefano 21/11, decision 7). `requiredInput`, schemas and refusal codes are unchanged; forms saved with `proofScripts` stay valid.

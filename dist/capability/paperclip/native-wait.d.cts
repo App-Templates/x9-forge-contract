@@ -215,6 +215,80 @@ export declare const PaperclipDirectorResolutionSchema: z.ZodDiscriminatedUnion<
 export type PaperclipDirectorResolution = z.infer<typeof PaperclipDirectorResolutionSchema>;
 /** Fixed Italian lines (the readers are the company's agents) composed from the answer; pure. */
 export declare function paperclipDirectorAnswerLines(answer: PaperclipDirectorAnswer): string;
+export declare const PaperclipLabRequestSchema: z.ZodObject<{
+    question: z.ZodString;
+    why: z.ZodString;
+    topics: z.ZodArray<z.ZodString>;
+    recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"client">;
+        clientId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"project">;
+        clientId: z.ZodString;
+        projectId: z.ZodString;
+    }, z.core.$strict>], "kind">;
+}, z.core.$strict>;
+export type PaperclipLabRequest = z.infer<typeof PaperclipLabRequestSchema>;
+/** Native acceptance criteria are exactly the requested topics, not a second list with other names. */
+export declare function paperclipLabAcceptanceCriteria(request: PaperclipLabRequest): string[];
+/** One row per requested topic: covered by published pages (slug, version, digest) or a declared gap with its reason. */
+export declare const PaperclipLabAnswerSchema: z.ZodObject<{
+    topics: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        topic: z.ZodString;
+        coverage: z.ZodLiteral<"covered">;
+        pages: z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>, z.ZodObject<{
+        topic: z.ZodString;
+        coverage: z.ZodLiteral<"gap">;
+        reason: z.ZodString;
+    }, z.core.$strict>], "coverage">>;
+}, z.core.$strict>;
+export type PaperclipLabAnswer = z.infer<typeof PaperclipLabAnswerSchema>;
+/** Undefined when the answer has exactly one row for every requested topic and no other; else the problem. */
+export declare function paperclipLabCoverageProblem(request: PaperclipLabRequest, answer: PaperclipLabAnswer): string | undefined;
+/** What the asker decides on the Lab's answer: the parent is kept open, never closed by this review. */
+export declare const PAPERCLIP_LAB_REVIEW_OUTCOMES: readonly ["accepted", "changes_requested"];
+export declare const PaperclipLabReviewSchema: z.ZodObject<{
+    childIssueId: z.ZodUUID;
+    answerCommentId: z.ZodUUID;
+    outcome: z.ZodEnum<{
+        accepted: "accepted";
+        changes_requested: "changes_requested";
+    }>;
+    comment: z.ZodString;
+    missingTopics: z.ZodOptional<z.ZodArray<z.ZodString>>;
+}, z.core.$strict>;
+export type PaperclipLabReview = z.infer<typeof PaperclipLabReviewSchema>;
+/** The service-verified facts the request record adds to the contract; the model never supplies them. */
+export declare const PaperclipLabRequestRecordSchema: z.ZodObject<{
+    question: z.ZodString;
+    why: z.ZodString;
+    topics: z.ZodArray<z.ZodString>;
+    recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"client">;
+        clientId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"project">;
+        clientId: z.ZodString;
+        projectId: z.ZodString;
+    }, z.core.$strict>], "kind">;
+    requesterAgentId: z.ZodUUID;
+    parentIssueId: z.ZodUUID;
+}, z.core.$strict>;
+export type PaperclipLabRequestRecord = z.infer<typeof PaperclipLabRequestRecordSchema>;
+/** The records are service-owned: model prose may not carry any of their delimiters. */
+export declare function paperclipLabFreeTextProblem(text: string): string | undefined;
+export declare const paperclipLabRequestRecord: (value: PaperclipLabRequestRecord) => string;
+export declare const parsePaperclipLabRequestRecord: (text: string) => PaperclipLabRequestRecord | undefined;
+/** The comment id is given by Paperclip when the record is posted, never by the Lab: it is not in the record. */
+export declare const paperclipLabAnswerRecord: (value: PaperclipLabAnswer) => string;
+export declare const parsePaperclipLabAnswerRecord: (text: string) => PaperclipLabAnswer | undefined;
+export declare const paperclipLabReviewRecord: (value: PaperclipLabReview) => string;
+export declare const parsePaperclipLabReviewRecord: (text: string) => PaperclipLabReview | undefined;
 export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
     comment: z.ZodOptional<z.ZodString>;
@@ -291,6 +365,31 @@ export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
         kind: z.ZodLiteral<"technical_fault">;
         faultCode: z.ZodString;
     }, z.core.$strict>], "kind">>;
+    labAnswer: z.ZodOptional<z.ZodObject<{
+        topics: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            topic: z.ZodString;
+            coverage: z.ZodLiteral<"covered">;
+            pages: z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            topic: z.ZodString;
+            coverage: z.ZodLiteral<"gap">;
+            reason: z.ZodString;
+        }, z.core.$strict>], "coverage">>;
+    }, z.core.$strict>>;
+    labReview: z.ZodOptional<z.ZodObject<{
+        childIssueId: z.ZodUUID;
+        answerCommentId: z.ZodUUID;
+        outcome: z.ZodEnum<{
+            accepted: "accepted";
+            changes_requested: "changes_requested";
+        }>;
+        comment: z.ZodString;
+        missingTopics: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    }, z.core.$strict>>;
     ask: z.ZodOptional<z.ZodObject<{
         roleRef: z.ZodString;
         question: z.ZodString;
@@ -305,6 +404,96 @@ export declare const PaperclipNativeCreateIssueInputSchema: z.ZodObject<{
     goalId: z.ZodOptional<z.ZodUUID>;
     parentIssueId: z.ZodOptional<z.ZodUUID>;
     blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
+    waitForChild: z.ZodOptional<z.ZodBoolean>;
+}, z.core.$strict>;
+export declare const PaperclipLabCreateIssueInputSchema: z.ZodObject<{
+    title: z.ZodString;
+    description: z.ZodOptional<z.ZodString>;
+    assigneeRoleRef: z.ZodOptional<z.ZodString>;
+    projectId: z.ZodOptional<z.ZodUUID>;
+    goalId: z.ZodOptional<z.ZodUUID>;
+    parentIssueId: z.ZodOptional<z.ZodUUID>;
+    blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
+    labRequest: z.ZodOptional<z.ZodObject<{
+        question: z.ZodString;
+        why: z.ZodString;
+        topics: z.ZodArray<z.ZodString>;
+        recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"client">;
+            clientId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"project">;
+            clientId: z.ZodString;
+            projectId: z.ZodString;
+        }, z.core.$strict>], "kind">;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export declare const PaperclipLabCreateIssueAgentInputSchema: z.ZodObject<{
+    description: z.ZodOptional<z.ZodString>;
+    title: z.ZodString;
+    projectId: z.ZodOptional<z.ZodUUID>;
+    goalId: z.ZodOptional<z.ZodUUID>;
+    parentIssueId: z.ZodOptional<z.ZodUUID>;
+    blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
+    assigneeAgentId: z.ZodOptional<z.ZodGUID>;
+    labRequest: z.ZodOptional<z.ZodObject<{
+        question: z.ZodString;
+        why: z.ZodString;
+        topics: z.ZodArray<z.ZodString>;
+        recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"client">;
+            clientId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"project">;
+            clientId: z.ZodString;
+            projectId: z.ZodString;
+        }, z.core.$strict>], "kind">;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export declare const PaperclipLabNativeCreateIssueInputSchema: z.ZodObject<{
+    title: z.ZodString;
+    description: z.ZodOptional<z.ZodString>;
+    assigneeRoleRef: z.ZodOptional<z.ZodString>;
+    projectId: z.ZodOptional<z.ZodUUID>;
+    goalId: z.ZodOptional<z.ZodUUID>;
+    parentIssueId: z.ZodOptional<z.ZodUUID>;
+    blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
+    labRequest: z.ZodOptional<z.ZodObject<{
+        question: z.ZodString;
+        why: z.ZodString;
+        topics: z.ZodArray<z.ZodString>;
+        recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"client">;
+            clientId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"project">;
+            clientId: z.ZodString;
+            projectId: z.ZodString;
+        }, z.core.$strict>], "kind">;
+    }, z.core.$strict>>;
+    waitForChild: z.ZodOptional<z.ZodBoolean>;
+}, z.core.$strict>;
+export declare const PaperclipLabNativeCreateIssueAgentInputSchema: z.ZodObject<{
+    description: z.ZodOptional<z.ZodString>;
+    title: z.ZodString;
+    projectId: z.ZodOptional<z.ZodUUID>;
+    goalId: z.ZodOptional<z.ZodUUID>;
+    parentIssueId: z.ZodOptional<z.ZodUUID>;
+    blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
+    assigneeAgentId: z.ZodOptional<z.ZodGUID>;
+    labRequest: z.ZodOptional<z.ZodObject<{
+        question: z.ZodString;
+        why: z.ZodString;
+        topics: z.ZodArray<z.ZodString>;
+        recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"client">;
+            clientId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"project">;
+            clientId: z.ZodString;
+            projectId: z.ZodString;
+        }, z.core.$strict>], "kind">;
+    }, z.core.$strict>>;
     waitForChild: z.ZodOptional<z.ZodBoolean>;
 }, z.core.$strict>;
 /** `paperclip_assign` that can also answer a question another agent put to the assignee (the comment is the answer). */
@@ -574,6 +763,31 @@ export declare const PaperclipNativeReviewAddressedInputSchema: z.ZodObject<{
         kind: z.ZodLiteral<"technical_fault">;
         faultCode: z.ZodString;
     }, z.core.$strict>], "kind">>;
+    labAnswer: z.ZodOptional<z.ZodObject<{
+        topics: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            topic: z.ZodString;
+            coverage: z.ZodLiteral<"covered">;
+            pages: z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            topic: z.ZodString;
+            coverage: z.ZodLiteral<"gap">;
+            reason: z.ZodString;
+        }, z.core.$strict>], "coverage">>;
+    }, z.core.$strict>>;
+    labReview: z.ZodOptional<z.ZodObject<{
+        childIssueId: z.ZodUUID;
+        answerCommentId: z.ZodUUID;
+        outcome: z.ZodEnum<{
+            accepted: "accepted";
+            changes_requested: "changes_requested";
+        }>;
+        comment: z.ZodString;
+        missingTopics: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    }, z.core.$strict>>;
     ask: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
         to: z.ZodLiteral<"agent">;
         addresseeAgentId: z.ZodGUID;

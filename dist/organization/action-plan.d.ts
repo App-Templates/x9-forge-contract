@@ -513,8 +513,8 @@ export declare const ActionPlanSourceCoverageSchema: z.ZodObject<{
     topic: z.ZodString;
     status: z.ZodEnum<{
         partial: "partial";
-        missing: "missing";
         covered: "covered";
+        missing: "missing";
     }>;
     pages: z.ZodArray<z.ZodString>;
 }, z.core.$strict>;
@@ -871,8 +871,8 @@ export declare const ActionPlanSchema: z.ZodObject<{
         topic: z.ZodString;
         status: z.ZodEnum<{
             partial: "partial";
-            missing: "missing";
             covered: "covered";
+            missing: "missing";
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
@@ -1016,8 +1016,8 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         topic: z.ZodString;
         status: z.ZodEnum<{
             partial: "partial";
-            missing: "missing";
             covered: "covered";
+            missing: "missing";
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
@@ -1363,8 +1363,8 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         topic: z.ZodString;
         status: z.ZodEnum<{
             partial: "partial";
-            missing: "missing";
             covered: "covered";
+            missing: "missing";
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
@@ -1901,8 +1901,8 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
         topic: z.ZodString;
         status: z.ZodEnum<{
             partial: "partial";
-            missing: "missing";
             covered: "covered";
+            missing: "missing";
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;

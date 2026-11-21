@@ -1523,8 +1523,8 @@ export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObj
                 topic: z.ZodString;
                 status: z.ZodEnum<{
                     partial: "partial";
-                    missing: "missing";
                     covered: "covered";
+                    missing: "missing";
                 }>;
                 pages: z.ZodArray<z.ZodString>;
             }, z.core.$strict>>>;
@@ -1881,8 +1881,8 @@ export declare const internalPaperclipSeatSessionMandateContract: {
                     topic: z.ZodString;
                     status: z.ZodEnum<{
                         partial: "partial";
-                        missing: "missing";
                         covered: "covered";
+                        missing: "missing";
                     }>;
                     pages: z.ZodArray<z.ZodString>;
                 }, z.core.$strict>>>;
