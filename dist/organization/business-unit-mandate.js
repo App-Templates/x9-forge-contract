@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { WikiPageSchema } from "../capability/lab/wiki.js";
-import { ActionPlanBuObjectiveSchema, ActionPlanBuExecutorSchema, ActionPlanBusinessUnitSchema, ActionPlanDeliveryShapeSchema, ActionPlanExchangeSchema, ActionPlanObjectiveSchema, ActionPlanProjectObjectiveSchema, ActionPlanQuestionSchema, ActionPlanReferentRefSchema, ActionPlanSourceCoverageSchema, ActionPlanWorkBreakdownSchema, } from "./action-plan.js";
+import { ActionPlanBuObjectiveSchema, ActionPlanBuExecutorSchema, ActionPlanBuSectionSchema, ActionPlanBusinessUnitSchema, ActionPlanDeliveryShapeSchema, ActionPlanExchangeSchema, ActionPlanObjectiveSchema, ActionPlanProjectObjectiveSchema, ActionPlanQuestionSchema, ActionPlanReferentRefSchema, ActionPlanSourceCoverageSchema, ActionPlanWorkBreakdownSchema, } from "./action-plan.js";
 import { AssetOriginSchema, AssetRefSchema, AssetSha256Schema } from "./asset.js";
 import { CompanyMapScopeFieldsSchema } from "./company-map.js";
 import { DecisionRequestIdSchema } from "./decision-request.js";
@@ -169,6 +169,28 @@ export const ReconciledMandateSchema = z.strictObject({
         }
     }
 });
+/** Document requirements projected from the existing plan section, without a new work identity. */
+export const ActionPlanDocumentPieceSchema = ActionPlanBuSectionSchema.pick({
+    id: true,
+    title: true,
+    expectedGoal: true,
+    deliveryCriteria: true,
+    documentFormat: true,
+    documentSources: true,
+});
+/** Only explicit document declarations become pieces; legacy mandates remain readable. */
+export function mandateDocumentPieces(mandate) {
+    return (mandate.planSection.businessUnit.sections ?? [])
+        .filter(section => section.documentFormat !== undefined || section.documentSources !== undefined)
+        .map(section => ActionPlanDocumentPieceSchema.parse({
+        id: section.id,
+        title: section.title,
+        expectedGoal: section.expectedGoal,
+        deliveryCriteria: section.deliveryCriteria,
+        ...(section.documentFormat === undefined ? {} : { documentFormat: section.documentFormat }),
+        ...(section.documentSources === undefined ? {} : { documentSources: section.documentSources }),
+    }));
+}
 export const MandateAttemptObservationIdSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 export const MandateAttemptScopeSchema = z.strictObject({
     tenantId: ReconciledMandateSchema.shape.tenantId,

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MANDATE_EXCHANGE_MATCH_OUTCOMES = exports.MandateAttemptObservationSchema = exports.MandateAttemptEventSchema = exports.MANDATE_ATTEMPT_EVENT_KINDS = exports.MandateAttemptScopeSchema = exports.MandateAttemptObservationIdSchema = exports.ReconciledMandateSchema = exports.MandateWorkModeSchema = exports.MandateWorkplaceSchema = exports.MandateReconciliationSchema = exports.MandateSourceSchema = exports.MANDATE_SOURCES = exports.MandateReconciliationOutcomeSchema = exports.MANDATE_RECONCILIATION_OUTCOMES = void 0;
+exports.MANDATE_EXCHANGE_MATCH_OUTCOMES = exports.MandateAttemptObservationSchema = exports.MandateAttemptEventSchema = exports.MANDATE_ATTEMPT_EVENT_KINDS = exports.MandateAttemptScopeSchema = exports.MandateAttemptObservationIdSchema = exports.ActionPlanDocumentPieceSchema = exports.ReconciledMandateSchema = exports.MandateWorkModeSchema = exports.MandateWorkplaceSchema = exports.MandateReconciliationSchema = exports.MandateSourceSchema = exports.MANDATE_SOURCES = exports.MandateReconciliationOutcomeSchema = exports.MANDATE_RECONCILIATION_OUTCOMES = void 0;
+exports.mandateDocumentPieces = mandateDocumentPieces;
 exports.mandateExchangeMatch = mandateExchangeMatch;
 const zod_1 = require("zod");
 const wiki_js_1 = require("../capability/lab/wiki.cjs");
@@ -173,6 +174,28 @@ exports.ReconciledMandateSchema = zod_1.z.strictObject({
         }
     }
 });
+/** Document requirements projected from the existing plan section, without a new work identity. */
+exports.ActionPlanDocumentPieceSchema = action_plan_js_1.ActionPlanBuSectionSchema.pick({
+    id: true,
+    title: true,
+    expectedGoal: true,
+    deliveryCriteria: true,
+    documentFormat: true,
+    documentSources: true,
+});
+/** Only explicit document declarations become pieces; legacy mandates remain readable. */
+function mandateDocumentPieces(mandate) {
+    return (mandate.planSection.businessUnit.sections ?? [])
+        .filter(section => section.documentFormat !== undefined || section.documentSources !== undefined)
+        .map(section => exports.ActionPlanDocumentPieceSchema.parse({
+        id: section.id,
+        title: section.title,
+        expectedGoal: section.expectedGoal,
+        deliveryCriteria: section.deliveryCriteria,
+        ...(section.documentFormat === undefined ? {} : { documentFormat: section.documentFormat }),
+        ...(section.documentSources === undefined ? {} : { documentSources: section.documentSources }),
+    }));
+}
 exports.MandateAttemptObservationIdSchema = zod_1.z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 exports.MandateAttemptScopeSchema = zod_1.z.strictObject({
     tenantId: exports.ReconciledMandateSchema.shape.tenantId,

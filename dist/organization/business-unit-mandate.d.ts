@@ -343,6 +343,72 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ReconciledMandate = z.infer<typeof ReconciledMandateSchema>;
+/** Document requirements projected from the existing plan section, without a new work identity. */
+export declare const ActionPlanDocumentPieceSchema: z.ZodObject<{
+    id: z.ZodString;
+    title: z.ZodString;
+    deliveryCriteria: z.ZodArray<z.ZodString>;
+    expectedGoal: z.ZodString;
+    documentFormat: z.ZodOptional<z.ZodObject<{
+        mediaType: z.ZodString;
+        parts: z.ZodArray<z.ZodString>;
+        length: z.ZodObject<{
+            unit: z.ZodEnum<{
+                pages: "pages";
+                words: "words";
+            }>;
+            min: z.ZodNumber;
+            max: z.ZodNumber;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
+    documentSources: z.ZodOptional<z.ZodObject<{
+        pages: z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>;
+        materials: z.ZodArray<z.ZodObject<{
+            assetId: z.ZodString;
+            sha256: z.ZodString;
+            name: z.ZodString;
+            mediaType: z.ZodString;
+            sizeBytes: z.ZodNumber;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                messageId: z.ZodString;
+                attachmentName: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"archive">;
+                archiveSha256: z.ZodString;
+                entryPath: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"session">;
+                sessionId: z.ZodString;
+                repo: z.ZodOptional<z.ZodString>;
+                commit: z.ZodOptional<z.ZodString>;
+                path: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"link">;
+                url: z.ZodURL;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"generated">;
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>], "kind">;
+            tenantId: z.ZodString;
+            companyId: z.ZodString;
+            projectId: z.ZodString;
+            assetType: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            providedBy: z.ZodOptional<z.ZodObject<{
+                personRef: z.ZodString;
+            }, z.core.$strict>>;
+            createdAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type ActionPlanDocumentPiece = z.infer<typeof ActionPlanDocumentPieceSchema>;
+/** Only explicit document declarations become pieces; legacy mandates remain readable. */
+export declare function mandateDocumentPieces(mandate: ReconciledMandate): ActionPlanDocumentPiece[];
 export declare const MandateAttemptObservationIdSchema: z.ZodString;
 export type MandateAttemptObservationId = z.infer<typeof MandateAttemptObservationIdSchema>;
 export declare const MandateAttemptScopeSchema: z.ZodObject<{

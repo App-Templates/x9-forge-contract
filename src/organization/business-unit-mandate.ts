@@ -3,6 +3,7 @@ import { WikiPageSchema } from '../capability/lab/wiki.js';
 import {
   ActionPlanBuObjectiveSchema,
   ActionPlanBuExecutorSchema,
+  ActionPlanBuSectionSchema,
   ActionPlanBusinessUnitSchema,
   ActionPlanDeliveryShapeSchema,
   ActionPlanExchangeSchema,
@@ -201,6 +202,31 @@ export const ReconciledMandateSchema = z.strictObject({
   }
 });
 export type ReconciledMandate = z.infer<typeof ReconciledMandateSchema>;
+
+/** Document requirements projected from the existing plan section, without a new work identity. */
+export const ActionPlanDocumentPieceSchema = ActionPlanBuSectionSchema.pick({
+  id: true,
+  title: true,
+  expectedGoal: true,
+  deliveryCriteria: true,
+  documentFormat: true,
+  documentSources: true,
+});
+export type ActionPlanDocumentPiece = z.infer<typeof ActionPlanDocumentPieceSchema>;
+
+/** Only explicit document declarations become pieces; legacy mandates remain readable. */
+export function mandateDocumentPieces(mandate: ReconciledMandate): ActionPlanDocumentPiece[] {
+  return (mandate.planSection.businessUnit.sections ?? [])
+    .filter(section => section.documentFormat !== undefined || section.documentSources !== undefined)
+    .map(section => ActionPlanDocumentPieceSchema.parse({
+      id: section.id,
+      title: section.title,
+      expectedGoal: section.expectedGoal,
+      deliveryCriteria: section.deliveryCriteria,
+      ...(section.documentFormat === undefined ? {} : { documentFormat: section.documentFormat }),
+      ...(section.documentSources === undefined ? {} : { documentSources: section.documentSources }),
+    }));
+}
 
 export const MandateAttemptObservationIdSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 export type MandateAttemptObservationId = z.infer<typeof MandateAttemptObservationIdSchema>;

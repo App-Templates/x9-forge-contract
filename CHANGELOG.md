@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.274.0 — explicit document pieces are projected from the saved mandate (task 8393)
+
+- Additive in `organization/business-unit-mandate`, re-exported by `organization`: `ActionPlanDocumentPieceSchema` and its type, picked from `ActionPlanBuSectionSchema` (`id`, `title`, `expectedGoal`, `deliveryCriteria`, `documentFormat`, `documentSources`), and pure `mandateDocumentPieces(mandate: ReconciledMandate): ActionPlanDocumentPiece[]`. Only sections declaring format or sources are projected, in plan order with unchanged criteria; no input mutation or inference from unit name, executor or delivery shape. Legacy mandates return `[]`; absence is not verification. No task, reviewer or closure is created. Inert until adoption (8394) and consumption (8395).
+- REGRESSIONE: s8393 pezzo-del-mandato: un mandato study con sezioni `costi` e `scenari`, fixture di codice nella forma descritta di `action-plan-analisi-finanziaria-study.json`, dichiara formato e fonti solo su `costi`; prima manca la proiezione; dopo restituisce un solo pezzo `costi` con gli stessi criteri, formato e fonti, senza `milestone`, `needsFrom`, pezzi impliciti o nuovi incarichi.
+
 ## v1.273.0 — a document section can declare its sources (task 8392)
 
 - Additive in `organization/action-plan`: `ActionPlanDocumentSourcesSchema` (strict: `pages` max 100 of `{slug, version}` reusing `WikiPageSchema`, `materials` max 50 of `AssetRefSchema`; both required, at least one source in total, no duplicate `(slug, version)` or `(assetId, sha256)`) and the optional `documentSources` of `ActionPlanBuSectionSchema`, kept by plan, submission and mandate. References only: no verification, no approval; plans without it parse and serialize to the same bytes. Inert until consumers read it (8394/8395); no reviewer is activated.

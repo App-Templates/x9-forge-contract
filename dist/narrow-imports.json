@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.273.0",
+  "versione": "1.274.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2788,6 +2788,7 @@
       "ActionPlanBusinessUnitSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDeliveryShapeSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDocumentFormatSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanDocumentPieceSchema": "@x9-forge/contracts/organization/business-unit-mandate",
       "ActionPlanDocumentSourcesSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDossierPageSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDraftSchema": "@x9-forge/contracts/organization/action-plan",
@@ -3088,6 +3089,7 @@
       "isResolveMaterialResponseForRequest": "@x9-forge/contracts/organization/publication-operations",
       "isStackSubjectTag": "@x9-forge/contracts/organization/shared-mailbox",
       "latestApprovedAssetVersion": "@x9-forge/contracts/organization/asset-version",
+      "mandateDocumentPieces": "@x9-forge/contracts/organization/business-unit-mandate",
       "mandateExchangeMatch": "@x9-forge/contracts/organization/business-unit-mandate",
       "organizationAccess": "@x9-forge/contracts/organization/organization-access",
       "parseSharedMailboxSubjectLabel": "@x9-forge/contracts/organization/shared-mailbox",
