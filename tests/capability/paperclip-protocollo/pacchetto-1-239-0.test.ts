@@ -814,16 +814,34 @@ describe('s8184 pacchetto-1-257-0', () => {
 });
 
 describe('s8188 pacchetto-1-258-0', () => {
-  it('s8188_version: the first release is 1.258.0 and retains 1.257.0 and 1.256.0', () => {
+  it('s8188_version: the changelog retains 1.258.0, 1.257.0 and 1.256.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.258.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.258.0');
+    expect(changelog).toContain('## v1.258.0');
     expect(changelog).toContain('## v1.257.0');
     expect(changelog).toContain('## v1.256.0');
   });
 
-  it('s8188_map: the narrow-import map has version 1.258.0', () => {
+  it('s8188_map: the narrow-import map follows the package version', () => {
     const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
-    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.258.0');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe(packageVersion());
+  });
+});
+
+describe('s8200 pacchetto-1-259-0', () => {
+  it('s8200_version: package and first release are 1.259.0 and retain 1.258.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.259.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.259.0');
+    expect(changelog).toContain('## v1.258.0');
+  });
+
+  it('s8200_map: the narrow-import map has the package version and the session mandate route', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
+      versione: string;
+      barili: Record<string, Record<string, string>>;
+    };
+    expect(map.versione).toBe(packageVersion());
+    expect(map.barili['@x9-forge/contracts/http']?.internalPaperclipSeatSessionMandateContract)
+      .toBe('@x9-forge/contracts/http/endpoints/internal-paperclip-seats');
   });
 });

@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaperclipSeatSessionContractResultSchema = exports.PAPERCLIP_SEAT_SESSION_CONTRACT_RESULTS = exports.InternalPaperclipSeatSessionContractRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_SESSION_CONTRACT_PATH = exports.internalPaperclipSeatSessionChildContract = exports.InternalPaperclipSeatSessionChildResponseSchema = exports.PaperclipSeatSessionChildResultSchema = exports.PAPERCLIP_SEAT_SESSION_CHILD_RESULTS = exports.InternalPaperclipSeatSessionChildRequestSchema = exports.DEV_SESSION_PAPERCLIP_DESCRIPTION_MAX = exports.INTERNAL_PAPERCLIP_SEAT_SESSION_CHILD_PATH = exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatWakeErrorResponseSchema = exports.PaperclipSeatWakeErrorCodeSchema = exports.PAPERCLIP_SEAT_WAKE_ERROR_CODES = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeViaSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_VIA = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.PAPERCLIP_SOURCE_RUN_REFUSALS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
-exports.internalPaperclipSeatSessionContractContract = exports.InternalPaperclipSeatSessionContractResponseSchema = void 0;
+exports.internalPaperclipSeatSessionMandateContract = exports.InternalPaperclipSeatSessionMandateResponseSchema = exports.PaperclipSeatSessionMandateResultSchema = exports.PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS = exports.InternalPaperclipSeatSessionMandateRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_SESSION_MANDATE_PATH = exports.internalPaperclipSeatSessionContractContract = exports.InternalPaperclipSeatSessionContractResponseSchema = void 0;
 const zod_1 = require("zod");
 const inbound_event_js_1 = require("../../capability/paperclip/inbound-event.cjs");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
+const business_unit_mandate_js_1 = require("../../organization/business-unit-mandate.cjs");
 const run_context_js_1 = require("../../organization/run-context.cjs");
 const asset_version_js_1 = require("../../organization/asset-version.cjs");
 const session_acceptance_paperclip_js_1 = require("../../capability/dev/session-acceptance-paperclip.cjs");
@@ -472,6 +473,52 @@ exports.internalPaperclipSeatSessionContractContract = {
     authType: 'secret',
     bodySchema: exports.InternalPaperclipSeatSessionContractRequestSchema,
     responseSchema: exports.InternalPaperclipSeatSessionContractResponseSchema,
+    errorResponseSchema: exports.InternalPaperclipSeatWakeErrorResponseSchema,
+};
+exports.INTERNAL_PAPERCLIP_SEAT_SESSION_MANDATE_PATH = '/internal/paperclip/seats/session-mandate';
+exports.InternalPaperclipSeatSessionMandateRequestSchema = zod_1.z.strictObject({
+    organizationId: exports.InternalPaperclipSeatsQuerySchema.shape.organizationId,
+    // The verified chief identity and run resolve the issue; the caller selects a piece from the whole mandate.
+    identity: participant_binding_js_1.ParticipantAgentIdentitySchema,
+    sourceRunId: run_context_js_1.RunIdSchema,
+});
+exports.PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS = [
+    'read', 'not_enabled', 'mandate_missing', 'mandate_invalid', ...exports.PAPERCLIP_SOURCE_RUN_REFUSALS,
+];
+exports.PaperclipSeatSessionMandateResultSchema = zod_1.z.enum(exports.PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS);
+exports.InternalPaperclipSeatSessionMandateResponseSchema = zod_1.z.strictObject({
+    result: exports.PaperclipSeatSessionMandateResultSchema,
+    issueId: zod_1.z.uuid().optional(),
+    mandate: business_unit_mandate_js_1.ReconciledMandateSchema.optional(),
+    reason: zod_1.z.enum(['not_json', 'not_a_mandate']).optional(),
+}).superRefine((value, ctx) => {
+    // Only a verified source issue can carry a document outcome; refusals must not expose its identity or mandate.
+    const hasIssue = value.result === 'read' || value.result === 'mandate_missing' || value.result === 'mandate_invalid';
+    if (hasIssue && value.issueId === undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
+    }
+    if (!hasIssue && value.issueId !== undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+    }
+    if (value.result === 'read' && value.mandate === undefined) {
+        ctx.addIssue({ code: 'custom', message: 'read requires mandate', path: ['mandate'] });
+    }
+    if (value.result !== 'read' && value.mandate !== undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} must not carry mandate`, path: ['mandate'] });
+    }
+    if (value.result === 'mandate_invalid' && value.reason === undefined) {
+        ctx.addIssue({ code: 'custom', message: 'mandate_invalid requires reason', path: ['reason'] });
+    }
+    if (value.result !== 'mandate_invalid' && value.reason !== undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} must not carry reason`, path: ['reason'] });
+    }
+});
+exports.internalPaperclipSeatSessionMandateContract = {
+    method: 'POST',
+    path: exports.INTERNAL_PAPERCLIP_SEAT_SESSION_MANDATE_PATH,
+    authType: 'secret',
+    bodySchema: exports.InternalPaperclipSeatSessionMandateRequestSchema,
+    responseSchema: exports.InternalPaperclipSeatSessionMandateResponseSchema,
     errorResponseSchema: exports.InternalPaperclipSeatWakeErrorResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map

@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.259.0 — cap-dev can request the whole mandate on the chief's source issue (task 8200)
+
+- Additive `internalPaperclipSeatSessionMandateContract`: secret-authenticated POST `/internal/paperclip/seats/session-mandate`, with verified organization, chief identity and source run. The caller selects the piece from the whole mandate validated by the existing `ReconciledMandateSchema`; no saved mandate or existing route changes.
+- `read` requires the issue UUID and mandate; `mandate_missing` and `mandate_invalid` require the issue UUID without a mandate, and only `mandate_invalid` carries `not_json` or `not_a_mandate`. `not_enabled` and source-run refusals carry neither issue UUID nor mandate. Consumers implement and call the route in tasks 8202 and 8203; this package makes no Paperclip calls and adds no switch.
+- REGRESSIONE: s8200 rotta-del-mandato: con la richiesta vera del capo sviluppo di Dispensa Pronta (corsia di Paperclip, identità completa) e un mandato di un pezzo con tre criteri (forma di GOO-172), oggi non esiste né il percorso né lo schema (rosso: import indefinito); dopo la richiesta passa e le cinque forme dell'esito (`read` col mandato, `mandate_missing`, `mandate_invalid`, `not_enabled`, rifiuti della corsia) passano lo schema (verde).
+
 ## v1.258.0 — the D-09 criterion says "a pdf with every available screen of the delivery and the link to the navigable demo", with no fixed number (task 8188)
 
 - Text-only change of the `D-09` entry of `DEV_SESSION_ACCEPTANCE_CATALOG`, following Stefano's decision of 21/11. Id, attestor (`esecutore`), `needs: ['package']`, proof and the template versions (1) are unchanged, so saved contracts keep working. Contracts written after a consumer raises its pin read the new text; open issues keep the old one.

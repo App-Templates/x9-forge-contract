@@ -1183,4 +1183,499 @@ export declare const internalPaperclipSeatSessionContractContract: {
 export type InternalPaperclipSeatSessionContractRequest = z.infer<typeof InternalPaperclipSeatSessionContractRequestSchema>;
 export type InternalPaperclipSeatSessionContractResponse = z.infer<typeof InternalPaperclipSeatSessionContractResponseSchema>;
 export type PaperclipSeatSessionContractResult = z.infer<typeof PaperclipSeatSessionContractResultSchema>;
+export declare const INTERNAL_PAPERCLIP_SEAT_SESSION_MANDATE_PATH: "/internal/paperclip/seats/session-mandate";
+export declare const InternalPaperclipSeatSessionMandateRequestSchema: z.ZodObject<{
+    organizationId: z.ZodString;
+    identity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    sourceRunId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+}, z.core.$strict>;
+export declare const PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS: readonly ["read", "not_enabled", "mandate_missing", "mandate_invalid", "source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
+export declare const PaperclipSeatSessionMandateResultSchema: z.ZodEnum<{
+    read: "read";
+    source_run_unknown: "source_run_unknown";
+    source_run_without_issue: "source_run_without_issue";
+    source_issue_not_agents: "source_issue_not_agents";
+    source_issue_closed: "source_issue_closed";
+    not_enabled: "not_enabled";
+    mandate_missing: "mandate_missing";
+    mandate_invalid: "mandate_invalid";
+}>;
+export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObject<{
+    result: z.ZodEnum<{
+        read: "read";
+        source_run_unknown: "source_run_unknown";
+        source_run_without_issue: "source_run_without_issue";
+        source_issue_not_agents: "source_issue_not_agents";
+        source_issue_closed: "source_issue_closed";
+        not_enabled: "not_enabled";
+        mandate_missing: "mandate_missing";
+        mandate_invalid: "mandate_invalid";
+    }>;
+    issueId: z.ZodOptional<z.ZodUUID>;
+    mandate: z.ZodOptional<z.ZodObject<{
+        tenantId: z.ZodString;
+        organizationId: z.ZodString;
+        clientId: z.ZodString;
+        projectId: z.ZodString;
+        planSection: z.ZodObject<{
+            planId: z.ZodString;
+            planVersion: z.ZodNumber;
+            planDigest: z.ZodString;
+            businessUnit: z.ZodObject<{
+                buSlug: z.ZodString;
+                typeId: z.ZodEnum<{
+                    dati: "dati";
+                    design: "design";
+                    sviluppo: "sviluppo";
+                    finanza: "finanza";
+                    marketing: "marketing";
+                }>;
+                mandate: z.ZodString;
+                competencies: z.ZodArray<z.ZodString>;
+                lead: z.ZodObject<{
+                    role: z.ZodLiteral<"capo-bu">;
+                }, z.core.$strict>;
+                reviewer: z.ZodOptional<z.ZodUnion<readonly [z.ZodObject<{
+                    buSlug: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    role: z.ZodLiteral<"director">;
+                }, z.core.$strict>]>>;
+                executor: z.ZodEnum<{
+                    agent: "agent";
+                    night: "night";
+                    dev_session: "dev_session";
+                }>;
+                referent: z.ZodObject<{
+                    personRef: z.ZodString;
+                    entryVersion: z.ZodNumber;
+                }, z.core.$strict>;
+                firstActivities: z.ZodArray<z.ZodString>;
+                sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    title: z.ZodString;
+                    expectedGoal: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    milestone: z.ZodNumber;
+                    needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        what: z.ZodString;
+                    }, z.core.$strict>>>;
+                }, z.core.$strict>>>;
+                roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    role: z.ZodString;
+                    competencies: z.ZodArray<z.ZodString>;
+                }, z.core.$strict>>>;
+                start: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"now">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"planned">;
+                    unlockedBy: z.ZodObject<{
+                        milestone: z.ZodNumber;
+                        delivery: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">;
+                gapRule: z.ZodOptional<z.ZodEnum<{
+                    mark_and_proceed: "mark_and_proceed";
+                    stop_and_ask: "stop_and_ask";
+                }>>;
+                signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodString;
+                    signer: z.ZodEnum<{
+                        owner: "owner";
+                        director: "director";
+                        referent: "referent";
+                    }>;
+                    form: z.ZodLiteral<"decision_request">;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>;
+            project: z.ZodOptional<z.ZodObject<{
+                objective: z.ZodObject<{
+                    request: z.ZodString;
+                    expectedResult: z.ZodString;
+                    measure: z.ZodString;
+                }, z.core.$strict>;
+                objectiveTree: z.ZodObject<{
+                    project: z.ZodObject<{
+                        expectedResult: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
+            unitObjective: z.ZodOptional<z.ZodObject<{
+                buSlug: z.ZodString;
+                expectedResult: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                indicators: z.ZodArray<z.ZodObject<{
+                    name: z.ZodString;
+                    source: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
+            deliveryShape: z.ZodOptional<z.ZodEnum<{
+                product: "product";
+                study: "study";
+            }>>;
+            workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                parentId: z.ZodOptional<z.ZodString>;
+                title: z.ZodString;
+                expectedGoal: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                milestone: z.ZodNumber;
+                owners: z.ZodArray<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    does: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>>;
+            exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                fromBu: z.ZodString;
+                toBu: z.ZodString;
+                what: z.ZodString;
+                format: z.ZodString;
+                key: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>>;
+            questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                question: z.ZodString;
+                unlocks: z.ZodString;
+                askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    personRef: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"owner">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"director">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"business_unit">;
+                    buSlug: z.ZodString;
+                }, z.core.$strict>], "kind">>;
+            }, z.core.$strict>>>;
+            sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                topic: z.ZodString;
+                status: z.ZodEnum<{
+                    partial: "partial";
+                    missing: "missing";
+                    covered: "covered";
+                }>;
+                pages: z.ZodArray<z.ZodString>;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>;
+        decision: z.ZodObject<{
+            requestId: z.ZodString;
+            planVersion: z.ZodNumber;
+        }, z.core.$strict>;
+        referent: z.ZodObject<{
+            personRef: z.ZodString;
+            entryVersion: z.ZodNumber;
+        }, z.core.$strict>;
+        notebookPages: z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>;
+        reconciliation: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            outcome: z.ZodLiteral<"agrees">;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"conflict">;
+            conflicts: z.ZodArray<z.ZodObject<{
+                source: z.ZodEnum<{
+                    decision: "decision";
+                    referent: "referent";
+                    plan_section: "plan_section";
+                    notebook_page: "notebook_page";
+                }>;
+                ref: z.ZodString;
+                reason: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"missing">;
+            missing: z.ZodArray<z.ZodObject<{
+                source: z.ZodEnum<{
+                    decision: "decision";
+                    referent: "referent";
+                    plan_section: "plan_section";
+                    notebook_page: "notebook_page";
+                }>;
+                ref: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>], "outcome">;
+        reconciledAt: z.ZodISODateTime;
+        workplace: z.ZodOptional<z.ZodObject<{
+            repository: z.ZodObject<{
+                host: z.ZodEnum<{
+                    bitbucket: "bitbucket";
+                    github: "github";
+                }>;
+                repo: z.ZodString;
+            }, z.core.$strict>;
+            folder: z.ZodOptional<z.ZodString>;
+            sessionBoard: z.ZodOptional<z.ZodObject<{
+                repo: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        workMode: z.ZodOptional<z.ZodObject<{
+            executor: z.ZodEnum<{
+                agent: "agent";
+                night: "night";
+                dev_session: "dev_session";
+            }>;
+            allowedTools: z.ZodArray<z.ZodString>;
+            excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+    reason: z.ZodOptional<z.ZodEnum<{
+        not_json: "not_json";
+        not_a_mandate: "not_a_mandate";
+    }>>;
+}, z.core.$strict>;
+export declare const internalPaperclipSeatSessionMandateContract: {
+    readonly method: "POST";
+    readonly path: "/internal/paperclip/seats/session-mandate";
+    readonly authType: "secret";
+    readonly bodySchema: z.ZodObject<{
+        organizationId: z.ZodString;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        sourceRunId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        result: z.ZodEnum<{
+            read: "read";
+            source_run_unknown: "source_run_unknown";
+            source_run_without_issue: "source_run_without_issue";
+            source_issue_not_agents: "source_issue_not_agents";
+            source_issue_closed: "source_issue_closed";
+            not_enabled: "not_enabled";
+            mandate_missing: "mandate_missing";
+            mandate_invalid: "mandate_invalid";
+        }>;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        mandate: z.ZodOptional<z.ZodObject<{
+            tenantId: z.ZodString;
+            organizationId: z.ZodString;
+            clientId: z.ZodString;
+            projectId: z.ZodString;
+            planSection: z.ZodObject<{
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                planDigest: z.ZodString;
+                businessUnit: z.ZodObject<{
+                    buSlug: z.ZodString;
+                    typeId: z.ZodEnum<{
+                        dati: "dati";
+                        design: "design";
+                        sviluppo: "sviluppo";
+                        finanza: "finanza";
+                        marketing: "marketing";
+                    }>;
+                    mandate: z.ZodString;
+                    competencies: z.ZodArray<z.ZodString>;
+                    lead: z.ZodObject<{
+                        role: z.ZodLiteral<"capo-bu">;
+                    }, z.core.$strict>;
+                    reviewer: z.ZodOptional<z.ZodUnion<readonly [z.ZodObject<{
+                        buSlug: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        role: z.ZodLiteral<"director">;
+                    }, z.core.$strict>]>>;
+                    executor: z.ZodEnum<{
+                        agent: "agent";
+                        night: "night";
+                        dev_session: "dev_session";
+                    }>;
+                    referent: z.ZodObject<{
+                        personRef: z.ZodString;
+                        entryVersion: z.ZodNumber;
+                    }, z.core.$strict>;
+                    firstActivities: z.ZodArray<z.ZodString>;
+                    sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        title: z.ZodString;
+                        expectedGoal: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                        milestone: z.ZodNumber;
+                        needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            buSlug: z.ZodString;
+                            what: z.ZodString;
+                        }, z.core.$strict>>>;
+                    }, z.core.$strict>>>;
+                    roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        role: z.ZodString;
+                        competencies: z.ZodArray<z.ZodString>;
+                    }, z.core.$strict>>>;
+                    start: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"now">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"planned">;
+                        unlockedBy: z.ZodObject<{
+                            milestone: z.ZodNumber;
+                            delivery: z.ZodString;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>], "kind">;
+                    gapRule: z.ZodOptional<z.ZodEnum<{
+                        mark_and_proceed: "mark_and_proceed";
+                        stop_and_ask: "stop_and_ask";
+                    }>>;
+                    signOffs: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        key: z.ZodString;
+                        signer: z.ZodEnum<{
+                            owner: "owner";
+                            director: "director";
+                            referent: "referent";
+                        }>;
+                        form: z.ZodLiteral<"decision_request">;
+                    }, z.core.$strict>>>;
+                }, z.core.$strict>;
+                project: z.ZodOptional<z.ZodObject<{
+                    objective: z.ZodObject<{
+                        request: z.ZodString;
+                        expectedResult: z.ZodString;
+                        measure: z.ZodString;
+                    }, z.core.$strict>;
+                    objectiveTree: z.ZodObject<{
+                        project: z.ZodObject<{
+                            expectedResult: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>>;
+                unitObjective: z.ZodOptional<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    expectedResult: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    indicators: z.ZodArray<z.ZodObject<{
+                        name: z.ZodString;
+                        source: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                deliveryShape: z.ZodOptional<z.ZodEnum<{
+                    product: "product";
+                    study: "study";
+                }>>;
+                workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    parentId: z.ZodOptional<z.ZodString>;
+                    title: z.ZodString;
+                    expectedGoal: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    milestone: z.ZodNumber;
+                    owners: z.ZodArray<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        does: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>>;
+                exchanges: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    fromBu: z.ZodString;
+                    toBu: z.ZodString;
+                    what: z.ZodString;
+                    format: z.ZodString;
+                    key: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>>;
+                questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    question: z.ZodString;
+                    unlocks: z.ZodString;
+                    askTo: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"referent">;
+                        personRef: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"owner">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"director">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"business_unit">;
+                        buSlug: z.ZodString;
+                    }, z.core.$strict>], "kind">>;
+                }, z.core.$strict>>>;
+                sourceCoverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    topic: z.ZodString;
+                    status: z.ZodEnum<{
+                        partial: "partial";
+                        missing: "missing";
+                        covered: "covered";
+                    }>;
+                    pages: z.ZodArray<z.ZodString>;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>;
+            decision: z.ZodObject<{
+                requestId: z.ZodString;
+                planVersion: z.ZodNumber;
+            }, z.core.$strict>;
+            referent: z.ZodObject<{
+                personRef: z.ZodString;
+                entryVersion: z.ZodNumber;
+            }, z.core.$strict>;
+            notebookPages: z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
+            reconciliation: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                outcome: z.ZodLiteral<"agrees">;
+            }, z.core.$strict>, z.ZodObject<{
+                outcome: z.ZodLiteral<"conflict">;
+                conflicts: z.ZodArray<z.ZodObject<{
+                    source: z.ZodEnum<{
+                        decision: "decision";
+                        referent: "referent";
+                        plan_section: "plan_section";
+                        notebook_page: "notebook_page";
+                    }>;
+                    ref: z.ZodString;
+                    reason: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                outcome: z.ZodLiteral<"missing">;
+                missing: z.ZodArray<z.ZodObject<{
+                    source: z.ZodEnum<{
+                        decision: "decision";
+                        referent: "referent";
+                        plan_section: "plan_section";
+                        notebook_page: "notebook_page";
+                    }>;
+                    ref: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>;
+            }, z.core.$strict>], "outcome">;
+            reconciledAt: z.ZodISODateTime;
+            workplace: z.ZodOptional<z.ZodObject<{
+                repository: z.ZodObject<{
+                    host: z.ZodEnum<{
+                        bitbucket: "bitbucket";
+                        github: "github";
+                    }>;
+                    repo: z.ZodString;
+                }, z.core.$strict>;
+                folder: z.ZodOptional<z.ZodString>;
+                sessionBoard: z.ZodOptional<z.ZodObject<{
+                    repo: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
+            workMode: z.ZodOptional<z.ZodObject<{
+                executor: z.ZodEnum<{
+                    agent: "agent";
+                    night: "night";
+                    dev_session: "dev_session";
+                }>;
+                allowedTools: z.ZodArray<z.ZodString>;
+                excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        reason: z.ZodOptional<z.ZodEnum<{
+            not_json: "not_json";
+            not_a_mandate: "not_a_mandate";
+        }>>;
+    }, z.core.$strict>;
+    readonly errorResponseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodEnum<{
+            paperclip_unavailable: "paperclip_unavailable";
+            wake_timeout: "wake_timeout";
+        }>;
+    }, z.core.$strict>;
+};
+export type InternalPaperclipSeatSessionMandateRequest = z.infer<typeof InternalPaperclipSeatSessionMandateRequestSchema>;
+export type InternalPaperclipSeatSessionMandateResponse = z.infer<typeof InternalPaperclipSeatSessionMandateResponseSchema>;
+export type PaperclipSeatSessionMandateResult = z.infer<typeof PaperclipSeatSessionMandateResultSchema>;
 //# sourceMappingURL=internal-paperclip-seats.d.ts.map

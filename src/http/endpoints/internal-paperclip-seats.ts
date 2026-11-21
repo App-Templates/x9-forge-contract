@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { InboundEventDispositionSchema } from '../../capability/paperclip/inbound-event.js';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
+import { ReconciledMandateSchema } from '../../organization/business-unit-mandate.js';
 import { RunIdSchema } from '../../organization/run-context.js';
 import { SessionIdSchema } from '../../organization/asset-version.js';
 import { devSessionContractDocumentKey } from '../../capability/dev/session-acceptance-paperclip.js';
@@ -567,3 +568,58 @@ export const internalPaperclipSeatSessionContractContract = {
 export type InternalPaperclipSeatSessionContractRequest = z.infer<typeof InternalPaperclipSeatSessionContractRequestSchema>;
 export type InternalPaperclipSeatSessionContractResponse = z.infer<typeof InternalPaperclipSeatSessionContractResponseSchema>;
 export type PaperclipSeatSessionContractResult = z.infer<typeof PaperclipSeatSessionContractResultSchema>;
+
+export const INTERNAL_PAPERCLIP_SEAT_SESSION_MANDATE_PATH = '/internal/paperclip/seats/session-mandate' as const;
+
+export const InternalPaperclipSeatSessionMandateRequestSchema = z.strictObject({
+  organizationId: InternalPaperclipSeatsQuerySchema.shape.organizationId,
+  // The verified chief identity and run resolve the issue; the caller selects a piece from the whole mandate.
+  identity: ParticipantAgentIdentitySchema,
+  sourceRunId: RunIdSchema,
+});
+
+export const PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS = [
+  'read', 'not_enabled', 'mandate_missing', 'mandate_invalid', ...PAPERCLIP_SOURCE_RUN_REFUSALS,
+] as const;
+export const PaperclipSeatSessionMandateResultSchema = z.enum(PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS);
+
+export const InternalPaperclipSeatSessionMandateResponseSchema = z.strictObject({
+  result: PaperclipSeatSessionMandateResultSchema,
+  issueId: z.uuid().optional(),
+  mandate: ReconciledMandateSchema.optional(),
+  reason: z.enum(['not_json', 'not_a_mandate']).optional(),
+}).superRefine((value, ctx) => {
+  // Only a verified source issue can carry a document outcome; refusals must not expose its identity or mandate.
+  const hasIssue = value.result === 'read' || value.result === 'mandate_missing' || value.result === 'mandate_invalid';
+  if (hasIssue && value.issueId === undefined) {
+    ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
+  }
+  if (!hasIssue && value.issueId !== undefined) {
+    ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+  }
+  if (value.result === 'read' && value.mandate === undefined) {
+    ctx.addIssue({ code: 'custom', message: 'read requires mandate', path: ['mandate'] });
+  }
+  if (value.result !== 'read' && value.mandate !== undefined) {
+    ctx.addIssue({ code: 'custom', message: `${value.result} must not carry mandate`, path: ['mandate'] });
+  }
+  if (value.result === 'mandate_invalid' && value.reason === undefined) {
+    ctx.addIssue({ code: 'custom', message: 'mandate_invalid requires reason', path: ['reason'] });
+  }
+  if (value.result !== 'mandate_invalid' && value.reason !== undefined) {
+    ctx.addIssue({ code: 'custom', message: `${value.result} must not carry reason`, path: ['reason'] });
+  }
+});
+
+export const internalPaperclipSeatSessionMandateContract = {
+  method: 'POST' as const,
+  path: INTERNAL_PAPERCLIP_SEAT_SESSION_MANDATE_PATH,
+  authType: 'secret' as const,
+  bodySchema: InternalPaperclipSeatSessionMandateRequestSchema,
+  responseSchema: InternalPaperclipSeatSessionMandateResponseSchema,
+  errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
+} as const;
+
+export type InternalPaperclipSeatSessionMandateRequest = z.infer<typeof InternalPaperclipSeatSessionMandateRequestSchema>;
+export type InternalPaperclipSeatSessionMandateResponse = z.infer<typeof InternalPaperclipSeatSessionMandateResponseSchema>;
+export type PaperclipSeatSessionMandateResult = z.infer<typeof PaperclipSeatSessionMandateResultSchema>;
