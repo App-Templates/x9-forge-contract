@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.265.0 — cap-email can request session proofs on the chief's source issue (task 8236)
+
+- Additive `internalPaperclipSeatSessionProofsContract`: secret-authenticated POST `/internal/paperclip/seats/session-proofs`, with organization, verified chief identity, source run, canonical session ID and the existing tool-call envelope. Provider credentials are refused because they must not travel between services.
+- `carried`, `incomplete` and `status_only` require an issue UUID and nonnegative integer upload counts; `carried` refuses failed or oversized proofs. `not_enabled` and source-run refusals carry neither issue UUID nor counts. No saved data or existing contract changes; route implementation (8232), caller (8239) and adoption (8238) remain separate tasks.
+- REGRESSIONE: s8236 rotta-delle-prove: con la richiesta vera del capo di «Dispensa Pronta» (identità completa, corsa di Paperclip, sessione `R61`, chiamata del turno senza credenziali) oggi non esiste né il percorso né lo schema (rosso: import indefinito); dopo la richiesta passa e le forme dell'esito (`carried` con i conti, `incomplete`, `status_only`, `not_enabled`, rifiuti della corsa) passano lo schema (verde).
+- The test reconstructs the R61 envelope shape described in the task; the original production JSON was not supplied in this repository.
+
 ## v1.264.0 — the design contract names its tools: final Impeccable check, Emil before motion, Playwright at 390 and 1440 px (task 8210)
 
 - Additive in `capability/dev/session-acceptance-catalog`: `D-12` (final Impeccable audit/critique after the last interface write, polish on an app), `D-13` (emil-design-eng loaded before the first file with motion; no motion means satisfied) and `D-14` (Playwright on the locally served page at 390 and 1440 px), all attested by the executor from the session log (`skill_log`).

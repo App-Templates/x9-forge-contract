@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ToolCallRequestSchema } from "../../capability/tool-call.js";
 import { InboundEventDispositionSchema } from "../../capability/paperclip/inbound-event.js";
 import { ParticipantAgentIdentitySchema } from "../../organization/participant-binding.js";
 import { ReconciledMandateSchema } from "../../organization/business-unit-mandate.js";
@@ -515,6 +516,57 @@ export const internalPaperclipSeatSessionMandateContract = {
     authType: 'secret',
     bodySchema: InternalPaperclipSeatSessionMandateRequestSchema,
     responseSchema: InternalPaperclipSeatSessionMandateResponseSchema,
+    errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
+};
+export const INTERNAL_PAPERCLIP_SEAT_SESSION_PROOFS_PATH = '/internal/paperclip/seats/session-proofs';
+export const InternalPaperclipSeatSessionProofsRequestSchema = z.strictObject({
+    organizationId: InternalPaperclipSeatsQuerySchema.shape.organizationId,
+    // The verified chief identity and source run resolve the issue without trusting model input.
+    identity: ParticipantAgentIdentitySchema,
+    sourceRunId: RunIdSchema,
+    sessionId: z.string().regex(/^R[1-9][0-9]{0,8}$/),
+    call: ToolCallRequestSchema,
+}).superRefine((value, ctx) => {
+    // The session reader needs the turn envelope, but provider credentials must stay in the calling service.
+    if (value.call.credentials !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['call', 'credentials'], message: 'Provider credentials must not cross services' });
+    }
+});
+export const PAPERCLIP_SEAT_SESSION_PROOFS_RESULTS = [
+    'carried', 'incomplete', 'status_only', 'not_enabled', ...PAPERCLIP_SOURCE_RUN_REFUSALS,
+];
+export const PaperclipSeatSessionProofsResultSchema = z.enum(PAPERCLIP_SEAT_SESSION_PROOFS_RESULTS);
+export const InternalPaperclipSeatSessionProofsResponseSchema = z.strictObject({
+    result: PaperclipSeatSessionProofsResultSchema,
+    issueId: z.uuid().optional(),
+    counts: z.strictObject({
+        new: z.int().min(0),
+        alreadyThere: z.int().min(0),
+        failed: z.int().min(0),
+        tooLarge: z.int().min(0),
+    }).optional(),
+}).superRefine((value, ctx) => {
+    // Only a verified source issue carries upload counts; refusals must not claim an upload or expose the issue.
+    const hasIssue = value.result === 'carried' || value.result === 'incomplete' || value.result === 'status_only';
+    for (const field of ['issueId', 'counts']) {
+        if (hasIssue && value[field] === undefined) {
+            ctx.addIssue({ code: 'custom', message: `${value.result} requires ${field}`, path: [field] });
+        }
+        if (!hasIssue && value[field] !== undefined) {
+            ctx.addIssue({ code: 'custom', message: `${value.result} must not carry ${field}`, path: [field] });
+        }
+    }
+    // A completed carry cannot hide proofs that failed or exceeded the attachment limit.
+    if (value.result === 'carried' && value.counts !== undefined && (value.counts.failed > 0 || value.counts.tooLarge > 0)) {
+        ctx.addIssue({ code: 'custom', message: 'carried must not have missing proofs', path: ['counts'] });
+    }
+});
+export const internalPaperclipSeatSessionProofsContract = {
+    method: 'POST',
+    path: INTERNAL_PAPERCLIP_SEAT_SESSION_PROOFS_PATH,
+    authType: 'secret',
+    bodySchema: InternalPaperclipSeatSessionProofsRequestSchema,
+    responseSchema: InternalPaperclipSeatSessionProofsResponseSchema,
     errorResponseSchema: InternalPaperclipSeatWakeErrorResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map
