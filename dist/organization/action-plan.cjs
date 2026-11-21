@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanBuObjectiveSchema = exports.ActionPlanProjectObjectiveSchema = exports.ActionPlanObjectiveSchema = exports.ActionPlanDossierPageSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanSourceCoverageSchema = exports.ACTION_PLAN_SOURCE_COVERAGE_STATUSES = exports.ActionPlanQuestionSchema = exports.ActionPlanQuestionAddresseeSchema = exports.ActionPlanExchangeSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanSignOffSchema = exports.ACTION_PLAN_SIGN_OFF_FORMS = exports.ACTION_PLAN_SIGN_OFF_SIGNERS = exports.ActionPlanGapRuleSchema = exports.ACTION_PLAN_GAP_RULES = exports.ActionPlanWorkBreakdownSchema = exports.ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = exports.ActionPlanWorkItemSchema = exports.ActionPlanWorkItemOwnerSchema = exports.ActionPlanDeliveryShapeSchema = exports.ACTION_PLAN_DELIVERY_SHAPES = exports.ActionPlanBuSectionSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanBuObjectiveSchema = exports.ActionPlanProjectObjectiveSchema = exports.ActionPlanObjectiveSchema = exports.ActionPlanDossierPageSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanSourceCoverageSchema = exports.ACTION_PLAN_SOURCE_COVERAGE_STATUSES = exports.ActionPlanQuestionSchema = exports.ActionPlanQuestionAddresseeSchema = exports.ActionPlanExchangeSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanSignOffSchema = exports.ACTION_PLAN_SIGN_OFF_FORMS = exports.ACTION_PLAN_SIGN_OFF_SIGNERS = exports.ActionPlanGapRuleSchema = exports.ACTION_PLAN_GAP_RULES = exports.ActionPlanWorkBreakdownSchema = exports.ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = exports.ActionPlanWorkItemSchema = exports.ActionPlanWorkItemOwnerSchema = exports.ActionPlanDeliveryShapeSchema = exports.ACTION_PLAN_DELIVERY_SHAPES = exports.ActionPlanBuSectionSchema = exports.ActionPlanDocumentFormatSchema = exports.ACTION_PLAN_DOCUMENT_LENGTH_UNITS = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
 exports.canonicalJson = canonicalJson;
 exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
@@ -35,6 +35,18 @@ exports.ActionPlanBuStartSchema = zod_1.z.discriminatedUnion('kind', [
         }),
     }),
 ]);
+exports.ACTION_PLAN_DOCUMENT_LENGTH_UNITS = ['pages', 'words'];
+/** The form requested for a document section: file type, required parts and length. A request, not a file reader. */
+exports.ActionPlanDocumentFormatSchema = zod_1.z.strictObject({
+    mediaType: asset_js_1.AssetRefSchema.shape.mediaType.describe('il tipo di file richiesto, ad esempio application/pdf'),
+    parts: zod_1.z.array(zod_1.z.string().trim().min(1).max(500)).min(1).max(30).refine((parts) => new Set(parts).size === parts.length, { message: 'Document parts must be unique' }).describe('le parti che il documento deve avere'),
+    length: zod_1.z.strictObject({
+        unit: zod_1.z.enum(exports.ACTION_PLAN_DOCUMENT_LENGTH_UNITS),
+        min: zod_1.z.number().int().min(0),
+        max: zod_1.z.number().int().min(1),
+    }).refine((length) => length.min <= length.max, { message: 'Document length min must not exceed max' })
+        .describe('la lunghezza richiesta, in pagine o in parole'),
+}).describe('la forma richiesta del documento della sezione');
 exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
     id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
     title: zod_1.z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
@@ -46,6 +58,7 @@ exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
         buSlug: SlugSchema(1, 30),
         what: zod_1.z.string().min(1).max(500),
     })).max(10).optional().describe("cosa serve da un'altra BU per costruirla"),
+    documentFormat: exports.ActionPlanDocumentFormatSchema.optional(),
 });
 /** What the plan delivers: `product` builds something the user uses (app, site, service); `study` delivers documents (analysis, research, financial plan, opinion). */
 exports.ACTION_PLAN_DELIVERY_SHAPES = ['product', 'study'];

@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.271.0",
+  "versione": "1.272.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2765,6 +2765,7 @@
     "@x9-forge/contracts/organization": {
       "ACTION_PLAN_BU_EXECUTORS": "@x9-forge/contracts/organization/action-plan",
       "ACTION_PLAN_DELIVERY_SHAPES": "@x9-forge/contracts/organization/action-plan",
+      "ACTION_PLAN_DOCUMENT_LENGTH_UNITS": "@x9-forge/contracts/organization/action-plan",
       "ACTION_PLAN_GAP_RULES": "@x9-forge/contracts/organization/action-plan",
       "ACTION_PLAN_SIGN_OFF_FORMS": "@x9-forge/contracts/organization/action-plan",
       "ACTION_PLAN_SIGN_OFF_SIGNERS": "@x9-forge/contracts/organization/action-plan",
@@ -2786,6 +2787,7 @@
       "ActionPlanBuStartSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanBusinessUnitSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDeliveryShapeSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanDocumentFormatSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDossierPageSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDraftSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanExchangeSchema": "@x9-forge/contracts/organization/action-plan",

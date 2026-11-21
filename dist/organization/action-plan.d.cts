@@ -29,6 +29,21 @@ export declare const ActionPlanBuStartSchema: z.ZodDiscriminatedUnion<[z.ZodObje
     }, z.core.$strict>;
 }, z.core.$strict>], "kind">;
 export type ActionPlanBuStart = z.infer<typeof ActionPlanBuStartSchema>;
+export declare const ACTION_PLAN_DOCUMENT_LENGTH_UNITS: readonly ["pages", "words"];
+/** The form requested for a document section: file type, required parts and length. A request, not a file reader. */
+export declare const ActionPlanDocumentFormatSchema: z.ZodObject<{
+    mediaType: z.ZodString;
+    parts: z.ZodArray<z.ZodString>;
+    length: z.ZodObject<{
+        unit: z.ZodEnum<{
+            pages: "pages";
+            words: "words";
+        }>;
+        min: z.ZodNumber;
+        max: z.ZodNumber;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export type ActionPlanDocumentFormat = z.infer<typeof ActionPlanDocumentFormatSchema>;
 export declare const ActionPlanBuSectionSchema: z.ZodObject<{
     id: z.ZodString;
     title: z.ZodString;
@@ -39,6 +54,18 @@ export declare const ActionPlanBuSectionSchema: z.ZodObject<{
         buSlug: z.ZodString;
         what: z.ZodString;
     }, z.core.$strict>>>;
+    documentFormat: z.ZodOptional<z.ZodObject<{
+        mediaType: z.ZodString;
+        parts: z.ZodArray<z.ZodString>;
+        length: z.ZodObject<{
+            unit: z.ZodEnum<{
+                pages: "pages";
+                words: "words";
+            }>;
+            min: z.ZodNumber;
+            max: z.ZodNumber;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ActionPlanBuSection = z.infer<typeof ActionPlanBuSectionSchema>;
 /** What the plan delivers: `product` builds something the user uses (app, site, service); `study` delivers documents (analysis, research, financial plan, opinion). */
@@ -143,6 +170,18 @@ export declare const ActionPlanBusinessUnitSchema: z.ZodObject<{
             buSlug: z.ZodString;
             what: z.ZodString;
         }, z.core.$strict>>>;
+        documentFormat: z.ZodOptional<z.ZodObject<{
+            mediaType: z.ZodString;
+            parts: z.ZodArray<z.ZodString>;
+            length: z.ZodObject<{
+                unit: z.ZodEnum<{
+                    pages: "pages";
+                    words: "words";
+                }>;
+                min: z.ZodNumber;
+                max: z.ZodNumber;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
     }, z.core.$strict>>>;
     roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
         role: z.ZodString;
@@ -380,6 +419,18 @@ export declare const ActionPlanSchema: z.ZodObject<{
                 buSlug: z.ZodString;
                 what: z.ZodString;
             }, z.core.$strict>>>;
+            documentFormat: z.ZodOptional<z.ZodObject<{
+                mediaType: z.ZodString;
+                parts: z.ZodArray<z.ZodString>;
+                length: z.ZodObject<{
+                    unit: z.ZodEnum<{
+                        pages: "pages";
+                        words: "words";
+                    }>;
+                    min: z.ZodNumber;
+                    max: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
         }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;
@@ -605,6 +656,18 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
                 buSlug: z.ZodString;
                 what: z.ZodString;
             }, z.core.$strict>>>;
+            documentFormat: z.ZodOptional<z.ZodObject<{
+                mediaType: z.ZodString;
+                parts: z.ZodArray<z.ZodString>;
+                length: z.ZodObject<{
+                    unit: z.ZodEnum<{
+                        pages: "pages";
+                        words: "words";
+                    }>;
+                    min: z.ZodNumber;
+                    max: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
         }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;
@@ -836,6 +899,18 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
                 buSlug: z.ZodString;
                 what: z.ZodString;
             }, z.core.$strict>>>;
+            documentFormat: z.ZodOptional<z.ZodObject<{
+                mediaType: z.ZodString;
+                parts: z.ZodArray<z.ZodString>;
+                length: z.ZodObject<{
+                    unit: z.ZodEnum<{
+                        pages: "pages";
+                        words: "words";
+                    }>;
+                    min: z.ZodNumber;
+                    max: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
         }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;
@@ -1062,6 +1137,18 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
                 buSlug: z.ZodString;
                 what: z.ZodString;
             }, z.core.$strict>>>;
+            documentFormat: z.ZodOptional<z.ZodObject<{
+                mediaType: z.ZodString;
+                parts: z.ZodArray<z.ZodString>;
+                length: z.ZodObject<{
+                    unit: z.ZodEnum<{
+                        pages: "pages";
+                        words: "words";
+                    }>;
+                    min: z.ZodNumber;
+                    max: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
         }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;

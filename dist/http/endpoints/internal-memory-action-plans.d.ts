@@ -140,6 +140,18 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
                     buSlug: z.ZodString;
                     what: z.ZodString;
                 }, z.core.$strict>>>;
+                documentFormat: z.ZodOptional<z.ZodObject<{
+                    mediaType: z.ZodString;
+                    parts: z.ZodArray<z.ZodString>;
+                    length: z.ZodObject<{
+                        unit: z.ZodEnum<{
+                            pages: "pages";
+                            words: "words";
+                        }>;
+                        min: z.ZodNumber;
+                        max: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>>;
             }, z.core.$strict>>>;
             roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                 role: z.ZodString;
@@ -400,6 +412,18 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
                     buSlug: z.ZodString;
                     what: z.ZodString;
                 }, z.core.$strict>>>;
+                documentFormat: z.ZodOptional<z.ZodObject<{
+                    mediaType: z.ZodString;
+                    parts: z.ZodArray<z.ZodString>;
+                    length: z.ZodObject<{
+                        unit: z.ZodEnum<{
+                            pages: "pages";
+                            words: "words";
+                        }>;
+                        min: z.ZodNumber;
+                        max: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>>;
             }, z.core.$strict>>>;
             roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                 role: z.ZodString;
@@ -697,6 +721,18 @@ export declare const internalMemoryActionPlanSaveContract: {
                         buSlug: z.ZodString;
                         what: z.ZodString;
                     }, z.core.$strict>>>;
+                    documentFormat: z.ZodOptional<z.ZodObject<{
+                        mediaType: z.ZodString;
+                        parts: z.ZodArray<z.ZodString>;
+                        length: z.ZodObject<{
+                            unit: z.ZodEnum<{
+                                pages: "pages";
+                                words: "words";
+                            }>;
+                            min: z.ZodNumber;
+                            max: z.ZodNumber;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>>>;
                 roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     role: z.ZodString;
@@ -960,6 +996,18 @@ export declare const internalMemoryActionPlanReadContract: {
                         buSlug: z.ZodString;
                         what: z.ZodString;
                     }, z.core.$strict>>>;
+                    documentFormat: z.ZodOptional<z.ZodObject<{
+                        mediaType: z.ZodString;
+                        parts: z.ZodArray<z.ZodString>;
+                        length: z.ZodObject<{
+                            unit: z.ZodEnum<{
+                                pages: "pages";
+                                words: "words";
+                            }>;
+                            min: z.ZodNumber;
+                            max: z.ZodNumber;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>>>;
                 roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     role: z.ZodString;

@@ -30,6 +30,18 @@ export const ActionPlanBuStartSchema = z.discriminatedUnion('kind', [
         }),
     }),
 ]);
+export const ACTION_PLAN_DOCUMENT_LENGTH_UNITS = ['pages', 'words'];
+/** The form requested for a document section: file type, required parts and length. A request, not a file reader. */
+export const ActionPlanDocumentFormatSchema = z.strictObject({
+    mediaType: AssetRefSchema.shape.mediaType.describe('il tipo di file richiesto, ad esempio application/pdf'),
+    parts: z.array(z.string().trim().min(1).max(500)).min(1).max(30).refine((parts) => new Set(parts).size === parts.length, { message: 'Document parts must be unique' }).describe('le parti che il documento deve avere'),
+    length: z.strictObject({
+        unit: z.enum(ACTION_PLAN_DOCUMENT_LENGTH_UNITS),
+        min: z.number().int().min(0),
+        max: z.number().int().min(1),
+    }).refine((length) => length.min <= length.max, { message: 'Document length min must not exceed max' })
+        .describe('la lunghezza richiesta, in pagine o in parole'),
+}).describe('la forma richiesta del documento della sezione');
 export const ActionPlanBuSectionSchema = z.strictObject({
     id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
     title: z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
@@ -41,6 +53,7 @@ export const ActionPlanBuSectionSchema = z.strictObject({
         buSlug: SlugSchema(1, 30),
         what: z.string().min(1).max(500),
     })).max(10).optional().describe("cosa serve da un'altra BU per costruirla"),
+    documentFormat: ActionPlanDocumentFormatSchema.optional(),
 });
 /** What the plan delivers: `product` builds something the user uses (app, site, service); `study` delivers documents (analysis, research, financial plan, opinion). */
 export const ACTION_PLAN_DELIVERY_SHAPES = ['product', 'study'];

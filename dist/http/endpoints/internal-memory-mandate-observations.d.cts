@@ -74,6 +74,18 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                             buSlug: z.ZodString;
                             what: z.ZodString;
                         }, z.core.$strict>>>;
+                        documentFormat: z.ZodOptional<z.ZodObject<{
+                            mediaType: z.ZodString;
+                            parts: z.ZodArray<z.ZodString>;
+                            length: z.ZodObject<{
+                                unit: z.ZodEnum<{
+                                    pages: "pages";
+                                    words: "words";
+                                }>;
+                                min: z.ZodNumber;
+                                max: z.ZodNumber;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>>;
                     }, z.core.$strict>>>;
                     roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         role: z.ZodString;
@@ -342,6 +354,18 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                                 buSlug: z.ZodString;
                                 what: z.ZodString;
                             }, z.core.$strict>>>;
+                            documentFormat: z.ZodOptional<z.ZodObject<{
+                                mediaType: z.ZodString;
+                                parts: z.ZodArray<z.ZodString>;
+                                length: z.ZodObject<{
+                                    unit: z.ZodEnum<{
+                                        pages: "pages";
+                                        words: "words";
+                                    }>;
+                                    min: z.ZodNumber;
+                                    max: z.ZodNumber;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>>;
                         }, z.core.$strict>>>;
                         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             role: z.ZodString;
@@ -611,6 +635,18 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                                 buSlug: z.ZodString;
                                 what: z.ZodString;
                             }, z.core.$strict>>>;
+                            documentFormat: z.ZodOptional<z.ZodObject<{
+                                mediaType: z.ZodString;
+                                parts: z.ZodArray<z.ZodString>;
+                                length: z.ZodObject<{
+                                    unit: z.ZodEnum<{
+                                        pages: "pages";
+                                        words: "words";
+                                    }>;
+                                    min: z.ZodNumber;
+                                    max: z.ZodNumber;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>>;
                         }, z.core.$strict>>>;
                         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             role: z.ZodString;
@@ -913,6 +949,18 @@ export declare const internalMemoryMandateObservationReadContract: {
                                     buSlug: z.ZodString;
                                     what: z.ZodString;
                                 }, z.core.$strict>>>;
+                                documentFormat: z.ZodOptional<z.ZodObject<{
+                                    mediaType: z.ZodString;
+                                    parts: z.ZodArray<z.ZodString>;
+                                    length: z.ZodObject<{
+                                        unit: z.ZodEnum<{
+                                            pages: "pages";
+                                            words: "words";
+                                        }>;
+                                        min: z.ZodNumber;
+                                        max: z.ZodNumber;
+                                    }, z.core.$strict>;
+                                }, z.core.$strict>>;
                             }, z.core.$strict>>>;
                             roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                 role: z.ZodString;
@@ -1194,6 +1242,18 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                 buSlug: z.ZodString;
                                 what: z.ZodString;
                             }, z.core.$strict>>>;
+                            documentFormat: z.ZodOptional<z.ZodObject<{
+                                mediaType: z.ZodString;
+                                parts: z.ZodArray<z.ZodString>;
+                                length: z.ZodObject<{
+                                    unit: z.ZodEnum<{
+                                        pages: "pages";
+                                        words: "words";
+                                    }>;
+                                    min: z.ZodNumber;
+                                    max: z.ZodNumber;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>>;
                         }, z.core.$strict>>>;
                         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             role: z.ZodString;
@@ -1461,6 +1521,18 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                     buSlug: z.ZodString;
                                     what: z.ZodString;
                                 }, z.core.$strict>>>;
+                                documentFormat: z.ZodOptional<z.ZodObject<{
+                                    mediaType: z.ZodString;
+                                    parts: z.ZodArray<z.ZodString>;
+                                    length: z.ZodObject<{
+                                        unit: z.ZodEnum<{
+                                            pages: "pages";
+                                            words: "words";
+                                        }>;
+                                        min: z.ZodNumber;
+                                        max: z.ZodNumber;
+                                    }, z.core.$strict>;
+                                }, z.core.$strict>>;
                             }, z.core.$strict>>>;
                             roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                 role: z.ZodString;

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.272.0 — a plan section can declare the form of its document (task 8391)
+
+- Additive in `organization/action-plan`: `ActionPlanDocumentFormatSchema` (strict: `mediaType` as `AssetRefSchema`, `parts` 1-30 unique trimmed texts, `length` `{unit: pages | words, min >= 0, max >= 1, min <= max}`) and the optional `documentFormat` of `ActionPlanBuSectionSchema`, kept by plan, submission and mandate. No default, not required for any executor; plans without it parse and serialize to the same bytes. Inert until consumers read it (8394/8395); no reviewer is activated.
+- REGRESSIONE: s8391 forma-del-documento: una sezione con `id: costi`, `deliveryCriteria: [Voci di costo con fonte]`, `milestone: 2` e `documentFormat: {mediaType: application/pdf, parts: [Ipotesi, Costi], length: {unit: pages, min: 2, max: 8}}` oggi è rifiutata dalla sezione strict; dopo è accettata, conservata dal piano e dal mandato.
+
 ## v1.271.0 — pure comparison of the same exchange in the two mandates (task 8390)
 
 - Additive in `organization/business-unit-mandate`: `mandateExchangeMatch(from, to, exchange)` and `MandateExchangeMatchOutcome` (`matched | scope_mismatch | missing | different | ambiguous`, list `MANDATE_EXCHANGE_MATCH_OUTCOMES`). Pure, no I/O; no schema changed; old mandates without `exchanges` give `missing`. No consumer yet: it does not complete table item 10.1 and decision 15 (who opens) is untouched.
