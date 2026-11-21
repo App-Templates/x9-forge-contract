@@ -12,6 +12,10 @@ export declare const SocialCreatorsRankInputSchema: z.ZodObject<{
     verticalId: z.ZodOptional<z.ZodString>;
     days: z.ZodOptional<z.ZodInt>;
     limit: z.ZodOptional<z.ZodInt>;
+    orderBy: z.ZodOptional<z.ZodEnum<{
+        heat: "heat";
+        truth: "truth";
+    }>>;
 }, z.core.$strict>;
 export type SocialCreatorsRankInput = z.infer<typeof SocialCreatorsRankInputSchema>;
 export declare const SocialCreatorRankSchema: z.ZodObject<{
@@ -26,6 +30,9 @@ export declare const SocialCreatorRankSchema: z.ZodObject<{
     /** Average of the verdict scores of the creator's topics, 0..100 (D16). */
     truthScore: z.ZodNumber;
     lastDay: z.ZodString;
+    /** Heat: the sum of the heat of the creator's topics, each divided by the number of creators who talk about it (REVISIONE-DESIGN, creators). */
+    heatScore: z.ZodOptional<z.ZodNumber>;
+    postsAnalyzed: z.ZodOptional<z.ZodInt>;
 }, z.core.$strict>;
 export type SocialCreatorRank = z.infer<typeof SocialCreatorRankSchema>;
 export declare const SocialCreatorsRankOutputSchema: z.ZodObject<{
@@ -43,7 +50,11 @@ export declare const SocialCreatorsRankOutputSchema: z.ZodObject<{
         /** Average of the verdict scores of the creator's topics, 0..100 (D16). */
         truthScore: z.ZodNumber;
         lastDay: z.ZodString;
+        /** Heat: the sum of the heat of the creator's topics, each divided by the number of creators who talk about it (REVISIONE-DESIGN, creators). */
+        heatScore: z.ZodOptional<z.ZodNumber>;
+        postsAnalyzed: z.ZodOptional<z.ZodInt>;
     }, z.core.$strict>>;
+    idle: z.ZodOptional<z.ZodArray<z.ZodString>>;
 }, z.core.$strict>;
 export type SocialCreatorsRankOutput = z.infer<typeof SocialCreatorsRankOutputSchema>;
 export declare const SocialCreatorsToolErrorSchema: z.ZodEnum<{
@@ -53,11 +64,17 @@ export declare const SocialCreatorsToolErrorSchema: z.ZodEnum<{
 }>;
 export type SocialCreatorsToolError = z.infer<typeof SocialCreatorsToolErrorSchema>;
 /** Pure ranking: no clock, `toDay` comes from the caller. Topics of another scope never count. */
-export declare function rankSocialCreators(topics: readonly Pick<SocialTopic, 'identity' | 'verticalId' | 'day' | 'verdict' | 'creators'>[], query: {
+export declare function rankSocialCreators(topics: readonly (Pick<SocialTopic, 'identity' | 'verticalId' | 'day' | 'verdict' | 'creators'> & Partial<Pick<SocialTopic, 'heat' | 'postIds'>>)[], query: {
     scope: CapabilityAgentScope;
     toDay: string;
     verticalId?: string;
     days?: number;
     limit?: number;
+    orderBy?: SocialCreatorsRankInput['orderBy'];
+    followed?: readonly string[];
+    posts?: readonly {
+        postId: string;
+        handle: string;
+    }[];
 }): SocialCreatorsRankOutput;
 //# sourceMappingURL=creators.d.ts.map

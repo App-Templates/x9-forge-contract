@@ -67,6 +67,7 @@ export const SocialJobInputSchema = z.discriminatedUnion('kind', [
         verticalId: SocialVerticalIdSchema,
         postIds: topic.postIds,
         categories: z.array(SocialCategorySlugSchema).min(1).max(30),
+        angle: topic.angle.optional(),
         /** Post text is DATA, same order as postIds. */
         posts: z.array(SocialJobGroupPostSchema).min(1).max(100).optional(),
     }).strict(),
@@ -201,6 +202,7 @@ export const SocialJobResultSchema = z.discriminatedUnion('kind', [
             postIds: topic.postIds,
             creators: topic.creators,
             heat: topic.heat,
+            angle: topic.angle.optional(),
         }).strict()).min(1).max(30),
     }).strict(),
 ]);

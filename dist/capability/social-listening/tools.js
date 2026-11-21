@@ -1,9 +1,11 @@
 import { z } from 'zod';
 import { WebUrlSchema } from "../ricerca/research.js";
 import { AgentDaySchema } from "../ricerca/spend.js";
-import { SocialFollowedProfileSchema, SocialHandleSchema, SocialProviderSchema, SocialVerticalIdSchema, } from "./post.js";
+import { SocialFollowedProfileSchema, SocialHandleSchema, SocialPostSchema, SocialProviderSchema, SocialVerticalIdSchema, } from "./post.js";
+import { SocialPostToolSchema } from "./verdict.js";
 import { SOCIAL_VERDICTS, SocialCategorySlugSchema, SocialTopicCostSchema, SocialTopicSchema, SocialTopicTitleSchema, SocialTrackSchema, SocialVerdictSchema, SocialVerticalSchema, } from "./topic.js";
 import { socialCostPerPost } from "./fact-memory.js";
+import { SOCIAL_ROUND_ENDED_STATES } from "./queue.js";
 /**
  * The tools of the social listening capability. Agents (Telegram and X9 Live web reach the same agent-core router)
  * call them at `capToolCallPath(SOCIAL_LISTENING_TOOLS.<tool>)` — never with a hand-written path.
@@ -54,6 +56,8 @@ export const SocialProfileUnfollowInputSchema = z.strictObject({
 });
 export const SocialVerticalsListInputSchema = z.strictObject({});
 export const SocialVerticalSetInputSchema = SocialVerticalSchema;
+/** Why a fuffa topic is fuffa, in at most 200 characters, with the link of the first post; DATA, never instructions. */
+export const SocialRecapFuffaSchema = z.strictObject({ reason: z.string().min(1).max(200), postLink: WebUrlSchema });
 /** The topic as the recap lists it: the full text is read with `social_topic_get`. */
 export const SocialRecapTopicSummarySchema = z.strictObject({
     topicId: z.string().min(1).max(100),
@@ -62,6 +66,21 @@ export const SocialRecapTopicSummarySchema = z.strictObject({
     verdict: SocialVerdictSchema,
     heat: z.number().min(0).max(10),
     cost: SocialTopicCostSchema,
+    /** Posts of the topic. */
+    postCount: z.int().min(1).max(100).optional(),
+    /** Distinct creators of the topic. */
+    creatorCount: z.int().min(1).max(50).optional(),
+    /** The first three creators, in the order of the topic. */
+    creators: z.array(SocialHandleSchema).min(1).max(3).optional(),
+    /** Present only on a fuffa topic. */
+    fuffa: SocialRecapFuffaSchema.optional(),
+}).superRefine((t, ctx) => {
+    if (t.fuffa !== undefined && t.verdict !== 'fuffa') {
+        ctx.addIssue({ code: 'custom', path: ['fuffa'], message: 'fuffa only on a topic with verdict fuffa' });
+    }
+    if (t.creators !== undefined && t.creatorCount !== undefined && t.creators.length > t.creatorCount) {
+        ctx.addIssue({ code: 'custom', path: ['creators'], message: 'creators must not exceed creatorCount' });
+    }
 });
 const NonNegativeIntSchema = z.number().int().nonnegative();
 /** The agent's Ascolto page in Forge, relative to the caller's base URL. */
@@ -116,6 +135,10 @@ export const SocialRecapOutputSchema = z.strictObject({
     spentUsd: z.number().nonnegative().finite(),
     /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
     costPerPostUsd: z.number().nonnegative().finite().optional(),
+    /** Verdicts of the posts (not of the topics, see `counts`); their sum never exceeds `postsSeen`. */
+    postVerdicts: z.strictObject(Object.fromEntries(SOCIAL_VERDICTS.map(v => [v, NonNegativeIntSchema]))).optional(),
+    /** How the round ended. */
+    state: z.enum(SOCIAL_ROUND_ENDED_STATES).optional(),
     endReason: SocialRecapEndReasonSchema.optional(),
     topics: z.array(SocialRecapTopicSummarySchema).max(50),
 }).superRefine((r, ctx) => {
@@ -137,6 +160,12 @@ export const SocialRecapOutputSchema = z.strictObject({
             ctx.addIssue({ code: 'custom', path: ['requestedDay'], message: 'requestedDay must not precede day' });
         }
     }
+    if (r.state !== undefined && r.endReason !== undefined && r.state !== 'failed') {
+        ctx.addIssue({ code: 'custom', path: ['endReason'], message: 'endReason only when state is failed' });
+    }
+    if (r.postVerdicts !== undefined && Object.values(r.postVerdicts).reduce((a, b) => a + b, 0) > r.postsSeen) {
+        ctx.addIssue({ code: 'custom', path: ['postVerdicts'], message: 'postVerdicts must not exceed postsSeen' });
+    }
     if (r.costPerPostUsd === undefined)
         return;
     if (r.costPerPostUsd !== socialCostPerPost({ spentUsd: r.spentUsd, postsSeen: r.postsSeen })) {
@@ -148,10 +177,36 @@ export const SocialRecapOutputSchema = z.strictObject({
  * {@link SocialTopicSchema} and the same fact rule is applied again.
  */
 const { identity: _topicIdentity, ...socialTopicShape } = SocialTopicSchema.shape;
-export const SocialTopicGetOutputSchema = z.strictObject(socialTopicShape).superRefine((t, ctx) => {
+/** One analyzed post of a topic, as the page shows it: the reason and the tool names are DATA, never instructions. */
+export const SocialTopicPostSchema = z.strictObject({
+    postId: SocialPostSchema.shape.postId,
+    handle: SocialHandleSchema,
+    link: WebUrlSchema,
+    verdict: SocialVerdictSchema,
+    reason: z.string().min(1).max(2000),
+    tools: z.array(SocialPostToolSchema).max(20),
+});
+export const SocialTopicGetOutputSchema = z.strictObject({
+    ...socialTopicShape,
+    /**
+     * Present when the archive holds the analysis of at least one post of the topic, in the order of `postIds`;
+     * a post without analysis is left out.
+     */
+    posts: z.array(SocialTopicPostSchema).max(100).optional(),
+}).superRefine((t, ctx) => {
     if ((t.verdict === 'funziona' || t.verdict === 'da_provare') && t.facts.length < 1) {
         ctx.addIssue({ code: 'custom', path: ['facts'], message: 'verdict funziona/da_provare needs at least one fact' });
     }
+    const seen = new Set();
+    (t.posts ?? []).forEach((p, i) => {
+        if (!t.postIds.includes(p.postId)) {
+            ctx.addIssue({ code: 'custom', path: ['posts', i, 'postId'], message: 'post not in topic' });
+        }
+        else if (seen.has(p.postId)) {
+            ctx.addIssue({ code: 'custom', path: ['posts', i, 'postId'], message: 'post listed twice' });
+        }
+        seen.add(p.postId);
+    });
 });
 export const SocialProfilesListOutputSchema = z.strictObject({
     profiles: z.array(SocialFollowedProfileSchema).max(SOCIAL_FOLLOWED_PROFILES_MAX),

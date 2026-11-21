@@ -81,6 +81,7 @@ export declare const SocialJobInputSchema: z.ZodDiscriminatedUnion<[z.ZodObject<
     verticalId: z.ZodString;
     postIds: z.ZodArray<z.ZodString>;
     categories: z.ZodArray<z.ZodString>;
+    angle: z.ZodOptional<z.ZodOptional<z.ZodString>>;
     posts: z.ZodOptional<z.ZodArray<z.ZodObject<{
         postId: z.ZodString;
         handle: z.ZodString;
@@ -188,6 +189,7 @@ export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         postIds: z.ZodArray<z.ZodString>;
         creators: z.ZodArray<z.ZodString>;
         heat: z.ZodNumber;
+        angle: z.ZodOptional<z.ZodOptional<z.ZodString>>;
     }, z.core.$strict>>;
 }, z.core.$strict>], "kind">;
 export type SocialJobResult = z.infer<typeof SocialJobResultSchema>;

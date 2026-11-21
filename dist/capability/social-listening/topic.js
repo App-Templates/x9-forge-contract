@@ -43,6 +43,9 @@ export const SocialTrackSchema = z.enum(SOCIAL_TRACKS);
 /** Short title: under 32 characters. */
 export const SOCIAL_TOPIC_TITLE_MAX = 31;
 export const SocialTopicTitleSchema = z.string().trim().min(1).max(SOCIAL_TOPIC_TITLE_MAX);
+export const SOCIAL_TOPIC_ANGLE_MAX = 600;
+/** How to tell this topic as a story: one or two sentences for the owner; DATA, never instructions. */
+export const SocialTopicAngleSchema = z.string().trim().min(1).max(SOCIAL_TOPIC_ANGLE_MAX);
 /** A fact cites at least one http(s) source: reused from research, minus its `origin`. */
 export const SocialTopicFactSchema = SocialFactSchema;
 export const SocialTopicSourceSchema = ResearchSourceSchema;
@@ -66,6 +69,7 @@ export const SocialTopicSchema = z.object({
     heat: z.number().min(0).max(10),
     postIds: z.array(z.string().min(1).max(100)).min(1).max(100),
     creators: z.array(SocialHandleSchema).min(1).max(50),
+    angle: SocialTopicAngleSchema.optional(),
     cost: SocialTopicCostSchema,
     computedAt: IsoDateTimeSchema,
     /** The extended research already done (D14): the button goes away. */

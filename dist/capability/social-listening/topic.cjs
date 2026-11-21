@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialTopicSchema = exports.SocialTopicCostSchema = exports.SocialTopicSourceSchema = exports.SocialTopicFactSchema = exports.SocialTopicTitleSchema = exports.SOCIAL_TOPIC_TITLE_MAX = exports.SocialTrackSchema = exports.SOCIAL_TRACKS = exports.SOCIAL_VERDICT_TRUTH_SCORE = exports.SocialVerdictSchema = exports.SOCIAL_VERDICTS = exports.SocialVerticalSchema = exports.SocialCategorySchema = exports.SocialCategorySlugSchema = void 0;
+exports.SocialTopicSchema = exports.SocialTopicCostSchema = exports.SocialTopicSourceSchema = exports.SocialTopicFactSchema = exports.SocialTopicAngleSchema = exports.SOCIAL_TOPIC_ANGLE_MAX = exports.SocialTopicTitleSchema = exports.SOCIAL_TOPIC_TITLE_MAX = exports.SocialTrackSchema = exports.SOCIAL_TRACKS = exports.SOCIAL_VERDICT_TRUTH_SCORE = exports.SocialVerdictSchema = exports.SOCIAL_VERDICTS = exports.SocialVerticalSchema = exports.SocialCategorySchema = exports.SocialCategorySlugSchema = void 0;
 exports.socialCategoryInVertical = socialCategoryInVertical;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
@@ -49,6 +49,9 @@ exports.SocialTrackSchema = zod_1.z.enum(exports.SOCIAL_TRACKS);
 /** Short title: under 32 characters. */
 exports.SOCIAL_TOPIC_TITLE_MAX = 31;
 exports.SocialTopicTitleSchema = zod_1.z.string().trim().min(1).max(exports.SOCIAL_TOPIC_TITLE_MAX);
+exports.SOCIAL_TOPIC_ANGLE_MAX = 600;
+/** How to tell this topic as a story: one or two sentences for the owner; DATA, never instructions. */
+exports.SocialTopicAngleSchema = zod_1.z.string().trim().min(1).max(exports.SOCIAL_TOPIC_ANGLE_MAX);
 /** A fact cites at least one http(s) source: reused from research, minus its `origin`. */
 exports.SocialTopicFactSchema = verdict_js_1.SocialFactSchema;
 exports.SocialTopicSourceSchema = research_js_1.ResearchSourceSchema;
@@ -72,6 +75,7 @@ exports.SocialTopicSchema = zod_1.z.object({
     heat: zod_1.z.number().min(0).max(10),
     postIds: zod_1.z.array(zod_1.z.string().min(1).max(100)).min(1).max(100),
     creators: zod_1.z.array(post_js_1.SocialHandleSchema).min(1).max(50),
+    angle: exports.SocialTopicAngleSchema.optional(),
     cost: exports.SocialTopicCostSchema,
     computedAt: IsoDateTimeSchema,
     /** The extended research already done (D14): the button goes away. */

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.292.0 — social listening: topic angle, posts of a topic, richer recap, creator heat and seen tools (tasks 9817-9821)
+
+- Tasks 9817-9821: optional `angle` on the topic; `posts` on `social_topic_get` (`SocialTopicPostSchema`); the recap gains post counts, creators, fuffa reason and link per topic plus `postVerdicts` and `state`; the creators ranking gains `heatScore`, `postsAnalyzed`, `idle` and `orderBy`; new `SOCIAL_SEEN_TOOLS` (`social_seen_set`, `social_seen_list`) with their schemas.
+- Additive only; every field is optional, saved topics and recaps stay valid, `SOCIAL_LISTENING_TOOLS` is unchanged.
+
 ## v1.291.0 — the fixed section "Come si comunica" says the lead decides its sessions without the Director's authorization (task 8193, twin of 8190)
 
 - Task 8193: opening, reopening, correcting or redoing a session on the lead's own assignment is the lead's decision, without the Director's authorization; a Director's prohibition does not stop the lead. The seven processes and the three wait recipients are unchanged.

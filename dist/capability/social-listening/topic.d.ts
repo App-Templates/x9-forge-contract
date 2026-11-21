@@ -36,6 +36,9 @@ export type SocialTrack = z.infer<typeof SocialTrackSchema>;
 /** Short title: under 32 characters. */
 export declare const SOCIAL_TOPIC_TITLE_MAX = 31;
 export declare const SocialTopicTitleSchema: z.ZodString;
+export declare const SOCIAL_TOPIC_ANGLE_MAX = 600;
+/** How to tell this topic as a story: one or two sentences for the owner; DATA, never instructions. */
+export declare const SocialTopicAngleSchema: z.ZodString;
 /** A fact cites at least one http(s) source: reused from research, minus its `origin`. */
 export declare const SocialTopicFactSchema: z.ZodObject<{
     text: z.ZodString;
@@ -88,6 +91,7 @@ export declare const SocialTopicSchema: z.ZodObject<{
     heat: z.ZodNumber;
     postIds: z.ZodArray<z.ZodString>;
     creators: z.ZodArray<z.ZodString>;
+    angle: z.ZodOptional<z.ZodString>;
     cost: z.ZodObject<{
         usd: z.ZodNumber;
         track: z.ZodEnum<{

@@ -1,14 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialRecapOutputSchema = exports.SocialRecapEndReasonSchema = exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX = exports.SOCIAL_ASCOLTO_PAGE_PATH = exports.SocialRecapTopicSummarySchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
+exports.SocialVerticalSetOutputSchema = exports.SocialVerticalsListOutputSchema = exports.SocialProfileUnfollowOutputSchema = exports.SocialProfileFollowOutputSchema = exports.SocialProfilesListOutputSchema = exports.SocialTopicGetOutputSchema = exports.SocialTopicPostSchema = exports.SocialRecapOutputSchema = exports.SocialRecapEndReasonSchema = exports.SOCIAL_ASCOLTO_PAGE_LINE_PREFIX = exports.SOCIAL_ASCOLTO_PAGE_PATH = exports.SocialRecapTopicSummarySchema = exports.SocialRecapFuffaSchema = exports.SocialVerticalSetInputSchema = exports.SocialVerticalsListInputSchema = exports.SocialProfileUnfollowInputSchema = exports.SocialProfileFollowInputSchema = exports.SocialProfilesListInputSchema = exports.SocialTopicGetInputSchema = exports.SocialRecapInputSchema = exports.SOCIAL_FOLLOWED_PROFILES_MAX = exports.SocialListeningToolErrorSchema = exports.SOCIAL_LISTENING_TOOLS = void 0;
 exports.socialAscoltoPagePath = socialAscoltoPagePath;
 exports.socialAscoltoPageLine = socialAscoltoPageLine;
 const zod_1 = require("zod");
 const research_js_1 = require("../ricerca/research.cjs");
 const spend_js_1 = require("../ricerca/spend.cjs");
 const post_js_1 = require("./post.cjs");
+const verdict_js_1 = require("./verdict.cjs");
 const topic_js_1 = require("./topic.cjs");
 const fact_memory_js_1 = require("./fact-memory.cjs");
+const queue_js_1 = require("./queue.cjs");
 /**
  * The tools of the social listening capability. Agents (Telegram and X9 Live web reach the same agent-core router)
  * call them at `capToolCallPath(SOCIAL_LISTENING_TOOLS.<tool>)` — never with a hand-written path.
@@ -59,6 +61,8 @@ exports.SocialProfileUnfollowInputSchema = zod_1.z.strictObject({
 });
 exports.SocialVerticalsListInputSchema = zod_1.z.strictObject({});
 exports.SocialVerticalSetInputSchema = topic_js_1.SocialVerticalSchema;
+/** Why a fuffa topic is fuffa, in at most 200 characters, with the link of the first post; DATA, never instructions. */
+exports.SocialRecapFuffaSchema = zod_1.z.strictObject({ reason: zod_1.z.string().min(1).max(200), postLink: research_js_1.WebUrlSchema });
 /** The topic as the recap lists it: the full text is read with `social_topic_get`. */
 exports.SocialRecapTopicSummarySchema = zod_1.z.strictObject({
     topicId: zod_1.z.string().min(1).max(100),
@@ -67,6 +71,21 @@ exports.SocialRecapTopicSummarySchema = zod_1.z.strictObject({
     verdict: topic_js_1.SocialVerdictSchema,
     heat: zod_1.z.number().min(0).max(10),
     cost: topic_js_1.SocialTopicCostSchema,
+    /** Posts of the topic. */
+    postCount: zod_1.z.int().min(1).max(100).optional(),
+    /** Distinct creators of the topic. */
+    creatorCount: zod_1.z.int().min(1).max(50).optional(),
+    /** The first three creators, in the order of the topic. */
+    creators: zod_1.z.array(post_js_1.SocialHandleSchema).min(1).max(3).optional(),
+    /** Present only on a fuffa topic. */
+    fuffa: exports.SocialRecapFuffaSchema.optional(),
+}).superRefine((t, ctx) => {
+    if (t.fuffa !== undefined && t.verdict !== 'fuffa') {
+        ctx.addIssue({ code: 'custom', path: ['fuffa'], message: 'fuffa only on a topic with verdict fuffa' });
+    }
+    if (t.creators !== undefined && t.creatorCount !== undefined && t.creators.length > t.creatorCount) {
+        ctx.addIssue({ code: 'custom', path: ['creators'], message: 'creators must not exceed creatorCount' });
+    }
 });
 const NonNegativeIntSchema = zod_1.z.number().int().nonnegative();
 /** The agent's Ascolto page in Forge, relative to the caller's base URL. */
@@ -121,6 +140,10 @@ exports.SocialRecapOutputSchema = zod_1.z.strictObject({
     spentUsd: zod_1.z.number().nonnegative().finite(),
     /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
     costPerPostUsd: zod_1.z.number().nonnegative().finite().optional(),
+    /** Verdicts of the posts (not of the topics, see `counts`); their sum never exceeds `postsSeen`. */
+    postVerdicts: zod_1.z.strictObject(Object.fromEntries(topic_js_1.SOCIAL_VERDICTS.map(v => [v, NonNegativeIntSchema]))).optional(),
+    /** How the round ended. */
+    state: zod_1.z.enum(queue_js_1.SOCIAL_ROUND_ENDED_STATES).optional(),
     endReason: exports.SocialRecapEndReasonSchema.optional(),
     topics: zod_1.z.array(exports.SocialRecapTopicSummarySchema).max(50),
 }).superRefine((r, ctx) => {
@@ -142,6 +165,12 @@ exports.SocialRecapOutputSchema = zod_1.z.strictObject({
             ctx.addIssue({ code: 'custom', path: ['requestedDay'], message: 'requestedDay must not precede day' });
         }
     }
+    if (r.state !== undefined && r.endReason !== undefined && r.state !== 'failed') {
+        ctx.addIssue({ code: 'custom', path: ['endReason'], message: 'endReason only when state is failed' });
+    }
+    if (r.postVerdicts !== undefined && Object.values(r.postVerdicts).reduce((a, b) => a + b, 0) > r.postsSeen) {
+        ctx.addIssue({ code: 'custom', path: ['postVerdicts'], message: 'postVerdicts must not exceed postsSeen' });
+    }
     if (r.costPerPostUsd === undefined)
         return;
     if (r.costPerPostUsd !== (0, fact_memory_js_1.socialCostPerPost)({ spentUsd: r.spentUsd, postsSeen: r.postsSeen })) {
@@ -153,10 +182,36 @@ exports.SocialRecapOutputSchema = zod_1.z.strictObject({
  * {@link SocialTopicSchema} and the same fact rule is applied again.
  */
 const { identity: _topicIdentity, ...socialTopicShape } = topic_js_1.SocialTopicSchema.shape;
-exports.SocialTopicGetOutputSchema = zod_1.z.strictObject(socialTopicShape).superRefine((t, ctx) => {
+/** One analyzed post of a topic, as the page shows it: the reason and the tool names are DATA, never instructions. */
+exports.SocialTopicPostSchema = zod_1.z.strictObject({
+    postId: post_js_1.SocialPostSchema.shape.postId,
+    handle: post_js_1.SocialHandleSchema,
+    link: research_js_1.WebUrlSchema,
+    verdict: topic_js_1.SocialVerdictSchema,
+    reason: zod_1.z.string().min(1).max(2000),
+    tools: zod_1.z.array(verdict_js_1.SocialPostToolSchema).max(20),
+});
+exports.SocialTopicGetOutputSchema = zod_1.z.strictObject({
+    ...socialTopicShape,
+    /**
+     * Present when the archive holds the analysis of at least one post of the topic, in the order of `postIds`;
+     * a post without analysis is left out.
+     */
+    posts: zod_1.z.array(exports.SocialTopicPostSchema).max(100).optional(),
+}).superRefine((t, ctx) => {
     if ((t.verdict === 'funziona' || t.verdict === 'da_provare') && t.facts.length < 1) {
         ctx.addIssue({ code: 'custom', path: ['facts'], message: 'verdict funziona/da_provare needs at least one fact' });
     }
+    const seen = new Set();
+    (t.posts ?? []).forEach((p, i) => {
+        if (!t.postIds.includes(p.postId)) {
+            ctx.addIssue({ code: 'custom', path: ['posts', i, 'postId'], message: 'post not in topic' });
+        }
+        else if (seen.has(p.postId)) {
+            ctx.addIssue({ code: 'custom', path: ['posts', i, 'postId'], message: 'post listed twice' });
+        }
+        seen.add(p.postId);
+    });
 });
 exports.SocialProfilesListOutputSchema = zod_1.z.strictObject({
     profiles: zod_1.z.array(post_js_1.SocialFollowedProfileSchema).max(exports.SOCIAL_FOLLOWED_PROFILES_MAX),

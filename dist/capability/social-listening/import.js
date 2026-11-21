@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from "../capability-call-identity.js";
 import { WebUrlSchema } from "../ricerca/research.js";
 import { SocialHandleSchema, SocialPostSchema, SocialVerticalIdSchema, } from "./post.js";
-import { SOCIAL_TOPIC_TITLE_MAX, SocialTopicSchema, socialCategoryInVertical, } from "./topic.js";
+import { SOCIAL_TOPIC_ANGLE_MAX, SOCIAL_TOPIC_TITLE_MAX, SocialTopicSchema, socialCategoryInVertical, } from "./topic.js";
 export const SOCIAL_LEGACY_ANALYSIS_SCHEMA = 'ig-ascolto-analisi-v1';
 export const SOCIAL_LEGACY_CLUSTER_SCHEMA = 'ig-ascolto-cluster-v1';
 const SocialLegacyVerdictSchema = z.enum(['funzionale', 'da provare', 'non funzionale', 'fuffa']);
@@ -176,6 +176,18 @@ export function socialImportPost(row, { identity }) {
         collectedAt: socialImportTimestamp(legacy.analizzato_il),
     });
 }
+/** Trims the legacy story angle and cuts it at a word boundary within the contract maximum. */
+function socialImportAngle(raw) {
+    const text = raw.trim();
+    if (text === '')
+        return undefined;
+    if (text.length <= SOCIAL_TOPIC_ANGLE_MAX)
+        return text;
+    const head = text.slice(0, SOCIAL_TOPIC_ANGLE_MAX);
+    const atBoundary = /\s/.test(text.charAt(SOCIAL_TOPIC_ANGLE_MAX));
+    const cut = atBoundary ? head : head.slice(0, Math.max(head.search(/\s\S*$/), 0));
+    return cut.trimEnd() || head;
+}
 export function socialImportTopic(row, ctx) {
     const parsed = SocialLegacyClusterRowSchema.safeParse(row);
     if (!parsed.success) {
@@ -193,6 +205,7 @@ export function socialImportTopic(row, ctx) {
     const computedAt = socialImportTimestamp(legacy.calcolato_il);
     if (computedAt === null)
         return { ok: false, error: 'invalid_timestamp' };
+    const angle = socialImportAngle(legacy.angolo_story);
     const topic = SocialTopicSchema.safeParse({
         identity: identity.data,
         topicId: ctx.topicId,
@@ -207,6 +220,7 @@ export function socialImportTopic(row, ctx) {
         heat: legacy.hype,
         postIds: legacy.post_ids,
         creators: legacy.creator,
+        ...(angle === undefined ? {} : { angle }),
         cost: { usd: 0, track: 'mac', uncertain: true },
         computedAt,
     });

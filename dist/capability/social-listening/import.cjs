@@ -187,6 +187,18 @@ function socialImportPost(row, { identity }) {
         collectedAt: socialImportTimestamp(legacy.analizzato_il),
     });
 }
+/** Trims the legacy story angle and cuts it at a word boundary within the contract maximum. */
+function socialImportAngle(raw) {
+    const text = raw.trim();
+    if (text === '')
+        return undefined;
+    if (text.length <= topic_js_1.SOCIAL_TOPIC_ANGLE_MAX)
+        return text;
+    const head = text.slice(0, topic_js_1.SOCIAL_TOPIC_ANGLE_MAX);
+    const atBoundary = /\s/.test(text.charAt(topic_js_1.SOCIAL_TOPIC_ANGLE_MAX));
+    const cut = atBoundary ? head : head.slice(0, Math.max(head.search(/\s\S*$/), 0));
+    return cut.trimEnd() || head;
+}
 function socialImportTopic(row, ctx) {
     const parsed = exports.SocialLegacyClusterRowSchema.safeParse(row);
     if (!parsed.success) {
@@ -204,6 +216,7 @@ function socialImportTopic(row, ctx) {
     const computedAt = socialImportTimestamp(legacy.calcolato_il);
     if (computedAt === null)
         return { ok: false, error: 'invalid_timestamp' };
+    const angle = socialImportAngle(legacy.angolo_story);
     const topic = topic_js_1.SocialTopicSchema.safeParse({
         identity: identity.data,
         topicId: ctx.topicId,
@@ -218,6 +231,7 @@ function socialImportTopic(row, ctx) {
         heat: legacy.hype,
         postIds: legacy.post_ids,
         creators: legacy.creator,
+        ...(angle === undefined ? {} : { angle }),
         cost: { usd: 0, track: 'mac', uncertain: true },
         computedAt,
     });
