@@ -36,7 +36,14 @@ const CHECK_NOTE_MAX = 500;
 const MAX_CHECK_SECONDS = 86_400 * 7;
 exports.TURN_STOP_CODES = ['budget_exhausted', 'run_expired'];
 exports.TurnStopCodeSchema = zod_1.z.enum(exports.TURN_STOP_CODES);
-exports.TURN_FAILURE_CAUSES = ['turn_failed', 'outcome_uncertain', 'restart_count_unreadable'];
+exports.TURN_FAILURE_CAUSES = [
+    'turn_failed',
+    'outcome_uncertain',
+    'restart_count_unreadable',
+    // 1.288.0: a refused or restart-exhausted turn fails the run so Paperclip owns the recovery.
+    'admission_refused',
+    'restarts_exhausted',
+];
 exports.TurnFailureCauseSchema = zod_1.z.enum(exports.TURN_FAILURE_CAUSES);
 exports.TURN_UNAVAILABLE_CAUSES = [
     'no_response',
@@ -64,6 +71,10 @@ exports.TURN_DISPOSITION_TEXT = {
     stoppedNote: (code) => `Fermato a metà turno: ${code}. Il lavoro già fatto resta. Ricontrollo automatico.`,
     interruptedNote: (afterSeconds, cause) => `Turno interrotto: il servizio non ha risposto${cause === undefined ? '' : ` (${exports.TURN_DISPOSITION_TEXT.unavailableCause[cause]})`}. Prima di rifare qualcosa guarda cosa è già stato fatto su questo incarico (commenti, file, incarichi aperti) e non ripeterlo. Ricontrollo automatico tra ${Math.round(afterSeconds / 60)} minuti.`,
     notExecutedComment: () => 'Non eseguito: R&D in pausa.',
+    admissionRefusedNote: (code) => `Turno rifiutato: ${code}. L'agente non può partire: il legame o l'identità vanno corretti; l'incarico resta suo e il recupero è di Paperclip.`,
+    // Must start with "Turno interrotto troppe volte": cap-paperclip restarts its restart count from that comment.
+    restartsExhaustedNote: () => 'Turno interrotto troppe volte: le ripartenze sono finite e non riprogrammo più il controllo. Il recupero è di Paperclip, che lo mostra al board se serve.',
+    /** No longer produced since 1.288.0; kept so stored `block_for_owner` dispositions stay readable. */
     unblockAction: (code) => `Turno rifiutato: ${code}. Correggere il legame o l'identità dell'agente, poi commentare qui per riaprire.`,
 };
 exports.TurnEndSchema = zod_1.z.discriminatedUnion('kind', [
@@ -109,12 +120,28 @@ exports.TurnDispositionSchema = zod_1.z.discriminatedUnion('kind', [
 /** The only way to build a valid `fail_run`: the cause and its text travel together. */
 function turnFailRun(cause, failureCode) {
     const parsed = exports.TurnFailureCauseSchema.parse(cause);
-    const detail = parsed === 'turn_failed'
-        ? exports.TURN_DISPOSITION_TEXT.failedNote(failureCode ?? 'sconosciuto')
-        : parsed === 'outcome_uncertain' ? exports.TURN_DISPOSITION_TEXT.uncertainNote() : exports.TURN_DISPOSITION_TEXT.restartCountNote();
+    let detail;
+    switch (parsed) {
+        case 'turn_failed':
+            detail = exports.TURN_DISPOSITION_TEXT.failedNote(failureCode ?? 'sconosciuto');
+            break;
+        case 'outcome_uncertain':
+            detail = exports.TURN_DISPOSITION_TEXT.uncertainNote();
+            break;
+        case 'restart_count_unreadable':
+            detail = exports.TURN_DISPOSITION_TEXT.restartCountNote();
+            break;
+        case 'admission_refused':
+            // The refusal code is mandatory: a text without it would not say why the turn cannot start.
+            detail = exports.TURN_DISPOSITION_TEXT.admissionRefusedNote(internal_agent_turn_js_1.OrganizationAdmissionRefusalCodeSchema.parse(failureCode));
+            break;
+        case 'restarts_exhausted':
+            detail = exports.TURN_DISPOSITION_TEXT.restartsExhaustedNote();
+            break;
+    }
     return { kind: 'fail_run', runSucceeds: false, cause: parsed, detail };
 }
-/** Only failed and uncertain ends fail the run; refusals, limit stops and unavailable services never do. */
+/** Failed, uncertain and definitively refused ends fail the run; not-now refusals, limit stops and unavailable services never do. */
 function dispositionForTurnEnd(end) {
     switch (end.kind) {
         case 'succeeded':
@@ -122,7 +149,8 @@ function dispositionForTurnEnd(end) {
             return { kind: 'leave', runSucceeds: true };
         case 'refused': {
             if (exports.ADMISSION_REFUSAL_CLASS[end.code] === 'definitive') {
-                return { kind: 'block_for_owner', runSucceeds: true, action: exports.TURN_DISPOSITION_TEXT.unblockAction(end.code) };
+                // A definitive refusal fails the run: a `blocked` issue with only a self-owned descriptor is never woken by Paperclip.
+                return turnFailRun('admission_refused', end.code);
             }
             if (end.code === 'rd_paused') {
                 return { kind: 'close_not_executed', runSucceeds: true, comment: exports.TURN_DISPOSITION_TEXT.notExecutedComment() };

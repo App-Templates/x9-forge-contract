@@ -113,8 +113,8 @@ it('s7204 (d) a production-shaped policy keeps extra fields and replaces its lim
   expect(policy).toEqual(original);
 });
 
-it('s6182 non-adesso-come-guasto: dispositionForTurnEnd never fails the run for an admission refusal, and budget_exhausted becomes a check_later', () => {
-  for (const code of ORGANIZATION_ADMISSION_REFUSAL_CODES) {
+it('s6182 non-adesso-come-guasto: dispositionForTurnEnd never fails the run for a not-now refusal, and budget_exhausted becomes a check_later', () => {
+  for (const code of ORGANIZATION_ADMISSION_REFUSAL_CODES.filter((c) => ADMISSION_REFUSAL_CLASS[c] === 'not_now')) {
     expect(dispositionForTurnEnd(refused(code)).runSucceeds).toBe(true);
   }
   expect(dispositionForTurnEnd(refused('budget_exhausted')).kind).toBe('check_later');
@@ -153,17 +153,10 @@ it('s6182 rd_paused closes the task as not executed, never cancelled', () => {
   });
 });
 
-it('s6182 a definitive refusal blocks for the owner and the run still succeeds', () => {
+it('s6182 a definitive refusal fails the run (since 1.288.0 Paperclip owns the recovery) and writes nothing', () => {
   const d = dispositionForTurnEnd(refused('organization_binding_missing'));
-  expect(d).toMatchObject({ kind: 'block_for_owner', runSucceeds: true });
-  expect(paperclipBodyForDisposition(d, { now: NOW, agentId: AGENT_ID })).toEqual({
-    status: 'blocked',
-    unblockDescriptor: {
-      owner: { agentId: AGENT_ID },
-      action:
-        "Turno rifiutato: organization_binding_missing. Correggere il legame o l'identità dell'agente, poi commentare qui per riaprire.",
-    },
-  });
+  expect(d).toMatchObject({ kind: 'fail_run', runSucceeds: false, cause: 'admission_refused' });
+  expect(paperclipBodyForDisposition(d, { now: NOW, agentId: AGENT_ID })).toBeNull();
 });
 
 it('s6182 failed and uncertain are the only ends that fail the run', () => {
@@ -175,8 +168,9 @@ it('s6182 failed and uncertain are the only ends that fail the run', () => {
     { kind: 'unavailable' },
     ...ORGANIZATION_ADMISSION_REFUSAL_CODES.map((code) => refused(code)),
   ];
-  const failing = ends.filter((e) => !dispositionForTurnEnd(e).runSucceeds).map((e) => e.kind);
-  expect(failing).toEqual(['failed', 'uncertain']);
+  const failing = ends.filter((e) => !dispositionForTurnEnd(e).runSucceeds);
+  const definitive = ORGANIZATION_ADMISSION_REFUSAL_CODES.filter((c) => ADMISSION_REFUSAL_CLASS[c] === 'definitive');
+  expect(failing.map((e) => e.kind)).toEqual(['failed', 'uncertain', ...definitive.map(() => 'refused')]);
   expect(dispositionForTurnEnd({ kind: 'succeeded' }).kind).toBe('leave');
   expect(dispositionForTurnEnd({ kind: 'cancelled' }).kind).toBe('leave');
   expect(paperclipBodyForDisposition(dispositionForTurnEnd({ kind: 'uncertain' }), { now: NOW, agentId: AGENT_ID })).toBeNull();
@@ -211,7 +205,7 @@ it('s6182 every body built by paperclipBodyForDisposition parses with PaperclipD
   expect(body?.executionPolicy?.monitor.nextCheckAt).toBe('2026-11-11T09:02:00.000Z');
 });
 
-it('s6182 dry run on production bodies: today budget_exhausted body is a check_later, binding_missing blocks', () => {
+it('s6182 dry run on production bodies: today budget_exhausted body is a check_later, binding_missing fails the run', () => {
   const real = InternalAgentTurnRunErrorResponseSchema.parse({
     ok: false,
     error: 'run_failed',
@@ -229,7 +223,7 @@ it('s6182 dry run on production bodies: today budget_exhausted body is a check_l
   const parsed = OrgCode(real.code);
   expect(dispositionForTurnEnd({ kind: 'refused', code: parsed }).kind).toBe('check_later');
   expect(dispositionForTurnEnd({ kind: 'refused', code: OrgCode('organization_binding_missing') }).kind).toBe(
-    'block_for_owner',
+    'fail_run',
   );
 });
 
@@ -358,4 +352,52 @@ it('s7419_solo_fail_run_ha_la_causa', () => {
 
 it('s7419_corpo_di_fail_run_ancora_nullo', () => {
   expect(paperclipBodyForDisposition(turnFailRun('turn_failed', 'x'), { now: NOW, agentId: AGENT_ID })).toBeNull();
+});
+
+it('s8415 rifiuto-definitivo-fa-fallire-la-corsa', () => {
+  const definitive = ORGANIZATION_ADMISSION_REFUSAL_CODES.filter((c) => ADMISSION_REFUSAL_CLASS[c] === 'definitive');
+  expect(definitive.length).toBeGreaterThan(0);
+  for (const code of definitive) {
+    const d = dispositionForTurnEnd(refused(code));
+    expect(d.runSucceeds).toBe(false);
+    expect(d).toMatchObject({ kind: 'fail_run', cause: 'admission_refused' });
+    expect(d.kind === 'fail_run' && d.detail).toContain(code);
+    expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
+  }
+});
+
+it('s8415 rifiuto-non-adesso-come-prima', () => {
+  for (const code of ['budget_exhausted', 'organization_admission_unavailable'] as const) {
+    expect(dispositionForTurnEnd(refused(code)).kind).toBe('check_later');
+  }
+  expect(dispositionForTurnEnd(refused('rd_paused')).kind).toBe('close_not_executed');
+});
+
+it('s8415 ripartenze-finite', () => {
+  const d = turnFailRun('restarts_exhausted');
+  expect(TurnDispositionSchema.safeParse(d).success).toBe(true);
+  expect(d.detail.startsWith('Turno interrotto troppe volte')).toBe(true);
+  expect(paperclipBodyForDisposition(d, { now: NOW, agentId: AGENT_ID })).toBeNull();
+});
+
+it('s8415 senza-codice-rifiutato', () => {
+  expect(() => turnFailRun('admission_refused')).toThrow();
+});
+
+it('s8415 block-for-owner-ancora-letto', () => {
+  const stored = { kind: 'block_for_owner', runSucceeds: true, action: 'Turno rifiutato: organization_binding_missing. x' };
+  expect(TurnDispositionSchema.safeParse(stored).success).toBe(true);
+  expect(paperclipBodyForDisposition(TurnDispositionSchema.parse(stored), { now: NOW, agentId: AGENT_ID })).toEqual({
+    status: 'blocked',
+    unblockDescriptor: { owner: { agentId: AGENT_ID }, action: stored.action },
+  });
+});
+
+it('s8415 compilato', async () => {
+  const { readFileSync } = await import('node:fs');
+  for (const f of ['turn-disposition.js', 'turn-disposition.cjs']) {
+    const src = readFileSync(new URL(`../../dist/capability/paperclip/${f}`, import.meta.url), 'utf8');
+    expect(src).toContain('admission_refused');
+    expect(src).toContain('restarts_exhausted');
+  }
 });

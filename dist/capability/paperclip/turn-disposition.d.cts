@@ -37,11 +37,13 @@ export declare const TurnStopCodeSchema: z.ZodEnum<{
     run_expired: "run_expired";
 }>;
 export type TurnStopCode = z.infer<typeof TurnStopCodeSchema>;
-export declare const TURN_FAILURE_CAUSES: readonly ["turn_failed", "outcome_uncertain", "restart_count_unreadable"];
+export declare const TURN_FAILURE_CAUSES: readonly ["turn_failed", "outcome_uncertain", "restart_count_unreadable", "admission_refused", "restarts_exhausted"];
 export declare const TurnFailureCauseSchema: z.ZodEnum<{
     turn_failed: "turn_failed";
     outcome_uncertain: "outcome_uncertain";
     restart_count_unreadable: "restart_count_unreadable";
+    admission_refused: "admission_refused";
+    restarts_exhausted: "restarts_exhausted";
 }>;
 export type TurnFailureCause = z.infer<typeof TurnFailureCauseSchema>;
 export declare const TURN_UNAVAILABLE_CAUSES: readonly ["no_response", "response_not_conforming", "error_without_body", "unknown_error_code", "status_mismatch"];
@@ -69,6 +71,9 @@ export declare const TURN_DISPOSITION_TEXT: {
     readonly stoppedNote: (code: TurnStopCode) => string;
     readonly interruptedNote: (afterSeconds: number, cause?: TurnUnavailableCause) => string;
     readonly notExecutedComment: () => string;
+    readonly admissionRefusedNote: (code: OrganizationAdmissionRefusalCode) => string;
+    readonly restartsExhaustedNote: () => string;
+    /** No longer produced since 1.288.0; kept so stored `block_for_owner` dispositions stay readable. */
     readonly unblockAction: (code: OrganizationAdmissionRefusalCode) => string;
 };
 export declare const TurnEndSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -145,6 +150,8 @@ export declare const TurnDispositionSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         turn_failed: "turn_failed";
         outcome_uncertain: "outcome_uncertain";
         restart_count_unreadable: "restart_count_unreadable";
+        admission_refused: "admission_refused";
+        restarts_exhausted: "restarts_exhausted";
     }>;
     detail: z.ZodString;
 }, z.core.$strict>], "kind">;
@@ -153,7 +160,7 @@ export type TurnDisposition = z.infer<typeof TurnDispositionSchema>;
 export declare function turnFailRun(cause: TurnFailureCause, failureCode?: string): Extract<TurnDisposition, {
     kind: 'fail_run';
 }>;
-/** Only failed and uncertain ends fail the run; refusals, limit stops and unavailable services never do. */
+/** Failed, uncertain and definitively refused ends fail the run; not-now refusals, limit stops and unavailable services never do. */
 export declare function dispositionForTurnEnd(end: TurnEnd): TurnDisposition;
 /** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */
 export declare function waitsOnLimit(policy: unknown): boolean;
