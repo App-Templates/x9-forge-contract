@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.283.0",
+  "versione": "1.284.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2226,6 +2226,7 @@
       "PAPERCLIP_SEAT_REPLY_WAKE_VIA": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_SESSION_CHILD_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_SESSION_CONTRACT_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
+      "PAPERCLIP_SEAT_SESSION_MANDATE_BINDINGS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_SESSION_PROOFS_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_WAKE_ERROR_CODES": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
@@ -2238,6 +2239,7 @@
       "PaperclipSeatResearchDoneDossierEntrySchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatSessionChildResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatSessionContractResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
+      "PaperclipSeatSessionMandateBindingSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatSessionMandateResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatSessionProofsResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatWakeErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
@@ -2705,6 +2707,7 @@
       "selectDevProductionProgressSnapshot": "@x9-forge/contracts/http/endpoints/internal-dev-progress",
       "selectDevelopmentSessionList": "@x9-forge/contracts/http/endpoints/internal-development-session-list",
       "selectableDevelopmentSessionModels": "@x9-forge/contracts/http/endpoints/development-session-models",
+      "sessionMandateBinding": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "startConnectContract": "@x9-forge/contracts/http/endpoints/internal-connect",
       "startDevelopmentSessionPairingContract": "@x9-forge/contracts/http/endpoints/internal-development-sessions",
       "stopAgentContract": "@x9-forge/contracts/http/endpoints/internal-agents-stop",

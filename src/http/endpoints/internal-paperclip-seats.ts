@@ -584,10 +584,15 @@ export const PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS = [
 ] as const;
 export const PaperclipSeatSessionMandateResultSchema = z.enum(PAPERCLIP_SEAT_SESSION_MANDATE_RESULTS);
 
+export const PAPERCLIP_SEAT_SESSION_MANDATE_BINDINGS = ['verified', 'criteria_only'] as const;
+export const PaperclipSeatSessionMandateBindingSchema = z.enum(PAPERCLIP_SEAT_SESSION_MANDATE_BINDINGS);
+export type PaperclipSeatSessionMandateBinding = z.infer<typeof PaperclipSeatSessionMandateBindingSchema>;
+
 export const InternalPaperclipSeatSessionMandateResponseSchema = z.strictObject({
   result: PaperclipSeatSessionMandateResultSchema,
   issueId: z.uuid().optional(),
   mandate: ReconciledMandateSchema.optional(),
+  mandateBinding: PaperclipSeatSessionMandateBindingSchema.optional(),
   reason: z.enum(['not_json', 'not_a_mandate']).optional(),
 }).superRefine((value, ctx) => {
   // Only a verified source issue can carry a document outcome; refusals must not expose its identity or mandate.
@@ -603,6 +608,10 @@ export const InternalPaperclipSeatSessionMandateResponseSchema = z.strictObject(
   }
   if (value.result !== 'read' && value.mandate !== undefined) {
     ctx.addIssue({ code: 'custom', message: `${value.result} must not carry mandate`, path: ['mandate'] });
+  }
+  // An identity binding describes a read mandate, never a refusal or missing document.
+  if (value.result !== 'read' && value.mandateBinding !== undefined) {
+    ctx.addIssue({ code: 'custom', message: `${value.result} must not carry mandateBinding`, path: ['mandateBinding'] });
   }
   if (value.result === 'mandate_invalid' && value.reason === undefined) {
     ctx.addIssue({ code: 'custom', message: 'mandate_invalid requires reason', path: ['reason'] });
@@ -624,6 +633,11 @@ export const internalPaperclipSeatSessionMandateContract = {
 export type InternalPaperclipSeatSessionMandateRequest = z.infer<typeof InternalPaperclipSeatSessionMandateRequestSchema>;
 export type InternalPaperclipSeatSessionMandateResponse = z.infer<typeof InternalPaperclipSeatSessionMandateResponseSchema>;
 export type PaperclipSeatSessionMandateResult = z.infer<typeof PaperclipSeatSessionMandateResultSchema>;
+
+export function sessionMandateBinding(response: InternalPaperclipSeatSessionMandateResponse): PaperclipSeatSessionMandateBinding {
+  // Stefano 21/11, decision 1; Codex point 2: a legacy response does not prove the identity binding.
+  return response.result === 'read' && response.mandateBinding === 'verified' ? 'verified' : 'criteria_only';
+}
 
 export const INTERNAL_PAPERCLIP_SEAT_SESSION_PROOFS_PATH = '/internal/paperclip/seats/session-proofs' as const;
 

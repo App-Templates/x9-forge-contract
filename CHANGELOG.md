@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.284.0 — session mandate responses declare their identity binding (task 8400)
+
+- Add `PAPERCLIP_SEAT_SESSION_MANDATE_BINDINGS`, its schema and type, and optional `mandateBinding` on the strict session mandate response. Only `read` may carry `verified` or `criteria_only`; no default or saved mandate change. Export `sessionMandateBinding(response)` as the single conservative reader: only an explicit verified read proves the identity binding, while legacy responses mean criteria only. Computing and consuming the binding remain tasks 8401 and 8402; adopt the reader before the producer.
+- REGRESSIONE: s8400 principale: la risposta `read` del Mandato nella forma di oggi (solo `result`, `issueId`, `mandate`, come la 8200 e come l'ha letta cap-dev il 21/11 alle 14:48:57Z per GOO-194) oggi non può dire se il Mandato letto è quello del progetto della corsa; con `mandateBinding: 'verified'` oggi lo strict la rifiuta come campo sconosciuto (rosso). Dopo: `verified` e `criteria_only` passano con `read`, qualunque valore diverso e qualunque valore con un esito diverso da `read` sono rifiutati, e la risposta senza il campo si legge `criteria_only` tramite `sessionMandateBinding()`. Fixture ricostruita nella forma della 8200, non una cattura di produzione; prova dal vivo nelle schede 8401 e 8402.
+
 ## v1.283.0 — typed chief questions carry their source plan and refusal attempts (task 8380)
 
 - Add strict `AgentQuestionDetailsSchema`, optional `AgentRequest.details` (requiring `plan` when present), and Director creation schemas composed from the existing id-based inputs, preserving native wait checks. Historical requests keep schemaVersion 1 and need no plan or details. Add deterministic full-request records fenced with `x9-agent-question:v1`, strict parsing that rejects broken or duplicate records, and a reserved-marker check for model prose. No status or consumer changes; inert until 8383/8384. Tests reconstruct the documented shape, not production extracts.

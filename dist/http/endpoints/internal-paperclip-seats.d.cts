@@ -1249,6 +1249,12 @@ export declare const PaperclipSeatSessionMandateResultSchema: z.ZodEnum<{
     mandate_missing: "mandate_missing";
     mandate_invalid: "mandate_invalid";
 }>;
+export declare const PAPERCLIP_SEAT_SESSION_MANDATE_BINDINGS: readonly ["verified", "criteria_only"];
+export declare const PaperclipSeatSessionMandateBindingSchema: z.ZodEnum<{
+    verified: "verified";
+    criteria_only: "criteria_only";
+}>;
+export type PaperclipSeatSessionMandateBinding = z.infer<typeof PaperclipSeatSessionMandateBindingSchema>;
 export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObject<{
     result: z.ZodEnum<{
         read: "read";
@@ -1585,6 +1591,10 @@ export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObj
             excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
         }, z.core.$strict>>;
     }, z.core.$strict>>;
+    mandateBinding: z.ZodOptional<z.ZodEnum<{
+        verified: "verified";
+        criteria_only: "criteria_only";
+    }>>;
     reason: z.ZodOptional<z.ZodEnum<{
         not_json: "not_json";
         not_a_mandate: "not_a_mandate";
@@ -1939,6 +1949,10 @@ export declare const internalPaperclipSeatSessionMandateContract: {
                 excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
+        mandateBinding: z.ZodOptional<z.ZodEnum<{
+            verified: "verified";
+            criteria_only: "criteria_only";
+        }>>;
         reason: z.ZodOptional<z.ZodEnum<{
             not_json: "not_json";
             not_a_mandate: "not_a_mandate";
@@ -1955,6 +1969,7 @@ export declare const internalPaperclipSeatSessionMandateContract: {
 export type InternalPaperclipSeatSessionMandateRequest = z.infer<typeof InternalPaperclipSeatSessionMandateRequestSchema>;
 export type InternalPaperclipSeatSessionMandateResponse = z.infer<typeof InternalPaperclipSeatSessionMandateResponseSchema>;
 export type PaperclipSeatSessionMandateResult = z.infer<typeof PaperclipSeatSessionMandateResultSchema>;
+export declare function sessionMandateBinding(response: InternalPaperclipSeatSessionMandateResponse): PaperclipSeatSessionMandateBinding;
 export declare const INTERNAL_PAPERCLIP_SEAT_SESSION_PROOFS_PATH: "/internal/paperclip/seats/session-proofs";
 export declare const InternalPaperclipSeatSessionProofsRequestSchema: z.ZodObject<{
     organizationId: z.ZodString;
