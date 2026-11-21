@@ -1,10 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DELIVERY_PACKAGE_PROBLEM_CODES = exports.DeliveryPackageSchema = exports.DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS = exports.DELIVERY_PACKAGE_PREVIEW_EXTENSIONS = exports.DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS = exports.DELIVERY_PACKAGE_IMAGE_EXTENSIONS = exports.DELIVERY_PACKAGE_FILE_NAME = void 0;
+exports.DELIVERY_PACKAGE_PROBLEM_CODES = exports.DeliveryPackageSchema = exports.DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS = exports.DELIVERY_PACKAGE_PREVIEW_EXTENSIONS = exports.DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS = exports.DELIVERY_PACKAGE_IMAGE_EXTENSIONS = exports.DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES = exports.DELIVERY_PACKAGE_FILE_MAX_BYTES = exports.DELIVERY_PACKAGE_MAX_KEY_SCREENS = exports.DELIVERY_PACKAGE_FILE_NAME = void 0;
 exports.deliveryPackagePaths = deliveryPackagePaths;
 exports.deliveryPackageProblems = deliveryPackageProblems;
 const zod_1 = require("zod");
 exports.DELIVERY_PACKAGE_FILE_NAME = 'CONSEGNA.json';
+// Twenty contract screens can each have two format variants.
+exports.DELIVERY_PACKAGE_MAX_KEY_SCREENS = 40;
+// The delivery chain currently carries individual files up to 25 MiB.
+exports.DELIVERY_PACKAGE_FILE_MAX_BYTES = 25 * 1024 * 1024;
+// Email already uses 30 MiB as the threshold above which delivery uses a link.
+exports.DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES = 30 * 1024 * 1024;
 exports.DELIVERY_PACKAGE_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg'];
 exports.DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS = [...exports.DELIVERY_PACKAGE_IMAGE_EXTENSIONS, 'pdf'];
 exports.DELIVERY_PACKAGE_PREVIEW_EXTENSIONS = ['html', 'pdf', 'png'];
@@ -32,10 +38,18 @@ exports.DeliveryPackageSchema = zod_1.z.strictObject({
     keyScreens: zod_1.z.array(zod_1.z.strictObject({
         path: packagePath(exports.DELIVERY_PACKAGE_IMAGE_EXTENSIONS),
         caption: zod_1.z.string().min(1).max(140),
-    })).max(8),
+    })).max(exports.DELIVERY_PACKAGE_MAX_KEY_SCREENS),
     overviewSheet: zod_1.z.strictObject({ path: packagePath(exports.DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS) }).optional(),
-    // A preview points to one self-contained file.
-    preview: zod_1.z.strictObject({ path: packagePath(exports.DELIVERY_PACKAGE_PREVIEW_EXTENSIONS) }).optional(),
+    // A preview remains one self-contained file; walkthrough steps describe how to navigate it.
+    preview: zod_1.z.strictObject({
+        path: packagePath(exports.DELIVERY_PACKAGE_PREVIEW_EXTENSIONS),
+        walkthrough: zod_1.z.array(zod_1.z.strictObject({
+            // Keep the contract screen name bounds here to avoid a dependency cycle with session contracts.
+            screen: zod_1.z.string().min(1).max(40),
+            caption: zod_1.z.string().min(1).max(140),
+            clickText: zod_1.z.string().min(1).max(80).optional(),
+        })).min(1).max(exports.DELIVERY_PACKAGE_MAX_KEY_SCREENS).optional(),
+    }).optional(),
     documents: zod_1.z.array(zod_1.z.strictObject({
         path: packagePath(exports.DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS),
         caption: zod_1.z.string().min(1).max(140),
@@ -51,6 +65,23 @@ exports.DeliveryPackageSchema = zod_1.z.strictObject({
         }
         seen.add(path);
     }
+    const screens = new Set();
+    pkg.preview?.walkthrough?.forEach((step, index) => {
+        // The first step is already open; later steps need a visible command to reach them.
+        if (index > 0 && step.clickText === undefined) {
+            ctx.addIssue({
+                code: 'custom', path: ['preview', 'walkthrough', index, 'clickText'],
+                message: 'A walkthrough step after the first requires clickText',
+            });
+        }
+        if (screens.has(step.screen)) {
+            ctx.addIssue({
+                code: 'custom', path: ['preview', 'walkthrough', index, 'screen'],
+                message: `Duplicate walkthrough screen: ${step.screen}`,
+            });
+        }
+        screens.add(step.screen);
+    });
 });
 /** Attachment paths relative to the delivery commit root, in presentation order. */
 function deliveryPackagePaths(pkg) {

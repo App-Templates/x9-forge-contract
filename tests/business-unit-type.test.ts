@@ -102,7 +102,7 @@ describe('business unit delivery email', () => {
   });
 
   it('defines and accepts the design delivery email default', () => {
-    expect(design).toEqual({ keyScreens: { min: 6, max: 8 }, overviewSheet: true, preview: true });
+    expect(design).toEqual({ keyScreens: { min: 1, max: 40 }, overviewSheet: true, preview: true, walkthrough: true });
     expect(BusinessUnitTypeCardSchema.parse({ ...valid, deliveryEmail: design }).deliveryEmail).toEqual(design);
     expect(Object.keys(BUSINESS_UNIT_DELIVERY_EMAIL_DEFAULTS)).toEqual(['design']);
   });
@@ -120,15 +120,15 @@ describe('business unit delivery email', () => {
     }).success).toBe(false);
   });
 
-  it('requires integer screen bounds from zero through eight', () => {
+  it('requires integer screen bounds from zero through forty', () => {
     for (const key of ['min', 'max'] as const) {
-      for (const value of [-1, 0.5, 9]) {
+      for (const value of [-1, 0.5, 41]) {
         expect(DeliveryEmailModelSchema.safeParse({
-          ...design, keyScreens: { min: 0, max: 8, [key]: value },
+          ...design, keyScreens: { min: 0, max: 40, [key]: value },
         }).success).toBe(false);
       }
     }
-    for (const count of [0, 8]) {
+    for (const count of [0, 40]) {
       expect(DeliveryEmailModelSchema.safeParse({
         ...design, keyScreens: { min: count, max: count },
       }).success).toBe(true);
@@ -138,8 +138,9 @@ describe('business unit delivery email', () => {
     }
   });
 
-  it('reports the three missing design delivery requirements in order', () => {
-    expect(deliveryPackageMeets({ deliveryEmail: design }, incomplete)).toEqual([
+  it('reports the three missing saved design delivery requirements in order', () => {
+    const saved = { keyScreens: { min: 6, max: 8 }, overviewSheet: true, preview: true };
+    expect(deliveryPackageMeets({ deliveryEmail: saved }, incomplete)).toEqual([
       'servono almeno 6 schermate chiave, ce ne sono 2',
       'manca il foglio unico',
       "manca l'anteprima",
@@ -147,14 +148,14 @@ describe('business unit delivery email', () => {
   });
 
   it('accepts a complete package at both design screen boundaries', () => {
-    for (const count of [6, 8]) {
+    for (const count of [1, 40]) {
       const complete = DeliveryPackageSchema.parse({
         ...incomplete,
         keyScreens: Array.from({ length: count }, (_, index) => ({
           path: `screens/screen-${index}.png`, caption: `Screen ${index}`,
         })),
         overviewSheet: { path: 'overview.pdf' },
-        preview: { path: 'preview.html' },
+        preview: { path: 'preview.html', walkthrough: [{ screen: 'home', caption: 'Home screen' }] },
       });
       expect(deliveryPackageMeets({ deliveryEmail: design }, complete)).toEqual([]);
     }

@@ -1,5 +1,11 @@
 import { z } from 'zod';
 export const DELIVERY_PACKAGE_FILE_NAME = 'CONSEGNA.json';
+// Twenty contract screens can each have two format variants.
+export const DELIVERY_PACKAGE_MAX_KEY_SCREENS = 40;
+// The delivery chain currently carries individual files up to 25 MiB.
+export const DELIVERY_PACKAGE_FILE_MAX_BYTES = 25 * 1024 * 1024;
+// Email already uses 30 MiB as the threshold above which delivery uses a link.
+export const DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES = 30 * 1024 * 1024;
 export const DELIVERY_PACKAGE_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg'];
 export const DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS = [...DELIVERY_PACKAGE_IMAGE_EXTENSIONS, 'pdf'];
 export const DELIVERY_PACKAGE_PREVIEW_EXTENSIONS = ['html', 'pdf', 'png'];
@@ -27,10 +33,18 @@ export const DeliveryPackageSchema = z.strictObject({
     keyScreens: z.array(z.strictObject({
         path: packagePath(DELIVERY_PACKAGE_IMAGE_EXTENSIONS),
         caption: z.string().min(1).max(140),
-    })).max(8),
+    })).max(DELIVERY_PACKAGE_MAX_KEY_SCREENS),
     overviewSheet: z.strictObject({ path: packagePath(DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS) }).optional(),
-    // A preview points to one self-contained file.
-    preview: z.strictObject({ path: packagePath(DELIVERY_PACKAGE_PREVIEW_EXTENSIONS) }).optional(),
+    // A preview remains one self-contained file; walkthrough steps describe how to navigate it.
+    preview: z.strictObject({
+        path: packagePath(DELIVERY_PACKAGE_PREVIEW_EXTENSIONS),
+        walkthrough: z.array(z.strictObject({
+            // Keep the contract screen name bounds here to avoid a dependency cycle with session contracts.
+            screen: z.string().min(1).max(40),
+            caption: z.string().min(1).max(140),
+            clickText: z.string().min(1).max(80).optional(),
+        })).min(1).max(DELIVERY_PACKAGE_MAX_KEY_SCREENS).optional(),
+    }).optional(),
     documents: z.array(z.strictObject({
         path: packagePath(DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS),
         caption: z.string().min(1).max(140),
@@ -46,6 +60,23 @@ export const DeliveryPackageSchema = z.strictObject({
         }
         seen.add(path);
     }
+    const screens = new Set();
+    pkg.preview?.walkthrough?.forEach((step, index) => {
+        // The first step is already open; later steps need a visible command to reach them.
+        if (index > 0 && step.clickText === undefined) {
+            ctx.addIssue({
+                code: 'custom', path: ['preview', 'walkthrough', index, 'clickText'],
+                message: 'A walkthrough step after the first requires clickText',
+            });
+        }
+        if (screens.has(step.screen)) {
+            ctx.addIssue({
+                code: 'custom', path: ['preview', 'walkthrough', index, 'screen'],
+                message: `Duplicate walkthrough screen: ${step.screen}`,
+            });
+        }
+        screens.add(step.screen);
+    });
 });
 /** Attachment paths relative to the delivery commit root, in presentation order. */
 export function deliveryPackagePaths(pkg) {

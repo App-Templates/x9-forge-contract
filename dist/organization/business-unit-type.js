@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { DevelopmentSessionEngineSchema } from "../capability/connect/development-session.js";
 import { ModelTierSchema } from "../model-router/model-tier.js";
+import { DELIVERY_PACKAGE_MAX_KEY_SCREENS } from "./delivery-package.js";
 const Slug = (min, max) => z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const Text = z.string().min(1).max(500);
 const uniqueItems = (item, message) => z.array(item).refine((items) => new Set(items).size === items.length, { message });
@@ -14,14 +15,18 @@ export const BUSINESS_UNIT_LEAD_TYPE_IDS = ['dati', 'design', 'sviluppo', 'finan
 export const BusinessUnitLeadTypeIdSchema = z.enum(BUSINESS_UNIT_LEAD_TYPE_IDS);
 export const DeliveryEmailModelSchema = z.strictObject({
     keyScreens: z.strictObject({
-        min: z.number().int().min(0).max(8),
-        max: z.number().int().min(0).max(8),
+        min: z.number().int().min(0).max(DELIVERY_PACKAGE_MAX_KEY_SCREENS),
+        max: z.number().int().min(0).max(DELIVERY_PACKAGE_MAX_KEY_SCREENS),
     }).refine(({ min, max }) => min <= max, { message: 'Minimum must not exceed maximum' }),
     overviewSheet: z.boolean(),
     preview: z.boolean(),
+    walkthrough: z.boolean().optional(),
 });
 export const BUSINESS_UNIT_DELIVERY_EMAIL_DEFAULTS = {
-    design: { keyScreens: { min: 6, max: 8 }, overviewSheet: true, preview: true },
+    design: {
+        keyScreens: { min: 1, max: DELIVERY_PACKAGE_MAX_KEY_SCREENS },
+        overviewSheet: true, preview: true, walkthrough: true,
+    },
 };
 /** Card fixing capabilities, skills, model, engine, budget, delivery criteria and reviewer of a business unit type. */
 export const BusinessUnitTypeCardSchema = z.strictObject({
@@ -42,7 +47,7 @@ export const BusinessUnitTypeCardSchema = z.strictObject({
     version: z.number().int().min(1),
 });
 /** Missing delivery requirements in presentation order; legacy cards impose none. */
-export function deliveryPackageMeets(card, pkg) {
+export function deliveryPackageMeets(card, pkg, contract) {
     const model = card.deliveryEmail;
     if (!model)
         return [];
@@ -54,10 +59,17 @@ export function deliveryPackageMeets(card, pkg) {
     if (count > model.keyScreens.max) {
         missing.push(`al massimo ${model.keyScreens.max} schermate chiave, ce ne sono ${count}`);
     }
+    // A supplied contract requires every screen even when the saved model allows fewer.
+    if (contract && count < contract.screens) {
+        missing.push(`servono tutte le schermate del contratto: ${contract.screens}, ce ne sono ${count}`);
+    }
     if (model.overviewSheet && !pkg.overviewSheet)
         missing.push('manca il foglio unico');
     if (model.preview && !pkg.preview)
         missing.push("manca l'anteprima");
+    if (model.walkthrough === true && pkg.preview && !pkg.preview.walkthrough) {
+        missing.push('manca il percorso della demo');
+    }
     return missing;
 }
 //# sourceMappingURL=business-unit-type.js.map

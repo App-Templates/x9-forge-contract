@@ -5,6 +5,7 @@ exports.deliveryPackageMeets = deliveryPackageMeets;
 const zod_1 = require("zod");
 const development_session_js_1 = require("../capability/connect/development-session.cjs");
 const model_tier_js_1 = require("../model-router/model-tier.cjs");
+const delivery_package_js_1 = require("./delivery-package.cjs");
 const Slug = (min, max) => zod_1.z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const Text = zod_1.z.string().min(1).max(500);
 const uniqueItems = (item, message) => zod_1.z.array(item).refine((items) => new Set(items).size === items.length, { message });
@@ -18,14 +19,18 @@ exports.BUSINESS_UNIT_LEAD_TYPE_IDS = ['dati', 'design', 'sviluppo', 'finanza', 
 exports.BusinessUnitLeadTypeIdSchema = zod_1.z.enum(exports.BUSINESS_UNIT_LEAD_TYPE_IDS);
 exports.DeliveryEmailModelSchema = zod_1.z.strictObject({
     keyScreens: zod_1.z.strictObject({
-        min: zod_1.z.number().int().min(0).max(8),
-        max: zod_1.z.number().int().min(0).max(8),
+        min: zod_1.z.number().int().min(0).max(delivery_package_js_1.DELIVERY_PACKAGE_MAX_KEY_SCREENS),
+        max: zod_1.z.number().int().min(0).max(delivery_package_js_1.DELIVERY_PACKAGE_MAX_KEY_SCREENS),
     }).refine(({ min, max }) => min <= max, { message: 'Minimum must not exceed maximum' }),
     overviewSheet: zod_1.z.boolean(),
     preview: zod_1.z.boolean(),
+    walkthrough: zod_1.z.boolean().optional(),
 });
 exports.BUSINESS_UNIT_DELIVERY_EMAIL_DEFAULTS = {
-    design: { keyScreens: { min: 6, max: 8 }, overviewSheet: true, preview: true },
+    design: {
+        keyScreens: { min: 1, max: delivery_package_js_1.DELIVERY_PACKAGE_MAX_KEY_SCREENS },
+        overviewSheet: true, preview: true, walkthrough: true,
+    },
 };
 /** Card fixing capabilities, skills, model, engine, budget, delivery criteria and reviewer of a business unit type. */
 exports.BusinessUnitTypeCardSchema = zod_1.z.strictObject({
@@ -46,7 +51,7 @@ exports.BusinessUnitTypeCardSchema = zod_1.z.strictObject({
     version: zod_1.z.number().int().min(1),
 });
 /** Missing delivery requirements in presentation order; legacy cards impose none. */
-function deliveryPackageMeets(card, pkg) {
+function deliveryPackageMeets(card, pkg, contract) {
     const model = card.deliveryEmail;
     if (!model)
         return [];
@@ -58,10 +63,17 @@ function deliveryPackageMeets(card, pkg) {
     if (count > model.keyScreens.max) {
         missing.push(`al massimo ${model.keyScreens.max} schermate chiave, ce ne sono ${count}`);
     }
+    // A supplied contract requires every screen even when the saved model allows fewer.
+    if (contract && count < contract.screens) {
+        missing.push(`servono tutte le schermate del contratto: ${contract.screens}, ce ne sono ${count}`);
+    }
     if (model.overviewSheet && !pkg.overviewSheet)
         missing.push('manca il foglio unico');
     if (model.preview && !pkg.preview)
         missing.push("manca l'anteprima");
+    if (model.walkthrough === true && pkg.preview && !pkg.preview.walkthrough) {
+        missing.push('manca il percorso della demo');
+    }
     return missing;
 }
 //# sourceMappingURL=business-unit-type.js.map

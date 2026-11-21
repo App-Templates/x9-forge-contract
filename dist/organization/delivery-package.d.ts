@@ -1,5 +1,8 @@
 import { z } from 'zod';
 export declare const DELIVERY_PACKAGE_FILE_NAME: "CONSEGNA.json";
+export declare const DELIVERY_PACKAGE_MAX_KEY_SCREENS = 40;
+export declare const DELIVERY_PACKAGE_FILE_MAX_BYTES: number;
+export declare const DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES: number;
 export declare const DELIVERY_PACKAGE_IMAGE_EXTENSIONS: readonly ["png", "jpg", "jpeg"];
 export declare const DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS: readonly ["png", "jpg", "jpeg", "pdf"];
 export declare const DELIVERY_PACKAGE_PREVIEW_EXTENSIONS: readonly ["html", "pdf", "png"];
@@ -22,6 +25,11 @@ export declare const DeliveryPackageSchema: z.ZodObject<{
     }, z.core.$strict>>;
     preview: z.ZodOptional<z.ZodObject<{
         path: z.ZodString;
+        walkthrough: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            screen: z.ZodString;
+            caption: z.ZodString;
+            clickText: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>>;
     documents: z.ZodOptional<z.ZodArray<z.ZodObject<{
         path: z.ZodString;

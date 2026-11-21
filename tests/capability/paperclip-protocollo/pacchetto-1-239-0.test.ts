@@ -846,21 +846,47 @@ describe('s8200 pacchetto-1-259-0', () => {
 });
 
 describe('s8190 pacchetto-1-260-0', () => {
-  it('s8190_version: package and first release are 1.260.0 and retain 1.259.0 and 1.258.0', () => {
+  it('s8190_version: the changelog retains 1.260.0, 1.259.0 and 1.258.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.260.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.260.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.260.0');
     expect(changelog).toContain('## v1.259.0');
     expect(changelog).toContain('## v1.258.0');
   });
 
-  it('s8190_map: the narrow-import map is at 1.260.0 and keeps the session mandate route', () => {
+  it('s8190_map: the narrow-import map follows the package version and keeps the session mandate route', () => {
     const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
       versione: string;
       barili: Record<string, Record<string, string>>;
     };
-    expect(map.versione).toBe('1.260.0');
+    expect(map.versione).toBe(packageVersion());
     expect(map.barili['@x9-forge/contracts/http']?.internalPaperclipSeatSessionMandateContract)
       .toBe('@x9-forge/contracts/http/endpoints/internal-paperclip-seats');
+  });
+});
+
+describe('s8220 pacchetto-1-261-0', () => {
+  it('s8220_version: package and first release are 1.261.0 and retain 1.260.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.261.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.261.0');
+    expect(changelog).toContain('## v1.260.0');
+    expect(changelog).toContain('REGRESSIONE: s8220 pacchetto-di-dodici-schermate');
+  });
+
+  it('s8220_map: the narrow-import map carries the version and delivery package thresholds', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
+      versione: string;
+      barili: Record<string, Record<string, string>>;
+    };
+    expect(map.versione).toBe('1.261.0');
+    for (const name of [
+      'DELIVERY_PACKAGE_MAX_KEY_SCREENS',
+      'DELIVERY_PACKAGE_FILE_MAX_BYTES',
+      'DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES',
+    ]) {
+      expect(map.barili['@x9-forge/contracts/organization']?.[name])
+        .toBe('@x9-forge/contracts/organization/delivery-package');
+    }
   });
 });

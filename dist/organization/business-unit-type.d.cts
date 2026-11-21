@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { DeliveryPackage } from "./delivery-package.cjs";
+import { type DeliveryPackage } from "./delivery-package.cjs";
 /**
  * Business unit types whose lead is born by the capo-bu route (Forge F2F-01, `businessUnitBirthPlan`): the ids of
  * the lead types of Forge's catalog (`packages/shared/src/business-unit-types.ts`, commit 0e150e058). An action plan
@@ -22,6 +22,7 @@ export declare const DeliveryEmailModelSchema: z.ZodObject<{
     }, z.core.$strict>;
     overviewSheet: z.ZodBoolean;
     preview: z.ZodBoolean;
+    walkthrough: z.ZodOptional<z.ZodBoolean>;
 }, z.core.$strict>;
 export type DeliveryEmailModel = z.infer<typeof DeliveryEmailModelSchema>;
 export declare const BUSINESS_UNIT_DELIVERY_EMAIL_DEFAULTS: Readonly<Partial<Record<BusinessUnitLeadTypeId, DeliveryEmailModel>>>;
@@ -54,10 +55,13 @@ export declare const BusinessUnitTypeCardSchema: z.ZodObject<{
         }, z.core.$strict>;
         overviewSheet: z.ZodBoolean;
         preview: z.ZodBoolean;
+        walkthrough: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>>;
     version: z.ZodNumber;
 }, z.core.$strict>;
 export type BusinessUnitTypeCard = z.infer<typeof BusinessUnitTypeCardSchema>;
 /** Missing delivery requirements in presentation order; legacy cards impose none. */
-export declare function deliveryPackageMeets(card: Pick<BusinessUnitTypeCard, 'deliveryEmail'>, pkg: DeliveryPackage): string[];
+export declare function deliveryPackageMeets(card: Pick<BusinessUnitTypeCard, 'deliveryEmail'>, pkg: DeliveryPackage, contract?: {
+    screens: number;
+}): string[];
 //# sourceMappingURL=business-unit-type.d.ts.map

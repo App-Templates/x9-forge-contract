@@ -76,9 +76,9 @@ describe('DeliveryPackageSchema', () => {
     expect(DeliveryPackageSchema.safeParse({ ...minimal(), preview: { path: 'x.zip' } }).success).toBe(false);
   });
 
-  it('accepts eight screens and rejects nine screens', () => {
-    const keyScreens = Array.from({ length: 9 }, (_, index) => ({ path: `screen-${index}.png`, caption: 'Screen' }));
-    expect(DeliveryPackageSchema.safeParse({ ...minimal(), keyScreens: keyScreens.slice(0, 8) }).success).toBe(true);
+  it('accepts forty screens and rejects forty-one screens', () => {
+    const keyScreens = Array.from({ length: 41 }, (_, index) => ({ path: `screen-${index}.png`, caption: 'Screen' }));
+    expect(DeliveryPackageSchema.safeParse({ ...minimal(), keyScreens: keyScreens.slice(0, 40) }).success).toBe(true);
     expect(DeliveryPackageSchema.safeParse({ ...minimal(), keyScreens }).success).toBe(false);
   });
 

@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.261.0 — delivery packages carry every screen and the demo walkthrough (task 8220)
+
+- Additive `organization` contracts: up to 40 key screens (20 screens in two formats), an optional strict preview walkthrough of 1–40 unique screens, and visible navigation commands after the opening step. Saved packages without a walkthrough remain valid; attachment paths are unchanged.
+- The design email default requests 1–40 screens, the overview sheet, preview and walkthrough. `deliveryPackageMeets(card, pkg, contract?)` can require every contract screen; saved 6–8 models keep their requirements. Export file and email attachment thresholds of 25 MiB and 30 MiB without adding schema restrictions. Consumers, PDF generation and email delivery remain separate tasks.
+- REGRESSIONE: s8220 pacchetto-di-dodici-schermate: un pacchetto nella forma descritta per Dispensa Pronta (12 immagini con didascalia, `schermate.pdf`, `demo.html` e tre passi) prima è rifiutato dal limite di 8 e dal campo `walkthrough` sconosciuto; dopo passa, elenca i 14 file e soddisfa il modello del design con tutte le 12 schermate del contratto. Il JSON originale di GOO-180 non è disponibile nel repository: la prova usa la forma descritta nella scheda.
+
 ## v1.260.0 — the fixed section "Come si comunica" says that opening, reopening, correcting or redoing a session on one's own issue is the lead's decision (task 8190)
 
 - Text-only: one more paragraph in `communicationSectionLines()` between the line of task 8184 and "Fuori dall'azienda": sessions on the lead's own issue are the lead's decision, without the Director's authorization; the Director does not authorize or forbid them and a Director's ban does not stop the lead. No export, process or recipient changes; the Director still decides plan, spending and answers.
