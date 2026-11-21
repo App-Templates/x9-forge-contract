@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.283.0 — typed chief questions carry their source plan and refusal attempts (task 8380)
+
+- Add strict `AgentQuestionDetailsSchema`, optional `AgentRequest.details` (requiring `plan` when present), and Director creation schemas composed from the existing id-based inputs, preserving native wait checks. Historical requests keep schemaVersion 1 and need no plan or details. Add deterministic full-request records fenced with `x9-agent-question:v1`, strict parsing that rejects broken or duplicate records, and a reserved-marker check for model prose. No status or consumer changes; inert until 8383/8384. Tests reconstruct the documented shape, not production extracts.
+- REGRESSIONE: s8380 regressione: con la forma di GOO-194 e del mandato riconciliato di `lead-asks-director.test.ts:45-49`, un tipo `technical_fault` e il rifiuto con i tentativi oggi sono campi sconosciuti; dopo sono trasportati senza perdere il piano; un rifiuto senza tentativi è respinto, mentre la richiesta storica senza dettagli resta identica.
+
 ## v1.282.0 — completing a mandate keeps the specific proof of a declared requirement (task 8346)
 
 - `devSessionCompleteMandateCriteria` now takes the `attestor` and `proof` of the piece's `requirements[i]` when the plan declares them; ids stay `<piece>.<position>` and text stays the delivery criterion. A declared reviewer is honoured only when the unit has one (otherwise referent, as before). Pieces without `requirements` keep the generic proof, and criteria already present in the session come back untouched. A declared proof is never turned into a verified judgement. No schema, default or consumer change.

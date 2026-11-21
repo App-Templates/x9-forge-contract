@@ -549,6 +549,21 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
             planId: z.ZodString;
             version: z.ZodInt;
         }, z.core.$strict>>;
+        details: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                clarification: "clarification";
+                scope_decision: "scope_decision";
+                technical_fault: "technical_fault";
+                clearance: "clearance";
+            }>;
+            cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"question">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"refusal">;
+                code: z.ZodString;
+                tried: z.ZodArray<z.ZodString>;
+            }, z.core.$strict>], "kind">;
+        }, z.core.$strict>>;
         requestedAt: z.ZodISODateTime;
     }, z.core.$strict>;
 }, z.core.$strict>, z.ZodObject<{
@@ -684,6 +699,21 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             plan: z.ZodOptional<z.ZodObject<{
                 planId: z.ZodString;
                 version: z.ZodInt;
+            }, z.core.$strict>>;
+            details: z.ZodOptional<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    clarification: "clarification";
+                    scope_decision: "scope_decision";
+                    technical_fault: "technical_fault";
+                    clearance: "clearance";
+                }>;
+                cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"question">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"refusal">;
+                    code: z.ZodString;
+                    tried: z.ZodArray<z.ZodString>;
+                }, z.core.$strict>], "kind">;
             }, z.core.$strict>>;
             requestedAt: z.ZodISODateTime;
         }, z.core.$strict>;
@@ -913,6 +943,21 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 plan: z.ZodOptional<z.ZodObject<{
                     planId: z.ZodString;
                     version: z.ZodInt;
+                }, z.core.$strict>>;
+                details: z.ZodOptional<z.ZodObject<{
+                    kind: z.ZodEnum<{
+                        clarification: "clarification";
+                        scope_decision: "scope_decision";
+                        technical_fault: "technical_fault";
+                        clearance: "clearance";
+                    }>;
+                    cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"question">;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"refusal">;
+                        code: z.ZodString;
+                        tried: z.ZodArray<z.ZodString>;
+                    }, z.core.$strict>], "kind">;
                 }, z.core.$strict>>;
                 requestedAt: z.ZodISODateTime;
             }, z.core.$strict>;
