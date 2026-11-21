@@ -20,6 +20,7 @@ import {
   SocialVerticalSchema,
 } from './topic.js';
 import { socialCostPerPost } from './fact-memory.js';
+import { SOCIAL_ROUND_ENDED_STATES } from './queue.js';
 
 /**
  * The tools of the social listening capability. Agents (Telegram and X9 Live web reach the same agent-core router)
@@ -77,6 +78,10 @@ export const SocialProfileUnfollowInputSchema = z.strictObject({
 export const SocialVerticalsListInputSchema = z.strictObject({});
 export const SocialVerticalSetInputSchema = SocialVerticalSchema;
 
+/** Why a fuffa topic is fuffa, in at most 200 characters, with the link of the first post; DATA, never instructions. */
+export const SocialRecapFuffaSchema = z.strictObject({ reason: z.string().min(1).max(200), postLink: WebUrlSchema });
+export type SocialRecapFuffa = z.infer<typeof SocialRecapFuffaSchema>;
+
 /** The topic as the recap lists it: the full text is read with `social_topic_get`. */
 export const SocialRecapTopicSummarySchema = z.strictObject({
   topicId: z.string().min(1).max(100),
@@ -85,6 +90,21 @@ export const SocialRecapTopicSummarySchema = z.strictObject({
   verdict: SocialVerdictSchema,
   heat: z.number().min(0).max(10),
   cost: SocialTopicCostSchema,
+  /** Posts of the topic. */
+  postCount: z.int().min(1).max(100).optional(),
+  /** Distinct creators of the topic. */
+  creatorCount: z.int().min(1).max(50).optional(),
+  /** The first three creators, in the order of the topic. */
+  creators: z.array(SocialHandleSchema).min(1).max(3).optional(),
+  /** Present only on a fuffa topic. */
+  fuffa: SocialRecapFuffaSchema.optional(),
+}).superRefine((t, ctx) => {
+  if (t.fuffa !== undefined && t.verdict !== 'fuffa') {
+    ctx.addIssue({ code: 'custom', path: ['fuffa'], message: 'fuffa only on a topic with verdict fuffa' });
+  }
+  if (t.creators !== undefined && t.creatorCount !== undefined && t.creators.length > t.creatorCount) {
+    ctx.addIssue({ code: 'custom', path: ['creators'], message: 'creators must not exceed creatorCount' });
+  }
 });
 
 const NonNegativeIntSchema = z.number().int().nonnegative();
@@ -154,6 +174,15 @@ export const SocialRecapOutputSchema = z.strictObject({
   spentUsd: z.number().nonnegative().finite(),
   /** Cost of one post in USD of the round, from `socialCostPerPost`; absent when no post was seen and on recaps built before. */
   costPerPostUsd: z.number().nonnegative().finite().optional(),
+  /** Verdicts of the posts (not of the topics, see `counts`); their sum never exceeds `postsSeen`. */
+  postVerdicts: z.strictObject(
+    Object.fromEntries(SOCIAL_VERDICTS.map(v => [v, NonNegativeIntSchema])) as Record<
+      (typeof SOCIAL_VERDICTS)[number],
+      typeof NonNegativeIntSchema
+    >,
+  ).optional(),
+  /** How the round ended. */
+  state: z.enum(SOCIAL_ROUND_ENDED_STATES).optional(),
   endReason: SocialRecapEndReasonSchema.optional(),
   topics: z.array(SocialRecapTopicSummarySchema).max(50),
 }).superRefine((r, ctx) => {
@@ -174,6 +203,12 @@ export const SocialRecapOutputSchema = z.strictObject({
     if (r.day > r.requestedDay) {
       ctx.addIssue({ code: 'custom', path: ['requestedDay'], message: 'requestedDay must not precede day' });
     }
+  }
+  if (r.state !== undefined && r.endReason !== undefined && r.state !== 'failed') {
+    ctx.addIssue({ code: 'custom', path: ['endReason'], message: 'endReason only when state is failed' });
+  }
+  if (r.postVerdicts !== undefined && Object.values(r.postVerdicts).reduce((a, b) => a + b, 0) > r.postsSeen) {
+    ctx.addIssue({ code: 'custom', path: ['postVerdicts'], message: 'postVerdicts must not exceed postsSeen' });
   }
   if (r.costPerPostUsd === undefined) return;
   if (r.costPerPostUsd !== socialCostPerPost({ spentUsd: r.spentUsd, postsSeen: r.postsSeen })) {
