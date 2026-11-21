@@ -5,6 +5,8 @@ type MandateCriterion = {
     text: string;
     attestor: Extract<DevSessionAttestor, 'revisore' | 'referente'>;
     units: string[];
+    /** Present only when the plan declared a structured requirement for this position. */
+    proof?: string;
 };
 /** Extract only this piece's criteria, preserving blank entries and their plan positions. */
 export declare function devSessionMandateCriteria(mandate: ReconciledMandate, deliverableKey: string): MandateCriterion[] | null;

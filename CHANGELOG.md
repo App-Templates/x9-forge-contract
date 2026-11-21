@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.282.0 — completing a mandate keeps the specific proof of a declared requirement (task 8346)
+
+- `devSessionCompleteMandateCriteria` now takes the `attestor` and `proof` of the piece's `requirements[i]` when the plan declares them; ids stay `<piece>.<position>` and text stays the delivery criterion. A declared reviewer is honoured only when the unit has one (otherwise referent, as before). Pieces without `requirements` keep the generic proof, and criteria already present in the session come back untouched. A declared proof is never turned into a verified judgement. No schema, default or consumer change.
+- REGRESSIONE: s8346 principale: Mandato con lista-spesa.1 e proof specifica Aprire la lista con una voce scaduta: oggi il completamento produce la frase generica; dopo il criterio aggiunto ha quella prova e lo stesso nome/testo. Il mandato vecchio conserva la prova generica. Forma documentata con valori di prova, non una cattura di produzione; corpi R56/R57/R61 e prova dal vivo alla coordinatrice.
+
 ## v1.281.0 — the entry check lists the missing piece metadata without tightening the reading of old mandates (task 8345)
 
 - Add `organization/mandate-birth` with the pure functions `actionPlanContractProblems(plan)` and `mandateContractProblems(planSection)`, sharing one engine. They return only field paths (never bodies or personal data) for the `requirements`, `specifications` and `outputForm` each effective piece lacks: product `workBreakdown` items with an owner (a mandate keeps only its own unit's), or the study `sections`. Owner-less parent items are not asked; no named pieces returns the container path, never an empty success. Types are imported as types only; saved schemas, defaults and consumers are unchanged, so `ReconciledMandateSchema` keeps reading historical mandates. Inert until 8350/8351 call it.

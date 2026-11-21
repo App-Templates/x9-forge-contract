@@ -6,6 +6,8 @@ type MandateCriterion = {
   text: string;
   attestor: Extract<DevSessionAttestor, 'revisore' | 'referente'>;
   units: string[];
+  /** Present only when the plan declared a structured requirement for this position. */
+  proof?: string;
 };
 
 /** Extract only this piece's criteria, preserving blank entries and their plan positions. */
@@ -14,18 +16,28 @@ export function devSessionMandateCriteria(mandate: ReconciledMandate, deliverabl
   const { businessUnit, workBreakdown, deliveryShape } = mandate.planSection;
   let deliveryCriteria: string[];
   let units: string[] = [];
+  let requirements: { attestor: DevSessionAttestor; proof: string }[] | undefined;
   if (deliveryShape === 'product' && workBreakdown !== undefined) {
     const item = workBreakdown.find((entry) => entry.id === deliverableKey);
     if (item === undefined) return null;
     deliveryCriteria = item.deliveryCriteria;
     units = item.owners.filter((owner) => owner.buSlug !== businessUnit.buSlug).map((owner) => owner.buSlug);
+    requirements = item.requirements;
   } else {
     const section = businessUnit.sections?.find((entry) => entry.id === deliverableKey);
     if (section === undefined) return null;
     deliveryCriteria = section.deliveryCriteria;
+    requirements = section.requirements;
   }
-  const attestor = businessUnit.reviewer !== undefined ? 'revisore' : 'referente';
-  return deliveryCriteria.map((text) => ({ text: text.trim(), attestor, units: [...units] }));
+  const fallback = businessUnit.reviewer !== undefined ? 'revisore' : 'referente';
+  return deliveryCriteria.map((text, index) => {
+    // The plan schema keeps requirements one-to-one with deliveryCriteria, so the position is the link; text and id stay those of the criterion.
+    const declared = requirements?.[index];
+    if (declared === undefined) return { text: text.trim(), attestor: fallback, units: [...units] };
+    // A declared reviewer is honoured only when the unit has one, as today; a declared referent is kept as written.
+    const attestor = declared.attestor === 'revisore' && businessUnit.reviewer !== undefined ? 'revisore' : 'referente';
+    return { text: text.trim(), attestor, units: [...units], proof: declared.proof };
+  });
 }
 
 export const DEV_SESSION_MANDATE_ACCEPTANCE_PROBLEMS = [
@@ -101,7 +113,7 @@ export function devSessionCompleteMandateCriteria(mandate: ReconciledMandate, de
   fromMandate.forEach((criterion, index) => {
     if (present.has(criterion.text)) return;
     present.add(criterion.text);
-    added.push({ id: mandateCriterionId(deliverableKey, index), text: criterion.text, attestor: criterion.attestor, proof: DEV_SESSION_MANDATE_CRITERION_PROOF, origin: 'mandato' });
+    added.push({ id: mandateCriterionId(deliverableKey, index), text: criterion.text, attestor: criterion.attestor, proof: criterion.proof ?? DEV_SESSION_MANDATE_CRITERION_PROOF, origin: 'mandato' });
   });
   if (added.length === 0) return { ok: true, criteria: own };
   // Too long is refused, never cut: a cut id could collide with another piece's.
