@@ -202,6 +202,7 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             role: z.ZodString;
             name: z.ZodString;
         }, z.core.$strict>>>>;
+        note: z.ZodOptional<z.ZodString>;
         requestId: z.ZodString;
         decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
@@ -265,6 +266,7 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
                 entryDigest: z.ZodString;
             }, z.core.$strict>>>;
         }, z.core.$strict>], "kind">>;
+        referentWords: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>, z.ZodObject<{
         outcome: z.ZodLiteral<"rejected">;
         reason: z.ZodString;
@@ -331,6 +333,7 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
                 entryDigest: z.ZodString;
             }, z.core.$strict>>>;
         }, z.core.$strict>], "kind">>;
+        referentWords: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>], "outcome">;
 }, z.core.$strict>], "state">;
 export type InternalMemoryDecisionRequestReadResponse = z.infer<typeof InternalMemoryDecisionRequestReadResponseSchema>;
@@ -541,6 +544,7 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 role: z.ZodString;
                 name: z.ZodString;
             }, z.core.$strict>>>>;
+            note: z.ZodOptional<z.ZodString>;
             requestId: z.ZodString;
             decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
@@ -604,6 +608,7 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                     entryDigest: z.ZodString;
                 }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
+            referentWords: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
             reason: z.ZodString;
@@ -670,6 +675,7 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                     entryDigest: z.ZodString;
                 }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
+            referentWords: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>], "outcome">;
     }, z.core.$strict>], "state">>;
 }, z.core.$strict>;
@@ -884,6 +890,7 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                 role: z.ZodString;
                 name: z.ZodString;
             }, z.core.$strict>>>>;
+            note: z.ZodOptional<z.ZodString>;
             requestId: z.ZodString;
             decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
@@ -947,6 +954,7 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                     entryDigest: z.ZodString;
                 }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
+            referentWords: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
             reason: z.ZodString;
@@ -1013,6 +1021,7 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                     entryDigest: z.ZodString;
                 }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
+            referentWords: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>], "outcome">;
     }, z.core.$strict>], "state">>;
     nextCursor: z.ZodNullable<z.ZodString>;
@@ -1336,6 +1345,7 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 role: z.ZodString;
                 name: z.ZodString;
             }, z.core.$strict>>>>;
+            note: z.ZodOptional<z.ZodString>;
             requestId: z.ZodString;
             decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
@@ -1399,6 +1409,7 @@ export declare const internalMemoryDecisionRequestReadContract: {
                     entryDigest: z.ZodString;
                 }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
+            referentWords: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
             reason: z.ZodString;
@@ -1465,6 +1476,7 @@ export declare const internalMemoryDecisionRequestReadContract: {
                     entryDigest: z.ZodString;
                 }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
+            referentWords: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>], "outcome">;
     }, z.core.$strict>], "state">;
 };
@@ -1497,6 +1509,7 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
             role: z.ZodString;
             name: z.ZodString;
         }, z.core.$strict>>>>;
+        note: z.ZodOptional<z.ZodString>;
         requestId: z.ZodString;
         decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
@@ -1560,6 +1573,7 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
                 entryDigest: z.ZodString;
             }, z.core.$strict>>>;
         }, z.core.$strict>], "kind">>;
+        referentWords: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>, z.ZodObject<{
         outcome: z.ZodLiteral<"rejected">;
         reason: z.ZodString;
@@ -1626,6 +1640,7 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
                 entryDigest: z.ZodString;
             }, z.core.$strict>>>;
         }, z.core.$strict>], "kind">>;
+        referentWords: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>], "outcome">;
     readonly responseSchema: z.ZodObject<{
         result: z.ZodEnum<{
@@ -1838,6 +1853,7 @@ export declare const internalMemoryDecisionRequestListContract: {
                     role: z.ZodString;
                     name: z.ZodString;
                 }, z.core.$strict>>>>;
+                note: z.ZodOptional<z.ZodString>;
                 requestId: z.ZodString;
                 decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
@@ -1901,6 +1917,7 @@ export declare const internalMemoryDecisionRequestListContract: {
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>, z.ZodObject<{
                 outcome: z.ZodLiteral<"rejected">;
                 reason: z.ZodString;
@@ -1967,6 +1984,7 @@ export declare const internalMemoryDecisionRequestListContract: {
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>], "outcome">;
         }, z.core.$strict>], "state">>;
     }, z.core.$strict>;
@@ -2189,6 +2207,7 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                     role: z.ZodString;
                     name: z.ZodString;
                 }, z.core.$strict>>>>;
+                note: z.ZodOptional<z.ZodString>;
                 requestId: z.ZodString;
                 decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
@@ -2252,6 +2271,7 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>, z.ZodObject<{
                 outcome: z.ZodLiteral<"rejected">;
                 reason: z.ZodString;
@@ -2318,6 +2338,7 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>], "outcome">;
         }, z.core.$strict>], "state">>;
         nextCursor: z.ZodNullable<z.ZodString>;

@@ -894,8 +894,7 @@ describe('s8220 pacchetto-1-261-0', () => {
 describe('s8221 pacchetto-1-262-0', () => {
   it('s8221_version: package and first release are 1.262.0 and retain the previous release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.262.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.262.0');
+    expect(changelog).toContain('## v1.262.0');
     expect(changelog).toContain('## v1.261.0');
     expect(changelog).toContain('REGRESSIONE: s8221 anteprima-della-demo');
   });
@@ -905,8 +904,28 @@ describe('s8221 pacchetto-1-262-0', () => {
       versione: string;
       barili: Record<string, Record<string, string>>;
     };
-    expect(map.versione).toBe('1.262.0');
+    expect(map.versione).toBe(packageVersion());
     expect(map.barili['@x9-forge/contracts/capability']?.paperclipProdottoDaAnteprima)
       .toBe('@x9-forge/contracts/capability/paperclip-protocollo/wire-prodotti');
+  });
+});
+
+describe('s8230 pacchetto-1-263-0', () => {
+  it('s8230_version: package and first release are 1.263.0 and retain the previous release', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.263.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.263.0');
+    expect(changelog).toContain('## v1.262.0');
+    expect(changelog).toContain('REGRESSIONE: s8230 parole-del-referente');
+  });
+
+  it('s8230_map: the narrow-import map carries the version and the referent words limit', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
+      versione: string;
+      barili: Record<string, Record<string, string>>;
+    };
+    expect(map.versione).toBe('1.263.0');
+    expect(map.barili['@x9-forge/contracts/organization']?.REFERENT_WORDS_MAX)
+      .toBe('@x9-forge/contracts/organization/decision-request');
   });
 });

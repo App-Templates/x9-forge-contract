@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.262.0",
+  "versione": "1.263.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2974,6 +2974,7 @@
       "PublishMaterialRequestSchema": "@x9-forge/contracts/organization/publication-operations",
       "PublishMaterialResponseSchema": "@x9-forge/contracts/organization/publication-operations",
       "REFERENT_FOR_UNIT_REFUSALS": "@x9-forge/contracts/organization/company-map",
+      "REFERENT_WORDS_MAX": "@x9-forge/contracts/organization/decision-request",
       "RICERCA_ROLE": "@x9-forge/contracts/organization/agent-role",
       "ReadMaterialRequestSchema": "@x9-forge/contracts/organization/publication-operations",
       "ReadMaterialResponseSchema": "@x9-forge/contracts/organization/publication-operations",

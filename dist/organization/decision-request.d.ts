@@ -252,6 +252,8 @@ export declare const DecisionRequestSchema: z.ZodObject<{
     createdAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type DecisionRequest = z.infer<typeof DecisionRequestSchema>;
+/** Same cap as the interpreted refusal reason: the referent's own words are trimmed to it by the consumer. */
+export declare const REFERENT_WORDS_MAX = 2000;
 /** Recorded human answer to a decision request. */
 export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     outcome: z.ZodLiteral<"approved">;
@@ -269,6 +271,7 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         role: z.ZodString;
         name: z.ZodString;
     }, z.core.$strict>>>>;
+    note: z.ZodOptional<z.ZodString>;
     requestId: z.ZodString;
     decidedBy: z.ZodUnion<readonly [z.ZodObject<{
         kind: z.ZodLiteral<"owner">;
@@ -332,6 +335,7 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             entryDigest: z.ZodString;
         }, z.core.$strict>>>;
     }, z.core.$strict>], "kind">>;
+    referentWords: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>, z.ZodObject<{
     outcome: z.ZodLiteral<"rejected">;
     reason: z.ZodString;
@@ -398,6 +402,7 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             entryDigest: z.ZodString;
         }, z.core.$strict>>>;
     }, z.core.$strict>], "kind">>;
+    referentWords: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>], "outcome">;
 export type DecisionOutcome = z.infer<typeof DecisionOutcomeSchema>;
 /** True when the outcome decides the same exact subject (or neither names one). */
@@ -427,10 +432,13 @@ export declare const DecisionEmailReplySchema: z.ZodDiscriminatedUnion<[z.ZodObj
         role: z.ZodString;
         name: z.ZodString;
     }, z.core.$strict>>>>;
+    referentWords: z.ZodOptional<z.ZodString>;
+    note: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"refuse">;
     requestId: z.ZodString;
     reason: z.ZodString;
+    referentWords: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"unclear">;
     requestId: z.ZodString;

@@ -175,6 +175,7 @@ export declare const InternalMemoryBusinessUnitStateResponseSchema: z.ZodDiscrim
                     role: z.ZodString;
                     name: z.ZodString;
                 }, z.core.$strict>>>>;
+                note: z.ZodOptional<z.ZodString>;
                 requestId: z.ZodString;
                 decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
@@ -238,6 +239,7 @@ export declare const InternalMemoryBusinessUnitStateResponseSchema: z.ZodDiscrim
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>, z.ZodObject<{
                 outcome: z.ZodLiteral<"rejected">;
                 reason: z.ZodString;
@@ -304,6 +306,7 @@ export declare const InternalMemoryBusinessUnitStateResponseSchema: z.ZodDiscrim
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>], "outcome">>;
         }, z.core.$strict>>;
         leadReviews: z.ZodArray<z.ZodObject<{
@@ -537,6 +540,7 @@ export declare const internalMemoryBusinessUnitStateContract: {
                         role: z.ZodString;
                         name: z.ZodString;
                     }, z.core.$strict>>>>;
+                    note: z.ZodOptional<z.ZodString>;
                     requestId: z.ZodString;
                     decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                         kind: z.ZodLiteral<"owner">;
@@ -600,6 +604,7 @@ export declare const internalMemoryBusinessUnitStateContract: {
                             entryDigest: z.ZodString;
                         }, z.core.$strict>>>;
                     }, z.core.$strict>], "kind">>;
+                    referentWords: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>, z.ZodObject<{
                     outcome: z.ZodLiteral<"rejected">;
                     reason: z.ZodString;
@@ -666,6 +671,7 @@ export declare const internalMemoryBusinessUnitStateContract: {
                             entryDigest: z.ZodString;
                         }, z.core.$strict>>>;
                     }, z.core.$strict>], "kind">>;
+                    referentWords: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>], "outcome">>;
             }, z.core.$strict>>;
             leadReviews: z.ZodArray<z.ZodObject<{

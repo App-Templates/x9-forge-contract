@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReferentReplyHandoverSchema = exports.DELIVERY_DECISION_DUPLICATE_CODES = exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionOptionEffectSchema = exports.DECISION_OPTION_EFFECTS = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
+exports.ReferentReplyHandoverSchema = exports.DELIVERY_DECISION_DUPLICATE_CODES = exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.REFERENT_WORDS_MAX = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionOptionEffectSchema = exports.DECISION_OPTION_EFFECTS = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
 exports.confirmationSetDigest = confirmationSetDigest;
 exports.decisionOutcomeMatchesSubject = decisionOutcomeMatchesSubject;
 exports.decisionRequestSubjectLabel = decisionRequestSubjectLabel;
@@ -156,6 +156,8 @@ exports.DecisionRequestSchema = zod_1.z.strictObject({
         ctx.addIssue({ code: 'custom', path: ['addressedTo'], message: 'A plan or unbound request requires the owner' });
     }
 });
+/** Same cap as the interpreted refusal reason: the referent's own words are trimmed to it by the consumer. */
+exports.REFERENT_WORDS_MAX = 2000;
 const outcomeBase = {
     requestId: exports.DecisionRequestIdSchema,
     decidedBy: zod_1.z.union([zod_1.z.strictObject({ kind: zod_1.z.literal('owner'), ownerId: agent_identity_js_1.OwnerIdSchema }), ReferentSchema]),
@@ -163,12 +165,16 @@ const outcomeBase = {
     channel: exports.DecisionRequestChannelSchema,
     sourceRef: zod_1.z.string().min(1).max(512),
     subject: exports.DecisionSubjectSchema.optional(),
+    // The referent's real words, kept next to `reason` (which stays the option label or the lead's text) so existing readers see the same outcome.
+    referentWords: zod_1.z.string().min(1).max(exports.REFERENT_WORDS_MAX).optional(),
 };
 /** Recorded human answer to a decision request. */
 exports.DecisionOutcomeSchema = zod_1.z.discriminatedUnion('outcome', [
     zod_1.z.strictObject({
         ...outcomeBase, outcome: zod_1.z.literal('approved'), optionId: OptionIdSchema,
         referentChanges: zod_1.z.array(exports.CompanyMapReferentChangeSchema).max(20).optional(),
+        // The reservation of "approve, but...": it lives inside the referent's words.
+        note: zod_1.z.string().min(3).max(exports.REFERENT_WORDS_MAX).optional(),
     }),
     zod_1.z.strictObject({ ...outcomeBase, outcome: zod_1.z.literal('rejected'), reason: zod_1.z.string().min(3).max(2000) }),
 ]).superRefine((outcome, ctx) => {
@@ -179,6 +185,20 @@ exports.DecisionOutcomeSchema = zod_1.z.discriminatedUnion('outcome', [
         if (outcome.referentChanges !== undefined
             && (outcome.subject?.kind !== 'confirmation_set' || outcome.optionId !== 'confermo')) {
             ctx.addIssue({ code: 'custom', path: ['referentChanges'], message: 'Referent changes require a confirmed confirmation set' });
+        }
+    }
+    if (outcome.subject?.kind !== 'delivery') {
+        // Only deliveries are answered by a referent in their own words; plans and maps stay as they were.
+        if (outcome.referentWords !== undefined) {
+            ctx.addIssue({ code: 'custom', path: ['referentWords'], message: 'Referent words are only for a delivery' });
+        }
+        if (outcome.outcome === 'approved' && outcome.note !== undefined) {
+            ctx.addIssue({ code: 'custom', path: ['note'], message: 'A note is only for a delivery' });
+        }
+    }
+    if (outcome.outcome === 'approved') {
+        if (outcome.note !== undefined && outcome.referentWords === undefined) {
+            ctx.addIssue({ code: 'custom', path: ['note'], message: 'A note must sit inside the referent words' });
         }
     }
     if (outcome.subject?.kind === 'delivery') {
@@ -235,8 +255,13 @@ exports.DecisionEmailReplySchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.strictObject({
         kind: zod_1.z.literal('approve'), requestId: exports.DecisionRequestIdSchema, optionId: OptionIdSchema.optional(),
         referentChanges: zod_1.z.array(exports.CompanyMapReferentChangeSchema).max(20).optional(),
+        referentWords: outcomeBase.referentWords,
+        note: zod_1.z.string().min(3).max(exports.REFERENT_WORDS_MAX).optional(),
     }),
-    zod_1.z.strictObject({ kind: zod_1.z.literal('refuse'), requestId: exports.DecisionRequestIdSchema, reason: zod_1.z.string().min(3).max(2000) }),
+    zod_1.z.strictObject({
+        kind: zod_1.z.literal('refuse'), requestId: exports.DecisionRequestIdSchema, reason: zod_1.z.string().min(3).max(2000),
+        referentWords: outcomeBase.referentWords,
+    }),
     zod_1.z.strictObject({
         kind: zod_1.z.literal('unclear'),
         requestId: exports.DecisionRequestIdSchema,
@@ -251,6 +276,12 @@ function decisionOutcomeFromEmailReply(input) {
     const delivery = request.subject?.kind === 'delivery';
     const confirmationSet = request.subject?.kind === 'confirmation_set';
     if (reply.kind === 'approve' && reply.referentChanges !== undefined && !confirmationSet) {
+        return { ok: false, code: 'mismatch' };
+    }
+    // Same guard as the referent changes: words and note belong to a delivery, and a note sits inside the words.
+    if (reply.kind !== 'unclear' && !delivery && reply.referentWords !== undefined)
+        return { ok: false, code: 'mismatch' };
+    if (reply.kind === 'approve' && reply.note !== undefined && (!delivery || reply.referentWords === undefined)) {
         return { ok: false, code: 'mismatch' };
     }
     if (delivery) {
@@ -277,8 +308,10 @@ function decisionOutcomeFromEmailReply(input) {
         sourceRef: messageId,
         ...(delivery || confirmationSet ? { subject: request.subject } : {}),
     };
+    // The words are one more field: `reason` keeps today's value for every consumer.
+    const words = reply.referentWords !== undefined ? { referentWords: reply.referentWords } : {};
     if (reply.kind === 'refuse') {
-        return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: reply.reason }) };
+        return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, ...words, outcome: 'rejected', reason: reply.reason }) };
     }
     let optionId = reply.optionId;
     if (optionId === undefined) {
@@ -290,13 +323,14 @@ function decisionOutcomeFromEmailReply(input) {
     if (option === undefined)
         return { ok: false, code: 'unknown_option' };
     if (confirmationSet && optionId !== 'confermo') {
-        return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
+        return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, ...words, outcome: 'rejected', reason: option.label }) };
     }
     if (option.effect === 'request_changes' || option.effect === 'reject') {
-        return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
+        return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, ...words, outcome: 'rejected', reason: option.label }) };
     }
     return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({
-            ...base, outcome: 'approved', optionId,
+            ...base, ...words, outcome: 'approved', optionId,
+            ...(reply.note !== undefined ? { note: reply.note } : {}),
             ...(reply.referentChanges !== undefined ? { referentChanges: reply.referentChanges } : {}),
         }) };
 }

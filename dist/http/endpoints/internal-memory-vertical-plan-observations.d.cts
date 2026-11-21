@@ -202,6 +202,7 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
                 role: z.ZodString;
                 name: z.ZodString;
             }, z.core.$strict>>>>;
+            note: z.ZodOptional<z.ZodString>;
             requestId: z.ZodString;
             decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
@@ -265,6 +266,7 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
                     entryDigest: z.ZodString;
                 }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
+            referentWords: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
             reason: z.ZodString;
@@ -331,6 +333,7 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
                     entryDigest: z.ZodString;
                 }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
+            referentWords: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>], "outcome">;
         eventId: z.ZodString;
         at: z.ZodISODateTime;
@@ -531,6 +534,7 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                     role: z.ZodString;
                     name: z.ZodString;
                 }, z.core.$strict>>>>;
+                note: z.ZodOptional<z.ZodString>;
                 requestId: z.ZodString;
                 decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
@@ -594,6 +598,7 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>, z.ZodObject<{
                 outcome: z.ZodLiteral<"rejected">;
                 reason: z.ZodString;
@@ -660,6 +665,7 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>], "outcome">;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -861,6 +867,7 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                     role: z.ZodString;
                     name: z.ZodString;
                 }, z.core.$strict>>>>;
+                note: z.ZodOptional<z.ZodString>;
                 requestId: z.ZodString;
                 decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
@@ -924,6 +931,7 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>, z.ZodObject<{
                 outcome: z.ZodLiteral<"rejected">;
                 reason: z.ZodString;
@@ -990,6 +998,7 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>], "outcome">;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -1226,6 +1235,7 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                         role: z.ZodString;
                         name: z.ZodString;
                     }, z.core.$strict>>>>;
+                    note: z.ZodOptional<z.ZodString>;
                     requestId: z.ZodString;
                     decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                         kind: z.ZodLiteral<"owner">;
@@ -1289,6 +1299,7 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                             entryDigest: z.ZodString;
                         }, z.core.$strict>>>;
                     }, z.core.$strict>], "kind">>;
+                    referentWords: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>, z.ZodObject<{
                     outcome: z.ZodLiteral<"rejected">;
                     reason: z.ZodString;
@@ -1355,6 +1366,7 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                             entryDigest: z.ZodString;
                         }, z.core.$strict>>>;
                     }, z.core.$strict>], "kind">>;
+                    referentWords: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>], "outcome">;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;
@@ -1570,6 +1582,7 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                     role: z.ZodString;
                     name: z.ZodString;
                 }, z.core.$strict>>>>;
+                note: z.ZodOptional<z.ZodString>;
                 requestId: z.ZodString;
                 decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
@@ -1633,6 +1646,7 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>, z.ZodObject<{
                 outcome: z.ZodLiteral<"rejected">;
                 reason: z.ZodString;
@@ -1699,6 +1713,7 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                         entryDigest: z.ZodString;
                     }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
+                referentWords: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>], "outcome">;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -1898,6 +1913,7 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                         role: z.ZodString;
                         name: z.ZodString;
                     }, z.core.$strict>>>>;
+                    note: z.ZodOptional<z.ZodString>;
                     requestId: z.ZodString;
                     decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                         kind: z.ZodLiteral<"owner">;
@@ -1961,6 +1977,7 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                             entryDigest: z.ZodString;
                         }, z.core.$strict>>>;
                     }, z.core.$strict>], "kind">>;
+                    referentWords: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>, z.ZodObject<{
                     outcome: z.ZodLiteral<"rejected">;
                     reason: z.ZodString;
@@ -2027,6 +2044,7 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                             entryDigest: z.ZodString;
                         }, z.core.$strict>>>;
                     }, z.core.$strict>], "kind">>;
+                    referentWords: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>], "outcome">;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;

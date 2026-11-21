@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.263.0 — a delivery decision outcome carries the referent's own words and the "approve, but..." note (task 8230)
+
+- Additive in `organization/decision-request`: optional `referentWords` (1–2000, `REFERENT_WORDS_MAX`) on both outcomes and on the `approve`/`refuse` email replies, and optional `note` (3–2000) on `approved` outcomes and `approve` replies. Both are allowed only for a delivery; `note` requires `referentWords`. `decisionOutcomeFromEmailReply` copies them and leaves `reason` unchanged; a reply with words or a note that breaks those rules is refused as `mismatch`.
+- Saved outcomes without the new fields stay valid and are rebuilt identically. Consumers (8231, 8235) adopt and use the fields; no route or switch changes.
+- REGRESSIONE: s8230 parole-del-referente: con la forma vera dell'esito di GOO-180 (decisione di consegna `rejected` del referente, `sourceRef` = messageId, `subject.kind` `delivery`, senza i campi nuovi) lo schema oggi passa e non ha dove tenere le parole del referente (rosso: la funzione `decisionOutcomeFromEmailReply` con una risposta `refuse` che porta `referentWords` scarta il campo, e l'esito non lo ha); dopo l'esito `rejected` porta `referentWords` e la risposta `approve` con `note` dà un esito `approved` con `note`, mentre l'esito di GOO-180 senza campi nuovi passa ancora uguale (verde).
+
 ## v1.262.0 — demo previews have a shared work-product shape (task 8221)
 
 - Add `PAPERCLIP_PREVIEW_PROVIDER` (`x9`), `paperclipProdottoDaAnteprima({ url, sha256, title, summary?, createdByRunId? })` and `paperclipProdottoEAnteprima(prodotto, sha256)` in `capability/paperclip-protocollo`. The builder requires HTTPS and a lowercase SHA-256 digest, used as `externalId` to recognize an already registered preview; the generic creation schema is unchanged.
