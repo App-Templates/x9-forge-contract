@@ -37,6 +37,14 @@ export const DevSessionCriterionSchema = z.strictObject({
     if (criterion.unit !== undefined && criterion.origin !== 'mandato')
         ctx.addIssue({ code: 'custom', path: ['unit'], message: ruleIssue('unit_only_mandate') });
 });
+// `look` describes the `preview` file of CONSEGNA.json, the only one the referent opens to look at or try;
+// the screens and the single sheet stay as they are.
+export const DEV_SESSION_LOOK_KINDS = ['prototipo', 'immagine', 'documento'];
+export const DevSessionLookKindSchema = z.enum(DEV_SESSION_LOOK_KINDS);
+export const DevSessionLookSchema = z.strictObject({
+    kind: DevSessionLookKindSchema,
+    tryPath: z.array(CriterionTextSchema).min(1).max(20).optional(),
+});
 // Presence is owned by the chosen template; the wire contract only validates supplied inputs.
 export const DevSessionAcceptanceInputSchema = z.strictObject({
     userPath: z.array(CriterionTextSchema).min(1).max(20).optional(),
@@ -59,6 +67,7 @@ export const DevSessionAcceptanceInputSchema = z.strictObject({
             ctx.addIssue({ code: 'custom', path: ['reference'], message: ruleIssue('visual_reference_rule') });
     }).optional(),
     retouch: z.strictObject({ target: CriterionTextSchema, defect: CriterionTextSchema }).optional(),
+    look: DevSessionLookSchema.optional(),
 });
 export const DevSessionAcceptanceSchema = z.strictObject({
     version: z.literal(1),
@@ -72,4 +81,56 @@ export const DevSessionAcceptanceSchema = z.strictObject({
     criteria: z.array(DevSessionCriterionSchema).min(1).max(DEV_SESSION_ACCEPTANCE_MAX_CRITERIA)
         .refine((criteria) => new Set(criteria.map((criterion) => criterion.id)).size === criteria.length, ruleIssue('criterion_ids_not_unique')),
 });
+// What the referent sees on the link: one label per kind, so the mail never says "prototype" over an image.
+export const DEV_SESSION_LOOK_LABELS = {
+    prototipo: 'Apri il prototipo da provare',
+    immagine: "Guarda l'immagine dello schermo",
+    documento: 'Apri il documento',
+};
+const startsWith = (bytes, prefix) => prefix.every((value, i) => bytes[i] === value);
+// The kind is read from the content, never from the file name (R63 opened a PNG named as a prototype).
+export function devSessionLookKindOfBytes(bytes) {
+    if (startsWith(bytes, [0x25, 0x50, 0x44, 0x46, 0x2d]))
+        return 'documento';
+    if (startsWith(bytes, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]) || startsWith(bytes, [0xff, 0xd8, 0xff]))
+        return 'immagine';
+    const head = new TextDecoder('utf-8').decode(bytes.subarray(0, 512)).replace(/^\uFEFF/, '').trimStart().toLowerCase();
+    if (head.startsWith('<!doctype html') || head.startsWith('<html'))
+        return 'prototipo';
+    return null;
+}
+export function devSessionLookKindOfMediaType(mediaType) {
+    const base = (mediaType.split(';')[0] ?? '').trim().toLowerCase();
+    if (base === 'text/html')
+        return 'prototipo';
+    if (base === 'application/pdf')
+        return 'documento';
+    if (['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'].includes(base))
+        return 'immagine';
+    return null;
+}
+export const DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES = ['sviluppo-pezzo-app', 'design-sito', 'design-schermata-app'];
+export const DEV_SESSION_LOOK_OPENING_PROBLEMS = ['look_missing', 'look_not_prototype', 'look_path_missing'];
+export function devSessionLookOpeningProblem(acceptance) {
+    const look = acceptance.input.look;
+    if (look === undefined)
+        return { code: 'look_missing' };
+    const needsPrototype = DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES.includes(acceptance.template.id);
+    if (needsPrototype && look.kind !== 'prototipo')
+        return { code: 'look_not_prototype' };
+    if (look.kind === 'prototipo' && look.tryPath === undefined)
+        return { code: 'look_path_missing' };
+    return null;
+}
+export const DEV_SESSION_LOOK_DELIVERY_PROBLEMS = ['look_file_empty', 'look_kind_unknown', 'look_kind_mismatch'];
+export function devSessionLookDeliveryProblem(look, bytes) {
+    if (bytes.length === 0)
+        return { code: 'look_file_empty' };
+    const actual = devSessionLookKindOfBytes(bytes);
+    if (actual === null)
+        return { code: 'look_kind_unknown' };
+    if (actual !== look.kind)
+        return { code: 'look_kind_mismatch', actual };
+    return null;
+}
 //# sourceMappingURL=session-acceptance.js.map

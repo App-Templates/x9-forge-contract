@@ -228,6 +228,14 @@ export declare const DevSessionAssignmentSchema: z.ZodObject<{
                 target: z.ZodString;
                 defect: z.ZodString;
             }, z.core.$strict>>;
+            look: z.ZodOptional<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    prototipo: "prototipo";
+                    immagine: "immagine";
+                    documento: "documento";
+                }>;
+                tryPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>>;
         }, z.core.$strict>;
         criteria: z.ZodArray<z.ZodObject<{
             id: z.ZodString;

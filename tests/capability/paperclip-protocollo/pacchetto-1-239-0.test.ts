@@ -722,10 +722,9 @@ describe('s8036 pacchetto-1-251-0', () => {
 });
 
 describe('s8037 pacchetto-1-252-0', () => {
-  it('s8037_version: package and first release are 1.252.0 and retain 1.251.0', () => {
+  it('s8037_version: the 1.252.0 release stays in the changelog and retains 1.251.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.252.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.252.0');
+    expect(changelog).toContain('## v1.252.0');
     expect(changelog).toContain('## v1.251.0');
   });
 
@@ -734,8 +733,23 @@ describe('s8037 pacchetto-1-252-0', () => {
       versione: string;
       barili: Record<string, Record<string, string>>;
     };
-    expect(map.versione).toBe('1.252.0');
+    expect(map.versione).toBe(packageVersion());
     expect(map.barili['@x9-forge/contracts/http']?.internalPaperclipSeatSessionChildContract)
       .toBe('@x9-forge/contracts/http/endpoints/internal-paperclip-seats');
+  });
+});
+
+describe('s8115 pacchetto-1-253-0', () => {
+  it('s8115_version: package and first release are 1.253.0 and retain 1.252.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.253.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.253.0');
+    expect(changelog).toContain('## v1.252.0');
+  });
+
+  it('s8115_map: the narrow-import map has the version and the kind-by-bytes function', () => {
+    const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.253.0');
+    expect(text).toContain('devSessionLookKindOfBytes');
   });
 });

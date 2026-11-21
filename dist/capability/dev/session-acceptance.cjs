@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DevSessionAcceptanceSchema = exports.DevSessionAcceptanceInputSchema = exports.DevSessionCriterionSchema = exports.DevSessionCriterionOriginSchema = exports.DevSessionAttestorSchema = exports.DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES = exports.DEV_SESSION_INPUT_VISUAL_SOURCES = exports.DEV_SESSION_INPUT_FORMATS = exports.DEV_SESSION_INPUT_STATES = exports.DEV_SESSION_INPUT_DATA = exports.DEV_SESSION_CRITERION_ORIGINS = exports.DEV_SESSION_ATTESTORS = exports.DEV_SESSION_CRITERION_TEXT_MAX = exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA = void 0;
+exports.DEV_SESSION_LOOK_DELIVERY_PROBLEMS = exports.DEV_SESSION_LOOK_OPENING_PROBLEMS = exports.DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES = exports.DEV_SESSION_LOOK_LABELS = exports.DevSessionAcceptanceSchema = exports.DevSessionAcceptanceInputSchema = exports.DevSessionLookSchema = exports.DevSessionLookKindSchema = exports.DEV_SESSION_LOOK_KINDS = exports.DevSessionCriterionSchema = exports.DevSessionCriterionOriginSchema = exports.DevSessionAttestorSchema = exports.DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES = exports.DEV_SESSION_INPUT_VISUAL_SOURCES = exports.DEV_SESSION_INPUT_FORMATS = exports.DEV_SESSION_INPUT_STATES = exports.DEV_SESSION_INPUT_DATA = exports.DEV_SESSION_CRITERION_ORIGINS = exports.DEV_SESSION_ATTESTORS = exports.DEV_SESSION_CRITERION_TEXT_MAX = exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA = void 0;
+exports.devSessionLookKindOfBytes = devSessionLookKindOfBytes;
+exports.devSessionLookKindOfMediaType = devSessionLookKindOfMediaType;
+exports.devSessionLookOpeningProblem = devSessionLookOpeningProblem;
+exports.devSessionLookDeliveryProblem = devSessionLookDeliveryProblem;
 const zod_1 = require("zod");
 const asset_js_1 = require("../../organization/asset.cjs");
 const wire_creazione_js_1 = require("../paperclip-protocollo/wire-creazione.cjs");
@@ -40,6 +44,14 @@ exports.DevSessionCriterionSchema = zod_1.z.strictObject({
     if (criterion.unit !== undefined && criterion.origin !== 'mandato')
         ctx.addIssue({ code: 'custom', path: ['unit'], message: ruleIssue('unit_only_mandate') });
 });
+// `look` describes the `preview` file of CONSEGNA.json, the only one the referent opens to look at or try;
+// the screens and the single sheet stay as they are.
+exports.DEV_SESSION_LOOK_KINDS = ['prototipo', 'immagine', 'documento'];
+exports.DevSessionLookKindSchema = zod_1.z.enum(exports.DEV_SESSION_LOOK_KINDS);
+exports.DevSessionLookSchema = zod_1.z.strictObject({
+    kind: exports.DevSessionLookKindSchema,
+    tryPath: zod_1.z.array(CriterionTextSchema).min(1).max(20).optional(),
+});
 // Presence is owned by the chosen template; the wire contract only validates supplied inputs.
 exports.DevSessionAcceptanceInputSchema = zod_1.z.strictObject({
     userPath: zod_1.z.array(CriterionTextSchema).min(1).max(20).optional(),
@@ -62,6 +74,7 @@ exports.DevSessionAcceptanceInputSchema = zod_1.z.strictObject({
             ctx.addIssue({ code: 'custom', path: ['reference'], message: ruleIssue('visual_reference_rule') });
     }).optional(),
     retouch: zod_1.z.strictObject({ target: CriterionTextSchema, defect: CriterionTextSchema }).optional(),
+    look: exports.DevSessionLookSchema.optional(),
 });
 exports.DevSessionAcceptanceSchema = zod_1.z.strictObject({
     version: zod_1.z.literal(1),
@@ -75,4 +88,56 @@ exports.DevSessionAcceptanceSchema = zod_1.z.strictObject({
     criteria: zod_1.z.array(exports.DevSessionCriterionSchema).min(1).max(exports.DEV_SESSION_ACCEPTANCE_MAX_CRITERIA)
         .refine((criteria) => new Set(criteria.map((criterion) => criterion.id)).size === criteria.length, ruleIssue('criterion_ids_not_unique')),
 });
+// What the referent sees on the link: one label per kind, so the mail never says "prototype" over an image.
+exports.DEV_SESSION_LOOK_LABELS = {
+    prototipo: 'Apri il prototipo da provare',
+    immagine: "Guarda l'immagine dello schermo",
+    documento: 'Apri il documento',
+};
+const startsWith = (bytes, prefix) => prefix.every((value, i) => bytes[i] === value);
+// The kind is read from the content, never from the file name (R63 opened a PNG named as a prototype).
+function devSessionLookKindOfBytes(bytes) {
+    if (startsWith(bytes, [0x25, 0x50, 0x44, 0x46, 0x2d]))
+        return 'documento';
+    if (startsWith(bytes, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]) || startsWith(bytes, [0xff, 0xd8, 0xff]))
+        return 'immagine';
+    const head = new TextDecoder('utf-8').decode(bytes.subarray(0, 512)).replace(/^\uFEFF/, '').trimStart().toLowerCase();
+    if (head.startsWith('<!doctype html') || head.startsWith('<html'))
+        return 'prototipo';
+    return null;
+}
+function devSessionLookKindOfMediaType(mediaType) {
+    const base = (mediaType.split(';')[0] ?? '').trim().toLowerCase();
+    if (base === 'text/html')
+        return 'prototipo';
+    if (base === 'application/pdf')
+        return 'documento';
+    if (['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'].includes(base))
+        return 'immagine';
+    return null;
+}
+exports.DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES = ['sviluppo-pezzo-app', 'design-sito', 'design-schermata-app'];
+exports.DEV_SESSION_LOOK_OPENING_PROBLEMS = ['look_missing', 'look_not_prototype', 'look_path_missing'];
+function devSessionLookOpeningProblem(acceptance) {
+    const look = acceptance.input.look;
+    if (look === undefined)
+        return { code: 'look_missing' };
+    const needsPrototype = exports.DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES.includes(acceptance.template.id);
+    if (needsPrototype && look.kind !== 'prototipo')
+        return { code: 'look_not_prototype' };
+    if (look.kind === 'prototipo' && look.tryPath === undefined)
+        return { code: 'look_path_missing' };
+    return null;
+}
+exports.DEV_SESSION_LOOK_DELIVERY_PROBLEMS = ['look_file_empty', 'look_kind_unknown', 'look_kind_mismatch'];
+function devSessionLookDeliveryProblem(look, bytes) {
+    if (bytes.length === 0)
+        return { code: 'look_file_empty' };
+    const actual = devSessionLookKindOfBytes(bytes);
+    if (actual === null)
+        return { code: 'look_kind_unknown' };
+    if (actual !== look.kind)
+        return { code: 'look_kind_mismatch', actual };
+    return null;
+}
 //# sourceMappingURL=session-acceptance.js.map

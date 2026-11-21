@@ -40,6 +40,22 @@ export declare const DevSessionCriterionSchema: z.ZodObject<{
     unit: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type DevSessionCriterion = z.infer<typeof DevSessionCriterionSchema>;
+export declare const DEV_SESSION_LOOK_KINDS: readonly ["prototipo", "immagine", "documento"];
+export declare const DevSessionLookKindSchema: z.ZodEnum<{
+    prototipo: "prototipo";
+    immagine: "immagine";
+    documento: "documento";
+}>;
+export type DevSessionLookKind = z.infer<typeof DevSessionLookKindSchema>;
+export declare const DevSessionLookSchema: z.ZodObject<{
+    kind: z.ZodEnum<{
+        prototipo: "prototipo";
+        immagine: "immagine";
+        documento: "documento";
+    }>;
+    tryPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
+}, z.core.$strict>;
+export type DevSessionLook = z.infer<typeof DevSessionLookSchema>;
 export declare const DevSessionAcceptanceInputSchema: z.ZodObject<{
     userPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
     data: z.ZodOptional<z.ZodEnum<{
@@ -74,6 +90,14 @@ export declare const DevSessionAcceptanceInputSchema: z.ZodObject<{
     retouch: z.ZodOptional<z.ZodObject<{
         target: z.ZodString;
         defect: z.ZodString;
+    }, z.core.$strict>>;
+    look: z.ZodOptional<z.ZodObject<{
+        kind: z.ZodEnum<{
+            prototipo: "prototipo";
+            immagine: "immagine";
+            documento: "documento";
+        }>;
+        tryPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type DevSessionAcceptanceInput = z.infer<typeof DevSessionAcceptanceInputSchema>;
@@ -119,6 +143,14 @@ export declare const DevSessionAcceptanceSchema: z.ZodObject<{
             target: z.ZodString;
             defect: z.ZodString;
         }, z.core.$strict>>;
+        look: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                prototipo: "prototipo";
+                immagine: "immagine";
+                documento: "documento";
+            }>;
+            tryPath: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
     criteria: z.ZodArray<z.ZodObject<{
         id: z.ZodString;
@@ -140,4 +172,23 @@ export declare const DevSessionAcceptanceSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type DevSessionAcceptance = z.infer<typeof DevSessionAcceptanceSchema>;
+export declare const DEV_SESSION_LOOK_LABELS: {
+    readonly prototipo: "Apri il prototipo da provare";
+    readonly immagine: "Guarda l'immagine dello schermo";
+    readonly documento: "Apri il documento";
+};
+export declare function devSessionLookKindOfBytes(bytes: Uint8Array): DevSessionLookKind | null;
+export declare function devSessionLookKindOfMediaType(mediaType: string): DevSessionLookKind | null;
+export declare const DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES: readonly ["sviluppo-pezzo-app", "design-sito", "design-schermata-app"];
+export declare const DEV_SESSION_LOOK_OPENING_PROBLEMS: readonly ["look_missing", "look_not_prototype", "look_path_missing"];
+export type DevSessionLookOpeningProblemCode = (typeof DEV_SESSION_LOOK_OPENING_PROBLEMS)[number];
+export declare function devSessionLookOpeningProblem(acceptance: DevSessionAcceptance): {
+    code: DevSessionLookOpeningProblemCode;
+} | null;
+export declare const DEV_SESSION_LOOK_DELIVERY_PROBLEMS: readonly ["look_file_empty", "look_kind_unknown", "look_kind_mismatch"];
+export type DevSessionLookDeliveryProblemCode = (typeof DEV_SESSION_LOOK_DELIVERY_PROBLEMS)[number];
+export declare function devSessionLookDeliveryProblem(look: DevSessionLook, bytes: Uint8Array): {
+    code: DevSessionLookDeliveryProblemCode;
+    actual?: DevSessionLookKind;
+} | null;
 //# sourceMappingURL=session-acceptance.d.ts.map

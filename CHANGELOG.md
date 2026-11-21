@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.253.0 — the session acceptance contract says what the referent receives to look at (task 8115)
+
+- Additive optional `look` in the acceptance input (`prototipo`, `immagine` or `documento`, with an optional `tryPath`): it describes the `preview` file of CONSEGNA.json. Saved contracts without `look` are unchanged and parse as before.
+- Pure functions: `devSessionLookKindOfBytes` (kind from the content: PDF, PNG, JPEG, HTML), `devSessionLookKindOfMediaType`, `devSessionLookOpeningProblem` and `devSessionLookDeliveryProblem`; the labels `DEV_SESSION_LOOK_LABELS` and the lists `DEV_SESSION_LOOK_OPENING_PROBLEMS`, `DEV_SESSION_LOOK_DELIVERY_PROBLEMS`, `DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES`.
+- Consumers move their pin first; this package alone changes no mail and no delivery check.
+
 ## v1.252.0 — cap-dev can ask cap-paperclip to open a session child (task 8037)
 
 - Additive route contract `internalPaperclipSeatSessionChildContract`: a verified chief identity and source run, a valid session block up to 100000 characters, and a `dev-session:` key of at most 255 characters. The company creation route preserves the company-wide seven-day idempotency key; the children route does not.
