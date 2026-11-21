@@ -3,7 +3,7 @@ import { sameCapabilityScope } from '../capability-call-context.js';
 import type { CapabilityAgentScope } from '../capability-call-identity.js';
 import { AgentDaySchema } from '../ricerca/spend.js';
 import { SocialHandleSchema, SocialVerticalIdSchema } from './post.js';
-import { SOCIAL_VERDICT_TRUTH_SCORE, type SocialTopic, type SocialVerdict } from './topic.js';
+import { SOCIAL_VERDICTS, SOCIAL_VERDICT_TRUTH_SCORE, type SocialTopic, type SocialVerdict } from './topic.js';
 
 /** Creator ranking tool: separate from SOCIAL_LISTENING_TOOLS (the exact tool list stays unchanged). */
 export const SOCIAL_CREATORS_TOOLS = { rank: 'social_creators_rank' } as const;
@@ -35,6 +35,10 @@ export const SocialCreatorRankSchema = z.strictObject({
   /** Heat: the sum of the heat of the creator's topics, each divided by the number of creators who talk about it (REVISIONE-DESIGN, creators). */
   heatScore: z.number().nonnegative().optional(),
   postsAnalyzed: z.int().min(0).optional(),
+  /** Posts of this creator by the verdict of their own analysis; posts not yet analyzed count nowhere (REVISIONE-DESIGN, creators). */
+  postVerdicts: z.strictObject(Object.fromEntries(
+    SOCIAL_VERDICTS.map(verdict => [verdict, z.int().min(0)]),
+  ) as Record<SocialVerdict, z.ZodInt>).optional(),
 });
 export type SocialCreatorRank = z.infer<typeof SocialCreatorRankSchema>;
 
@@ -66,16 +70,17 @@ export function rankSocialCreators(
     limit?: number;
     orderBy?: SocialCreatorsRankInput['orderBy'];
     followed?: readonly string[];
-    posts?: readonly { postId: string; handle: string }[];
+    posts?: readonly { postId: string; handle: string; verdict?: SocialVerdict }[];
   },
 ): SocialCreatorsRankOutput {
   const days = query.days ?? SOCIAL_CREATORS_RANK_DAYS_DEFAULT;
   const limit = query.limit ?? SOCIAL_CREATORS_RANK_LIMIT_DEFAULT;
   const fromDay = shiftDay(query.toDay, -(days - 1));
-  const postsByHandle = new Map<string, Set<string>>();
+  const postsByHandle = new Map<string, Map<string, SocialVerdict | undefined>>();
   for (const post of query.posts ?? []) {
-    const ids = postsByHandle.get(post.handle) ?? new Set<string>();
-    ids.add(post.postId);
+    const ids = postsByHandle.get(post.handle) ?? new Map<string, SocialVerdict | undefined>();
+    // Keep the first available analysis when duplicate rows describe the same post.
+    if (ids.get(post.postId) === undefined) ids.set(post.postId, post.verdict);
     postsByHandle.set(post.handle, ids);
   }
   const acc = new Map<string, {
@@ -109,15 +114,26 @@ export function rankSocialCreators(
     }
   }
   const creators = [...acc.entries()]
-    .map(([handle, e]) => ({
-      handle,
-      topics: e.topics,
-      counts: e.counts,
-      truthScore: Math.round((e.sum / e.topics) * 10) / 10,
-      lastDay: e.lastDay,
-      heatScore: Math.round(e.heat * 10) / 10,
-      postsAnalyzed: e.postIds.size,
-    }))
+    .map(([handle, e]) => {
+      const postVerdicts = Object.fromEntries(
+        SOCIAL_VERDICTS.map(verdict => [verdict, 0]),
+      ) as Record<SocialVerdict, number>;
+      const ownPosts = postsByHandle.get(handle);
+      for (const postId of e.postIds) {
+        const verdict = ownPosts?.get(postId);
+        if (verdict !== undefined) postVerdicts[verdict] += 1;
+      }
+      return {
+        handle,
+        topics: e.topics,
+        counts: e.counts,
+        truthScore: Math.round((e.sum / e.topics) * 10) / 10,
+        lastDay: e.lastDay,
+        heatScore: Math.round(e.heat * 10) / 10,
+        postsAnalyzed: e.postIds.size,
+        ...(query.posts === undefined ? {} : { postVerdicts }),
+      };
+    })
     .sort((a, b) => (query.orderBy === 'heat'
       ? b.heatScore - a.heatScore || b.truthScore - a.truthScore
       : b.truthScore - a.truthScore || b.topics - a.topics)
