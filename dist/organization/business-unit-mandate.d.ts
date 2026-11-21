@@ -137,6 +137,11 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                     }, z.core.$strict>], "kind">]>>;
                     unit: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>>>;
+                specifications: z.ZodOptional<z.ZodObject<{
+                    inputData: z.ZodArray<z.ZodString>;
+                    technicalConstraints: z.ZodArray<z.ZodString>;
+                    outOfScope: z.ZodArray<z.ZodString>;
+                }, z.core.$strict>>;
                 milestone: z.ZodNumber;
                 needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -285,6 +290,11 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                 }, z.core.$strict>], "kind">]>>;
                 unit: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>>>;
+            specifications: z.ZodOptional<z.ZodObject<{
+                inputData: z.ZodArray<z.ZodString>;
+                technicalConstraints: z.ZodArray<z.ZodString>;
+                outOfScope: z.ZodArray<z.ZodString>;
+            }, z.core.$strict>>;
             milestone: z.ZodNumber;
             owners: z.ZodArray<z.ZodObject<{
                 buSlug: z.ZodString;
@@ -542,6 +552,11 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                         }, z.core.$strict>], "kind">]>>;
                         unit: z.ZodOptional<z.ZodString>;
                     }, z.core.$strict>>>;
+                    specifications: z.ZodOptional<z.ZodObject<{
+                        inputData: z.ZodArray<z.ZodString>;
+                        technicalConstraints: z.ZodArray<z.ZodString>;
+                        outOfScope: z.ZodArray<z.ZodString>;
+                    }, z.core.$strict>>;
                     milestone: z.ZodNumber;
                     needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;
@@ -690,6 +705,11 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                     }, z.core.$strict>], "kind">]>>;
                     unit: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>>>;
+                specifications: z.ZodOptional<z.ZodObject<{
+                    inputData: z.ZodArray<z.ZodString>;
+                    technicalConstraints: z.ZodArray<z.ZodString>;
+                    outOfScope: z.ZodArray<z.ZodString>;
+                }, z.core.$strict>>;
                 milestone: z.ZodNumber;
                 owners: z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -921,6 +941,11 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                             }, z.core.$strict>], "kind">]>>;
                             unit: z.ZodOptional<z.ZodString>;
                         }, z.core.$strict>>>;
+                        specifications: z.ZodOptional<z.ZodObject<{
+                            inputData: z.ZodArray<z.ZodString>;
+                            technicalConstraints: z.ZodArray<z.ZodString>;
+                            outOfScope: z.ZodArray<z.ZodString>;
+                        }, z.core.$strict>>;
                         milestone: z.ZodNumber;
                         needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             buSlug: z.ZodString;
@@ -1069,6 +1094,11 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                         }, z.core.$strict>], "kind">]>>;
                         unit: z.ZodOptional<z.ZodString>;
                     }, z.core.$strict>>>;
+                    specifications: z.ZodOptional<z.ZodObject<{
+                        inputData: z.ZodArray<z.ZodString>;
+                        technicalConstraints: z.ZodArray<z.ZodString>;
+                        outOfScope: z.ZodArray<z.ZodString>;
+                    }, z.core.$strict>>;
                     milestone: z.ZodNumber;
                     owners: z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;

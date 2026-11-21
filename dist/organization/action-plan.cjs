@@ -108,6 +108,13 @@ exports.ActionPlanDocumentSourcesSchema = zod_1.z.strictObject({
         seenMaterials.add(key);
     });
 });
+// Reuse the file's 500-character description and 20-entry list bounds for every category.
+const SpecificationTextSchema = zod_1.z.string().trim().min(1).max(500);
+const SpecificationsSchema = zod_1.z.strictObject({
+    inputData: zod_1.z.array(SpecificationTextSchema).max(20),
+    technicalConstraints: zod_1.z.array(SpecificationTextSchema).max(20),
+    outOfScope: zod_1.z.array(SpecificationTextSchema).max(20),
+});
 exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
     id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
     title: zod_1.z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
@@ -115,6 +122,8 @@ exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
     deliveryCriteria: zod_1.z.array(zod_1.z.string().min(1).max(500)).min(1).max(10)
         .describe('come si verifica che è finita'),
     requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
+    // Optional without a default so historical pieces never acquire invented specifications.
+    specifications: SpecificationsSchema.optional(),
     milestone: zod_1.z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
     needsFrom: zod_1.z.array(zod_1.z.strictObject({
         buSlug: SlugSchema(1, 30),
@@ -141,6 +150,7 @@ exports.ActionPlanWorkItemSchema = zod_1.z.strictObject({
     deliveryCriteria: zod_1.z.array(zod_1.z.string().min(1).max(500)).min(1).max(10)
         .describe('come si verifica che è finita'),
     requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
+    specifications: SpecificationsSchema.optional(),
     milestone: zod_1.z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
     owners: zod_1.z.array(exports.ActionPlanWorkItemOwnerSchema).max(10)
         .describe('le BU che ci lavorano e cosa fa ciascuna; ogni voce foglia ne ha almeno una'),

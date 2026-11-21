@@ -127,6 +127,14 @@ export const ActionPlanDocumentSourcesSchema = z.strictObject({
 });
 export type ActionPlanDocumentSources = z.infer<typeof ActionPlanDocumentSourcesSchema>;
 
+// Reuse the file's 500-character description and 20-entry list bounds for every category.
+const SpecificationTextSchema = z.string().trim().min(1).max(500);
+const SpecificationsSchema = z.strictObject({
+  inputData: z.array(SpecificationTextSchema).max(20),
+  technicalConstraints: z.array(SpecificationTextSchema).max(20),
+  outOfScope: z.array(SpecificationTextSchema).max(20),
+});
+
 export const ActionPlanBuSectionSchema = z.strictObject({
   id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
   title: z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
@@ -134,6 +142,8 @@ export const ActionPlanBuSectionSchema = z.strictObject({
   deliveryCriteria: z.array(z.string().min(1).max(500)).min(1).max(10)
     .describe('come si verifica che è finita'),
   requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
+  // Optional without a default so historical pieces never acquire invented specifications.
+  specifications: SpecificationsSchema.optional(),
   milestone: z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
   needsFrom: z.array(z.strictObject({
     buSlug: SlugSchema(1, 30),
@@ -166,6 +176,7 @@ export const ActionPlanWorkItemSchema = z.strictObject({
   deliveryCriteria: z.array(z.string().min(1).max(500)).min(1).max(10)
     .describe('come si verifica che è finita'),
   requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
+  specifications: SpecificationsSchema.optional(),
   milestone: z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
   owners: z.array(ActionPlanWorkItemOwnerSchema).max(10)
     .describe('le BU che ci lavorano e cosa fa ciascuna; ogni voce foglia ne ha almeno una'),

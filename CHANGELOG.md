@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.278.0 — plan pieces can declare input data, technical constraints and exclusions (task 8342)
+
+- Add optional `specifications` to `ActionPlanBuSectionSchema` and `ActionPlanWorkItemSchema`, using one strict internal shape with required `inputData`, `technicalConstraints` and `outOfScope` arrays. Each list accepts 0–20 trimmed texts of 1–500 characters, reusing the file's description and list bounds. Empty lists remain explicit; absent specifications gain no key or default. Existing plan, submission and mandate schemas carry the complete pieces without a second source or consumer changes.
+- REGRESSIONE: s8342 principale: il pezzo lista-spesa con specifications esplicite prima è rifiutato dallo strictObject per chiave sconosciuta; dopo conserva inputData, technicalConstraints e outOfScope; la loro assenza resta leggibile nei piani vecchi senza valori inventati. Fixture di codice nella forma documentata, non una cattura di produzione; verifica dal vivo e adozione restano al lotto successivo.
+
 ## v1.277.0 — the plan can carry structured requirements per piece (task 8341)
 
 - Additive in `organization/action-plan`: optional `requirements` on `ActionPlanBuSectionSchema` and `ActionPlanWorkItemSchema`, one shared `REQUIREMENTS_FIELD` (`MandateRequirementSchema` array, 1–10, no default). When present it must have exactly one element per `deliveryCriteria`, in order, with id `mandateCriterionId(piece.id, index)` and text equal after trim; checked on the parent `sections` and `workBreakdown` arrays so `.pick` of the section schema (document pieces) keeps working. `deliveryCriteria` is untouched; legacy plans and mandates parse unchanged and gain no key. Submission variants inherit the field.
