@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.267.0 — a file above Paperclip's attachment cap goes by link, as a `document` work product (task 8229)
+
+- `DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES` is now 10 MiB, the Paperclip issue attachment cap (`wire-allegati.ts`); it was 30 MiB (8220) and no consumer uses it yet. `DELIVERY_PACKAGE_FILE_MAX_BYTES` stays 25 MiB.
+- Additive in `paperclip-protocollo/wire-prodotti`: `paperclipProdottoDaFileLink({ url, sha256, title, summary?, createdByRunId? })` (https required, 64 lowercase hex digest) builds a `document` product with the `x9` provider, `url` and `externalId` = digest; `paperclipProdottoEFileLink(prodotto, sha256)` recognises one already registered. No schema is tightened. Consumers adopt with the pin (8245) and use the threshold (8224, 8228).
+- REGRESSIONE: s8229 file-pesante-per-link: con un PDF di tutte le schermate di 14 MiB (più di quello che Paperclip accetta sull'incarico) e il suo link firmato https, oggi la soglia vale 30 MiB (il file andrebbe «in allegato») e non esiste la forma del prodotto (rosso: import indefinito); dopo la soglia è 10 MiB, il PDF di 14 MiB è «per link» e il suo prodotto è `document` con `url` e `externalId` = impronta, e passa lo schema di creazione (verde).
+
 ## v1.266.0 — session file lists can carry an optional acceptance reading (task 8237)
 
 - Additive `include: ['reading']` request and optional strict `reading` response on `listDevSessionAssetsContract`: optional product kind, completeness, up to 50 unmet criteria with their attestor and optional reason, and the optional D-08 deviations proof path. A complete session cannot carry unmet criteria; existing asset validation is unchanged.

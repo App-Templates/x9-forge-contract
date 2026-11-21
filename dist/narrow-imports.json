@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.266.0",
+  "versione": "1.267.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1242,8 +1242,10 @@
       "paperclipPrefissoAzienda": "@x9-forge/contracts/capability/paperclip-protocollo/riferimenti",
       "paperclipProdottoDaAllegato": "@x9-forge/contracts/capability/paperclip-protocollo/wire-prodotti",
       "paperclipProdottoDaAnteprima": "@x9-forge/contracts/capability/paperclip-protocollo/wire-prodotti",
+      "paperclipProdottoDaFileLink": "@x9-forge/contracts/capability/paperclip-protocollo/wire-prodotti",
       "paperclipProdottoDellaCorsa": "@x9-forge/contracts/capability/paperclip-protocollo/wire-prodotti",
       "paperclipProdottoEAnteprima": "@x9-forge/contracts/capability/paperclip-protocollo/wire-prodotti",
+      "paperclipProdottoEFileLink": "@x9-forge/contracts/capability/paperclip-protocollo/wire-prodotti",
       "paperclipRecipientForm": "@x9-forge/contracts/capability/paperclip/tools",
       "paperclipRipresaAmmessa": "@x9-forge/contracts/capability/paperclip-protocollo/wire-commento",
       "paperclipStatoCreazionePredefinito": "@x9-forge/contracts/capability/paperclip-protocollo/wire-creazione",

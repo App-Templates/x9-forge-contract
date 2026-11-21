@@ -5,8 +5,8 @@ export const DELIVERY_PACKAGE_FILE_NAME = 'CONSEGNA.json' as const;
 export const DELIVERY_PACKAGE_MAX_KEY_SCREENS = 40;
 // The delivery chain currently carries individual files up to 25 MiB.
 export const DELIVERY_PACKAGE_FILE_MAX_BYTES = 25 * 1024 * 1024;
-// Email already uses 30 MiB as the threshold above which delivery uses a link.
-export const DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES = 30 * 1024 * 1024;
+// Paperclip's issue attachment cap (wire-allegati.ts); above it a file travels as a link, since the issue could not hold it.
+export const DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES = 10 * 1024 * 1024;
 export const DELIVERY_PACKAGE_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg'] as const;
 export const DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS = [...DELIVERY_PACKAGE_IMAGE_EXTENSIONS, 'pdf'] as const;
 export const DELIVERY_PACKAGE_PREVIEW_EXTENSIONS = ['html', 'pdf', 'png'] as const;

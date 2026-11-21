@@ -157,6 +157,44 @@ export function paperclipProdottoEAnteprima(
     && prodotto.externalId === sha256;
 }
 
+// A file above the attachment cap is recorded as a `document` product carrying its link, keyed by digest.
+export function paperclipProdottoDaFileLink(file: {
+  url: string;
+  sha256: string;
+  title: string;
+  summary?: string;
+  createdByRunId?: string;
+}): PaperclipProdottoCreaCorpo {
+  if (!/^[0-9a-f]{64}$/.test(file.sha256)) {
+    throw new Error('File sha256 must contain exactly 64 lowercase hexadecimal digits');
+  }
+  if (!file.url.startsWith('https://')) {
+    throw new Error('File URL must use https://');
+  }
+  return PaperclipProdottoCreaCorpoSchema.parse({
+    type: 'document',
+    provider: PAPERCLIP_PREVIEW_PROVIDER,
+    externalId: file.sha256,
+    title: file.title,
+    url: file.url,
+    status: 'active',
+    reviewState: 'none',
+    isPrimary: false,
+    ...(file.summary === undefined ? {} : { summary: file.summary }),
+    ...(file.createdByRunId === undefined ? {} : { createdByRunId: file.createdByRunId }),
+  });
+}
+
+// Scope digest matching to X9 documents so another product is never taken for an existing file link.
+export function paperclipProdottoEFileLink(
+  prodotto: Pick<PaperclipProdotto, 'type' | 'provider' | 'externalId'>,
+  sha256: string,
+): boolean {
+  return prodotto.type === 'document'
+    && prodotto.provider === PAPERCLIP_PREVIEW_PROVIDER
+    && prodotto.externalId === sha256;
+}
+
 /** Paperclip routes/issues.ts:6331-6336: `createdByRunId` deve essere la corsa autenticata (403 altrimenti). */
 export function paperclipProdottoDellaCorsa(corpo: { createdByRunId?: string | null | undefined }, runIdAutenticata: string): boolean {
   return corpo.createdByRunId === undefined || corpo.createdByRunId === null || corpo.createdByRunId === runIdAutenticata;

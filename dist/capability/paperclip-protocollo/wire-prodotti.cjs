@@ -4,6 +4,8 @@ exports.PAPERCLIP_PREVIEW_PROVIDER = exports.PaperclipIncaricoConProdottiSchema 
 exports.paperclipProdottoDaAllegato = paperclipProdottoDaAllegato;
 exports.paperclipProdottoDaAnteprima = paperclipProdottoDaAnteprima;
 exports.paperclipProdottoEAnteprima = paperclipProdottoEAnteprima;
+exports.paperclipProdottoDaFileLink = paperclipProdottoDaFileLink;
+exports.paperclipProdottoEFileLink = paperclipProdottoEFileLink;
 exports.paperclipProdottoDellaCorsa = paperclipProdottoDellaCorsa;
 const zod_1 = require("zod");
 const wire_letture_js_1 = require("./wire-letture.cjs");
@@ -133,6 +135,33 @@ function paperclipProdottoDaAnteprima(anteprima) {
 // Scope digest matching to X9 previews to avoid treating another product as an existing demo.
 function paperclipProdottoEAnteprima(prodotto, sha256) {
     return prodotto.type === 'preview_url'
+        && prodotto.provider === exports.PAPERCLIP_PREVIEW_PROVIDER
+        && prodotto.externalId === sha256;
+}
+// A file above the attachment cap is recorded as a `document` product carrying its link, keyed by digest.
+function paperclipProdottoDaFileLink(file) {
+    if (!/^[0-9a-f]{64}$/.test(file.sha256)) {
+        throw new Error('File sha256 must contain exactly 64 lowercase hexadecimal digits');
+    }
+    if (!file.url.startsWith('https://')) {
+        throw new Error('File URL must use https://');
+    }
+    return exports.PaperclipProdottoCreaCorpoSchema.parse({
+        type: 'document',
+        provider: exports.PAPERCLIP_PREVIEW_PROVIDER,
+        externalId: file.sha256,
+        title: file.title,
+        url: file.url,
+        status: 'active',
+        reviewState: 'none',
+        isPrimary: false,
+        ...(file.summary === undefined ? {} : { summary: file.summary }),
+        ...(file.createdByRunId === undefined ? {} : { createdByRunId: file.createdByRunId }),
+    });
+}
+// Scope digest matching to X9 documents so another product is never taken for an existing file link.
+function paperclipProdottoEFileLink(prodotto, sha256) {
+    return prodotto.type === 'document'
         && prodotto.provider === exports.PAPERCLIP_PREVIEW_PROVIDER
         && prodotto.externalId === sha256;
 }

@@ -974,7 +974,6 @@ describe('s8236 pacchetto-1-265-0', () => {
 describe('s8237 pacchetto-1-266-0', () => {
   it('s8237_version: package and first release are 1.266.0 and retain the previous release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.266.0');
     expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
     expect(changelog).toContain('## v1.266.0');
     expect(changelog).toContain('## v1.265.0');
@@ -993,5 +992,20 @@ describe('s8237 pacchetto-1-266-0', () => {
       expect(map.barili['@x9-forge/contracts/http']?.[name])
         .toBe('@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list');
     }
+  });
+});
+
+describe('s8229 pacchetto-1-267-0', () => {
+  it('s8229_version: package and first release are 1.267.0 and retain the previous release', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.267.0');
+    expect(changelog).toContain('## v1.266.0');
+    expect(changelog).toContain('REGRESSIONE: s8229 file-pesante-per-link');
+  });
+
+  it('s8229_map: the narrow-import map carries the version', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
+    expect(map.versione).toBe(packageVersion());
   });
 });

@@ -132,6 +132,6 @@ describe('delivery package with every contract screen', () => {
 
   it('s8220 soglie-di-peso', () => {
     expect(DELIVERY_PACKAGE_FILE_MAX_BYTES).toBe(26214400);
-    expect(DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES).toBe(31457280);
+    expect(DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES).toBe(10485760);
   });
 });

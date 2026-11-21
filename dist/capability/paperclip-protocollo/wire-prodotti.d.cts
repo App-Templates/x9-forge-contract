@@ -347,6 +347,14 @@ export declare function paperclipProdottoDaAnteprima(anteprima: {
     createdByRunId?: string;
 }): PaperclipProdottoCreaCorpo;
 export declare function paperclipProdottoEAnteprima(prodotto: Pick<PaperclipProdotto, 'type' | 'provider' | 'externalId'>, sha256: string): boolean;
+export declare function paperclipProdottoDaFileLink(file: {
+    url: string;
+    sha256: string;
+    title: string;
+    summary?: string;
+    createdByRunId?: string;
+}): PaperclipProdottoCreaCorpo;
+export declare function paperclipProdottoEFileLink(prodotto: Pick<PaperclipProdotto, 'type' | 'provider' | 'externalId'>, sha256: string): boolean;
 /** Paperclip routes/issues.ts:6331-6336: `createdByRunId` deve essere la corsa autenticata (403 altrimenti). */
 export declare function paperclipProdottoDellaCorsa(corpo: {
     createdByRunId?: string | null | undefined;
