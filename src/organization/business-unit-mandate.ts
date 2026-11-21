@@ -6,6 +6,7 @@ import {
   ActionPlanBusinessUnitSchema,
   ActionPlanDeliveryShapeSchema,
   ActionPlanExchangeSchema,
+  type ActionPlanExchange,
   ActionPlanObjectiveSchema,
   ActionPlanProjectObjectiveSchema,
   ActionPlanQuestionSchema,
@@ -297,3 +298,41 @@ export const MandateAttemptObservationSchema = z.strictObject({
   }
 });
 export type MandateAttemptObservation = z.infer<typeof MandateAttemptObservationSchema>;
+
+export const MANDATE_EXCHANGE_MATCH_OUTCOMES = ['matched', 'scope_mismatch', 'missing', 'different', 'ambiguous'] as const;
+export type MandateExchangeMatchOutcome = (typeof MANDATE_EXCHANGE_MATCH_OUTCOMES)[number];
+
+/**
+ * Pure comparison of one exchange as written in the mandates of its two business units.
+ * Equal wording in a title proves nothing: the mandates must come from the same plan
+ * (tenant, organization, client, project, id, version, digest) and each must carry exactly
+ * one entry for the requested hand-over. It never reads, writes or picks among duplicates.
+ */
+export function mandateExchangeMatch(
+  from: ReconciledMandate,
+  to: ReconciledMandate,
+  exchange: ActionPlanExchange,
+): MandateExchangeMatchOutcome {
+  const sameScope =
+    from.tenantId === to.tenantId &&
+    from.organizationId === to.organizationId &&
+    from.clientId === to.clientId &&
+    from.projectId === to.projectId &&
+    from.planSection.planId === to.planSection.planId &&
+    from.planSection.planVersion === to.planSection.planVersion &&
+    !(from.planSection.planDigest !== to.planSection.planDigest);
+  const sidesFit =
+    from.planSection.businessUnit.buSlug === exchange.fromBu &&
+    to.planSection.businessUnit.buSlug === exchange.toBu &&
+    exchange.fromBu !== exchange.toBu;
+  if (!sameScope || !sidesFit) return 'scope_mismatch';
+  // An absent key is a value of its own: it is never replaced by a guess.
+  const candidates = (mandate: ReconciledMandate): ActionPlanExchange[] =>
+    (mandate.planSection.exchanges ?? []).filter((entry) =>
+      entry.fromBu === exchange.fromBu && entry.toBu === exchange.toBu && entry.key === exchange.key);
+  const found = [candidates(from), candidates(to)];
+  if (found.some((list) => list.length === 0)) return 'missing';
+  if (found.some((list) => list.length > 1)) return 'ambiguous';
+  const same = found.every(([entry]) => entry !== undefined && entry.what === exchange.what && entry.format === exchange.format);
+  return same ? 'matched' : 'different';
+}

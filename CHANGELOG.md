@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.271.0 — pure comparison of the same exchange in the two mandates (task 8390)
+
+- Additive in `organization/business-unit-mandate`: `mandateExchangeMatch(from, to, exchange)` and `MandateExchangeMatchOutcome` (`matched | scope_mismatch | missing | different | ambiguous`, list `MANDATE_EXCHANGE_MATCH_OUTCOMES`). Pure, no I/O; no schema changed; old mandates without `exchanges` give `missing`. No consumer yet: it does not complete table item 10.1 and decision 15 (who opens) is untouched.
+- REGRESSIONE: s8390 stesso-scambio: due mandati prodotti da `planSectionFor` hanno `planSection.exchanges` con la stessa voce `{fromBu: design, toBu: sviluppo, what: schermate approvate, format: PDF e demo, key: lista-prodotti}`; oggi manca la funzione di confronto (rosso); dopo restituisce `matched` solo se i due mandati e la voce richiesta coincidono.
+
 ## v1.269.0 — optional objective in the acceptance input, and moves for refused code openings (task 8260)
 
 - Additive in `capability/dev/session-acceptance`: `input.objective` (trimmed, 1-500 chars, optional, strict object unchanged) and `DEV_SESSION_CODE_OPENING_MOVES` (`objective_missing`, `piece_missing`, `base_required`: field, actor `capo`, one move, `missing_data`/`never`/`fix_input` disposition). The codes are not in `DEV_SESSION_ACCEPTANCE_SCHEMA_ISSUES`. Saved forms without `objective` parse and serialize identically. Consumers: 8262 (pin), 8263-8265 (checks).

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { type ActionPlanExchange } from "./action-plan.cjs";
 export declare const MANDATE_RECONCILIATION_OUTCOMES: readonly ["agrees", "conflict", "missing"];
 export declare const MandateReconciliationOutcomeSchema: z.ZodEnum<{
     conflict: "conflict";
@@ -838,4 +839,13 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
     }, z.core.$strict>], "kind">>;
 }, z.core.$strict>;
 export type MandateAttemptObservation = z.infer<typeof MandateAttemptObservationSchema>;
+export declare const MANDATE_EXCHANGE_MATCH_OUTCOMES: readonly ["matched", "scope_mismatch", "missing", "different", "ambiguous"];
+export type MandateExchangeMatchOutcome = (typeof MANDATE_EXCHANGE_MATCH_OUTCOMES)[number];
+/**
+ * Pure comparison of one exchange as written in the mandates of its two business units.
+ * Equal wording in a title proves nothing: the mandates must come from the same plan
+ * (tenant, organization, client, project, id, version, digest) and each must carry exactly
+ * one entry for the requested hand-over. It never reads, writes or picks among duplicates.
+ */
+export declare function mandateExchangeMatch(from: ReconciledMandate, to: ReconciledMandate, exchange: ActionPlanExchange): MandateExchangeMatchOutcome;
 //# sourceMappingURL=business-unit-mandate.d.ts.map

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MandateAttemptObservationSchema = exports.MandateAttemptEventSchema = exports.MANDATE_ATTEMPT_EVENT_KINDS = exports.MandateAttemptScopeSchema = exports.MandateAttemptObservationIdSchema = exports.ReconciledMandateSchema = exports.MandateWorkModeSchema = exports.MandateWorkplaceSchema = exports.MandateReconciliationSchema = exports.MandateSourceSchema = exports.MANDATE_SOURCES = exports.MandateReconciliationOutcomeSchema = exports.MANDATE_RECONCILIATION_OUTCOMES = void 0;
+exports.MANDATE_EXCHANGE_MATCH_OUTCOMES = exports.MandateAttemptObservationSchema = exports.MandateAttemptEventSchema = exports.MANDATE_ATTEMPT_EVENT_KINDS = exports.MandateAttemptScopeSchema = exports.MandateAttemptObservationIdSchema = exports.ReconciledMandateSchema = exports.MandateWorkModeSchema = exports.MandateWorkplaceSchema = exports.MandateReconciliationSchema = exports.MandateSourceSchema = exports.MANDATE_SOURCES = exports.MandateReconciliationOutcomeSchema = exports.MANDATE_RECONCILIATION_OUTCOMES = void 0;
+exports.mandateExchangeMatch = mandateExchangeMatch;
 const zod_1 = require("zod");
 const wiki_js_1 = require("../capability/lab/wiki.cjs");
 const action_plan_js_1 = require("./action-plan.cjs");
@@ -259,4 +260,34 @@ exports.MandateAttemptObservationSchema = zod_1.z.strictObject({
         ctx.addIssue({ code: 'custom', message: 'Blocked attempts cannot open an issue', path: ['events'] });
     }
 });
+exports.MANDATE_EXCHANGE_MATCH_OUTCOMES = ['matched', 'scope_mismatch', 'missing', 'different', 'ambiguous'];
+/**
+ * Pure comparison of one exchange as written in the mandates of its two business units.
+ * Equal wording in a title proves nothing: the mandates must come from the same plan
+ * (tenant, organization, client, project, id, version, digest) and each must carry exactly
+ * one entry for the requested hand-over. It never reads, writes or picks among duplicates.
+ */
+function mandateExchangeMatch(from, to, exchange) {
+    const sameScope = from.tenantId === to.tenantId &&
+        from.organizationId === to.organizationId &&
+        from.clientId === to.clientId &&
+        from.projectId === to.projectId &&
+        from.planSection.planId === to.planSection.planId &&
+        from.planSection.planVersion === to.planSection.planVersion &&
+        !(from.planSection.planDigest !== to.planSection.planDigest);
+    const sidesFit = from.planSection.businessUnit.buSlug === exchange.fromBu &&
+        to.planSection.businessUnit.buSlug === exchange.toBu &&
+        exchange.fromBu !== exchange.toBu;
+    if (!sameScope || !sidesFit)
+        return 'scope_mismatch';
+    // An absent key is a value of its own: it is never replaced by a guess.
+    const candidates = (mandate) => (mandate.planSection.exchanges ?? []).filter((entry) => entry.fromBu === exchange.fromBu && entry.toBu === exchange.toBu && entry.key === exchange.key);
+    const found = [candidates(from), candidates(to)];
+    if (found.some((list) => list.length === 0))
+        return 'missing';
+    if (found.some((list) => list.length > 1))
+        return 'ambiguous';
+    const same = found.every(([entry]) => entry !== undefined && entry.what === exchange.what && entry.format === exchange.format);
+    return same ? 'matched' : 'different';
+}
 //# sourceMappingURL=business-unit-mandate.js.map

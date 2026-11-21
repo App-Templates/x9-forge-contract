@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.269.0",
+  "versione": "1.271.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2923,6 +2923,7 @@
       "ListPublicationsRequestSchema": "@x9-forge/contracts/organization/publication-lookup",
       "ListPublicationsResponseSchema": "@x9-forge/contracts/organization/publication-lookup",
       "MANDATE_ATTEMPT_EVENT_KINDS": "@x9-forge/contracts/organization/business-unit-mandate",
+      "MANDATE_EXCHANGE_MATCH_OUTCOMES": "@x9-forge/contracts/organization/business-unit-mandate",
       "MANDATE_RECONCILIATION_OUTCOMES": "@x9-forge/contracts/organization/business-unit-mandate",
       "MANDATE_SOURCES": "@x9-forge/contracts/organization/business-unit-mandate",
       "MandateAttemptEventSchema": "@x9-forge/contracts/organization/business-unit-mandate",
@@ -3084,6 +3085,7 @@
       "isResolveMaterialResponseForRequest": "@x9-forge/contracts/organization/publication-operations",
       "isStackSubjectTag": "@x9-forge/contracts/organization/shared-mailbox",
       "latestApprovedAssetVersion": "@x9-forge/contracts/organization/asset-version",
+      "mandateExchangeMatch": "@x9-forge/contracts/organization/business-unit-mandate",
       "organizationAccess": "@x9-forge/contracts/organization/organization-access",
       "parseSharedMailboxSubjectLabel": "@x9-forge/contracts/organization/shared-mailbox",
       "parseSharedMailboxesFile": "@x9-forge/contracts/organization/shared-mailbox",
