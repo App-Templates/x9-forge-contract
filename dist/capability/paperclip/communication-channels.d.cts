@@ -30,6 +30,20 @@ export declare const PaperclipDeliveryChannelSchema: z.ZodEnum<{
     work_product: "work_product";
 }>;
 export type PaperclipDeliveryChannel = z.infer<typeof PaperclipDeliveryChannelSchema>;
+/**
+ * Who an agent turns to when it waits for something it cannot do itself. Paperclip's skill says a blocker is handled on
+ * the agent's own task and a person is asked with a saved question, never by climbing the manager chain
+ * (skills/paperclip/SKILL.md:601-602; references/api-reference.md:42). Our referent is not a Paperclip board user, so the
+ * person is reached through Memoria's map and mail; the super-admin (Paperclip `instance_admin`) receives only what the
+ * referent hands over. Additive: the seven processes above are untouched.
+ */
+export declare const PAPERCLIP_WAIT_RECIPIENTS: readonly ["agent", "person_or_repair", "infrastructure"];
+export declare const PaperclipWaitRecipientSchema: z.ZodEnum<{
+    agent: "agent";
+    person_or_repair: "person_or_repair";
+    infrastructure: "infrastructure";
+}>;
+export type PaperclipWaitRecipient = z.infer<typeof PaperclipWaitRecipientSchema>;
 /** The section as lines: first person, plain Italian. Tool names are interpolated from PAPERCLIP_TOOLS only. */
 export declare function communicationSectionLines(): readonly string[];
 export declare function communicationSection(): string;

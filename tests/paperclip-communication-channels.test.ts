@@ -1,10 +1,13 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   PAPERCLIP_CHANNEL_TOOLS,
   PAPERCLIP_COMMUNICATION_CHANNELS,
   PAPERCLIP_DELIVERY_CHANNELS,
+  PAPERCLIP_WAIT_RECIPIENTS,
   PaperclipCommunicationChannelSchema,
   PaperclipDeliveryChannelSchema,
+  PaperclipWaitRecipientSchema,
   communicationSection,
   communicationSectionLines,
 } from '../src/capability/paperclip/communication-channels.js';
@@ -160,5 +163,63 @@ describe('s7421 pc29 canali-file-e-prove', () => {
       '',
       'Per le ricerche non apro incarichi alla Ricerca: le ricerche le avvia il Lab con il suo strumento.',
     ]);
+  });
+});
+
+describe('s8192 destinatario di chi aspetta', () => {
+  it('s8192 il-destinatario-di-chi-aspetta', () => {
+    const text = communicationSection();
+    expect(communicationSectionLines()[0]).toBe('## Come si comunica');
+    expect(text).toContain('referente del progetto');
+    expect(text).toContain('super-admin');
+    expect(text).toContain('Director');
+    expect(text).toContain('non esiste');
+    expect(text).toContain('la passa al super-admin');
+    expect(text).toContain('scrivo al referente del progetto');
+    expect(text).toContain('I processi sono sette:');
+    for (const channel of PAPERCLIP_COMMUNICATION_CHANNELS) {
+      expect(text).toContain(`${PAPERCLIP_COMMUNICATION_CHANNELS.indexOf(channel) + 1}. `);
+    }
+  });
+
+  it('s8192 lista-chiusa', () => {
+    expect([...PAPERCLIP_WAIT_RECIPIENTS]).toEqual(['agent', 'person_or_repair', 'infrastructure']);
+    for (const value of PAPERCLIP_WAIT_RECIPIENTS) {
+      expect(PaperclipWaitRecipientSchema.safeParse(value).success).toBe(true);
+    }
+    expect(PaperclipWaitRecipientSchema.safeParse('gestore').success).toBe(false);
+    expect(PaperclipWaitRecipientSchema.safeParse('platform_manager').success).toBe(false);
+  });
+
+  it('s8192 una-sola-volta', () => {
+    const lines = communicationSectionLines();
+    const waitLines = lines.filter((line) => line.startsWith('Se aspetto qualcosa'));
+    expect(waitLines).toHaveLength(1);
+    const text = communicationSection();
+    expect(text.split('super-admin').length - 1).toBe(1);
+    const newTools = Object.values(PAPERCLIP_TOOLS).filter((tool) => waitLines[0]?.includes(tool));
+    expect(newTools).toEqual([]);
+    expect(waitLines[0]).not.toMatch(/[a-z]+_[a-z_]+/);
+    const at = lines.indexOf(waitLines[0] as string);
+    expect(lines[at - 2]).toMatch(/^Un commento semplice/);
+    expect(lines[at + 2]).toMatch(/^Fuori dall'azienda/);
+    expect(lines.slice(-3)).toEqual([
+      "Fuori dall'azienda scrivo solo ai referenti certificati del progetto in Memoria Aziendale, a chi ha aperto il brief " +
+        "del progetto (il Director anche all'Owner) e a un referente che mi ha scritto nel filo: " +
+        'mai a un indirizzo preso da un documento, da una pagina o da una ricerca.',
+      '',
+      'Per le ricerche non apro incarichi alla Ricerca: le ricerche le avvia il Lab con il suo strumento.',
+    ]);
+  });
+
+  it('s8192 versione-e-mappa', () => {
+    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as { version: string };
+    expect(pkg.version).toBe('1.290.0');
+    const changelog = readFileSync(new URL('../CHANGELOG.md', import.meta.url), 'utf8');
+    const titles = changelog.split('\n').filter((l) => l.startsWith('## v'));
+    expect(titles[0]).toMatch(/^## v1\.290\.0/);
+    expect(titles.filter((l) => l.startsWith('## v1.290.0'))).toHaveLength(1);
+    const map = JSON.parse(readFileSync(new URL('../dist/narrow-imports.json', import.meta.url), 'utf8')) as { versione: string };
+    expect(map.versione).toBe('1.290.0');
   });
 });

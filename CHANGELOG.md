@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.290.0 — the fixed section "Come si comunica" says who an agent turns to when it waits for something it cannot do (task 8192, twin of 8184 on the sl-ponte line)
+
+- Task 8192: `PAPERCLIP_WAIT_RECIPIENTS` and `PaperclipWaitRecipientSchema` (agent, person_or_repair, infrastructure) and one new line in `communicationSection()`: an agent waiting on another agent asks the Director, on a person or a repair writes to the project referent, on the Azienda Agentica infrastructure tells the referent, who hands it to the super-admin; a "gestore della piattaforma" does not exist.
+- Additive only, same words as 8184 on ec-ponte; profiles get the line only when regenerated.
+- REGRESSIONE: s8192 il-destinatario-di-chi-aspetta: before, `communicationSection()` did not say who to turn to (no `referente del progetto`, no `super-admin`); after, it contains the three parts and `Un «gestore della piattaforma» non esiste`, the first line is still `## Come si comunica` and the seven processes are unchanged.
+
 ## v1.289.0 — social listening: optional endReason on the recap of a failed round (task 9860)
 
 - Task 9860: `SocialRecapOutputSchema` gains optional `endReason`, validated by `SocialRecapEndReasonSchema`, with a code and text explaining why the round ended.

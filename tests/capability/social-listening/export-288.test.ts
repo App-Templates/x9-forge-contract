@@ -36,9 +36,9 @@ console.log('OK');
 `;
 
 describe('s9803 optimized round estimate, report and P0 table in package 1.288.0', () => {
-  it('s9803 (a) package.json has version 1.289.0', () => {
+  it('s9803 (a) package.json has version 1.291.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(288|289)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(288|289|290|291)\.0$/);
   });
 
   it('s9803 (b) the three groups work from ESM', () => {
