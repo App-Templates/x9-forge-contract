@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.280.0 — saved plan and mandate compatibility across source, ESM and CJS (task 8344)
+
+- Add cross-export tests calling `ActionPlanSchema`, `ReconciledMandateSchema` and the canonicalization functions from source, ESM and CJS. Reuse the unchanged `action-plan-v3-forma.json` fixture, comparing every key, canonical text and its existing SHA-256 digest. Mandates are derived test data using the existing preparation pattern, not production captures. Explicit study sections and a product breakdown with a child item test both absent and enriched `requirements`, `specifications` and `outputForm`, including transport into each unit's mandate. No schema, default or consumer change; inert until adoption.
+- REGRESSIONE: s8344 principale: le prove sorgente R-37 esistono già; mancava questo confronto automatico sorgente/ESM/CJS sui campi nuovi (guardia del nuovo file rossa per assenza), non un bug di parse dimostrato. La suite confronta tutte le chiavi e l'impronta della fixture nei tre export; un default su outputForm rompe confronto incrociato, identità e impronta delle varianti derivate con pezzi. Accettazione, mutanti e tipi restano al cancello; corpi GOO-172/179/180 e R56/R57/R61 e verifica dal vivo restano alla coordinatrice.
+
 ## v1.279.0 — each piece can declare the concrete form of its delivery (task 8343)
 
 - Add optional `outputForm` to `ActionPlanBuSectionSchema` and `ActionPlanWorkItemSchema`: trimmed text of 1–500 characters, declared once as `PieceOutputFormFieldSchema` and shared by both. No default, no enum of production types, never derived from department, title or `deliveryShape`; `product`/`study` are unchanged. Saved plans, submissions and mandates without it parse unchanged and gain no key.
