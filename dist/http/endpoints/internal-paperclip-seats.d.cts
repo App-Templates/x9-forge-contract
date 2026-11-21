@@ -1276,6 +1276,50 @@ export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObj
                             max: z.ZodNumber;
                         }, z.core.$strict>;
                     }, z.core.$strict>>;
+                    documentSources: z.ZodOptional<z.ZodObject<{
+                        pages: z.ZodArray<z.ZodObject<{
+                            slug: z.ZodString;
+                            version: z.ZodNumber;
+                        }, z.core.$strict>>;
+                        materials: z.ZodArray<z.ZodObject<{
+                            assetId: z.ZodString;
+                            sha256: z.ZodString;
+                            name: z.ZodString;
+                            mediaType: z.ZodString;
+                            sizeBytes: z.ZodNumber;
+                            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                kind: z.ZodLiteral<"email">;
+                                messageId: z.ZodString;
+                                attachmentName: z.ZodOptional<z.ZodString>;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"archive">;
+                                archiveSha256: z.ZodString;
+                                entryPath: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"session">;
+                                sessionId: z.ZodString;
+                                repo: z.ZodOptional<z.ZodString>;
+                                commit: z.ZodOptional<z.ZodString>;
+                                path: z.ZodOptional<z.ZodString>;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"link">;
+                                url: z.ZodURL;
+                            }, z.core.$strict>, z.ZodObject<{
+                                kind: z.ZodLiteral<"generated">;
+                                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                            }, z.core.$strict>], "kind">;
+                            tenantId: z.ZodString;
+                            companyId: z.ZodString;
+                            projectId: z.ZodString;
+                            assetType: z.ZodOptional<z.ZodString>;
+                            buSlug: z.ZodOptional<z.ZodString>;
+                            providedBy: z.ZodOptional<z.ZodObject<{
+                                personRef: z.ZodString;
+                            }, z.core.$strict>>;
+                            createdAt: z.ZodISODateTime;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>>>;
                 roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     role: z.ZodString;
@@ -1525,6 +1569,50 @@ export declare const internalPaperclipSeatSessionMandateContract: {
                                 min: z.ZodNumber;
                                 max: z.ZodNumber;
                             }, z.core.$strict>;
+                        }, z.core.$strict>>;
+                        documentSources: z.ZodOptional<z.ZodObject<{
+                            pages: z.ZodArray<z.ZodObject<{
+                                slug: z.ZodString;
+                                version: z.ZodNumber;
+                            }, z.core.$strict>>;
+                            materials: z.ZodArray<z.ZodObject<{
+                                assetId: z.ZodString;
+                                sha256: z.ZodString;
+                                name: z.ZodString;
+                                mediaType: z.ZodString;
+                                sizeBytes: z.ZodNumber;
+                                origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                    kind: z.ZodLiteral<"email">;
+                                    messageId: z.ZodString;
+                                    attachmentName: z.ZodOptional<z.ZodString>;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    kind: z.ZodLiteral<"archive">;
+                                    archiveSha256: z.ZodString;
+                                    entryPath: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    kind: z.ZodLiteral<"session">;
+                                    sessionId: z.ZodString;
+                                    repo: z.ZodOptional<z.ZodString>;
+                                    commit: z.ZodOptional<z.ZodString>;
+                                    path: z.ZodOptional<z.ZodString>;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    kind: z.ZodLiteral<"link">;
+                                    url: z.ZodURL;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    kind: z.ZodLiteral<"generated">;
+                                    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                    sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                                }, z.core.$strict>], "kind">;
+                                tenantId: z.ZodString;
+                                companyId: z.ZodString;
+                                projectId: z.ZodString;
+                                assetType: z.ZodOptional<z.ZodString>;
+                                buSlug: z.ZodOptional<z.ZodString>;
+                                providedBy: z.ZodOptional<z.ZodObject<{
+                                    personRef: z.ZodString;
+                                }, z.core.$strict>>;
+                                createdAt: z.ZodISODateTime;
+                            }, z.core.$strict>>;
                         }, z.core.$strict>>;
                     }, z.core.$strict>>>;
                     roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{

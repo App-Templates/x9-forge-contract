@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanBuObjectiveSchema = exports.ActionPlanProjectObjectiveSchema = exports.ActionPlanObjectiveSchema = exports.ActionPlanDossierPageSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanSourceCoverageSchema = exports.ACTION_PLAN_SOURCE_COVERAGE_STATUSES = exports.ActionPlanQuestionSchema = exports.ActionPlanQuestionAddresseeSchema = exports.ActionPlanExchangeSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanSignOffSchema = exports.ACTION_PLAN_SIGN_OFF_FORMS = exports.ACTION_PLAN_SIGN_OFF_SIGNERS = exports.ActionPlanGapRuleSchema = exports.ACTION_PLAN_GAP_RULES = exports.ActionPlanWorkBreakdownSchema = exports.ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = exports.ActionPlanWorkItemSchema = exports.ActionPlanWorkItemOwnerSchema = exports.ActionPlanDeliveryShapeSchema = exports.ACTION_PLAN_DELIVERY_SHAPES = exports.ActionPlanBuSectionSchema = exports.ActionPlanDocumentFormatSchema = exports.ACTION_PLAN_DOCUMENT_LENGTH_UNITS = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanBuObjectiveSchema = exports.ActionPlanProjectObjectiveSchema = exports.ActionPlanObjectiveSchema = exports.ActionPlanDossierPageSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanSourceCoverageSchema = exports.ACTION_PLAN_SOURCE_COVERAGE_STATUSES = exports.ActionPlanQuestionSchema = exports.ActionPlanQuestionAddresseeSchema = exports.ActionPlanExchangeSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanSignOffSchema = exports.ACTION_PLAN_SIGN_OFF_FORMS = exports.ACTION_PLAN_SIGN_OFF_SIGNERS = exports.ActionPlanGapRuleSchema = exports.ACTION_PLAN_GAP_RULES = exports.ActionPlanWorkBreakdownSchema = exports.ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = exports.ActionPlanWorkItemSchema = exports.ActionPlanWorkItemOwnerSchema = exports.ActionPlanDeliveryShapeSchema = exports.ACTION_PLAN_DELIVERY_SHAPES = exports.ActionPlanBuSectionSchema = exports.ActionPlanDocumentSourcesSchema = exports.ActionPlanDocumentFormatSchema = exports.ACTION_PLAN_DOCUMENT_LENGTH_UNITS = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
 exports.canonicalJson = canonicalJson;
 exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
@@ -47,6 +47,38 @@ exports.ActionPlanDocumentFormatSchema = zod_1.z.strictObject({
     }).refine((length) => length.min <= length.max, { message: 'Document length min must not exceed max' })
         .describe('la lunghezza richiesta, in pagine o in parole'),
 }).describe('la forma richiesta del documento della sezione');
+/**
+ * The sources a document section declares: wiki pages at a precise version and saved materials as asset references.
+ * References only, never bodies or credentials. Declaring one is not a judgment: existence, provenance, scope and use
+ * are for the native reviewer to decide. A `link` asset's sha256 may fingerprint the URL, not the bytes.
+ */
+exports.ActionPlanDocumentSourcesSchema = zod_1.z.strictObject({
+    pages: zod_1.z.array(zod_1.z.strictObject({
+        slug: wiki_js_1.WikiPageSchema.shape.slug,
+        version: wiki_js_1.WikiPageSchema.shape.version,
+    })).max(100).describe('le pagine del dossier, a versione precisa'),
+    materials: zod_1.z.array(asset_js_1.AssetRefSchema).max(50).describe('i materiali salvati, come riferimenti'),
+}).superRefine((sources, ctx) => {
+    const { pages, materials } = sources;
+    if (!(pages.length + materials.length > 0)) {
+        ctx.addIssue({ code: 'custom', message: 'Document sources need at least one page or material', path: ['pages'] });
+    }
+    // Different versions of one page are different data: only an identical (slug, version) pair is a duplicate.
+    const seenPages = new Set();
+    pages.forEach((page, index) => {
+        const key = `${page.slug}@${page.version}`;
+        if (seenPages.has(key))
+            ctx.addIssue({ code: 'custom', message: 'Duplicate page version', path: ['pages', index] });
+        seenPages.add(key);
+    });
+    const seenMaterials = new Set();
+    materials.forEach((material, index) => {
+        const key = `${material.assetId}:${material.sha256}`;
+        if (seenMaterials.has(key))
+            ctx.addIssue({ code: 'custom', message: 'Duplicate material', path: ['materials', index] });
+        seenMaterials.add(key);
+    });
+});
 exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
     id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
     title: zod_1.z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
@@ -59,6 +91,7 @@ exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
         what: zod_1.z.string().min(1).max(500),
     })).max(10).optional().describe("cosa serve da un'altra BU per costruirla"),
     documentFormat: exports.ActionPlanDocumentFormatSchema.optional(),
+    documentSources: exports.ActionPlanDocumentSourcesSchema.optional(),
 });
 /** What the plan delivers: `product` builds something the user uses (app, site, service); `study` delivers documents (analysis, research, financial plan, opinion). */
 exports.ACTION_PLAN_DELIVERY_SHAPES = ['product', 'study'];

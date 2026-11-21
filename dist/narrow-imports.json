@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.272.0",
+  "versione": "1.273.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2788,6 +2788,7 @@
       "ActionPlanBusinessUnitSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDeliveryShapeSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDocumentFormatSchema": "@x9-forge/contracts/organization/action-plan",
+      "ActionPlanDocumentSourcesSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDossierPageSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanDraftSchema": "@x9-forge/contracts/organization/action-plan",
       "ActionPlanExchangeSchema": "@x9-forge/contracts/organization/action-plan",

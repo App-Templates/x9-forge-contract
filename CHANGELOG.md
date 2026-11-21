@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.273.0 — a document section can declare its sources (task 8392)
+
+- Additive in `organization/action-plan`: `ActionPlanDocumentSourcesSchema` (strict: `pages` max 100 of `{slug, version}` reusing `WikiPageSchema`, `materials` max 50 of `AssetRefSchema`; both required, at least one source in total, no duplicate `(slug, version)` or `(assetId, sha256)`) and the optional `documentSources` of `ActionPlanBuSectionSchema`, kept by plan, submission and mandate. References only: no verification, no approval; plans without it parse and serialize to the same bytes. Inert until consumers read it (8394/8395); no reviewer is activated.
+- REGRESSIONE: s8392 fonti-per-pezzo: la sezione `costi` della forma study porta `documentSources: {pages: [{slug: dossier-progetto, version: 2}], materials: [AssetRef di un file email salvato]}`; oggi la sezione strict rifiuta la proprietà; dopo piano e mandato la conservano con versione, id e sha256.
+
 ## v1.272.0 — a plan section can declare the form of its document (task 8391)
 
 - Additive in `organization/action-plan`: `ActionPlanDocumentFormatSchema` (strict: `mediaType` as `AssetRefSchema`, `parts` 1-30 unique trimmed texts, `length` `{unit: pages | words, min >= 0, max >= 1, min <= max}`) and the optional `documentFormat` of `ActionPlanBuSectionSchema`, kept by plan, submission and mandate. No default, not required for any executor; plans without it parse and serialize to the same bytes. Inert until consumers read it (8394/8395); no reviewer is activated.

@@ -44,6 +44,56 @@ export declare const ActionPlanDocumentFormatSchema: z.ZodObject<{
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type ActionPlanDocumentFormat = z.infer<typeof ActionPlanDocumentFormatSchema>;
+/**
+ * The sources a document section declares: wiki pages at a precise version and saved materials as asset references.
+ * References only, never bodies or credentials. Declaring one is not a judgment: existence, provenance, scope and use
+ * are for the native reviewer to decide. A `link` asset's sha256 may fingerprint the URL, not the bytes.
+ */
+export declare const ActionPlanDocumentSourcesSchema: z.ZodObject<{
+    pages: z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>;
+    materials: z.ZodArray<z.ZodObject<{
+        assetId: z.ZodString;
+        sha256: z.ZodString;
+        name: z.ZodString;
+        mediaType: z.ZodString;
+        sizeBytes: z.ZodNumber;
+        origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"email">;
+            messageId: z.ZodString;
+            attachmentName: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"archive">;
+            archiveSha256: z.ZodString;
+            entryPath: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"session">;
+            sessionId: z.ZodString;
+            repo: z.ZodOptional<z.ZodString>;
+            commit: z.ZodOptional<z.ZodString>;
+            path: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"link">;
+            url: z.ZodURL;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"generated">;
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>], "kind">;
+        tenantId: z.ZodString;
+        companyId: z.ZodString;
+        projectId: z.ZodString;
+        assetType: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
+        providedBy: z.ZodOptional<z.ZodObject<{
+            personRef: z.ZodString;
+        }, z.core.$strict>>;
+        createdAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type ActionPlanDocumentSources = z.infer<typeof ActionPlanDocumentSourcesSchema>;
 export declare const ActionPlanBuSectionSchema: z.ZodObject<{
     id: z.ZodString;
     title: z.ZodString;
@@ -65,6 +115,50 @@ export declare const ActionPlanBuSectionSchema: z.ZodObject<{
             min: z.ZodNumber;
             max: z.ZodNumber;
         }, z.core.$strict>;
+    }, z.core.$strict>>;
+    documentSources: z.ZodOptional<z.ZodObject<{
+        pages: z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>;
+        materials: z.ZodArray<z.ZodObject<{
+            assetId: z.ZodString;
+            sha256: z.ZodString;
+            name: z.ZodString;
+            mediaType: z.ZodString;
+            sizeBytes: z.ZodNumber;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                messageId: z.ZodString;
+                attachmentName: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"archive">;
+                archiveSha256: z.ZodString;
+                entryPath: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"session">;
+                sessionId: z.ZodString;
+                repo: z.ZodOptional<z.ZodString>;
+                commit: z.ZodOptional<z.ZodString>;
+                path: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"link">;
+                url: z.ZodURL;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"generated">;
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>], "kind">;
+            tenantId: z.ZodString;
+            companyId: z.ZodString;
+            projectId: z.ZodString;
+            assetType: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            providedBy: z.ZodOptional<z.ZodObject<{
+                personRef: z.ZodString;
+            }, z.core.$strict>>;
+            createdAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ActionPlanBuSection = z.infer<typeof ActionPlanBuSectionSchema>;
@@ -181,6 +275,50 @@ export declare const ActionPlanBusinessUnitSchema: z.ZodObject<{
                 min: z.ZodNumber;
                 max: z.ZodNumber;
             }, z.core.$strict>;
+        }, z.core.$strict>>;
+        documentSources: z.ZodOptional<z.ZodObject<{
+            pages: z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
+            materials: z.ZodArray<z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+                name: z.ZodString;
+                mediaType: z.ZodString;
+                sizeBytes: z.ZodNumber;
+                origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"email">;
+                    messageId: z.ZodString;
+                    attachmentName: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"archive">;
+                    archiveSha256: z.ZodString;
+                    entryPath: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"session">;
+                    sessionId: z.ZodString;
+                    repo: z.ZodOptional<z.ZodString>;
+                    commit: z.ZodOptional<z.ZodString>;
+                    path: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"link">;
+                    url: z.ZodURL;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"generated">;
+                    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                }, z.core.$strict>], "kind">;
+                tenantId: z.ZodString;
+                companyId: z.ZodString;
+                projectId: z.ZodString;
+                assetType: z.ZodOptional<z.ZodString>;
+                buSlug: z.ZodOptional<z.ZodString>;
+                providedBy: z.ZodOptional<z.ZodObject<{
+                    personRef: z.ZodString;
+                }, z.core.$strict>>;
+                createdAt: z.ZodISODateTime;
+            }, z.core.$strict>>;
         }, z.core.$strict>>;
     }, z.core.$strict>>>;
     roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
@@ -431,6 +569,50 @@ export declare const ActionPlanSchema: z.ZodObject<{
                     max: z.ZodNumber;
                 }, z.core.$strict>;
             }, z.core.$strict>>;
+            documentSources: z.ZodOptional<z.ZodObject<{
+                pages: z.ZodArray<z.ZodObject<{
+                    slug: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
+                materials: z.ZodArray<z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                    name: z.ZodString;
+                    mediaType: z.ZodString;
+                    sizeBytes: z.ZodNumber;
+                    origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"email">;
+                        messageId: z.ZodString;
+                        attachmentName: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"archive">;
+                        archiveSha256: z.ZodString;
+                        entryPath: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"session">;
+                        sessionId: z.ZodString;
+                        repo: z.ZodOptional<z.ZodString>;
+                        commit: z.ZodOptional<z.ZodString>;
+                        path: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"link">;
+                        url: z.ZodURL;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"generated">;
+                        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    }, z.core.$strict>], "kind">;
+                    tenantId: z.ZodString;
+                    companyId: z.ZodString;
+                    projectId: z.ZodString;
+                    assetType: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    providedBy: z.ZodOptional<z.ZodObject<{
+                        personRef: z.ZodString;
+                    }, z.core.$strict>>;
+                    createdAt: z.ZodISODateTime;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
         }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;
@@ -667,6 +849,50 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
                     min: z.ZodNumber;
                     max: z.ZodNumber;
                 }, z.core.$strict>;
+            }, z.core.$strict>>;
+            documentSources: z.ZodOptional<z.ZodObject<{
+                pages: z.ZodArray<z.ZodObject<{
+                    slug: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
+                materials: z.ZodArray<z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                    name: z.ZodString;
+                    mediaType: z.ZodString;
+                    sizeBytes: z.ZodNumber;
+                    origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"email">;
+                        messageId: z.ZodString;
+                        attachmentName: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"archive">;
+                        archiveSha256: z.ZodString;
+                        entryPath: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"session">;
+                        sessionId: z.ZodString;
+                        repo: z.ZodOptional<z.ZodString>;
+                        commit: z.ZodOptional<z.ZodString>;
+                        path: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"link">;
+                        url: z.ZodURL;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"generated">;
+                        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    }, z.core.$strict>], "kind">;
+                    tenantId: z.ZodString;
+                    companyId: z.ZodString;
+                    projectId: z.ZodString;
+                    assetType: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    providedBy: z.ZodOptional<z.ZodObject<{
+                        personRef: z.ZodString;
+                    }, z.core.$strict>>;
+                    createdAt: z.ZodISODateTime;
+                }, z.core.$strict>>;
             }, z.core.$strict>>;
         }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
@@ -911,6 +1137,50 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
                     max: z.ZodNumber;
                 }, z.core.$strict>;
             }, z.core.$strict>>;
+            documentSources: z.ZodOptional<z.ZodObject<{
+                pages: z.ZodArray<z.ZodObject<{
+                    slug: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
+                materials: z.ZodArray<z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                    name: z.ZodString;
+                    mediaType: z.ZodString;
+                    sizeBytes: z.ZodNumber;
+                    origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"email">;
+                        messageId: z.ZodString;
+                        attachmentName: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"archive">;
+                        archiveSha256: z.ZodString;
+                        entryPath: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"session">;
+                        sessionId: z.ZodString;
+                        repo: z.ZodOptional<z.ZodString>;
+                        commit: z.ZodOptional<z.ZodString>;
+                        path: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"link">;
+                        url: z.ZodURL;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"generated">;
+                        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    }, z.core.$strict>], "kind">;
+                    tenantId: z.ZodString;
+                    companyId: z.ZodString;
+                    projectId: z.ZodString;
+                    assetType: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    providedBy: z.ZodOptional<z.ZodObject<{
+                        personRef: z.ZodString;
+                    }, z.core.$strict>>;
+                    createdAt: z.ZodISODateTime;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
         }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;
@@ -1148,6 +1418,50 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
                     min: z.ZodNumber;
                     max: z.ZodNumber;
                 }, z.core.$strict>;
+            }, z.core.$strict>>;
+            documentSources: z.ZodOptional<z.ZodObject<{
+                pages: z.ZodArray<z.ZodObject<{
+                    slug: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
+                materials: z.ZodArray<z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                    name: z.ZodString;
+                    mediaType: z.ZodString;
+                    sizeBytes: z.ZodNumber;
+                    origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"email">;
+                        messageId: z.ZodString;
+                        attachmentName: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"archive">;
+                        archiveSha256: z.ZodString;
+                        entryPath: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"session">;
+                        sessionId: z.ZodString;
+                        repo: z.ZodOptional<z.ZodString>;
+                        commit: z.ZodOptional<z.ZodString>;
+                        path: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"link">;
+                        url: z.ZodURL;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"generated">;
+                        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    }, z.core.$strict>], "kind">;
+                    tenantId: z.ZodString;
+                    companyId: z.ZodString;
+                    projectId: z.ZodString;
+                    assetType: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    providedBy: z.ZodOptional<z.ZodObject<{
+                        personRef: z.ZodString;
+                    }, z.core.$strict>>;
+                    createdAt: z.ZodISODateTime;
+                }, z.core.$strict>>;
             }, z.core.$strict>>;
         }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{

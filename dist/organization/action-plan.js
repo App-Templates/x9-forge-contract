@@ -42,6 +42,38 @@ export const ActionPlanDocumentFormatSchema = z.strictObject({
     }).refine((length) => length.min <= length.max, { message: 'Document length min must not exceed max' })
         .describe('la lunghezza richiesta, in pagine o in parole'),
 }).describe('la forma richiesta del documento della sezione');
+/**
+ * The sources a document section declares: wiki pages at a precise version and saved materials as asset references.
+ * References only, never bodies or credentials. Declaring one is not a judgment: existence, provenance, scope and use
+ * are for the native reviewer to decide. A `link` asset's sha256 may fingerprint the URL, not the bytes.
+ */
+export const ActionPlanDocumentSourcesSchema = z.strictObject({
+    pages: z.array(z.strictObject({
+        slug: WikiPageSchema.shape.slug,
+        version: WikiPageSchema.shape.version,
+    })).max(100).describe('le pagine del dossier, a versione precisa'),
+    materials: z.array(AssetRefSchema).max(50).describe('i materiali salvati, come riferimenti'),
+}).superRefine((sources, ctx) => {
+    const { pages, materials } = sources;
+    if (!(pages.length + materials.length > 0)) {
+        ctx.addIssue({ code: 'custom', message: 'Document sources need at least one page or material', path: ['pages'] });
+    }
+    // Different versions of one page are different data: only an identical (slug, version) pair is a duplicate.
+    const seenPages = new Set();
+    pages.forEach((page, index) => {
+        const key = `${page.slug}@${page.version}`;
+        if (seenPages.has(key))
+            ctx.addIssue({ code: 'custom', message: 'Duplicate page version', path: ['pages', index] });
+        seenPages.add(key);
+    });
+    const seenMaterials = new Set();
+    materials.forEach((material, index) => {
+        const key = `${material.assetId}:${material.sha256}`;
+        if (seenMaterials.has(key))
+            ctx.addIssue({ code: 'custom', message: 'Duplicate material', path: ['materials', index] });
+        seenMaterials.add(key);
+    });
+});
 export const ActionPlanBuSectionSchema = z.strictObject({
     id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
     title: z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
@@ -54,6 +86,7 @@ export const ActionPlanBuSectionSchema = z.strictObject({
         what: z.string().min(1).max(500),
     })).max(10).optional().describe("cosa serve da un'altra BU per costruirla"),
     documentFormat: ActionPlanDocumentFormatSchema.optional(),
+    documentSources: ActionPlanDocumentSourcesSchema.optional(),
 });
 /** What the plan delivers: `product` builds something the user uses (app, site, service); `study` delivers documents (analysis, research, financial plan, opinion). */
 export const ACTION_PLAN_DELIVERY_SHAPES = ['product', 'study'];
