@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.291.0 — the fixed section "Come si comunica" says the lead decides its sessions without the Director's authorization (task 8193, twin of 8190)
+
+- Task 8193: opening, reopening, correcting or redoing a session on the lead's own assignment is the lead's decision, without the Director's authorization; a Director's prohibition does not stop the lead. The seven processes and the three wait recipients are unchanged.
+- Text only, identical to 8190 on ec-ponte; profiles receive it after the Forge pin, release and refresh (8194–8195).
+- REGRESSIONE: s8193 il-capo-non-aspetta-il-director: with the Director's comment «Non autorizzo quindi un nuovo avvio … una nuova autorizzazione che riporti gli stessi riferimenti», before `communicationSection()` did not say who decides sessions (no `senza autorizzazione del Director` or `un suo divieto non ferma il capo`); after, it contains the paragraph and the first line remains `## Come si comunica`.
+
 ## v1.290.0 — the fixed section "Come si comunica" says who an agent turns to when it waits for something it cannot do (task 8192, twin of 8184 on the sl-ponte line)
 
 - Task 8192: `PAPERCLIP_WAIT_RECIPIENTS` and `PaperclipWaitRecipientSchema` (agent, person_or_repair, infrastructure) and one new line in `communicationSection()`: an agent waiting on another agent asks the Director, on a person or a repair writes to the project referent, on the Azienda Agentica infrastructure tells the referent, who hands it to the super-admin; a "gestore della piattaforma" does not exist.

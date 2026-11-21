@@ -202,7 +202,9 @@ describe('s8192 destinatario di chi aspetta', () => {
     expect(waitLines[0]).not.toMatch(/[a-z]+_[a-z_]+/);
     const at = lines.indexOf(waitLines[0] as string);
     expect(lines[at - 2]).toMatch(/^Un commento semplice/);
-    expect(lines[at + 2]).toMatch(/^Fuori dall'azienda/);
+    // Task 8193 inserts the lead's session rule without changing the wait or external rules.
+    expect(lines[at + 2]).toMatch(/^Le sessioni di lavoro:/);
+    expect(lines[at + 4]).toMatch(/^Fuori dall'azienda/);
     expect(lines.slice(-3)).toEqual([
       "Fuori dall'azienda scrivo solo ai referenti certificati del progetto in Memoria Aziendale, a chi ha aperto il brief " +
         "del progetto (il Director anche all'Owner) e a un referente che mi ha scritto nel filo: " +
@@ -214,12 +216,80 @@ describe('s8192 destinatario di chi aspetta', () => {
 
   it('s8192 versione-e-mappa', () => {
     const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as { version: string };
-    expect(pkg.version).toBe('1.290.0');
+    expect(pkg.version).toBe('1.291.0');
     const changelog = readFileSync(new URL('../CHANGELOG.md', import.meta.url), 'utf8');
     const titles = changelog.split('\n').filter((l) => l.startsWith('## v'));
-    expect(titles[0]).toMatch(/^## v1\.290\.0/);
+    expect(titles[0]).toMatch(/^## v1\.291\.0/);
+    expect(titles[1]).toMatch(/^## v1\.290\.0/);
     expect(titles.filter((l) => l.startsWith('## v1.290.0'))).toHaveLength(1);
     const map = JSON.parse(readFileSync(new URL('../dist/narrow-imports.json', import.meta.url), 'utf8')) as { versione: string };
-    expect(map.versione).toBe('1.290.0');
+    expect(map.versione).toBe('1.291.0');
+  });
+});
+
+describe('s8193 sessioni decise dal capo', () => {
+  const sessionParagraph = 'Le sessioni di lavoro: aprire, riaprire, correggere o rifare una sessione sul proprio incarico è decisione del capo, senza autorizzazione del Director. Il Director coordina le unità e risponde alle domande: non autorizza e non vieta le sessioni di un capo, e un suo divieto non ferma il capo. Se serve una prova che può dare solo una sessione, è il capo ad aprirla.';
+
+  it('s8193 il-capo-non-aspetta-il-director', () => {
+    // Quoted excerpt supplied by task 8193 from GOO-194 comment 157218e2-392d-4de1-9507-dcd819f35ba6.
+    const directorComment = 'Non autorizzo quindi un nuovo avvio … una nuova autorizzazione che riporti gli stessi riferimenti';
+    expect(directorComment).toContain('Non autorizzo quindi un nuovo avvio');
+    expect(directorComment).toContain('nuova autorizzazione');
+    const text = communicationSection();
+    expect(text.split('\n')[0]).toBe('## Come si comunica');
+    for (const phrase of [
+      'aprire, riaprire, correggere o rifare una sessione',
+      'senza autorizzazione del Director',
+      'non autorizza e non vieta le sessioni di un capo',
+      'un suo divieto non ferma il capo',
+    ]) {
+      expect(text).toContain(phrase);
+    }
+    expect(text).toContain(sessionParagraph);
+  });
+
+  it('s8193 resto-uguale', () => {
+    const lines = communicationSectionLines();
+    const text = communicationSection();
+    expect(lines.filter(line => /^\d+\. /.test(line))).toHaveLength(7);
+    expect(PAPERCLIP_WAIT_RECIPIENTS).toEqual(['agent', 'person_or_repair', 'infrastructure']);
+    const waitLines = lines.filter(line => line.startsWith('Se aspetto qualcosa'));
+    expect(waitLines).toHaveLength(1);
+    for (const phrase of ['referente del progetto', 'super-admin', 'gestore della piattaforma» non esiste']) {
+      expect(text.split(phrase)).toHaveLength(2);
+    }
+    expect(lines.filter(line => line.startsWith('Le sessioni di lavoro:'))).toEqual([sessionParagraph]);
+    expect(text.split(sessionParagraph)).toHaveLength(2);
+    const at = lines.indexOf(sessionParagraph);
+    expect(lines[at - 2]).toBe(waitLines[0]);
+    expect(lines[at - 1]).toBe('');
+    expect(lines[at + 1]).toBe('');
+    expect(lines[at + 2]).toMatch(/^Fuori dall'azienda/);
+    expect(lines[lines.length - 1]).toBe('Per le ricerche non apro incarichi alla Ricerca: le ricerche le avvia il Lab con il suo strumento.');
+  });
+
+  it('s8193 solo-le-sessioni', () => {
+    const paragraphs = communicationSectionLines().filter(line => line.startsWith('Le sessioni di lavoro:'));
+    expect(paragraphs).toHaveLength(1);
+    const paragraph = paragraphs[0] as string;
+    expect(paragraph).toBe(sessionParagraph);
+    expect(paragraph).not.toMatch(/spese|piano|approv|referente/i);
+    expect(TOOL_VALUES.filter(tool => paragraph.includes(tool))).toEqual([]);
+    expect(paragraph).not.toMatch(/[a-z]+_[a-z_]+/);
+    expect([...new Set(communicationSection().match(/paperclip_[a-z_]+/g) ?? [])].sort()).toEqual([
+      PAPERCLIP_TOOLS.createIssue, PAPERCLIP_TOOLS.assign, PAPERCLIP_TOOLS.review,
+    ].sort());
+  });
+
+  it('s8193 versione-e-mappa', () => {
+    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as { version: string };
+    expect(pkg.version).toBe('1.291.0');
+    const changelog = readFileSync(new URL('../CHANGELOG.md', import.meta.url), 'utf8');
+    const titles = changelog.split('\n').filter(line => line.startsWith('## v'));
+    expect(titles[0]).toMatch(/^## v1\.291\.0 —/);
+    expect(titles[1]).toMatch(/^## v1\.290\.0 —/);
+    expect(titles.filter(line => line.startsWith('## v1.291.0'))).toHaveLength(1);
+    const map = JSON.parse(readFileSync(new URL('../dist/narrow-imports.json', import.meta.url), 'utf8')) as { versione: string };
+    expect(map.versione).toBe('1.291.0');
   });
 });
