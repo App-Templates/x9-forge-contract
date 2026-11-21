@@ -189,6 +189,20 @@ export const PaperclipDirectorAnswerSchema = z.strictObject({
 });
 export type PaperclipDirectorAnswer = z.infer<typeof PaperclipDirectorAnswerSchema>;
 
+/**
+ * How the Director resolved a request: answered it (`response`, or `clearance` = a go-ahead), handed the same task to the
+ * colleague it belongs to (`reroute`, by agent id, never by role), or hit a technical fault meant for a person. Without
+ * it a fault could not be told from an answer, and a fault cannot become a new task for another chief. Additive and
+ * optional; the service consumes it (8385). A fault code is a short machine code, never free text to be parsed.
+ */
+export const PAPERCLIP_DIRECTOR_RESOLUTION_KINDS = ['answer', 'reroute', 'technical_fault'] as const;
+export const PaperclipDirectorResolutionSchema = z.discriminatedUnion('kind', [
+  z.strictObject({ kind: z.literal('answer'), mode: z.enum(['response', 'clearance']) }),
+  z.strictObject({ kind: z.literal('reroute'), assigneeAgentId: PaperclipAgentIdSchema }),
+  z.strictObject({ kind: z.literal('technical_fault'), faultCode: Text.max(120) }),
+]);
+export type PaperclipDirectorResolution = z.infer<typeof PaperclipDirectorResolutionSchema>;
+
 const ANSWER_OUTCOME_LINES = { approved: 'Esito: approvato.', not_approved: 'Esito: non approvato.', forbidden: 'Esito: vietato.' } as const;
 const ANSWER_ACTOR_WORDS = { asker: 'tu', director: 'il Director', referent: 'il referente' } as const;
 
@@ -220,17 +234,44 @@ const NativeReviewBase = PaperclipReviewInputSchema.extend({
   waitingFor: PaperclipWaitingForSchema.optional(),
   checkLater: PaperclipCheckLaterSchema.optional(),
   answer: PaperclipDirectorAnswerSchema.optional(),
+  resolution: PaperclipDirectorResolutionSchema.optional(),
 });
 type NativeReviewValue = z.infer<typeof NativeReviewBase> & { ask?: unknown };
+/** The resolution rules; each one needs the answer (8250) to be present, which the first guard enforces on its own. */
+function checkResolution(value: NativeReviewValue, ctx: z.RefinementCtx, routes: boolean): void {
+  const resolution = value.resolution;
+  if (resolution === undefined) return;
+  const issue = (path: string, message: string) => ctx.addIssue({ code: 'custom', path: [path], message });
+  if (value.resolution !== undefined && value.answer === undefined) {
+    issue('answer', 'A resolution needs the answer: no negative reply without how to fix');
+  }
+  if (value.comment === undefined) issue('comment', 'A resolution needs a non-empty comment');
+  if (value.ask !== undefined || value.blockedByIssueIds !== undefined || value.waitingFor !== undefined || value.checkLater !== undefined) {
+    issue('resolution', 'A resolution carries no ask or wait');
+  }
+  if (routes && value.status !== 'in_review') issue('status', 'reroute and technical_fault require status in_review (routing intent)');
+  if (!routes && value.status !== 'done') issue('status', 'An answer resolution requires status done');
+  const answer = value.answer;
+  if (answer === undefined) return;
+  if (answer.outcome !== 'approved' && (answer.howToFix?.tool === undefined || answer.howToFix.tool.length === 0)) {
+    issue('answer', 'With a resolution, a negative answer names the tool of howToFix');
+  }
+  if (routes && answer.outcome === 'approved') issue('answer', 'reroute and technical_fault need an answer that is not approved');
+  if (resolution.kind === 'answer' && resolution.mode === 'clearance' && answer.outcome !== 'approved') {
+    issue('answer', 'clearance needs an approved answer');
+  }
+}
 function checkNativeReview(value: NativeReviewValue, ctx: z.RefinementCtx): void {
   if (value.ask !== undefined && (value.status !== 'in_review' || value.blockedByIssueIds !== undefined
     || value.waitingFor !== undefined || value.checkLater !== undefined)) {
     ctx.addIssue({ code: 'custom', path: ['ask'], message: 'ask requires status in_review and no other wait' });
   }
-  if (value.answer !== undefined && (value.status !== 'done' || value.ask !== undefined || value.blockedByIssueIds !== undefined
+  const routes = value.resolution?.kind === 'reroute' || value.resolution?.kind === 'technical_fault';
+  if (value.answer !== undefined && ((value.status !== 'done' && !routes) || value.ask !== undefined || value.blockedByIssueIds !== undefined
     || value.waitingFor !== undefined || value.checkLater !== undefined)) {
     ctx.addIssue({ code: 'custom', path: ['answer'], message: 'answer requires status done and no ask or wait' });
   }
+  checkResolution(value, ctx, routes);
   if ((value.blockedByIssueIds !== undefined || value.waitingFor !== undefined) && value.status !== 'blocked') {
     ctx.addIssue({ code: 'custom', path: ['status'], message: 'A wait reason requires status blocked' });
   }

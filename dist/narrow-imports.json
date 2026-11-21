@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.284.0",
+  "versione": "1.285.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -870,6 +870,7 @@
       "PAPERCLIP_DEDUP_TITOLO_ORE": "@x9-forge/contracts/capability/paperclip-protocollo/wire-creazione",
       "PAPERCLIP_DESCRIZIONE_MAX": "@x9-forge/contracts/capability/paperclip-protocollo/wire-creazione",
       "PAPERCLIP_DESTINATARIO_RIFIUTI": "@x9-forge/contracts/capability/paperclip/recipient",
+      "PAPERCLIP_DIRECTOR_RESOLUTION_KINDS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_DOCUMENT_BODY_MAX": "@x9-forge/contracts/capability/paperclip-protocollo/wire-documenti",
       "PAPERCLIP_DOCUMENT_FORMATS": "@x9-forge/contracts/capability/paperclip-protocollo/wire-documenti",
       "PAPERCLIP_DOCUMENT_KEY_PATTERN": "@x9-forge/contracts/capability/paperclip-protocollo/wire-documenti",
@@ -1024,6 +1025,7 @@
       "PaperclipDeduplicazioneMotivoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-creazione",
       "PaperclipDescrittoreSbloccoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
       "PaperclipDirectorAnswerSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
+      "PaperclipDirectorResolutionSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipDisposizioneCorpoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
       "PaperclipDocumentoAggiornaCorpoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-documenti",
       "PaperclipDocumentoChiaveSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-documenti",
@@ -3532,6 +3534,7 @@
       "PAPERCLIP_CONFIRMATION_OUTCOMES": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_CONTINUATION_POLICIES": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_DESTINATARIO_RIFIUTI": "@x9-forge/contracts/capability/paperclip/recipient",
+      "PAPERCLIP_DIRECTOR_RESOLUTION_KINDS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_FOLLOW_UP_MAX_ATTEMPTS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_INTERACTION_CREATABLE_KINDS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_INTERACTION_KINDS": "@x9-forge/contracts/capability/paperclip/native-wait",
@@ -3596,6 +3599,7 @@
       "PaperclipDecisionRecordSchema": "@x9-forge/contracts/capability/paperclip",
       "PaperclipDecisionViewSchema": "@x9-forge/contracts/capability/paperclip",
       "PaperclipDirectorAnswerSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
+      "PaperclipDirectorResolutionSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipEnrollmentSchema": "@x9-forge/contracts/capability/paperclip/enrollment",
       "PaperclipFollowUpSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipGoalLevelSchema": "@x9-forge/contracts/capability/paperclip/tools",

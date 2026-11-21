@@ -10,16 +10,16 @@ export declare const VideoBriefToolInputSchema: z.ZodObject<{
         autonomous: "autonomous";
     }>;
     durationSeconds: z.ZodOptional<z.ZodNumber>;
+    resolution: z.ZodOptional<z.ZodEnum<{
+        "480p": "480p";
+        "720p": "720p";
+        "1080p": "1080p";
+    }>>;
     footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
     aspectRatio: z.ZodOptional<z.ZodEnum<{
         "9:16": "9:16";
         "16:9": "16:9";
         "1:1": "1:1";
-    }>>;
-    resolution: z.ZodOptional<z.ZodEnum<{
-        "480p": "480p";
-        "720p": "720p";
-        "1080p": "1080p";
     }>>;
     approverEmail: z.ZodEmail;
     budgetUsd: z.ZodNumber;

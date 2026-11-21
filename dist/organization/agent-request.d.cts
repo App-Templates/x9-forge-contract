@@ -11,10 +11,10 @@ export declare const AGENT_QUESTION_TRIED_MIN = 1;
 /** The asker supplies the classification and attempts; consumers must never infer them from prose. */
 export declare const AgentQuestionDetailsSchema: z.ZodObject<{
     kind: z.ZodEnum<{
-        clarification: "clarification";
-        scope_decision: "scope_decision";
         technical_fault: "technical_fault";
         clearance: "clearance";
+        clarification: "clarification";
+        scope_decision: "scope_decision";
     }>;
     cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodLiteral<"question">;
@@ -35,10 +35,10 @@ export declare const PaperclipDirectorCreateInputSchema: z.ZodObject<{
     assigneeAgentId: z.ZodOptional<z.ZodGUID>;
     question: z.ZodOptional<z.ZodObject<{
         kind: z.ZodEnum<{
-            clarification: "clarification";
-            scope_decision: "scope_decision";
             technical_fault: "technical_fault";
             clearance: "clearance";
+            clarification: "clarification";
+            scope_decision: "scope_decision";
         }>;
         cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"question">;
@@ -60,10 +60,10 @@ export declare const PaperclipDirectorNativeCreateInputSchema: z.ZodObject<{
     waitForChild: z.ZodOptional<z.ZodBoolean>;
     question: z.ZodOptional<z.ZodObject<{
         kind: z.ZodEnum<{
-            clarification: "clarification";
-            scope_decision: "scope_decision";
             technical_fault: "technical_fault";
             clearance: "clearance";
+            clarification: "clarification";
+            scope_decision: "scope_decision";
         }>;
         cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"question">;
@@ -104,10 +104,10 @@ export declare const AgentRequestSchema: z.ZodObject<{
     }, z.core.$strict>>;
     details: z.ZodOptional<z.ZodObject<{
         kind: z.ZodEnum<{
-            clarification: "clarification";
-            scope_decision: "scope_decision";
             technical_fault: "technical_fault";
             clearance: "clearance";
+            clarification: "clarification";
+            scope_decision: "scope_decision";
         }>;
         cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"question">;

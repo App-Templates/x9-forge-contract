@@ -551,10 +551,10 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
         }, z.core.$strict>>;
         details: z.ZodOptional<z.ZodObject<{
             kind: z.ZodEnum<{
-                clarification: "clarification";
-                scope_decision: "scope_decision";
                 technical_fault: "technical_fault";
                 clearance: "clearance";
+                clarification: "clarification";
+                scope_decision: "scope_decision";
             }>;
             cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"question">;
@@ -702,10 +702,10 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             }, z.core.$strict>>;
             details: z.ZodOptional<z.ZodObject<{
                 kind: z.ZodEnum<{
-                    clarification: "clarification";
-                    scope_decision: "scope_decision";
                     technical_fault: "technical_fault";
                     clearance: "clearance";
+                    clarification: "clarification";
+                    scope_decision: "scope_decision";
                 }>;
                 cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
                     kind: z.ZodLiteral<"question">;
@@ -946,10 +946,10 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 }, z.core.$strict>>;
                 details: z.ZodOptional<z.ZodObject<{
                     kind: z.ZodEnum<{
-                        clarification: "clarification";
-                        scope_decision: "scope_decision";
                         technical_fault: "technical_fault";
                         clearance: "clearance";
+                        clarification: "clarification";
+                        scope_decision: "scope_decision";
                     }>;
                     cause: z.ZodDiscriminatedUnion<[z.ZodObject<{
                         kind: z.ZodLiteral<"question">;

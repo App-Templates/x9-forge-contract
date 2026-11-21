@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.285.0 — the Director's resolution tells an answer from a reroute and from a technical fault (task 8381)
+
+- Add `PaperclipDirectorResolutionSchema` (strict, discriminated by `kind`: `answer` with `mode` response|clearance, `reroute` with `assigneeAgentId`, `technical_fault` with `faultCode` 1–120) and optional `resolution` on the native review inputs. With it, `answer` (8250) is required, comment is required, no ask or wait is allowed, and a negative answer must name `howToFix.tool`. Answer resolutions require `done`; reroute and fault require `in_review` and a non-approved answer. Reviews without `resolution` are unchanged. Inert until 8385.
+- REGRESSIONE: s8381 regressione: sul caso GOO-318/319, oggi non si può distinguere una risposta da un guasto nella chiusura; dopo la forma identifica il guasto con codice e mossa, senza permettere di chiuderlo come risposto, mentre la forma answer del 4b resta valida. Forme ricostruite dalle fonti, non estratti di produzione.
+
 ## v1.284.0 — session mandate responses declare their identity binding (task 8400)
 
 - Add `PAPERCLIP_SEAT_SESSION_MANDATE_BINDINGS`, its schema and type, and optional `mandateBinding` on the strict session mandate response. Only `read` may carry `verified` or `criteria_only`; no default or saved mandate change. Export `sessionMandateBinding(response)` as the single conservative reader: only an explicit verified read proves the identity binding, while legacy responses mean criteria only. Computing and consuming the binding remain tasks 8401 and 8402; adopt the reader before the producer.

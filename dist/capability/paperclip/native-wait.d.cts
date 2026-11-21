@@ -192,6 +192,27 @@ export declare const PaperclipDirectorAnswerSchema: z.ZodObject<{
     }, z.core.$strict>], "kind">>;
 }, z.core.$strict>;
 export type PaperclipDirectorAnswer = z.infer<typeof PaperclipDirectorAnswerSchema>;
+/**
+ * How the Director resolved a request: answered it (`response`, or `clearance` = a go-ahead), handed the same task to the
+ * colleague it belongs to (`reroute`, by agent id, never by role), or hit a technical fault meant for a person. Without
+ * it a fault could not be told from an answer, and a fault cannot become a new task for another chief. Additive and
+ * optional; the service consumes it (8385). A fault code is a short machine code, never free text to be parsed.
+ */
+export declare const PAPERCLIP_DIRECTOR_RESOLUTION_KINDS: readonly ["answer", "reroute", "technical_fault"];
+export declare const PaperclipDirectorResolutionSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"answer">;
+    mode: z.ZodEnum<{
+        response: "response";
+        clearance: "clearance";
+    }>;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"reroute">;
+    assigneeAgentId: z.ZodGUID;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"technical_fault">;
+    faultCode: z.ZodString;
+}, z.core.$strict>], "kind">;
+export type PaperclipDirectorResolution = z.infer<typeof PaperclipDirectorResolutionSchema>;
 /** Fixed Italian lines (the readers are the company's agents) composed from the answer; pure. */
 export declare function paperclipDirectorAnswerLines(answer: PaperclipDirectorAnswer): string;
 export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
@@ -257,6 +278,19 @@ export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
             afterSeconds: z.ZodNumber;
         }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
+    resolution: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"answer">;
+        mode: z.ZodEnum<{
+            response: "response";
+            clearance: "clearance";
+        }>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"reroute">;
+        assigneeAgentId: z.ZodGUID;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"technical_fault">;
+        faultCode: z.ZodString;
+    }, z.core.$strict>], "kind">>;
     ask: z.ZodOptional<z.ZodObject<{
         roleRef: z.ZodString;
         question: z.ZodString;
@@ -527,6 +561,19 @@ export declare const PaperclipNativeReviewAddressedInputSchema: z.ZodObject<{
             afterSeconds: z.ZodNumber;
         }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
+    resolution: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"answer">;
+        mode: z.ZodEnum<{
+            response: "response";
+            clearance: "clearance";
+        }>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"reroute">;
+        assigneeAgentId: z.ZodGUID;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"technical_fault">;
+        faultCode: z.ZodString;
+    }, z.core.$strict>], "kind">>;
     ask: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
         to: z.ZodLiteral<"agent">;
         addresseeAgentId: z.ZodGUID;
