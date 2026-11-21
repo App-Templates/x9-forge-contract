@@ -3,8 +3,10 @@ import {
   PAPERCLIP_CHANNEL_TOOLS,
   PAPERCLIP_COMMUNICATION_CHANNELS,
   PAPERCLIP_DELIVERY_CHANNELS,
+  PAPERCLIP_WAIT_RECIPIENTS,
   PaperclipCommunicationChannelSchema,
   PaperclipDeliveryChannelSchema,
+  PaperclipWaitRecipientSchema,
   communicationSection,
   communicationSectionLines,
 } from '../src/capability/paperclip/communication-channels.js';
@@ -160,5 +162,41 @@ describe('s7421 pc29 canali-file-e-prove', () => {
       '',
       'Per le ricerche non apro incarichi alla Ricerca: le ricerche le avvia il Lab con il suo strumento.',
     ]);
+  });
+});
+
+describe('s8184 destinatario di chi aspetta', () => {
+  it('s8184 il-destinatario-di-chi-aspetta', () => {
+    const text = communicationSection();
+    expect(communicationSectionLines()[0]).toBe('## Come si comunica');
+    expect(text).toContain('referente del progetto');
+    expect(text).toContain('super-admin');
+    expect(text).toContain('Director');
+    expect(text).toContain('non esiste');
+    expect(text).toContain('la passa al super-admin');
+    expect(text).toContain('scrivo al referente del progetto');
+    expect(text).toContain('I processi sono sette:');
+    for (const channel of PAPERCLIP_COMMUNICATION_CHANNELS) {
+      expect(text).toContain(`${PAPERCLIP_COMMUNICATION_CHANNELS.indexOf(channel) + 1}. `);
+    }
+  });
+
+  it('s8184 lista-chiusa', () => {
+    expect([...PAPERCLIP_WAIT_RECIPIENTS]).toEqual(['agent', 'person_or_repair', 'infrastructure']);
+    for (const value of PAPERCLIP_WAIT_RECIPIENTS) {
+      expect(PaperclipWaitRecipientSchema.safeParse(value).success).toBe(true);
+    }
+    expect(PaperclipWaitRecipientSchema.safeParse('gestore').success).toBe(false);
+    expect(PaperclipWaitRecipientSchema.safeParse('platform_manager').success).toBe(false);
+  });
+
+  it('s8184 una-sola-volta', () => {
+    const lines = communicationSectionLines().filter((line) => line.startsWith('Se aspetto qualcosa'));
+    expect(lines).toHaveLength(1);
+    const text = communicationSection();
+    expect(text.split('super-admin').length - 1).toBe(1);
+    const newTools = Object.values(PAPERCLIP_TOOLS).filter((tool) => lines[0]?.includes(tool));
+    expect(newTools).toEqual([]);
+    expect(lines[0]).not.toMatch(/[a-z]+_[a-z_]+/);
   });
 });

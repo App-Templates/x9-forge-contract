@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.257.0 — the fixed section "Come si comunica" says who an agent turns to when it waits for something it cannot do (task 8184)
+
+- Additive in `capability/paperclip/communication-channels`: closed list `PAPERCLIP_WAIT_RECIPIENTS` (`agent`, `person_or_repair`, `infrastructure`) with `PaperclipWaitRecipientSchema`, and one more line in `communicationSectionLines()` before the research line: another agent → the Director (addressed question); a person or a repair → the project referent; Azienda Agentica infrastructure → the referent, who hands it to the super-admin; a "gestore della piattaforma" does not exist. The seven processes and every existing text are unchanged.
+- Profiles that import `communicationSection()` get the line only when they are regenerated (`recover-communication-profiles`); no consumer changes here.
+- REGRESSIONE: s8184 il-destinatario-di-chi-aspetta: oggi `communicationSection()` non dice a chi si rivolge chi aspetta una persona o una riparazione (rosso: non contiene `referente del progetto` né `super-admin`); dopo contiene le tre righe, e la prima riga resta `## Come si comunica` e i sette processi restano.
+
 ## v1.256.0 — the mandate criteria of a piece have a stable name and reach the session contract without hand copying (task 8162)
 
 - Additive pure functions in `capability/dev/session-acceptance-mandate`: `mandateCriterionId(deliverableKey, index)` (`<piece>.<n>`, from the position in the saved plan) and `devSessionCompleteMandateCriteria(mandate, deliverableKey, own)`, which appends the mandate criteria the lead did not write; hand-written ones stay as they are, in order. Refusals listed in `DEV_SESSION_COMPLETE_MANDATE_PROBLEMS`; fixed proof text `DEV_SESSION_MANDATE_CRITERION_PROOF`.

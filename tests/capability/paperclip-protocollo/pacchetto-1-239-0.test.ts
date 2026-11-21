@@ -790,16 +790,25 @@ describe('s8161 pacchetto-1-255-0', () => {
 });
 
 describe('s8162 pacchetto-1-256-0', () => {
-  it('s8162_version: package and first release are 1.256.0 and retain 1.255.0', () => {
+  it('s8162_version: package matches the first release and retains 1.256.0 and 1.255.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.256.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.256.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.256.0');
     expect(changelog).toContain('## v1.255.0');
   });
 
-  it('s8162_map: the narrow-import map has version 1.256.0 and the completion function', () => {
+  it('s8162_map: the narrow-import map has the current version and the completion function', () => {
     const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
-    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.256.0');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe(packageVersion());
     expect(text).toContain('devSessionCompleteMandateCriteria');
+  });
+});
+
+describe('s8184 pacchetto-1-257-0', () => {
+  it('s8184_version: package and first release are 1.257.0 and retain 1.256.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.257.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.257.0');
+    expect(changelog).toContain('## v1.256.0');
   });
 });

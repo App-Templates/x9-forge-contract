@@ -73,6 +73,20 @@ const DELIVERY_TEXT = {
     attachment: "il sistema carica sull'incarico come allegato le schermate e i documenti della sessione, uno per volta, alla chiusura del pezzo; io li cito nel mio commento",
     work_product: "il sistema registra le schermate, i documenti e il commit della sessione come prodotto del lavoro dell'incarico; io li cito nel commento",
 };
+/**
+ * Who an agent turns to when it waits for something it cannot do itself. Paperclip's skill says a blocker is handled on
+ * the agent's own task and a person is asked with a saved question, never by climbing the manager chain
+ * (skills/paperclip/SKILL.md:601-602; references/api-reference.md:42). Our referent is not a Paperclip board user, so the
+ * person is reached through Memoria's map and mail; the super-admin (Paperclip `instance_admin`) receives only what the
+ * referent hands over. Additive: the seven processes above are untouched.
+ */
+export const PAPERCLIP_WAIT_RECIPIENTS = ['agent', 'person_or_repair', 'infrastructure'];
+export const PaperclipWaitRecipientSchema = z.enum(PAPERCLIP_WAIT_RECIPIENTS);
+const WAIT_RECIPIENT_TEXT = {
+    agent: 'se lo aspetto da un altro agente chiedo al Director con una domanda indirizzata',
+    person_or_repair: 'se lo aspetto da una persona o da una riparazione scrivo al referente del progetto',
+    infrastructure: "se è l'infrastruttura di Azienda Agentica lo dico al referente, che la passa al super-admin",
+};
 function toolsText(channel) {
     const tools = PAPERCLIP_CHANNEL_TOOLS[channel];
     return tools.length === 0 ? 'lo configura la piattaforma, non ho uno strumento' : `strumenti: ${tools.join(', ')}`;
@@ -99,6 +113,9 @@ export function communicationSectionLines() {
             'caricamento e nel commento dico che cosa ho prodotto, senza dire che un file è caricato.',
         'Un commento semplice non riapre un incarico chiuso e un incarico annullato non si riapre: ' +
             'se serve altro lavoro lo scrivo nel commento a chi rivede.',
+        '',
+        `Se aspetto qualcosa che non posso fare io: ${PAPERCLIP_WAIT_RECIPIENTS.map((r) => WAIT_RECIPIENT_TEXT[r]).join('; ')}. ` +
+            'Un «gestore della piattaforma» non esiste e non lo aspetto.',
         '',
         "Fuori dall'azienda scrivo solo ai referenti certificati del progetto in Memoria Aziendale, a chi ha aperto il brief " +
             "del progetto (il Director anche all'Owner) e a un referente che mi ha scritto nel filo: " +
