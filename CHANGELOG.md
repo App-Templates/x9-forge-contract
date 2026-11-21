@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.260.0 — the fixed section "Come si comunica" says that opening, reopening, correcting or redoing a session on one's own issue is the lead's decision (task 8190)
+
+- Text-only: one more paragraph in `communicationSectionLines()` between the line of task 8184 and "Fuori dall'azienda": sessions on the lead's own issue are the lead's decision, without the Director's authorization; the Director does not authorize or forbid them and a Director's ban does not stop the lead. No export, process or recipient changes; the Director still decides plan, spending and answers.
+- Profiles that import `communicationSection()` get the paragraph only when they are refreshed; no consumer changes here.
+- REGRESSIONE: s8190 il-capo-non-aspetta-il-director: con il testo vero del commento `157218e2` del Director su GOO-194 («Non autorizzo quindi un nuovo avvio, ricostruzioni o contatti al referente … una nuova autorizzazione che riporti gli stessi riferimenti») oggi `communicationSection()` non dice chi decide le sessioni (rosso: non contiene `senza autorizzazione del Director` né `un suo divieto non ferma il capo`); dopo contiene il paragrafo e la prima riga resta `## Come si comunica`.
+
 ## v1.259.0 — cap-dev can request the whole mandate on the chief's source issue (task 8200)
 
 - Additive `internalPaperclipSeatSessionMandateContract`: secret-authenticated POST `/internal/paperclip/seats/session-mandate`, with verified organization, chief identity and source run. The caller selects the piece from the whole mandate validated by the existing `ReconciledMandateSchema`; no saved mandate or existing route changes.

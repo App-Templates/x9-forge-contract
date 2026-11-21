@@ -200,3 +200,53 @@ describe('s8184 destinatario di chi aspetta', () => {
     expect(lines[0]).not.toMatch(/[a-z]+_[a-z_]+/);
   });
 });
+
+// Real text of the Director's comment 157218e2 on GOO-194 (21/11), read-only from the production database.
+const DIRECTOR_COMMENT_157218E2 =
+  'Non autorizzo quindi un nuovo avvio, ricostruzioni o contatti al referente. Serve una nuova autorizzazione ' +
+  'che riporti gli stessi riferimenti.';
+
+describe('s8190 le sessioni sono del capo', () => {
+  const SESSION_LINE_START = 'Le sessioni di lavoro:';
+
+  it('s8190 il-capo-non-aspetta-il-director', () => {
+    expect(DIRECTOR_COMMENT_157218E2).toContain('Non autorizzo quindi un nuovo avvio');
+    expect(DIRECTOR_COMMENT_157218E2).toContain('nuova autorizzazione');
+    const text = communicationSection();
+    expect(communicationSectionLines()[0]).toBe('## Come si comunica');
+    expect(text).toContain('aprire, riaprire, correggere o rifare una sessione');
+    expect(text).toContain('senza autorizzazione del Director');
+    expect(text).toContain('non autorizza e non vieta le sessioni di un capo');
+    expect(text).toContain('un suo divieto non ferma il capo');
+  });
+
+  it('s8190 resto-uguale', () => {
+    const lines = communicationSectionLines();
+    const text = communicationSection();
+    expect(text).toContain('I processi sono sette:');
+    expect(lines.filter(line => /^\d+\. /.test(line))).toHaveLength(7);
+    expect(lines.filter(line => line.startsWith('Per portare un file o una prova'))).toHaveLength(1);
+    expect(text.split('super-admin').length - 1).toBe(1);
+    expect(text.split('gestore della piattaforma» non esiste').length - 1).toBe(1);
+    expect(lines.filter(line => line.startsWith('Se aspetto qualcosa'))).toHaveLength(1);
+    expect(lines[lines.length - 1]).toContain('Per le ricerche');
+    expect(text.split('senza autorizzazione del Director').length - 1).toBe(1);
+    const waitIdx = lines.findIndex(line => line.startsWith('Se aspetto qualcosa'));
+    const sessionIdx = lines.findIndex(line => line.startsWith(SESSION_LINE_START));
+    const outsideIdx = lines.findIndex(line => line.startsWith("Fuori dall'azienda"));
+    expect(sessionIdx).toBe(waitIdx + 2);
+    expect(outsideIdx).toBe(sessionIdx + 2);
+    expect(lines[sessionIdx - 1]).toBe('');
+    expect(lines[sessionIdx + 1]).toBe('');
+  });
+
+  it('s8190 solo-le-sessioni', () => {
+    const line = communicationSectionLines().find(l => l.startsWith(SESSION_LINE_START)) ?? '';
+    expect(line).not.toBe('');
+    for (const word of ['spese', 'piano', 'approv', 'referente']) {
+      expect(line).not.toContain(word);
+    }
+    expect(line).not.toMatch(/paperclip_[a-z_]+/);
+    expect(Object.values(PAPERCLIP_TOOLS).filter(tool => line.includes(tool))).toEqual([]);
+  });
+});
