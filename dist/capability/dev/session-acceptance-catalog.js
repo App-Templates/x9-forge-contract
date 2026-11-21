@@ -40,7 +40,10 @@ export const DEV_SESSION_ACCEPTANCE_CATALOG = {
     },
     'D-09': {
         attestor: 'esecutore', needs: ['package'],
-        text: "Il pacchetto per il referente ha anteprima, foglio unico e una scelta delle schermate (al massimo 8 nell'email), con il resto nell'anteprima",
+        // Stefano 21/11: no fixed count; the sheet is one pdf with every screen, the demo is one
+        // self-contained page served by link. Id, attestor and the `package` need stay, so saved
+        // contracts and templates at version 1 keep working.
+        text: 'Il pacchetto per il referente ha un pdf con ogni schermata disponibile della consegna e il collegamento alla demo navigabile, senza un numero fisso di schermate',
         proof: 'controllo del pacchetto',
     },
     'D-11': {

@@ -74,7 +74,7 @@ describe('s7561', () => {
     expect(DEV_SESSION_ACCEPTANCE_CATALOG).not.toHaveProperty('D-10');
     expect(DEV_SESSION_ACCEPTANCE_CATALOG['D-01'].proof).toBe('riga dello strumento `Skill` nel registro della sessione');
     expect(DEV_SESSION_ACCEPTANCE_CATALOG['D-05'].text).toBe("C'è almeno un'immagine per ogni sezione chiesta, ogni comportamento chiesto (stati e interazioni principali), ogni formato e ogni elemento identificativo (ingresso, navigazione, schermata del risultato)");
-    expect(DEV_SESSION_ACCEPTANCE_CATALOG['D-09'].text).toBe("Il pacchetto per il referente ha anteprima, foglio unico e una scelta delle schermate (al massimo 8 nell'email), con il resto nell'anteprima");
+    expect(DEV_SESSION_ACCEPTANCE_CATALOG['D-09'].text).toBe("Il pacchetto per il referente ha un pdf con ogni schermata disponibile della consegna e il collegamento alla demo navigabile, senza un numero fisso di schermate");
   });
 
   it('s7561_modelli', () => {

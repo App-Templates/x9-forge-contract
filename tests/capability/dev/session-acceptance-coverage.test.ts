@@ -112,7 +112,7 @@ describe('session acceptance coverage and Paperclip', () => {
       "- D-04 (esecutore): Nessun errore di movimento dell'elenco, movimento ridotto gestito",
       "- D-05 (esecutore): C'è almeno un'immagine per ogni sezione chiesta, ogni comportamento chiesto (stati e interazioni principali), ogni formato e ogni elemento identificativo (ingresso, navigazione, schermata del risultato)",
       '- D-08 (sessione): Scostamenti dal brand dichiarati con il motivo',
-      "- D-09 (esecutore): Il pacchetto per il referente ha anteprima, foglio unico e una scelta delle schermate (al massimo 8 nell'email), con il resto nell'anteprima",
+      "- D-09 (esecutore): Il pacchetto per il referente ha un pdf con ogni schermata disponibile della consegna e il collegamento alla demo navigabile, senza un numero fisso di schermate",
       '- D-11 (referente): Il design è quello che serve',
     ].join('\n'));
     expect(reference.length).toBeLessThan(4000);

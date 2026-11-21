@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.258.0 — the D-09 criterion says "a pdf with every available screen of the delivery and the link to the navigable demo", with no fixed number (task 8188)
+
+- Text-only change of the `D-09` entry of `DEV_SESSION_ACCEPTANCE_CATALOG`, following Stefano's decision of 21/11. Id, attestor (`esecutore`), `needs: ['package']`, proof and the template versions (1) are unchanged, so saved contracts keep working. Contracts written after a consumer raises its pin read the new text; open issues keep the old one.
+- REGRESSIONE: s8188 d09-senza-numero: con un contratto salvato di design (modello `design-sito` versione 1, ingresso con `screens`, `formats` e `visualSource`, un criterio del capo) oggi `devSessionRequirements` dà per D-09 «una scelta delle schermate (al massimo 8 nell'email)» (rosso: il testo non contiene `ogni schermata disponibile della consegna` né `demo navigabile` e contiene `al massimo`); dopo D-09 dice «un pdf con ogni schermata disponibile della consegna e il collegamento alla demo navigabile», senza cifre, e la riga compare uguale in `devSessionAcceptanceReference`.
+
 ## v1.257.0 — the fixed section "Come si comunica" says who an agent turns to when it waits for something it cannot do (task 8184)
 
 - Additive in `capability/paperclip/communication-channels`: closed list `PAPERCLIP_WAIT_RECIPIENTS` (`agent`, `person_or_repair`, `infrastructure`) with `PaperclipWaitRecipientSchema`, and one more line in `communicationSectionLines()` before the research line: another agent → the Director (addressed question); a person or a repair → the project referent; Azienda Agentica infrastructure → the referent, who hands it to the super-admin; a "gestore della piattaforma" does not exist. The seven processes and every existing text are unchanged.

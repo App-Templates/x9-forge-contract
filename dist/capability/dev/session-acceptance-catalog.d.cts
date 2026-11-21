@@ -45,7 +45,7 @@ export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
     readonly 'D-09': {
         readonly attestor: "esecutore";
         readonly needs: readonly ["package"];
-        readonly text: "Il pacchetto per il referente ha anteprima, foglio unico e una scelta delle schermate (al massimo 8 nell'email), con il resto nell'anteprima";
+        readonly text: "Il pacchetto per il referente ha un pdf con ogni schermata disponibile della consegna e il collegamento alla demo navigabile, senza un numero fisso di schermate";
         readonly proof: "controllo del pacchetto";
     };
     readonly 'D-11': {

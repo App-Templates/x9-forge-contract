@@ -807,8 +807,23 @@ describe('s8162 pacchetto-1-256-0', () => {
 describe('s8184 pacchetto-1-257-0', () => {
   it('s8184_version: package and first release are 1.257.0 and retain 1.256.0', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.257.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.257.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.257.0');
     expect(changelog).toContain('## v1.256.0');
+  });
+});
+
+describe('s8188 pacchetto-1-258-0', () => {
+  it('s8188_version: the first release is 1.258.0 and retains 1.257.0 and 1.256.0', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.258.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.258.0');
+    expect(changelog).toContain('## v1.257.0');
+    expect(changelog).toContain('## v1.256.0');
+  });
+
+  it('s8188_map: the narrow-import map has version 1.258.0', () => {
+    const text = readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8');
+    expect((JSON.parse(text) as { versione: string }).versione).toBe('1.258.0');
   });
 });
