@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.286.0 — the code template admits an opening without proofScripts when the chief wrote a criterion for the new step (task 8407)
+
+- Add `devSessionHasChiefStepCriterion(criteria)`: true when a criterion has origin `capo` and attestor `sessione`. `devSessionAcceptanceTemplateProblem` no longer reports `proofScripts` as `input_missing` in that case, because the session writes the proof (Stefano 21/11, decision 7). `requiredInput`, schemas and refusal codes are unchanged; forms saved with `proofScripts` stay valid.
+- REGRESSIONE: s8407 principale: la forma del 21/11 14:54:40Z del capo sviluppo su GOO-194 (modello `sviluppo-pezzo-app` v1, senza `proofScripts`, con un criterio capo/sessione) oggi è rifiutata con `input_missing` su `proofScripts`; dopo passa. Restano rifiutate le forme senza criterio del capo, o con altro attestor o origin. Forma ricostruita dal piano, non una cattura.
+
 ## v1.285.0 — the Director's resolution tells an answer from a reroute and from a technical fault (task 8381)
 
 - Add `PaperclipDirectorResolutionSchema` (strict, discriminated by `kind`: `answer` with `mode` response|clearance, `reroute` with `assigneeAgentId`, `technical_fault` with `faultCode` 1–120) and optional `resolution` on the native review inputs. With it, `answer` (8250) is required, comment is required, no ask or wait is allowed, and a negative answer must name `howToFix.tool`. Answer resolutions require `done`; reroute and fault require `in_review` and a non-approved answer. Reviews without `resolution` are unchanged. Inert until 8385.

@@ -92,6 +92,15 @@ export function devSessionRequirements(acceptance: DevSessionAcceptance): Requir
 export const DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS = [...DEV_SESSION_REQUIREMENT_PROBLEMS, 'template_kind_mismatch', 'input_missing', 'visual_images_missing', 'visual_reference_not_material', 'retouch_file_missing'] as const;
 type TemplateProblem = { code: (typeof DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS)[number]; detail?: string };
 
+/**
+ * Stefano 21/11, decision 7: when no existing script covers the new step, the chief's own
+ * criterion (origin capo, attestor sessione) is enough and the session writes the proof.
+ * Single place for this rule so every consumer admits the same forms.
+ */
+export function devSessionHasChiefStepCriterion(criteria: readonly Pick<DevSessionCriterion, 'origin' | 'attestor'>[]): boolean {
+  return criteria.some((criterion) => criterion.origin === 'capo' && criterion.attestor === 'sessione');
+}
+
 /** Pure refusal check. Consumers decide when to enable it for each product kind. */
 export function devSessionAcceptanceTemplateProblem(assignment: DevSessionAssignment): TemplateProblem | null {
   const acceptance = assignment.acceptance;
@@ -101,7 +110,10 @@ export function devSessionAcceptanceTemplateProblem(assignment: DevSessionAssign
   // Requirements have already established that the template exists at this version.
   const template = DEV_SESSION_TEMPLATES[acceptance.template.id as keyof typeof DEV_SESSION_TEMPLATES] as Template;
   if (assignment.productKind !== template.productKind) return { code: 'template_kind_mismatch' };
-  const missingInput = template.requiredInput.find((key) => acceptance.input[key] === undefined);
+  const missingInput = template.requiredInput.find(
+    // proofScripts is not demanded when the chief wrote a session criterion for the new step.
+    (key) => acceptance.input[key] === undefined && !(key === 'proofScripts' && devSessionHasChiefStepCriterion(acceptance.criteria)),
+  );
   if (missingInput !== undefined) return { code: 'input_missing', detail: missingInput };
   const visualSource = acceptance.input.visualSource;
   const images = assignment.materials.filter((material) => material.kind === 'asset' && material.asset.mediaType.startsWith('image/'));

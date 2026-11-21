@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS = exports.DEV_SESSION_REQUIREMENT_PROBLEMS = exports.DEV_SESSION_REQUIREMENT_ORIGINS = exports.DEV_SESSION_TEMPLATES = exports.DEV_SESSION_TEMPLATE_MATERIALS = exports.DevSessionTemplateIdSchema = exports.DEV_SESSION_TEMPLATE_IDS = void 0;
 exports.devSessionTemplateSupportsEngine = devSessionTemplateSupportsEngine;
 exports.devSessionRequirements = devSessionRequirements;
+exports.devSessionHasChiefStepCriterion = devSessionHasChiefStepCriterion;
 exports.devSessionAcceptanceTemplateProblem = devSessionAcceptanceTemplateProblem;
 const zod_1 = require("zod");
 const session_acceptance_js_1 = require("./session-acceptance.cjs");
@@ -69,6 +70,14 @@ function devSessionRequirements(acceptance) {
     return { ok: true, requirements: [...catalogRequirements, ...acceptance.criteria.map((criterion) => ({ ...criterion, needs: [] }))] };
 }
 exports.DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS = [...exports.DEV_SESSION_REQUIREMENT_PROBLEMS, 'template_kind_mismatch', 'input_missing', 'visual_images_missing', 'visual_reference_not_material', 'retouch_file_missing'];
+/**
+ * Stefano 21/11, decision 7: when no existing script covers the new step, the chief's own
+ * criterion (origin capo, attestor sessione) is enough and the session writes the proof.
+ * Single place for this rule so every consumer admits the same forms.
+ */
+function devSessionHasChiefStepCriterion(criteria) {
+    return criteria.some((criterion) => criterion.origin === 'capo' && criterion.attestor === 'sessione');
+}
 /** Pure refusal check. Consumers decide when to enable it for each product kind. */
 function devSessionAcceptanceTemplateProblem(assignment) {
     const acceptance = assignment.acceptance;
@@ -81,7 +90,9 @@ function devSessionAcceptanceTemplateProblem(assignment) {
     const template = exports.DEV_SESSION_TEMPLATES[acceptance.template.id];
     if (assignment.productKind !== template.productKind)
         return { code: 'template_kind_mismatch' };
-    const missingInput = template.requiredInput.find((key) => acceptance.input[key] === undefined);
+    const missingInput = template.requiredInput.find(
+    // proofScripts is not demanded when the chief wrote a session criterion for the new step.
+    (key) => acceptance.input[key] === undefined && !(key === 'proofScripts' && devSessionHasChiefStepCriterion(acceptance.criteria)));
     if (missingInput !== undefined)
         return { code: 'input_missing', detail: missingInput };
     const visualSource = acceptance.input.visualSource;

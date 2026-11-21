@@ -70,6 +70,12 @@ type TemplateProblem = {
     code: (typeof DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS)[number];
     detail?: string;
 };
+/**
+ * Stefano 21/11, decision 7: when no existing script covers the new step, the chief's own
+ * criterion (origin capo, attestor sessione) is enough and the session writes the proof.
+ * Single place for this rule so every consumer admits the same forms.
+ */
+export declare function devSessionHasChiefStepCriterion(criteria: readonly Pick<DevSessionCriterion, 'origin' | 'attestor'>[]): boolean;
 /** Pure refusal check. Consumers decide when to enable it for each product kind. */
 export declare function devSessionAcceptanceTemplateProblem(assignment: DevSessionAssignment): TemplateProblem | null;
 export {};
