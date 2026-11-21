@@ -8,6 +8,7 @@ export declare const DevSessionAssetsListRequestSchema: z.ZodObject<{
         ownerId: z.ZodString;
         tenantId: z.ZodString;
     }, z.core.$strict>;
+    include: z.ZodOptional<z.ZodArray<z.ZodLiteral<"reading">>>;
 }, z.core.$strict>;
 export type DevSessionAssetsListRequest = z.infer<typeof DevSessionAssetsListRequestSchema>;
 /** The list is complete and verified, or the call is refused: never a truncated list. */
@@ -50,6 +51,22 @@ export declare const DevSessionAssetsListResponseSchema: z.ZodObject<{
         }, z.core.$strict>>;
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>>;
+    reading: z.ZodOptional<z.ZodObject<{
+        productKind: z.ZodOptional<z.ZodEnum<{
+            code: "code";
+            design: "design";
+        }>>;
+        complete: z.ZodBoolean;
+        notMet: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            attestor: z.ZodEnum<{
+                sessione: "sessione";
+                esecutore: "esecutore";
+            }>;
+            reason: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>;
+        deviationsPath: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type DevSessionAssetsListResponse = z.infer<typeof DevSessionAssetsListResponseSchema>;
 export declare const DEV_SESSION_ASSETS_LIST_REFUSALS: readonly ["session_not_found", "session_foreign", "session_not_closed", "delivery_not_verified", "identity_source_unavailable"];
@@ -82,6 +99,7 @@ export declare const listDevSessionAssetsContract: {
             ownerId: z.ZodString;
             tenantId: z.ZodString;
         }, z.core.$strict>;
+        include: z.ZodOptional<z.ZodArray<z.ZodLiteral<"reading">>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         assets: z.ZodArray<z.ZodObject<{
@@ -121,6 +139,22 @@ export declare const listDevSessionAssetsContract: {
                 personRef: z.ZodString;
             }, z.core.$strict>>;
             createdAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
+        reading: z.ZodOptional<z.ZodObject<{
+            productKind: z.ZodOptional<z.ZodEnum<{
+                code: "code";
+                design: "design";
+            }>>;
+            complete: z.ZodBoolean;
+            notMet: z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                attestor: z.ZodEnum<{
+                    sessione: "sessione";
+                    esecutore: "esecutore";
+                }>;
+                reason: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>;
+            deviationsPath: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
 };

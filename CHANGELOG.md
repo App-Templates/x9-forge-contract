@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.266.0 — session file lists can carry an optional acceptance reading (task 8237)
+
+- Additive `include: ['reading']` request and optional strict `reading` response on `listDevSessionAssetsContract`: optional product kind, completeness, up to 50 unmet criteria with their attestor and optional reason, and the optional D-08 deviations proof path. A complete session cannot carry unmet criteria; existing asset validation is unchanged.
+- Consumers must emit `reading` only when requested so older strict readers keep receiving today's shape. The bridge does not calculate the verdict; implementation (8234), email use (8239) and adoption (8238) remain separate tasks.
+- REGRESSIONE: s8237 lettura-del-giudizio: con la richiesta vera del capo di «Dispensa Pronta» (scope del capo, sessione `R61`) e una risposta con i file di un design (forma di `R61`: pacchetto, schermate, prove) lo schema di oggi rifiuta un campo `reading` (strict: rosso); dopo la richiesta con `include: ['reading']` passa e la risposta con `reading` `{ productKind: 'design', complete: false, notMet: [...] }` passa; la richiesta senza `include` e la risposta senza `reading` passano uguali a oggi (verde).
+- The test reconstructs the R61 shape described in the task; the original production JSON must still be supplied by the coordinator for the production-data dry run.
+
 ## v1.265.0 — cap-email can request session proofs on the chief's source issue (task 8236)
 
 - Additive `internalPaperclipSeatSessionProofsContract`: secret-authenticated POST `/internal/paperclip/seats/session-proofs`, with organization, verified chief identity, source run, canonical session ID and the existing tool-call envelope. Provider credentials are refused because they must not travel between services.

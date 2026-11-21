@@ -946,9 +946,8 @@ describe('s8210 pacchetto-1-264-0', () => {
 });
 
 describe('s8236 pacchetto-1-265-0', () => {
-  it('s8236_version: package and first release are 1.265.0 and retain the previous release', () => {
+  it('s8236_version: the release remains in the changelog and package matches the first release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.265.0');
     expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
     expect(changelog).toContain('## v1.265.0');
     expect(changelog).toContain('## v1.264.0');
@@ -968,6 +967,31 @@ describe('s8236 pacchetto-1-265-0', () => {
     ]) {
       expect(map.barili['@x9-forge/contracts/http']?.[name])
         .toBe('@x9-forge/contracts/http/endpoints/internal-paperclip-seats');
+    }
+  });
+});
+
+describe('s8237 pacchetto-1-266-0', () => {
+  it('s8237_version: package and first release are 1.266.0 and retain the previous release', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.266.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.266.0');
+    expect(changelog).toContain('## v1.265.0');
+    expect(changelog).toContain('REGRESSIONE: s8237 lettura-del-giudizio');
+  });
+
+  it('s8237_map: the narrow-import map carries the version and the session assets contracts', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
+      versione: string;
+      barili: Record<string, Record<string, string>>;
+    };
+    expect(map.versione).toBe(packageVersion());
+    for (const name of [
+      'DevSessionAssetsListRequestSchema', 'DevSessionAssetsListResponseSchema', 'listDevSessionAssetsContract',
+    ]) {
+      expect(map.barili['@x9-forge/contracts/http']?.[name])
+        .toBe('@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list');
     }
   });
 });

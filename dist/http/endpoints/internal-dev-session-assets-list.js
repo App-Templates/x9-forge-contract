@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from "../../capability/capability-call-context.js";
-import { DEV_SESSION_MAX_FILES } from "../../capability/dev/session-assignment.js";
+import { DEV_SESSION_MAX_FILES, DevSessionKindSchema } from "../../capability/dev/session-assignment.js";
 import { AssetRefSchema } from "../../organization/asset.js";
 import { readDevSessionAssetContract } from "./internal-dev-session-asset-content.js";
 /** Delivered files (at most DEV_SESSION_MAX_FILES) plus the images of the manifest (at most 40). */
@@ -8,11 +8,29 @@ export const DEV_SESSION_ASSETS_LIST_MAX = DEV_SESSION_MAX_FILES + 40;
 /** Transport request only; session authorization and delivery verification belong to the service. */
 export const DevSessionAssetsListRequestSchema = z.strictObject({
     scope: CapabilityAgentScopeSchema,
+    // Opt-in keeps responses readable by older strict consumers.
+    include: z.array(z.literal('reading')).max(1).optional(),
 });
 /** The list is complete and verified, or the call is refused: never a truncated list. */
 export const DevSessionAssetsListResponseSchema = z.strictObject({
     assets: z.array(AssetRefSchema).min(1).max(DEV_SESSION_ASSETS_LIST_MAX),
+    reading: z.strictObject({
+        // Older assignments do not declare a product kind.
+        productKind: DevSessionKindSchema.optional(),
+        complete: z.boolean(),
+        notMet: z.array(z.strictObject({
+            id: z.string().min(1).max(40),
+            attestor: z.enum(['sessione', 'esecutore']),
+            reason: z.string().min(1).max(400).optional(),
+        })).max(50),
+        // D-08 points to the deviations proof, including an explicitly empty list.
+        deviationsPath: z.string().min(1).max(512).optional(),
+    }).optional(),
 }).superRefine((response, ctx) => {
+    // Unmet criteria contradict a complete session verdict.
+    if (response.reading !== undefined && response.reading.complete && response.reading.notMet.length > 0) {
+        ctx.addIssue({ code: 'custom', path: ['reading', 'notMet'], message: 'A complete session cannot have unmet criteria' });
+    }
     const ids = new Set();
     const paths = new Set();
     let sessionId;

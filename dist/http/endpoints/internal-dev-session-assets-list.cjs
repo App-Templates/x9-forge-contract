@@ -11,11 +11,29 @@ exports.DEV_SESSION_ASSETS_LIST_MAX = session_assignment_js_1.DEV_SESSION_MAX_FI
 /** Transport request only; session authorization and delivery verification belong to the service. */
 exports.DevSessionAssetsListRequestSchema = zod_1.z.strictObject({
     scope: capability_call_context_js_1.CapabilityAgentScopeSchema,
+    // Opt-in keeps responses readable by older strict consumers.
+    include: zod_1.z.array(zod_1.z.literal('reading')).max(1).optional(),
 });
 /** The list is complete and verified, or the call is refused: never a truncated list. */
 exports.DevSessionAssetsListResponseSchema = zod_1.z.strictObject({
     assets: zod_1.z.array(asset_js_1.AssetRefSchema).min(1).max(exports.DEV_SESSION_ASSETS_LIST_MAX),
+    reading: zod_1.z.strictObject({
+        // Older assignments do not declare a product kind.
+        productKind: session_assignment_js_1.DevSessionKindSchema.optional(),
+        complete: zod_1.z.boolean(),
+        notMet: zod_1.z.array(zod_1.z.strictObject({
+            id: zod_1.z.string().min(1).max(40),
+            attestor: zod_1.z.enum(['sessione', 'esecutore']),
+            reason: zod_1.z.string().min(1).max(400).optional(),
+        })).max(50),
+        // D-08 points to the deviations proof, including an explicitly empty list.
+        deviationsPath: zod_1.z.string().min(1).max(512).optional(),
+    }).optional(),
 }).superRefine((response, ctx) => {
+    // Unmet criteria contradict a complete session verdict.
+    if (response.reading !== undefined && response.reading.complete && response.reading.notMet.length > 0) {
+        ctx.addIssue({ code: 'custom', path: ['reading', 'notMet'], message: 'A complete session cannot have unmet criteria' });
+    }
     const ids = new Set();
     const paths = new Set();
     let sessionId;
