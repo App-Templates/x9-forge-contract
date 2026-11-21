@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.277.0 — the plan can carry structured requirements per piece (task 8341)
+
+- Additive in `organization/action-plan`: optional `requirements` on `ActionPlanBuSectionSchema` and `ActionPlanWorkItemSchema`, one shared `REQUIREMENTS_FIELD` (`MandateRequirementSchema` array, 1–10, no default). When present it must have exactly one element per `deliveryCriteria`, in order, with id `mandateCriterionId(piece.id, index)` and text equal after trim; checked on the parent `sections` and `workBreakdown` arrays so `.pick` of the section schema (document pieces) keeps working. `deliveryCriteria` is untouched; legacy plans and mandates parse unchanged and gain no key. Submission variants inherit the field.
+- REGRESSIONE: s8341 principale: il pezzo lista-spesa con le sue tre deliveryCriteria e tre requirements corrispondenti oggi è rifiutato dallo strictObject per campo sconosciuto; dopo passa, con prova e verificatore conservati. Fixture di codice nella forma documentata, non una cattura di produzione; la lettura dei corpi veri e la prova dal vivo restano alla coordinatrice.
+
 ## v1.276.0 — mandate requirements reuse the session criterion contract (task 8340)
 
 - Additive in `organization/mandate-requirement`: `MandateRequirementSchema` and `MandateRequirement` derive from `DevSessionCriterionSchema`, restricting origin to `mandato`. The base keeps ownership of id, text, proof, reference and optional unit validation, and permits only referent/reviewer attestations for mandate criteria. Available through the existing `organization/*` export without an aggregate export or plan/mandate cycle. No saved schema, default, version field or consumer changes; inert until adopted by the plan.

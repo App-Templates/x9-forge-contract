@@ -86,6 +86,30 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
             title: z.ZodString;
             expectedGoal: z.ZodString;
             deliveryCriteria: z.ZodArray<z.ZodString>;
+            requirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                text: z.ZodString;
+                attestor: z.ZodEnum<{
+                    sessione: "sessione";
+                    esecutore: "esecutore";
+                    revisore: "revisore";
+                    referente: "referente";
+                }>;
+                proof: z.ZodString;
+                origin: z.ZodEnum<{
+                    capo: "capo";
+                    mandato: "mandato";
+                    ritorno: "ritorno";
+                }>;
+                reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"requirement">;
+                    id: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"decision">;
+                    requestId: z.ZodString;
+                }, z.core.$strict>], "kind">]>>;
+                unit: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>>;
             milestone: z.ZodNumber;
             owners: z.ZodArray<z.ZodObject<{
                 buSlug: z.ZodString;
@@ -135,6 +159,30 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
                 title: z.ZodString;
                 expectedGoal: z.ZodString;
                 deliveryCriteria: z.ZodArray<z.ZodString>;
+                requirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    text: z.ZodString;
+                    attestor: z.ZodEnum<{
+                        sessione: "sessione";
+                        esecutore: "esecutore";
+                        revisore: "revisore";
+                        referente: "referente";
+                    }>;
+                    proof: z.ZodString;
+                    origin: z.ZodEnum<{
+                        capo: "capo";
+                        mandato: "mandato";
+                        ritorno: "ritorno";
+                    }>;
+                    reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"requirement">;
+                        id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"decision">;
+                        requestId: z.ZodString;
+                    }, z.core.$strict>], "kind">]>>;
+                    unit: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>>;
                 milestone: z.ZodNumber;
                 needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -402,6 +450,30 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
             title: z.ZodString;
             expectedGoal: z.ZodString;
             deliveryCriteria: z.ZodArray<z.ZodString>;
+            requirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                text: z.ZodString;
+                attestor: z.ZodEnum<{
+                    sessione: "sessione";
+                    esecutore: "esecutore";
+                    revisore: "revisore";
+                    referente: "referente";
+                }>;
+                proof: z.ZodString;
+                origin: z.ZodEnum<{
+                    capo: "capo";
+                    mandato: "mandato";
+                    ritorno: "ritorno";
+                }>;
+                reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"requirement">;
+                    id: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"decision">;
+                    requestId: z.ZodString;
+                }, z.core.$strict>], "kind">]>>;
+                unit: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>>;
             milestone: z.ZodNumber;
             owners: z.ZodArray<z.ZodObject<{
                 buSlug: z.ZodString;
@@ -451,6 +523,30 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
                 title: z.ZodString;
                 expectedGoal: z.ZodString;
                 deliveryCriteria: z.ZodArray<z.ZodString>;
+                requirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    text: z.ZodString;
+                    attestor: z.ZodEnum<{
+                        sessione: "sessione";
+                        esecutore: "esecutore";
+                        revisore: "revisore";
+                        referente: "referente";
+                    }>;
+                    proof: z.ZodString;
+                    origin: z.ZodEnum<{
+                        capo: "capo";
+                        mandato: "mandato";
+                        ritorno: "ritorno";
+                    }>;
+                    reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"requirement">;
+                        id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"decision">;
+                        requestId: z.ZodString;
+                    }, z.core.$strict>], "kind">]>>;
+                    unit: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>>;
                 milestone: z.ZodNumber;
                 needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -755,6 +851,30 @@ export declare const internalMemoryActionPlanSaveContract: {
                 title: z.ZodString;
                 expectedGoal: z.ZodString;
                 deliveryCriteria: z.ZodArray<z.ZodString>;
+                requirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    text: z.ZodString;
+                    attestor: z.ZodEnum<{
+                        sessione: "sessione";
+                        esecutore: "esecutore";
+                        revisore: "revisore";
+                        referente: "referente";
+                    }>;
+                    proof: z.ZodString;
+                    origin: z.ZodEnum<{
+                        capo: "capo";
+                        mandato: "mandato";
+                        ritorno: "ritorno";
+                    }>;
+                    reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"requirement">;
+                        id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"decision">;
+                        requestId: z.ZodString;
+                    }, z.core.$strict>], "kind">]>>;
+                    unit: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>>;
                 milestone: z.ZodNumber;
                 owners: z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -804,6 +924,30 @@ export declare const internalMemoryActionPlanSaveContract: {
                     title: z.ZodString;
                     expectedGoal: z.ZodString;
                     deliveryCriteria: z.ZodArray<z.ZodString>;
+                    requirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        text: z.ZodString;
+                        attestor: z.ZodEnum<{
+                            sessione: "sessione";
+                            esecutore: "esecutore";
+                            revisore: "revisore";
+                            referente: "referente";
+                        }>;
+                        proof: z.ZodString;
+                        origin: z.ZodEnum<{
+                            capo: "capo";
+                            mandato: "mandato";
+                            ritorno: "ritorno";
+                        }>;
+                        reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            kind: z.ZodLiteral<"requirement">;
+                            id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"decision">;
+                            requestId: z.ZodString;
+                        }, z.core.$strict>], "kind">]>>;
+                        unit: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>>;
                     milestone: z.ZodNumber;
                     needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;
@@ -1074,6 +1218,30 @@ export declare const internalMemoryActionPlanReadContract: {
                 title: z.ZodString;
                 expectedGoal: z.ZodString;
                 deliveryCriteria: z.ZodArray<z.ZodString>;
+                requirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    text: z.ZodString;
+                    attestor: z.ZodEnum<{
+                        sessione: "sessione";
+                        esecutore: "esecutore";
+                        revisore: "revisore";
+                        referente: "referente";
+                    }>;
+                    proof: z.ZodString;
+                    origin: z.ZodEnum<{
+                        capo: "capo";
+                        mandato: "mandato";
+                        ritorno: "ritorno";
+                    }>;
+                    reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"requirement">;
+                        id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"decision">;
+                        requestId: z.ZodString;
+                    }, z.core.$strict>], "kind">]>>;
+                    unit: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>>;
                 milestone: z.ZodNumber;
                 owners: z.ZodArray<z.ZodObject<{
                     buSlug: z.ZodString;
@@ -1123,6 +1291,30 @@ export declare const internalMemoryActionPlanReadContract: {
                     title: z.ZodString;
                     expectedGoal: z.ZodString;
                     deliveryCriteria: z.ZodArray<z.ZodString>;
+                    requirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        text: z.ZodString;
+                        attestor: z.ZodEnum<{
+                            sessione: "sessione";
+                            esecutore: "esecutore";
+                            revisore: "revisore";
+                            referente: "referente";
+                        }>;
+                        proof: z.ZodString;
+                        origin: z.ZodEnum<{
+                            capo: "capo";
+                            mandato: "mandato";
+                            ritorno: "ritorno";
+                        }>;
+                        reference: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            kind: z.ZodLiteral<"requirement">;
+                            id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            kind: z.ZodLiteral<"decision">;
+                            requestId: z.ZodString;
+                        }, z.core.$strict>], "kind">]>>;
+                        unit: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>>;
                     milestone: z.ZodNumber;
                     needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         buSlug: z.ZodString;

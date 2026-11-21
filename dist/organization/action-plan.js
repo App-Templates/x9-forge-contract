@@ -5,8 +5,37 @@ import { AssetRefSchema, AssetSha256Schema } from "./asset.js";
 import { BusinessUnitLeadTypeIdSchema } from "./business-unit-type.js";
 import { CompanyMapLevelSchema } from "./company-map.js";
 import { DecisionRequestIdSchema } from "./decision-request.js";
+import { MandateRequirementSchema } from "./mandate-requirement.js";
+import { mandateCriterionId } from "../capability/dev/session-acceptance-mandate.js";
 const SlugSchema = (min, max) => z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const UniqueCompetenciesSchema = z.array(z.string().min(1).max(200)).min(1).max(20).refine((competencies) => new Set(competencies).size === competencies.length, { message: 'Competencies must be unique' });
+// One declaration shared by sections and work items. No default: a saved plan without it must parse unchanged.
+const REQUIREMENTS_FIELD = z.array(MandateRequirementSchema).min(1).max(10).optional();
+/**
+ * Structured requirements must mirror deliveryCriteria one to one: same order, id from the existing
+ * `mandateCriterionId`, text equal after the trim the bridge already applies. Checked on the parent arrays because
+ * a refinement on the piece schema would break `.pick` (ActionPlanDocumentPieceSchema).
+ */
+function addRequirementIssues(pieces, ctx) {
+    pieces.forEach((piece, pieceIndex) => {
+        const { requirements } = piece;
+        if (requirements === undefined)
+            return;
+        const path = [pieceIndex, 'requirements'];
+        if (requirements.length !== piece.deliveryCriteria.length) {
+            ctx.addIssue({ code: 'custom', message: 'Requirements must have exactly one element per delivery criterion', path });
+            return;
+        }
+        requirements.forEach((requirement, index) => {
+            if (requirement.id !== mandateCriterionId(piece.id, index)) {
+                ctx.addIssue({ code: 'custom', message: 'Requirement id must follow the piece id and position', path: [...path, index, 'id'] });
+            }
+            if (requirement.text.trim() !== piece.deliveryCriteria[index].trim()) {
+                ctx.addIssue({ code: 'custom', message: 'Requirement text must equal its delivery criterion', path: [...path, index, 'text'] });
+            }
+        });
+    });
+}
 /** How a business unit of the action plan produces its work. */
 export const ACTION_PLAN_BU_EXECUTORS = ['agent', 'dev_session', 'night'];
 export const ActionPlanBuExecutorSchema = z.enum(ACTION_PLAN_BU_EXECUTORS);
@@ -80,6 +109,7 @@ export const ActionPlanBuSectionSchema = z.strictObject({
     expectedGoal: z.string().min(1).max(1000).describe("cosa potrà fare l'utente quando la sezione è finita"),
     deliveryCriteria: z.array(z.string().min(1).max(500)).min(1).max(10)
         .describe('come si verifica che è finita'),
+    requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
     milestone: z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
     needsFrom: z.array(z.strictObject({
         buSlug: SlugSchema(1, 30),
@@ -105,12 +135,13 @@ export const ActionPlanWorkItemSchema = z.strictObject({
     expectedGoal: z.string().min(1).max(1000).describe("cosa potrà fare l'utente quando la voce è finita"),
     deliveryCriteria: z.array(z.string().min(1).max(500)).min(1).max(10)
         .describe('come si verifica che è finita'),
+    requirements: REQUIREMENTS_FIELD.describe('i requisiti strutturati: uno per criterio, con chi li verifica e la prova'),
     milestone: z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
     owners: z.array(ActionPlanWorkItemOwnerSchema).max(10)
         .describe('le BU che ci lavorano e cosa fa ciascuna; ogni voce foglia ne ha almeno una'),
 });
 export const ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = 60;
-export const ActionPlanWorkBreakdownSchema = z.array(ActionPlanWorkItemSchema).min(1).max(ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS).refine((items) => new Set(items.map((item) => item.id)).size === items.length, { message: 'Work breakdown item ids must be unique' }).describe("L'alberatura del progetto (solo `product`): tutte le sezioni che l'utente userà, comprese errori, dati mancanti e misura, con le BU che ci lavorano. È la fonte delle cose da costruire: i mini-brief delle BU la ereditano.");
+export const ActionPlanWorkBreakdownSchema = z.array(ActionPlanWorkItemSchema).min(1).max(ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS).refine((items) => new Set(items.map((item) => item.id)).size === items.length, { message: 'Work breakdown item ids must be unique' }).superRefine((items, ctx) => addRequirementIssues(items, ctx)).describe("L'alberatura del progetto (solo `product`): tutte le sezioni che l'utente userà, comprese errori, dati mancanti e misura, con le BU che ci lavorano. È la fonte delle cose da costruire: i mini-brief delle BU la ereditano.");
 /** What the lead does where a source is missing: mark the point «da verificare» and go on, or stop and ask. */
 export const ACTION_PLAN_GAP_RULES = ['mark_and_proceed', 'stop_and_ask'];
 export const ActionPlanGapRuleSchema = z.enum(ACTION_PLAN_GAP_RULES)
@@ -140,7 +171,7 @@ export const ActionPlanBusinessUnitSchema = z.strictObject({
     referent: ActionPlanReferentRefSchema,
     firstActivities: z.array(z.string().min(1).max(500)).min(1).max(20)
         .describe('i primi passi del capo, prima di costruire le sezioni'),
-    sections: z.array(ActionPlanBuSectionSchema).min(1).max(20).refine((sections) => new Set(sections.map((section) => section.id)).size === sections.length, { message: 'Section ids must be unique within the business unit' }).optional().describe('Le sezioni che questa BU costruisce dopo l’approvazione: la missione scomposta per questa BU, ognuna con cosa potrà fare l’utente. È il mini-brief che il capo riceve nel Mandato.'),
+    sections: z.array(ActionPlanBuSectionSchema).min(1).max(20).refine((sections) => new Set(sections.map((section) => section.id)).size === sections.length, { message: 'Section ids must be unique within the business unit' }).superRefine((sections, ctx) => addRequirementIssues(sections, ctx)).optional().describe('Le sezioni che questa BU costruisce dopo l’approvazione: la missione scomposta per questa BU, ognuna con cosa potrà fare l’utente. È il mini-brief che il capo riceve nel Mandato.'),
     roleAgents: z.array(ActionPlanRoleAgentSchema).max(20).optional(),
     start: ActionPlanBuStartSchema,
     gapRule: ActionPlanGapRuleSchema.optional(),
