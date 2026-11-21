@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.281.0 — the entry check lists the missing piece metadata without tightening the reading of old mandates (task 8345)
+
+- Add `organization/mandate-birth` with the pure functions `actionPlanContractProblems(plan)` and `mandateContractProblems(planSection)`, sharing one engine. They return only field paths (never bodies or personal data) for the `requirements`, `specifications` and `outputForm` each effective piece lacks: product `workBreakdown` items with an owner (a mandate keeps only its own unit's), or the study `sections`. Owner-less parent items are not asked; no named pieces returns the container path, never an empty success. Types are imported as types only; saved schemas, defaults and consumers are unchanged, so `ReconciledMandateSchema` keeps reading historical mandates. Inert until 8350/8351 call it.
+- REGRESSIONE: s8345 principale: una planSection nella forma GOO-172, con tre deliveryCriteria ma senza requirements, oggi non ha una funzione di controllo all'ingresso; dopo elenca il percorso esatto dei tre metadati mancanti, mentre ReconciledMandateSchema continua a leggerla. Forma documentata con valori di prova, non una cattura di produzione; i due conteggi sui documenti veri e la prova dal vivo restano alla coordinatrice.
+
 ## v1.280.0 — saved plan and mandate compatibility across source, ESM and CJS (task 8344)
 
 - Add cross-export tests calling `ActionPlanSchema`, `ReconciledMandateSchema` and the canonicalization functions from source, ESM and CJS. Reuse the unchanged `action-plan-v3-forma.json` fixture, comparing every key, canonical text and its existing SHA-256 digest. Mandates are derived test data using the existing preparation pattern, not production captures. Explicit study sections and a product breakdown with a child item test both absent and enriched `requirements`, `specifications` and `outputForm`, including transport into each unit's mandate. No schema, default or consumer change; inert until adoption.
