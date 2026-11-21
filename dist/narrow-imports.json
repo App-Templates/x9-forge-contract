@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.255.0",
+  "versione": "1.256.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1303,6 +1303,7 @@
       "DEV_SESSION_BLOCK_MARKER": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_BRANCH_PREFIX": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_COMMIT_LABEL": "@x9-forge/contracts/capability/dev/session-assignment",
+      "DEV_SESSION_COMPLETE_MANDATE_PROBLEMS": "@x9-forge/contracts/capability/dev/session-acceptance-mandate",
       "DEV_SESSION_COVERAGE_IDENTITY": "@x9-forge/contracts/capability/dev/session-acceptance-coverage",
       "DEV_SESSION_CRITERION_ORIGINS": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DEV_SESSION_CRITERION_TEXT_MAX": "@x9-forge/contracts/capability/dev/session-acceptance",
@@ -1320,6 +1321,7 @@
       "DEV_SESSION_LOOK_OPENING_PROBLEMS": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DEV_SESSION_LOOK_PROTOTYPE_TEMPLATES": "@x9-forge/contracts/capability/dev/session-acceptance",
       "DEV_SESSION_MANDATE_ACCEPTANCE_PROBLEMS": "@x9-forge/contracts/capability/dev/session-acceptance-mandate",
+      "DEV_SESSION_MANDATE_CRITERION_PROOF": "@x9-forge/contracts/capability/dev/session-acceptance-mandate",
       "DEV_SESSION_MATERIAL_PATH": "@x9-forge/contracts/capability/dev/session-material-link",
       "DEV_SESSION_MAX_FILES": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_MAX_MATERIALS": "@x9-forge/contracts/capability/dev/session-assignment",
@@ -1408,6 +1410,7 @@
       "devSessionAssignmentCanonicalJson": "@x9-forge/contracts/capability/dev/session-assignment",
       "devSessionBranch": "@x9-forge/contracts/capability/dev/session-assignment",
       "devSessionBranchFromIdentifier": "@x9-forge/contracts/capability/dev/session-assignment",
+      "devSessionCompleteMandateCriteria": "@x9-forge/contracts/capability/dev/session-acceptance-mandate",
       "devSessionContractDocumentBody": "@x9-forge/contracts/capability/dev/session-acceptance-paperclip",
       "devSessionContractDocumentKey": "@x9-forge/contracts/capability/dev/session-acceptance-paperclip",
       "devSessionCoverageMissing": "@x9-forge/contracts/capability/dev/session-acceptance-coverage",
@@ -1433,6 +1436,7 @@
       "isDevProductionJobModelsUsable": "@x9-forge/contracts/capability/dev/production-config-match",
       "isDevProductionProgressForJob": "@x9-forge/contracts/capability/dev/production-progress",
       "isDevProductionResultForJob": "@x9-forge/contracts/capability/dev/production-result",
+      "mandateCriterionId": "@x9-forge/contracts/capability/dev/session-acceptance-mandate",
       "mandateDeliverableKeys": "@x9-forge/contracts/capability/dev/session-assignment",
       "parseDevSessionAnswerBlock": "@x9-forge/contracts/capability/dev/session-outcome",
       "parseDevSessionBlock": "@x9-forge/contracts/capability/dev/session-assignment",

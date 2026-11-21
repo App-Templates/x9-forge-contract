@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.256.0 — the mandate criteria of a piece have a stable name and reach the session contract without hand copying (task 8162)
+
+- Additive pure functions in `capability/dev/session-acceptance-mandate`: `mandateCriterionId(deliverableKey, index)` (`<piece>.<n>`, from the position in the saved plan) and `devSessionCompleteMandateCriteria(mandate, deliverableKey, own)`, which appends the mandate criteria the lead did not write; hand-written ones stay as they are, in order. Refusals listed in `DEV_SESSION_COMPLETE_MANDATE_PROBLEMS`; fixed proof text `DEV_SESSION_MANDATE_CRITERION_PROOF`.
+- No schema, route or saved mandate changes; no service calls it yet (consumer in the next batch).
+- REGRESSIONE: s8162 completa-senza-copie: con il mandato vero di un pezzo con tre criteri (forma di GOO-172, pezzo `lista-spesa`) e un contratto in cui il capo ha scritto solo il suo criterio (`origin: capo`), oggi `devSessionMandateAcceptanceProblem` dà `mandate_criterion_missing` per tutti e tre e non esiste nessuna funzione che li completi (rosso: import indefinito); dopo la funzione restituisce il contratto con i tre criteri del mandato nominati `lista-spesa.1…3`, il criterio del capo intatto, e `devSessionMandateAcceptanceProblem` dà `null` (verde).
+
 ## v1.255.0 — cap-dev can request the session contract document on the chief's issue (task 8161)
 
 - Additive `internalPaperclipSeatSessionContractContract`: secret-authenticated POST `/internal/paperclip/seats/session-contract`, with verified organization, chief identity, source run, positive session issue number and a strict document using the existing Paperclip wire validators. Its key must match `devSessionContractDocumentKey(issueNumber)`.
