@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { CapabilityAgentScope } from "../capability-call-identity.js";
-import { type SocialTopic } from "./topic.js";
+import { type SocialTopic, type SocialVerdict } from "./topic.js";
 /** Creator ranking tool: separate from SOCIAL_LISTENING_TOOLS (the exact tool list stays unchanged). */
 export declare const SOCIAL_CREATORS_TOOLS: {
     readonly rank: "social_creators_rank";
@@ -33,6 +33,8 @@ export declare const SocialCreatorRankSchema: z.ZodObject<{
     /** Heat: the sum of the heat of the creator's topics, each divided by the number of creators who talk about it (REVISIONE-DESIGN, creators). */
     heatScore: z.ZodOptional<z.ZodNumber>;
     postsAnalyzed: z.ZodOptional<z.ZodInt>;
+    /** Posts of this creator by the verdict of their own analysis; posts not yet analyzed count nowhere (REVISIONE-DESIGN, creators). */
+    postVerdicts: z.ZodOptional<z.ZodObject<Record<"funziona" | "da_provare" | "non_funziona" | "fuffa", z.ZodInt>, z.core.$strict>>;
 }, z.core.$strict>;
 export type SocialCreatorRank = z.infer<typeof SocialCreatorRankSchema>;
 export declare const SocialCreatorsRankOutputSchema: z.ZodObject<{
@@ -53,6 +55,8 @@ export declare const SocialCreatorsRankOutputSchema: z.ZodObject<{
         /** Heat: the sum of the heat of the creator's topics, each divided by the number of creators who talk about it (REVISIONE-DESIGN, creators). */
         heatScore: z.ZodOptional<z.ZodNumber>;
         postsAnalyzed: z.ZodOptional<z.ZodInt>;
+        /** Posts of this creator by the verdict of their own analysis; posts not yet analyzed count nowhere (REVISIONE-DESIGN, creators). */
+        postVerdicts: z.ZodOptional<z.ZodObject<Record<"funziona" | "da_provare" | "non_funziona" | "fuffa", z.ZodInt>, z.core.$strict>>;
     }, z.core.$strict>>;
     idle: z.ZodOptional<z.ZodArray<z.ZodString>>;
 }, z.core.$strict>;
@@ -75,6 +79,7 @@ export declare function rankSocialCreators(topics: readonly (Pick<SocialTopic, '
     posts?: readonly {
         postId: string;
         handle: string;
+        verdict?: SocialVerdict;
     }[];
 }): SocialCreatorsRankOutput;
 //# sourceMappingURL=creators.d.ts.map

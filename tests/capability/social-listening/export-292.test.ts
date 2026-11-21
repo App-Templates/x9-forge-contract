@@ -105,9 +105,9 @@ console.log('OK');
 `;
 
 describe('s9822 angle, topic posts, richer recap, creator heat and seen tools in package 1.292.0', () => {
-  it('s9822 (a) package.json has version 1.292.0', () => {
+  it('s9822 (a) package.json has version 1.292.0 or 1.293.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.292\.0$/);
+    expect(pkg.version).toMatch(/^1\.(292|293)\.0$/);
   });
 
   it('s9822 (b) new social listening fields and seen tools work from ESM', () => {

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { sameCapabilityScope } from "../capability-call-context.js";
 import { AgentDaySchema } from "../ricerca/spend.js";
 import { SocialHandleSchema, SocialVerticalIdSchema } from "./post.js";
-import { SOCIAL_VERDICT_TRUTH_SCORE } from "./topic.js";
+import { SOCIAL_VERDICTS, SOCIAL_VERDICT_TRUTH_SCORE } from "./topic.js";
 /** Creator ranking tool: separate from SOCIAL_LISTENING_TOOLS (the exact tool list stays unchanged). */
 export const SOCIAL_CREATORS_TOOLS = { rank: 'social_creators_rank' };
 export const SOCIAL_CREATORS_RANK_DAYS_DEFAULT = 30;
@@ -29,6 +29,8 @@ export const SocialCreatorRankSchema = z.strictObject({
     /** Heat: the sum of the heat of the creator's topics, each divided by the number of creators who talk about it (REVISIONE-DESIGN, creators). */
     heatScore: z.number().nonnegative().optional(),
     postsAnalyzed: z.int().min(0).optional(),
+    /** Posts of this creator by the verdict of their own analysis; posts not yet analyzed count nowhere (REVISIONE-DESIGN, creators). */
+    postVerdicts: z.strictObject(Object.fromEntries(SOCIAL_VERDICTS.map(verdict => [verdict, z.int().min(0)]))).optional(),
 });
 export const SocialCreatorsRankOutputSchema = z.strictObject({
     fromDay: AgentDaySchema,
@@ -49,8 +51,10 @@ export function rankSocialCreators(topics, query) {
     const fromDay = shiftDay(query.toDay, -(days - 1));
     const postsByHandle = new Map();
     for (const post of query.posts ?? []) {
-        const ids = postsByHandle.get(post.handle) ?? new Set();
-        ids.add(post.postId);
+        const ids = postsByHandle.get(post.handle) ?? new Map();
+        // Keep the first available analysis when duplicate rows describe the same post.
+        if (ids.get(post.postId) === undefined)
+            ids.set(post.postId, post.verdict);
         postsByHandle.set(post.handle, ids);
     }
     const acc = new Map();
@@ -82,15 +86,25 @@ export function rankSocialCreators(topics, query) {
         }
     }
     const creators = [...acc.entries()]
-        .map(([handle, e]) => ({
-        handle,
-        topics: e.topics,
-        counts: e.counts,
-        truthScore: Math.round((e.sum / e.topics) * 10) / 10,
-        lastDay: e.lastDay,
-        heatScore: Math.round(e.heat * 10) / 10,
-        postsAnalyzed: e.postIds.size,
-    }))
+        .map(([handle, e]) => {
+        const postVerdicts = Object.fromEntries(SOCIAL_VERDICTS.map(verdict => [verdict, 0]));
+        const ownPosts = postsByHandle.get(handle);
+        for (const postId of e.postIds) {
+            const verdict = ownPosts?.get(postId);
+            if (verdict !== undefined)
+                postVerdicts[verdict] += 1;
+        }
+        return {
+            handle,
+            topics: e.topics,
+            counts: e.counts,
+            truthScore: Math.round((e.sum / e.topics) * 10) / 10,
+            lastDay: e.lastDay,
+            heatScore: Math.round(e.heat * 10) / 10,
+            postsAnalyzed: e.postIds.size,
+            ...(query.posts === undefined ? {} : { postVerdicts }),
+        };
+    })
         .sort((a, b) => (query.orderBy === 'heat'
         ? b.heatScore - a.heatScore || b.truthScore - a.truthScore
         : b.truthScore - a.truthScore || b.topics - a.topics)

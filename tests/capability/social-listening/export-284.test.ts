@@ -43,7 +43,7 @@ console.log('OK');
 describe('s3963 recap freshness in package 1.284.0', () => {
   it('s3963 (a) package.json has version 1.291.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(284|285|287|288|289|290|291)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(284|285|287|288|289|290|291|292|293)\.0$/);
   });
 
   it('s3963 (b) recap freshness and the day description work from ESM', () => {

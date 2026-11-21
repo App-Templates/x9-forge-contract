@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.293.0 — social listening: per-creator post verdict counts in the creators ranking (task 9834)
+
+- Task 9834: optional `postVerdicts` per creator in `SocialCreatorsRankOutputSchema` (keys from `SOCIAL_VERDICTS`), and optional `verdict` on the `posts` option of `rankSocialCreators`.
+- Additive only; without `posts` the output is the one of 9820, and saved rankings stay valid.
+
 ## v1.292.0 — social listening: topic angle, posts of a topic, richer recap, creator heat and seen tools (tasks 9817-9821)
 
 - Tasks 9817-9821: optional `angle` on the topic; `posts` on `social_topic_get` (`SocialTopicPostSchema`); the recap gains post counts, creators, fuffa reason and link per topic plus `postVerdicts` and `state`; the creators ranking gains `heatScore`, `postsAnalyzed`, `idle` and `orderBy`; new `SOCIAL_SEEN_TOOLS` (`social_seen_set`, `social_seen_list`) with their schemas.

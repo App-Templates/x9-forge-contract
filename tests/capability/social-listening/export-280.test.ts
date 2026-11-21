@@ -28,7 +28,7 @@ console.log('OK');
 describe('s3957 public server step error codes in package 1.280.0', () => {
   it('s3957 (a) package.json has a version in the 1.280.0-1.291.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(280|281|282|283|284|285|287|288|289|290|291)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(280|281|282|283|284|285|287|288|289|290|291|292|293)\.0$/);
   });
 
   it('s3957 (b) the public server step error exports work from ESM', () => {
