@@ -866,10 +866,10 @@ describe('s8190 pacchetto-1-260-0', () => {
 });
 
 describe('s8220 pacchetto-1-261-0', () => {
-  it('s8220_version: package and first release are 1.261.0 and retain 1.260.0', () => {
+  it('s8220_version: the release remains in the changelog and package matches the first release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.261.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.261.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.261.0');
     expect(changelog).toContain('## v1.260.0');
     expect(changelog).toContain('REGRESSIONE: s8220 pacchetto-di-dodici-schermate');
   });
@@ -879,7 +879,7 @@ describe('s8220 pacchetto-1-261-0', () => {
       versione: string;
       barili: Record<string, Record<string, string>>;
     };
-    expect(map.versione).toBe('1.261.0');
+    expect(map.versione).toBe(packageVersion());
     for (const name of [
       'DELIVERY_PACKAGE_MAX_KEY_SCREENS',
       'DELIVERY_PACKAGE_FILE_MAX_BYTES',
@@ -888,5 +888,25 @@ describe('s8220 pacchetto-1-261-0', () => {
       expect(map.barili['@x9-forge/contracts/organization']?.[name])
         .toBe('@x9-forge/contracts/organization/delivery-package');
     }
+  });
+});
+
+describe('s8221 pacchetto-1-262-0', () => {
+  it('s8221_version: package and first release are 1.262.0 and retain the previous release', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe('1.262.0');
+    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.262.0');
+    expect(changelog).toContain('## v1.261.0');
+    expect(changelog).toContain('REGRESSIONE: s8221 anteprima-della-demo');
+  });
+
+  it('s8221_map: the narrow-import map carries the version and the preview builder', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as {
+      versione: string;
+      barili: Record<string, Record<string, string>>;
+    };
+    expect(map.versione).toBe('1.262.0');
+    expect(map.barili['@x9-forge/contracts/capability']?.paperclipProdottoDaAnteprima)
+      .toBe('@x9-forge/contracts/capability/paperclip-protocollo/wire-prodotti');
   });
 });

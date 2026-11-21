@@ -117,6 +117,46 @@ export function paperclipProdottoDaAllegato(
   });
 }
 
+export const PAPERCLIP_PREVIEW_PROVIDER = 'x9' as const;
+
+// Require a secure demo link and a canonical file digest so consumers can register it once.
+export function paperclipProdottoDaAnteprima(anteprima: {
+  url: string;
+  sha256: string;
+  title: string;
+  summary?: string;
+  createdByRunId?: string;
+}): PaperclipProdottoCreaCorpo {
+  if (!/^[0-9a-f]{64}$/.test(anteprima.sha256)) {
+    throw new Error('Preview sha256 must contain exactly 64 lowercase hexadecimal digits');
+  }
+  if (!anteprima.url.startsWith('https://')) {
+    throw new Error('Preview URL must use https://');
+  }
+  return PaperclipProdottoCreaCorpoSchema.parse({
+    type: 'preview_url',
+    provider: PAPERCLIP_PREVIEW_PROVIDER,
+    externalId: anteprima.sha256,
+    title: anteprima.title,
+    url: anteprima.url,
+    status: 'active',
+    reviewState: 'none',
+    isPrimary: false,
+    ...(anteprima.summary === undefined ? {} : { summary: anteprima.summary }),
+    ...(anteprima.createdByRunId === undefined ? {} : { createdByRunId: anteprima.createdByRunId }),
+  });
+}
+
+// Scope digest matching to X9 previews to avoid treating another product as an existing demo.
+export function paperclipProdottoEAnteprima(
+  prodotto: Pick<PaperclipProdotto, 'type' | 'provider' | 'externalId'>,
+  sha256: string,
+): boolean {
+  return prodotto.type === 'preview_url'
+    && prodotto.provider === PAPERCLIP_PREVIEW_PROVIDER
+    && prodotto.externalId === sha256;
+}
+
 /** Paperclip routes/issues.ts:6331-6336: `createdByRunId` deve essere la corsa autenticata (403 altrimenti). */
 export function paperclipProdottoDellaCorsa(corpo: { createdByRunId?: string | null | undefined }, runIdAutenticata: string): boolean {
   return corpo.createdByRunId === undefined || corpo.createdByRunId === null || corpo.createdByRunId === runIdAutenticata;

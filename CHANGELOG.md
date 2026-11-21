@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.262.0 — demo previews have a shared work-product shape (task 8221)
+
+- Add `PAPERCLIP_PREVIEW_PROVIDER` (`x9`), `paperclipProdottoDaAnteprima({ url, sha256, title, summary?, createdByRunId? })` and `paperclipProdottoEAnteprima(prodotto, sha256)` in `capability/paperclip-protocollo`. The builder requires HTTPS and a lowercase SHA-256 digest, used as `externalId` to recognize an already registered preview; the generic creation schema is unchanged.
+- Registration and consumer pins remain tasks 8226 and 8222; this package does not create links or decide their lifetime.
+- REGRESSIONE: s8221 anteprima-della-demo: con il link `https://x9.example/m/Xk3f9aQ2` e l'impronta SHA-256 di `demo.html`, prima manca la funzione (rosso: non è una funzione); dopo il corpo completo ha `type: 'preview_url'`, `provider: 'x9'`, impronta in `externalId` e link in `url`, e passa lo schema. Link non HTTPS e impronte non canoniche sono rifiutati.
+
 ## v1.261.0 — delivery packages carry every screen and the demo walkthrough (task 8220)
 
 - Additive `organization` contracts: up to 40 key screens (20 screens in two formats), an optional strict preview walkthrough of 1–40 unique screens, and visible navigation commands after the opening step. Saved packages without a walkthrough remain valid; attachment paths are unchanged.

@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipIncaricoConProdottiSchema = exports.PaperclipProdottiSchema = exports.PaperclipProdottoSchema = exports.PaperclipProdottoAggiornaCorpoSchema = exports.PaperclipProdottoCreaCorpoSchema = exports.PaperclipProdottoMetadatiAllegatoSchema = exports.PaperclipProdottoRevisioneSchema = exports.PaperclipProdottoStatoSchema = exports.PaperclipProdottoTipoSchema = exports.PAPERCLIP_WORK_PRODUCT_HEALTH = exports.PAPERCLIP_WORK_PRODUCT_REVIEW_STATES = exports.PAPERCLIP_WORK_PRODUCT_STATUSES = exports.PAPERCLIP_WORK_PRODUCT_TYPES = void 0;
+exports.PAPERCLIP_PREVIEW_PROVIDER = exports.PaperclipIncaricoConProdottiSchema = exports.PaperclipProdottiSchema = exports.PaperclipProdottoSchema = exports.PaperclipProdottoAggiornaCorpoSchema = exports.PaperclipProdottoCreaCorpoSchema = exports.PaperclipProdottoMetadatiAllegatoSchema = exports.PaperclipProdottoRevisioneSchema = exports.PaperclipProdottoStatoSchema = exports.PaperclipProdottoTipoSchema = exports.PAPERCLIP_WORK_PRODUCT_HEALTH = exports.PAPERCLIP_WORK_PRODUCT_REVIEW_STATES = exports.PAPERCLIP_WORK_PRODUCT_STATUSES = exports.PAPERCLIP_WORK_PRODUCT_TYPES = void 0;
 exports.paperclipProdottoDaAllegato = paperclipProdottoDaAllegato;
+exports.paperclipProdottoDaAnteprima = paperclipProdottoDaAnteprima;
+exports.paperclipProdottoEAnteprima = paperclipProdottoEAnteprima;
 exports.paperclipProdottoDellaCorsa = paperclipProdottoDellaCorsa;
 const zod_1 = require("zod");
 const wire_letture_js_1 = require("./wire-letture.cjs");
@@ -105,6 +107,34 @@ function paperclipProdottoDaAllegato(allegato, opzioni = {}) {
         ...(opzioni.createdByRunId === undefined ? {} : { createdByRunId: opzioni.createdByRunId }),
         metadata: { attachmentId: allegato.id },
     });
+}
+exports.PAPERCLIP_PREVIEW_PROVIDER = 'x9';
+// Require a secure demo link and a canonical file digest so consumers can register it once.
+function paperclipProdottoDaAnteprima(anteprima) {
+    if (!/^[0-9a-f]{64}$/.test(anteprima.sha256)) {
+        throw new Error('Preview sha256 must contain exactly 64 lowercase hexadecimal digits');
+    }
+    if (!anteprima.url.startsWith('https://')) {
+        throw new Error('Preview URL must use https://');
+    }
+    return exports.PaperclipProdottoCreaCorpoSchema.parse({
+        type: 'preview_url',
+        provider: exports.PAPERCLIP_PREVIEW_PROVIDER,
+        externalId: anteprima.sha256,
+        title: anteprima.title,
+        url: anteprima.url,
+        status: 'active',
+        reviewState: 'none',
+        isPrimary: false,
+        ...(anteprima.summary === undefined ? {} : { summary: anteprima.summary }),
+        ...(anteprima.createdByRunId === undefined ? {} : { createdByRunId: anteprima.createdByRunId }),
+    });
+}
+// Scope digest matching to X9 previews to avoid treating another product as an existing demo.
+function paperclipProdottoEAnteprima(prodotto, sha256) {
+    return prodotto.type === 'preview_url'
+        && prodotto.provider === exports.PAPERCLIP_PREVIEW_PROVIDER
+        && prodotto.externalId === sha256;
 }
 /** Paperclip routes/issues.ts:6331-6336: `createdByRunId` deve essere la corsa autenticata (403 altrimenti). */
 function paperclipProdottoDellaCorsa(corpo, runIdAutenticata) {

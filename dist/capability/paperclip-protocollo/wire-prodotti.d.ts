@@ -338,6 +338,15 @@ export declare function paperclipProdottoDaAllegato(allegato: Pick<PaperclipAlle
     summary?: string;
     createdByRunId?: string;
 }): z.infer<typeof PaperclipProdottoCreaCorpoSchema>;
+export declare const PAPERCLIP_PREVIEW_PROVIDER: "x9";
+export declare function paperclipProdottoDaAnteprima(anteprima: {
+    url: string;
+    sha256: string;
+    title: string;
+    summary?: string;
+    createdByRunId?: string;
+}): PaperclipProdottoCreaCorpo;
+export declare function paperclipProdottoEAnteprima(prodotto: Pick<PaperclipProdotto, 'type' | 'provider' | 'externalId'>, sha256: string): boolean;
 /** Paperclip routes/issues.ts:6331-6336: `createdByRunId` deve essere la corsa autenticata (403 altrimenti). */
 export declare function paperclipProdottoDellaCorsa(corpo: {
     createdByRunId?: string | null | undefined;
