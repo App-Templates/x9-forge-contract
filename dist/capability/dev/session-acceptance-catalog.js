@@ -51,6 +51,26 @@ export const DEV_SESSION_ACCEPTANCE_CATALOG = {
         text: 'Il design è quello che serve',
         proof: "risposta alla richiesta di decisione, con l'anteprima",
     },
+    // Design tools (8210): the catalog used to name no skill beyond "the mandatory one" (D-01), so the
+    // final Impeccable check, Emil before motion and Playwright on the served page were enforced only
+    // by the harness mod. These three let the executor attest them from the session log (`skill_log`
+    // is the session registry, also for Playwright tool lines). Ids are new, so saved contracts are
+    // untouched: form criteria are expanded from each consumer's own copy of this package.
+    'D-12': {
+        attestor: 'esecutore', needs: ['skill_log'],
+        text: "Dopo l'ultima modifica a un file di interfaccia la sessione ha lanciato la verifica finale di Impeccable (audit o critique; su un'app anche polish)",
+        proof: "riga dello strumento `Skill` di Impeccable con il suo comando, nel registro della sessione, dopo l'ultima scrittura di un file di interfaccia",
+    },
+    'D-13': {
+        attestor: 'esecutore', needs: ['skill_log'],
+        text: 'La skill emil-design-eng è stata caricata prima del primo file con movimento (transizioni, animazioni, librerie di movimento); se la consegna non ha movimento il requisito è soddisfatto',
+        proof: 'riga dello strumento `Skill` nel registro della sessione, prima del primo file con movimento',
+    },
+    'D-14': {
+        attestor: 'esecutore', needs: ['skill_log'],
+        text: "Dopo l'ultima modifica la sessione ha guardato con Playwright la pagina servita da un server locale, a 390 e a 1440 px",
+        proof: "righe degli strumenti di Playwright nel registro della sessione, dopo l'ultima scrittura di un file di interfaccia",
+    },
     'S-01': {
         attestor: 'esecutore', needs: ['commit'],
         text: 'I sorgenti sono in un commit raggiungibile',

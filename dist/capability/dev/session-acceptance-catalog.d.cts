@@ -54,6 +54,24 @@ export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
         readonly text: "Il design è quello che serve";
         readonly proof: "risposta alla richiesta di decisione, con l'anteprima";
     };
+    readonly 'D-12': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log"];
+        readonly text: "Dopo l'ultima modifica a un file di interfaccia la sessione ha lanciato la verifica finale di Impeccable (audit o critique; su un'app anche polish)";
+        readonly proof: "riga dello strumento `Skill` di Impeccable con il suo comando, nel registro della sessione, dopo l'ultima scrittura di un file di interfaccia";
+    };
+    readonly 'D-13': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log"];
+        readonly text: "La skill emil-design-eng è stata caricata prima del primo file con movimento (transizioni, animazioni, librerie di movimento); se la consegna non ha movimento il requisito è soddisfatto";
+        readonly proof: "riga dello strumento `Skill` nel registro della sessione, prima del primo file con movimento";
+    };
+    readonly 'D-14': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log"];
+        readonly text: "Dopo l'ultima modifica la sessione ha guardato con Playwright la pagina servita da un server locale, a 390 e a 1440 px";
+        readonly proof: "righe degli strumenti di Playwright nel registro della sessione, dopo l'ultima scrittura di un file di interfaccia";
+    };
     readonly 'S-01': {
         readonly attestor: "esecutore";
         readonly needs: readonly ["commit"];

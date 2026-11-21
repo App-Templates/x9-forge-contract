@@ -66,7 +66,7 @@ describe('s7562_forma', () => {
     expect(DEV_SESSION_ATTESTATION_STATUSES).toEqual(['soddisfatto', 'non_soddisfatto', 'da_revisionare']);
     expect(DEV_SESSION_PROOF_ORIGINS).toEqual(['base', 'esecutore', 'sessione']);
     expect(DEV_SESSION_RESPONSIBLES).toEqual(['sessione', 'capo', 'referente', 'director']);
-    expect(DEV_SESSION_ATTESTATION_MAX_ENTRIES).toBe(40);
+    expect(DEV_SESSION_ATTESTATION_MAX_ENTRIES).toBe(43);
     expect(DEV_SESSION_ATTESTATION_MAX_ENTRIES).toBe(DEV_SESSION_ACCEPTANCE_MAX_CRITERIA + Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG).length);
     expect(DEV_SESSION_VERDICT_PROBLEMS).toEqual([
       'requirements_unresolved', 'criterion_unknown', 'attestor_not_session', 'attestor_not_executor',
@@ -175,13 +175,13 @@ describe('s7562_forma', () => {
     }
   });
 
-  it('validates the attestation and manifest including 40 entries and 100 indexed proofs', () => {
+  it('validates the attestation and manifest including 43 entries and 100 indexed proofs', () => {
     const attestation = { version: 1, entries: [satisfied(), negative, review] };
     expect(DevSessionAttestationSchema.parse(attestation)).toEqual(attestation);
     expect(DevSessionAttestationSchema.parse({ version: 1, entries: [] }).entries).toEqual([]);
-    const entries = Array.from({ length: 40 }, (_, index) => satisfied(`C-${index}`));
-    expect(DevSessionAttestationSchema.parse({ version: 1, entries }).entries).toHaveLength(40);
-    rejects(DevSessionAttestationSchema, { version: 1, entries: [...entries, satisfied('C-40')] }, ['entries'], 'too_big');
+    const entries = Array.from({ length: 43 }, (_, index) => satisfied(`C-${index}`));
+    expect(DevSessionAttestationSchema.parse({ version: 1, entries }).entries).toHaveLength(43);
+    rejects(DevSessionAttestationSchema, { version: 1, entries: [...entries, satisfied('C-43')] }, ['entries'], 'too_big');
     rejects(DevSessionAttestationSchema, { ...attestation, version: 2 }, ['version'], 'invalid_value');
     rejects(DevSessionAttestationSchema, { entries: [] }, ['version'], 'invalid_value');
     rejects(DevSessionAttestationSchema, { version: 1 }, ['entries'], 'invalid_type');
@@ -458,11 +458,11 @@ describe('session acceptance verdict', () => {
     const input = completeInput(value);
     expect(DevSessionAttestationSchema.parse(input.attestation).entries).toHaveLength(21);
     const manifest = DevSessionManifestAttestationSchema.parse({ sha256: digest, attestation: input.attestation, proofs: input.proofs });
-    expect(manifest.proofs).toHaveLength(27);
+    expect(manifest.proofs).toHaveLength(30);
     const verdict = devSessionAcceptanceVerdict(input);
-    expect(verdict.criteria).toHaveLength(28);
-    expect(verdict.criteria.map(({ id }) => id)).toEqual(['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-08', 'D-09', 'D-11', ...value.criteria.map(({ id }) => id)]);
-    expect(verdict.criteria.filter(({ status }) => status === 'soddisfatto')).toHaveLength(27);
+    expect(verdict.criteria).toHaveLength(31);
+    expect(verdict.criteria.map(({ id }) => id)).toEqual(['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', ...value.criteria.map(({ id }) => id)]);
+    expect(verdict.criteria.filter(({ status }) => status === 'soddisfatto')).toHaveLength(30);
     expect(verdict.awaiting).toEqual([{ id: 'D-11', attestor: 'referente' }]);
     expect(verdict.problems).toEqual([]);
     expect(verdict.sessionComplete).toBe(true);

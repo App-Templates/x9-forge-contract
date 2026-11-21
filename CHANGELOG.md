@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.264.0 — the design contract names its tools: final Impeccable check, Emil before motion, Playwright at 390 and 1440 px (task 8210)
+
+- Additive in `capability/dev/session-acceptance-catalog`: `D-12` (final Impeccable audit/critique after the last interface write, polish on an app), `D-13` (emil-design-eng loaded before the first file with motion; no motion means satisfied) and `D-14` (Playwright on the locally served page at 390 and 1440 px), all attested by the executor from the session log (`skill_log`).
+- `design-sito` and `design-schermata-app` add `D-12`, `D-13`, `D-14`; `design-ritocco` adds `D-13` and `D-14` (no final Impeccable check). Template versions stay 1 and form criteria are not stored in the saved contract, so saved contracts resolve unchanged; code templates are unchanged. Consumers adopt with the pin (8211) and attest in 8212-8215.
+- REGRESSIONE: s8210 design-sotto-contratto: con un contratto salvato di design (modello `design-sito` versione 1, ingresso con `screens`, `formats` e `visualSource`, un criterio del capo: la forma di `session-acceptance-d09.test.ts`) oggi `devSessionRequirements` dà otto requisiti del modello e nessuno per la verifica finale di Impeccable, per Emil e per Playwright (rosso: `D-12`, `D-13`, `D-14` non ci sono); dopo ci sono, con attestatore `esecutore`, e `design-ritocco` ha `D-13` e `D-14` ma non `D-12` (verde).
+
 ## v1.263.0 — a delivery decision outcome carries the referent's own words and the "approve, but..." note (task 8230)
 
 - Additive in `organization/decision-request`: optional `referentWords` (1–2000, `REFERENT_WORDS_MAX`) on both outcomes and on the `approve`/`refuse` email replies, and optional `note` (3–2000) on `approved` outcomes and `approve` replies. Both are allowed only for a delivery; `note` requires `referentWords`. `decisionOutcomeFromEmailReply` copies them and leaves `reason` unchanged; a reply with words or a note that breaks those rules is refused as `mismatch`.

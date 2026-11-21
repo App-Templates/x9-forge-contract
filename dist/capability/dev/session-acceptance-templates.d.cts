@@ -27,7 +27,7 @@ export declare const DEV_SESSION_TEMPLATES: {
         readonly supportedEngines: readonly ["claude"];
         readonly requiredInput: readonly ["screens", "formats", "visualSource"];
         readonly materials: readonly ["visual_images"];
-        readonly formCriteria: readonly ["D-01", "D-02", "D-03", "D-04", "D-05", "D-08", "D-09", "D-11"];
+        readonly formCriteria: readonly ["D-01", "D-02", "D-03", "D-04", "D-05", "D-08", "D-09", "D-11", "D-12", "D-13", "D-14"];
         readonly optionalCriteria: readonly [];
     };
     readonly 'design-schermata-app': {
@@ -36,7 +36,7 @@ export declare const DEV_SESSION_TEMPLATES: {
         readonly supportedEngines: readonly ["claude"];
         readonly requiredInput: readonly ["screens", "states", "formats", "visualSource"];
         readonly materials: readonly ["visual_images"];
-        readonly formCriteria: readonly ["D-01", "D-03", "D-04", "D-05", "D-07", "D-08", "D-09", "D-11"];
+        readonly formCriteria: readonly ["D-01", "D-03", "D-04", "D-05", "D-07", "D-08", "D-09", "D-11", "D-12", "D-13", "D-14"];
         readonly optionalCriteria: readonly [];
     };
     readonly 'design-ritocco': {
@@ -45,7 +45,7 @@ export declare const DEV_SESSION_TEMPLATES: {
         readonly supportedEngines: readonly ["claude"];
         readonly requiredInput: readonly ["retouch", "formats", "visualSource"];
         readonly materials: readonly ["retouch_file", "visual_images"];
-        readonly formCriteria: readonly ["D-01", "D-03", "D-08", "D-11"];
+        readonly formCriteria: readonly ["D-01", "D-03", "D-08", "D-11", "D-13", "D-14"];
         readonly optionalCriteria: readonly [];
     };
 };

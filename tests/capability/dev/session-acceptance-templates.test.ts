@@ -15,7 +15,7 @@ import { devSessionAcceptanceVerdict } from '../../../src/capability/dev/session
 import { DevelopmentSessionEngineSchema } from '../../../src/capability/connect/development-session.js';
 
 const criterion = { id: 'piece-save', text: 'The user can save.', attestor: 'revisore' as const, proof: 'Observe the saved item.', origin: 'capo' as const };
-const siteForm = ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-08', 'D-09', 'D-11'];
+const siteForm = ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14'];
 const codeForm = ['S-01', 'S-02', 'S-05', 'S-07', 'S-08', 'S-10', 'S-11'];
 const codeOptional = ['S-03', 'S-04', 'S-06', 'S-09'];
 
@@ -52,6 +52,7 @@ describe('s7561', () => {
       'D-03': ['esecutore', ['detector']], 'D-04': ['esecutore', ['static_scan']],
       'D-05': ['esecutore', ['screenshot']], 'D-07': ['sessione', []], 'D-08': ['sessione', []],
       'D-09': ['esecutore', ['package']], 'D-11': ['referente', []],
+      'D-12': ['esecutore', ['skill_log']], 'D-13': ['esecutore', ['skill_log']], 'D-14': ['esecutore', ['skill_log']],
       'S-01': ['esecutore', ['commit']], 'S-02': ['esecutore', ['prove_run']],
       'S-03': ['esecutore', ['browser']], 'S-04': ['esecutore', ['screenshot']],
       'S-05': ['esecutore', ['prove_run']], 'S-06': ['referente', []],
@@ -60,8 +61,8 @@ describe('s7561', () => {
       'S-11': ['esecutore', ['clean_install']],
     };
     expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG).sort()).toEqual(Object.keys(expected).sort());
-    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(20);
-    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(20);
+    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(23);
+    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(23);
     for (const [id, entry] of Object.entries(DEV_SESSION_ACCEPTANCE_CATALOG)) {
       expect([entry.attestor, entry.needs]).toEqual(expected[id as keyof typeof expected]);
       expect(entry.attestor === 'esecutore').toBe(entry.needs.length > 0);
@@ -86,8 +87,8 @@ describe('s7561', () => {
     const expected = [
       { productKind: 'code', supportedEngines: ['codex', 'claude'], requiredInput: ['userPath', 'data', 'proofScripts', 'visualSource'], materials: ['visual_images'], formCriteria: codeForm, optionalCriteria: codeOptional },
       { productKind: 'design', supportedEngines: ['claude'], requiredInput: ['screens', 'formats', 'visualSource'], materials: ['visual_images'], formCriteria: siteForm, optionalCriteria: [] },
-      { productKind: 'design', supportedEngines: ['claude'], requiredInput: ['screens', 'states', 'formats', 'visualSource'], materials: ['visual_images'], formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-07', 'D-08', 'D-09', 'D-11'], optionalCriteria: [] },
-      { productKind: 'design', supportedEngines: ['claude'], requiredInput: ['retouch', 'formats', 'visualSource'], materials: ['retouch_file', 'visual_images'], formCriteria: ['D-01', 'D-03', 'D-08', 'D-11'], optionalCriteria: [] },
+      { productKind: 'design', supportedEngines: ['claude'], requiredInput: ['screens', 'states', 'formats', 'visualSource'], materials: ['visual_images'], formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14'], optionalCriteria: [] },
+      { productKind: 'design', supportedEngines: ['claude'], requiredInput: ['retouch', 'formats', 'visualSource'], materials: ['retouch_file', 'visual_images'], formCriteria: ['D-01', 'D-03', 'D-08', 'D-11', 'D-13', 'D-14'], optionalCriteria: [] },
     ];
     DEV_SESSION_TEMPLATE_IDS.forEach((id, index) => {
       const template = DEV_SESSION_TEMPLATES[id];
@@ -144,7 +145,7 @@ describe('s7561', () => {
     const result = devSessionRequirements(value.acceptance);
     expect(result.ok).toBe(true);
     if (!result.ok) throw new Error(result.code);
-    expect(result.requirements).toHaveLength(28);
+    expect(result.requirements).toHaveLength(31);
     expect(result.requirements.map((entry) => entry.id)).toEqual([...siteForm, ...input.criteria.map((entry) => entry.id)]);
     expect(devSessionAcceptanceTemplateProblem(value)).toBeNull();
   });
@@ -273,5 +274,65 @@ describe('s8079 installazione pulita', () => {
     expect(refused.error.issues).toContainEqual(expect.objectContaining({ path: ['criteria', 0, 'attestor'], message: 'executor_only_from_catalog' }));
     const clash = DevSessionAcceptanceSchema.parse({ ...savedR56, criteria: [{ ...free, id: 'S-11', attestor: 'sessione' }] });
     expect(devSessionRequirements(clash)).toEqual({ ok: false, code: 'criterion_id_clashes_catalog' });
+  });
+});
+
+describe('s8210 design-strumenti', () => {
+  const tools = ['D-12', 'D-13', 'D-14'];
+  const designTemplates = (id: string): DevSessionAcceptance => {
+    const value = acceptance();
+    value.template = { id, version: 1 };
+    if (id === 'design-schermata-app') value.input = { ...value.input, states: ['pieno', 'vuoto'] };
+    if (id === 'design-ritocco') value.input = { retouch: { target: 'Home', defect: 'Spacing' }, formats: ['computer'], visualSource: { kind: 'nessuna' } };
+    return value;
+  };
+  const requirementsOf = (id: string) => {
+    const result = devSessionRequirements(designTemplates(id));
+    if (!result.ok) throw new Error(result.code);
+    return result.requirements;
+  };
+
+  it('s8210 design-sotto-contratto', () => {
+    for (const id of ['design-sito', 'design-schermata-app']) {
+      const ids = requirementsOf(id).map((entry) => entry.id);
+      expect(ids.slice(-4)).toEqual(['D-12', 'D-13', 'D-14', 'piece-save']);
+      expect(ids.indexOf('D-11')).toBe(ids.indexOf('D-12') - 1);
+      for (const toolId of tools) {
+        expect(requirementsOf(id).find((entry) => entry.id === toolId)).toMatchObject({ attestor: 'esecutore', needs: ['skill_log'], origin: 'modello' });
+      }
+    }
+    const retouch = requirementsOf('design-ritocco').map((entry) => entry.id);
+    expect(retouch).toEqual(['D-01', 'D-03', 'D-08', 'D-11', 'D-13', 'D-14', 'piece-save']);
+  });
+
+  it('s8210 ritocco-senza-verifica-finale', () => {
+    expect(requirementsOf('design-ritocco').map((entry) => entry.id)).not.toContain('D-12');
+    expect(DEV_SESSION_TEMPLATES['design-ritocco'].formCriteria as readonly string[]).not.toContain('D-12');
+  });
+
+  it('s8210 testi', () => {
+    const { 'D-12': d12, 'D-13': d13, 'D-14': d14 } = DEV_SESSION_ACCEPTANCE_CATALOG;
+    expect(d12.text).toContain('audit o critique');
+    expect(d12.text).toContain('polish');
+    expect(d13.text).toContain('emil-design-eng');
+    expect(d13.text).toContain('soddisfatto');
+    expect(d14.text).toContain('390');
+    expect(d14.text).toContain('1440');
+  });
+
+  it('s8210 codice-e-versioni-invariati', () => {
+    const code = devSessionRequirements(DevSessionAcceptanceSchema.parse(savedR56));
+    if (!code.ok) throw new Error(code.code);
+    expect(code.requirements.filter((entry) => entry.origin === 'modello').map((entry) => entry.id)).toEqual(['S-01', 'S-02', 'S-05', 'S-07', 'S-08', 'S-10', 'S-11']);
+    for (const id of DEV_SESSION_TEMPLATE_IDS) expect(DEV_SESSION_TEMPLATES[id].version).toBe(1);
+    expect(devSessionRequirements(DevSessionAcceptanceSchema.parse(savedR56)).ok).toBe(true);
+  });
+
+  it('s8210 id-nuovi-protetti', () => {
+    for (const id of tools) {
+      const value = acceptance();
+      value.criteria = [{ ...criterion, id }];
+      expect(devSessionRequirements(value)).toEqual({ ok: false, code: 'criterion_id_clashes_catalog' });
+    }
   });
 });

@@ -114,6 +114,9 @@ describe('session acceptance coverage and Paperclip', () => {
       '- D-08 (sessione): Scostamenti dal brand dichiarati con il motivo',
       "- D-09 (esecutore): Il pacchetto per il referente ha un pdf con ogni schermata disponibile della consegna e il collegamento alla demo navigabile, senza un numero fisso di schermate",
       '- D-11 (referente): Il design è quello che serve',
+      "- D-12 (esecutore): Dopo l'ultima modifica a un file di interfaccia la sessione ha lanciato la verifica finale di Impeccable (audit o critique; su un'app anche polish)",
+      '- D-13 (esecutore): La skill emil-design-eng è stata caricata prima del primo file con movimento (transizioni, animazioni, librerie di movimento); se la consegna non ha movimento il requisito è soddisfatto',
+      "- D-14 (esecutore): Dopo l'ultima modifica la sessione ha guardato con Playwright la pagina servita da un server locale, a 390 e a 1440 px",
     ].join('\n'));
     expect(reference.length).toBeLessThan(4000);
     const development = { ...acceptance, template: { id: 'sviluppo-pezzo-app', version: 1, optionalIds: ['S-03'] } };

@@ -39,20 +39,22 @@ export const DEV_SESSION_TEMPLATES = {
     formCriteria: ['S-01', 'S-02', 'S-05', 'S-07', 'S-08', 'S-10', 'S-11'],
     optionalCriteria: ['S-03', 'S-04', 'S-06', 'S-09'],
   },
+  // Design tools (8210): D-12..D-14 join the design form criteria at version 1, same reasoning as
+  // S-11. A retouch has no final Impeccable check (table 4.11), so design-ritocco gets D-13/D-14 only.
   'design-sito': {
     version: 1, productKind: 'design', supportedEngines: DESIGN_ENGINES,
     requiredInput: ['screens', 'formats', 'visualSource'], materials: ['visual_images'],
-    formCriteria: ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-08', 'D-09', 'D-11'], optionalCriteria: [],
+    formCriteria: ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14'], optionalCriteria: [],
   },
   'design-schermata-app': {
     version: 1, productKind: 'design', supportedEngines: DESIGN_ENGINES,
     requiredInput: ['screens', 'states', 'formats', 'visualSource'], materials: ['visual_images'],
-    formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-07', 'D-08', 'D-09', 'D-11'], optionalCriteria: [],
+    formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14'], optionalCriteria: [],
   },
   'design-ritocco': {
     version: 1, productKind: 'design', supportedEngines: DESIGN_ENGINES,
     requiredInput: ['retouch', 'formats', 'visualSource'], materials: ['retouch_file', 'visual_images'],
-    formCriteria: ['D-01', 'D-03', 'D-08', 'D-11'], optionalCriteria: [],
+    formCriteria: ['D-01', 'D-03', 'D-08', 'D-11', 'D-13', 'D-14'], optionalCriteria: [],
   },
 } as const satisfies Record<(typeof DEV_SESSION_TEMPLATE_IDS)[number], Template>;
 

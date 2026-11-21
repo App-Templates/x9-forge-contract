@@ -913,8 +913,8 @@ describe('s8221 pacchetto-1-262-0', () => {
 describe('s8230 pacchetto-1-263-0', () => {
   it('s8230_version: package and first release are 1.263.0 and retain the previous release', () => {
     const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
-    expect(packageVersion()).toBe('1.263.0');
-    expect(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]).toBe('1.263.0');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.263.0');
     expect(changelog).toContain('## v1.262.0');
     expect(changelog).toContain('REGRESSIONE: s8230 parole-del-referente');
   });
@@ -924,8 +924,23 @@ describe('s8230 pacchetto-1-263-0', () => {
       versione: string;
       barili: Record<string, Record<string, string>>;
     };
-    expect(map.versione).toBe('1.263.0');
+    expect(map.versione).toBe(packageVersion());
     expect(map.barili['@x9-forge/contracts/organization']?.REFERENT_WORDS_MAX)
       .toBe('@x9-forge/contracts/organization/decision-request');
+  });
+});
+
+describe('s8210 pacchetto-1-264-0', () => {
+  it('s8210_version: package and first release are 1.264.0 and retain the previous release', () => {
+    const changelog = readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8');
+    expect(packageVersion()).toBe(/^## v(\d+\.\d+\.\d+)/m.exec(changelog)?.[1]);
+    expect(changelog).toContain('## v1.264.0');
+    expect(changelog).toContain('## v1.263.0');
+    expect(changelog).toContain('REGRESSIONE: s8210 design-sotto-contratto');
+  });
+
+  it('s8210_map: the narrow-import map carries the version', () => {
+    const map = JSON.parse(readFileSync(resolve(root, 'dist/narrow-imports.json'), 'utf8')) as { versione: string };
+    expect(map.versione).toBe(packageVersion());
   });
 });
