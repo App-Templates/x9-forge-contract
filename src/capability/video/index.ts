@@ -332,3 +332,18 @@ export {
   type VideoModelFrameRequest,
   type VideoModelFrameApproveRequest,
 } from './produzione-modella.js';
+
+export {
+  VIDEO_OUTFIT_MIN_SECONDS,
+  VIDEO_OUTFIT_MAX_SECONDS,
+  VIDEO_OUTFIT_MAX_BYTES,
+  VIDEO_OUTFIT_MEDIA_TYPES,
+  VideoOutfitModelSchema,
+  VideoOutfitResolutionSchema,
+  VideoOutfitProductionQuerySchema,
+  VideoOutfitProductionCreatedSchema,
+  type VideoOutfitModel,
+  type VideoOutfitResolution,
+  type VideoOutfitProductionQuery,
+  type VideoOutfitProductionCreated,
+} from './abito.js';

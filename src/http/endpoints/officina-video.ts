@@ -4,6 +4,7 @@ import { VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineJobSchema, 
 import { VIDEO_FOOTAGE_MAX_BYTES, VIDEO_FOOTAGE_MEDIA_TYPES, VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoFootageJobIdSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoEngineFootageRejectedSchema, VideoFootageListQuerySchema, VideoFootageListSchema } from '../../capability/video/footage.js';
 import { VIDEO_MODEL_REF_MEDIA_TYPES, VIDEO_MODEL_REF_MAX_BYTES, VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema, VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelSchema, VideoModelListSchema, VideoModelVersionSchema, VideoModelIdSchema, VideoModelVersionParamSchema, VideoModelRefKindSchema } from '../../capability/video/modella.js';
 
+import { VIDEO_OUTFIT_MEDIA_TYPES, VIDEO_OUTFIT_MAX_BYTES, VideoOutfitProductionQuerySchema, VideoOutfitProductionCreatedSchema } from '../../capability/video/abito.js';
 import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from '../../capability/video/produzione-modella.js';
 import { VideoModelRegiaDocumentSchema } from '../../capability/video/regia.js';
 
@@ -238,6 +239,19 @@ export const officinaVideoModelProductionCreateContract = {
   bodyMediaTypes: VIDEO_MODEL_REF_MEDIA_TYPES,
   maxBodyBytes: VIDEO_MODEL_REF_MAX_BYTES,
   responseSchema: VideoModelProductionCreatedSchema,
+  responseStatus: 201,
+} as const;
+
+/** cap-video -> engine: create an outfit-change production from the person's own video (binary body). */
+export const officinaVideoOutfitProductionCreateContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/produzioni-abito',
+  paramsSchema: z.object({}).strict(),
+  querySchema: VideoOutfitProductionQuerySchema,
+  bodyMediaTypes: VIDEO_OUTFIT_MEDIA_TYPES,
+  maxBodyBytes: VIDEO_OUTFIT_MAX_BYTES,
+  responseSchema: VideoOutfitProductionCreatedSchema,
   responseStatus: 201,
 } as const;
 

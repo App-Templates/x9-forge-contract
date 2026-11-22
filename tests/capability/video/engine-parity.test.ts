@@ -1,3 +1,4 @@
+import { VideoOutfitProductionQuerySchema, VideoOutfitProductionCreatedSchema } from '../../../src/capability/video/abito.js';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -102,6 +103,11 @@ const frameApproval = { revision: 1, frameSha256: modelFrame.frameSha256, confir
 // Gate counterchecks: remove Error.strict() to check shared evolution; change a pattern
 // only in the temporary catalog to check divergence detection. Compare parsed values too:
 // accepting the same input is insufficient if one runtime strips fields the other preserves.
+const outfitQuery = {
+  tenantId: 'tenant-1', ownerId: 'owner-1', agentId: 'agent-1', videoProjectId: 'video-1', name: 'Camminata',
+  model: 'kling-4-edit', resolution: '720p', budgetUsd: '8', fileName: 'clip.mp4',
+};
+const outfitCreated = { engineProjectId: 'a'.repeat(32), sourceSha256: 'b'.repeat(64), durationSeconds: 12 };
 const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; minimum?: number; accepted?: readonly string[] }> = {
   videoEngineProject: {
     schema: VideoEngineProjectSchema,
@@ -504,6 +510,26 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
       'short id': { ...productionCreated, engineProjectId: 'abc' },
       'uppercase hash': { ...productionCreated, lookSha256: 'D'.repeat(64) },
       'extra field': { ...productionCreated, extra: true },
+    },
+  },
+  videoEngineOutfitProductionQuery: {
+    schema: VideoOutfitProductionQuerySchema, minimum: 1, accepted: ['valid', 'mov upper'],
+    cases: {
+      valid: outfitQuery,
+      'mov upper': { ...outfitQuery, fileName: 'clip.MOV' },
+      'avi file': { ...outfitQuery, fileName: 'clip.avi' },
+      'unknown model': { ...outfitQuery, model: 'altro' },
+      'bad budget': { ...outfitQuery, budgetUsd: '1.234' },
+      'extra field': { ...outfitQuery, extra: true },
+    },
+  },
+  videoEngineOutfitProductionCreated: {
+    schema: VideoOutfitProductionCreatedSchema, minimum: 1, accepted: ['created'],
+    cases: {
+      created: outfitCreated,
+      'too short': { ...outfitCreated, durationSeconds: 2 },
+      'too long': { ...outfitCreated, durationSeconds: 16 },
+      'extra field': { ...outfitCreated, extra: true },
     },
   },
   videoEngineModelRegia: {
