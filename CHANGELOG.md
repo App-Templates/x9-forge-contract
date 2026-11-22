@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.305.0 — a scheduled Director check names the decision owned by Memory (task 8206)
+
+- Export the strict `PaperclipAnswerCheckSourceSchema` and inferred `PaperclipAnswerCheckSource` type: `service: 'memory'` and mandatory `requestId: DecisionRequestIdSchema`, described as `Decision read by the check source`. Only the `check_after` branch of `PaperclipAnswerLiftConditionSchema` gains optional `source`; historical checks without it, issue blockers, outcome/howToFix obligations and closures without an answer are unchanged.
+- `services/memory` owns the decision state. At the native recheck, use the existing `internalMemoryDecisionRequestReadContract` with `params.requestId` from the source and `query.tenantId` / `query.agentId` of the real reader, then examine both request and outcome. The reference grants no access; neither elapsed time nor `state: 'decided'` alone means go-ahead. Accessibility, scope, author and linkage checks before closure belong to consumer task 8252.
+- `paperclipDirectorAnswerLines` preserves every historical line and adds one line naming Memoria and the complete requestId only when a source is present. No HTTP calls, timers, monitor arming, chief status changes or parallel state store are added. A historical source-less check remains readable and does not prove a verifiable condition for 8252.
+- Add synthetic s8206 parsing, read-params, rendering, strict-source rejection and compatibility cases. Initial behavioral red confirmed: 1/1 selected case fails on the old schema rejecting `source`. Final tests, typecheck and M1/M2 mutations remain with the runner; no live or dry-run verification. Version 1.305.0 is reserved for this task; adoption 8207 must include 8204 and 8206, and remains pending request 537.
+- REGRESSIONE: s8206 forbidden con check_after e source { service: memory, requestId } conserva il riferimento nel parsing e nel commento; senza source la forma storica resta leggibile, ma non prova una condizione verificabile per la 8252.
+
 ## v1.304.0 — a chief can read the history of their requests in a project page by page (task 8204)
 
 - Add the GET secret contract `internalMemoryDecisionRequestAgentPageContract` at `INTERNAL_MEMORY_DECISION_REQUEST_AGENT_PAGE_PATH` (`/internal/memory/decision-requests/by-agent-page`) in `internal-memory-decision-requests`. The query `InternalMemoryDecisionRequestAgentPageQuerySchema` (strict) requires tenantId, agentId (reader and author at once, no producer key), organizationId and projectId, with optional `limit` 1..100 and `cursor` (1..2048). No state or plan filter can hide a pending request.

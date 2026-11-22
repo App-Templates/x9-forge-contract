@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.304.0",
+  "versione": "1.305.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -961,6 +961,7 @@
       "PaperclipAllegatoContestoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-allegati",
       "PaperclipAllegatoRimossoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-allegati",
       "PaperclipAllegatoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-allegati",
+      "PaperclipAnswerCheckSourceSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipAnswerHowToFixSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipAnswerInteractionBodySchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipAnswerLiftConditionSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
@@ -3601,6 +3602,7 @@
       "PaperclipAgentDirectoryEntrySchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipAgentDirectorySchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipAgentIdSchema": "@x9-forge/contracts/capability/paperclip/tools",
+      "PaperclipAnswerCheckSourceSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipAnswerHowToFixSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipAnswerInteractionBodySchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipAnswerLiftConditionSchema": "@x9-forge/contracts/capability/paperclip/native-wait",

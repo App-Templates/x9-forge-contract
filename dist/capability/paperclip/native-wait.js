@@ -134,11 +134,22 @@ export const PaperclipAnswerHowToFixSchema = z.strictObject({
     who: z.enum(PAPERCLIP_ANSWER_ACTORS),
     tool: Text.max(80).optional(),
 });
+/**
+ * The decision state belongs to services/memory. At the native recheck the consumer reads the request and outcome
+ * with the existing internalMemoryDecisionRequestReadContract: params.requestId comes from this source; query.tenantId
+ * and query.agentId identify the real reader. This reference grants no access. Neither elapsed time nor state decided
+ * alone lifts a prohibition. Accessibility, scope, author and linkage are checked by the consumer before closure (8252).
+ */
+export const PaperclipAnswerCheckSourceSchema = z.strictObject({
+    service: z.literal('memory'),
+    requestId: DecisionRequestIdSchema.describe('Decision read by the check source'),
+});
 export const PaperclipAnswerLiftConditionSchema = z.discriminatedUnion('kind', [
     z.strictObject({ kind: z.literal('blocked_by_issue'), issueId: z.uuid() }),
     z.strictObject({
         kind: z.literal('check_after'),
         afterSeconds: z.number().int().min(30).max(PAPERCLIP_CHECK_LATER_MAX_SECONDS),
+        source: PaperclipAnswerCheckSourceSchema.optional(),
     }),
 ]);
 export const PaperclipDirectorAnswerSchema = z.strictObject({
@@ -189,6 +200,9 @@ export function paperclipDirectorAnswerLines(answer) {
     }
     else if (lift?.kind === 'check_after') {
         lines.push(`Il divieto va ricontrollato fra ${lift.afterSeconds} secondi: usa un controllo programmato (checkLater afterSeconds ${lift.afterSeconds}).`);
+        if (lift.source !== undefined) {
+            lines.push(`Fonte del ricontrollo: Memoria, richiesta ${lift.source.requestId}. Al ricontrollo nativo rileggi la richiesta e l'esito: né il tempo trascorso né lo stato decided danno da soli il via libera.`);
+        }
     }
     return lines.join('\n');
 }

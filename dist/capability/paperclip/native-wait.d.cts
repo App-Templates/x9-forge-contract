@@ -161,12 +161,27 @@ export declare const PaperclipAnswerHowToFixSchema: z.ZodObject<{
     }>;
     tool: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
+/**
+ * The decision state belongs to services/memory. At the native recheck the consumer reads the request and outcome
+ * with the existing internalMemoryDecisionRequestReadContract: params.requestId comes from this source; query.tenantId
+ * and query.agentId identify the real reader. This reference grants no access. Neither elapsed time nor state decided
+ * alone lifts a prohibition. Accessibility, scope, author and linkage are checked by the consumer before closure (8252).
+ */
+export declare const PaperclipAnswerCheckSourceSchema: z.ZodObject<{
+    service: z.ZodLiteral<"memory">;
+    requestId: z.ZodString;
+}, z.core.$strict>;
+export type PaperclipAnswerCheckSource = z.infer<typeof PaperclipAnswerCheckSourceSchema>;
 export declare const PaperclipAnswerLiftConditionSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"blocked_by_issue">;
     issueId: z.ZodUUID;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"check_after">;
     afterSeconds: z.ZodNumber;
+    source: z.ZodOptional<z.ZodObject<{
+        service: z.ZodLiteral<"memory">;
+        requestId: z.ZodString;
+    }, z.core.$strict>>;
 }, z.core.$strict>], "kind">;
 export declare const PaperclipDirectorAnswerSchema: z.ZodObject<{
     outcome: z.ZodEnum<{
@@ -189,6 +204,10 @@ export declare const PaperclipDirectorAnswerSchema: z.ZodObject<{
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"check_after">;
         afterSeconds: z.ZodNumber;
+        source: z.ZodOptional<z.ZodObject<{
+            service: z.ZodLiteral<"memory">;
+            requestId: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>], "kind">>;
 }, z.core.$strict>;
 export type PaperclipDirectorAnswer = z.infer<typeof PaperclipDirectorAnswerSchema>;
@@ -350,6 +369,10 @@ export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"check_after">;
             afterSeconds: z.ZodNumber;
+            source: z.ZodOptional<z.ZodObject<{
+                service: z.ZodLiteral<"memory">;
+                requestId: z.ZodString;
+            }, z.core.$strict>>;
         }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
     resolution: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -748,6 +771,10 @@ export declare const PaperclipNativeReviewAddressedInputSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"check_after">;
             afterSeconds: z.ZodNumber;
+            source: z.ZodOptional<z.ZodObject<{
+                service: z.ZodLiteral<"memory">;
+                requestId: z.ZodString;
+            }, z.core.$strict>>;
         }, z.core.$strict>], "kind">>;
     }, z.core.$strict>>;
     resolution: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
