@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.304.0 — a chief can read the history of their requests in a project page by page (task 8204)
+
+- Add the GET secret contract `internalMemoryDecisionRequestAgentPageContract` at `INTERNAL_MEMORY_DECISION_REQUEST_AGENT_PAGE_PATH` (`/internal/memory/decision-requests/by-agent-page`) in `internal-memory-decision-requests`. The query `InternalMemoryDecisionRequestAgentPageQuerySchema` (strict) requires tenantId, agentId (reader and author at once, no producer key), organizationId and projectId, with optional `limit` 1..100 and `cursor` (1..2048). No state or plan filter can hide a pending request.
+- Add `InternalMemoryDecisionRequestAgentPageCursorSchema`: tenantId, agentId, organizationId, projectId, createdAt and requestId, all mandatory. Opaque canonical base64url JSON; order createdAt DESC, requestId ASC with a strict continuation on both keys, never an offset; the service re-checks scope and anchor on every page and the cursor grants nothing.
+- `InternalMemoryDecisionRequestAgentPageResponseSchema` is the existing project page (alias): whole requests and outcomes, unique ids, at most 100, mandatory `nextCursor` (string or null; only null proves the end). Documented: default limit 50, read of limit + 1, cursor on the last returned row only if rows remain; read access to the organization is enough, manage is not asked.
+- The four existing routes, the legacy list (no cursor, limit up to 100) and the project list are unchanged; no export is removed or renamed. Inert until served by the memory service (8205) and adopted (8207); used by 8363. Contract shape only: SQL and authorization are not proved here.
+- REGRESSIONE: s8204 regressione-capo-storia-paginata-delle-decisioni
+
 ## v1.297.0 — uncertain tool outcomes share their checks by role and the next move (task 8106)
 
 - Add the narrow subpath `capability/uncertain-outcome` with `UNCERTAIN_OUTCOME_ROLES`, `UncertainOutcomeToolSchema`, `UncertainOutcomeTableSchema` and `UNCERTAIN_OUTCOME_TOOLS`. Each tool appears once, cannot check itself and supplies `ifMissing` if and only if repeating is safe. The first entry is `dev_session_open`, checked with `dev_session_status` by a chief and `dev_project_sessions` by the Director.

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalMemoryDecisionRequestProjectListContract = exports.internalMemoryDecisionRequestListContract = exports.internalMemoryDecisionRequestOutcomeContract = exports.internalMemoryDecisionRequestReadContract = exports.internalMemoryDecisionRequestCreateContract = exports.DecisionRequestErrorResponseSchema = exports.DecisionRequestErrorCodeSchema = exports.InternalMemoryDecisionRequestOutcomeResponseSchema = exports.InternalMemoryDecisionRequestProjectListResponseSchema = exports.InternalMemoryDecisionRequestProjectCursorSchema = exports.InternalMemoryDecisionRequestProjectListQuerySchema = exports.InternalMemoryDecisionRequestListResponseSchema = exports.InternalMemoryDecisionRequestListQuerySchema = exports.InternalMemoryDecisionRequestStateSchema = exports.InternalMemoryDecisionRequestReadResponseSchema = exports.InternalMemoryDecisionRequestCreateResponseSchema = exports.InternalMemoryDecisionRequestQuerySchema = exports.InternalMemoryDecisionRequestParamsSchema = exports.INTERNAL_MEMORY_DECISION_REQUEST_PROJECT_LIST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH = void 0;
+exports.internalMemoryDecisionRequestAgentPageContract = exports.internalMemoryDecisionRequestProjectListContract = exports.internalMemoryDecisionRequestListContract = exports.internalMemoryDecisionRequestOutcomeContract = exports.internalMemoryDecisionRequestReadContract = exports.internalMemoryDecisionRequestCreateContract = exports.DecisionRequestErrorResponseSchema = exports.DecisionRequestErrorCodeSchema = exports.InternalMemoryDecisionRequestOutcomeResponseSchema = exports.InternalMemoryDecisionRequestAgentPageResponseSchema = exports.InternalMemoryDecisionRequestAgentPageCursorSchema = exports.InternalMemoryDecisionRequestAgentPageQuerySchema = exports.InternalMemoryDecisionRequestProjectListResponseSchema = exports.InternalMemoryDecisionRequestProjectCursorSchema = exports.InternalMemoryDecisionRequestProjectListQuerySchema = exports.InternalMemoryDecisionRequestListResponseSchema = exports.InternalMemoryDecisionRequestListQuerySchema = exports.InternalMemoryDecisionRequestStateSchema = exports.InternalMemoryDecisionRequestReadResponseSchema = exports.InternalMemoryDecisionRequestCreateResponseSchema = exports.InternalMemoryDecisionRequestQuerySchema = exports.InternalMemoryDecisionRequestParamsSchema = exports.INTERNAL_MEMORY_DECISION_REQUEST_AGENT_PAGE_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_PROJECT_LIST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../../agent/agent-identity.cjs");
 const decision_request_js_1 = require("../../organization/decision-request.cjs");
@@ -8,6 +8,7 @@ exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH = '/internal/memory/decision-requ
 exports.INTERNAL_MEMORY_DECISION_REQUEST_PATH = '/internal/memory/decision-requests/:requestId';
 exports.INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH = '/internal/memory/decision-requests/:requestId/outcome';
 exports.INTERNAL_MEMORY_DECISION_REQUEST_PROJECT_LIST_PATH = '/internal/memory/decision-requests/by-project';
+exports.INTERNAL_MEMORY_DECISION_REQUEST_AGENT_PAGE_PATH = '/internal/memory/decision-requests/by-agent-page';
 exports.InternalMemoryDecisionRequestParamsSchema = zod_1.z.strictObject({
     requestId: decision_request_js_1.DecisionRequestIdSchema,
 });
@@ -65,6 +66,35 @@ exports.InternalMemoryDecisionRequestProjectListResponseSchema = zod_1.z.strictO
     requests: zod_1.z.array(exports.InternalMemoryDecisionRequestReadResponseSchema).max(100).refine((requests) => new Set(requests.map(({ request }) => request.requestId)).size === requests.length, { message: 'requestId must be unique within a page' }),
     nextCursor: zod_1.z.string().min(1).max(2048).nullable(),
 });
+/**
+ * Agent page (1.304.0): the history of one chief inside one project. agentId is both
+ * the reader and the author of the requests; there is no alternative producer key and
+ * no state or plan filter, so a pending request can never be hidden by the query.
+ */
+exports.InternalMemoryDecisionRequestAgentPageQuerySchema = zod_1.z.strictObject({
+    tenantId: decision_request_js_1.DecisionRequestSchema.shape.tenantId,
+    agentId: agent_identity_js_1.AgentIdSchema,
+    organizationId: decision_request_js_1.DecisionRequestSchema.shape.organizationId,
+    projectId: decision_request_js_1.DecisionRequestSchema.shape.projectId.unwrap(),
+    limit: zod_1.z.coerce.number().int().min(1).max(100).optional(),
+    cursor: zod_1.z.string().min(1).max(2048).optional(),
+});
+/**
+ * Decoded cursor: transported as opaque, canonical base64url-encoded JSON. The service
+ * validates the decoded value and matches tenant, reader/author, organization and project
+ * against the query and the authenticated scope on every page; a cursor grants no access.
+ * Both ordering keys are mandatory, including when several rows share a timestamp.
+ */
+exports.InternalMemoryDecisionRequestAgentPageCursorSchema = zod_1.z.strictObject({
+    tenantId: exports.InternalMemoryDecisionRequestAgentPageQuerySchema.shape.tenantId,
+    agentId: exports.InternalMemoryDecisionRequestAgentPageQuerySchema.shape.agentId,
+    organizationId: exports.InternalMemoryDecisionRequestAgentPageQuerySchema.shape.organizationId,
+    projectId: exports.InternalMemoryDecisionRequestAgentPageQuerySchema.shape.projectId,
+    createdAt: decision_request_js_1.DecisionRequestSchema.shape.createdAt,
+    requestId: decision_request_js_1.DecisionRequestIdSchema,
+});
+/** Same page as the project list: whole requests and outcomes, unique ids, at most 100, mandatory nextCursor. */
+exports.InternalMemoryDecisionRequestAgentPageResponseSchema = exports.InternalMemoryDecisionRequestProjectListResponseSchema;
 exports.InternalMemoryDecisionRequestOutcomeResponseSchema = zod_1.z.strictObject({
     result: zod_1.z.enum(['recorded', 'duplicate']),
 });
@@ -152,5 +182,31 @@ exports.internalMemoryDecisionRequestProjectListContract = {
     authType: 'secret',
     querySchema: exports.InternalMemoryDecisionRequestProjectListQuerySchema,
     responseSchema: exports.InternalMemoryDecisionRequestProjectListResponseSchema,
+};
+/**
+ * Agent page: the service authorizes agentId with read access to the organization (never
+ * manage) and limits the query to tenant, agentId as author, organization and project, on
+ * every page. Every state is returned, with the full requests, referents, outcomes and
+ * email receipts. No producer, plan or state filter. The legacy agent list and the project
+ * list keep their own contracts unchanged.
+ *
+ * Stable order: createdAt DESC, requestId ASC. Continue strictly after BOTH keys:
+ * createdAt < cursor.createdAt OR (createdAt = cursor.createdAt AND requestId >
+ * cursor.requestId). Never use an offset. Decode and validate cursors with
+ * InternalMemoryDecisionRequestAgentPageCursorSchema and verify their scope on every page.
+ *
+ * The service reads limit + 1 rows (default limit: 50), returns at most limit rows, and
+ * emits a cursor for the last returned row only if more rows remain. Only the mandatory
+ * nextCursor: null marks completion; clients must read all pages. A change of outcome does
+ * not move a row. New requests require a new complete read before assembly; an empty or
+ * partial list does not authorize assembly. Authorization, database pagination and
+ * assembly checks belong to consumers.
+ */
+exports.internalMemoryDecisionRequestAgentPageContract = {
+    method: 'GET',
+    path: exports.INTERNAL_MEMORY_DECISION_REQUEST_AGENT_PAGE_PATH,
+    authType: 'secret',
+    querySchema: exports.InternalMemoryDecisionRequestAgentPageQuerySchema,
+    responseSchema: exports.InternalMemoryDecisionRequestAgentPageResponseSchema,
 };
 //# sourceMappingURL=internal-memory-decision-requests.js.map

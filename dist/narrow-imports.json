@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.297.0",
+  "versione": "1.304.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2034,6 +2034,7 @@
       "INTERNAL_MEMORY_COMPANY_MAP_HISTORY_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-company-map",
       "INTERNAL_MEMORY_DECISIONS_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-decisions",
       "INTERNAL_MEMORY_DECISION_REQUESTS_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
+      "INTERNAL_MEMORY_DECISION_REQUEST_AGENT_PAGE_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "INTERNAL_MEMORY_DECISION_REQUEST_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "INTERNAL_MEMORY_DECISION_REQUEST_PROJECT_LIST_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
@@ -2123,6 +2124,9 @@
       "InternalMemoryAssetVersionRecordResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
       "InternalMemoryAssetVersionReviewRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
       "InternalMemoryAssetVersionReviewResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-asset-versions",
+      "InternalMemoryDecisionRequestAgentPageCursorSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
+      "InternalMemoryDecisionRequestAgentPageQuerySchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
+      "InternalMemoryDecisionRequestAgentPageResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "InternalMemoryDecisionRequestCreateResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "InternalMemoryDecisionRequestListQuerySchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "InternalMemoryDecisionRequestListResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
@@ -2544,6 +2548,7 @@
       "internalMemoryCompanyMapListContract": "@x9-forge/contracts/http/endpoints/internal-memory-company-map",
       "internalMemoryCompanyMapWriteContract": "@x9-forge/contracts/http/endpoints/internal-memory-company-map",
       "internalMemoryDecisionContract": "@x9-forge/contracts/http/endpoints/internal-memory-decisions",
+      "internalMemoryDecisionRequestAgentPageContract": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "internalMemoryDecisionRequestCreateContract": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "internalMemoryDecisionRequestListContract": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "internalMemoryDecisionRequestOutcomeContract": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",

@@ -10,6 +10,7 @@ export const INTERNAL_MEMORY_DECISION_REQUESTS_PATH = '/internal/memory/decision
 export const INTERNAL_MEMORY_DECISION_REQUEST_PATH = '/internal/memory/decision-requests/:requestId' as const;
 export const INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH = '/internal/memory/decision-requests/:requestId/outcome' as const;
 export const INTERNAL_MEMORY_DECISION_REQUEST_PROJECT_LIST_PATH = '/internal/memory/decision-requests/by-project' as const;
+export const INTERNAL_MEMORY_DECISION_REQUEST_AGENT_PAGE_PATH = '/internal/memory/decision-requests/by-agent-page' as const;
 
 export const InternalMemoryDecisionRequestParamsSchema = z.strictObject({
   requestId: DecisionRequestIdSchema,
@@ -90,6 +91,41 @@ export const InternalMemoryDecisionRequestProjectListResponseSchema = z.strictOb
   nextCursor: z.string().min(1).max(2048).nullable(),
 });
 export type InternalMemoryDecisionRequestProjectListResponse = z.infer<typeof InternalMemoryDecisionRequestProjectListResponseSchema>;
+
+/**
+ * Agent page (1.304.0): the history of one chief inside one project. agentId is both
+ * the reader and the author of the requests; there is no alternative producer key and
+ * no state or plan filter, so a pending request can never be hidden by the query.
+ */
+export const InternalMemoryDecisionRequestAgentPageQuerySchema = z.strictObject({
+  tenantId: DecisionRequestSchema.shape.tenantId,
+  agentId: AgentIdSchema,
+  organizationId: DecisionRequestSchema.shape.organizationId,
+  projectId: DecisionRequestSchema.shape.projectId.unwrap(),
+  limit: z.coerce.number().int().min(1).max(100).optional(),
+  cursor: z.string().min(1).max(2048).optional(),
+});
+export type InternalMemoryDecisionRequestAgentPageQuery = z.infer<typeof InternalMemoryDecisionRequestAgentPageQuerySchema>;
+
+/**
+ * Decoded cursor: transported as opaque, canonical base64url-encoded JSON. The service
+ * validates the decoded value and matches tenant, reader/author, organization and project
+ * against the query and the authenticated scope on every page; a cursor grants no access.
+ * Both ordering keys are mandatory, including when several rows share a timestamp.
+ */
+export const InternalMemoryDecisionRequestAgentPageCursorSchema = z.strictObject({
+  tenantId: InternalMemoryDecisionRequestAgentPageQuerySchema.shape.tenantId,
+  agentId: InternalMemoryDecisionRequestAgentPageQuerySchema.shape.agentId,
+  organizationId: InternalMemoryDecisionRequestAgentPageQuerySchema.shape.organizationId,
+  projectId: InternalMemoryDecisionRequestAgentPageQuerySchema.shape.projectId,
+  createdAt: DecisionRequestSchema.shape.createdAt,
+  requestId: DecisionRequestIdSchema,
+});
+export type InternalMemoryDecisionRequestAgentPageCursor = z.infer<typeof InternalMemoryDecisionRequestAgentPageCursorSchema>;
+
+/** Same page as the project list: whole requests and outcomes, unique ids, at most 100, mandatory nextCursor. */
+export const InternalMemoryDecisionRequestAgentPageResponseSchema = InternalMemoryDecisionRequestProjectListResponseSchema;
+export type InternalMemoryDecisionRequestAgentPageResponse = z.infer<typeof InternalMemoryDecisionRequestAgentPageResponseSchema>;
 
 export const InternalMemoryDecisionRequestOutcomeResponseSchema = z.strictObject({
   result: z.enum(['recorded', 'duplicate']),
@@ -188,4 +224,31 @@ export const internalMemoryDecisionRequestProjectListContract = {
   authType: 'secret' as const,
   querySchema: InternalMemoryDecisionRequestProjectListQuerySchema,
   responseSchema: InternalMemoryDecisionRequestProjectListResponseSchema,
+} as const;
+
+/**
+ * Agent page: the service authorizes agentId with read access to the organization (never
+ * manage) and limits the query to tenant, agentId as author, organization and project, on
+ * every page. Every state is returned, with the full requests, referents, outcomes and
+ * email receipts. No producer, plan or state filter. The legacy agent list and the project
+ * list keep their own contracts unchanged.
+ *
+ * Stable order: createdAt DESC, requestId ASC. Continue strictly after BOTH keys:
+ * createdAt < cursor.createdAt OR (createdAt = cursor.createdAt AND requestId >
+ * cursor.requestId). Never use an offset. Decode and validate cursors with
+ * InternalMemoryDecisionRequestAgentPageCursorSchema and verify their scope on every page.
+ *
+ * The service reads limit + 1 rows (default limit: 50), returns at most limit rows, and
+ * emits a cursor for the last returned row only if more rows remain. Only the mandatory
+ * nextCursor: null marks completion; clients must read all pages. A change of outcome does
+ * not move a row. New requests require a new complete read before assembly; an empty or
+ * partial list does not authorize assembly. Authorization, database pagination and
+ * assembly checks belong to consumers.
+ */
+export const internalMemoryDecisionRequestAgentPageContract = {
+  method: 'GET' as const,
+  path: INTERNAL_MEMORY_DECISION_REQUEST_AGENT_PAGE_PATH,
+  authType: 'secret' as const,
+  querySchema: InternalMemoryDecisionRequestAgentPageQuerySchema,
+  responseSchema: InternalMemoryDecisionRequestAgentPageResponseSchema,
 } as const;
