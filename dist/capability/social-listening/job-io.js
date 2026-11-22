@@ -4,7 +4,7 @@ import { WebUrlSchema } from "../ricerca/research.js";
 import { SocialHandleSchema, SocialPostFilterSchema, SocialPostKindSchema, SocialPostSchema, SocialVerticalIdSchema, } from "./post.js";
 import { SocialJobKindSchema } from "./queue.js";
 import { SocialCategorySlugSchema, SocialTopicCostSchema, SocialTopicSchema, } from "./topic.js";
-import { SocialFactSchema } from "./verdict.js";
+import { SocialFactSchema, SocialPostAnalysisSchema, SocialVerdictSchema, } from "./verdict.js";
 const kinds = SocialJobKindSchema.enum;
 const topic = SocialTopicSchema.shape;
 export const SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = 12000;
@@ -163,6 +163,13 @@ export function socialVerifyJobInput({ topic: sourceTopic, posts, knownFacts }) 
     }
     throw new TypeError('verify_input_too_large');
 }
+export const SocialVerifyPostAnalysisSchema = z.strictObject({
+    postId: SocialPostSchema.shape.postId,
+    verdict: SocialVerdictSchema,
+    reason: SocialPostAnalysisSchema.shape.reason,
+    relevance: SocialPostAnalysisSchema.shape.relevance,
+    tools: SocialPostAnalysisSchema.shape.tools,
+});
 /** Bounded executor data. The receiving service attaches the trusted job identity. */
 export const SocialJobResultSchema = z.discriminatedUnion('kind', [
     z.object({
@@ -192,6 +199,9 @@ export const SocialJobResultSchema = z.discriminatedUnion('kind', [
         sources: topic.sources,
         /** What this verification cost on the server track; the Mac track is quota, not dollars. */
         costUsd: z.number().nonnegative().finite().optional(),
+        /** One analysis per post of the topic; the service checks that every postId belongs to the topic; the text is DATA, never instructions. */
+        postAnalyses: z.array(SocialVerifyPostAnalysisSchema).max(SOCIAL_VERIFY_POSTS_MAX)
+            .refine(items => new Set(items.map(item => item.postId)).size === items.length).optional(),
     }).strict(),
     z.object({
         kind: z.literal(kinds.group),

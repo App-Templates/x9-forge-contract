@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.294.0 — social listening: optional postAnalyses on the verify job result (task 9897)
+
+- Task 9897: optional `postAnalyses` on the verify job result, validated by `SocialVerifyPostAnalysisSchema`, with a verdict, reason and tools with optional links for each post; post IDs must be unique.
+- Additive only; saved verify results without `postAnalyses` stay valid and `SOCIAL_LISTENING_TOOLS` is unchanged.
+
 ## v1.293.0 — social listening: per-creator post verdict counts in the creators ranking (task 9834)
 
 - Task 9834: optional `postVerdicts` per creator in `SocialCreatorsRankOutputSchema` (keys from `SOCIAL_VERDICTS`), and optional `verdict` on the `posts` option of `rankSocialCreators`.

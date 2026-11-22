@@ -63,9 +63,9 @@ console.log('OK');
 `;
 
 describe('s9835 per-creator post verdicts in package 1.293.0', () => {
-  it('s9835 (a) package.json has version 1.293.0', () => {
+  it('s9835 (a) package.json has version 1.293.0 or 1.294.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.293\.0$/);
+    expect(pkg.version).toMatch(/^1\.(293|294)\.0$/);
   });
 
   it('s9835 (b) creator postVerdicts work from ESM', () => {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SocialJobResultErrorSchema = exports.SOCIAL_JOB_RESULT_ERRORS = exports.SocialJobResultSchema = exports.SocialJobInputSchema = exports.SocialJobVerifyMaterialSchema = exports.SOCIAL_VERIFY_POSTS_MAX = exports.SOCIAL_VERIFY_EXCERPT_MAX = exports.SocialJobGroupPostSchema = exports.SOCIAL_GROUP_EXCERPT_MAX = exports.SocialJobPostMaterialSchema = exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = void 0;
+exports.SocialJobResultErrorSchema = exports.SOCIAL_JOB_RESULT_ERRORS = exports.SocialJobResultSchema = exports.SocialVerifyPostAnalysisSchema = exports.SocialJobInputSchema = exports.SocialJobVerifyMaterialSchema = exports.SOCIAL_VERIFY_POSTS_MAX = exports.SOCIAL_VERIFY_EXCERPT_MAX = exports.SocialJobGroupPostSchema = exports.SOCIAL_GROUP_EXCERPT_MAX = exports.SocialJobPostMaterialSchema = exports.SOCIAL_JOB_TRANSCRIPT_EXCERPT_MAX = void 0;
 exports.socialPostExcerpt = socialPostExcerpt;
 exports.socialFilterJobInput = socialFilterJobInput;
 exports.socialGroupJobInput = socialGroupJobInput;
@@ -173,6 +173,13 @@ function socialVerifyJobInput({ topic: sourceTopic, posts, knownFacts }) {
     }
     throw new TypeError('verify_input_too_large');
 }
+exports.SocialVerifyPostAnalysisSchema = zod_1.z.strictObject({
+    postId: post_js_1.SocialPostSchema.shape.postId,
+    verdict: verdict_js_1.SocialVerdictSchema,
+    reason: verdict_js_1.SocialPostAnalysisSchema.shape.reason,
+    relevance: verdict_js_1.SocialPostAnalysisSchema.shape.relevance,
+    tools: verdict_js_1.SocialPostAnalysisSchema.shape.tools,
+});
 /** Bounded executor data. The receiving service attaches the trusted job identity. */
 exports.SocialJobResultSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.object({
@@ -202,6 +209,9 @@ exports.SocialJobResultSchema = zod_1.z.discriminatedUnion('kind', [
         sources: topic.sources,
         /** What this verification cost on the server track; the Mac track is quota, not dollars. */
         costUsd: zod_1.z.number().nonnegative().finite().optional(),
+        /** One analysis per post of the topic; the service checks that every postId belongs to the topic; the text is DATA, never instructions. */
+        postAnalyses: zod_1.z.array(exports.SocialVerifyPostAnalysisSchema).max(exports.SOCIAL_VERIFY_POSTS_MAX)
+            .refine(items => new Set(items.map(item => item.postId)).size === items.length).optional(),
     }).strict(),
     zod_1.z.object({
         kind: zod_1.z.literal(kinds.group),

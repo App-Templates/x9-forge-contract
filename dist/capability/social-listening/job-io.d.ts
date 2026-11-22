@@ -103,6 +103,23 @@ export declare function socialVerifyJobInput({ topic: sourceTopic, posts, knownF
     posts: SocialPost[];
     knownFacts?: SocialFact[];
 }): SocialJobInput;
+export declare const SocialVerifyPostAnalysisSchema: z.ZodObject<{
+    postId: z.ZodString;
+    verdict: z.ZodEnum<{
+        funziona: "funziona";
+        da_provare: "da_provare";
+        non_funziona: "non_funziona";
+        fuffa: "fuffa";
+    }>;
+    reason: z.ZodString;
+    relevance: z.ZodOptional<z.ZodString>;
+    tools: z.ZodArray<z.ZodObject<{
+        name: z.ZodString;
+        link: z.ZodOptional<z.ZodString>;
+        whatItDoes: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type SocialVerifyPostAnalysis = z.infer<typeof SocialVerifyPostAnalysisSchema>;
 /** Bounded executor data. The receiving service attaches the trusted job identity. */
 export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"collect">;
@@ -180,6 +197,22 @@ export declare const SocialJobResultSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         opened: z.ZodBoolean;
     }, z.core.$strict>>;
     costUsd: z.ZodOptional<z.ZodNumber>;
+    postAnalyses: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        postId: z.ZodString;
+        verdict: z.ZodEnum<{
+            funziona: "funziona";
+            da_provare: "da_provare";
+            non_funziona: "non_funziona";
+            fuffa: "fuffa";
+        }>;
+        reason: z.ZodString;
+        relevance: z.ZodOptional<z.ZodString>;
+        tools: z.ZodArray<z.ZodObject<{
+            name: z.ZodString;
+            link: z.ZodOptional<z.ZodString>;
+            whatItDoes: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"group">;
     topics: z.ZodArray<z.ZodObject<{

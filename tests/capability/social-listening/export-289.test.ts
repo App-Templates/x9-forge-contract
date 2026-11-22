@@ -41,9 +41,9 @@ console.log('OK');
 `;
 
 describe('s9861 optional recap endReason in package 1.289.0', () => {
-  it('s9861 (a) package.json has version 1.291.0', () => {
+  it('s9861 (a) package.json has version 1.294.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(289|290|291|292|293)\.0$/);
+    expect(pkg.version).toMatch(/^1\.(289|290|291|292|293|294)\.0$/);
   });
 
   it('s9861 (b) recap endReason and legacy recaps work from ESM', () => {

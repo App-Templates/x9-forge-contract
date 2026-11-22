@@ -28,9 +28,9 @@ console.log('OK');
 `;
 
 describe('s3932 round end and freshness in package 1.272.0', () => {
-  it('s3932 (a) package.json has a version in the 1.272.0-1.291.0 band', () => {
+  it('s3932 (a) package.json has a version in the 1.272.0-1.294.0 band', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(27[2-9]|28[0-9]|29[0-3])\.0$/);
+    expect(pkg.version).toMatch(/^1\.(27[2-9]|28[0-9]|29[0-4])\.0$/);
   });
 
   it('s3932 (b) the symbols work from ESM', () => {

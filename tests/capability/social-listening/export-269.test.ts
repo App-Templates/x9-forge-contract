@@ -28,9 +28,9 @@ console.log('OK');
 `;
 
 describe('s3714 the channels text in package 1.269.0', () => {
-  it('s3714 (a) package.json has version 1.291.0', () => {
+  it('s3714 (a) package.json has version 1.294.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(2(69|7\d)|28[0-9]|29[0-3])\.0$/);
+    expect(pkg.version).toMatch(/^1\.(2(69|7\d)|28[0-9]|29[0-4])\.0$/);
   });
 
   it('s3714 (b) the channels text is the new one from ESM', () => {

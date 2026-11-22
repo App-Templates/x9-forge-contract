@@ -26,9 +26,9 @@ console.log(ok ? 'OK' : 'KO');
 `;
 
 describe('s3676 social-listening 1.266.0 in the built package', () => {
-  it('s3676 (a) package.json has version 1.291.0', () => {
+  it('s3676 (a) package.json has version 1.294.0', () => {
     const pkg = JSON.parse(readFileSync(resolve(radice, 'package.json'), 'utf8')) as { version: string };
-    expect(pkg.version).toMatch(/^1\.(2(6[6-9]|7\d)|28[0-9]|29[0-3])\.0$/);
+    expect(pkg.version).toMatch(/^1\.(2(6[6-9]|7\d)|28[0-9]|29[0-4])\.0$/);
   });
 
   it('s3676 (b) the optimized round rules import from ESM', () => {
