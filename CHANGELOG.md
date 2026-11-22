@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.297.0 — uncertain tool outcomes share their checks by role and the next move (task 8106)
+
+- Add the narrow subpath `capability/uncertain-outcome` with `UNCERTAIN_OUTCOME_ROLES`, `UncertainOutcomeToolSchema`, `UncertainOutcomeTableSchema` and `UNCERTAIN_OUTCOME_TOOLS`. Each tool appears once, cannot check itself and supplies `ifMissing` if and only if repeating is safe. The first entry is `dev_session_open`, checked with `dev_session_status` by a chief and `dev_project_sessions` by the Director.
+- Add `uncertainOutcome(tool, { waitedSeconds, role?, table? })`: a pure shared reason and existing `ToolErrorDisposition` shape. A safe repeat gives `technical_failure / after_delay 60 / retry_same`; an unsafe repeat gives `technical_failure / never / stop`; an unknown tool gets a generic read-first hint without a disposition. Waits must be whole seconds from 1 to 3600. Without a role both checks are named.
+- Copy the three regression cases verbatim from the supplied prototype. The initial targeted run fails because the new module is absent; final acceptance, mutation checks, standalone typecheck and lint remain with the gate. No saved contract or capability index changes. Inert until agent-core adopts the new subpath; production and live verification follow adoption and release.
+- REGRESSIONE: s8106 regressione-goo-380-esito-incerto-con-la-mossa
+
 ## v1.296.0 — CONSEGNA.json says which preview and screens show each piece of a redo (task 8492)
 
 - Add `DELIVERY_PACKAGE_MAX_PIECES = 20` and the optional `pieces` of `DeliveryPackageSchema`: one to twenty entries `{ key, preview, keyScreens }`, each key once (same rule as `AssetKeySchema`, repeated here because importing it would close a module cycle; a test compares them), each `preview` a file the package already lists and each screen one of its `keyScreens`. Attachments do not change: `deliveryPackagePaths` is the same. A package without `pieces` (every saved one) reads and stays identical.
