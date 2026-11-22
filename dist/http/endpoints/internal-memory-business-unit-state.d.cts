@@ -104,6 +104,10 @@ export declare const InternalMemoryBusinessUnitStateResponseSchema: z.ZodDiscrim
                         key: z.ZodString;
                         version: z.ZodNumber;
                     }, z.core.$strict>>;
+                    assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -213,6 +217,10 @@ export declare const InternalMemoryBusinessUnitStateResponseSchema: z.ZodDiscrim
                         key: z.ZodString;
                         version: z.ZodNumber;
                     }, z.core.$strict>>;
+                    assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -280,6 +288,10 @@ export declare const InternalMemoryBusinessUnitStateResponseSchema: z.ZodDiscrim
                         key: z.ZodString;
                         version: z.ZodNumber;
                     }, z.core.$strict>>;
+                    assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -469,6 +481,10 @@ export declare const internalMemoryBusinessUnitStateContract: {
                             key: z.ZodString;
                             version: z.ZodNumber;
                         }, z.core.$strict>>;
+                        assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            key: z.ZodString;
+                            version: z.ZodNumber;
+                        }, z.core.$strict>>>;
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"confirmation_set">;
                         planId: z.ZodString;
@@ -578,6 +594,10 @@ export declare const internalMemoryBusinessUnitStateContract: {
                             key: z.ZodString;
                             version: z.ZodNumber;
                         }, z.core.$strict>>;
+                        assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            key: z.ZodString;
+                            version: z.ZodNumber;
+                        }, z.core.$strict>>>;
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"confirmation_set">;
                         planId: z.ZodString;
@@ -645,6 +665,10 @@ export declare const internalMemoryBusinessUnitStateContract: {
                             key: z.ZodString;
                             version: z.ZodNumber;
                         }, z.core.$strict>>;
+                        assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            key: z.ZodString;
+                            version: z.ZodNumber;
+                        }, z.core.$strict>>>;
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"confirmation_set">;
                         planId: z.ZodString;

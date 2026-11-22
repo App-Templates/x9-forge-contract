@@ -177,6 +177,10 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
                 key: z.ZodString;
                 version: z.ZodNumber;
             }, z.core.$strict>>;
+            assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -244,6 +248,10 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
                 key: z.ZodString;
                 version: z.ZodNumber;
             }, z.core.$strict>>;
+            assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -316,6 +324,10 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
             key: z.ZodString;
             version: z.ZodNumber;
         }, z.core.$strict>>;
+        assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;
@@ -510,6 +522,10 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                     key: z.ZodString;
                     version: z.ZodNumber;
                 }, z.core.$strict>>;
+                assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -577,6 +593,10 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                     key: z.ZodString;
                     version: z.ZodNumber;
                 }, z.core.$strict>>;
+                assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;

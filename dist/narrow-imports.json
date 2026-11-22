@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.294.0",
+  "versione": "1.295.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2916,6 +2916,7 @@
       "DECISION_REQUEST_SUBJECT_LABEL": "@x9-forge/contracts/organization/decision-request",
       "DECISION_SUBJECT_KINDS": "@x9-forge/contracts/organization/decision-request",
       "DELIVERY_DECISION_DUPLICATE_CODES": "@x9-forge/contracts/organization/decision-request",
+      "DELIVERY_DECISION_MAX_ASSET_VERSIONS": "@x9-forge/contracts/organization/decision-request",
       "DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_FILE_MAX_BYTES": "@x9-forge/contracts/organization/delivery-package",
@@ -3115,6 +3116,7 @@
       "decisionOutcomeMatchesSubject": "@x9-forge/contracts/organization/decision-request",
       "decisionRequestHeaderMatches": "@x9-forge/contracts/organization/decision-request",
       "decisionRequestSubjectLabel": "@x9-forge/contracts/organization/decision-request",
+      "deliveryDecisionAssetVersions": "@x9-forge/contracts/organization/decision-request",
       "deliveryDecisionDuplicate": "@x9-forge/contracts/organization/decision-request",
       "deliveryPackageMeets": "@x9-forge/contracts/organization/business-unit-type",
       "deliveryPackagePaths": "@x9-forge/contracts/organization/delivery-package",

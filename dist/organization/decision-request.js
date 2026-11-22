@@ -4,6 +4,8 @@ import { OwnerIdSchema } from "../agent/agent-identity.js";
 import { AssetRefSchema, AssetSha256Schema, AssetVersionRefSchema } from "./asset.js";
 import { ParticipantAgentIdentitySchema } from "./participant-binding.js";
 import { CompanyMapConfirmTargetSchema, CompanyMapLevelSchema, CompanyMapReferentFieldsSchema, CompanyMapScopeFieldsSchema, } from "./company-map.js";
+/** Bound the pieces covered by one referent reply to the delivery package limit. */
+export const DELIVERY_DECISION_MAX_ASSET_VERSIONS = 20;
 /** Channels through which an agent asks the owner for a decision. */
 export const DECISION_REQUEST_CHANNELS = ['email', 'x9_conversation', 'forge_panel'];
 export const DecisionRequestChannelSchema = z.enum(DECISION_REQUEST_CHANNELS);
@@ -89,7 +91,32 @@ export const DeliveryDecisionSubjectSchema = z.strictObject({
         sha256: AssetSha256Schema,
     }),
     assetVersion: AssetVersionRefSchema.optional(),
+    assetVersions: z.array(AssetVersionRefSchema).min(2).max(DELIVERY_DECISION_MAX_ASSET_VERSIONS).optional(),
+}).superRefine((subject, ctx) => {
+    // Keep one canonical representation so a reply cannot bind conflicting versions of a piece.
+    if (subject.assetVersion !== undefined && subject.assetVersions !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['assetVersions'], message: 'assetVersion and assetVersions are mutually exclusive' });
+    }
+    if (subject.assetVersions !== undefined
+        && new Set(subject.assetVersions.map((ref) => ref.key)).size !== subject.assetVersions.length) {
+        ctx.addIssue({ code: 'custom', path: ['assetVersions'], message: 'Each piece may appear only once' });
+    }
 });
+/** Normalize explicit versions without adding fields to legacy subjects bound only to a package. */
+export function deliveryDecisionAssetVersions(subject) {
+    if (subject.assetVersions !== undefined)
+        return subject.assetVersions;
+    if (subject.assetVersion !== undefined) {
+        return [subject.assetVersion];
+    }
+    return [];
+}
+function versionsKey(subject) {
+    // Reply order carries no meaning; compare the complete immutable set without mutating the subject.
+    return JSON.stringify(deliveryDecisionAssetVersions(subject)
+        .map((ref) => [ref.key, ref.version])
+        .sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
+}
 export const DecisionSubjectSchema = z.discriminatedUnion('kind', [
     PlanDecisionSubjectSchema,
     DeliveryDecisionSubjectSchema,
@@ -218,7 +245,7 @@ export function decisionOutcomeMatchesSubject(request, outcome) {
         return a.kind === 'delivery' && b.kind === 'delivery'
             && a.organizationId === b.organizationId && a.projectId === b.projectId && a.buSlug === b.buSlug
             && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256
-            && a.assetVersion?.key === b.assetVersion?.key && a.assetVersion?.version === b.assetVersion?.version;
+            && versionsKey(a) === versionsKey(b);
     }
     return a.kind === b.kind && a.planId === b.planId && a.planVersion === b.planVersion && a.digest === b.digest;
 }
@@ -332,8 +359,11 @@ function isOlderRequest(a, b) {
     return delta !== 0 ? delta < 0 : a.requestId < b.requestId;
 }
 function sameDeliveryPiece(a, b) {
-    if (a.assetVersion !== undefined && b.assetVersion !== undefined) {
-        return a.assetVersion.key === b.assetVersion.key && a.assetVersion.version === b.assetVersion.version;
+    const mine = deliveryDecisionAssetVersions(a);
+    const theirs = deliveryDecisionAssetVersions(b);
+    if (mine.length > 0 && theirs.length > 0) {
+        // Any shared version is already covered, including a single piece of a pending whole redo.
+        return mine.some((ref) => theirs.some((other) => ref.key === other.key && ref.version === other.version));
     }
     return a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
 }

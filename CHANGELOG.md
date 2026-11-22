@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.295.0 — one referent decision covers every piece of a redo (task 8491)
+
+- Add `DELIVERY_DECISION_MAX_ASSET_VERSIONS = 20` and optional `assetVersions` to delivery subjects: two to twenty distinct piece keys, mutually exclusive with `assetVersion`. `deliveryDecisionAssetVersions(subject: DeliveryDecisionSubject): AssetVersionRef[]` returns the list, the single version, or no versions. Existing subjects retain their exact shape.
+- Match reply version sets independently of order; a different set cannot approve the delivery. Duplicate requests overlap when any explicit piece version matches; package identity remains the fallback when either subject has no explicit versions. Reuse the existing package binding in `deriveAssetVersionStates`; no new call, wake-up or state.
+- Three regression cases cover multi-piece approval, schema bounds and legacy rereading. The missing `bozze-schede` source fixture is reconstructed from the task and marked as such, not a copy of the production row. Production dry run, initial red, mutation checks and acceptance remain with the gate.
+- Inert until 8492, adoption 8493 and the consumer releases: Memory, agent-core and cap-paperclip must read the new strict schema before cap-email writes `assetVersions` (8498). Live verification follows adoption and release.
+- REGRESSIONE: s8491 regressione-r67-un-ok-per-tutti-i-pezzi-del-rifacimento: one R69 package with `stati-di-sistema` v5 and `catalogo` v2 is approved by one reply; a reply naming another set cannot approve it, and a separate request for `catalogo` v2 is `decision_already_pending` while the redo is open.
+
 ## v1.294.0 — a redo carries more than one piece of the mandate: `deliverableKeys`, with the first in `deliverableKey` (task 8490)
 
 - Add `DEV_SESSION_MAX_DELIVERABLE_KEYS = 20` and the optional `deliverableKeys` to `DevSessionAssignmentSchema`: a non-empty list of piece keys in mandate order, refused when a key repeats (`deliverable_keys_duplicate`) or when `deliverableKey` is not the first (`deliverable_key_not_first`), so a reader that knows only one piece still sees a real one. Without the list the canonical json and the digest are unchanged.

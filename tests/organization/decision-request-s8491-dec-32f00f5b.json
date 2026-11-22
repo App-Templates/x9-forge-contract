@@ -1,0 +1,51 @@
+{
+  "provenance": "Reconstructed from task 8491; the anonymized production fixture in bozze-schede was unavailable. Only the request id and timestamps come from the task; other values are representative.",
+  "request": {
+    "requestId": "dec_32f00f5b",
+    "tenantId": "tenant-example",
+    "organizationId": "example-company",
+    "projectId": "dispensa-pronta",
+    "subject": {
+      "kind": "delivery",
+      "organizationId": "example-company",
+      "projectId": "dispensa-pronta",
+      "buSlug": "design",
+      "deliveryRef": {
+        "assetId": "asset-delivery-r67",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "question": "Approvi la consegna degli stati di sistema?",
+    "options": [
+      { "optionId": "approve", "label": "Approvo", "effect": "approve" },
+      { "optionId": "changes", "label": "Chiedo modifiche", "effect": "request_changes" }
+    ],
+    "requestedBy": {
+      "managementAgentId": "design-lead",
+      "runtimeAgentId": "agent-design-lead",
+      "vaultAgentId": 21
+    },
+    "addressedTo": { "kind": "referent", "email": "referent@example.com" },
+    "channel": "email",
+    "createdAt": "2026-11-22T12:05:36Z"
+  },
+  "outcome": {
+    "requestId": "dec_32f00f5b",
+    "subject": {
+      "kind": "delivery",
+      "organizationId": "example-company",
+      "projectId": "dispensa-pronta",
+      "buSlug": "design",
+      "deliveryRef": {
+        "assetId": "asset-delivery-r67",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "outcome": "rejected",
+    "reason": "Rifare la consegna prima della prossima approvazione.",
+    "decidedBy": { "kind": "referent", "email": "referent@example.com" },
+    "channel": "email",
+    "sourceRef": "message-anonymized-r67",
+    "decidedAt": "2026-11-22T12:32:44Z"
+  }
+}

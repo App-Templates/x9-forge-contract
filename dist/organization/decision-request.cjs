@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReferentReplyHandoverSchema = exports.DELIVERY_DECISION_DUPLICATE_CODES = exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.REFERENT_WORDS_MAX = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionOptionEffectSchema = exports.DECISION_OPTION_EFFECTS = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
+exports.ReferentReplyHandoverSchema = exports.DELIVERY_DECISION_DUPLICATE_CODES = exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.REFERENT_WORDS_MAX = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionOptionEffectSchema = exports.DECISION_OPTION_EFFECTS = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = exports.DELIVERY_DECISION_MAX_ASSET_VERSIONS = void 0;
 exports.confirmationSetDigest = confirmationSetDigest;
+exports.deliveryDecisionAssetVersions = deliveryDecisionAssetVersions;
 exports.decisionOutcomeMatchesSubject = decisionOutcomeMatchesSubject;
 exports.decisionRequestSubjectLabel = decisionRequestSubjectLabel;
 exports.decisionRequestHeaderMatches = decisionRequestHeaderMatches;
@@ -14,6 +15,8 @@ const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const asset_js_1 = require("./asset.cjs");
 const participant_binding_js_1 = require("./participant-binding.cjs");
 const company_map_js_1 = require("./company-map.cjs");
+/** Bound the pieces covered by one referent reply to the delivery package limit. */
+exports.DELIVERY_DECISION_MAX_ASSET_VERSIONS = 20;
 /** Channels through which an agent asks the owner for a decision. */
 exports.DECISION_REQUEST_CHANNELS = ['email', 'x9_conversation', 'forge_panel'];
 exports.DecisionRequestChannelSchema = zod_1.z.enum(exports.DECISION_REQUEST_CHANNELS);
@@ -99,7 +102,32 @@ exports.DeliveryDecisionSubjectSchema = zod_1.z.strictObject({
         sha256: asset_js_1.AssetSha256Schema,
     }),
     assetVersion: asset_js_1.AssetVersionRefSchema.optional(),
+    assetVersions: zod_1.z.array(asset_js_1.AssetVersionRefSchema).min(2).max(exports.DELIVERY_DECISION_MAX_ASSET_VERSIONS).optional(),
+}).superRefine((subject, ctx) => {
+    // Keep one canonical representation so a reply cannot bind conflicting versions of a piece.
+    if (subject.assetVersion !== undefined && subject.assetVersions !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['assetVersions'], message: 'assetVersion and assetVersions are mutually exclusive' });
+    }
+    if (subject.assetVersions !== undefined
+        && new Set(subject.assetVersions.map((ref) => ref.key)).size !== subject.assetVersions.length) {
+        ctx.addIssue({ code: 'custom', path: ['assetVersions'], message: 'Each piece may appear only once' });
+    }
 });
+/** Normalize explicit versions without adding fields to legacy subjects bound only to a package. */
+function deliveryDecisionAssetVersions(subject) {
+    if (subject.assetVersions !== undefined)
+        return subject.assetVersions;
+    if (subject.assetVersion !== undefined) {
+        return [subject.assetVersion];
+    }
+    return [];
+}
+function versionsKey(subject) {
+    // Reply order carries no meaning; compare the complete immutable set without mutating the subject.
+    return JSON.stringify(deliveryDecisionAssetVersions(subject)
+        .map((ref) => [ref.key, ref.version])
+        .sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
+}
 exports.DecisionSubjectSchema = zod_1.z.discriminatedUnion('kind', [
     PlanDecisionSubjectSchema,
     exports.DeliveryDecisionSubjectSchema,
@@ -228,7 +256,7 @@ function decisionOutcomeMatchesSubject(request, outcome) {
         return a.kind === 'delivery' && b.kind === 'delivery'
             && a.organizationId === b.organizationId && a.projectId === b.projectId && a.buSlug === b.buSlug
             && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256
-            && a.assetVersion?.key === b.assetVersion?.key && a.assetVersion?.version === b.assetVersion?.version;
+            && versionsKey(a) === versionsKey(b);
     }
     return a.kind === b.kind && a.planId === b.planId && a.planVersion === b.planVersion && a.digest === b.digest;
 }
@@ -342,8 +370,11 @@ function isOlderRequest(a, b) {
     return delta !== 0 ? delta < 0 : a.requestId < b.requestId;
 }
 function sameDeliveryPiece(a, b) {
-    if (a.assetVersion !== undefined && b.assetVersion !== undefined) {
-        return a.assetVersion.key === b.assetVersion.key && a.assetVersion.version === b.assetVersion.version;
+    const mine = deliveryDecisionAssetVersions(a);
+    const theirs = deliveryDecisionAssetVersions(b);
+    if (mine.length > 0 && theirs.length > 0) {
+        // Any shared version is already covered, including a single piece of a pending whole redo.
+        return mine.some((ref) => theirs.some((other) => ref.key === other.key && ref.version === other.version));
     }
     return a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
 }

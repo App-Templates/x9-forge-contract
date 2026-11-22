@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { type AssetVersionRef } from "./asset.cjs";
+/** Bound the pieces covered by one referent reply to the delivery package limit. */
+export declare const DELIVERY_DECISION_MAX_ASSET_VERSIONS = 20;
 /** Channels through which an agent asks the owner for a decision. */
 export declare const DECISION_REQUEST_CHANNELS: readonly ["email", "x9_conversation", "forge_panel"];
 export declare const DecisionRequestChannelSchema: z.ZodEnum<{
@@ -117,8 +120,14 @@ export declare const DeliveryDecisionSubjectSchema: z.ZodObject<{
         key: z.ZodString;
         version: z.ZodNumber;
     }, z.core.$strict>>;
+    assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        key: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type DeliveryDecisionSubject = z.infer<typeof DeliveryDecisionSubjectSchema>;
+/** Normalize explicit versions without adding fields to legacy subjects bound only to a package. */
+export declare function deliveryDecisionAssetVersions(subject: DeliveryDecisionSubject): AssetVersionRef[];
 export declare const DecisionSubjectSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodEnum<{
         action_plan: "action_plan";
@@ -141,6 +150,10 @@ export declare const DecisionSubjectSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         key: z.ZodString;
         version: z.ZodNumber;
     }, z.core.$strict>>;
+    assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        key: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"confirmation_set">;
     planId: z.ZodString;
@@ -196,6 +209,10 @@ export declare const DecisionRequestSchema: z.ZodObject<{
             key: z.ZodString;
             version: z.ZodNumber;
         }, z.core.$strict>>;
+        assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;
@@ -309,6 +326,10 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             key: z.ZodString;
             version: z.ZodNumber;
         }, z.core.$strict>>;
+        assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;
@@ -376,6 +397,10 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             key: z.ZodString;
             version: z.ZodNumber;
         }, z.core.$strict>>;
+        assetVersions: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;
