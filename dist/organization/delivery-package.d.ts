@@ -1,6 +1,7 @@
 import { z } from 'zod';
 export declare const DELIVERY_PACKAGE_FILE_NAME: "CONSEGNA.json";
 export declare const DELIVERY_PACKAGE_MAX_KEY_SCREENS = 40;
+export declare const DELIVERY_PACKAGE_MAX_PIECES = 20;
 export declare const DELIVERY_PACKAGE_FILE_MAX_BYTES: number;
 export declare const DELIVERY_PACKAGE_ATTACHMENT_MAX_BYTES: number;
 export declare const DELIVERY_PACKAGE_IMAGE_EXTENSIONS: readonly ["png", "jpg", "jpeg"];
@@ -35,6 +36,11 @@ export declare const DeliveryPackageSchema: z.ZodObject<{
         path: z.ZodString;
         caption: z.ZodString;
     }, z.core.$strict>>>;
+    pieces: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        key: z.ZodString;
+        preview: z.ZodString;
+        keyScreens: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type DeliveryPackage = z.infer<typeof DeliveryPackageSchema>;
 /** Attachment paths relative to the delivery commit root, in presentation order. */
@@ -52,4 +58,14 @@ export type DeliveryPackageProblem = {
  * paths (relative to the commit root). Call it when the package is required or present.
  */
 export declare function deliveryPackageProblems(pkg: unknown | undefined, deliveredPaths: readonly string[]): DeliveryPackageProblem[];
+export type DeliveryPackagePieceProblem = {
+    key: string;
+    missing: ('anteprima' | 'schermate')[];
+};
+/**
+ * Pieces of a redo that the package gives nothing to look at: each missing one lacks both preview and screens, since a
+ * piece in `pieces` always has both. Without `pieces` the package describes a single piece (today's rules), so one
+ * requested piece is fine and several cannot be told apart.
+ */
+export declare function deliveryPackagePieceProblems(pkg: DeliveryPackage, keys: readonly string[]): DeliveryPackagePieceProblem[];
 //# sourceMappingURL=delivery-package.d.ts.map

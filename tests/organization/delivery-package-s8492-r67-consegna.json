@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "title": "Dispensa Pronta: rifacimento visuale R67, stesse pagine e funzioni",
+  "forReferent": {
+    "whatIs": "Una nuova proposta visuale di Dispensa Pronta che supera R64 con le stesse pagine e le stesse azioni. La lista della spesa segue la regola approvata: spuntare segna solo la riga, la riga resta visibile e la dispensa non cambia; la lista è completata solo quando tutte le righe sono spuntate. Scadenze, ricette e stati seguono le consegne approvate R41, R47, R52 e R58.",
+    "whatToLook": "Apri l'anteprima e segui Inizia, dispensa, scadenze, lista della spesa e ricette; con «Comandi del prototipo» raggiungi tutti i 36 casi. Guarda il foglietto della data su ogni prodotto, la lista con le spunte e la lista completata. Il foglio PDF mostra le 8 viste chiave e poi tutte le viste; la tabella di confronto spiega, schermata per schermata, cosa cambia rispetto a R64 e da quale consegna approvata viene.",
+    "whatToDecide": "Approvi la direzione visiva con il foglietto della data? «Metti nella lista della spesa» deve aggiungere il prodotto alla lista (come in questa proposta) o solo aprirla (come in R64)? Per completare la lista servono ancora due decisioni: la soglia di scorta bassa di ogni prodotto e se introdurre «Registra acquisto».",
+    "limits": [
+      "Dati di prova al 15/11/2026: nessun account, nessuna rete, la fotocamera è simulata.",
+      "La soglia di scorta bassa non è nei dati approvati: nessun numero è mostrato o calcolato. «Registra acquisto» non è deciso e non c'è: il carico in dispensa resta «Aggiungi prodotto».",
+      "I punteggi di qualità sono valutazioni del prototipo, non test con utenti né conformità WCAG. Non sono stati fatti test con utenti, prove su telefoni veri, con lettore di schermo o in browser diversi da Chrome.",
+      "Le consegne originali di dispensa, aggiunta e scadenze non erano nei materiali: per quelle schermate il confronto è solo con R64.",
+      "Figma non era collegato e non c'era un collegamento nei materiali."
+    ]
+  },
+  "keyScreens": [
+    { "path": "design/schermate/avvio.png", "caption": "1. Avvio: dati di prova, nessun account; ogni prodotto porta la sua data" },
+    { "path": "design/schermate/dispensa.png", "caption": "2. Dispensa dalla scadenza più vicina, con il foglietto della data e lo stato in parole" },
+    { "path": "design/schermate/scadenze.png", "caption": "3. Scadenze: scaduti, entro 3 giorni (oggi compreso), più avanti, senza data" },
+    { "path": "design/schermate/inserisci.png", "caption": "4. Aggiunta in dispensa: almeno 1, unità del prodotto, ogni aggiunta resta una voce a sé" },
+    { "path": "design/schermate/lista-spunte.png", "caption": "5. Lista con due righe spuntate: restano al loro posto e la dispensa non cambia" },
+    { "path": "design/schermate/lista-completata.png", "caption": "6. Lista completata solo con tutte le righe spuntate, righe ancora visibili" },
+    { "path": "design/schermate/ricetta-incompleta.png", "caption": "7. Ricetta con ingredienti in scadenza e uno mancante, nessun procedimento inventato" },
+    { "path": "design/schermate/rete-senza-ancora.png", "caption": "8. Senza rete al secondo tentativo: nessuna colpa, l'alternativa diventa principale" }
+  ],
+  "overviewSheet": { "path": "design/foglio.pdf" },
+  "preview": { "path": "design/anteprima.html" },
+  "documents": [
+    { "path": "design/NOTA.md", "caption": "Nota di confronto e verifica: punteggi, movimenti, controlli eseguiti e non eseguiti" },
+    { "path": "design/confronto-fonti.md", "caption": "Tabella R41–R64 schermata per schermata, con stato di approvazione e dati mancanti" },
+    { "path": "DESIGN.md", "caption": "Sistema visivo: colori, tipografia, componenti, movimento" }
+  ]
+}

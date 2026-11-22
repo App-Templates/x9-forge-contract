@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.296.0 — CONSEGNA.json says which preview and screens show each piece of a redo (task 8492)
+
+- Add `DELIVERY_PACKAGE_MAX_PIECES = 20` and the optional `pieces` of `DeliveryPackageSchema`: one to twenty entries `{ key, preview, keyScreens }`, each key once (same rule as `AssetKeySchema`, repeated here because importing it would close a module cycle; a test compares them), each `preview` a file the package already lists and each screen one of its `keyScreens`. Attachments do not change: `deliveryPackagePaths` is the same. A package without `pieces` (every saved one) reads and stays identical.
+- Add `deliveryPackagePieceProblems(pkg, keys): { key; missing: ('anteprima'|'schermate')[] }[]`: with `pieces`, each requested key not described misses both; without `pieces`, one piece follows today's rules and several all miss both.
+- Inert by itself: read by the executor (8496) and cap-email (8498) after adoption (8493).
+- Dry run on production shape (R-37): the R67 package (8 screens, `design/anteprima.html`, 3 documents) rereads identical.
+- REGRESSIONE: s8492 regressione-r67-anteprima-e-schermate-di-ogni-pezzo
+
 ## v1.295.0 — one referent decision covers every piece of a redo (task 8491)
 
 - Add `DELIVERY_DECISION_MAX_ASSET_VERSIONS = 20` and optional `assetVersions` to delivery subjects: two to twenty distinct piece keys, mutually exclusive with `assetVersion`. `deliveryDecisionAssetVersions(subject: DeliveryDecisionSubject): AssetVersionRef[]` returns the list, the single version, or no versions. Existing subjects retain their exact shape.

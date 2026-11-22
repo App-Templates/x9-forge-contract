@@ -2,6 +2,8 @@ import { z } from 'zod';
 export const DELIVERY_PACKAGE_FILE_NAME = 'CONSEGNA.json';
 // Twenty contract screens can each have two format variants.
 export const DELIVERY_PACKAGE_MAX_KEY_SCREENS = 40;
+// A redo can carry several pieces of the mandate (see DEV_SESSION_MAX_DELIVERABLE_KEYS); one package covers them all.
+export const DELIVERY_PACKAGE_MAX_PIECES = 20;
 // The delivery chain currently carries individual files up to 25 MiB.
 export const DELIVERY_PACKAGE_FILE_MAX_BYTES = 25 * 1024 * 1024;
 // Paperclip's issue attachment cap (wire-allegati.ts); above it a file travels as a link, since the issue could not hold it.
@@ -21,6 +23,9 @@ function packagePath(exts) {
         return dot !== -1 && exts.includes(fileName.slice(dot + 1).toLowerCase());
     }, { message: `Package path must be relative, without whitespace or unsafe segments; allowed extensions: ${exts.join(", ")}` });
 }
+// Same rule as AssetKeySchema (asset.ts), not imported: asset.ts -> business-unit-type.ts -> this file would be a cycle.
+// A test compares the two rules key by key.
+const PieceKeySchema = z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 export const DeliveryPackageSchema = z.strictObject({
     version: z.literal(1),
     title: z.string().min(1).max(120),
@@ -49,6 +54,13 @@ export const DeliveryPackageSchema = z.strictObject({
         path: packagePath(DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS),
         caption: z.string().min(1).max(140),
     })).max(10).optional(),
+    // Which preview and screens show which piece of a redo. Only points at files the package already lists, so the
+    // attachments do not change; absent in every package saved before.
+    pieces: z.array(z.strictObject({
+        key: PieceKeySchema,
+        preview: packagePath(DELIVERY_PACKAGE_PREVIEW_EXTENSIONS),
+        keyScreens: z.array(packagePath(DELIVERY_PACKAGE_IMAGE_EXTENSIONS)).min(1).max(DELIVERY_PACKAGE_MAX_KEY_SCREENS),
+    })).min(1).max(DELIVERY_PACKAGE_MAX_PIECES).optional(),
 }).superRefine((pkg, ctx) => {
     const seen = new Set();
     for (const path of deliveryPackagePaths(pkg)) {
@@ -77,6 +89,30 @@ export const DeliveryPackageSchema = z.strictObject({
         }
         screens.add(step.screen);
     });
+    if (pkg.pieces !== undefined) {
+        const listed = new Set(deliveryPackagePaths(pkg));
+        const screens = new Set(pkg.keyScreens.map((screen) => screen.path));
+        const keys = new Set();
+        pkg.pieces.forEach((piece, index) => {
+            if (keys.has(piece.key)) {
+                ctx.addIssue({ code: 'custom', path: ['pieces', index, 'key'], message: `Duplicate piece: ${piece.key}` });
+            }
+            keys.add(piece.key);
+            if (!listed.has(piece.preview)) {
+                ctx.addIssue({
+                    code: 'custom', path: ['pieces', index, 'preview'],
+                    message: `Piece preview is not a package file: ${piece.preview}`,
+                });
+            }
+            piece.keyScreens.forEach((path, screenIndex) => {
+                if (!screens.has(path))
+                    ctx.addIssue({
+                        code: 'custom', path: ['pieces', index, 'keyScreens', screenIndex],
+                        message: `Piece screen is not a package key screen: ${path}`,
+                    });
+            });
+        });
+    }
 });
 /** Attachment paths relative to the delivery commit root, in presentation order. */
 export function deliveryPackagePaths(pkg) {
@@ -119,5 +155,16 @@ export function deliveryPackageProblems(pkg, deliveredPaths) {
             problems.push({ code: 'cited_file_missing', path });
     }
     return problems;
+}
+/**
+ * Pieces of a redo that the package gives nothing to look at: each missing one lacks both preview and screens, since a
+ * piece in `pieces` always has both. Without `pieces` the package describes a single piece (today's rules), so one
+ * requested piece is fine and several cannot be told apart.
+ */
+export function deliveryPackagePieceProblems(pkg, keys) {
+    if (pkg.pieces === undefined)
+        return keys.length > 1 ? keys.map((key) => ({ key, missing: ['anteprima', 'schermate'] })) : [];
+    const described = new Set(pkg.pieces.map((piece) => piece.key));
+    return keys.filter((key) => !described.has(key)).map((key) => ({ key, missing: ['anteprima', 'schermate'] }));
 }
 //# sourceMappingURL=delivery-package.js.map
