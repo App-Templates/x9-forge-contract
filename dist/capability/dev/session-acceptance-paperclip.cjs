@@ -53,6 +53,10 @@ function devSessionContractDocumentBody(input) {
         // Render selected model data so the human contract and executor cannot disagree on thresholds.
         lines.push(`Soglie dei punteggi: minimo per dimensione ${thresholds.dimensionMin}/4; audit almeno ${thresholds.auditTotalMin}/20; critique almeno ${thresholds.critiqueMin}/${thresholds.critiqueOutOf} in proporzione, con almeno ${thresholds.critiqueMinScored} voci valutate; scarto massimo per dimensione ${thresholds.gapMax}/4.`);
     }
+    const taste = (0, session_acceptance_templates_js_1.devSessionTasteThresholds)(acceptance);
+    if (taste !== undefined) {
+        lines.push(`Soglie del gusto: ogni voce almeno ${taste.itemMin}/4; totale almeno ${taste.totalMin}/24; una voce con un FAIL di Taste al massimo ${taste.itemMaxWithFail}/4.`);
+    }
     const look = acceptance.input.look;
     if (look !== undefined) {
         lines.push(`Da guardare: ${look.kind}`, ...(look.tryPath ?? []).map((step) => `- ${step}`));

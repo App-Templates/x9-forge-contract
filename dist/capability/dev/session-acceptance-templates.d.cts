@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { DevelopmentSessionEngine } from "../connect/development-session.cjs";
-import type { DesignScoreThresholds } from "../design-score.cjs";
+import type { DesignScoreThresholds, DesignTasteThresholds } from "../design-score.cjs";
 import type { DevSessionAssignment, DevSessionMaterial } from "./session-assignment.cjs";
 import { type DevSessionAcceptance, type DevSessionCriterion } from "./session-acceptance.cjs";
 import type { DEV_SESSION_ACCEPTANCE_NEEDS } from "./session-acceptance-catalog.cjs";
@@ -79,7 +79,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
     readonly 'design-schermata-app': {
         readonly version: 2;
         readonly materials: readonly ["visual_images", "approved_images", "brand_assets", "excellence_examples"];
-        readonly formCriteria: readonly ["D-01", "D-03", "D-04", "D-05", "D-06", "D-07", "D-08", "D-09", "D-11", "D-12", "D-13", "D-14", "D-15", "D-16", "D-17", "D-18", "D-19", "D-20", "D-21"];
+        readonly formCriteria: readonly ["D-01", "D-03", "D-04", "D-05", "D-06", "D-07", "D-08", "D-09", "D-11", "D-12", "D-13", "D-14", "D-15", "D-16", "D-17", "D-18", "D-19", "D-20", "D-21", "D-22", "D-23"];
         readonly scoreThresholds: {
             readonly dimensionMin: 3;
             readonly auditTotalMin: 16;
@@ -87,6 +87,11 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
             readonly critiqueOutOf: 40;
             readonly critiqueMinScored: 8;
             readonly gapMax: 1;
+        };
+        readonly tasteThresholds: {
+            readonly itemMin: 3;
+            readonly totalMin: 21;
+            readonly itemMaxWithFail: 2;
         };
         readonly productKind: "design";
         readonly supportedEngines: readonly ["claude"];
@@ -96,7 +101,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
     readonly 'design-ritocco': {
         readonly version: 2;
         readonly materials: readonly ["retouch_file", "visual_images", "approved_images", "brand_assets", "excellence_examples"];
-        readonly formCriteria: readonly ["D-01", "D-03", "D-06", "D-08", "D-11", "D-13", "D-14", "D-15", "D-19", "D-20", "D-21"];
+        readonly formCriteria: readonly ["D-01", "D-03", "D-06", "D-08", "D-11", "D-13", "D-14", "D-15", "D-19", "D-20", "D-21", "D-23"];
         readonly scoreThresholds: {
             readonly dimensionMin: 3;
             readonly auditTotalMin: 16;
@@ -104,6 +109,11 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
             readonly critiqueOutOf: 40;
             readonly critiqueMinScored: 8;
             readonly gapMax: 1;
+        };
+        readonly tasteThresholds: {
+            readonly itemMin: 3;
+            readonly totalMin: 21;
+            readonly itemMaxWithFail: 2;
         };
         readonly productKind: "design";
         readonly supportedEngines: readonly ["claude"];
@@ -114,6 +124,8 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
 export declare function devSessionTemplateSupportsEngine(id: string, engine: DevelopmentSessionEngine): boolean;
 /** Read the selected model only; saved contracts and unknown versions get no implicit scores. */
 export declare function devSessionScoreThresholds(acceptance: DevSessionAcceptance): DesignScoreThresholds | undefined;
+/** Taste grid thresholds of the selected model only; sites, version 1 and saved contracts get none. */
+export declare function devSessionTasteThresholds(acceptance: DevSessionAcceptance): DesignTasteThresholds | undefined;
 export declare const DEV_SESSION_REQUIREMENT_ORIGINS: readonly ["modello", "mandato", "capo", "ritorno"];
 export declare const DEV_SESSION_REQUIREMENT_PROBLEMS: readonly ["template_unknown", "template_version_unknown", "template_optional_not_offered", "criterion_id_clashes_catalog"];
 type Requirement = Omit<DevSessionCriterion, 'origin'> & {

@@ -1,4 +1,4 @@
-export declare const DEV_SESSION_ACCEPTANCE_NEEDS: readonly ["commit", "prove_run", "browser", "screenshot", "skill_log", "gate", "detector", "static_scan", "package", "file_list", "clean_install", "score_file"];
+export declare const DEV_SESSION_ACCEPTANCE_NEEDS: readonly ["commit", "prove_run", "browser", "screenshot", "skill_log", "gate", "detector", "static_scan", "package", "file_list", "clean_install", "score_file", "taste_check"];
 export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
     readonly 'D-01': {
         readonly attestor: "esecutore";
@@ -119,6 +119,18 @@ export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
         readonly needs: readonly [];
         readonly text: "Il referente conferma i punteggi entro lo scarto ammesso dal modello, la fedeltà al marchio quando applicabile e il livello degli esempi disponibili";
         readonly proof: "voto del referente sulla stessa griglia di audit, con valutazione del marchio e confronto con gli esempi disponibili";
+    };
+    readonly 'D-22': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log", "static_scan"];
+        readonly text: "Il gusto è stato deciso con Taste prima di costruire: la sessione ha caricato la skill Taste e lanciato il suo comando di scelta dello stile e dei valori prima del primo file di interfaccia, e i valori scelti sono nel foglio di stile";
+        readonly proof: "registro della sessione (strumento `Skill` e comando di Taste prima del primo file di interfaccia) e lettura dei valori della carta nel foglio di stile consegnato";
+    };
+    readonly 'D-23': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["taste_check"];
+        readonly text: "Il controllo finale di Taste, limitato ai controlli validi per un'app, non dà nessun difetto sui file consegnati";
+        readonly proof: "uscita del controllo di Taste rilanciato da lui sui file finali, con l'elenco condiviso dei controlli per le app";
     };
     readonly 'S-01': {
         readonly attestor: "esecutore";

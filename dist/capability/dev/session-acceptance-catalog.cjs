@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DEV_SESSION_ACCEPTANCE_CATALOG = exports.DEV_SESSION_ACCEPTANCE_NEEDS = void 0;
 // Capabilities of the checking program; a session cannot supply these proofs itself.
-exports.DEV_SESSION_ACCEPTANCE_NEEDS = ['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install', 'score_file'];
+exports.DEV_SESSION_ACCEPTANCE_NEEDS = ['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install', 'score_file', 'taste_check'];
 // D-10 still awaits a defined change perimeter. Version 2 adds excellence checks without
 // expanding saved version 1 forms; numeric thresholds belong to the selected model only.
 exports.DEV_SESSION_ACCEPTANCE_CATALOG = {
@@ -113,6 +113,18 @@ exports.DEV_SESSION_ACCEPTANCE_CATALOG = {
         attestor: 'referente', needs: [],
         text: 'Il referente conferma i punteggi entro lo scarto ammesso dal modello, la fedeltà al marchio quando applicabile e il livello degli esempi disponibili',
         proof: 'voto del referente sulla stessa griglia di audit, con valutazione del marchio e confronto con gli esempi disponibili',
+    },
+    // D-22 and D-23 are the taste cascade for apps: decide the taste with Taste first, check it last.
+    // The texts carry no numbers or check ids: thresholds are model data, the list of checks lives in design-score.
+    'D-22': {
+        attestor: 'esecutore', needs: ['skill_log', 'static_scan'],
+        text: 'Il gusto è stato deciso con Taste prima di costruire: la sessione ha caricato la skill Taste e lanciato il suo comando di scelta dello stile e dei valori prima del primo file di interfaccia, e i valori scelti sono nel foglio di stile',
+        proof: 'registro della sessione (strumento `Skill` e comando di Taste prima del primo file di interfaccia) e lettura dei valori della carta nel foglio di stile consegnato',
+    },
+    'D-23': {
+        attestor: 'esecutore', needs: ['taste_check'],
+        text: "Il controllo finale di Taste, limitato ai controlli validi per un'app, non dà nessun difetto sui file consegnati",
+        proof: 'uscita del controllo di Taste rilanciato da lui sui file finali, con l\'elenco condiviso dei controlli per le app',
     },
     'S-01': {
         attestor: 'esecutore', needs: ['commit'],

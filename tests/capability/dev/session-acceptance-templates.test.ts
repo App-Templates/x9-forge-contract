@@ -2,11 +2,15 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { z } from 'zod';
 import { describe, expect, it } from 'vitest';
-import { DesignScoreThresholdsSchema } from '../../../src/capability/design-score.js';
+import {
+  DESIGN_SCORE_PROBLEMS, DESIGN_SCORE_SCHEMA_ISSUES, DESIGN_TASTE_APP_CHECK_IDS, DESIGN_TASTE_GRID_ITEMS, DESIGN_TASTE_MAX,
+  DesignScoreThresholdsSchema, DesignTasteScoreSchema, DesignTasteThresholdsSchema,
+  designTasteAppFailures, designTasteProblems, designTasteTotal,
+} from '../../../src/capability/design-score.js';
 import { DEV_SESSION_ACCEPTANCE_CATALOG, DEV_SESSION_ACCEPTANCE_NEEDS } from '../../../src/capability/dev/session-acceptance-catalog.js';
 import {
   DEV_SESSION_TEMPLATE_IDS, DevSessionTemplateIdSchema, DEV_SESSION_TEMPLATE_MATERIALS,
-  DEV_SESSION_TEMPLATES, DEV_SESSION_TEMPLATES_V2, DEV_SESSION_MATERIAL_ASSET_TYPES, devSessionMaterialsByRole, devSessionScoreThresholds, DEV_SESSION_REQUIREMENT_ORIGINS, DEV_SESSION_REQUIREMENT_PROBLEMS,
+  DEV_SESSION_TEMPLATES, DEV_SESSION_TEMPLATES_V2, DEV_SESSION_MATERIAL_ASSET_TYPES, devSessionMaterialsByRole, devSessionScoreThresholds, devSessionTasteThresholds, DEV_SESSION_REQUIREMENT_ORIGINS, DEV_SESSION_REQUIREMENT_PROBLEMS,
   DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS, VISUAL_IMAGES_MISSING_MOVE, devSessionTemplateSupportsEngine,
   devSessionRequirements, devSessionAcceptanceTemplateProblem,
 } from '../../../src/capability/dev/session-acceptance-templates.js';
@@ -54,7 +58,7 @@ function assignment(): DevSessionAssignment {
 
 describe('s7561', () => {
   it('s7561_catalogo', () => {
-    expect(DEV_SESSION_ACCEPTANCE_NEEDS).toEqual(['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install', 'score_file']);
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS).toEqual(['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install', 'score_file', 'taste_check']);
     const expected = {
       'D-01': ['esecutore', ['skill_log']], 'D-02': ['esecutore', ['gate']],
       'D-03': ['esecutore', ['detector']], 'D-04': ['esecutore', ['static_scan']],
@@ -64,6 +68,7 @@ describe('s7561', () => {
       'D-15': ['esecutore', ['skill_log']], 'D-16': ['esecutore', ['skill_log', 'file_list']],
       'D-17': ['esecutore', ['skill_log']], 'D-18': ['esecutore', ['score_file']],
       'D-19': ['esecutore', ['detector']], 'D-20': ['esecutore', ['skill_log']], 'D-21': ['referente', []],
+      'D-22': ['esecutore', ['skill_log', 'static_scan']], 'D-23': ['esecutore', ['taste_check']],
       'S-01': ['esecutore', ['commit']], 'S-02': ['esecutore', ['prove_run']],
       'S-03': ['esecutore', ['browser']], 'S-04': ['esecutore', ['screenshot']],
       'S-05': ['esecutore', ['prove_run']], 'S-06': ['referente', []],
@@ -72,8 +77,8 @@ describe('s7561', () => {
       'S-11': ['esecutore', ['clean_install']],
     };
     expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG).sort()).toEqual(Object.keys(expected).sort());
-    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(31);
-    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(31);
+    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(33);
+    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(33);
     for (const [id, entry] of Object.entries(DEV_SESSION_ACCEPTANCE_CATALOG)) {
       expect([entry.attestor, entry.needs]).toEqual(expected[id as keyof typeof expected]);
       expect(entry.attestor === 'esecutore').toBe(entry.needs.length > 0);
@@ -251,9 +256,10 @@ describe('s8079 installazione pulita', () => {
     expect(entry.needs).toEqual(['clean_install']);
     expect(entry.text).toContain('installazione pulita');
     expect(entry.text).toContain('package.json');
-    // Version 2 appended score_file after clean_install: the existing order is kept, never reshuffled.
-    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-2)).toBe('clean_install');
-    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-1)).toBe('score_file');
+    // Version 2 appended score_file and taste_check after clean_install: the existing order is kept, never reshuffled.
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-3)).toBe('clean_install');
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-2)).toBe('score_file');
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-1)).toBe('taste_check');
   });
 
   it('s8079_modello', () => {
@@ -362,8 +368,8 @@ describe('s8463 modelli di design versione 2', () => {
   };
   const newForms = {
     'design-sito': ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-06', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
-    'design-schermata-app': ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
-    'design-ritocco': ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21'],
+    'design-schermata-app': ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23'],
+    'design-ritocco': ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21', 'D-23'],
   };
   const thresholds = { dimensionMin: 3, auditTotalMin: 16, critiqueMin: 30, critiqueOutOf: 40, critiqueMinScored: 8, gapMax: 1 };
 
@@ -579,7 +585,7 @@ describe('s8463 modelli di design versione 2', () => {
         acceptance.template.optionalIds = ['D-15'];
         expect(devSessionRequirements(acceptance)).toEqual({ ok: false, code: 'template_optional_not_offered' });
         delete acceptance.template.optionalIds;
-        for (const criterionId of ['D-06', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21']) {
+        for (const criterionId of ['D-06', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23']) {
           expect(devSessionRequirements({ ...acceptance, criteria: [{ ...acceptance.criteria[0]!, id: criterionId }] }))
             .toEqual({ ok: false, code: 'criterion_id_clashes_catalog' });
         }
@@ -587,3 +593,109 @@ describe('s8463 modelli di design versione 2', () => {
     });
   });
 });
+
+// Taste grid and the shared list of Taste checks valid for apps (task 8465).
+describe('s8465 griglia del gusto', () => {
+  const digest = 'b'.repeat(64);
+  const tasteThresholds = { itemMin: 3, totalMin: 21, itemMaxWithFail: 2 };
+  const grid = (values: number[]) => {
+    const scores = Object.fromEntries(DESIGN_TASTE_GRID_ITEMS.map((item, index) => [item, values[index]!]));
+    return { scores, total: values.reduce((a, b) => a + b, 0), max: DESIGN_TASTE_MAX };
+  };
+  const contract = (id: 'design-sito' | 'design-schermata-app' | 'design-ritocco', version = 2): DevSessionAcceptance => DevSessionAcceptanceSchema.parse({
+    version: 1, template: { id, version },
+    input: {
+      screens: [{ name: 'dispensa', purpose: 'Aggiungere un prodotto alla dispensa' }], states: ['pieno'], formats: ['telefono'],
+      retouch: { target: 'aggiungi.png', defect: 'Gusto del modulo' }, visualSource: { kind: 'nessuna' },
+    },
+    criteria: [{ id: 'add-product', text: 'Si può aggiungere un prodotto.', attestor: 'referente', proof: 'Provare il modulo.', origin: 'capo' }],
+  });
+  const ids = (acceptance: DevSessionAcceptance): string[] => {
+    const result = devSessionRequirements(acceptance);
+    if (!result.ok) throw new Error(result.code);
+    return result.requirements.map((entry) => entry.id);
+  };
+
+  it('s8465 regressione-r64-design-approvato-senza-giudicare-il-gusto', () => {
+    // R64 "Dispensa Pronta": the app screen was approved on audit correctness alone.
+    const screen = ids(contract('design-schermata-app'));
+    expect(screen).toEqual([...newFormsBefore('design-schermata-app'), 'D-22', 'D-23', 'add-product']);
+    const retouch = ids(contract('design-ritocco'));
+    expect(retouch).toContain('D-23');
+    expect(retouch).not.toContain('D-22');
+    expect(devSessionTasteThresholds(contract('design-schermata-app'))).toEqual(tasteThresholds);
+    expect(devSessionTasteThresholds(contract('design-ritocco'))).toEqual(tasteThresholds);
+    const schema = DesignTasteThresholdsSchema.parse(tasteThresholds);
+    const good = DesignTasteScoreSchema.parse(grid([4, 4, 3, 3, 3, 4]));
+    expect(good.total).toBe(21);
+    expect(designTasteProblems(good, schema)).toEqual([]);
+    expect(designTasteProblems(DesignTasteScoreSchema.parse(grid([4, 3, 3, 3, 3, 4])), schema)).toEqual([{ code: 'taste_total_below' }]);
+    const low = designTasteProblems(DesignTasteScoreSchema.parse(grid([4, 4, 4, 4, 2, 4])), schema);
+    expect(low).toEqual([{ code: 'taste_item_below', item: 'delight' }]);
+    // a FAIL of fake-button with "controls" at 4: the grid cannot outvote the check
+    const failed = designTasteProblems(DesignTasteScoreSchema.parse(grid([4, 4, 4, 4, 4, 4])), schema, ['fake-button']);
+    expect(failed).toEqual([{ code: 'taste_item_above_failed_check', item: 'controls' }]);
+  });
+
+  it('s8465 elenco-condiviso-dei-controlli-per-le-app', () => {
+    const entries = Object.entries(DESIGN_TASTE_APP_CHECK_IDS);
+    expect(entries).toHaveLength(25);
+    for (const item of DESIGN_TASTE_GRID_ITEMS) expect(entries.some(([, value]) => value === item)).toBe(true);
+    for (const id of ['font-load', 'heading-scale', 'body-size']) expect(DESIGN_TASTE_APP_CHECK_IDS).toHaveProperty(id, 'typography');
+    expect(DESIGN_TASTE_APP_CHECK_IDS['fake-button']).toBe('controls');
+    expect(DESIGN_TASTE_APP_CHECK_IDS['empty-visual']).toBe('imagery');
+    expect(DESIGN_TASTE_APP_CHECK_IDS['button-contrast']).toBe('color_material');
+    expect(DESIGN_TASTE_APP_CHECK_IDS['focus-ring']).toBe('delight');
+    expect(DESIGN_TASTE_APP_CHECK_IDS.tilt).toBe('composition');
+    // checks that only make sense on sites are not in the list
+    for (const siteOnly of ['hero-height', 'nav-sticky', 'footer-links']) expect(DESIGN_TASTE_APP_CHECK_IDS).not.toHaveProperty(siteOnly);
+    expect(designTasteAppFailures(['tilt', 'hero-height', 'tilt', 'fake-button', 'toString'])).toEqual([
+      { id: 'tilt', item: 'composition' }, { id: 'fake-button', item: 'controls' },
+    ]);
+    expect(designTasteAppFailures([])).toEqual([]);
+  });
+
+  it('s8465 voci-dei-criteri-e-dei-tipi', () => {
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-1)).toBe('taste_check');
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-2)).toBe('score_file');
+    expect([DEV_SESSION_ACCEPTANCE_CATALOG['D-22'].attestor, DEV_SESSION_ACCEPTANCE_CATALOG['D-22'].needs]).toEqual(['esecutore', ['skill_log', 'static_scan']]);
+    expect([DEV_SESSION_ACCEPTANCE_CATALOG['D-23'].attestor, DEV_SESSION_ACCEPTANCE_CATALOG['D-23'].needs]).toEqual(['esecutore', ['taste_check']]);
+    for (const id of ['D-22', 'D-23'] as const) {
+      expect(DEV_SESSION_ACCEPTANCE_CATALOG[id].text).not.toMatch(/\d/);
+      expect(DEV_SESSION_ACCEPTANCE_CATALOG[id].text).not.toMatch(/fake-button|font-load/);
+    }
+    expect(DESIGN_SCORE_PROBLEMS.slice(-3)).toEqual(['taste_total_below', 'taste_item_below', 'taste_item_above_failed_check']);
+    expect(DESIGN_SCORE_SCHEMA_ISSUES).toContain('taste_total_mismatch');
+    expect(DesignTasteScoreSchema.safeParse({ ...grid([4, 4, 4, 4, 4, 4]), total: 23 }).success).toBe(false);
+    expect(DesignTasteScoreSchema.safeParse(grid([5, 4, 4, 4, 4, 4])).success).toBe(false);
+    expect(designTasteTotal(grid([1, 2, 3, 4, 0, 1]).scores as never)).toBe(11);
+    expect(DesignTasteThresholdsSchema.safeParse({ ...tasteThresholds, itemMin: 5 }).success).toBe(false);
+  });
+
+  it('s8465 documento-con-le-soglie-del-gusto', () => {
+    const line = 'Soglie del gusto: ogni voce almeno 3/4; totale almeno 21/24; una voce con un FAIL di Taste al massimo 2/4.';
+    for (const [id, expected] of [['design-schermata-app', true], ['design-ritocco', true], ['design-sito', false]] as const) {
+      const body = devSessionContractDocumentBody({ acceptance: contract(id), issueNumber: 64, digest }).body;
+      expect(body.split('\n').filter((l) => l.startsWith('Soglie del gusto:'))).toEqual(expected ? [line] : []);
+    }
+    const v1 = devSessionContractDocumentBody({ acceptance: contract('design-schermata-app', 1), issueNumber: 64, digest }).body;
+    expect(v1).not.toContain('Soglie del gusto');
+  });
+
+  it('s8465 sito-e-versione-1-invariati', () => {
+    expect(ids(contract('design-sito'))).not.toContain('D-22');
+    expect(ids(contract('design-sito'))).not.toContain('D-23');
+    expect(devSessionTasteThresholds(contract('design-sito'))).toBeUndefined();
+    for (const id of ['design-sito', 'design-schermata-app', 'design-ritocco'] as const) {
+      expect(devSessionTasteThresholds(contract(id, 1))).toBeUndefined();
+      expect(ids(contract(id, 1))).not.toContain('D-23');
+    }
+  });
+});
+
+// Form of the app screen at version 2 before the taste criteria, as 8463 left it.
+function newFormsBefore(id: 'design-schermata-app'): string[] {
+  return id === 'design-schermata-app'
+    ? ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21']
+    : [];
+}

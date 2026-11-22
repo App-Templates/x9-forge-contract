@@ -1,5 +1,5 @@
 import { devSessionBranch } from "./session-assignment.js";
-import { devSessionRequirements, devSessionScoreThresholds } from "./session-acceptance-templates.js";
+import { devSessionRequirements, devSessionScoreThresholds, devSessionTasteThresholds } from "./session-acceptance-templates.js";
 import { PaperclipDocumentoChiaveSchema, PaperclipDocumentoScriviCorpoSchema, } from "../paperclip-protocollo/wire-documenti.js";
 /** Reserve Paperclip's variable criteria slots for the assignment's own list. */
 export function devSessionAcceptanceCriteriaTexts(acceptance) {
@@ -46,6 +46,10 @@ export function devSessionContractDocumentBody(input) {
     if (thresholds !== undefined) {
         // Render selected model data so the human contract and executor cannot disagree on thresholds.
         lines.push(`Soglie dei punteggi: minimo per dimensione ${thresholds.dimensionMin}/4; audit almeno ${thresholds.auditTotalMin}/20; critique almeno ${thresholds.critiqueMin}/${thresholds.critiqueOutOf} in proporzione, con almeno ${thresholds.critiqueMinScored} voci valutate; scarto massimo per dimensione ${thresholds.gapMax}/4.`);
+    }
+    const taste = devSessionTasteThresholds(acceptance);
+    if (taste !== undefined) {
+        lines.push(`Soglie del gusto: ogni voce almeno ${taste.itemMin}/4; totale almeno ${taste.totalMin}/24; una voce con un FAIL di Taste al massimo ${taste.itemMaxWithFail}/4.`);
     }
     const look = acceptance.input.look;
     if (look !== undefined) {

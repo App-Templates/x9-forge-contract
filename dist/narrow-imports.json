@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.290.0",
+  "versione": "1.291.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1470,6 +1470,7 @@
       "devSessionProofAttachmentDecision": "@x9-forge/contracts/capability/dev/session-outcome",
       "devSessionRequirements": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "devSessionScoreThresholds": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
+      "devSessionTasteThresholds": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "devSessionTemplateSupportsEngine": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "isDevProductionArtifactChunkForArtifact": "@x9-forge/contracts/capability/dev/production-artifact-content",
       "isDevProductionJobForConfig": "@x9-forge/contracts/capability/dev/production-config-match",

@@ -4,6 +4,7 @@ exports.VISUAL_IMAGES_MISSING_MOVE = exports.DEV_SESSION_ACCEPTANCE_TEMPLATE_PRO
 exports.devSessionMaterialsByRole = devSessionMaterialsByRole;
 exports.devSessionTemplateSupportsEngine = devSessionTemplateSupportsEngine;
 exports.devSessionScoreThresholds = devSessionScoreThresholds;
+exports.devSessionTasteThresholds = devSessionTasteThresholds;
 exports.devSessionRequirements = devSessionRequirements;
 exports.devSessionHasChiefStepCriterion = devSessionHasChiefStepCriterion;
 exports.devSessionAcceptanceTemplateProblem = devSessionAcceptanceTemplateProblem;
@@ -57,6 +58,8 @@ exports.DEV_SESSION_TEMPLATES = {
 const DESIGN_SCORE_THRESHOLDS = {
     dimensionMin: 3, auditTotalMin: 16, critiqueMin: 30, critiqueOutOf: 40, critiqueMinScored: 8, gapMax: 1,
 };
+// Taste grid thresholds, app models only: a site goes through the Taste gate (D-02), not this grid.
+const DESIGN_TASTE_THRESHOLDS = { itemMin: 3, totalMin: 21, itemMaxWithFail: 2 };
 // Version 1 is deliberately untouched: consumers must explicitly opt into the new proofs.
 exports.DEV_SESSION_TEMPLATES_V2 = {
     'design-sito': {
@@ -68,14 +71,14 @@ exports.DEV_SESSION_TEMPLATES_V2 = {
     'design-schermata-app': {
         ...exports.DEV_SESSION_TEMPLATES['design-schermata-app'], version: 2,
         materials: ['visual_images', 'approved_images', 'brand_assets', 'excellence_examples'],
-        formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
-        scoreThresholds: DESIGN_SCORE_THRESHOLDS,
+        formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23'],
+        scoreThresholds: DESIGN_SCORE_THRESHOLDS, tasteThresholds: DESIGN_TASTE_THRESHOLDS,
     },
     'design-ritocco': {
         ...exports.DEV_SESSION_TEMPLATES['design-ritocco'], version: 2,
         materials: ['retouch_file', 'visual_images', 'approved_images', 'brand_assets', 'excellence_examples'],
-        formCriteria: ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21'],
-        scoreThresholds: DESIGN_SCORE_THRESHOLDS,
+        formCriteria: ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21', 'D-23'],
+        scoreThresholds: DESIGN_SCORE_THRESHOLDS, tasteThresholds: DESIGN_TASTE_THRESHOLDS,
     },
 };
 const TEMPLATE_VERSIONS = {
@@ -99,6 +102,11 @@ function devSessionTemplateSupportsEngine(id, engine) {
 function devSessionScoreThresholds(acceptance) {
     const resolved = templateById(acceptance.template.id, acceptance.template.version);
     return resolved.ok ? resolved.template.scoreThresholds : undefined;
+}
+/** Taste grid thresholds of the selected model only; sites, version 1 and saved contracts get none. */
+function devSessionTasteThresholds(acceptance) {
+    const resolved = templateById(acceptance.template.id, acceptance.template.version);
+    return resolved.ok ? resolved.template.tasteThresholds : undefined;
 }
 exports.DEV_SESSION_REQUIREMENT_ORIGINS = ['modello', ...session_acceptance_js_1.DEV_SESSION_CRITERION_ORIGINS];
 exports.DEV_SESSION_REQUIREMENT_PROBLEMS = ['template_unknown', 'template_version_unknown', 'template_optional_not_offered', 'criterion_id_clashes_catalog'];

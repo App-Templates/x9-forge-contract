@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.designBrandTokenProblems = exports.DesignBrandTokensSchema = exports.designScoreGaps = exports.designRefereeProblems = exports.designScoreProblems = exports.DesignScoreThresholdsSchema = exports.DesignRefereeVoteSchema = exports.DesignCritiqueScoreSchema = exports.DesignAuditScoreSchema = exports.designCritiqueTotal = exports.designAuditTotal = exports.DESIGN_SCORE_SCHEMA_ISSUES = exports.DESIGN_SCORE_PROBLEMS = exports.DESIGN_AUDIT_MAX = exports.DESIGN_CRITIQUE_HEURISTICS = exports.DESIGN_AUDIT_DIMENSIONS = void 0;
+exports.designTasteProblems = exports.designTasteAppFailures = exports.DesignTasteThresholdsSchema = exports.DesignTasteScoreSchema = exports.designTasteTotal = exports.DESIGN_TASTE_APP_CHECK_IDS = exports.DESIGN_TASTE_MAX = exports.DESIGN_TASTE_GRID_ITEMS = exports.designBrandTokenProblems = exports.DesignBrandTokensSchema = exports.designScoreGaps = exports.designRefereeProblems = exports.designScoreProblems = exports.DesignScoreThresholdsSchema = exports.DesignRefereeVoteSchema = exports.DesignCritiqueScoreSchema = exports.DesignAuditScoreSchema = exports.designCritiqueTotal = exports.designAuditTotal = exports.DESIGN_SCORE_SCHEMA_ISSUES = exports.DESIGN_SCORE_PROBLEMS = exports.DESIGN_AUDIT_MAX = exports.DESIGN_CRITIQUE_HEURISTICS = exports.DESIGN_AUDIT_DIMENSIONS = void 0;
 const zod_1 = require("zod");
 // Scores of the design skills (Impeccable audit and critique) and the brand tokens, as contract types.
 // Thresholds are NOT constants here: the caller passes them (they live in the model, as data, so
@@ -32,8 +32,12 @@ exports.DESIGN_SCORE_PROBLEMS = [
     'not_at_examples_level',
     'color_not_token',
     'font_not_token',
+    // Taste grid: appended last so codes already consumed keep their position.
+    'taste_total_below',
+    'taste_item_below',
+    'taste_item_above_failed_check',
 ];
-exports.DESIGN_SCORE_SCHEMA_ISSUES = ['audit_total_mismatch', 'critique_total_mismatch', 'critique_max_mismatch', 'colors_not_unique', 'fonts_not_unique', 'logos_not_unique', 'thresholds_inconsistent'];
+exports.DESIGN_SCORE_SCHEMA_ISSUES = ['audit_total_mismatch', 'critique_total_mismatch', 'critique_max_mismatch', 'colors_not_unique', 'fonts_not_unique', 'logos_not_unique', 'thresholds_inconsistent', 'taste_total_mismatch'];
 // Identity helper: a message outside the list above does not compile.
 const schemaIssue = (code) => code;
 const ScoreSchema = zod_1.z.number().int().min(0).max(SCORE_MAX);
@@ -176,4 +180,70 @@ const designBrandTokenProblems = (tokens, used, deviations = { colors: [], fonts
     return problems;
 };
 exports.designBrandTokenProblems = designBrandTokenProblems;
+// Taste grid: the decided taste (typography, controls, imagery, colour/material, delight, composition),
+// 6 items each 0-4. Impeccable measures correctness; this grid measures whether the result looks good.
+exports.DESIGN_TASTE_GRID_ITEMS = ['typography', 'controls', 'imagery', 'color_material', 'delight', 'composition'];
+exports.DESIGN_TASTE_MAX = exports.DESIGN_TASTE_GRID_ITEMS.length * SCORE_MAX;
+// The Taste checks (consistency.mjs) that are valid on an app, with the grid item each one feeds.
+// Site-only checks are left out on purpose: on an app they would fail every time. One list here, so
+// the executor and the referee judge the same checks (a decision in one place only).
+exports.DESIGN_TASTE_APP_CHECK_IDS = {
+    'font-load': 'typography', 'heading-scale': 'typography', 'body-size': 'typography',
+    'button-styles': 'controls', 'button-shape': 'controls', 'fake-button': 'controls', 'label-centre': 'controls',
+    'link-styles': 'controls', 'card-family': 'controls', nesting: 'controls',
+    'empty-visual': 'imagery',
+    'text-contrast': 'color_material', 'button-contrast': 'color_material',
+    hover: 'delight', 'focus-ring': 'delight', 'a11y-name': 'delight', 'reduced-motion': 'delight', 'scroll-reveal': 'delight',
+    'container-edges': 'composition', 'off-viewport': 'composition', collide: 'composition', 'tap-size': 'composition',
+    'cut-text': 'composition', hole: 'composition', tilt: 'composition',
+};
+const designTasteTotal = (scores) => exports.DESIGN_TASTE_GRID_ITEMS.reduce((sum, key) => sum + scores[key], 0);
+exports.designTasteTotal = designTasteTotal;
+exports.DesignTasteScoreSchema = zod_1.z
+    .strictObject({
+    scores: zod_1.z.strictObject(Object.fromEntries(exports.DESIGN_TASTE_GRID_ITEMS.map((key) => [key, ScoreSchema]))),
+    total: zod_1.z.number().int().min(0).max(exports.DESIGN_TASTE_MAX),
+    max: zod_1.z.literal(exports.DESIGN_TASTE_MAX),
+})
+    .superRefine((taste, ctx) => {
+    // a declared total that is not the sum would let an ugly design look good
+    if (taste.total !== (0, exports.designTasteTotal)(taste.scores))
+        ctx.addIssue({ code: 'custom', path: ['total'], message: schemaIssue('taste_total_mismatch') });
+});
+// Like the other thresholds these are model data, never constants of a check.
+exports.DesignTasteThresholdsSchema = zod_1.z.strictObject({
+    itemMin: zod_1.z.number().int().min(0).max(SCORE_MAX),
+    totalMin: zod_1.z.number().int().min(0).max(exports.DESIGN_TASTE_MAX),
+    // ceiling of an item that has a FAIL among its Taste checks: a grid score cannot outvote a failed check
+    itemMaxWithFail: zod_1.z.number().int().min(0).max(SCORE_MAX),
+});
+/** Failed Taste checks that count on an app, once each, with the grid item they belong to. */
+const designTasteAppFailures = (failedIds) => {
+    const seen = new Set();
+    const failures = [];
+    for (const id of failedIds) {
+        // hasOwn: an id such as "toString" must not match an inherited property
+        if (seen.has(id) || !Object.hasOwn(exports.DESIGN_TASTE_APP_CHECK_IDS, id))
+            continue;
+        seen.add(id);
+        const known = id;
+        failures.push({ id: known, item: exports.DESIGN_TASTE_APP_CHECK_IDS[known] });
+    }
+    return failures;
+};
+exports.designTasteAppFailures = designTasteAppFailures;
+const designTasteProblems = (taste, thresholds, failedIds = []) => {
+    const problems = [];
+    if (taste.total < thresholds.totalMin)
+        problems.push({ code: 'taste_total_below' });
+    const failedItems = new Set((0, exports.designTasteAppFailures)(failedIds).map(({ item }) => item));
+    for (const item of exports.DESIGN_TASTE_GRID_ITEMS) {
+        if (taste.scores[item] < thresholds.itemMin)
+            problems.push({ code: 'taste_item_below', item });
+        if (failedItems.has(item) && taste.scores[item] > thresholds.itemMaxWithFail)
+            problems.push({ code: 'taste_item_above_failed_check', item });
+    }
+    return problems;
+};
+exports.designTasteProblems = designTasteProblems;
 //# sourceMappingURL=design-score.js.map
