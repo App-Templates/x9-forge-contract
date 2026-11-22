@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { z } from 'zod';
+import * as designScore from '../../../src/capability/design-score.js';
 import { describe, expect, it } from 'vitest';
 import {
   DESIGN_SCORE_PROBLEMS, DESIGN_SCORE_SCHEMA_ISSUES, DESIGN_TASTE_APP_CHECK_IDS, DESIGN_TASTE_GRID_ITEMS, DESIGN_TASTE_MAX,
@@ -664,7 +665,7 @@ describe('s8465 griglia del gusto', () => {
       expect(DEV_SESSION_ACCEPTANCE_CATALOG[id].text).not.toMatch(/\d/);
       expect(DEV_SESSION_ACCEPTANCE_CATALOG[id].text).not.toMatch(/fake-button|font-load/);
     }
-    expect(DESIGN_SCORE_PROBLEMS.slice(-3)).toEqual(['taste_total_below', 'taste_item_below', 'taste_item_above_failed_check']);
+    expect(DESIGN_SCORE_PROBLEMS.slice(-4, -1)).toEqual(['taste_total_below', 'taste_item_below', 'taste_item_above_failed_check']);
     expect(DESIGN_SCORE_SCHEMA_ISSUES).toContain('taste_total_mismatch');
     expect(DesignTasteScoreSchema.safeParse({ ...grid([4, 4, 4, 4, 4, 4]), total: 23 }).success).toBe(false);
     expect(DesignTasteScoreSchema.safeParse(grid([5, 4, 4, 4, 4, 4])).success).toBe(false);
@@ -674,7 +675,7 @@ describe('s8465 griglia del gusto', () => {
 
   it('s8465 documento-con-le-soglie-del-gusto', () => {
     const line = 'Soglie del gusto: ogni voce almeno 3/4; totale almeno 21/24; una voce con un FAIL di Taste al massimo 2/4.';
-    for (const [id, expected] of [['design-schermata-app', true], ['design-ritocco', true], ['design-sito', false]] as const) {
+    for (const [id, expected] of [['design-schermata-app', true], ['design-ritocco', true], ['design-sito', true]] as const) {
       const body = devSessionContractDocumentBody({ acceptance: contract(id), issueNumber: 64, digest }).body;
       expect(body.split('\n').filter((l) => l.startsWith('Soglie del gusto:'))).toEqual(expected ? [line] : []);
     }
@@ -685,7 +686,7 @@ describe('s8465 griglia del gusto', () => {
   it('s8465 sito-e-versione-1-invariati', () => {
     expect(ids(contract('design-sito'))).not.toContain('D-22');
     expect(ids(contract('design-sito'))).not.toContain('D-23');
-    expect(devSessionTasteThresholds(contract('design-sito'))).toBeUndefined();
+    expect(devSessionTasteThresholds(contract('design-sito'))).toEqual(tasteThresholds);
     for (const id of ['design-sito', 'design-schermata-app', 'design-ritocco'] as const) {
       expect(devSessionTasteThresholds(contract(id, 1))).toBeUndefined();
       expect(ids(contract(id, 1))).not.toContain('D-23');
@@ -699,3 +700,86 @@ function newFormsBefore(id: 'design-schermata-app'): string[] {
     ? ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21']
     : [];
 }
+
+// Referee judgement form (task 8471).
+describe('s8471 voto del referente', () => {
+  const taste = (values: number[]) => ({
+    scores: Object.fromEntries(DESIGN_TASTE_GRID_ITEMS.map((item, i) => [item, values[i]!])),
+    total: values.reduce((a, b) => a + b, 0), max: DESIGN_TASTE_MAX,
+  });
+  const audit = (values: number[]) => ({
+    scores: Object.fromEntries(designScore.DESIGN_AUDIT_DIMENSIONS.map((d, i) => [d, values[i]!])),
+    total: values.reduce((a, b) => a + b, 0), max: 20,
+  });
+  const critique = (values: number[]) => ({
+    scores: Object.fromEntries(designScore.DESIGN_CRITIQUE_HEURISTICS.map((h, i) => [h, values[i]!])),
+    total: values.reduce((a, b) => a + b, 0), max: 40,
+  });
+  const thresholds = {
+    score: { dimensionMin: 3, auditTotalMin: 16, critiqueMin: 30, critiqueOutOf: 40, critiqueMinScored: 8, gapMax: 1 },
+    taste: { itemMin: 3, totalMin: 21, itemMaxWithFail: 2 },
+  };
+  const r67 = (verdict: 'APPROVA' | 'RIFARE') => ({
+    taste: taste([2, 1, 2, 2, 1, 2]),
+    audit: audit([3, 3, 3, 4, 2]),
+    critique: critique([3, 3, 3, 3, 3, 3, 3, 3, 3, 0]),
+    brand: null, examplesLevel: 2,
+    tasteFailedIds: ['button-styles', 'text-contrast', 'container-edges', 'focus-ring'],
+    copyLint: { words: 6, failedIds: [] }, verdict,
+  });
+  const codes = (j: unknown) => designScore.designRefereeJudgementProblems(designScore.DesignRefereeJudgementSchema.parse(j), thresholds).map((p) => p.code);
+
+  it('s8471 regressione-r67-voto-del-referente-a-mano', () => {
+    // R67 "Dispensa Pronta": 10/24, audit 15/20, critique 27/40, level 2/4, RIFARE, written by hand.
+    const vote = r67('RIFARE');
+    expect(designScore.DesignRefereeJudgementSchema.safeParse(vote).success).toBe(true);
+    expect(codes(vote)).toEqual([
+      'taste_total_below', 'taste_item_below', 'taste_item_below', 'taste_item_below', 'taste_item_below', 'taste_item_below', 'taste_item_below',
+      'audit_total_below', 'audit_dimension_below', 'critique_total_below', 'not_at_examples_level',
+    ]);
+    const problems = designScore.designRefereeJudgementProblems(designScore.DesignRefereeJudgementSchema.parse(vote), thresholds);
+    expect(problems.find((p) => p.code === 'audit_dimension_below')?.dimension).toBe('implementation_integrity');
+    expect(codes(r67('APPROVA')).at(-1)).toBe('verdict_approves_below_thresholds');
+    const good = { ...r67('APPROVA'), taste: taste([4, 3, 4, 4, 3, 3]), audit: audit([4, 4, 3, 3, 3]), critique: critique([3, 3, 3, 3, 3, 3, 3, 3, 3, 3]), examplesLevel: 3, tasteFailedIds: [] };
+    expect(codes(good)).toEqual([]);
+    expect(codes({ ...good, verdict: 'RIFARE' })).toEqual([]);
+    // a FAIL of fake-button caps "controls", hero-height (a site check) does not
+    expect(codes({ ...good, verdict: 'RIFARE', tasteFailedIds: ['fake-button'] })).toEqual(['taste_item_above_failed_check']);
+    expect(codes({ ...good, tasteFailedIds: ['fake-button'] })).toEqual(['taste_item_above_failed_check', 'verdict_approves_below_thresholds']);
+    expect(codes({ ...good, tasteFailedIds: ['hero-height'] })).toEqual([]);
+  });
+
+  it('s8471 forma-del-voto', () => {
+    const vote = r67('RIFARE');
+    const parse = (v: unknown) => designScore.DesignRefereeJudgementSchema.safeParse(v).success;
+    expect(designScore.DESIGN_REFEREE_VERDICTS).toEqual(['APPROVA', 'RIFARE']);
+    expect(designScore.DESIGN_SCORE_PROBLEMS.at(-1)).toBe('verdict_approves_below_thresholds');
+    expect(designScore.DESIGN_SCORE_SCHEMA_ISSUES.at(-1)).toBe('check_ids_not_unique');
+    expect(parse({ ...vote, verdict: 'MAYBE' })).toBe(false);
+    expect(parse({ ...vote, extra: 1 })).toBe(false);
+    expect(parse({ ...vote, tasteFailedIds: ['Bad Id'] })).toBe(false);
+    expect(parse({ ...vote, tasteFailedIds: ['focus-ring', 'focus-ring'] })).toBe(false);
+    expect(parse({ ...vote, copyLint: { words: 6, failedIds: ['a', 'a'] } })).toBe(false);
+    expect(parse({ ...vote, examplesLevel: 5 })).toBe(false);
+    expect(parse({ ...vote, brand: 3 })).toBe(true);
+    const low = designScore.designRefereeJudgementProblems(designScore.DesignRefereeJudgementSchema.parse({ ...vote, brand: 2 }), thresholds).map((p) => p.code);
+    expect(low).toContain('brand_below');
+    // the version 1 vote stays as it was
+    expect(designScore.DesignRefereeVoteSchema.safeParse({ audit: audit([4, 4, 4, 4, 4]), brand: null, atExamplesLevel: true }).success).toBe(true);
+  });
+
+  it('s8471 sito-con-la-griglia-copy-lint-e-scostamenti', () => {
+    expect(DEV_SESSION_ACCEPTANCE_CATALOG['D-23'].proof).toMatch(/copy-lint\.mjs --kind software --json`\)$/);
+    const dev = designScore.DesignBrandDeviationsSchema;
+    const ok = { colors: [{ value: '#FF0000', reason: 'Alert red requested by the client' }], fonts: [] };
+    expect(dev.safeParse(ok).success).toBe(true);
+    expect(dev.safeParse({ colors: [{ value: '#FF0000' }], fonts: [] }).success).toBe(false);
+    expect(dev.safeParse({ colors: [{ value: '#FF0000', reason: '   ' }], fonts: [] }).success).toBe(false);
+    expect(dev.safeParse({ colors: [], fonts: [{ value: 'Inter', reason: 'x'.repeat(501) }] }).success).toBe(false);
+    const values = designScore.designBrandDeviationValues(dev.parse(ok));
+    expect(values).toEqual({ colors: ['#FF0000'], fonts: [] });
+    const tokens = designScore.DesignBrandTokensSchema.parse({ colors: ['#000000'], fonts: ['Inter'], logoIds: [] });
+    expect(designScore.designBrandTokenProblems(tokens, { colors: ['#ff0000'], fonts: ['Inter'] }, values)).toEqual([]);
+    expect(designScore.designBrandTokenProblems(tokens, { colors: ['#ff0000'], fonts: [] })).toEqual([{ code: 'color_not_token', value: '#ff0000' }]);
+  });
+});

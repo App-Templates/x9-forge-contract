@@ -40,10 +40,12 @@ export const DESIGN_SCORE_PROBLEMS = [
   'taste_total_below',
   'taste_item_below',
   'taste_item_above_failed_check',
+  // Referee judgement: last, same reason.
+  'verdict_approves_below_thresholds',
 ] as const;
 export type DesignScoreProblemCode = (typeof DESIGN_SCORE_PROBLEMS)[number];
 
-export const DESIGN_SCORE_SCHEMA_ISSUES = ['audit_total_mismatch', 'critique_total_mismatch', 'critique_max_mismatch', 'colors_not_unique', 'fonts_not_unique', 'logos_not_unique', 'thresholds_inconsistent', 'taste_total_mismatch'] as const;
+export const DESIGN_SCORE_SCHEMA_ISSUES = ['audit_total_mismatch', 'critique_total_mismatch', 'critique_max_mismatch', 'colors_not_unique', 'fonts_not_unique', 'logos_not_unique', 'thresholds_inconsistent', 'taste_total_mismatch', 'check_ids_not_unique'] as const;
 type DesignSchemaIssue = (typeof DESIGN_SCORE_SCHEMA_ISSUES)[number];
 // Identity helper: a message outside the list above does not compile.
 const schemaIssue = (code: DesignSchemaIssue): DesignSchemaIssue => code;
@@ -185,6 +187,20 @@ export const DesignBrandTokensSchema = z
   });
 export type DesignBrandTokens = z.infer<typeof DesignBrandTokensSchema>;
 
+// D-08 deviations: a colour or font outside the tokens is allowed only with the reason it was needed.
+const DeviationReasonSchema = z.string().trim().min(1).max(500);
+export const DesignBrandDeviationsSchema = z.strictObject({
+  colors: z.array(z.strictObject({ value: ColorSchema, reason: DeviationReasonSchema })).max(64),
+  fonts: z.array(z.strictObject({ value: FontSchema, reason: DeviationReasonSchema })).max(8),
+});
+export type DesignBrandDeviations = z.infer<typeof DesignBrandDeviationsSchema>;
+
+// Plain values for the third argument of designBrandTokenProblems (its signature stays the same).
+export const designBrandDeviationValues = (d: DesignBrandDeviations): { colors: string[]; fonts: string[] } => ({
+  colors: d.colors.map((c) => c.value),
+  fonts: d.fonts.map((f) => f.value),
+});
+
 // Used colours/fonts that are neither tokens nor deviations declared in D-08.
 export const designBrandTokenProblems = (
   tokens: DesignBrandTokens,
@@ -275,5 +291,49 @@ export const designTasteProblems = (
     if (taste.scores[item] < thresholds.itemMin) problems.push({ code: 'taste_item_below', item });
     if (failedItems.has(item) && taste.scores[item] > thresholds.itemMaxWithFail) problems.push({ code: 'taste_item_above_failed_check', item });
   }
+  return problems;
+};
+
+// The referee's judgement, in a form the executor can read: the same skills as the session (Taste, then
+// Impeccable), blind to the session's own scores. The grid and the audit use the model thresholds.
+export const DESIGN_REFEREE_VERDICTS = ['APPROVA', 'RIFARE'] as const;
+export type DesignRefereeVerdict = (typeof DESIGN_REFEREE_VERDICTS)[number];
+
+const CheckIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/);
+
+export const DesignRefereeJudgementSchema = z
+  .strictObject({
+    taste: DesignTasteScoreSchema,
+    audit: DesignAuditScoreSchema,
+    critique: DesignCritiqueScoreSchema,
+    brand: ScoreSchema.nullable(),
+    // level against the excellence examples, 0-4
+    examplesLevel: ScoreSchema,
+    tasteFailedIds: z.array(CheckIdSchema).max(100),
+    copyLint: z.strictObject({ words: z.number().int().min(0), failedIds: z.array(CheckIdSchema).max(100) }),
+    verdict: z.enum(DESIGN_REFEREE_VERDICTS),
+  })
+  .superRefine((j, ctx) => {
+    // a repeated id would count one failure twice
+    if (!isUnique(j.tasteFailedIds)) ctx.addIssue({ code: 'custom', path: ['tasteFailedIds'], message: schemaIssue('check_ids_not_unique') });
+    if (!isUnique(j.copyLint.failedIds)) ctx.addIssue({ code: 'custom', path: ['copyLint', 'failedIds'], message: schemaIssue('check_ids_not_unique') });
+  });
+export type DesignRefereeJudgement = z.infer<typeof DesignRefereeJudgementSchema>;
+
+export type DesignRefereeJudgementProblem = { code: DesignScoreProblemCode; dimension?: DesignAuditDimension; item?: DesignTasteGridItem };
+
+// Taste first, then the audit and critique. APPROVA with any problem is an error; RIFARE above the
+// thresholds is allowed (the referee may reject a design that passes the numbers).
+export const designRefereeJudgementProblems = (
+  judgement: DesignRefereeJudgement,
+  thresholds: { score: DesignScoreThresholds; taste: DesignTasteThresholds },
+): DesignRefereeJudgementProblem[] => {
+  const problems: DesignRefereeJudgementProblem[] = [
+    ...designTasteProblems(judgement.taste, thresholds.taste, judgement.tasteFailedIds),
+    ...designScoreProblems({ audit: judgement.audit, critique: judgement.critique }, thresholds.score),
+  ];
+  if (judgement.brand !== null && judgement.brand < thresholds.score.dimensionMin) problems.push({ code: 'brand_below' });
+  if (judgement.examplesLevel < thresholds.score.dimensionMin) problems.push({ code: 'not_at_examples_level' });
+  if (judgement.verdict === 'APPROVA' && problems.length > 0) problems.push({ code: 'verdict_approves_below_thresholds' });
   return problems;
 };

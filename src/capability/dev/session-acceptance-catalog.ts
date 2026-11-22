@@ -131,7 +131,7 @@ export const DEV_SESSION_ACCEPTANCE_CATALOG = {
   'D-23': {
     attestor: 'esecutore', needs: ['taste_check'],
     text: "Il controllo finale di Taste, limitato ai controlli validi per un'app, non dà nessun difetto sui file consegnati",
-    proof: 'uscita del controllo di Taste rilanciato da lui sui file finali, con l\'elenco condiviso dei controlli per le app',
+    proof: 'uscita del controllo di Taste rilanciato da lui sui file finali, con l\'elenco condiviso dei controlli per le app, e uscita del controllo dei testi di Taste (`copy-lint.mjs --kind software --json`)',
   },
   'S-01': {
     attestor: 'esecutore', needs: ['commit'],

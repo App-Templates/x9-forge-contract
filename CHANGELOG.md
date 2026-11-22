@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.292.0 — the referee's judgement has its own form with the taste grid; sites get the taste thresholds; D-23 declares copy-lint; brand deviations carry a reason (task 8471)
+
+- Add to `src/capability/design-score.ts`: `DESIGN_REFEREE_VERDICTS`, `DesignRefereeJudgementSchema` (taste grid, audit, critique, brand, `examplesLevel` 0-4, `tasteFailedIds`, `copyLint`, verdict; repeated ids are `check_ids_not_unique`) and `designRefereeJudgementProblems(judgement, { score, taste })` (Taste first, then audit and critique; APPROVA with any problem adds `verdict_approves_below_thresholds`; RIFARE above the thresholds is allowed). `DesignBrandDeviationsSchema` (each colour or font with a 1-500 character reason) and `designBrandDeviationValues` for `designBrandTokenProblems`. `DesignRefereeVoteSchema` is unchanged.
+- Version 2 site gets `tasteThresholds` (D-21 only); D-23's proof also names the copy-lint output. Version 1 and saved contracts are unchanged.
+- REGRESSIONE: s8471 regressione-r67-voto-del-referente-a-mano: oggi `DesignRefereeJudgementSchema` non esiste e il voto del referente è un file scritto a mano; dopo il voto di R67 (gusto 10/24, audit 15/20, critique 27/40, livello 2/4, quattro FAIL di Taste) entra nella forma e dà `taste_total_below`, sei `taste_item_below`, `audit_total_below`, `audit_dimension_below` (`implementation_integrity`), `critique_total_below`, `not_at_examples_level`; con APPROVA aggiunge `verdict_approves_below_thresholds`; un voto sopra le soglie dà `[]`. Caso vero: R67 «Dispensa Pronta».
+
 ## v1.291.0 — the taste grid sits beside the audit, with the shared list of Taste checks for apps; app screens ask for decided taste and the final check (task 8465)
 
 - Add to `src/capability/design-score.ts`: `DESIGN_TASTE_GRID_ITEMS` (typography, controls, imagery, color_material, delight, composition), `DESIGN_TASTE_MAX` (24), `DesignTasteScoreSchema` (declared total must be the sum, else `taste_total_mismatch`), `DesignTasteThresholdsSchema` (`itemMin`, `totalMin`, `itemMaxWithFail`), `designTasteTotal`, `designTasteProblems(taste, thresholds, failedIds)` with the new codes `taste_total_below`, `taste_item_below`, `taste_item_above_failed_check` appended to `DESIGN_SCORE_PROBLEMS`; and `DESIGN_TASTE_APP_CHECK_IDS` (the 25 Taste checks valid on an app, id to grid item) with `designTasteAppFailures`.

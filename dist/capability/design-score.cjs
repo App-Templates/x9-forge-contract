@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.designTasteProblems = exports.designTasteAppFailures = exports.DesignTasteThresholdsSchema = exports.DesignTasteScoreSchema = exports.designTasteTotal = exports.DESIGN_TASTE_APP_CHECK_IDS = exports.DESIGN_TASTE_MAX = exports.DESIGN_TASTE_GRID_ITEMS = exports.designBrandTokenProblems = exports.DesignBrandTokensSchema = exports.designScoreGaps = exports.designRefereeProblems = exports.designScoreProblems = exports.DesignScoreThresholdsSchema = exports.DesignRefereeVoteSchema = exports.DesignCritiqueScoreSchema = exports.DesignAuditScoreSchema = exports.designCritiqueTotal = exports.designAuditTotal = exports.DESIGN_SCORE_SCHEMA_ISSUES = exports.DESIGN_SCORE_PROBLEMS = exports.DESIGN_AUDIT_MAX = exports.DESIGN_CRITIQUE_HEURISTICS = exports.DESIGN_AUDIT_DIMENSIONS = void 0;
+exports.designRefereeJudgementProblems = exports.DesignRefereeJudgementSchema = exports.DESIGN_REFEREE_VERDICTS = exports.designTasteProblems = exports.designTasteAppFailures = exports.DesignTasteThresholdsSchema = exports.DesignTasteScoreSchema = exports.designTasteTotal = exports.DESIGN_TASTE_APP_CHECK_IDS = exports.DESIGN_TASTE_MAX = exports.DESIGN_TASTE_GRID_ITEMS = exports.designBrandTokenProblems = exports.designBrandDeviationValues = exports.DesignBrandDeviationsSchema = exports.DesignBrandTokensSchema = exports.designScoreGaps = exports.designRefereeProblems = exports.designScoreProblems = exports.DesignScoreThresholdsSchema = exports.DesignRefereeVoteSchema = exports.DesignCritiqueScoreSchema = exports.DesignAuditScoreSchema = exports.designCritiqueTotal = exports.designAuditTotal = exports.DESIGN_SCORE_SCHEMA_ISSUES = exports.DESIGN_SCORE_PROBLEMS = exports.DESIGN_AUDIT_MAX = exports.DESIGN_CRITIQUE_HEURISTICS = exports.DESIGN_AUDIT_DIMENSIONS = void 0;
 const zod_1 = require("zod");
 // Scores of the design skills (Impeccable audit and critique) and the brand tokens, as contract types.
 // Thresholds are NOT constants here: the caller passes them (they live in the model, as data, so
@@ -36,8 +36,10 @@ exports.DESIGN_SCORE_PROBLEMS = [
     'taste_total_below',
     'taste_item_below',
     'taste_item_above_failed_check',
+    // Referee judgement: last, same reason.
+    'verdict_approves_below_thresholds',
 ];
-exports.DESIGN_SCORE_SCHEMA_ISSUES = ['audit_total_mismatch', 'critique_total_mismatch', 'critique_max_mismatch', 'colors_not_unique', 'fonts_not_unique', 'logos_not_unique', 'thresholds_inconsistent', 'taste_total_mismatch'];
+exports.DESIGN_SCORE_SCHEMA_ISSUES = ['audit_total_mismatch', 'critique_total_mismatch', 'critique_max_mismatch', 'colors_not_unique', 'fonts_not_unique', 'logos_not_unique', 'thresholds_inconsistent', 'taste_total_mismatch', 'check_ids_not_unique'];
 // Identity helper: a message outside the list above does not compile.
 const schemaIssue = (code) => code;
 const ScoreSchema = zod_1.z.number().int().min(0).max(SCORE_MAX);
@@ -166,6 +168,18 @@ exports.DesignBrandTokensSchema = zod_1.z
     if (!isUnique(tokens.logoIds))
         ctx.addIssue({ code: 'custom', path: ['logoIds'], message: schemaIssue('logos_not_unique') });
 });
+// D-08 deviations: a colour or font outside the tokens is allowed only with the reason it was needed.
+const DeviationReasonSchema = zod_1.z.string().trim().min(1).max(500);
+exports.DesignBrandDeviationsSchema = zod_1.z.strictObject({
+    colors: zod_1.z.array(zod_1.z.strictObject({ value: ColorSchema, reason: DeviationReasonSchema })).max(64),
+    fonts: zod_1.z.array(zod_1.z.strictObject({ value: FontSchema, reason: DeviationReasonSchema })).max(8),
+});
+// Plain values for the third argument of designBrandTokenProblems (its signature stays the same).
+const designBrandDeviationValues = (d) => ({
+    colors: d.colors.map((c) => c.value),
+    fonts: d.fonts.map((f) => f.value),
+});
+exports.designBrandDeviationValues = designBrandDeviationValues;
 // Used colours/fonts that are neither tokens nor deviations declared in D-08.
 const designBrandTokenProblems = (tokens, used, deviations = { colors: [], fonts: [] }) => {
     const colors = new Set([...tokens.colors, ...deviations.colors].map(normalizeColor));
@@ -246,4 +260,43 @@ const designTasteProblems = (taste, thresholds, failedIds = []) => {
     return problems;
 };
 exports.designTasteProblems = designTasteProblems;
+// The referee's judgement, in a form the executor can read: the same skills as the session (Taste, then
+// Impeccable), blind to the session's own scores. The grid and the audit use the model thresholds.
+exports.DESIGN_REFEREE_VERDICTS = ['APPROVA', 'RIFARE'];
+const CheckIdSchema = zod_1.z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/);
+exports.DesignRefereeJudgementSchema = zod_1.z
+    .strictObject({
+    taste: exports.DesignTasteScoreSchema,
+    audit: exports.DesignAuditScoreSchema,
+    critique: exports.DesignCritiqueScoreSchema,
+    brand: ScoreSchema.nullable(),
+    // level against the excellence examples, 0-4
+    examplesLevel: ScoreSchema,
+    tasteFailedIds: zod_1.z.array(CheckIdSchema).max(100),
+    copyLint: zod_1.z.strictObject({ words: zod_1.z.number().int().min(0), failedIds: zod_1.z.array(CheckIdSchema).max(100) }),
+    verdict: zod_1.z.enum(exports.DESIGN_REFEREE_VERDICTS),
+})
+    .superRefine((j, ctx) => {
+    // a repeated id would count one failure twice
+    if (!isUnique(j.tasteFailedIds))
+        ctx.addIssue({ code: 'custom', path: ['tasteFailedIds'], message: schemaIssue('check_ids_not_unique') });
+    if (!isUnique(j.copyLint.failedIds))
+        ctx.addIssue({ code: 'custom', path: ['copyLint', 'failedIds'], message: schemaIssue('check_ids_not_unique') });
+});
+// Taste first, then the audit and critique. APPROVA with any problem is an error; RIFARE above the
+// thresholds is allowed (the referee may reject a design that passes the numbers).
+const designRefereeJudgementProblems = (judgement, thresholds) => {
+    const problems = [
+        ...(0, exports.designTasteProblems)(judgement.taste, thresholds.taste, judgement.tasteFailedIds),
+        ...(0, exports.designScoreProblems)({ audit: judgement.audit, critique: judgement.critique }, thresholds.score),
+    ];
+    if (judgement.brand !== null && judgement.brand < thresholds.score.dimensionMin)
+        problems.push({ code: 'brand_below' });
+    if (judgement.examplesLevel < thresholds.score.dimensionMin)
+        problems.push({ code: 'not_at_examples_level' });
+    if (judgement.verdict === 'APPROVA' && problems.length > 0)
+        problems.push({ code: 'verdict_approves_below_thresholds' });
+    return problems;
+};
+exports.designRefereeJudgementProblems = designRefereeJudgementProblems;
 //# sourceMappingURL=design-score.js.map

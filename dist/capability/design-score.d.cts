@@ -4,9 +4,9 @@ export type DesignAuditDimension = (typeof DESIGN_AUDIT_DIMENSIONS)[number];
 export declare const DESIGN_CRITIQUE_HEURISTICS: readonly ["visibility_of_system_status", "match_system_real_world", "user_control_freedom", "consistency_standards", "error_prevention", "recognition_over_recall", "flexibility_efficiency", "aesthetic_minimalist_design", "error_recovery", "help_documentation"];
 export type DesignCritiqueHeuristic = (typeof DESIGN_CRITIQUE_HEURISTICS)[number];
 export declare const DESIGN_AUDIT_MAX = 20;
-export declare const DESIGN_SCORE_PROBLEMS: readonly ["audit_total_below", "audit_dimension_below", "critique_total_below", "critique_too_few_scored", "brand_below", "not_at_examples_level", "color_not_token", "font_not_token", "taste_total_below", "taste_item_below", "taste_item_above_failed_check"];
+export declare const DESIGN_SCORE_PROBLEMS: readonly ["audit_total_below", "audit_dimension_below", "critique_total_below", "critique_too_few_scored", "brand_below", "not_at_examples_level", "color_not_token", "font_not_token", "taste_total_below", "taste_item_below", "taste_item_above_failed_check", "verdict_approves_below_thresholds"];
 export type DesignScoreProblemCode = (typeof DESIGN_SCORE_PROBLEMS)[number];
-export declare const DESIGN_SCORE_SCHEMA_ISSUES: readonly ["audit_total_mismatch", "critique_total_mismatch", "critique_max_mismatch", "colors_not_unique", "fonts_not_unique", "logos_not_unique", "thresholds_inconsistent", "taste_total_mismatch"];
+export declare const DESIGN_SCORE_SCHEMA_ISSUES: readonly ["audit_total_mismatch", "critique_total_mismatch", "critique_max_mismatch", "colors_not_unique", "fonts_not_unique", "logos_not_unique", "thresholds_inconsistent", "taste_total_mismatch", "check_ids_not_unique"];
 export declare const designAuditTotal: (scores: Record<DesignAuditDimension, number>) => number;
 export declare const designCritiqueTotal: (scores: Record<DesignCritiqueHeuristic, number | null>) => {
     total: number;
@@ -65,6 +65,21 @@ export declare const DesignBrandTokensSchema: z.ZodObject<{
     logoIds: z.ZodArray<z.ZodString>;
 }, z.core.$strict>;
 export type DesignBrandTokens = z.infer<typeof DesignBrandTokensSchema>;
+export declare const DesignBrandDeviationsSchema: z.ZodObject<{
+    colors: z.ZodArray<z.ZodObject<{
+        value: z.ZodString;
+        reason: z.ZodString;
+    }, z.core.$strict>>;
+    fonts: z.ZodArray<z.ZodObject<{
+        value: z.ZodString;
+        reason: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type DesignBrandDeviations = z.infer<typeof DesignBrandDeviationsSchema>;
+export declare const designBrandDeviationValues: (d: DesignBrandDeviations) => {
+    colors: string[];
+    fonts: string[];
+};
 export declare const designBrandTokenProblems: (tokens: DesignBrandTokens, used: {
     colors: string[];
     fonts: string[];
@@ -129,4 +144,44 @@ export declare const designTasteAppFailures: (failedIds: readonly string[]) => A
     item: DesignTasteGridItem;
 }>;
 export declare const designTasteProblems: (taste: DesignTasteScore, thresholds: DesignTasteThresholds, failedIds?: readonly string[]) => DesignTasteProblem[];
+export declare const DESIGN_REFEREE_VERDICTS: readonly ["APPROVA", "RIFARE"];
+export type DesignRefereeVerdict = (typeof DESIGN_REFEREE_VERDICTS)[number];
+export declare const DesignRefereeJudgementSchema: z.ZodObject<{
+    taste: z.ZodObject<{
+        scores: z.ZodObject<Record<"typography" | "controls" | "imagery" | "color_material" | "delight" | "composition", z.ZodNumber>, z.core.$strict>;
+        total: z.ZodNumber;
+        max: z.ZodLiteral<number>;
+    }, z.core.$strict>;
+    audit: z.ZodObject<{
+        scores: z.ZodObject<Record<"accessibility" | "performance" | "theming" | "responsive" | "implementation_integrity", z.ZodNumber>, z.core.$strict>;
+        total: z.ZodNumber;
+        max: z.ZodLiteral<20>;
+    }, z.core.$strict>;
+    critique: z.ZodObject<{
+        scores: z.ZodObject<Record<"visibility_of_system_status" | "match_system_real_world" | "user_control_freedom" | "consistency_standards" | "error_prevention" | "recognition_over_recall" | "flexibility_efficiency" | "aesthetic_minimalist_design" | "error_recovery" | "help_documentation", z.ZodNullable<z.ZodNumber>>, z.core.$strict>;
+        total: z.ZodNumber;
+        max: z.ZodNumber;
+    }, z.core.$strict>;
+    brand: z.ZodNullable<z.ZodNumber>;
+    examplesLevel: z.ZodNumber;
+    tasteFailedIds: z.ZodArray<z.ZodString>;
+    copyLint: z.ZodObject<{
+        words: z.ZodNumber;
+        failedIds: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>;
+    verdict: z.ZodEnum<{
+        APPROVA: "APPROVA";
+        RIFARE: "RIFARE";
+    }>;
+}, z.core.$strict>;
+export type DesignRefereeJudgement = z.infer<typeof DesignRefereeJudgementSchema>;
+export type DesignRefereeJudgementProblem = {
+    code: DesignScoreProblemCode;
+    dimension?: DesignAuditDimension;
+    item?: DesignTasteGridItem;
+};
+export declare const designRefereeJudgementProblems: (judgement: DesignRefereeJudgement, thresholds: {
+    score: DesignScoreThresholds;
+    taste: DesignTasteThresholds;
+}) => DesignRefereeJudgementProblem[];
 //# sourceMappingURL=design-score.d.ts.map

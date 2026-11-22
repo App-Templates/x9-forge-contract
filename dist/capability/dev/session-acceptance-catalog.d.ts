@@ -130,7 +130,7 @@ export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
         readonly attestor: "esecutore";
         readonly needs: readonly ["taste_check"];
         readonly text: "Il controllo finale di Taste, limitato ai controlli validi per un'app, non dà nessun difetto sui file consegnati";
-        readonly proof: "uscita del controllo di Taste rilanciato da lui sui file finali, con l'elenco condiviso dei controlli per le app";
+        readonly proof: "uscita del controllo di Taste rilanciato da lui sui file finali, con l'elenco condiviso dei controlli per le app, e uscita del controllo dei testi di Taste (`copy-lint.mjs --kind software --json`)";
     };
     readonly 'S-01': {
         readonly attestor: "esecutore";

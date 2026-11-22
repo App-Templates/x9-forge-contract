@@ -71,6 +71,11 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
             readonly critiqueMinScored: 8;
             readonly gapMax: 1;
         };
+        readonly tasteThresholds: {
+            readonly itemMin: 3;
+            readonly totalMin: 21;
+            readonly itemMaxWithFail: 2;
+        };
         readonly productKind: "design";
         readonly supportedEngines: readonly ["claude"];
         readonly requiredInput: readonly ["screens", "formats", "visualSource"];
@@ -124,7 +129,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
 export declare function devSessionTemplateSupportsEngine(id: string, engine: DevelopmentSessionEngine): boolean;
 /** Read the selected model only; saved contracts and unknown versions get no implicit scores. */
 export declare function devSessionScoreThresholds(acceptance: DevSessionAcceptance): DesignScoreThresholds | undefined;
-/** Taste grid thresholds of the selected model only; sites, version 1 and saved contracts get none. */
+/** Taste grid thresholds of the selected model only; version 1 and saved contracts get none. */
 export declare function devSessionTasteThresholds(acceptance: DevSessionAcceptance): DesignTasteThresholds | undefined;
 export declare const DEV_SESSION_REQUIREMENT_ORIGINS: readonly ["modello", "mandato", "capo", "ritorno"];
 export declare const DEV_SESSION_REQUIREMENT_PROBLEMS: readonly ["template_unknown", "template_version_unknown", "template_optional_not_offered", "criterion_id_clashes_catalog"];

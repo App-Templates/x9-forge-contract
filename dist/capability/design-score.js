@@ -33,8 +33,10 @@ export const DESIGN_SCORE_PROBLEMS = [
     'taste_total_below',
     'taste_item_below',
     'taste_item_above_failed_check',
+    // Referee judgement: last, same reason.
+    'verdict_approves_below_thresholds',
 ];
-export const DESIGN_SCORE_SCHEMA_ISSUES = ['audit_total_mismatch', 'critique_total_mismatch', 'critique_max_mismatch', 'colors_not_unique', 'fonts_not_unique', 'logos_not_unique', 'thresholds_inconsistent', 'taste_total_mismatch'];
+export const DESIGN_SCORE_SCHEMA_ISSUES = ['audit_total_mismatch', 'critique_total_mismatch', 'critique_max_mismatch', 'colors_not_unique', 'fonts_not_unique', 'logos_not_unique', 'thresholds_inconsistent', 'taste_total_mismatch', 'check_ids_not_unique'];
 // Identity helper: a message outside the list above does not compile.
 const schemaIssue = (code) => code;
 const ScoreSchema = z.number().int().min(0).max(SCORE_MAX);
@@ -158,6 +160,17 @@ export const DesignBrandTokensSchema = z
     if (!isUnique(tokens.logoIds))
         ctx.addIssue({ code: 'custom', path: ['logoIds'], message: schemaIssue('logos_not_unique') });
 });
+// D-08 deviations: a colour or font outside the tokens is allowed only with the reason it was needed.
+const DeviationReasonSchema = z.string().trim().min(1).max(500);
+export const DesignBrandDeviationsSchema = z.strictObject({
+    colors: z.array(z.strictObject({ value: ColorSchema, reason: DeviationReasonSchema })).max(64),
+    fonts: z.array(z.strictObject({ value: FontSchema, reason: DeviationReasonSchema })).max(8),
+});
+// Plain values for the third argument of designBrandTokenProblems (its signature stays the same).
+export const designBrandDeviationValues = (d) => ({
+    colors: d.colors.map((c) => c.value),
+    fonts: d.fonts.map((f) => f.value),
+});
 // Used colours/fonts that are neither tokens nor deviations declared in D-08.
 export const designBrandTokenProblems = (tokens, used, deviations = { colors: [], fonts: [] }) => {
     const colors = new Set([...tokens.colors, ...deviations.colors].map(normalizeColor));
@@ -232,6 +245,44 @@ export const designTasteProblems = (taste, thresholds, failedIds = []) => {
         if (failedItems.has(item) && taste.scores[item] > thresholds.itemMaxWithFail)
             problems.push({ code: 'taste_item_above_failed_check', item });
     }
+    return problems;
+};
+// The referee's judgement, in a form the executor can read: the same skills as the session (Taste, then
+// Impeccable), blind to the session's own scores. The grid and the audit use the model thresholds.
+export const DESIGN_REFEREE_VERDICTS = ['APPROVA', 'RIFARE'];
+const CheckIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/);
+export const DesignRefereeJudgementSchema = z
+    .strictObject({
+    taste: DesignTasteScoreSchema,
+    audit: DesignAuditScoreSchema,
+    critique: DesignCritiqueScoreSchema,
+    brand: ScoreSchema.nullable(),
+    // level against the excellence examples, 0-4
+    examplesLevel: ScoreSchema,
+    tasteFailedIds: z.array(CheckIdSchema).max(100),
+    copyLint: z.strictObject({ words: z.number().int().min(0), failedIds: z.array(CheckIdSchema).max(100) }),
+    verdict: z.enum(DESIGN_REFEREE_VERDICTS),
+})
+    .superRefine((j, ctx) => {
+    // a repeated id would count one failure twice
+    if (!isUnique(j.tasteFailedIds))
+        ctx.addIssue({ code: 'custom', path: ['tasteFailedIds'], message: schemaIssue('check_ids_not_unique') });
+    if (!isUnique(j.copyLint.failedIds))
+        ctx.addIssue({ code: 'custom', path: ['copyLint', 'failedIds'], message: schemaIssue('check_ids_not_unique') });
+});
+// Taste first, then the audit and critique. APPROVA with any problem is an error; RIFARE above the
+// thresholds is allowed (the referee may reject a design that passes the numbers).
+export const designRefereeJudgementProblems = (judgement, thresholds) => {
+    const problems = [
+        ...designTasteProblems(judgement.taste, thresholds.taste, judgement.tasteFailedIds),
+        ...designScoreProblems({ audit: judgement.audit, critique: judgement.critique }, thresholds.score),
+    ];
+    if (judgement.brand !== null && judgement.brand < thresholds.score.dimensionMin)
+        problems.push({ code: 'brand_below' });
+    if (judgement.examplesLevel < thresholds.score.dimensionMin)
+        problems.push({ code: 'not_at_examples_level' });
+    if (judgement.verdict === 'APPROVA' && problems.length > 0)
+        problems.push({ code: 'verdict_approves_below_thresholds' });
     return problems;
 };
 //# sourceMappingURL=design-score.js.map
