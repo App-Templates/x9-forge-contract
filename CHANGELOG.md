@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.289.0 — design scores (audit out of 20, critique out of 40, referee vote) and brand tokens get their types (task 8462)
+
+- Add `src/capability/design-score.ts` (sub-path `@x9-forge/contracts/capability/design-score`, not re-exported from any index): `DesignAuditScoreSchema`, `DesignCritiqueScoreSchema` (declared total and max must be the derived ones; `null` = n/a), `DesignRefereeVoteSchema`, `DesignScoreThresholdsSchema` (`dimensionMin`, `auditTotalMin`, `critiqueMin`, `critiqueOutOf`, `critiqueMinScored`, `gapMax`: data the caller passes, never constants), `DesignBrandTokensSchema`; pure checks `designScoreProblems`, `designRefereeProblems`, `designScoreGaps`, `designAuditTotal`, `designCritiqueTotal`, `designBrandTokenProblems`; codes in `DESIGN_SCORE_PROBLEMS`. The critique is compared in proportion (`total/max >= critiqueMin/critiqueOutOf`) because n/a heuristics lower the maximum. No consumer is active until task 8463; no saved form changes.
+- REGRESSIONE: s8462 regressione-r64-senza-punteggi-buoni: un audit con totale 15/20, o con una dimensione a 2 su 4, o una critique sotto la soglia oggi non ha né tipo né verdetto (il modulo `design-score` non esiste); dopo `designScoreProblems` dà `audit_total_below`, `audit_dimension_below` (con la dimensione) e `critique_total_below`, e un totale dichiarato diverso dalla somma è rifiutato dallo schema. Caso vero: il design R64 di «Dispensa Pronta» è stato consegnato senza punteggi di audit né di critique.
+
 ## v1.288.0 — A refused turn or exhausted restarts fail the run; recovery belongs to Paperclip (task 8415)
 
 - Add the failure causes `admission_refused` and `restarts_exhausted` to `TURN_FAILURE_CAUSES`, with `TURN_DISPOSITION_TEXT.admissionRefusedNote(code)` and `restartsExhaustedNote()` (starts with `Turno interrotto troppe volte`, the marker cap-paperclip uses to restart its restart count). `turnFailRun('admission_refused', code)` requires the refusal code. `dispositionForTurnEnd` now returns `fail_run` for a definitive refusal instead of `block_for_owner`; `block_for_owner` and `unblockAction` stay in the schema so stored dispositions remain readable. Nothing is written to Paperclip (`paperclipBodyForDisposition` returns null). No consumer is active until task 8414.
