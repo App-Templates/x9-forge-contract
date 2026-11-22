@@ -33,7 +33,7 @@ function devSessionContractDocumentKey(issueNumber) {
 }
 /** Render the shared human contract; the sealed machine block stays on the session board. */
 function devSessionContractDocumentBody(input) {
-    const { acceptance, issueNumber, digest, base, deliverableKey } = input;
+    const { acceptance, issueNumber, digest, base, deliverableKey, deliverableKeys } = input;
     const key = devSessionContractDocumentKey(issueNumber);
     if (digest.length !== 64 || !/^[0-9a-f]{64}$/.test(digest))
         throw new Error('digest must be 64 lowercase hexadecimal characters');
@@ -45,7 +45,9 @@ function devSessionContractDocumentBody(input) {
     const lines = [
         `Impronta: ${digest}`,
         `Modello: ${acceptance.template.id} versione ${acceptance.template.version}`,
-        ...(deliverableKey === undefined ? [] : [`Pezzo: ${deliverableKey}`]),
+        ...(deliverableKeys !== undefined && deliverableKeys.length > 1
+            ? [`Pezzi: ${deliverableKeys.join(', ')}`]
+            : deliverableKey === undefined ? [] : [`Pezzo: ${deliverableKey}`]),
         base === undefined ? 'Base di partenza: ramo principale' : `Base di partenza: ${base.ramo} (commit ${base.commit})`,
     ];
     const thresholds = (0, session_acceptance_templates_js_1.devSessionScoreThresholds)(acceptance);

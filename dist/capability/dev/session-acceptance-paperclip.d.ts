@@ -13,6 +13,8 @@ export declare function devSessionContractDocumentBody(input: {
     digest: string;
     base?: DevSessionBase;
     deliverableKey?: string;
+    /** A redo with several pieces; one line «Pezzi: a, b» replaces «Pezzo: a». */
+    deliverableKeys?: readonly string[];
 }): {
     key: string;
     title: string;

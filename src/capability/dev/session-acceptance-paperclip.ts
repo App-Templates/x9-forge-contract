@@ -37,8 +37,10 @@ export function devSessionContractDocumentBody(input: {
   digest: string;
   base?: DevSessionBase;
   deliverableKey?: string;
+  /** A redo with several pieces; one line «Pezzi: a, b» replaces «Pezzo: a». */
+  deliverableKeys?: readonly string[];
 }): { key: string; title: string; body: string; changeSummary: string } {
-  const { acceptance, issueNumber, digest, base, deliverableKey } = input;
+  const { acceptance, issueNumber, digest, base, deliverableKey, deliverableKeys } = input;
   const key = devSessionContractDocumentKey(issueNumber);
   if (digest.length !== 64 || !/^[0-9a-f]{64}$/.test(digest)) throw new Error('digest must be 64 lowercase hexadecimal characters');
   const resolved = devSessionRequirements(acceptance);
@@ -49,7 +51,9 @@ export function devSessionContractDocumentBody(input: {
   const lines = [
     `Impronta: ${digest}`,
     `Modello: ${acceptance.template.id} versione ${acceptance.template.version}`,
-    ...(deliverableKey === undefined ? [] : [`Pezzo: ${deliverableKey}`]),
+    ...(deliverableKeys !== undefined && deliverableKeys.length > 1
+      ? [`Pezzi: ${deliverableKeys.join(', ')}`]
+      : deliverableKey === undefined ? [] : [`Pezzo: ${deliverableKey}`]),
     base === undefined ? 'Base di partenza: ramo principale' : `Base di partenza: ${base.ramo} (commit ${base.commit})`,
   ];
   const thresholds = devSessionScoreThresholds(acceptance);

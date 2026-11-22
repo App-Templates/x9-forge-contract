@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.293.0",
+  "versione": "1.294.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1356,6 +1356,7 @@
       "DEV_SESSION_MANDATE_CRITERION_PROOF": "@x9-forge/contracts/capability/dev/session-acceptance-mandate",
       "DEV_SESSION_MATERIAL_ASSET_TYPES": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "DEV_SESSION_MATERIAL_PATH": "@x9-forge/contracts/capability/dev/session-material-link",
+      "DEV_SESSION_MAX_DELIVERABLE_KEYS": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_MAX_FILES": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_MAX_MATERIALS": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_OUTCOME_BLOCK_MARKER": "@x9-forge/contracts/capability/dev/session-outcome",
@@ -1453,6 +1454,7 @@
       "devSessionCoverageMissing": "@x9-forge/contracts/capability/dev/session-acceptance-coverage",
       "devSessionCoverageSlots": "@x9-forge/contracts/capability/dev/session-acceptance-coverage",
       "devSessionDeliverableKeyProblem": "@x9-forge/contracts/capability/dev/session-assignment",
+      "devSessionDeliverableKeys": "@x9-forge/contracts/capability/dev/session-assignment",
       "devSessionDribbbleShotsMin": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "devSessionHasChiefStepCriterion": "@x9-forge/contracts/capability/dev/session-acceptance-templates",
       "devSessionId": "@x9-forge/contracts/capability/dev/session-assignment",

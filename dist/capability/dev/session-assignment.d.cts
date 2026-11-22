@@ -21,6 +21,8 @@ export declare const DEV_SESSION_DELIVERED_FILES_LABEL: "File consegnati:";
 export declare const DEV_SESSION_COMMIT_LABEL: "Commit:";
 export declare const DEV_SESSION_MAX_FILES = 20;
 export declare const DEV_SESSION_MAX_MATERIALS = 20;
+/** Same ceiling as the files of one version; no mandate today gives a unit more than 9 pieces. */
+export declare const DEV_SESSION_MAX_DELIVERABLE_KEYS = 20;
 /** Marcatore del blocco leggibile da macchina dentro il corpo della issue. */
 export declare const DEV_SESSION_BLOCK_MARKER: "x9:dev-session:v1";
 /** Una sessione produce codice o design; gli altri tipi di produzione non passano da qui. */
@@ -178,6 +180,12 @@ export declare const DevSessionAssignmentSchema: z.ZodObject<{
     /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
     deliverableKey: z.ZodOptional<z.ZodString>;
     /**
+     * Every piece a redo carries, in mandate order; `deliverableKey` stays the first, so a reader that knows only one
+     * piece still sees a real one. Absent = one piece or none, and then the canonical json and the digest are those of
+     * an assignment written before 1.294.0.
+     */
+    deliverableKeys: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    /**
      * Whether the delivery package (`CONSEGNA.json`) is due. Same meaning for `code` and `design`, no link with
      * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
      */
@@ -289,9 +297,11 @@ export type DevSessionAssignment = z.infer<typeof DevSessionAssignmentSchema>;
  * unit works on, otherwise the unit's own sections.
  */
 export declare function mandateDeliverableKeys(mandate: ReconciledMandate): string[];
+/** The pieces of the assignment: the list when there is one, else the single key, else none. */
+export declare function devSessionDeliverableKeys(assignment: Pick<DevSessionAssignment, 'deliverableKey' | 'deliverableKeys'>): string[];
 export declare const DEV_SESSION_DELIVERABLE_KEY_PROBLEMS: readonly ["deliverable_key_missing", "mandate_foreign_scope", "mandate_foreign_business_unit", "mandate_without_deliverables", "deliverable_key_not_in_mandate"];
 export type DevSessionDeliverableKeyProblem = (typeof DEV_SESSION_DELIVERABLE_KEY_PROBLEMS)[number];
-/** First reason why the assignment's deliverable key does not come from this mandate, or `null` when it does. */
+/** First reason why a deliverable key of the assignment does not come from this mandate, or `null` when all do. */
 export declare function devSessionDeliverableKeyProblem(assignment: DevSessionAssignment, mandate: ReconciledMandate): DevSessionDeliverableKeyProblem | null;
 /** Ramo di consegna dell'incarico aperto come issue `issueNumber`. */
 export declare function devSessionBranch(issueNumber: number): string;

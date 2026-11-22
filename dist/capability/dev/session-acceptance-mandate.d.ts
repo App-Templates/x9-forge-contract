@@ -34,6 +34,6 @@ type CompleteMandateResult = {
  * Append the mandate criteria the lead did not write, named by position. Criteria already in `own`
  * (same trimmed text, origin `mandato`) are left untouched, so hand-written input comes back identical.
  */
-export declare function devSessionCompleteMandateCriteria(mandate: ReconciledMandate, deliverableKey: string, own: DevSessionCriterion[]): CompleteMandateResult;
+export declare function devSessionCompleteMandateCriteria(mandate: ReconciledMandate, deliverableKeys: string | readonly string[], own: DevSessionCriterion[]): CompleteMandateResult;
 export {};
 //# sourceMappingURL=session-acceptance-mandate.d.ts.map

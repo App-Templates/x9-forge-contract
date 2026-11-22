@@ -25,6 +25,8 @@ export const DEV_SESSION_DELIVERED_FILES_LABEL = 'File consegnati:';
 export const DEV_SESSION_COMMIT_LABEL = 'Commit:';
 export const DEV_SESSION_MAX_FILES = 20;
 export const DEV_SESSION_MAX_MATERIALS = 20;
+/** Same ceiling as the files of one version; no mandate today gives a unit more than 9 pieces. */
+export const DEV_SESSION_MAX_DELIVERABLE_KEYS = 20;
 /** Marcatore del blocco leggibile da macchina dentro il corpo della issue. */
 export const DEV_SESSION_BLOCK_MARKER = 'x9:dev-session:v1';
 /** Una sessione produce codice o design; gli altri tipi di produzione non passano da qui. */
@@ -102,6 +104,12 @@ export const DevSessionAssignmentSchema = z.strictObject({
     /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
     deliverableKey: AssetKeySchema.optional(),
     /**
+     * Every piece a redo carries, in mandate order; `deliverableKey` stays the first, so a reader that knows only one
+     * piece still sees a real one. Absent = one piece or none, and then the canonical json and the digest are those of
+     * an assignment written before 1.294.0.
+     */
+    deliverableKeys: z.array(AssetKeySchema).min(1).max(DEV_SESSION_MAX_DELIVERABLE_KEYS).optional(),
+    /**
      * Whether the delivery package (`CONSEGNA.json`) is due. Same meaning for `code` and `design`, no link with
      * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
      */
@@ -116,6 +124,13 @@ export const DevSessionAssignmentSchema = z.strictObject({
     base: DevSessionBaseSchema.optional(),
     createdAt: z.iso.datetime({ offset: true }),
 }).superRefine((assignment, ctx) => {
+    const keys = assignment.deliverableKeys;
+    if (keys !== undefined) {
+        if (new Set(keys).size !== keys.length)
+            ctx.addIssue({ code: 'custom', path: ['deliverableKeys'], message: 'deliverable_keys_duplicate' });
+        if (assignment.deliverableKey !== keys[0])
+            ctx.addIssue({ code: 'custom', path: ['deliverableKey'], message: 'deliverable_key_not_first' });
+    }
     assignment.materials.forEach((material, index) => {
         if (material.kind !== 'asset')
             return;
@@ -142,6 +157,12 @@ export function mandateDeliverableKeys(mandate) {
     }
     return (businessUnit.sections ?? []).map((section) => section.id);
 }
+/** The pieces of the assignment: the list when there is one, else the single key, else none. */
+export function devSessionDeliverableKeys(assignment) {
+    if (assignment.deliverableKeys !== undefined)
+        return [...assignment.deliverableKeys];
+    return assignment.deliverableKey === undefined ? [] : [assignment.deliverableKey];
+}
 export const DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = [
     'deliverable_key_missing',
     'mandate_foreign_scope',
@@ -149,9 +170,10 @@ export const DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = [
     'mandate_without_deliverables',
     'deliverable_key_not_in_mandate',
 ];
-/** First reason why the assignment's deliverable key does not come from this mandate, or `null` when it does. */
+/** First reason why a deliverable key of the assignment does not come from this mandate, or `null` when all do. */
 export function devSessionDeliverableKeyProblem(assignment, mandate) {
-    if (assignment.deliverableKey === undefined)
+    const own = devSessionDeliverableKeys(assignment);
+    if (own.length === 0)
         return 'deliverable_key_missing';
     if (mandate.tenantId !== assignment.tenantId
         || mandate.organizationId !== assignment.organizationId
@@ -162,7 +184,7 @@ export function devSessionDeliverableKeyProblem(assignment, mandate) {
     const keys = mandateDeliverableKeys(mandate);
     if (keys.length === 0)
         return 'mandate_without_deliverables';
-    return keys.includes(assignment.deliverableKey) ? null : 'deliverable_key_not_in_mandate';
+    return own.every((key) => keys.includes(key)) ? null : 'deliverable_key_not_in_mandate';
 }
 /** Ramo di consegna dell'incarico aperto come issue `issueNumber`. */
 export function devSessionBranch(issueNumber) {
