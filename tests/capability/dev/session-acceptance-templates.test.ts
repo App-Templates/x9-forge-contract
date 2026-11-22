@@ -1,16 +1,24 @@
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { z } from 'zod';
 import { describe, expect, it } from 'vitest';
+import { DesignScoreThresholdsSchema } from '../../../src/capability/design-score.js';
 import { DEV_SESSION_ACCEPTANCE_CATALOG, DEV_SESSION_ACCEPTANCE_NEEDS } from '../../../src/capability/dev/session-acceptance-catalog.js';
 import {
   DEV_SESSION_TEMPLATE_IDS, DevSessionTemplateIdSchema, DEV_SESSION_TEMPLATE_MATERIALS,
-  DEV_SESSION_TEMPLATES, DEV_SESSION_REQUIREMENT_ORIGINS, DEV_SESSION_REQUIREMENT_PROBLEMS,
-  DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS, devSessionTemplateSupportsEngine,
+  DEV_SESSION_TEMPLATES, DEV_SESSION_TEMPLATES_V2, DEV_SESSION_MATERIAL_ASSET_TYPES, devSessionMaterialsByRole, devSessionScoreThresholds, DEV_SESSION_REQUIREMENT_ORIGINS, DEV_SESSION_REQUIREMENT_PROBLEMS,
+  DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS, VISUAL_IMAGES_MISSING_MOVE, devSessionTemplateSupportsEngine,
   devSessionRequirements, devSessionAcceptanceTemplateProblem,
 } from '../../../src/capability/dev/session-acceptance-templates.js';
 import {
   DevSessionAcceptanceSchema, DevSessionAcceptanceInputSchema,
   type DevSessionAcceptance,
 } from '../../../src/capability/dev/session-acceptance.js';
-import { DevSessionAssignmentSchema, DevSessionKindSchema, type DevSessionAssignment } from '../../../src/capability/dev/session-assignment.js';
+import {
+  DevSessionAssignmentSchema, DevSessionKindSchema, devSessionAssignmentCanonicalJson, parseDevSessionBlock,
+  type DevSessionAssignment, type DevSessionMaterial,
+} from '../../../src/capability/dev/session-assignment.js';
+import { devSessionContractDocumentBody } from '../../../src/capability/dev/session-acceptance-paperclip.js';
 import { devSessionAcceptanceVerdict } from '../../../src/capability/dev/session-attestation.js';
 import { DevelopmentSessionEngineSchema } from '../../../src/capability/connect/development-session.js';
 
@@ -46,13 +54,16 @@ function assignment(): DevSessionAssignment {
 
 describe('s7561', () => {
   it('s7561_catalogo', () => {
-    expect(DEV_SESSION_ACCEPTANCE_NEEDS).toEqual(['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install']);
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS).toEqual(['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install', 'score_file']);
     const expected = {
       'D-01': ['esecutore', ['skill_log']], 'D-02': ['esecutore', ['gate']],
       'D-03': ['esecutore', ['detector']], 'D-04': ['esecutore', ['static_scan']],
-      'D-05': ['esecutore', ['screenshot']], 'D-07': ['sessione', []], 'D-08': ['sessione', []],
+      'D-05': ['esecutore', ['screenshot']], 'D-06': ['esecutore', ['static_scan']], 'D-07': ['sessione', []], 'D-08': ['sessione', []],
       'D-09': ['esecutore', ['package']], 'D-11': ['referente', []],
       'D-12': ['esecutore', ['skill_log']], 'D-13': ['esecutore', ['skill_log']], 'D-14': ['esecutore', ['skill_log']],
+      'D-15': ['esecutore', ['skill_log']], 'D-16': ['esecutore', ['skill_log', 'file_list']],
+      'D-17': ['esecutore', ['skill_log']], 'D-18': ['esecutore', ['score_file']],
+      'D-19': ['esecutore', ['detector']], 'D-20': ['esecutore', ['skill_log']], 'D-21': ['referente', []],
       'S-01': ['esecutore', ['commit']], 'S-02': ['esecutore', ['prove_run']],
       'S-03': ['esecutore', ['browser']], 'S-04': ['esecutore', ['screenshot']],
       'S-05': ['esecutore', ['prove_run']], 'S-06': ['referente', []],
@@ -61,8 +72,8 @@ describe('s7561', () => {
       'S-11': ['esecutore', ['clean_install']],
     };
     expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG).sort()).toEqual(Object.keys(expected).sort());
-    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(23);
-    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(23);
+    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(31);
+    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(31);
     for (const [id, entry] of Object.entries(DEV_SESSION_ACCEPTANCE_CATALOG)) {
       expect([entry.attestor, entry.needs]).toEqual(expected[id as keyof typeof expected]);
       expect(entry.attestor === 'esecutore').toBe(entry.needs.length > 0);
@@ -71,7 +82,7 @@ describe('s7561', () => {
         expect(text.length).toBeLessThanOrEqual(500);
       }
     }
-    expect(DEV_SESSION_ACCEPTANCE_CATALOG).not.toHaveProperty('D-06');
+    expect(DEV_SESSION_ACCEPTANCE_CATALOG).toHaveProperty('D-06', expect.objectContaining({ attestor: 'esecutore', needs: ['static_scan'] }));
     expect(DEV_SESSION_ACCEPTANCE_CATALOG).not.toHaveProperty('D-10');
     expect(DEV_SESSION_ACCEPTANCE_CATALOG['D-01'].proof).toBe('riga dello strumento `Skill` nel registro della sessione');
     expect(DEV_SESSION_ACCEPTANCE_CATALOG['D-05'].text).toBe("C'è almeno un'immagine per ogni sezione chiesta, ogni comportamento chiesto (stati e interazioni principali), ogni formato e ogni elemento identificativo (ingresso, navigazione, schermata del risultato)");
@@ -82,7 +93,7 @@ describe('s7561', () => {
     expect(DEV_SESSION_TEMPLATE_IDS).toEqual(['sviluppo-pezzo-app', 'design-sito', 'design-schermata-app', 'design-ritocco']);
     expect(DevSessionTemplateIdSchema.options).toEqual(DEV_SESSION_TEMPLATE_IDS);
     expect(DevSessionTemplateIdSchema.safeParse('unknown').success).toBe(false);
-    expect(DEV_SESSION_TEMPLATE_MATERIALS).toEqual(['visual_images', 'retouch_file']);
+    expect(DEV_SESSION_TEMPLATE_MATERIALS).toEqual(['visual_images', 'retouch_file', 'approved_images', 'brand_assets', 'excellence_examples']);
     expect(Object.keys(DEV_SESSION_TEMPLATES)).toEqual(DEV_SESSION_TEMPLATE_IDS);
     const expected = [
       { productKind: 'code', supportedEngines: ['codex', 'claude'], requiredInput: ['userPath', 'data', 'proofScripts', 'visualSource'], materials: ['visual_images'], formCriteria: codeForm, optionalCriteria: codeOptional },
@@ -170,13 +181,13 @@ describe('s7561', () => {
     value.acceptance = input;
     input.input.visualSource = { kind: 'figma', reference: 'node-1' };
     value.materials = [];
-    expect(devSessionAcceptanceTemplateProblem(value)).toEqual({ code: 'visual_images_missing' });
+    expect(devSessionAcceptanceTemplateProblem(value)).toEqual({ code: 'visual_images_missing', detail: VISUAL_IMAGES_MISSING_MOVE });
     value.materials = [{ kind: 'github_link', url: 'https://github.com/App-Templates/gz-mockups' }];
-    expect(devSessionAcceptanceTemplateProblem(value)).toEqual({ code: 'visual_images_missing' });
+    expect(devSessionAcceptanceTemplateProblem(value)).toEqual({ code: 'visual_images_missing', detail: VISUAL_IMAGES_MISSING_MOVE });
     const image = assignment().materials[0];
     if (image?.kind !== 'asset') throw new Error('Missing fixture image');
     value.materials = [{ ...image, asset: { ...image.asset, mediaType: 'application/pdf' } }];
-    expect(devSessionAcceptanceTemplateProblem(value)).toEqual({ code: 'visual_images_missing' });
+    expect(devSessionAcceptanceTemplateProblem(value)).toEqual({ code: 'visual_images_missing', detail: VISUAL_IMAGES_MISSING_MOVE });
     value.materials = [image];
     expect(devSessionAcceptanceTemplateProblem(value)).toBeNull();
     input.input.visualSource = { kind: 'tavola_approvata', reference: 'another-asset' };
@@ -240,7 +251,9 @@ describe('s8079 installazione pulita', () => {
     expect(entry.needs).toEqual(['clean_install']);
     expect(entry.text).toContain('installazione pulita');
     expect(entry.text).toContain('package.json');
-    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-1)).toBe('clean_install');
+    // Version 2 appended score_file after clean_install: the existing order is kept, never reshuffled.
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-2)).toBe('clean_install');
+    expect(DEV_SESSION_ACCEPTANCE_NEEDS.at(-1)).toBe('score_file');
   });
 
   it('s8079_modello', () => {
@@ -334,5 +347,243 @@ describe('s8210 design-strumenti', () => {
       value.criteria = [{ ...criterion, id }];
       expect(devSessionRequirements(value)).toEqual({ ok: false, code: 'criterion_id_clashes_catalog' });
     }
+  });
+});
+
+// Version 2 design models (task 8463). Helpers live inside the block so the older cases keep their own.
+describe('s8463 modelli di design versione 2', () => {
+  const digest = 'a'.repeat(64);
+  const designIds = ['design-sito', 'design-schermata-app', 'design-ritocco'] as const;
+  type DesignId = (typeof designIds)[number];
+  const originalForms = {
+    'design-sito': ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14'],
+    'design-schermata-app': ['D-01', 'D-03', 'D-04', 'D-05', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14'],
+    'design-ritocco': ['D-01', 'D-03', 'D-08', 'D-11', 'D-13', 'D-14'],
+  };
+  const newForms = {
+    'design-sito': ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-06', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
+    'design-schermata-app': ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
+    'design-ritocco': ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21'],
+  };
+  const thresholds = { dimensionMin: 3, auditTotalMin: 16, critiqueMin: 30, critiqueOutOf: 40, critiqueMinScored: 8, gapMax: 1 };
+
+  function contract(id: DesignId, version = 2): DevSessionAcceptance {
+    return DevSessionAcceptanceSchema.parse({
+      version: 1, template: { id, version },
+      input: {
+        screens: [{ name: 'dispensa', purpose: 'Aggiungere un prodotto alla dispensa' }],
+        states: ['pieno', 'vuoto'], formats: ['telefono', 'computer'],
+        retouch: { target: 'aggiungi.png', defect: 'Gerarchia e dettagli del modulo' },
+        visualSource: { kind: 'nessuna' },
+      },
+      criteria: [{ id: 'add-product', text: 'Si può aggiungere un prodotto.', attestor: 'referente', proof: 'Provare il modulo.', origin: 'capo' }],
+    });
+  }
+
+  function material(assetId: string, assetType?: string, mediaType = 'image/png'): DevSessionMaterial {
+    return {
+      kind: 'asset', asset: {
+        assetId, sha256: digest, name: 'aggiungi.png', mediaType, sizeBytes: 2048,
+        origin: { kind: 'email', messageId: 'message-64', attachmentName: 'aggiungi.png' },
+        tenantId: 'tenant-1', companyId: 'good-choice', projectId: 'dispensa-pronta',
+        ...(assetType === undefined ? {} : { assetType }), createdAt: '2026-11-22T10:00:00Z',
+      },
+    };
+  }
+
+  function assignment(acceptance: DevSessionAcceptance): DevSessionAssignment {
+    return DevSessionAssignmentSchema.parse({
+      version: 1, tenantId: 'tenant-1', ownerId: '7', organizationId: 'good-choice',
+      companyId: 'good-choice', projectId: 'dispensa-pronta', businessUnit: { slug: 'design' },
+      requestedBy: { managementAgentId: 'capo-design', runtimeAgentId: 'capo-design', vaultAgentId: 62 },
+      productKind: 'design', title: 'Dispensa Pronta', task: 'Disegna il modulo per aggiungere un prodotto.',
+      miniPlan: 'Esaminare i materiali, scegliere la direzione e verificare il modulo.',
+      materials: [material('asset-design-64')], destination: { repo: 'App-Templates/goodchoice-backtest' },
+      createdAt: '2026-11-22T10:00:00Z', acceptance,
+    });
+  }
+
+  function formIds(acceptance: DevSessionAcceptance): string[] {
+    const expanded = devSessionRequirements(acceptance);
+    if (!expanded.ok) throw new Error(expanded.code);
+    return expanded.requirements.filter(({ origin }) => origin === 'modello').map(({ id }) => id);
+  }
+
+  describe('s8463 design templates version 2', () => {
+    it('s8463 regressione-r64-design-v2-con-le-prove-di-eccellenza', () => {
+      for (const id of designIds) {
+        const acceptance = contract(id);
+        expect(devSessionRequirements(acceptance).ok, id).toBe(true);
+        expect(formIds(acceptance), id).toEqual(newForms[id]);
+        expect(devSessionAcceptanceTemplateProblem(assignment(acceptance)), id).toBeNull();
+      }
+      for (const id of ['D-12', 'D-16', 'D-17', 'D-18']) {
+        expect(formIds(contract('design-ritocco'))).not.toContain(id);
+      }
+    });
+
+    it('s8463 versione-1-resta-uguale', () => {
+      for (const id of designIds) {
+        const acceptance = contract(id, 1);
+        expect(formIds(acceptance), id).toEqual(originalForms[id]);
+        expect(DEV_SESSION_TEMPLATES[id].formCriteria, id).toEqual(originalForms[id]);
+        expect(DEV_SESSION_TEMPLATES[id].version, id).toBe(1);
+        expect(DEV_SESSION_TEMPLATES[id]).not.toHaveProperty('scoreThresholds');
+        expect(devSessionScoreThresholds(acceptance)).toBeUndefined();
+        expect(devSessionAcceptanceTemplateProblem(assignment(acceptance)), id).toBeNull();
+      }
+      // Fixed production digests catch a wire-shape change as well as a wrong version lookup.
+      const fixture = z.object({ blocchi: z.array(z.object({ id: z.string(), blocco: z.string(), impronta: z.string() })) })
+        .parse(JSON.parse(readFileSync(new URL('../../../fixtures/dev/s8261-saved-contracts.json', import.meta.url), 'utf8')));
+      expect(fixture.blocchi.map(({ id }) => id)).toEqual(['R56', 'R57', 'R58', 'R59', 'R60', 'R61']);
+      for (const saved of fixture.blocchi) {
+        const parsed = parseDevSessionBlock(saved.blocco);
+        expect(parsed.ok, saved.id).toBe(true);
+        if (!parsed.ok) throw new Error(parsed.reason);
+        expect(parsed.assignment).toEqual(JSON.parse(saved.blocco.split('\n')[2]!));
+        expect(parsed.digest).toBe(saved.impronta);
+        expect(createHash('sha256').update(devSessionAssignmentCanonicalJson(parsed.assignment)).digest('hex')).toBe(saved.impronta);
+        if (saved.id === 'R58') {
+          expect(parsed.assignment).not.toHaveProperty('acceptance');
+        } else {
+          const acceptance = parsed.assignment.acceptance;
+          if (acceptance === undefined) throw new Error(`${saved.id}: missing acceptance`);
+          expect(acceptance.template).toEqual({ id: 'sviluppo-pezzo-app', version: 1 });
+          expect(formIds(acceptance)).toEqual(['S-01', 'S-02', 'S-05', 'S-07', 'S-08', 'S-10', 'S-11']);
+          expect(devSessionScoreThresholds(acceptance)).toBeUndefined();
+        }
+      }
+    });
+
+    it('s8463 il-rifiuto-dice-che-un-pdf-non-vale', () => {
+      expect(VISUAL_IMAGES_MISSING_MOVE).toMatch(/pdf non vale/i);
+      for (const word of ['png', 'jpeg', 'visualSource', 'nessuna']) expect(VISUAL_IMAGES_MISSING_MOVE).toContain(word);
+      for (const version of [1, 2]) {
+        for (const id of designIds) {
+          for (const kind of ['figma', 'tavola_approvata'] as const) {
+            const acceptance = contract(id, version);
+            acceptance.input.visualSource = { kind, reference: 'asset-design-64' };
+            const value = assignment(acceptance);
+            value.acceptance = acceptance;
+            value.materials = [material('asset-design-64', 'design-approvato', 'application/pdf')];
+            expect(devSessionAcceptanceTemplateProblem(value)).toEqual({ code: 'visual_images_missing', detail: VISUAL_IMAGES_MISSING_MOVE });
+            for (const mediaType of ['image/png', 'image/jpeg']) {
+              value.materials = [material('asset-design-64', 'design-approvato', mediaType)];
+              expect(devSessionAcceptanceTemplateProblem(value)).toBeNull();
+            }
+            acceptance.input.visualSource = { kind: 'nessuna' };
+            value.materials = [material('asset-design-64', undefined, 'application/pdf')];
+            expect(devSessionAcceptanceTemplateProblem(value)).toBeNull();
+          }
+        }
+      }
+    });
+
+    it('s8463 ricerca-per-id-e-versione-senza-promozione-implicita', () => {
+      for (const id of ['unknown', 'constructor', '__proto__', 'toString']) {
+        const acceptance = { ...contract('design-sito'), template: { id, version: 2 } };
+        expect(devSessionRequirements(acceptance)).toEqual({ ok: false, code: 'template_unknown' });
+        // Prototype keys are not valid slugs, so bypass the assignment schema and probe the lookup directly.
+        expect(devSessionAcceptanceTemplateProblem({ ...assignment(contract('design-sito')), acceptance })).toEqual({ code: 'template_unknown' });
+        expect(devSessionScoreThresholds(acceptance)).toBeUndefined();
+      }
+      for (const id of [...designIds, 'sviluppo-pezzo-app']) {
+        const versions = id === 'sviluppo-pezzo-app' ? [2, 3] : [3, 99];
+        for (const version of versions) {
+          const acceptance = { ...contract('design-sito'), template: { id, version } };
+          expect(devSessionRequirements(acceptance)).toEqual({ ok: false, code: 'template_version_unknown' });
+          expect(devSessionAcceptanceTemplateProblem(assignment(acceptance))).toEqual({ code: 'template_version_unknown' });
+          expect(devSessionScoreThresholds(acceptance)).toBeUndefined();
+        }
+      }
+    });
+
+    it('s8463 soglie-e-materiali-vivono-nei-tre-modelli', () => {
+      expect(Object.keys(DEV_SESSION_TEMPLATES_V2)).toEqual(designIds);
+      for (const id of designIds) {
+        const template = DEV_SESSION_TEMPLATES_V2[id];
+        expect(template.version).toBe(2);
+        expect(template.requiredInput).toEqual(DEV_SESSION_TEMPLATES[id].requiredInput);
+        expect(template.supportedEngines).toEqual(['claude']);
+        expect(template.optionalCriteria).toEqual([]);
+        expect(template.scoreThresholds).toEqual(thresholds);
+        expect(DesignScoreThresholdsSchema.parse(template.scoreThresholds)).toEqual(thresholds);
+        expect(devSessionScoreThresholds(contract(id))).toBe(template.scoreThresholds);
+        expect(template.materials).toEqual([
+          ...(id === 'design-ritocco' ? ['retouch_file'] : []),
+          'visual_images', 'approved_images', 'brand_assets', 'excellence_examples',
+        ]);
+        const value = assignment(contract(id));
+        // Declaring examples and brand assets does not make them mandatory at admission.
+        if (id !== 'design-ritocco') value.materials = [];
+        expect(devSessionAcceptanceTemplateProblem(value)).toBeNull();
+      }
+      for (const id of ['D-18', 'D-21'] as const) {
+        expect(DEV_SESSION_ACCEPTANCE_CATALOG[id].text).not.toMatch(/\d/);
+        expect(DEV_SESSION_ACCEPTANCE_CATALOG[id].proof).not.toMatch(/\d/);
+      }
+    });
+
+    it('s8463 il-ruolo-del-materiale-viene-solo-da-assetType', () => {
+      expect(DEV_SESSION_MATERIAL_ASSET_TYPES).toEqual({
+        approved_images: 'design-approvato', brand_assets: 'asset-marchio', excellence_examples: 'esempio-eccellenza',
+      });
+      const approved = material('asset-approved', 'design-approvato');
+      const brand = material('asset-brand-pdf', 'asset-marchio', 'application/pdf');
+      const example = material('asset-example', 'esempio-eccellenza');
+      const materials: DevSessionMaterial[] = [
+        approved, brand, example, material('asset-no-role'), material('asset-other', 'altro'),
+        { kind: 'github_link', url: 'https://github.com/App-Templates/design-approvato', note: 'asset-marchio esempio-eccellenza' },
+      ];
+      const before = structuredClone(materials);
+      expect(devSessionMaterialsByRole(materials, 'approved_images')).toEqual([approved]);
+      expect(devSessionMaterialsByRole(materials, 'brand_assets')).toEqual([brand]);
+      expect(devSessionMaterialsByRole(materials, 'excellence_examples')).toEqual([example]);
+      expect(devSessionMaterialsByRole(materials, 'brand_assets')[0]).toBe(brand);
+      expect(devSessionMaterialsByRole([], 'approved_images')).toEqual([]);
+      expect(materials).toEqual(before);
+    });
+
+    it('s8463 documento-stabile-con-soglie-solo-per-la-versione-2', () => {
+      for (const id of designIds) {
+        for (const version of [1, 2]) {
+          const acceptance = contract(id, version);
+          const before = structuredClone(acceptance);
+          const document = devSessionContractDocumentBody({ acceptance, issueNumber: 64, digest });
+          expect(document.key).toBe('contratto-r64');
+          expect(document.title).toBe('Contratto della sessione R64');
+          expect(document.body).toContain(`Modello: ${id} versione ${version}`);
+          const scoreLines = document.body.split('\n').filter((line) => line.startsWith('Soglie dei punteggi:'));
+          expect(scoreLines).toEqual(version === 1 ? [] : [
+            'Soglie dei punteggi: minimo per dimensione 3/4; audit almeno 16/20; critique almeno 30/40 in proporzione, con almeno 8 voci valutate; scarto massimo per dimensione 1/4.',
+          ]);
+          for (const criterionId of version === 1 ? originalForms[id] : newForms[id]) {
+            expect(document.body).toContain(`- ${criterionId} —`);
+          }
+          expect(document.body).toContain('- add-product —');
+          expect(document.body).toContain('- D-11 —');
+          if (version === 2) expect(document.body).toContain('— attesta: referente');
+          expect(acceptance).toEqual(before);
+        }
+      }
+    });
+
+    it('s8463 versione-2-conserva-i-controlli-di-ingresso', () => {
+      for (const id of designIds) {
+        const acceptance = contract(id);
+        const value = assignment(acceptance);
+        expect(devSessionAcceptanceTemplateProblem({ ...value, productKind: 'code' })).toEqual({ code: 'template_kind_mismatch' });
+        delete acceptance.input.formats;
+        expect(devSessionAcceptanceTemplateProblem({ ...value, acceptance })).toEqual({ code: 'input_missing', detail: 'formats' });
+        acceptance.input.formats = ['computer'];
+        acceptance.template.optionalIds = ['D-15'];
+        expect(devSessionRequirements(acceptance)).toEqual({ ok: false, code: 'template_optional_not_offered' });
+        delete acceptance.template.optionalIds;
+        for (const criterionId of ['D-06', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21']) {
+          expect(devSessionRequirements({ ...acceptance, criteria: [{ ...acceptance.criteria[0]!, id: criterionId }] }))
+            .toEqual({ ok: false, code: 'criterion_id_clashes_catalog' });
+        }
+      }
+    });
   });
 });

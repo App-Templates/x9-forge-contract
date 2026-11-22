@@ -1,7 +1,7 @@
 import type { DevSessionAttestor } from './session-acceptance.js';
 
 // Capabilities of the checking program; a session cannot supply these proofs itself.
-export const DEV_SESSION_ACCEPTANCE_NEEDS = ['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install'] as const;
+export const DEV_SESSION_ACCEPTANCE_NEEDS = ['commit', 'prove_run', 'browser', 'screenshot', 'skill_log', 'gate', 'detector', 'static_scan', 'package', 'file_list', 'clean_install', 'score_file'] as const;
 
 type CatalogEntry = {
   attestor: DevSessionAttestor;
@@ -10,8 +10,8 @@ type CatalogEntry = {
   proof: string;
 };
 
-// Criterion and proof texts are copied verbatim from the approved vertical tables.
-// D-06 and D-10 await an asset-token type and a defined change perimeter.
+// D-10 still awaits a defined change perimeter. Version 2 adds excellence checks without
+// expanding saved version 1 forms; numeric thresholds belong to the selected model only.
 export const DEV_SESSION_ACCEPTANCE_CATALOG = {
   'D-01': {
     attestor: 'esecutore', needs: ['skill_log'],
@@ -37,6 +37,11 @@ export const DEV_SESSION_ACCEPTANCE_CATALOG = {
     attestor: 'esecutore', needs: ['screenshot'],
     text: "C'è almeno un'immagine per ogni sezione chiesta, ogni comportamento chiesto (stati e interazioni principali), ogni formato e ogni elemento identificativo (ingresso, navigazione, schermata del risultato)",
     proof: 'schermate fatte da lui, con impronta',
+  },
+  'D-06': {
+    attestor: 'esecutore', needs: ['static_scan'],
+    text: 'Colori, caratteri e loghi usano i token degli asset del marchio disponibili, salvo gli scostamenti dichiarati con il motivo',
+    proof: 'confronto dei file consegnati con i token del marchio e gli scostamenti dichiarati',
   },
   'D-07': {
     attestor: 'sessione', needs: [],
@@ -80,6 +85,41 @@ export const DEV_SESSION_ACCEPTANCE_CATALOG = {
     attestor: 'esecutore', needs: ['skill_log'],
     text: "Dopo l'ultima modifica la sessione ha guardato con Playwright la pagina servita da un server locale, a 390 e a 1440 px",
     proof: "righe degli strumenti di Playwright nel registro della sessione, dopo l'ultima scrittura di un file di interfaccia",
+  },
+  'D-15': {
+    attestor: 'esecutore', needs: ['skill_log'],
+    text: 'La sessione ha esaminato i design approvati e gli esempi di eccellenza disponibili prima di scegliere la direzione visiva',
+    proof: 'registro della sessione con i materiali esaminati e il confronto che motiva la direzione scelta; assenze dichiarate',
+  },
+  'D-16': {
+    attestor: 'esecutore', needs: ['skill_log', 'file_list'],
+    text: 'La sessione ha esplorato direzioni visive distinte con la skill prototype e ha scelto la migliore motivando il confronto',
+    proof: 'registro della skill e file delle alternative confrontate con la scelta motivata',
+  },
+  'D-17': {
+    attestor: 'esecutore', needs: ['skill_log'],
+    text: 'La sessione ha usato le skill obbligatorie Impeccable, Taste ed Emil nei passaggi pertinenti, correggendo i problemi emersi prima della consegna',
+    proof: 'registro delle skill usate, delle verifiche e delle correzioni successive sui file consegnati',
+  },
+  'D-18': {
+    attestor: 'esecutore', needs: ['score_file'],
+    text: 'I punteggi finali di audit e critique rispettano le soglie del modello, con le voci non applicabili dichiarate',
+    proof: 'file dei punteggi sul risultato consegnato, con dimensioni, voci valutate, totali e massimi verificabili',
+  },
+  'D-19': {
+    attestor: 'esecutore', needs: ['detector'],
+    text: 'Il rilevatore verifica gli errori di design e i dettagli sui file finali; ogni eccezione è dichiarata e motivata dalla sessione',
+    proof: 'uscita del rilevatore sui file consegnati, confrontata con le eccezioni motivate',
+  },
+  'D-20': {
+    attestor: 'esecutore', needs: ['skill_log'],
+    text: 'La sessione ha rifinito gerarchia, tipografia, spaziature, stati e dettagli delle interazioni con le skill pertinenti',
+    proof: 'registro della rifinitura finale e delle correzioni sui dettagli del risultato consegnato',
+  },
+  'D-21': {
+    attestor: 'referente', needs: [],
+    text: 'Il referente conferma i punteggi entro lo scarto ammesso dal modello, la fedeltà al marchio quando applicabile e il livello degli esempi disponibili',
+    proof: 'voto del referente sulla stessa griglia di audit, con valutazione del marchio e confronto con gli esempi disponibili',
   },
   'S-01': {
     attestor: 'esecutore', needs: ['commit'],

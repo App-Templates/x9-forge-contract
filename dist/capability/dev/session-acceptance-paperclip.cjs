@@ -48,6 +48,11 @@ function devSessionContractDocumentBody(input) {
         ...(deliverableKey === undefined ? [] : [`Pezzo: ${deliverableKey}`]),
         base === undefined ? 'Base di partenza: ramo principale' : `Base di partenza: ${base.ramo} (commit ${base.commit})`,
     ];
+    const thresholds = (0, session_acceptance_templates_js_1.devSessionScoreThresholds)(acceptance);
+    if (thresholds !== undefined) {
+        // Render selected model data so the human contract and executor cannot disagree on thresholds.
+        lines.push(`Soglie dei punteggi: minimo per dimensione ${thresholds.dimensionMin}/4; audit almeno ${thresholds.auditTotalMin}/20; critique almeno ${thresholds.critiqueMin}/${thresholds.critiqueOutOf} in proporzione, con almeno ${thresholds.critiqueMinScored} voci valutate; scarto massimo per dimensione ${thresholds.gapMax}/4.`);
+    }
     const look = acceptance.input.look;
     if (look !== undefined) {
         lines.push(`Da guardare: ${look.kind}`, ...(look.tryPath ?? []).map((step) => `- ${step}`));

@@ -1,4 +1,4 @@
-export declare const DEV_SESSION_ACCEPTANCE_NEEDS: readonly ["commit", "prove_run", "browser", "screenshot", "skill_log", "gate", "detector", "static_scan", "package", "file_list", "clean_install"];
+export declare const DEV_SESSION_ACCEPTANCE_NEEDS: readonly ["commit", "prove_run", "browser", "screenshot", "skill_log", "gate", "detector", "static_scan", "package", "file_list", "clean_install", "score_file"];
 export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
     readonly 'D-01': {
         readonly attestor: "esecutore";
@@ -29,6 +29,12 @@ export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
         readonly needs: readonly ["screenshot"];
         readonly text: "C'è almeno un'immagine per ogni sezione chiesta, ogni comportamento chiesto (stati e interazioni principali), ogni formato e ogni elemento identificativo (ingresso, navigazione, schermata del risultato)";
         readonly proof: "schermate fatte da lui, con impronta";
+    };
+    readonly 'D-06': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["static_scan"];
+        readonly text: "Colori, caratteri e loghi usano i token degli asset del marchio disponibili, salvo gli scostamenti dichiarati con il motivo";
+        readonly proof: "confronto dei file consegnati con i token del marchio e gli scostamenti dichiarati";
     };
     readonly 'D-07': {
         readonly attestor: "sessione";
@@ -71,6 +77,48 @@ export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
         readonly needs: readonly ["skill_log"];
         readonly text: "Dopo l'ultima modifica la sessione ha guardato con Playwright la pagina servita da un server locale, a 390 e a 1440 px";
         readonly proof: "righe degli strumenti di Playwright nel registro della sessione, dopo l'ultima scrittura di un file di interfaccia";
+    };
+    readonly 'D-15': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log"];
+        readonly text: "La sessione ha esaminato i design approvati e gli esempi di eccellenza disponibili prima di scegliere la direzione visiva";
+        readonly proof: "registro della sessione con i materiali esaminati e il confronto che motiva la direzione scelta; assenze dichiarate";
+    };
+    readonly 'D-16': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log", "file_list"];
+        readonly text: "La sessione ha esplorato direzioni visive distinte con la skill prototype e ha scelto la migliore motivando il confronto";
+        readonly proof: "registro della skill e file delle alternative confrontate con la scelta motivata";
+    };
+    readonly 'D-17': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log"];
+        readonly text: "La sessione ha usato le skill obbligatorie Impeccable, Taste ed Emil nei passaggi pertinenti, correggendo i problemi emersi prima della consegna";
+        readonly proof: "registro delle skill usate, delle verifiche e delle correzioni successive sui file consegnati";
+    };
+    readonly 'D-18': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["score_file"];
+        readonly text: "I punteggi finali di audit e critique rispettano le soglie del modello, con le voci non applicabili dichiarate";
+        readonly proof: "file dei punteggi sul risultato consegnato, con dimensioni, voci valutate, totali e massimi verificabili";
+    };
+    readonly 'D-19': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["detector"];
+        readonly text: "Il rilevatore verifica gli errori di design e i dettagli sui file finali; ogni eccezione è dichiarata e motivata dalla sessione";
+        readonly proof: "uscita del rilevatore sui file consegnati, confrontata con le eccezioni motivate";
+    };
+    readonly 'D-20': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log"];
+        readonly text: "La sessione ha rifinito gerarchia, tipografia, spaziature, stati e dettagli delle interazioni con le skill pertinenti";
+        readonly proof: "registro della rifinitura finale e delle correzioni sui dettagli del risultato consegnato";
+    };
+    readonly 'D-21': {
+        readonly attestor: "referente";
+        readonly needs: readonly [];
+        readonly text: "Il referente conferma i punteggi entro lo scarto ammesso dal modello, la fedeltà al marchio quando applicabile e il livello degli esempi disponibili";
+        readonly proof: "voto del referente sulla stessa griglia di audit, con valutazione del marchio e confronto con gli esempi disponibili";
     };
     readonly 'S-01': {
         readonly attestor: "esecutore";

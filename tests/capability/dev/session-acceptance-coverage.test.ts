@@ -143,7 +143,7 @@ describe('session acceptance coverage and Paperclip', () => {
     }
     for (const template of [
       { id: 'unknown', version: 1 }, { id: 'toString', version: 1 },
-      { id: 'design-sito', version: 2 }, { id: 'design-sito', version: 1, optionalIds: ['S-03'] },
+      { id: 'design-sito', version: 3 }, { id: 'design-sito', version: 1, optionalIds: ['S-03'] },
     ]) expect(() => devSessionAcceptanceReference({ ...acceptance, template }, 42, digest)).toThrow();
     expect(() => devSessionAcceptanceReference({
       ...acceptance, criteria: [{ ...acceptance.criteria[0]!, id: 'D-01' }],

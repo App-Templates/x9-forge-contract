@@ -3,7 +3,14 @@ import { DEV_SESSION_CRITERION_ORIGINS, } from "./session-acceptance.js";
 import { DEV_SESSION_ACCEPTANCE_CATALOG } from "./session-acceptance-catalog.js";
 export const DEV_SESSION_TEMPLATE_IDS = ['sviluppo-pezzo-app', 'design-sito', 'design-schermata-app', 'design-ritocco'];
 export const DevSessionTemplateIdSchema = z.enum(DEV_SESSION_TEMPLATE_IDS);
-export const DEV_SESSION_TEMPLATE_MATERIALS = ['visual_images', 'retouch_file'];
+export const DEV_SESSION_TEMPLATE_MATERIALS = ['visual_images', 'retouch_file', 'approved_images', 'brand_assets', 'excellence_examples'];
+// Memory owns asset roles: names, notes and media types must never guess a client's brand.
+export const DEV_SESSION_MATERIAL_ASSET_TYPES = {
+    approved_images: 'design-approvato', brand_assets: 'asset-marchio', excellence_examples: 'esempio-eccellenza',
+};
+export function devSessionMaterialsByRole(materials, role) {
+    return materials.filter((material) => material.kind === 'asset' && material.asset.assetType === DEV_SESSION_MATERIAL_ASSET_TYPES[role]);
+}
 // Supported, not forbidden: Stefano, 19 Nov 2026, supports only Claude for now,
 // although Codex already integrates the same constraints. Only Claude writes the
 // Skill tool log line used as proof; reopen when Codex leaves the same proof.
@@ -37,21 +44,61 @@ export const DEV_SESSION_TEMPLATES = {
         formCriteria: ['D-01', 'D-03', 'D-08', 'D-11', 'D-13', 'D-14'], optionalCriteria: [],
     },
 };
-function templateById(id) {
-    return Object.hasOwn(DEV_SESSION_TEMPLATES, id) ? DEV_SESSION_TEMPLATES[id] : undefined;
+// Keep the recommended thresholds as model data, never duplicated in criterion text or checks.
+const DESIGN_SCORE_THRESHOLDS = {
+    dimensionMin: 3, auditTotalMin: 16, critiqueMin: 30, critiqueOutOf: 40, critiqueMinScored: 8, gapMax: 1,
+};
+// Version 1 is deliberately untouched: consumers must explicitly opt into the new proofs.
+export const DEV_SESSION_TEMPLATES_V2 = {
+    'design-sito': {
+        ...DEV_SESSION_TEMPLATES['design-sito'], version: 2,
+        materials: ['visual_images', 'approved_images', 'brand_assets', 'excellence_examples'],
+        formCriteria: ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-06', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
+        scoreThresholds: DESIGN_SCORE_THRESHOLDS,
+    },
+    'design-schermata-app': {
+        ...DEV_SESSION_TEMPLATES['design-schermata-app'], version: 2,
+        materials: ['visual_images', 'approved_images', 'brand_assets', 'excellence_examples'],
+        formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
+        scoreThresholds: DESIGN_SCORE_THRESHOLDS,
+    },
+    'design-ritocco': {
+        ...DEV_SESSION_TEMPLATES['design-ritocco'], version: 2,
+        materials: ['retouch_file', 'visual_images', 'approved_images', 'brand_assets', 'excellence_examples'],
+        formCriteria: ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21'],
+        scoreThresholds: DESIGN_SCORE_THRESHOLDS,
+    },
+};
+const TEMPLATE_VERSIONS = {
+    'sviluppo-pezzo-app': [DEV_SESSION_TEMPLATES['sviluppo-pezzo-app']],
+    'design-sito': [DEV_SESSION_TEMPLATES['design-sito'], DEV_SESSION_TEMPLATES_V2['design-sito']],
+    'design-schermata-app': [DEV_SESSION_TEMPLATES['design-schermata-app'], DEV_SESSION_TEMPLATES_V2['design-schermata-app']],
+    'design-ritocco': [DEV_SESSION_TEMPLATES['design-ritocco'], DEV_SESSION_TEMPLATES_V2['design-ritocco']],
+};
+function templateById(id, version) {
+    if (!Object.hasOwn(TEMPLATE_VERSIONS, id))
+        return { ok: false, code: 'template_unknown' };
+    const versions = TEMPLATE_VERSIONS[id];
+    const template = versions.find((template) => template.version === version);
+    return template === undefined ? { ok: false, code: 'template_version_unknown' } : { ok: true, template };
 }
 export function devSessionTemplateSupportsEngine(id, engine) {
-    return templateById(id)?.supportedEngines.includes(engine) ?? false;
+    const resolved = templateById(id, 1);
+    return resolved.ok && resolved.template.supportedEngines.includes(engine);
+}
+/** Read the selected model only; saved contracts and unknown versions get no implicit scores. */
+export function devSessionScoreThresholds(acceptance) {
+    const resolved = templateById(acceptance.template.id, acceptance.template.version);
+    return resolved.ok ? resolved.template.scoreThresholds : undefined;
 }
 export const DEV_SESSION_REQUIREMENT_ORIGINS = ['modello', ...DEV_SESSION_CRITERION_ORIGINS];
 export const DEV_SESSION_REQUIREMENT_PROBLEMS = ['template_unknown', 'template_version_unknown', 'template_optional_not_offered', 'criterion_id_clashes_catalog'];
 /** Expand versioned form checks without consuming the variable criteria quota. */
 export function devSessionRequirements(acceptance) {
-    const template = templateById(acceptance.template.id);
-    if (template === undefined)
-        return { ok: false, code: 'template_unknown' };
-    if (acceptance.template.version !== template.version)
-        return { ok: false, code: 'template_version_unknown' };
+    const resolved = templateById(acceptance.template.id, acceptance.template.version);
+    if (!resolved.ok)
+        return resolved;
+    const { template } = resolved;
     const optionalIds = acceptance.template.optionalIds ?? [];
     if (optionalIds.some((id) => !template.optionalCriteria.some((offered) => offered === id)))
         return { ok: false, code: 'template_optional_not_offered' };
@@ -63,6 +110,7 @@ export function devSessionRequirements(acceptance) {
     return { ok: true, requirements: [...catalogRequirements, ...acceptance.criteria.map((criterion) => ({ ...criterion, needs: [] }))] };
 }
 export const DEV_SESSION_ACCEPTANCE_TEMPLATE_PROBLEMS = [...DEV_SESSION_REQUIREMENT_PROBLEMS, 'template_kind_mismatch', 'input_missing', 'visual_images_missing', 'visual_reference_not_material', 'retouch_file_missing'];
+export const VISUAL_IMAGES_MISSING_MOVE = 'Un pdf non vale come immagine della tavola: allega immagini png o jpeg ai materiali, oppure scrivi visualSource con kind nessuna se non esiste una tavola di riferimento.';
 /**
  * Stefano 21/11, decision 7: when no existing script covers the new step, the chief's own
  * criterion (origin capo, attestor sessione) is enough and the session writes the proof.
@@ -79,8 +127,10 @@ export function devSessionAcceptanceTemplateProblem(assignment) {
     const requirements = devSessionRequirements(acceptance);
     if (!requirements.ok)
         return { code: requirements.code };
-    // Requirements have already established that the template exists at this version.
-    const template = DEV_SESSION_TEMPLATES[acceptance.template.id];
+    const resolved = templateById(acceptance.template.id, acceptance.template.version);
+    if (!resolved.ok)
+        return { code: resolved.code };
+    const { template } = resolved;
     if (assignment.productKind !== template.productKind)
         return { code: 'template_kind_mismatch' };
     const missingInput = template.requiredInput.find(
@@ -91,7 +141,7 @@ export function devSessionAcceptanceTemplateProblem(assignment) {
     const visualSource = acceptance.input.visualSource;
     const images = assignment.materials.filter((material) => material.kind === 'asset' && material.asset.mediaType.startsWith('image/'));
     if (template.materials.includes('visual_images') && visualSource !== undefined && visualSource.kind !== 'nessuna' && images.length === 0)
-        return { code: 'visual_images_missing' };
+        return { code: 'visual_images_missing', detail: VISUAL_IMAGES_MISSING_MOVE };
     // A Figma image is not tied to a node yet; an approved board must match its image asset.
     if (visualSource?.kind === 'tavola_approvata' && !images.some((material) => material.kind === 'asset' && material.asset.assetId === visualSource.reference))
         return { code: 'visual_reference_not_material' };
