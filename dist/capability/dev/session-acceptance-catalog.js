@@ -123,6 +123,12 @@ export const DEV_SESSION_ACCEPTANCE_CATALOG = {
         text: "Il controllo finale di Taste, limitato ai controlli validi per un'app, non dà nessun difetto sui file consegnati",
         proof: 'uscita del controllo di Taste rilanciato da lui sui file finali, con l\'elenco condiviso dei controlli per le app, e uscita del controllo dei testi di Taste (`copy-lint.mjs --kind software --json`)',
     },
+    // Research precedes taste; the selected model alone owns the minimum number of references.
+    'D-24': {
+        attestor: 'esecutore', needs: ['skill_log', 'static_scan'],
+        text: 'Prima di Taste e del primo file di interfaccia la sessione ha fatto il giro su Dribbble: ha aperto lavori del dominio del progetto, ne ha salvato e guardato le immagini e ha scritto per ognuno che cosa prende',
+        proof: 'registro della sessione (pagine `dribbble.com/shots/` e immagini `cdn.dribbble.com` aperte con curl o Playwright, immagini salvate lette con `Read`, prima della skill Taste e del primo file di interfaccia) e file `design/riferimenti/DRIBBBLE.md` con link, autore, immagine e che cosa prende per ogni lavoro',
+    },
     'S-01': {
         attestor: 'esecutore', needs: ['commit'],
         text: 'I sorgenti sono in un commit raggiungibile',

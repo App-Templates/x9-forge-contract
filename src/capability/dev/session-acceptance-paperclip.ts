@@ -1,6 +1,6 @@
 import type { DevSessionAcceptance } from './session-acceptance.js';
 import { devSessionBranch, type DevSessionBase } from './session-assignment.js';
-import { devSessionRequirements, devSessionScoreThresholds, devSessionTasteThresholds } from './session-acceptance-templates.js';
+import { devSessionRequirements, devSessionScoreThresholds, devSessionTasteThresholds, devSessionDribbbleShotsMin } from './session-acceptance-templates.js';
 import {
   PaperclipDocumentoChiaveSchema, PaperclipDocumentoScriviCorpoSchema,
 } from '../paperclip-protocollo/wire-documenti.js';
@@ -60,6 +60,10 @@ export function devSessionContractDocumentBody(input: {
   const taste = devSessionTasteThresholds(acceptance);
   if (taste !== undefined) {
     lines.push(`Soglie del gusto: ogni voce almeno ${taste.itemMin}/4; totale almeno ${taste.totalMin}/24; una voce con un FAIL di Taste al massimo ${taste.itemMaxWithFail}/4.`);
+  }
+  const shots = devSessionDribbbleShotsMin(acceptance);
+  if (shots !== undefined) {
+    lines.push(`Giro su Dribbble: almeno ${shots} lavori del dominio aperti prima di Taste e del primo file di interfaccia, in design/riferimenti/DRIBBBLE.md.`);
   }
   const look = acceptance.input.look;
   if (look !== undefined) {

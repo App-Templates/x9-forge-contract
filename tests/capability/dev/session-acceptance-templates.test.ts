@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { z } from 'zod';
+import * as acceptanceTemplates from '../../../src/capability/dev/session-acceptance-templates.js';
 import * as designScore from '../../../src/capability/design-score.js';
 import { describe, expect, it } from 'vitest';
 import {
@@ -23,7 +24,7 @@ import {
   DevSessionAssignmentSchema, DevSessionKindSchema, devSessionAssignmentCanonicalJson, parseDevSessionBlock,
   type DevSessionAssignment, type DevSessionMaterial,
 } from '../../../src/capability/dev/session-assignment.js';
-import { devSessionContractDocumentBody } from '../../../src/capability/dev/session-acceptance-paperclip.js';
+import { devSessionAcceptanceCriteriaTexts, devSessionContractDocumentBody } from '../../../src/capability/dev/session-acceptance-paperclip.js';
 import { devSessionAcceptanceVerdict } from '../../../src/capability/dev/session-attestation.js';
 import { DevelopmentSessionEngineSchema } from '../../../src/capability/connect/development-session.js';
 
@@ -70,6 +71,7 @@ describe('s7561', () => {
       'D-17': ['esecutore', ['skill_log']], 'D-18': ['esecutore', ['score_file']],
       'D-19': ['esecutore', ['detector']], 'D-20': ['esecutore', ['skill_log']], 'D-21': ['referente', []],
       'D-22': ['esecutore', ['skill_log', 'static_scan']], 'D-23': ['esecutore', ['taste_check']],
+      'D-24': ['esecutore', ['skill_log', 'static_scan']],
       'S-01': ['esecutore', ['commit']], 'S-02': ['esecutore', ['prove_run']],
       'S-03': ['esecutore', ['browser']], 'S-04': ['esecutore', ['screenshot']],
       'S-05': ['esecutore', ['prove_run']], 'S-06': ['referente', []],
@@ -78,8 +80,8 @@ describe('s7561', () => {
       'S-11': ['esecutore', ['clean_install']],
     };
     expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG).sort()).toEqual(Object.keys(expected).sort());
-    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(33);
-    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(33);
+    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(34);
+    expect(new Set(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).size).toBe(34);
     for (const [id, entry] of Object.entries(DEV_SESSION_ACCEPTANCE_CATALOG)) {
       expect([entry.attestor, entry.needs]).toEqual(expected[id as keyof typeof expected]);
       expect(entry.attestor === 'esecutore').toBe(entry.needs.length > 0);
@@ -368,9 +370,9 @@ describe('s8463 modelli di design versione 2', () => {
     'design-ritocco': ['D-01', 'D-03', 'D-08', 'D-11', 'D-13', 'D-14'],
   };
   const newForms = {
-    'design-sito': ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-06', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
-    'design-schermata-app': ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23'],
-    'design-ritocco': ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21', 'D-23'],
+    'design-sito': ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-06', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-24'],
+    'design-schermata-app': ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23', 'D-24'],
+    'design-ritocco': ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21', 'D-23', 'D-24'],
   };
   const thresholds = { dimensionMin: 3, auditTotalMin: 16, critiqueMin: 30, critiqueOutOf: 40, critiqueMinScored: 8, gapMax: 1 };
 
@@ -494,7 +496,7 @@ describe('s8463 modelli di design versione 2', () => {
         expect(devSessionAcceptanceTemplateProblem({ ...assignment(contract('design-sito')), acceptance })).toEqual({ code: 'template_unknown' });
         expect(devSessionScoreThresholds(acceptance)).toBeUndefined();
       }
-      for (const id of [...designIds, 'sviluppo-pezzo-app']) {
+      for (const id of [...designIds, 'sviluppo-pezzo-app'] as const) {
         const versions = id === 'sviluppo-pezzo-app' ? [2, 3] : [3, 99];
         for (const version of versions) {
           const acceptance = { ...contract('design-sito'), template: { id, version } };
@@ -586,7 +588,7 @@ describe('s8463 modelli di design versione 2', () => {
         acceptance.template.optionalIds = ['D-15'];
         expect(devSessionRequirements(acceptance)).toEqual({ ok: false, code: 'template_optional_not_offered' });
         delete acceptance.template.optionalIds;
-        for (const criterionId of ['D-06', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23']) {
+        for (const criterionId of ['D-06', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23', 'D-24']) {
           expect(devSessionRequirements({ ...acceptance, criteria: [{ ...acceptance.criteria[0]!, id: criterionId }] }))
             .toEqual({ ok: false, code: 'criterion_id_clashes_catalog' });
         }
@@ -620,7 +622,7 @@ describe('s8465 griglia del gusto', () => {
   it('s8465 regressione-r64-design-approvato-senza-giudicare-il-gusto', () => {
     // R64 "Dispensa Pronta": the app screen was approved on audit correctness alone.
     const screen = ids(contract('design-schermata-app'));
-    expect(screen).toEqual([...newFormsBefore('design-schermata-app'), 'D-22', 'D-23', 'add-product']);
+    expect(screen).toEqual([...newFormsBefore('design-schermata-app'), 'D-22', 'D-23', 'D-24', 'add-product']);
     const retouch = ids(contract('design-ritocco'));
     expect(retouch).toContain('D-23');
     expect(retouch).not.toContain('D-22');
@@ -781,5 +783,84 @@ describe('s8471 voto del referente', () => {
     const tokens = designScore.DesignBrandTokensSchema.parse({ colors: ['#000000'], fonts: ['Inter'], logoIds: [] });
     expect(designScore.designBrandTokenProblems(tokens, { colors: ['#ff0000'], fonts: ['Inter'] }, values)).toEqual([]);
     expect(designScore.designBrandTokenProblems(tokens, { colors: ['#ff0000'], fonts: [] })).toEqual([{ code: 'color_not_token', value: '#ff0000' }]);
+  });
+});
+
+// R67 lacked domain references: research must precede taste even when no board is supplied.
+describe('s8472 giro su Dribbble', () => {
+  const designIds = ['design-sito', 'design-schermata-app', 'design-ritocco'] as const;
+  const digest = 'c'.repeat(64);
+  function contract(id: string, version = 2): DevSessionAcceptance {
+    return DevSessionAcceptanceSchema.parse({
+      version: 1, template: { id, version },
+      input: {
+        screens: [{ name: 'dispensa', purpose: 'Aggiungere un prodotto alla dispensa' }],
+        states: ['pieno', 'vuoto'], formats: ['telefono'],
+        retouch: { target: 'aggiungi.png', defect: 'Gerarchia e dettagli del modulo' },
+        visualSource: { kind: 'nessuna' },
+      },
+      criteria: [{ id: 'add-product', text: 'Si può aggiungere un prodotto.', attestor: 'referente', proof: 'Provare il modulo.', origin: 'capo' }],
+    });
+  }
+
+  it('s8472 regressione-r67-design-senza-riferimenti-di-livello', () => {
+    const screen = devSessionRequirements(contract('design-schermata-app'));
+    if (!screen.ok) throw new Error(screen.code);
+    expect(screen.requirements.map(({ id }) => id)).toEqual([
+      ...newFormsBefore('design-schermata-app'), 'D-22', 'D-23', 'D-24', 'add-product',
+    ]);
+    expect(acceptanceTemplates).toHaveProperty('devSessionDribbbleShotsMin', expect.any(Function));
+    for (const id of designIds) {
+      const acceptance = contract(id);
+      expect(DEV_SESSION_TEMPLATES_V2[id].formCriteria.at(-1), id).toBe('D-24');
+      expect(DEV_SESSION_TEMPLATES_V2[id]).toHaveProperty('dribbbleShotsMin', 6);
+      expect(acceptanceTemplates.devSessionDribbbleShotsMin(acceptance), id).toBe(6);
+      const expanded = devSessionRequirements(acceptance);
+      if (!expanded.ok) throw new Error(expanded.code);
+      expect(expanded.requirements.filter(({ id }) => id === 'D-24')).toEqual([
+        { id: 'D-24', origin: 'modello', ...DEV_SESSION_ACCEPTANCE_CATALOG['D-24'] },
+      ]);
+    }
+    const entry = DEV_SESSION_ACCEPTANCE_CATALOG['D-24'];
+    expect(entry.attestor).toBe('esecutore');
+    expect(entry.needs).toEqual(['skill_log', 'static_scan']);
+    expect(entry.text).toBe('Prima di Taste e del primo file di interfaccia la sessione ha fatto il giro su Dribbble: ha aperto lavori del dominio del progetto, ne ha salvato e guardato le immagini e ha scritto per ognuno che cosa prende');
+    expect(entry.proof).toBe('registro della sessione (pagine `dribbble.com/shots/` e immagini `cdn.dribbble.com` aperte con curl o Playwright, immagini salvate lette con `Read`, prima della skill Taste e del primo file di interfaccia) e file `design/riferimenti/DRIBBBLE.md` con link, autore, immagine e che cosa prende per ogni lavoro');
+    expect(entry.text + entry.proof).not.toMatch(/\d/);
+  });
+
+  it('s8472 documento-con-il-giro-su-dribbble', () => {
+    for (const id of designIds) {
+      const document = devSessionContractDocumentBody({ acceptance: contract(id), issueNumber: 67, digest });
+      expect(document.key).toBe('contratto-r67');
+      const lines = document.body.split('\n');
+      const expected = 'Giro su Dribbble: almeno 6 lavori del dominio aperti prima di Taste e del primo file di interfaccia, in design/riferimenti/DRIBBBLE.md.';
+      expect(lines.filter((line) => line.startsWith('Giro su Dribbble:'))).toEqual([expected]);
+      const tasteIndex = lines.findIndex((line) => line.startsWith('Soglie del gusto:'));
+      expect(tasteIndex).toBeGreaterThanOrEqual(0);
+      expect(lines[tasteIndex + 1]).toBe(expected);
+    }
+  });
+
+  it('s8472 versione-1-e-criteri-del-capo-invariati', () => {
+    for (const id of [...designIds, 'sviluppo-pezzo-app'] as const) {
+      const v1 = contract(id, 1);
+      expect(acceptanceTemplates.devSessionDribbbleShotsMin(v1)).toBeUndefined();
+      expect(DEV_SESSION_TEMPLATES[id]).not.toHaveProperty('dribbbleShotsMin');
+      const expanded = devSessionRequirements(v1);
+      if (!expanded.ok) throw new Error(expanded.code);
+      expect(expanded.requirements.map(({ id }) => id)).not.toContain('D-24');
+      expect(devSessionContractDocumentBody({ acceptance: v1, issueNumber: 67, digest }).body).not.toContain('Giro su Dribbble:');
+    }
+    for (const id of designIds) {
+      const v2 = contract(id);
+      expect(devSessionAcceptanceCriteriaTexts(v2)).toEqual(['Si può aggiungere un prodotto.']);
+      const expanded = devSessionRequirements(v2);
+      if (!expanded.ok) throw new Error(expanded.code);
+      expect(expanded.requirements.filter(({ origin }) => origin === 'capo')).toEqual(v2.criteria.map((criterion) => ({ ...criterion, needs: [] })));
+    }
+    for (const [id, version] of [['unknown', 2], ['design-schermata-app', 99], ['sviluppo-pezzo-app', 2]] as const) {
+      expect(acceptanceTemplates.devSessionDribbbleShotsMin(contract(id, version))).toBeUndefined();
+    }
   });
 });

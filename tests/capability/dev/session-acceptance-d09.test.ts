@@ -49,7 +49,7 @@ describe('s8188', () => {
     expect(DEV_SESSION_TEMPLATES['design-ritocco'].formCriteria).not.toContain('D-09');
     expect(DEV_SESSION_TEMPLATES['sviluppo-pezzo-app'].formCriteria).not.toContain('D-09');
     for (const t of Object.values(DEV_SESSION_TEMPLATES)) expect(t.version).toBe(1);
-    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(33);
+    expect(Object.keys(DEV_SESSION_ACCEPTANCE_CATALOG)).toHaveLength(34);
     expect(DEV_SESSION_ACCEPTANCE_CATALOG['D-05'].text).toBe("C'è almeno un'immagine per ogni sezione chiesta, ogni comportamento chiesto (stati e interazioni principali), ogni formato e ogni elemento identificativo (ingresso, navigazione, schermata del risultato)");
     expect(devSessionRequirements(contract('design-sito')).ok).toBe(true);
   });

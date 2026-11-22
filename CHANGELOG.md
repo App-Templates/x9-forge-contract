@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.293.0 — every version 2 design requires domain references on Dribbble before Taste (task 8472)
+
+- Add executor criterion D-24 with the existing `skill_log` and `static_scan` needs. Its proof requires shot pages, saved images opened with `Read`, and `design/riferimenti/DRIBBBLE.md` with links, authors, images and what the session takes from each reference, before Taste and the first interface file. Site, app screen and retouch version 2 append D-24 and carry `dribbbleShotsMin: 6`; `devSessionDribbbleShotsMin(acceptance)` reads only the selected model. The stable `contratto-r<N>` document renders that minimum after the taste thresholds. Version 1 and saved contracts are unchanged; executor adoption and the moderator check remain follow-up work.
+- REGRESSIONE: s8472 regressione-r67-design-senza-riferimenti-di-livello: oggi una schermata di app alla versione 2 si espande senza D-24 e `devSessionDribbbleShotsMin` non esiste; dopo sito, schermata e ritocco v2 richiedono il giro su Dribbble, con minimo 6 dal modello, prima di Taste e del primo file di interfaccia. Caso vero: R67 «Dispensa Pronta», costruito senza riferimenti di livello. La lettura del registro (8473), l'adozione in agent-x9, il blocco nel mod (531) e la prova dal vivo restano ai compiti successivi.
+
 ## v1.292.0 — the referee's judgement has its own form with the taste grid; sites get the taste thresholds; D-23 declares copy-lint; brand deviations carry a reason (task 8471)
 
 - Add to `src/capability/design-score.ts`: `DESIGN_REFEREE_VERDICTS`, `DesignRefereeJudgementSchema` (taste grid, audit, critique, brand, `examplesLevel` 0-4, `tasteFailedIds`, `copyLint`, verdict; repeated ids are `check_ids_not_unique`) and `designRefereeJudgementProblems(judgement, { score, taste })` (Taste first, then audit and critique; APPROVA with any problem adds `verdict_approves_below_thresholds`; RIFARE above the thresholds is allowed). `DesignBrandDeviationsSchema` (each colour or font with a 1-500 character reason) and `designBrandDeviationValues` for `designBrandTokenProblems`. `DesignRefereeVoteSchema` is unchanged.

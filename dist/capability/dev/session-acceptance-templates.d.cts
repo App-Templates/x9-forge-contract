@@ -62,7 +62,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
     readonly 'design-sito': {
         readonly version: 2;
         readonly materials: readonly ["visual_images", "approved_images", "brand_assets", "excellence_examples"];
-        readonly formCriteria: readonly ["D-01", "D-02", "D-03", "D-04", "D-05", "D-06", "D-08", "D-09", "D-11", "D-12", "D-13", "D-14", "D-15", "D-16", "D-17", "D-18", "D-19", "D-20", "D-21"];
+        readonly formCriteria: readonly ["D-01", "D-02", "D-03", "D-04", "D-05", "D-06", "D-08", "D-09", "D-11", "D-12", "D-13", "D-14", "D-15", "D-16", "D-17", "D-18", "D-19", "D-20", "D-21", "D-24"];
         readonly scoreThresholds: {
             readonly dimensionMin: 3;
             readonly auditTotalMin: 16;
@@ -76,6 +76,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
             readonly totalMin: 21;
             readonly itemMaxWithFail: 2;
         };
+        readonly dribbbleShotsMin: 6;
         readonly productKind: "design";
         readonly supportedEngines: readonly ["claude"];
         readonly requiredInput: readonly ["screens", "formats", "visualSource"];
@@ -84,7 +85,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
     readonly 'design-schermata-app': {
         readonly version: 2;
         readonly materials: readonly ["visual_images", "approved_images", "brand_assets", "excellence_examples"];
-        readonly formCriteria: readonly ["D-01", "D-03", "D-04", "D-05", "D-06", "D-07", "D-08", "D-09", "D-11", "D-12", "D-13", "D-14", "D-15", "D-16", "D-17", "D-18", "D-19", "D-20", "D-21", "D-22", "D-23"];
+        readonly formCriteria: readonly ["D-01", "D-03", "D-04", "D-05", "D-06", "D-07", "D-08", "D-09", "D-11", "D-12", "D-13", "D-14", "D-15", "D-16", "D-17", "D-18", "D-19", "D-20", "D-21", "D-22", "D-23", "D-24"];
         readonly scoreThresholds: {
             readonly dimensionMin: 3;
             readonly auditTotalMin: 16;
@@ -98,6 +99,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
             readonly totalMin: 21;
             readonly itemMaxWithFail: 2;
         };
+        readonly dribbbleShotsMin: 6;
         readonly productKind: "design";
         readonly supportedEngines: readonly ["claude"];
         readonly requiredInput: readonly ["screens", "states", "formats", "visualSource"];
@@ -106,7 +108,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
     readonly 'design-ritocco': {
         readonly version: 2;
         readonly materials: readonly ["retouch_file", "visual_images", "approved_images", "brand_assets", "excellence_examples"];
-        readonly formCriteria: readonly ["D-01", "D-03", "D-06", "D-08", "D-11", "D-13", "D-14", "D-15", "D-19", "D-20", "D-21", "D-23"];
+        readonly formCriteria: readonly ["D-01", "D-03", "D-06", "D-08", "D-11", "D-13", "D-14", "D-15", "D-19", "D-20", "D-21", "D-23", "D-24"];
         readonly scoreThresholds: {
             readonly dimensionMin: 3;
             readonly auditTotalMin: 16;
@@ -120,6 +122,7 @@ export declare const DEV_SESSION_TEMPLATES_V2: {
             readonly totalMin: 21;
             readonly itemMaxWithFail: 2;
         };
+        readonly dribbbleShotsMin: 6;
         readonly productKind: "design";
         readonly supportedEngines: readonly ["claude"];
         readonly requiredInput: readonly ["retouch", "formats", "visualSource"];
@@ -131,6 +134,8 @@ export declare function devSessionTemplateSupportsEngine(id: string, engine: Dev
 export declare function devSessionScoreThresholds(acceptance: DevSessionAcceptance): DesignScoreThresholds | undefined;
 /** Taste grid thresholds of the selected model only; version 1 and saved contracts get none. */
 export declare function devSessionTasteThresholds(acceptance: DevSessionAcceptance): DesignTasteThresholds | undefined;
+/** Read research requirements from the selected model so saved contracts never gain new obligations. */
+export declare function devSessionDribbbleShotsMin(acceptance: DevSessionAcceptance): number | undefined;
 export declare const DEV_SESSION_REQUIREMENT_ORIGINS: readonly ["modello", "mandato", "capo", "ritorno"];
 export declare const DEV_SESSION_REQUIREMENT_PROBLEMS: readonly ["template_unknown", "template_version_unknown", "template_optional_not_offered", "criterion_id_clashes_catalog"];
 type Requirement = Omit<DevSessionCriterion, 'origin'> & {

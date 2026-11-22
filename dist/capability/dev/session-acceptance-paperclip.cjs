@@ -57,6 +57,10 @@ function devSessionContractDocumentBody(input) {
     if (taste !== undefined) {
         lines.push(`Soglie del gusto: ogni voce almeno ${taste.itemMin}/4; totale almeno ${taste.totalMin}/24; una voce con un FAIL di Taste al massimo ${taste.itemMaxWithFail}/4.`);
     }
+    const shots = (0, session_acceptance_templates_js_1.devSessionDribbbleShotsMin)(acceptance);
+    if (shots !== undefined) {
+        lines.push(`Giro su Dribbble: almeno ${shots} lavori del dominio aperti prima di Taste e del primo file di interfaccia, in design/riferimenti/DRIBBBLE.md.`);
+    }
     const look = acceptance.input.look;
     if (look !== undefined) {
         lines.push(`Da guardare: ${look.kind}`, ...(look.tryPath ?? []).map((step) => `- ${step}`));

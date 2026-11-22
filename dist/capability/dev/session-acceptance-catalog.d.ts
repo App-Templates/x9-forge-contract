@@ -132,6 +132,12 @@ export declare const DEV_SESSION_ACCEPTANCE_CATALOG: {
         readonly text: "Il controllo finale di Taste, limitato ai controlli validi per un'app, non dà nessun difetto sui file consegnati";
         readonly proof: "uscita del controllo di Taste rilanciato da lui sui file finali, con l'elenco condiviso dei controlli per le app, e uscita del controllo dei testi di Taste (`copy-lint.mjs --kind software --json`)";
     };
+    readonly 'D-24': {
+        readonly attestor: "esecutore";
+        readonly needs: readonly ["skill_log", "static_scan"];
+        readonly text: "Prima di Taste e del primo file di interfaccia la sessione ha fatto il giro su Dribbble: ha aperto lavori del dominio del progetto, ne ha salvato e guardato le immagini e ha scritto per ognuno che cosa prende";
+        readonly proof: "registro della sessione (pagine `dribbble.com/shots/` e immagini `cdn.dribbble.com` aperte con curl o Playwright, immagini salvate lette con `Read`, prima della skill Taste e del primo file di interfaccia) e file `design/riferimenti/DRIBBBLE.md` con link, autore, immagine e che cosa prende per ogni lavoro";
+    };
     readonly 'S-01': {
         readonly attestor: "esecutore";
         readonly needs: readonly ["commit"];

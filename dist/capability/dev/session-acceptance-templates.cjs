@@ -5,6 +5,7 @@ exports.devSessionMaterialsByRole = devSessionMaterialsByRole;
 exports.devSessionTemplateSupportsEngine = devSessionTemplateSupportsEngine;
 exports.devSessionScoreThresholds = devSessionScoreThresholds;
 exports.devSessionTasteThresholds = devSessionTasteThresholds;
+exports.devSessionDribbbleShotsMin = devSessionDribbbleShotsMin;
 exports.devSessionRequirements = devSessionRequirements;
 exports.devSessionHasChiefStepCriterion = devSessionHasChiefStepCriterion;
 exports.devSessionAcceptanceTemplateProblem = devSessionAcceptanceTemplateProblem;
@@ -60,25 +61,26 @@ const DESIGN_SCORE_THRESHOLDS = {
 };
 // Taste grid thresholds, every version 2 design model (D-21); the app-only criteria D-22/D-23 are separate.
 const DESIGN_TASTE_THRESHOLDS = { itemMin: 3, totalMin: 21, itemMaxWithFail: 2 };
+const DESIGN_DRIBBBLE_SHOTS_MIN = 6;
 // Version 1 is deliberately untouched: consumers must explicitly opt into the new proofs.
 exports.DEV_SESSION_TEMPLATES_V2 = {
     'design-sito': {
         ...exports.DEV_SESSION_TEMPLATES['design-sito'], version: 2,
         materials: ['visual_images', 'approved_images', 'brand_assets', 'excellence_examples'],
-        formCriteria: ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-06', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21'],
-        scoreThresholds: DESIGN_SCORE_THRESHOLDS, tasteThresholds: DESIGN_TASTE_THRESHOLDS, // D-21 only: no D-22/D-23 on a site
+        formCriteria: ['D-01', 'D-02', 'D-03', 'D-04', 'D-05', 'D-06', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-24'],
+        scoreThresholds: DESIGN_SCORE_THRESHOLDS, tasteThresholds: DESIGN_TASTE_THRESHOLDS, dribbbleShotsMin: DESIGN_DRIBBBLE_SHOTS_MIN, // D-21 only: no D-22/D-23 on a site
     },
     'design-schermata-app': {
         ...exports.DEV_SESSION_TEMPLATES['design-schermata-app'], version: 2,
         materials: ['visual_images', 'approved_images', 'brand_assets', 'excellence_examples'],
-        formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23'],
-        scoreThresholds: DESIGN_SCORE_THRESHOLDS, tasteThresholds: DESIGN_TASTE_THRESHOLDS,
+        formCriteria: ['D-01', 'D-03', 'D-04', 'D-05', 'D-06', 'D-07', 'D-08', 'D-09', 'D-11', 'D-12', 'D-13', 'D-14', 'D-15', 'D-16', 'D-17', 'D-18', 'D-19', 'D-20', 'D-21', 'D-22', 'D-23', 'D-24'],
+        scoreThresholds: DESIGN_SCORE_THRESHOLDS, tasteThresholds: DESIGN_TASTE_THRESHOLDS, dribbbleShotsMin: DESIGN_DRIBBBLE_SHOTS_MIN,
     },
     'design-ritocco': {
         ...exports.DEV_SESSION_TEMPLATES['design-ritocco'], version: 2,
         materials: ['retouch_file', 'visual_images', 'approved_images', 'brand_assets', 'excellence_examples'],
-        formCriteria: ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21', 'D-23'],
-        scoreThresholds: DESIGN_SCORE_THRESHOLDS, tasteThresholds: DESIGN_TASTE_THRESHOLDS,
+        formCriteria: ['D-01', 'D-03', 'D-06', 'D-08', 'D-11', 'D-13', 'D-14', 'D-15', 'D-19', 'D-20', 'D-21', 'D-23', 'D-24'],
+        scoreThresholds: DESIGN_SCORE_THRESHOLDS, tasteThresholds: DESIGN_TASTE_THRESHOLDS, dribbbleShotsMin: DESIGN_DRIBBBLE_SHOTS_MIN,
     },
 };
 const TEMPLATE_VERSIONS = {
@@ -107,6 +109,11 @@ function devSessionScoreThresholds(acceptance) {
 function devSessionTasteThresholds(acceptance) {
     const resolved = templateById(acceptance.template.id, acceptance.template.version);
     return resolved.ok ? resolved.template.tasteThresholds : undefined;
+}
+/** Read research requirements from the selected model so saved contracts never gain new obligations. */
+function devSessionDribbbleShotsMin(acceptance) {
+    const resolved = templateById(acceptance.template.id, acceptance.template.version);
+    return resolved.ok ? resolved.template.dribbbleShotsMin : undefined;
 }
 exports.DEV_SESSION_REQUIREMENT_ORIGINS = ['modello', ...session_acceptance_js_1.DEV_SESSION_CRITERION_ORIGINS];
 exports.DEV_SESSION_REQUIREMENT_PROBLEMS = ['template_unknown', 'template_version_unknown', 'template_optional_not_offered', 'criterion_id_clashes_catalog'];
