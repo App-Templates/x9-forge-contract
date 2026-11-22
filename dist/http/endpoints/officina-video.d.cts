@@ -1339,6 +1339,48 @@ export declare const officinaVideoModelProductionCreateContract: {
     }, z.core.$strict>;
     readonly responseStatus: 201;
 };
+/** cap-video -> engine: create an outfit-change production from the person's own video (binary body). */
+export declare const officinaVideoOutfitProductionCreateContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/produzioni-abito";
+    readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        videoProjectId: z.ZodString;
+        name: z.ZodString;
+        description: z.ZodOptional<z.ZodString>;
+        model: z.ZodEnum<{
+            "kling-4-edit": "kling-4-edit";
+            "happy-horse": "happy-horse";
+            "kling-o1-edit": "kling-o1-edit";
+        }>;
+        resolution: z.ZodEnum<{
+            "720p": "720p";
+            "1080p": "1080p";
+        }>;
+        budgetUsd: z.ZodString;
+        fileName: z.ZodString;
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly bodyMediaTypes: readonly ["video/mp4", "video/quicktime"];
+    readonly maxBodyBytes: number;
+    readonly responseSchema: z.ZodObject<{
+        engineProjectId: z.ZodString;
+        sourceSha256: z.ZodString;
+        durationSeconds: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseStatus: 201;
+};
 /** cap-video -> engine: model production RegiaApply. Internal, INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoModelRegiaApplyContract: {
     readonly errorSchema: z.ZodObject<{

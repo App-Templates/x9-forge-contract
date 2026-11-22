@@ -11,8 +11,9 @@ import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleReq
 import { agentOrdinaryAuthorityContract } from "../http/endpoints/internal-agents-ordinary-authority.js";
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from "../http/endpoints/internal-capability-agent.js";
 import { capToolCallContract } from "../http/endpoints/cap-tool-call.js";
-import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract, officinaVideoFootageListContract, officinaVideoModelCreateContract, officinaVideoModelListContract, officinaVideoModelGetContract, officinaVideoModelVersionCreateContract, officinaVideoModelRefAddContract, officinaVideoModelRefGetContract, officinaVideoModelApproveContract, officinaVideoModelProductionCreateContract, officinaVideoModelRegiaApplyContract, officinaVideoModelStateContract, officinaVideoModelFrameContract, officinaVideoModelFrameApproveContract } from "../http/endpoints/officina-video.js";
+import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract, officinaVideoFootageListContract, officinaVideoModelCreateContract, officinaVideoModelListContract, officinaVideoModelGetContract, officinaVideoModelVersionCreateContract, officinaVideoModelRefAddContract, officinaVideoModelRefGetContract, officinaVideoModelApproveContract, officinaVideoModelProductionCreateContract, officinaVideoOutfitProductionCreateContract, officinaVideoModelRegiaApplyContract, officinaVideoModelStateContract, officinaVideoModelFrameContract, officinaVideoModelFrameApproveContract } from "../http/endpoints/officina-video.js";
 import { VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema, VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelSchema, VideoModelListSchema, VideoModelVersionSchema } from "./video/modella.js";
+import { VideoOutfitProductionQuerySchema, VideoOutfitProductionCreatedSchema } from "./video/abito.js";
 import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from "./video/produzione-modella.js";
 import { VideoModelRegiaDocumentSchema } from "./video/regia.js";
 import { INTERNAL_SECRET_HEADER } from "../auth/auth-headers.js";
@@ -172,6 +173,8 @@ export function getPortableCapabilityContracts() {
     add('videoEngineModelVersion', VideoModelVersionSchema, [], 0);
     add('videoEngineModelProductionQuery', VideoModelProductionQuerySchema, [], 0);
     add('videoEngineModelProductionCreated', VideoModelProductionCreatedSchema, [], 0);
+    add('videoEngineOutfitProductionQuery', VideoOutfitProductionQuerySchema, [], 0);
+    add('videoEngineOutfitProductionCreated', VideoOutfitProductionCreatedSchema, [], 0);
     add('videoEngineModelRegia', VideoModelRegiaDocumentSchema, [], 0);
     add('videoEngineModelState', VideoModelProductionStateSchema, [], 0);
     add('videoEngineModelFrameRequest', VideoModelFrameRequestSchema, [], 0);
@@ -222,6 +225,10 @@ export function getPortableCapabilityContracts() {
             videoEngineModelProductionCreate: {
                 ...transport(officinaVideoModelProductionCreateContract), queryContract: 'videoEngineModelProductionQuery', responseContract: 'videoEngineModelProductionCreated', errorContract: 'videoEngineError',
                 bodyMediaTypes: officinaVideoModelProductionCreateContract.bodyMediaTypes, maxBodyBytes: officinaVideoModelProductionCreateContract.maxBodyBytes,
+            },
+            videoEngineOutfitProductionCreate: {
+                ...transport(officinaVideoOutfitProductionCreateContract), queryContract: 'videoEngineOutfitProductionQuery', responseContract: 'videoEngineOutfitProductionCreated', errorContract: 'videoEngineError',
+                bodyMediaTypes: officinaVideoOutfitProductionCreateContract.bodyMediaTypes, maxBodyBytes: officinaVideoOutfitProductionCreateContract.maxBodyBytes,
             },
             videoEngineModelRegiaApply: { ...transport(officinaVideoModelRegiaApplyContract), requestContract: 'videoEngineModelRegia', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineModelState: { ...transport(officinaVideoModelStateContract), responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },

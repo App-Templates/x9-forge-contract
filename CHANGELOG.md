@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.303.0 — Officina video: produzione d'abito, additivo
+
+- `@x9-forge/contracts/capability/video`: `VideoOutfitProductionQuerySchema` (identità, progetto, nome, descrizione facoltativa, modello, risoluzione, budget e nome del file) e `VideoOutfitProductionCreatedSchema` (id del progetto del motore, sha256 del video sorgente e durata da 3 a 15 secondi), con i tipi e le costanti dei limiti.
+- `@x9-forge/contracts/http`: `officinaVideoOutfitProductionCreateContract`, `POST /api/produzioni-abito`, video mp4/mov come corpo binario fino a 64 MiB, identità e metadati in query, risposta 201 validata da `VideoOutfitProductionCreatedSchema`.
+- Consumer: cap-video (X9) e motore Officina; `dist/` rigenerata con `pnpm build`, incluso il catalogo Python.
+
+Nessuno schema esistente si stringe: schemi e rotta nuovi. Versione scelta dopo il confronto di `package.json` e `CHANGELOG.md` nei riferimenti locali di `origin/main` (1.105.0) e delle altre corsie: la versione più alta trovata è 1.302.0 (`night/bacheca-azienda-ponte-20261121`); 1.303.0 è la minore successiva libera nei rami controllati.
+
 ## v1.105.0 — Officina video: modella fissa, additivo
 
 - `modella.ts`: modella per tenant e agente, versioni, riferimenti con impronta, descrizione, generazione.

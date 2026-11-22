@@ -22,6 +22,7 @@ const internal_capability_agent_js_1 = require("../http/endpoints/internal-capab
 const cap_tool_call_js_1 = require("../http/endpoints/cap-tool-call.cjs");
 const officina_video_js_1 = require("../http/endpoints/officina-video.cjs");
 const modella_js_1 = require("./video/modella.cjs");
+const abito_js_1 = require("./video/abito.cjs");
 const produzione_modella_js_1 = require("./video/produzione-modella.cjs");
 const regia_js_1 = require("./video/regia.cjs");
 const auth_headers_js_1 = require("../auth/auth-headers.cjs");
@@ -181,6 +182,8 @@ function getPortableCapabilityContracts() {
     add('videoEngineModelVersion', modella_js_1.VideoModelVersionSchema, [], 0);
     add('videoEngineModelProductionQuery', produzione_modella_js_1.VideoModelProductionQuerySchema, [], 0);
     add('videoEngineModelProductionCreated', produzione_modella_js_1.VideoModelProductionCreatedSchema, [], 0);
+    add('videoEngineOutfitProductionQuery', abito_js_1.VideoOutfitProductionQuerySchema, [], 0);
+    add('videoEngineOutfitProductionCreated', abito_js_1.VideoOutfitProductionCreatedSchema, [], 0);
     add('videoEngineModelRegia', regia_js_1.VideoModelRegiaDocumentSchema, [], 0);
     add('videoEngineModelState', produzione_modella_js_1.VideoModelProductionStateSchema, [], 0);
     add('videoEngineModelFrameRequest', produzione_modella_js_1.VideoModelFrameRequestSchema, [], 0);
@@ -231,6 +234,10 @@ function getPortableCapabilityContracts() {
             videoEngineModelProductionCreate: {
                 ...transport(officina_video_js_1.officinaVideoModelProductionCreateContract), queryContract: 'videoEngineModelProductionQuery', responseContract: 'videoEngineModelProductionCreated', errorContract: 'videoEngineError',
                 bodyMediaTypes: officina_video_js_1.officinaVideoModelProductionCreateContract.bodyMediaTypes, maxBodyBytes: officina_video_js_1.officinaVideoModelProductionCreateContract.maxBodyBytes,
+            },
+            videoEngineOutfitProductionCreate: {
+                ...transport(officina_video_js_1.officinaVideoOutfitProductionCreateContract), queryContract: 'videoEngineOutfitProductionQuery', responseContract: 'videoEngineOutfitProductionCreated', errorContract: 'videoEngineError',
+                bodyMediaTypes: officina_video_js_1.officinaVideoOutfitProductionCreateContract.bodyMediaTypes, maxBodyBytes: officina_video_js_1.officinaVideoOutfitProductionCreateContract.maxBodyBytes,
             },
             videoEngineModelRegiaApply: { ...transport(officina_video_js_1.officinaVideoModelRegiaApplyContract), requestContract: 'videoEngineModelRegia', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineModelState: { ...transport(officina_video_js_1.officinaVideoModelStateContract), responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },

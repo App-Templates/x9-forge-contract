@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoOutfitProductionCreateContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
 const zod_1 = require("zod");
 const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
 const footage_js_1 = require("../../capability/video/footage.cjs");
 const modella_js_1 = require("../../capability/video/modella.cjs");
+const abito_js_1 = require("../../capability/video/abito.cjs");
 const produzione_modella_js_1 = require("../../capability/video/produzione-modella.cjs");
 const regia_js_1 = require("../../capability/video/regia.cjs");
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
@@ -220,6 +221,18 @@ exports.officinaVideoModelProductionCreateContract = {
     bodyMediaTypes: modella_js_1.VIDEO_MODEL_REF_MEDIA_TYPES,
     maxBodyBytes: modella_js_1.VIDEO_MODEL_REF_MAX_BYTES,
     responseSchema: produzione_modella_js_1.VideoModelProductionCreatedSchema,
+    responseStatus: 201,
+};
+/** cap-video -> engine: create an outfit-change production from the person's own video (binary body). */
+exports.officinaVideoOutfitProductionCreateContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/produzioni-abito',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: abito_js_1.VideoOutfitProductionQuerySchema,
+    bodyMediaTypes: abito_js_1.VIDEO_OUTFIT_MEDIA_TYPES,
+    maxBodyBytes: abito_js_1.VIDEO_OUTFIT_MAX_BYTES,
+    responseSchema: abito_js_1.VideoOutfitProductionCreatedSchema,
     responseStatus: 201,
 };
 /** cap-video -> engine: model production RegiaApply. Internal, INTERNAL_SECRET_HEADER. */
