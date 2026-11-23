@@ -4,6 +4,10 @@ import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { getPortableCapabilityContracts } from '../../../src/capability/portable-contracts.js';
+import {
+  officinaVideoPresetFromVideoStartContract, officinaVideoPresetFromVideoJobGetContract, officinaVideoUserPresetListContract,
+  officinaVideoUserPresetGetContract, officinaVideoUserPresetSaveContract,
+} from '../../../src/http/endpoints/officina-video.js';
 import type { VideoEngineJob, VideoEngineJobResponse } from '../../../src/capability/video/engine.js';
 
 const job: VideoEngineJob = {
@@ -55,5 +59,27 @@ print('video contracts validated')
       encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'],
     });
     expect(result.trim()).toBe('video contracts validated');
+  });
+
+  it('3211 registers the preset-from-video transports and schemas', () => {
+    const { contracts, transports } = getPortableCapabilityContracts();
+    const cases = [
+      ['videoEnginePresetFromVideoStart', officinaVideoPresetFromVideoStartContract, 'videoEnginePresetFromVideoStartRequest', 'videoEnginePresetFromVideoJob'],
+      ['videoEnginePresetFromVideoJobGet', officinaVideoPresetFromVideoJobGetContract, undefined, 'videoEnginePresetFromVideoJob'],
+      ['videoEngineUserPresetList', officinaVideoUserPresetListContract, undefined, 'videoEngineUserPresetList'],
+      ['videoEngineUserPresetGet', officinaVideoUserPresetGetContract, undefined, 'videoEngineUserPreset'],
+      ['videoEngineUserPresetSave', officinaVideoUserPresetSaveContract, 'videoEnginePresetSaveRequest', 'videoEngineUserPreset'],
+    ] as const;
+    for (const [name, contract, requestContract, responseContract] of cases) {
+      expect(transports[name], name).toMatchObject({
+        method: contract.method, path: contract.path, queryContract: 'videoEnginePresetFromVideoQuery',
+        responseContract, errorContract: 'videoEngineError',
+      });
+      expect(transports[name]!.requestContract, name).toBe(requestContract);
+      expect(contracts[responseContract], name).toMatchObject({ supported: true });
+    }
+    for (const name of ['videoEnginePresetFromVideoQuery', 'videoEnginePresetFromVideoStartRequest', 'videoEnginePresetSaveRequest']) {
+      expect(contracts[name], name).toMatchObject({ supported: true });
+    }
   });
 });
