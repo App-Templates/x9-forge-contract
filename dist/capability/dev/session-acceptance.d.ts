@@ -144,7 +144,7 @@ export declare const DEV_SESSION_CODE_OPENING_MOVES: {
     readonly piece_missing: {
         readonly field: "piece";
         readonly actor: "capo";
-        readonly move: "Indica la chiave del pezzo da costruire nella richiesta e ripetila.";
+        readonly move: "Prendi dal Mandato la chiave della sezione o della voce di alberatura del pezzo da costruire, scrivila nel campo pezzo di dev_session_open e ripeti la richiesta.";
         readonly disposition: {
             readonly nature: "missing_data";
             readonly retry: "never";

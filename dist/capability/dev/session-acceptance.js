@@ -97,7 +97,7 @@ export const DevSessionAcceptanceInputSchema = z.strictObject({
 // there would break consumers' exhaustive tables before they adopt this version.
 export const DEV_SESSION_CODE_OPENING_MOVES = {
     objective_missing: { field: 'objective', actor: 'capo', move: "Scrivi in una frase che cosa potrà fare l'utente, ricavandola dal mandato del pezzo, e ripeti la richiesta.", disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
-    piece_missing: { field: 'piece', actor: 'capo', move: 'Indica la chiave del pezzo da costruire nella richiesta e ripetila.', disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
+    piece_missing: { field: 'piece', actor: 'capo', move: 'Prendi dal Mandato la chiave della sezione o della voce di alberatura del pezzo da costruire, scrivila nel campo pezzo di dev_session_open e ripeti la richiesta.', disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
     base_required: { field: 'base', actor: 'capo', move: 'Indica nella richiesta il ramo e il commit della versione suggerita dal servizio come base e ripetila.', disposition: { nature: 'missing_data', retry: 'never', nextMove: 'fix_input' } },
 };
 export const DevSessionAcceptanceSchema = z.strictObject({

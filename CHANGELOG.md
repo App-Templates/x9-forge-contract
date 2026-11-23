@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.309.0 — `piece_missing` says where to take the piece key (task 8285)
+
+- Text-only change of `DEV_SESSION_CODE_OPENING_MOVES.piece_missing.move`: the chief is told to take the key of the section or tree entry of the piece from the Mandate and write it in the `pezzo` field of `dev_session_open`. `field`, `actor` and disposition (`missing_data` / `never` / `fix_input`) are unchanged; no type, field or code added.
+- Inert until X9 adopts the new package (separate request); cap-dev already forwards the constant.
+- REGRESSIONE: s8285 piece-missing-source
+
 ## v1.307.0 — a session's request for material has a wake event, and the chief's `dev-session` monitor is recognised (task 8477)
 
 - `PaperclipSeatNativeWakeEventSchema` gains the strict `dev_material_needed` member (after `dev_delivered`): `sessionIssue`, `projectId`, `requestKey` (lowercase sha256 hex of the request comment, id and text; the text never travels) and optional `sourceRunId` (the run in which the chief opened the session). The common rules apply unchanged: `organizationId` and `identity` required, `identity.runtimeAgentId` = `scope.agentId`.
