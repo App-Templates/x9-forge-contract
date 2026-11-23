@@ -11,10 +11,11 @@ import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleReq
 import { agentOrdinaryAuthorityContract } from "../http/endpoints/internal-agents-ordinary-authority.js";
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from "../http/endpoints/internal-capability-agent.js";
 import { capToolCallContract } from "../http/endpoints/cap-tool-call.js";
-import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract, officinaVideoFootageListContract, officinaVideoModelCreateContract, officinaVideoModelListContract, officinaVideoModelGetContract, officinaVideoModelVersionCreateContract, officinaVideoModelRefAddContract, officinaVideoModelRefGetContract, officinaVideoModelApproveContract, officinaVideoModelProductionCreateContract, officinaVideoOutfitProductionCreateContract, officinaVideoModelRegiaApplyContract, officinaVideoModelStateContract, officinaVideoModelFrameContract, officinaVideoModelFrameApproveContract } from "../http/endpoints/officina-video.js";
+import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract, officinaVideoFootageListContract, officinaVideoModelCreateContract, officinaVideoModelListContract, officinaVideoModelGetContract, officinaVideoModelVersionCreateContract, officinaVideoModelRefAddContract, officinaVideoModelRefGetContract, officinaVideoModelApproveContract, officinaVideoModelProductionCreateContract, officinaVideoOutfitProductionCreateContract, officinaVideoModelRegiaApplyContract, officinaVideoModelStateContract, officinaVideoModelFrameContract, officinaVideoModelFrameApproveContract, officinaVideoPresetFromVideoStartContract, officinaVideoPresetFromVideoJobGetContract, officinaVideoUserPresetListContract, officinaVideoUserPresetGetContract, officinaVideoUserPresetSaveContract } from "../http/endpoints/officina-video.js";
 import { VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema, VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelSchema, VideoModelListSchema, VideoModelVersionSchema } from "./video/modella.js";
 import { VideoOutfitProductionQuerySchema, VideoOutfitProductionCreatedSchema } from "./video/abito.js";
 import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from "./video/produzione-modella.js";
+import { VideoPresetFromVideoStartQuerySchema, VideoPresetFromVideoStartRequestSchema, VideoPresetFromVideoJobSchema, VideoUserPresetListSchema, VideoUserPresetSchema, VideoPresetSaveRequestSchema } from "./video/preset-da-video.js";
 import { VideoModelRegiaDocumentSchema } from "./video/regia.js";
 import { INTERNAL_SECRET_HEADER } from "../auth/auth-headers.js";
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
@@ -175,6 +176,12 @@ export function getPortableCapabilityContracts() {
     add('videoEngineModelProductionCreated', VideoModelProductionCreatedSchema, [], 0);
     add('videoEngineOutfitProductionQuery', VideoOutfitProductionQuerySchema, [], 0);
     add('videoEngineOutfitProductionCreated', VideoOutfitProductionCreatedSchema, [], 0);
+    add('videoEnginePresetFromVideoQuery', VideoPresetFromVideoStartQuerySchema, [], 0);
+    add('videoEnginePresetFromVideoStartRequest', VideoPresetFromVideoStartRequestSchema, [], 0);
+    add('videoEnginePresetFromVideoJob', VideoPresetFromVideoJobSchema, [], 0);
+    add('videoEngineUserPresetList', VideoUserPresetListSchema, [], 0);
+    add('videoEngineUserPreset', VideoUserPresetSchema, [], 0);
+    add('videoEnginePresetSaveRequest', VideoPresetSaveRequestSchema, [], 0);
     add('videoEngineModelRegia', VideoModelRegiaDocumentSchema, [], 0);
     add('videoEngineModelState', VideoModelProductionStateSchema, [], 0);
     add('videoEngineModelFrameRequest', VideoModelFrameRequestSchema, [], 0);
@@ -230,6 +237,11 @@ export function getPortableCapabilityContracts() {
                 ...transport(officinaVideoOutfitProductionCreateContract), queryContract: 'videoEngineOutfitProductionQuery', responseContract: 'videoEngineOutfitProductionCreated', errorContract: 'videoEngineError',
                 bodyMediaTypes: officinaVideoOutfitProductionCreateContract.bodyMediaTypes, maxBodyBytes: officinaVideoOutfitProductionCreateContract.maxBodyBytes,
             },
+            videoEnginePresetFromVideoStart: { ...transport(officinaVideoPresetFromVideoStartContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetFromVideoStartRequest', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
+            videoEnginePresetFromVideoJobGet: { ...transport(officinaVideoPresetFromVideoJobGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
+            videoEngineUserPresetList: { ...transport(officinaVideoUserPresetListContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPresetList', errorContract: 'videoEngineError' },
+            videoEngineUserPresetGet: { ...transport(officinaVideoUserPresetGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
+            videoEngineUserPresetSave: { ...transport(officinaVideoUserPresetSaveContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetSaveRequest', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
             videoEngineModelRegiaApply: { ...transport(officinaVideoModelRegiaApplyContract), requestContract: 'videoEngineModelRegia', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineModelState: { ...transport(officinaVideoModelStateContract), responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineModelFrame: { ...transport(officinaVideoModelFrameContract), requestContract: 'videoEngineModelFrameRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },

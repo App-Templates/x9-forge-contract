@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.308.0 — Officina video: trasporti del preset da un video nel catalogo portabile, additivo
+
+- Catalogo portabile: sei schemi per identità, avvio, lavoro di analisi, elenco dei preset, preset salvato e richiesta di salvataggio.
+- Cinque trasporti: `videoEnginePresetFromVideoStart`, `videoEnginePresetFromVideoJobGet`, `videoEngineUserPresetList`, `videoEngineUserPresetGet` e `videoEngineUserPresetSave`.
+- Consumer: motore Officina (ov-motore/3588); `dist/` rigenerata con `pnpm build`, inclusi catalogo e modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: il catalogo espone i contratti della 3211. Versione scelta confrontando `package.json` e `CHANGELOG.md` nei riferimenti locali di `origin/main` e delle altre corsie del ponte: 1.305.0, 1.306.0, 1.307.0 e 1.309.0 sono già occupate dalla corsia `ec-ponte-conferme`; 1.308.0 è la prima minore libera dopo 1.304.0.
+
 ## v1.304.0 — Officina video: nuovo preset da un video d'esempio, additivo
 
 - `preset-da-video.ts`: contratti del nuovo preset da un video d'esempio (URL, lavoro di analisi, bozza, preset salvato dell'utente, elenco dei preset).
