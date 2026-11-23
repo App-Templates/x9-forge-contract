@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.304.0 — Officina video: nuovo preset da un video d'esempio, additivo
+
+- `preset-da-video.ts`: contratti del nuovo preset da un video d'esempio (URL, lavoro di analisi, bozza, preset salvato dell'utente, elenco dei preset).
+- `preset-da-video-tool.ts`: strumento `video_preset_da_url` con ingresso, stato e risposta.
+- Consumer: motore Officina (modulo Python generato in `dist/python`) e cap-video (X9); `dist/` rigenerata con `pnpm build`.
+
+Nessuno schema esistente si stringe: schemi e strumento nuovi.
+
 ## v1.303.0 — Officina video: produzione d'abito, additivo
 
 - `@x9-forge/contracts/capability/video`: `VideoOutfitProductionQuerySchema` (identità, progetto, nome, descrizione facoltativa, modello, risoluzione, budget e nome del file) e `VideoOutfitProductionCreatedSchema` (id del progetto del motore, sha256 del video sorgente e durata da 3 a 15 secondi), con i tipi e le costanti dei limiti.

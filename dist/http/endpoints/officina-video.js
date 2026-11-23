@@ -5,6 +5,7 @@ import { VIDEO_FOOTAGE_MAX_BYTES, VIDEO_FOOTAGE_MEDIA_TYPES, VideoFootageAddQuer
 import { VIDEO_MODEL_REF_MEDIA_TYPES, VIDEO_MODEL_REF_MAX_BYTES, VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema, VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelSchema, VideoModelListSchema, VideoModelVersionSchema, VideoModelIdSchema, VideoModelVersionParamSchema, VideoModelRefKindSchema } from "../../capability/video/modella.js";
 import { VIDEO_OUTFIT_MEDIA_TYPES, VIDEO_OUTFIT_MAX_BYTES, VideoOutfitProductionQuerySchema, VideoOutfitProductionCreatedSchema } from "../../capability/video/abito.js";
 import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from "../../capability/video/produzione-modella.js";
+import { VideoPresetFromVideoStartQuerySchema, VideoPresetFromVideoStartRequestSchema, VideoPresetFromVideoJobSchema, VideoPresetSaveRequestSchema, VideoUserPresetSchema, VideoUserPresetListSchema, VideoUserPresetIdSchema } from "../../capability/video/preset-da-video.js";
 import { VideoModelRegiaDocumentSchema } from "../../capability/video/regia.js";
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
@@ -269,6 +270,58 @@ export const officinaVideoModelFrameApproveContract = {
     paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
     requestSchema: VideoModelFrameApproveRequestSchema,
     responseSchema: VideoModelProductionStateSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: start a preset from an example video (URL). Identity in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoPresetFromVideoStartContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/preset-da-video',
+    paramsSchema: z.object({}).strict(),
+    querySchema: VideoPresetFromVideoStartQuerySchema,
+    requestSchema: VideoPresetFromVideoStartRequestSchema,
+    responseSchema: VideoPresetFromVideoJobSchema,
+    responseStatus: 202,
+};
+/** cap-video -> engine: state of one preset job. The job of another tenant is 404. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoPresetFromVideoJobGetContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/preset-da-video/jobs/:jobId',
+    paramsSchema: z.object({ jobId: VideoPresetFromVideoJobSchema.shape.jobId }).strict(),
+    querySchema: VideoPresetFromVideoStartQuerySchema,
+    responseSchema: VideoPresetFromVideoJobSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: the presets of the tenant. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoUserPresetListContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/preset-utente',
+    paramsSchema: z.object({}).strict(),
+    querySchema: VideoPresetFromVideoStartQuerySchema,
+    responseSchema: VideoUserPresetListSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: one preset of the tenant. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoUserPresetGetContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/preset-utente/:presetId',
+    paramsSchema: z.object({ presetId: VideoUserPresetIdSchema }).strict(),
+    querySchema: VideoPresetFromVideoStartQuerySchema,
+    responseSchema: VideoUserPresetSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: save the user's correction of a preset (status becomes `salvato`). Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoUserPresetSaveContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'PUT',
+    path: '/api/preset-utente/:presetId',
+    paramsSchema: z.object({ presetId: VideoUserPresetIdSchema }).strict(),
+    querySchema: VideoPresetFromVideoStartQuerySchema,
+    requestSchema: VideoPresetSaveRequestSchema,
+    responseSchema: VideoUserPresetSchema,
     responseStatus: 200,
 };
 //# sourceMappingURL=officina-video.js.map

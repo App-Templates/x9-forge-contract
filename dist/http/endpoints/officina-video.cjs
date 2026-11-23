@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoOutfitProductionCreateContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoUserPresetSaveContract = exports.officinaVideoUserPresetGetContract = exports.officinaVideoUserPresetListContract = exports.officinaVideoPresetFromVideoJobGetContract = exports.officinaVideoPresetFromVideoStartContract = exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoOutfitProductionCreateContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
 const zod_1 = require("zod");
 const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
@@ -8,6 +8,7 @@ const footage_js_1 = require("../../capability/video/footage.cjs");
 const modella_js_1 = require("../../capability/video/modella.cjs");
 const abito_js_1 = require("../../capability/video/abito.cjs");
 const produzione_modella_js_1 = require("../../capability/video/produzione-modella.cjs");
+const preset_da_video_js_1 = require("../../capability/video/preset-da-video.cjs");
 const regia_js_1 = require("../../capability/video/regia.cjs");
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 exports.officinaVideoJobContract = {
@@ -272,6 +273,58 @@ exports.officinaVideoModelFrameApproveContract = {
     paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
     requestSchema: produzione_modella_js_1.VideoModelFrameApproveRequestSchema,
     responseSchema: produzione_modella_js_1.VideoModelProductionStateSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: start a preset from an example video (URL). Identity in the query. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoPresetFromVideoStartContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/preset-da-video',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: preset_da_video_js_1.VideoPresetFromVideoStartQuerySchema,
+    requestSchema: preset_da_video_js_1.VideoPresetFromVideoStartRequestSchema,
+    responseSchema: preset_da_video_js_1.VideoPresetFromVideoJobSchema,
+    responseStatus: 202,
+};
+/** cap-video -> engine: state of one preset job. The job of another tenant is 404. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoPresetFromVideoJobGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/preset-da-video/jobs/:jobId',
+    paramsSchema: zod_1.z.object({ jobId: preset_da_video_js_1.VideoPresetFromVideoJobSchema.shape.jobId }).strict(),
+    querySchema: preset_da_video_js_1.VideoPresetFromVideoStartQuerySchema,
+    responseSchema: preset_da_video_js_1.VideoPresetFromVideoJobSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: the presets of the tenant. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoUserPresetListContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/preset-utente',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: preset_da_video_js_1.VideoPresetFromVideoStartQuerySchema,
+    responseSchema: preset_da_video_js_1.VideoUserPresetListSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: one preset of the tenant. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoUserPresetGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/preset-utente/:presetId',
+    paramsSchema: zod_1.z.object({ presetId: preset_da_video_js_1.VideoUserPresetIdSchema }).strict(),
+    querySchema: preset_da_video_js_1.VideoPresetFromVideoStartQuerySchema,
+    responseSchema: preset_da_video_js_1.VideoUserPresetSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: save the user's correction of a preset (status becomes `salvato`). Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoUserPresetSaveContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'PUT',
+    path: '/api/preset-utente/:presetId',
+    paramsSchema: zod_1.z.object({ presetId: preset_da_video_js_1.VideoUserPresetIdSchema }).strict(),
+    querySchema: preset_da_video_js_1.VideoPresetFromVideoStartQuerySchema,
+    requestSchema: preset_da_video_js_1.VideoPresetSaveRequestSchema,
+    responseSchema: preset_da_video_js_1.VideoUserPresetSchema,
     responseStatus: 200,
 };
 //# sourceMappingURL=officina-video.js.map

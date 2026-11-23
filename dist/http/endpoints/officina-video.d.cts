@@ -1631,4 +1631,374 @@ export declare const officinaVideoModelFrameApproveContract: {
     }, z.core.$strict>;
     readonly responseStatus: 200;
 };
+/** cap-video -> engine: start a preset from an example video (URL). Identity in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoPresetFromVideoStartContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/preset-da-video";
+    readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        url: z.ZodString;
+        name: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        jobId: z.ZodString;
+        status: z.ZodEnum<{
+            failed: "failed";
+            done: "done";
+            queued: "queued";
+            downloading: "downloading";
+            analyzing: "analyzing";
+        }>;
+        presetId: z.ZodNullable<z.ZodString>;
+        code: z.ZodNullable<z.ZodString>;
+        error: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseStatus: 202;
+};
+/** cap-video -> engine: state of one preset job. The job of another tenant is 404. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoPresetFromVideoJobGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/preset-da-video/jobs/:jobId";
+    readonly paramsSchema: z.ZodObject<{
+        jobId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        jobId: z.ZodString;
+        status: z.ZodEnum<{
+            failed: "failed";
+            done: "done";
+            queued: "queued";
+            downloading: "downloading";
+            analyzing: "analyzing";
+        }>;
+        presetId: z.ZodNullable<z.ZodString>;
+        code: z.ZodNullable<z.ZodString>;
+        error: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: the presets of the tenant. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoUserPresetListContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/preset-utente";
+    readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        presets: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            name: z.ZodString;
+            identity: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            status: z.ZodEnum<{
+                bozza: "bozza";
+                salvato: "salvato";
+            }>;
+            revision: z.ZodNumber;
+            basedOn: z.ZodDefault<z.ZodString>;
+            source: z.ZodObject<{
+                durationSeconds: z.ZodNumber;
+                aspectRatio: z.ZodEnum<{
+                    "9:16": "9:16";
+                    "16:9": "16:9";
+                    "1:1": "1:1";
+                }>;
+                sceneCount: z.ZodNumber;
+            }, z.core.$strict>;
+            scenes: z.ZodArray<z.ZodObject<{
+                index: z.ZodNumber;
+                durationSeconds: z.ZodNumber;
+                framing: z.ZodEnum<{
+                    largo: "largo";
+                    medio: "medio";
+                    stretto: "stretto";
+                }>;
+                movement: z.ZodEnum<{
+                    fissa: "fissa";
+                    "push-in": "push-in";
+                    "pull-out": "pull-out";
+                    panoramica: "panoramica";
+                }>;
+                transitionIn: z.ZodEnum<{
+                    taglio: "taglio";
+                    dissolvenza: "dissolvenza";
+                    "dissolvenza-nero": "dissolvenza-nero";
+                    scorrimento: "scorrimento";
+                    zoom: "zoom";
+                }>;
+                role: z.ZodEnum<{
+                    gancio: "gancio";
+                    contesto: "contesto";
+                    info: "info";
+                    prova: "prova";
+                    svolta: "svolta";
+                    conclusione: "conclusione";
+                    invito: "invito";
+                    atmosfera: "atmosfera";
+                }>;
+                roleSource: z.ZodEnum<{
+                    stimato: "stimato";
+                    corretto: "corretto";
+                }>;
+            }, z.core.$strict>>;
+            createdAt: z.ZodString;
+            updatedAt: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: one preset of the tenant. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoUserPresetGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/preset-utente/:presetId";
+    readonly paramsSchema: z.ZodObject<{
+        presetId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        name: z.ZodString;
+        identity: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        status: z.ZodEnum<{
+            bozza: "bozza";
+            salvato: "salvato";
+        }>;
+        revision: z.ZodNumber;
+        basedOn: z.ZodDefault<z.ZodString>;
+        source: z.ZodObject<{
+            durationSeconds: z.ZodNumber;
+            aspectRatio: z.ZodEnum<{
+                "9:16": "9:16";
+                "16:9": "16:9";
+                "1:1": "1:1";
+            }>;
+            sceneCount: z.ZodNumber;
+        }, z.core.$strict>;
+        scenes: z.ZodArray<z.ZodObject<{
+            index: z.ZodNumber;
+            durationSeconds: z.ZodNumber;
+            framing: z.ZodEnum<{
+                largo: "largo";
+                medio: "medio";
+                stretto: "stretto";
+            }>;
+            movement: z.ZodEnum<{
+                fissa: "fissa";
+                "push-in": "push-in";
+                "pull-out": "pull-out";
+                panoramica: "panoramica";
+            }>;
+            transitionIn: z.ZodEnum<{
+                taglio: "taglio";
+                dissolvenza: "dissolvenza";
+                "dissolvenza-nero": "dissolvenza-nero";
+                scorrimento: "scorrimento";
+                zoom: "zoom";
+            }>;
+            role: z.ZodEnum<{
+                gancio: "gancio";
+                contesto: "contesto";
+                info: "info";
+                prova: "prova";
+                svolta: "svolta";
+                conclusione: "conclusione";
+                invito: "invito";
+                atmosfera: "atmosfera";
+            }>;
+            roleSource: z.ZodEnum<{
+                stimato: "stimato";
+                corretto: "corretto";
+            }>;
+        }, z.core.$strict>>;
+        createdAt: z.ZodString;
+        updatedAt: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: save the user's correction of a preset (status becomes `salvato`). Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoUserPresetSaveContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "PUT";
+    readonly path: "/api/preset-utente/:presetId";
+    readonly paramsSchema: z.ZodObject<{
+        presetId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        revision: z.ZodNumber;
+        name: z.ZodString;
+        basedOn: z.ZodString;
+        scenes: z.ZodArray<z.ZodObject<{
+            index: z.ZodNumber;
+            durationSeconds: z.ZodNumber;
+            framing: z.ZodEnum<{
+                largo: "largo";
+                medio: "medio";
+                stretto: "stretto";
+            }>;
+            movement: z.ZodEnum<{
+                fissa: "fissa";
+                "push-in": "push-in";
+                "pull-out": "pull-out";
+                panoramica: "panoramica";
+            }>;
+            transitionIn: z.ZodEnum<{
+                taglio: "taglio";
+                dissolvenza: "dissolvenza";
+                "dissolvenza-nero": "dissolvenza-nero";
+                scorrimento: "scorrimento";
+                zoom: "zoom";
+            }>;
+            role: z.ZodEnum<{
+                gancio: "gancio";
+                contesto: "contesto";
+                info: "info";
+                prova: "prova";
+                svolta: "svolta";
+                conclusione: "conclusione";
+                invito: "invito";
+                atmosfera: "atmosfera";
+            }>;
+            roleSource: z.ZodEnum<{
+                stimato: "stimato";
+                corretto: "corretto";
+            }>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        name: z.ZodString;
+        identity: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        status: z.ZodEnum<{
+            bozza: "bozza";
+            salvato: "salvato";
+        }>;
+        revision: z.ZodNumber;
+        basedOn: z.ZodDefault<z.ZodString>;
+        source: z.ZodObject<{
+            durationSeconds: z.ZodNumber;
+            aspectRatio: z.ZodEnum<{
+                "9:16": "9:16";
+                "16:9": "16:9";
+                "1:1": "1:1";
+            }>;
+            sceneCount: z.ZodNumber;
+        }, z.core.$strict>;
+        scenes: z.ZodArray<z.ZodObject<{
+            index: z.ZodNumber;
+            durationSeconds: z.ZodNumber;
+            framing: z.ZodEnum<{
+                largo: "largo";
+                medio: "medio";
+                stretto: "stretto";
+            }>;
+            movement: z.ZodEnum<{
+                fissa: "fissa";
+                "push-in": "push-in";
+                "pull-out": "pull-out";
+                panoramica: "panoramica";
+            }>;
+            transitionIn: z.ZodEnum<{
+                taglio: "taglio";
+                dissolvenza: "dissolvenza";
+                "dissolvenza-nero": "dissolvenza-nero";
+                scorrimento: "scorrimento";
+                zoom: "zoom";
+            }>;
+            role: z.ZodEnum<{
+                gancio: "gancio";
+                contesto: "contesto";
+                info: "info";
+                prova: "prova";
+                svolta: "svolta";
+                conclusione: "conclusione";
+                invito: "invito";
+                atmosfera: "atmosfera";
+            }>;
+            roleSource: z.ZodEnum<{
+                stimato: "stimato";
+                corretto: "corretto";
+            }>;
+        }, z.core.$strict>>;
+        createdAt: z.ZodString;
+        updatedAt: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
 //# sourceMappingURL=officina-video.d.ts.map
