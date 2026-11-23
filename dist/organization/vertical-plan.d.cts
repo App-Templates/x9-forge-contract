@@ -5,8 +5,8 @@ export declare const VERTICAL_PLAN_ATTACHMENT_ROLES: readonly ["rd_dossier", "ex
 export declare const VerticalPlanAttachmentRoleSchema: z.ZodEnum<{
     budget: "budget";
     reviewer: "reviewer";
-    executor: "executor";
     criteria: "criteria";
+    executor: "executor";
     rd_dossier: "rd_dossier";
 }>;
 export type VerticalPlanAttachmentRole = z.infer<typeof VerticalPlanAttachmentRoleSchema>;
@@ -43,8 +43,8 @@ export declare const VerticalPlanSchema: z.ZodObject<{
         role: z.ZodEnum<{
             budget: "budget";
             reviewer: "reviewer";
-            executor: "executor";
             criteria: "criteria";
+            executor: "executor";
             rd_dossier: "rd_dossier";
         }>;
         asset: z.ZodObject<{

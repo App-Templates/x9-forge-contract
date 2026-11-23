@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.318.0 — the built package exports the PDF contract chain (task 8309)
+
+- Closes the chain 8303–8308 in one release; versions 1.312.0–1.317.0 were never written here, so their shapes are listed together. `capability`: `DocumentDataSchema`, `documentDataCanonicalJson` (8303); `DocumentPdfReceiptSchema` with source, delivery context and role schemas and `DOCUMENT_PDF_RECEIPT_ROLES` (8304); `DOCUMENT_PDF_TOOL`, `DocumentPdfInputSchema`, `DocumentPdfOutputSchema` (8307). `capability/lab`: `LabDossierSnapshotSchema`, `LabDossierSnapshotInputSchema`, `buildLabDossierSnapshot`, `labDossierManifestDigest`, `labDossierCanonicalJson`, `LAB_DOSSIER_PAGE_ROLES` (8305). `http`: `internalLabDossierSnapshotContract` and its path, request, response and error schemas, `LAB_DOSSIER_SNAPSHOT_ERRORS` (8306). `organization/decision-request`: `ActionPlanDecisionSubjectSchema`, `actionPlanPdfDeliveryProblems` (8308).
+- `dist/` regenerated only with `pnpm build`; ESM and CJS entries export the same names. No source change in this release.
+- Additive; every payload that parsed before parses identically. Adoption (8298) reads the local commit after this parent; nothing is published.
+- REGRESSIONE: s8309 built ESM and CJS export the same PDF contracts at version 1.318.0
+
 ## v1.311.0 — the refusals of a decision reply name their real cause (task 8311)
 
 - `DecisionEmailReplyRejection` gains 8 literals, all kept next to the 6 existing ones (`mismatch`, `unclear`, `option_required`, `unknown_option`, `not_addressee`, `before_request`): `referent_changes_not_allowed` (approve with `referentChanges`, even `[]`, outside a `confirmation_set`), `note_without_words` (approve with a `note` and no `referentWords`, any subject), and for `decisionOutcomeFromHandover` `handover_request_missing`, `handover_tenant_mismatch`, `handover_organization_mismatch`, `handover_project_mismatch`, `handover_subject_not_delivery`, `handover_bu_mismatch`.

@@ -16,4 +16,5 @@ export { LAB_TOOLS, LAB_INTERNAL_TOOLS, LabExecuteInputSchema, LabExecuteOutputS
 export { LabGapsRefSchema } from "../ricerca/research.js";
 export { LabScopeSchema, LabGrowthPointSchema, LabGrowthHistoryInputSchema, LabGrowthHistoryOutputSchema, } from "./growth.js";
 export { LabPageListInputSchema, LabPageListEntrySchema, LabPageListOutputSchema, LabPageDetailInputSchema, LabPageDetailOutputSchema, LabExportFormatSchema, LabExportRequestSchema, LabExportResultSchema, LabBrowseErrorSchema, } from "./browse.js";
+export { LAB_DOSSIER_MAX_PAGES, LAB_DOSSIER_MAX_SOURCES, LAB_DOSSIER_PAGE_ROLES, LabDossierPageRoleSchema, LabDossierPageSchema, LabDossierSourceSchema, LabDossierPageIdentitySchema, LabDossierPlanCitationSchema, LabDossierSnapshotInputSchema, LabDossierSnapshotSchema, buildLabDossierSnapshot, labDossierCanonicalJson, labDossierManifestDigest, } from "./dossier.js";
 //# sourceMappingURL=index.js.map

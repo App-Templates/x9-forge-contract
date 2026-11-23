@@ -56,8 +56,8 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                     }, z.core.$strict>]>>;
                     executor: z.ZodEnum<{
                         agent: "agent";
-                        night: "night";
                         dev_session: "dev_session";
+                        night: "night";
                     }>;
                     referent: z.ZodObject<{
                         personRef: z.ZodString;
@@ -343,8 +343,8 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
             workMode: z.ZodOptional<z.ZodObject<{
                 executor: z.ZodEnum<{
                     agent: "agent";
-                    night: "night";
                     dev_session: "dev_session";
+                    night: "night";
                 }>;
                 allowedTools: z.ZodArray<z.ZodString>;
                 excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -440,8 +440,8 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                         }, z.core.$strict>]>>;
                         executor: z.ZodEnum<{
                             agent: "agent";
-                            night: "night";
                             dev_session: "dev_session";
+                            night: "night";
                         }>;
                         referent: z.ZodObject<{
                             personRef: z.ZodString;
@@ -727,8 +727,8 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                 workMode: z.ZodOptional<z.ZodObject<{
                     executor: z.ZodEnum<{
                         agent: "agent";
-                        night: "night";
                         dev_session: "dev_session";
+                        night: "night";
                     }>;
                     allowedTools: z.ZodArray<z.ZodString>;
                     excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -825,8 +825,8 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                         }, z.core.$strict>]>>;
                         executor: z.ZodEnum<{
                             agent: "agent";
-                            night: "night";
                             dev_session: "dev_session";
+                            night: "night";
                         }>;
                         referent: z.ZodObject<{
                             personRef: z.ZodString;
@@ -1112,8 +1112,8 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                 workMode: z.ZodOptional<z.ZodObject<{
                     executor: z.ZodEnum<{
                         agent: "agent";
-                        night: "night";
                         dev_session: "dev_session";
+                        night: "night";
                     }>;
                     allowedTools: z.ZodArray<z.ZodString>;
                     excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -1243,8 +1243,8 @@ export declare const internalMemoryMandateObservationReadContract: {
                             }, z.core.$strict>]>>;
                             executor: z.ZodEnum<{
                                 agent: "agent";
-                                night: "night";
                                 dev_session: "dev_session";
+                                night: "night";
                             }>;
                             referent: z.ZodObject<{
                                 personRef: z.ZodString;
@@ -1530,8 +1530,8 @@ export declare const internalMemoryMandateObservationReadContract: {
                     workMode: z.ZodOptional<z.ZodObject<{
                         executor: z.ZodEnum<{
                             agent: "agent";
-                            night: "night";
                             dev_session: "dev_session";
+                            night: "night";
                         }>;
                         allowedTools: z.ZodArray<z.ZodString>;
                         excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -1640,8 +1640,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                         }, z.core.$strict>]>>;
                         executor: z.ZodEnum<{
                             agent: "agent";
-                            night: "night";
                             dev_session: "dev_session";
+                            night: "night";
                         }>;
                         referent: z.ZodObject<{
                             personRef: z.ZodString;
@@ -1927,8 +1927,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                 workMode: z.ZodOptional<z.ZodObject<{
                     executor: z.ZodEnum<{
                         agent: "agent";
-                        night: "night";
                         dev_session: "dev_session";
+                        night: "night";
                     }>;
                     allowedTools: z.ZodArray<z.ZodString>;
                     excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -2023,8 +2023,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                             }, z.core.$strict>]>>;
                             executor: z.ZodEnum<{
                                 agent: "agent";
-                                night: "night";
                                 dev_session: "dev_session";
+                                night: "night";
                             }>;
                             referent: z.ZodObject<{
                                 personRef: z.ZodString;
@@ -2310,8 +2310,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                     workMode: z.ZodOptional<z.ZodObject<{
                         executor: z.ZodEnum<{
                             agent: "agent";
-                            night: "night";
                             dev_session: "dev_session";
+                            night: "night";
                         }>;
                         allowedTools: z.ZodArray<z.ZodString>;
                         excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;

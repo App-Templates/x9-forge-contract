@@ -122,4 +122,7 @@ __exportStar(require("./agent-elevenlabs/native-readback.cjs"), exports);
 __exportStar(require("./configuration/news-briefing.cjs"), exports);
 __exportStar(require("./feature-switch.cjs"), exports);
 __exportStar(require("./paperclip-protocollo/index.cjs"), exports);
+__exportStar(require("./document-render.cjs"), exports);
+__exportStar(require("./document-receipt.cjs"), exports);
+__exportStar(require("./document-tools.cjs"), exports);
 //# sourceMappingURL=index.js.map

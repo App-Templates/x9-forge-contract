@@ -23,5 +23,6 @@ export * from "./endpoints/coach-operational-write.js";
 export * from "./endpoints/coach-operational-read.js";
 export * from "./endpoints/native-channel.js";
 export * from "./endpoints/internal-capability-news-briefing.js";
+export * from "./endpoints/internal-capability-lab-dossier.js";
 export * from "./endpoints/coach-operational-authority.js";
 //# sourceMappingURL=index.js.map

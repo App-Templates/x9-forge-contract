@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LabGrowthHistoryOutputSchema = exports.LabGrowthHistoryInputSchema = exports.LabGrowthPointSchema = exports.LabScopeSchema = exports.LabGapsRefSchema = exports.LabBriefGapsOutputSchema = exports.LabBriefGapsInputSchema = exports.LabReadPublishedOutputSchema = exports.LabReadPublishedInputSchema = exports.LabPublishOutputSchema = exports.LabPublishInputSchema = exports.LabPublicationRecipientSchema = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabEmptyReasonSchema = exports.LabPageMatchSchema = exports.LAB_EMPTY_REASONS = exports.LAB_PAGE_MATCH_KINDS = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabIngestDocumentSchema = exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LAB_TOOLS = exports.CompetenceGapSchema = exports.CompetenceGapReasonSchema = exports.CompetenceNodeViewSchema = exports.CompetenceNodeIdSchema = exports.COMPETENCE_MAX_LEVEL = exports.WikiLinkSchema = exports.WikiClaimSchema = exports.WikiClaimStatusSchema = exports.WikiPageSchema = exports.WikiSourceSchema = exports.WikiPageSlugSchema = exports.WikiSourceIdSchema = exports.WikiOriginSchema = exports.LabModelsSchema = exports.LabBudgetSchema = exports.LabAgentConfigSchema = exports.KindSlugSchema = void 0;
-exports.LabBrowseErrorSchema = exports.LabExportResultSchema = exports.LabExportRequestSchema = exports.LabExportFormatSchema = exports.LabPageDetailOutputSchema = exports.LabPageDetailInputSchema = exports.LabPageListOutputSchema = exports.LabPageListEntrySchema = exports.LabPageListInputSchema = void 0;
+exports.labDossierManifestDigest = exports.labDossierCanonicalJson = exports.buildLabDossierSnapshot = exports.LabDossierSnapshotSchema = exports.LabDossierSnapshotInputSchema = exports.LabDossierPlanCitationSchema = exports.LabDossierPageIdentitySchema = exports.LabDossierSourceSchema = exports.LabDossierPageSchema = exports.LabDossierPageRoleSchema = exports.LAB_DOSSIER_PAGE_ROLES = exports.LAB_DOSSIER_MAX_SOURCES = exports.LAB_DOSSIER_MAX_PAGES = exports.LabBrowseErrorSchema = exports.LabExportResultSchema = exports.LabExportRequestSchema = exports.LabExportFormatSchema = exports.LabPageDetailOutputSchema = exports.LabPageDetailInputSchema = exports.LabPageListOutputSchema = exports.LabPageListEntrySchema = exports.LabPageListInputSchema = void 0;
 /**
  * cap-lab contracts — sub-path `@x9-forge/contracts/capability/lab` (v1.28.0, Phase 54).
  *
@@ -79,4 +79,18 @@ Object.defineProperty(exports, "LabExportFormatSchema", { enumerable: true, get:
 Object.defineProperty(exports, "LabExportRequestSchema", { enumerable: true, get: function () { return browse_js_1.LabExportRequestSchema; } });
 Object.defineProperty(exports, "LabExportResultSchema", { enumerable: true, get: function () { return browse_js_1.LabExportResultSchema; } });
 Object.defineProperty(exports, "LabBrowseErrorSchema", { enumerable: true, get: function () { return browse_js_1.LabBrowseErrorSchema; } });
+var dossier_js_1 = require("./dossier.cjs");
+Object.defineProperty(exports, "LAB_DOSSIER_MAX_PAGES", { enumerable: true, get: function () { return dossier_js_1.LAB_DOSSIER_MAX_PAGES; } });
+Object.defineProperty(exports, "LAB_DOSSIER_MAX_SOURCES", { enumerable: true, get: function () { return dossier_js_1.LAB_DOSSIER_MAX_SOURCES; } });
+Object.defineProperty(exports, "LAB_DOSSIER_PAGE_ROLES", { enumerable: true, get: function () { return dossier_js_1.LAB_DOSSIER_PAGE_ROLES; } });
+Object.defineProperty(exports, "LabDossierPageRoleSchema", { enumerable: true, get: function () { return dossier_js_1.LabDossierPageRoleSchema; } });
+Object.defineProperty(exports, "LabDossierPageSchema", { enumerable: true, get: function () { return dossier_js_1.LabDossierPageSchema; } });
+Object.defineProperty(exports, "LabDossierSourceSchema", { enumerable: true, get: function () { return dossier_js_1.LabDossierSourceSchema; } });
+Object.defineProperty(exports, "LabDossierPageIdentitySchema", { enumerable: true, get: function () { return dossier_js_1.LabDossierPageIdentitySchema; } });
+Object.defineProperty(exports, "LabDossierPlanCitationSchema", { enumerable: true, get: function () { return dossier_js_1.LabDossierPlanCitationSchema; } });
+Object.defineProperty(exports, "LabDossierSnapshotInputSchema", { enumerable: true, get: function () { return dossier_js_1.LabDossierSnapshotInputSchema; } });
+Object.defineProperty(exports, "LabDossierSnapshotSchema", { enumerable: true, get: function () { return dossier_js_1.LabDossierSnapshotSchema; } });
+Object.defineProperty(exports, "buildLabDossierSnapshot", { enumerable: true, get: function () { return dossier_js_1.buildLabDossierSnapshot; } });
+Object.defineProperty(exports, "labDossierCanonicalJson", { enumerable: true, get: function () { return dossier_js_1.labDossierCanonicalJson; } });
+Object.defineProperty(exports, "labDossierManifestDigest", { enumerable: true, get: function () { return dossier_js_1.labDossierManifestDigest; } });
 //# sourceMappingURL=index.js.map

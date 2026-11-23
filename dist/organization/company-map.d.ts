@@ -12,10 +12,10 @@ export type CompanyMapLevel = z.infer<typeof CompanyMapLevelSchema>;
 export declare const COMPANY_MAP_ENTRY_KINDS: readonly ["referent", "person", "responsibility", "asset", "access"];
 export declare const CompanyMapEntryKindSchema: z.ZodEnum<{
     access: "access";
+    asset: "asset";
     referent: "referent";
     person: "person";
     responsibility: "responsibility";
-    asset: "asset";
 }>;
 export type CompanyMapEntryKind = z.infer<typeof CompanyMapEntryKindSchema>;
 /** An entry comes only from a seed or from an approved decision, never from a model. */
@@ -71,10 +71,10 @@ export declare const CompanyMapConfirmTargetSchema: z.ZodObject<{
     buSlug: z.ZodOptional<z.ZodString>;
     kind: z.ZodEnum<{
         access: "access";
+        asset: "asset";
         referent: "referent";
         person: "person";
         responsibility: "responsibility";
-        asset: "asset";
     }>;
     entryRef: z.ZodString;
 }, z.core.$strict>;

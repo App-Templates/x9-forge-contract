@@ -152,8 +152,8 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
             }, z.core.$strict>]>>;
             executor: z.ZodEnum<{
                 agent: "agent";
-                night: "night";
                 dev_session: "dev_session";
+                night: "night";
             }>;
             referent: z.ZodObject<{
                 personRef: z.ZodString;
@@ -528,8 +528,8 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
             }, z.core.$strict>]>>;
             executor: z.ZodEnum<{
                 agent: "agent";
-                night: "night";
                 dev_session: "dev_session";
+                night: "night";
             }>;
             referent: z.ZodObject<{
                 personRef: z.ZodString;
@@ -941,8 +941,8 @@ export declare const internalMemoryActionPlanSaveContract: {
                 }, z.core.$strict>]>>;
                 executor: z.ZodEnum<{
                     agent: "agent";
-                    night: "night";
                     dev_session: "dev_session";
+                    night: "night";
                 }>;
                 referent: z.ZodObject<{
                     personRef: z.ZodString;
@@ -1320,8 +1320,8 @@ export declare const internalMemoryActionPlanReadContract: {
                 }, z.core.$strict>]>>;
                 executor: z.ZodEnum<{
                     agent: "agent";
-                    night: "night";
                     dev_session: "dev_session";
+                    night: "night";
                 }>;
                 referent: z.ZodObject<{
                     personRef: z.ZodString;

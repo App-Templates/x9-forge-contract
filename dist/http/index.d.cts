@@ -23,5 +23,6 @@ export * from "./endpoints/coach-operational-write.cjs";
 export * from "./endpoints/coach-operational-read.cjs";
 export * from "./endpoints/native-channel.cjs";
 export * from "./endpoints/internal-capability-news-briefing.cjs";
+export * from "./endpoints/internal-capability-lab-dossier.cjs";
 export * from "./endpoints/coach-operational-authority.cjs";
 //# sourceMappingURL=index.d.ts.map

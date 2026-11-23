@@ -1319,8 +1319,8 @@ export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObj
                 }, z.core.$strict>]>>;
                 executor: z.ZodEnum<{
                     agent: "agent";
-                    night: "night";
                     dev_session: "dev_session";
+                    night: "night";
                 }>;
                 referent: z.ZodObject<{
                     personRef: z.ZodString;
@@ -1606,8 +1606,8 @@ export declare const InternalPaperclipSeatSessionMandateResponseSchema: z.ZodObj
         workMode: z.ZodOptional<z.ZodObject<{
             executor: z.ZodEnum<{
                 agent: "agent";
-                night: "night";
                 dev_session: "dev_session";
+                night: "night";
             }>;
             allowedTools: z.ZodArray<z.ZodString>;
             excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -1677,8 +1677,8 @@ export declare const internalPaperclipSeatSessionMandateContract: {
                     }, z.core.$strict>]>>;
                     executor: z.ZodEnum<{
                         agent: "agent";
-                        night: "night";
                         dev_session: "dev_session";
+                        night: "night";
                     }>;
                     referent: z.ZodObject<{
                         personRef: z.ZodString;
@@ -1964,8 +1964,8 @@ export declare const internalPaperclipSeatSessionMandateContract: {
             workMode: z.ZodOptional<z.ZodObject<{
                 executor: z.ZodEnum<{
                     agent: "agent";
-                    night: "night";
                     dev_session: "dev_session";
+                    night: "night";
                 }>;
                 allowedTools: z.ZodArray<z.ZodString>;
                 excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;

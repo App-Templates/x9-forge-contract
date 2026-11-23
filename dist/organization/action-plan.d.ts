@@ -3,8 +3,8 @@ import { z } from 'zod';
 export declare const ACTION_PLAN_BU_EXECUTORS: readonly ["agent", "dev_session", "night"];
 export declare const ActionPlanBuExecutorSchema: z.ZodEnum<{
     agent: "agent";
-    night: "night";
     dev_session: "dev_session";
+    night: "night";
 }>;
 export type ActionPlanBuExecutor = z.infer<typeof ActionPlanBuExecutorSchema>;
 /** The referent is only a pointer to an entry of the company memory map: no name, no address. */
@@ -336,8 +336,8 @@ export declare const ActionPlanBusinessUnitSchema: z.ZodObject<{
     }, z.core.$strict>]>>;
     executor: z.ZodEnum<{
         agent: "agent";
-        night: "night";
         dev_session: "dev_session";
+        night: "night";
     }>;
     referent: z.ZodObject<{
         personRef: z.ZodString;
@@ -689,8 +689,8 @@ export declare const ActionPlanSchema: z.ZodObject<{
         }, z.core.$strict>]>>;
         executor: z.ZodEnum<{
             agent: "agent";
-            night: "night";
             dev_session: "dev_session";
+            night: "night";
         }>;
         referent: z.ZodObject<{
             personRef: z.ZodString;
@@ -923,6 +923,10 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
     }, z.core.$strict>;
     projectId: z.ZodString;
     clientId: z.ZodString;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
     questions: z.ZodArray<z.ZodObject<{
         question: z.ZodString;
         unlocks: z.ZodString;
@@ -1021,10 +1025,6 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
-    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
-        slug: z.ZodString;
-        version: z.ZodNumber;
-    }, z.core.$strict>>>;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{
@@ -1058,8 +1058,8 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         }, z.core.$strict>]>>;
         executor: z.ZodEnum<{
             agent: "agent";
-            night: "night";
             dev_session: "dev_session";
+            night: "night";
         }>;
         referent: z.ZodObject<{
             personRef: z.ZodString;
@@ -1270,6 +1270,10 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
     }, z.core.$strict>;
     projectId: z.ZodString;
     clientId: z.ZodString;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
     questions: z.ZodArray<z.ZodObject<{
         question: z.ZodString;
         unlocks: z.ZodString;
@@ -1368,10 +1372,6 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         }>;
         pages: z.ZodArray<z.ZodString>;
     }, z.core.$strict>>>;
-    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
-        slug: z.ZodString;
-        version: z.ZodNumber;
-    }, z.core.$strict>>>;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{
@@ -1405,8 +1405,8 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         }, z.core.$strict>]>>;
         executor: z.ZodEnum<{
             agent: "agent";
-            night: "night";
             dev_session: "dev_session";
+            night: "night";
         }>;
         referent: z.ZodObject<{
             personRef: z.ZodString;
@@ -1719,8 +1719,8 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
         }, z.core.$strict>]>>;
         executor: z.ZodEnum<{
             agent: "agent";
-            night: "night";
             dev_session: "dev_session";
+            night: "night";
         }>;
         referent: z.ZodObject<{
             personRef: z.ZodString;

@@ -62,8 +62,8 @@ export type MandateWorkplace = z.infer<typeof MandateWorkplaceSchema>;
 export declare const MandateWorkModeSchema: z.ZodObject<{
     executor: z.ZodEnum<{
         agent: "agent";
-        night: "night";
         dev_session: "dev_session";
+        night: "night";
     }>;
     allowedTools: z.ZodArray<z.ZodString>;
     excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -100,8 +100,8 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
             }, z.core.$strict>]>>;
             executor: z.ZodEnum<{
                 agent: "agent";
-                night: "night";
                 dev_session: "dev_session";
+                night: "night";
             }>;
             referent: z.ZodObject<{
                 personRef: z.ZodString;
@@ -395,8 +395,8 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
     workMode: z.ZodOptional<z.ZodObject<{
         executor: z.ZodEnum<{
             agent: "agent";
-            night: "night";
             dev_session: "dev_session";
+            night: "night";
         }>;
         allowedTools: z.ZodArray<z.ZodString>;
         excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -517,8 +517,8 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                 }, z.core.$strict>]>>;
                 executor: z.ZodEnum<{
                     agent: "agent";
-                    night: "night";
                     dev_session: "dev_session";
+                    night: "night";
                 }>;
                 referent: z.ZodObject<{
                     personRef: z.ZodString;
@@ -812,8 +812,8 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
         workMode: z.ZodOptional<z.ZodObject<{
             executor: z.ZodEnum<{
                 agent: "agent";
-                night: "night";
                 dev_session: "dev_session";
+                night: "night";
             }>;
             allowedTools: z.ZodArray<z.ZodString>;
             excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
@@ -908,8 +908,8 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                     }, z.core.$strict>]>>;
                     executor: z.ZodEnum<{
                         agent: "agent";
-                        night: "night";
                         dev_session: "dev_session";
+                        night: "night";
                     }>;
                     referent: z.ZodObject<{
                         personRef: z.ZodString;
@@ -1203,8 +1203,8 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
             workMode: z.ZodOptional<z.ZodObject<{
                 executor: z.ZodEnum<{
                     agent: "agent";
-                    night: "night";
                     dev_session: "dev_session";
+                    night: "night";
                 }>;
                 allowedTools: z.ZodArray<z.ZodString>;
                 excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;

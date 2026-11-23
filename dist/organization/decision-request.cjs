@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReferentReplyHandoverSchema = exports.DELIVERY_DECISION_DUPLICATE_CODES = exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.REFERENT_WORDS_MAX = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionOptionEffectSchema = exports.DECISION_OPTION_EFFECTS = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = exports.DELIVERY_DECISION_MAX_ASSET_VERSIONS = void 0;
+exports.ReferentReplyHandoverSchema = exports.DELIVERY_DECISION_DUPLICATE_CODES = exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.REFERENT_WORDS_MAX = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.ActionPlanDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionOptionEffectSchema = exports.DECISION_OPTION_EFFECTS = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = exports.DELIVERY_DECISION_MAX_ASSET_VERSIONS = void 0;
 exports.confirmationSetDigest = confirmationSetDigest;
 exports.deliveryDecisionAssetVersions = deliveryDecisionAssetVersions;
+exports.actionPlanPdfDeliveryProblems = actionPlanPdfDeliveryProblems;
 exports.decisionOutcomeMatchesSubject = decisionOutcomeMatchesSubject;
 exports.decisionRequestSubjectLabel = decisionRequestSubjectLabel;
 exports.decisionRequestHeaderMatches = decisionRequestHeaderMatches;
@@ -12,6 +13,7 @@ exports.decisionOutcomeFromHandover = decisionOutcomeFromHandover;
 const node_crypto_1 = require("node:crypto");
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
+const document_receipt_js_1 = require("../capability/document-receipt.cjs");
 const asset_js_1 = require("./asset.cjs");
 const participant_binding_js_1 = require("./participant-binding.cjs");
 const company_map_js_1 = require("./company-map.cjs");
@@ -40,10 +42,25 @@ exports.DecisionRequestOptionSchema = zod_1.z.strictObject({
 exports.DECISION_SUBJECT_KINDS = ['action_plan', 'vertical_plan', 'confirmation', 'delivery', 'confirmation_set'];
 exports.DecisionSubjectKindSchema = zod_1.z.enum(exports.DECISION_SUBJECT_KINDS);
 const PlanDecisionSubjectSchema = zod_1.z.strictObject({
-    kind: exports.DecisionSubjectKindSchema.exclude(['delivery', 'confirmation_set']),
+    kind: exports.DecisionSubjectKindSchema.exclude(['action_plan', 'delivery', 'confirmation_set']),
     planId: exports.DecisionRequestIdSchema,
     planVersion: zod_1.z.number().int().min(1),
     digest: asset_js_1.AssetSha256Schema,
+});
+/** Optional only for historical reads; new email deliveries use the operational validator below. */
+exports.ActionPlanDecisionSubjectSchema = zod_1.z.strictObject({
+    kind: zod_1.z.literal('action_plan'),
+    planId: exports.DecisionRequestIdSchema,
+    planVersion: zod_1.z.number().int().min(1),
+    digest: asset_js_1.AssetSha256Schema,
+    documents: zod_1.z.tuple([
+        zod_1.z.lazy(() => document_receipt_js_1.DocumentPdfReceiptSchema.refine((receipt) => receipt.role === 'action_plan', {
+            message: 'First document must be the action plan',
+        })),
+        zod_1.z.lazy(() => document_receipt_js_1.DocumentPdfReceiptSchema.refine((receipt) => receipt.role === 'lab_dossier', {
+            message: 'Second document must be the Lab dossier',
+        })),
+    ]).optional(),
 });
 // Defer map schemas because the map also uses decision request identifiers.
 const ConfirmationSetEntrySchema = zod_1.z.lazy(() => company_map_js_1.CompanyMapConfirmTargetSchema.safeExtend({
@@ -129,6 +146,7 @@ function versionsKey(subject) {
         .sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
 }
 exports.DecisionSubjectSchema = zod_1.z.discriminatedUnion('kind', [
+    exports.ActionPlanDecisionSubjectSchema,
     PlanDecisionSubjectSchema,
     exports.DeliveryDecisionSubjectSchema,
     exports.ConfirmationSetDecisionSubjectSchema,
@@ -184,6 +202,54 @@ exports.DecisionRequestSchema = zod_1.z.strictObject({
         ctx.addIssue({ code: 'custom', path: ['addressedTo'], message: 'A plan or unbound request requires the owner' });
     }
 });
+/**
+ * Complete pre-send checks. renderedDocuments must come from the authenticated rendering service after
+ * reading back the bytes, never from a model/tool argument. Schema validation alone cannot attest provenance.
+ * Historical parsing deliberately does not call this validator or add receipts to saved decisions.
+ */
+function actionPlanPdfDeliveryProblems(request, renderedDocuments = []) {
+    if (request.subject?.kind !== 'action_plan')
+        return [];
+    const parsed = exports.DecisionRequestSchema.safeParse(request);
+    if (!parsed.success)
+        return ['invalid_pdf_decision'];
+    const subject = parsed.data.subject;
+    if (subject?.kind !== 'action_plan')
+        return [];
+    if (subject.documents === undefined)
+        return ['missing_pdf_documents'];
+    const [plan, dossier] = subject.documents;
+    const problems = [];
+    const distinctPdf = plan.asset.sha256 !== dossier.asset.sha256;
+    if (!distinctPdf)
+        problems.push('pdf_bytes_must_differ');
+    if (plan.asset.assetId === dossier.asset.assetId)
+        problems.push('pdf_assets_must_differ');
+    for (const receipt of subject.documents) {
+        if (receipt.tenantId !== request.tenantId || receipt.organizationId !== request.organizationId
+            || receipt.projectId !== request.projectId || receipt.clientId !== plan.clientId) {
+            problems.push('pdf_identity_mismatch');
+        }
+    }
+    if (plan.source.kind !== 'action_plan' || plan.source.planId !== subject.planId
+        || plan.source.version !== subject.planVersion || plan.source.digest !== subject.digest) {
+        problems.push('pdf_plan_source_mismatch');
+    }
+    const a = plan.deliveryContext;
+    const b = dossier.deliveryContext;
+    if (a === undefined || b === undefined || a.planId !== b.planId || a.planVersion !== b.planVersion
+        || a.planDigest !== b.planDigest || a.dossierSnapshotId !== b.dossierSnapshotId
+        || a.dossierDigest !== b.dossierDigest) {
+        problems.push('pdf_delivery_context_mismatch');
+    }
+    const attested = renderedDocuments.map((receipt) => document_receipt_js_1.DocumentPdfReceiptSchema.safeParse(receipt));
+    for (const receipt of subject.documents) {
+        if (!attested.some((result) => result.success && JSON.stringify(result.data) === JSON.stringify(receipt))) {
+            problems.push('pdf_renderer_receipt_not_attested');
+        }
+    }
+    return problems;
+}
 /** Same cap as the interpreted refusal reason: the referent's own words are trimmed to it by the consumer. */
 exports.REFERENT_WORDS_MAX = 2000;
 const outcomeBase = {
