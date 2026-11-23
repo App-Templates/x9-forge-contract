@@ -125,3 +125,27 @@ export {
   type LabExportResult,
   type LabBrowseError,
 } from './browse.js';
+
+export {
+  LAB_DOSSIER_MAX_PAGES,
+  LAB_DOSSIER_MAX_SOURCES,
+  LAB_DOSSIER_PAGE_ROLES,
+  LabDossierPageRoleSchema,
+  LabDossierPageSchema,
+  LabDossierSourceSchema,
+  LabDossierPageIdentitySchema,
+  LabDossierPlanCitationSchema,
+  LabDossierSnapshotInputSchema,
+  LabDossierSnapshotSchema,
+  buildLabDossierSnapshot,
+  labDossierCanonicalJson,
+  labDossierManifestDigest,
+  type LabDossierPageRole,
+  type LabDossierPage,
+  type LabDossierSource,
+  type LabDossierPageIdentity,
+  type LabDossierPlanCitation,
+  type LabDossierDigestContent,
+  type LabDossierSnapshotInput,
+  type LabDossierSnapshot,
+} from './dossier.js';
