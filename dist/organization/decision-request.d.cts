@@ -474,7 +474,7 @@ export declare const DecisionEmailReplySchema: z.ZodDiscriminatedUnion<[z.ZodObj
     }>;
 }, z.core.$strict>], "kind">;
 export type DecisionEmailReply = z.infer<typeof DecisionEmailReplySchema>;
-export type DecisionEmailReplyRejection = 'mismatch' | 'unclear' | 'option_required' | 'unknown_option' | 'not_addressee' | 'before_request';
+export type DecisionEmailReplyRejection = 'mismatch' | 'unclear' | 'option_required' | 'unknown_option' | 'not_addressee' | 'before_request' | 'referent_changes_not_allowed' | 'note_without_words' | 'handover_request_missing' | 'handover_tenant_mismatch' | 'handover_organization_mismatch' | 'handover_project_mismatch' | 'handover_subject_not_delivery' | 'handover_bu_mismatch';
 export type DecisionOutcomeFromEmailReply = {
     ok: true;
     outcome: DecisionOutcome;

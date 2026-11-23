@@ -255,7 +255,7 @@ describe('s8310 saved-shapes', () => {
 describe('s8310 existing-guards', () => {
   it.each(cases)('$name: a note without words is refused by the function and by the parse', (c) => {
     expect(run(c, { kind: 'approve', requestId: c.request.requestId, optionId: c.approveId, note: NOTE }))
-      .toEqual({ ok: false, code: 'mismatch' });
+      .toEqual({ ok: false, code: 'note_without_words' });
     const outcome = {
       requestId: c.request.requestId, decidedBy: c.decidedBy, decidedAt: RECEIVED_AT, channel: 'email',
       sourceRef: MESSAGE_ID, outcome: 'approved', optionId: c.approveId, note: NOTE,

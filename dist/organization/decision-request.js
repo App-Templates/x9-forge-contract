@@ -285,11 +285,11 @@ export function decisionOutcomeFromEmailReply(input) {
     const delivery = request.subject?.kind === 'delivery';
     const confirmationSet = request.subject?.kind === 'confirmation_set';
     if (reply.kind === 'approve' && reply.referentChanges !== undefined && !confirmationSet) {
-        return { ok: false, code: 'mismatch' };
+        return { ok: false, code: 'referent_changes_not_allowed' };
     }
     // Words and note are valid for every subject; a note must sit inside the words.
     if (reply.kind === 'approve' && reply.note !== undefined && reply.referentWords === undefined) {
-        return { ok: false, code: 'mismatch' };
+        return { ok: false, code: 'note_without_words' };
     }
     if (delivery) {
         if (!('email' in from) || !('email' in request.addressedTo)
@@ -407,16 +407,31 @@ export const ReferentReplyHandoverSchema = z.strictObject({
     text: z.string().min(1).max(4000),
     requestId: DecisionRequestIdSchema.optional(),
 });
+/** First scope or request difference between a handover and its request, in a fixed order; undefined when they agree. */
+function handoverRejection(request, handover) {
+    const subject = request.subject;
+    if (handover.requestId === undefined)
+        return 'handover_request_missing';
+    if (handover.requestId !== request.requestId)
+        return 'mismatch';
+    if (handover.tenantId !== request.tenantId)
+        return 'handover_tenant_mismatch';
+    if (handover.organizationId !== request.organizationId)
+        return 'handover_organization_mismatch';
+    if (handover.projectId !== request.projectId)
+        return 'handover_project_mismatch';
+    if (subject?.kind !== 'delivery')
+        return 'handover_subject_not_delivery';
+    if (handover.toBuSlug !== subject.buSlug)
+        return 'handover_bu_mismatch';
+    return undefined;
+}
 /** Records an interpreted reply from a handover; scope and request must match, the rest is `decisionOutcomeFromEmailReply`. */
 export function decisionOutcomeFromHandover(input) {
     const { request, reply, handover } = input;
-    const subject = request.subject;
-    if (handover.requestId === undefined || handover.requestId !== request.requestId
-        || handover.tenantId !== request.tenantId || handover.organizationId !== request.organizationId
-        || handover.projectId !== request.projectId
-        || subject?.kind !== 'delivery' || handover.toBuSlug !== subject.buSlug) {
-        return { ok: false, code: 'mismatch' };
-    }
+    const handoverCode = handoverRejection(request, handover);
+    if (handoverCode !== undefined)
+        return { ok: false, code: handoverCode };
     return decisionOutcomeFromEmailReply({
         request, reply, from: { email: handover.referent.email },
         receivedAt: handover.receivedAt, messageId: handover.messageId,

@@ -158,11 +158,15 @@ describe('s6344 referent reply handover', () => {
     expect(r).toMatchObject({ ok: true, outcome: { outcome: 'rejected', sourceRef: '<CAB123@mail.example>' } });
   });
 
-  it('is a mismatch for a missing or other request and for another unit', () => {
+  it('is a mismatch for another request, a named code for a missing request and for another unit', () => {
     const { requestId: _r, ...noId } = handover;
-    for (const h of [noId, { ...handover, requestId: 'dec_a2cdf8c3' }, { ...handover, toBuSlug: 'orto-web' }]) {
+    for (const [h, code] of [
+      [noId, 'handover_request_missing'],
+      [{ ...handover, requestId: 'dec_a2cdf8c3' }, 'mismatch'],
+      [{ ...handover, toBuSlug: 'orto-web' }, 'handover_bu_mismatch'],
+    ] as const) {
       expect(decisionOutcomeFromHandover({ request, reply: refuse, handover: ReferentReplyHandoverSchema.parse(h) }))
-        .toEqual({ ok: false, code: 'mismatch' });
+        .toEqual({ ok: false, code });
     }
   });
 

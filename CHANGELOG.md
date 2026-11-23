@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.311.0 — the refusals of a decision reply name their real cause (task 8311)
+
+- `DecisionEmailReplyRejection` gains 8 literals, all kept next to the 6 existing ones (`mismatch`, `unclear`, `option_required`, `unknown_option`, `not_addressee`, `before_request`): `referent_changes_not_allowed` (approve with `referentChanges`, even `[]`, outside a `confirmation_set`), `note_without_words` (approve with a `note` and no `referentWords`, any subject), and for `decisionOutcomeFromHandover` `handover_request_missing`, `handover_tenant_mismatch`, `handover_organization_mismatch`, `handover_project_mismatch`, `handover_subject_not_delivery`, `handover_bu_mismatch`.
+- `mismatch` now means only a present `requestId` that differs from the request, in the reply and in the handover. Order kept: handover scope before the email rules; in the email rules request id, referent changes, note, addressee, date, unclear, option. The first defect wins.
+- Same accepted domain as before: only the code of a refusal changes. No schema (`DecisionRequestSchema`, `DecisionEmailReplySchema`, `DecisionOutcomeSchema`, `ReferentReplyHandoverSchema`) changes; the codes are results of the functions, not saved outcomes.
+- Consumers that switch on the code must map the 8 new literals (task 566); until then they see an unknown code. Renamed assertions: A4 (confirmation set), the handover case in the duplicate test, and the note-without-words case of s8310, which follows the new code.
+- REGRESSIONE: s8311 rejection-codes
+
 ## v1.310.0 — the words and the note of whoever answers are kept for every decision subject (task 8310)
 
 - `DecisionOutcomeSchema` no longer refuses `referentWords` (approved and rejected) and `note` (approved) when the subject is not a delivery; `decisionOutcomeFromEmailReply` no longer returns `mismatch` for the words of a plan, confirmation, confirmation set or unbound request, and for the note that comes with them. Valid for `action_plan`, `vertical_plan`, `confirmation`, `confirmation_set`, `delivery` and a request without subject.

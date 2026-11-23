@@ -200,8 +200,8 @@ describe('confirmation sets', () => {
   it('A4 rejects referent changes outside a confirmed set', () => {
     const actionPlan = { kind: 'action_plan' as const, planId: 'plan-0001', planVersion: 1, digest: 'a'.repeat(64) };
     const reply = { kind: 'approve' as const, requestId: request.requestId, optionId: 'confermo', referentChanges: [change] };
-    expect(run(reply, { ...request, subject: actionPlan })).toEqual({ ok: false, code: 'mismatch' });
-    expect(run(reply, { ...request, subject: undefined })).toEqual({ ok: false, code: 'mismatch' });
+    expect(run(reply, { ...request, subject: actionPlan })).toEqual({ ok: false, code: 'referent_changes_not_allowed' });
+    expect(run(reply, { ...request, subject: undefined })).toEqual({ ok: false, code: 'referent_changes_not_allowed' });
     for (const otherSubject of [undefined, actionPlan, companyMapConfirmationSubject(entries[0]!)]) {
       expect(DecisionOutcomeSchema.safeParse({ ...approved, subject: otherSubject, referentChanges: [change] }).success).toBe(false);
       expect(DecisionOutcomeSchema.safeParse({ ...approved, subject: otherSubject, referentChanges: [] }).success).toBe(false);
