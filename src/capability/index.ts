@@ -166,3 +166,4 @@ export * from './paperclip-protocollo/index.js';
 
 export * from './document-render.js';
 export * from './document-receipt.js';
+export * from './document-tools.js';
