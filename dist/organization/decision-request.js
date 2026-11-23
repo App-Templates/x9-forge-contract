@@ -204,15 +204,7 @@ export const DecisionOutcomeSchema = z.discriminatedUnion('outcome', [
             ctx.addIssue({ code: 'custom', path: ['referentChanges'], message: 'Referent changes require a confirmed confirmation set' });
         }
     }
-    if (outcome.subject?.kind !== 'delivery') {
-        // Only deliveries are answered by a referent in their own words; plans and maps stay as they were.
-        if (outcome.referentWords !== undefined) {
-            ctx.addIssue({ code: 'custom', path: ['referentWords'], message: 'Referent words are only for a delivery' });
-        }
-        if (outcome.outcome === 'approved' && outcome.note !== undefined) {
-            ctx.addIssue({ code: 'custom', path: ['note'], message: 'A note is only for a delivery' });
-        }
-    }
+    // The answerer's words and note are valid for every subject; only a note without words is refused.
     if (outcome.outcome === 'approved') {
         if (outcome.note !== undefined && outcome.referentWords === undefined) {
             ctx.addIssue({ code: 'custom', path: ['note'], message: 'A note must sit inside the referent words' });
@@ -295,10 +287,8 @@ export function decisionOutcomeFromEmailReply(input) {
     if (reply.kind === 'approve' && reply.referentChanges !== undefined && !confirmationSet) {
         return { ok: false, code: 'mismatch' };
     }
-    // Same guard as the referent changes: words and note belong to a delivery, and a note sits inside the words.
-    if (reply.kind !== 'unclear' && !delivery && reply.referentWords !== undefined)
-        return { ok: false, code: 'mismatch' };
-    if (reply.kind === 'approve' && reply.note !== undefined && (!delivery || reply.referentWords === undefined)) {
+    // Words and note are valid for every subject; a note must sit inside the words.
+    if (reply.kind === 'approve' && reply.note !== undefined && reply.referentWords === undefined) {
         return { ok: false, code: 'mismatch' };
     }
     if (delivery) {

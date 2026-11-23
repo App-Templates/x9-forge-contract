@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.310.0 — the words and the note of whoever answers are kept for every decision subject (task 8310)
+
+- `DecisionOutcomeSchema` no longer refuses `referentWords` (approved and rejected) and `note` (approved) when the subject is not a delivery; `decisionOutcomeFromEmailReply` no longer returns `mismatch` for the words of a plan, confirmation, confirmation set or unbound request, and for the note that comes with them. Valid for `action_plan`, `vertical_plan`, `confirmation`, `confirmation_set`, `delivery` and a request without subject.
+- Unchanged: both fields stay optional, limits (words 1–2000, note 3–2000), `reason`, `optionId`, `request_changes`/`reject` effects, `confermo`/`e-cambiato`, `referentChanges`, identity, date, channel and delivery receipt rules. A note without the words is still refused (`mismatch` in the function, schema issue in the parse); the code of that refusal is task 8311. The bridge does not check that the note text sits inside the words (the consumer does for a delivery; extending it is task 566).
+- Additive: every request and outcome that parsed before parses identically; no required field, enum or limit changes. Only the two removed refusals change behaviour, and the old plan-only assertions of s8230 now state the new behaviour.
+- Inert until a consumer adopts the package; adoption goes together with 8311 (1.311.0).
+- REGRESSIONE: s8310 all-subjects
+
 ## v1.309.0 — `piece_missing` says where to take the piece key (task 8285)
 
 - Text-only change of `DEV_SESSION_CODE_OPENING_MOVES.piece_missing.move`: the chief is told to take the key of the section or tree entry of the piece from the Mandate and write it in the `pezzo` field of `dev_session_open`. `field`, `actor` and disposition (`missing_data` / `never` / `fix_input`) are unchanged; no type, field or code added.

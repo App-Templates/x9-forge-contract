@@ -104,11 +104,14 @@ describe('s8230 nota-senza-parole', () => {
 });
 
 describe('s8230 solo-consegne', () => {
-  it('s8230 solo-consegne: a plan outcome cannot carry the referent words or a note', () => {
-    expect(DecisionOutcomeSchema.safeParse({ ...planOutcome, referentWords: 'ok' }).success).toBe(false);
-    expect(DecisionOutcomeSchema.safeParse({ ...planOutcome, referentWords: 'ok, but', note: 'but' }).success).toBe(false);
+  it('s8230 solo-consegne: a plan outcome now keeps the referent words and a note (changed by s8310)', () => {
+    const withWords = { ...planOutcome, referentWords: 'ok' };
+    expect(DecisionOutcomeSchema.parse(withWords)).toEqual(withWords);
+    const withNote = { ...planOutcome, referentWords: 'ok, but', note: 'but' };
+    expect(DecisionOutcomeSchema.parse(withNote)).toEqual(withNote);
     const { subject: _s, ...unbound } = planOutcome;
-    expect(DecisionOutcomeSchema.safeParse({ ...unbound, referentWords: 'ok' }).success).toBe(false);
+    const unboundWords = { ...unbound, referentWords: 'ok' };
+    expect(DecisionOutcomeSchema.parse(unboundWords)).toEqual(unboundWords);
   });
 });
 
