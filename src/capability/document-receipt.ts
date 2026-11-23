@@ -3,6 +3,9 @@ import { AgentIdSchema } from '../agent/agent-identity.js';
 import { AssetRefSchema, AssetSha256Schema } from '../organization/asset.js';
 import { DecisionRequestIdSchema } from '../organization/decision-request.js';
 
+// Deferred: decision-request.ts imports this module, so the identifier is read only at parse time.
+const PlanIdSchema = z.lazy(() => DecisionRequestIdSchema);
+
 export const DOCUMENT_PDF_RECEIPT_ROLES = ['action_plan', 'lab_dossier', 'document'] as const;
 export const DocumentPdfReceiptRoleSchema = z.enum(DOCUMENT_PDF_RECEIPT_ROLES);
 export type DocumentPdfReceiptRole = z.infer<typeof DocumentPdfReceiptRoleSchema>;
@@ -14,7 +17,7 @@ const SnapshotIdSchema = z.string().min(1).max(128);
 export const DocumentPdfReceiptSourceSchema = z.discriminatedUnion('kind', [
   z.strictObject({
     kind: z.literal('action_plan'),
-    planId: DecisionRequestIdSchema,
+    planId: PlanIdSchema,
     version: z.number().int().min(1),
     /** Digest of the approved plan, not of the document data and not of the PDF. */
     digest: AssetSha256Schema,
@@ -34,7 +37,7 @@ export type DocumentPdfReceiptSource = z.infer<typeof DocumentPdfReceiptSourceSc
 
 /** The plan and dossier a delivery pair belongs to; identical in both receipts of one delivery. */
 export const DocumentPdfDeliveryContextSchema = z.strictObject({
-  planId: DecisionRequestIdSchema,
+  planId: PlanIdSchema,
   planVersion: z.number().int().min(1),
   planDigest: AssetSha256Schema,
   dossierSnapshotId: SnapshotIdSchema,
