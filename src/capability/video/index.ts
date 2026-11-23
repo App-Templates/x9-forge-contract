@@ -378,3 +378,12 @@ export {
   type VideoPresetFromVideoJob,
   type VideoPresetSaveRequest,
 } from './preset-da-video.js';
+export {
+  VIDEO_PRESET_FROM_VIDEO_TOOL,
+  VideoPresetFromVideoToolInputSchema,
+  VideoPresetFromVideoToolStatusInputSchema,
+  VideoPresetFromVideoToolResponseSchema,
+  type VideoPresetFromVideoToolInput,
+  type VideoPresetFromVideoToolStatusInput,
+  type VideoPresetFromVideoToolResponse,
+} from './preset-da-video-tool.js';
