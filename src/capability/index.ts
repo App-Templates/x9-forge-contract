@@ -165,3 +165,4 @@ export * from './feature-switch.js';
 export * from './paperclip-protocollo/index.js';
 
 export * from './document-render.js';
+export * from './document-receipt.js';
