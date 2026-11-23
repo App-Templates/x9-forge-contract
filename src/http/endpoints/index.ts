@@ -150,3 +150,4 @@ export * from './internal-dev-delivery-links.js';
 export * from './paperclip-protocollo-turno.js';
 export * from './officina-video.js';
 export * from './internal-dev-regia.js'; // v1.89.0 — regia of a video: cap-video -> cap-dev
+export * from './internal-colloquio-links.js'; // v1.319.0 — cap-email -> cap-colloquio
