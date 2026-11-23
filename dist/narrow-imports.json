@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.306.0",
+  "versione": "1.307.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1945,6 +1945,7 @@
       "DEV_SESSION_ASSETS_LIST_MAX": "@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list",
       "DEV_SESSION_ASSETS_LIST_REFUSALS": "@x9-forge/contracts/http/endpoints/internal-dev-session-assets-list",
       "DEV_SESSION_PAPERCLIP_DESCRIPTION_MAX": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
+      "DEV_SESSION_WAIT_SERVICE_NAME": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "DecisionRequestErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "DecisionRequestErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-decision-requests",
       "DeleteVaultConnectionResponseSchema": "@x9-forge/contracts/http/endpoints/internal-vault-connection",
@@ -2751,6 +2752,7 @@
       "vaultResolveContract": "@x9-forge/contracts/http/endpoints/vault-resolve",
       "videoAgentSpendContract": "@x9-forge/contracts/http/endpoints/internal-capability-agent",
       "voiceRegisterContract": "@x9-forge/contracts/http/endpoints/voice-register",
+      "waitsOnDevSession": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "webConnectionCardsContract": "@x9-forge/contracts/http/endpoints/web-connection-cards",
       "webhookInboundEmailContract": "@x9-forge/contracts/http/endpoints/webhook-inbound-email",
       "webhookInboundTelegramContract": "@x9-forge/contracts/http/endpoints/webhook-inbound-telegram",

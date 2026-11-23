@@ -492,6 +492,12 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
     projectId: z.ZodString;
     sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
 }, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"dev_material_needed">;
+    sessionIssue: z.ZodNumber;
+    projectId: z.ZodString;
+    requestKey: z.ZodString;
+    sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
+}, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"work_stalled">;
     issueId: z.ZodUUID;
     identifier: z.ZodString;
@@ -643,6 +649,12 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         projectId: z.ZodString;
         sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
     }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"dev_material_needed">;
+        sessionIssue: z.ZodNumber;
+        projectId: z.ZodString;
+        requestKey: z.ZodString;
+        sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
+    }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"work_stalled">;
         issueId: z.ZodUUID;
         identifier: z.ZodString;
@@ -730,6 +742,10 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         liftedAt: z.ZodISODateTime;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
+/** Name of the monitor the chief leaves while it waits on a session; sibling of `LIMIT_WAIT_SERVICE_NAME`. */
+export declare const DEV_SESSION_WAIT_SERVICE_NAME = "dev-session";
+/** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */
+export declare function waitsOnDevSession(policy: unknown): boolean;
 export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited", "waiting_on_blockers", "source_run_unknown", "source_run_without_issue", "source_issue_not_agents", "source_issue_closed"];
 export declare const PaperclipSeatNativeWakeResultSchema: z.ZodEnum<{
     duplicate: "duplicate";
@@ -885,6 +901,12 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             sessionIssue: z.ZodNumber;
             commit: z.ZodString;
             projectId: z.ZodString;
+            sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"dev_material_needed">;
+            sessionIssue: z.ZodNumber;
+            projectId: z.ZodString;
+            requestKey: z.ZodString;
             sourceRunId: z.ZodOptional<z.core.$ZodBranded<z.ZodString, "RunId", "out">>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"work_stalled">;

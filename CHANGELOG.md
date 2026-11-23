@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.307.0 — a session's request for material has a wake event, and the chief's `dev-session` monitor is recognised (task 8477)
+
+- `PaperclipSeatNativeWakeEventSchema` gains the strict `dev_material_needed` member (after `dev_delivered`): `sessionIssue`, `projectId`, `requestKey` (lowercase sha256 hex of the request comment, id and text; the text never travels) and optional `sourceRunId` (the run in which the chief opened the session). The common rules apply unchanged: `organizationId` and `identity` required, `identity.runtimeAgentId` = `scope.agentId`.
+- New `DEV_SESSION_WAIT_SERVICE_NAME = 'dev-session'` and `waitsOnDevSession(policy)`, the tolerant twin of `waitsOnLimit`. The results comment says what `deferred`, `not_waiting` and `no_task` mean for the new event; `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS` is unchanged.
+- Additive and inert until adopted; release cap-paperclip before cap-dev (an older service does not know the event: the request stays with the scheduled check, as today). Adoption and the senders are task 8475.
+- REGRESSIONE: s8477 regressione-r73-la-richiesta-di-materiale-sveglia-il-capo
+
 ## v1.306.0 — catalog of the eight company contracts and read shapes for applied ones (task 8258)
 
 - New module `src/http/endpoints/internal-company-contracts.ts` (subpath `@x9-forge/contracts/http/endpoints/internal-company-contracts`; no barrel change). `companyContractCatalog({ commit? })` lists exactly mandate, code session, design session (three models: site, app screen, retouch), email to the referent, request to the Lab, chief's question, exchange between units and document unit. Field names and obligations are projected from the origin schemas; session models and requirements come from `DEV_SESSION_TEMPLATES`, `DEV_SESSION_TEMPLATES_V2` and `DEV_SESSION_ACCEPTANCE_CATALOG`. Each entry names its origin schema, the publishing package/version and the commit when the reader knows it. A version is numeric only where the schema carries one (`template.version`, `schemaVersion`); otherwise it is `absent` with the reason, never an invented v1.

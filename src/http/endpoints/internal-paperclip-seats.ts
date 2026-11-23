@@ -301,6 +301,16 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     // The Paperclip run in which the chief opened the session; cap-paperclip reads the issue from that run, never from the text.
     sourceRunId: RunIdSchema.optional(),
   }),
+  // A session asks its chief for material (R73): the chief is woken on the session issue it opened. `requestKey` is the
+  // sha256 of the request comment (id and text), one request = one key; the text never travels, the chief rereads `dev_session_status`.
+  z.strictObject({
+    kind: z.literal('dev_material_needed'),
+    sessionIssue: DevSessionResultSchema.shape.issue,
+    projectId: DevSessionAssignmentSchema.shape.projectId,
+    requestKey: z.string().regex(/^[0-9a-f]{64}$/),
+    // The Paperclip run in which the chief opened the session, as for `dev_delivered`; the issue is read from that run, never from the text.
+    sourceRunId: RunIdSchema.optional(),
+  }),
   z.strictObject({
     kind: z.literal('work_stalled'),
     issueId: z.uuid(),
@@ -387,6 +397,19 @@ export const InternalPaperclipSeatNativeWakeRequestSchema = z.strictObject({
 });
 
 // For `limit_lifted`, `deferred` (with the issueId) means "check requested from Paperclip" and `no_task` means "no issue waiting on the cap".
+// For `dev_material_needed`, `deferred` (with the issueId) means "check requested from Paperclip", `not_waiting` means the check cannot
+// run now, and `no_task` means "no issue waiting on the session".
+
+/** Name of the monitor the chief leaves while it waits on a session; sibling of `LIMIT_WAIT_SERVICE_NAME`. */
+export const DEV_SESSION_WAIT_SERVICE_NAME = 'dev-session';
+
+/** Read the stored monitor tolerantly: Paperclip adds fields and nullable values to its policy. */
+export function waitsOnDevSession(policy: unknown): boolean {
+  return typeof policy === 'object' && policy !== null && 'monitor' in policy
+    && typeof policy.monitor === 'object' && policy.monitor !== null && 'serviceName' in policy.monitor
+    && policy.monitor.serviceName === DEV_SESSION_WAIT_SERVICE_NAME;
+}
+
 export const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = [
   'opened', 'woken', 'deferred', 'duplicate', 'already_open', 'not_waiting', 'no_task', 'ambiguous', 'not_enabled', 'rate_limited',
   // The event belongs to an existing open incarico of the seat that waits on open blockers held by other agents;
