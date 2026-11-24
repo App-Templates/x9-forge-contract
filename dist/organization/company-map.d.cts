@@ -442,7 +442,8 @@ export type ReferentForUnitResult = {
 /**
  * One rule to find the referent of a unit: business unit level, then project, then client.
  * The first level with a matching entry wins; within it the highest version. Never crosses
- * tenant, organization, client or project.
+ * tenant, organization, client or project. Entries may include history: a different pointed
+ * version must exist at the same full key and have unchanged content. Success returns the current entry.
  */
 export declare function referentForUnit(input: {
     entries: readonly CompanyMapEntry[];

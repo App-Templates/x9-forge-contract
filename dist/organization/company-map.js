@@ -201,10 +201,18 @@ export function companyMapEntryKey(entry) {
 }
 /** Refusal codes of the referent lookup. */
 export const REFERENT_FOR_UNIT_REFUSALS = ['referent_not_in_map', 'referent_superseded'];
+/** Stable content identity for flat referent entries, excluding storage and confirmation metadata. */
+function referentContentKey(entry) {
+    return JSON.stringify(Object.entries(entry)
+        .filter(([key]) => key !== 'version' && key !== 'supersedes' && key !== 'digest')
+        .filter(([key]) => key !== 'source' && key !== 'confirmedAt')
+        .sort(([left], [right]) => (left < right ? -1 : left > right ? 1 : 0)));
+}
 /**
  * One rule to find the referent of a unit: business unit level, then project, then client.
  * The first level with a matching entry wins; within it the highest version. Never crosses
- * tenant, organization, client or project.
+ * tenant, organization, client or project. Entries may include history: a different pointed
+ * version must exist at the same full key and have unchanged content. Success returns the current entry.
  */
 export function referentForUnit(input) {
     const { entries, scope, referent } = input;
@@ -223,7 +231,14 @@ export function referentForUnit(input) {
             continue;
         const entry = found.reduce((best, candidate) => (candidate.version > best.version ? candidate : best));
         if (referent.entryVersion !== undefined && referent.entryVersion !== entry.version) {
-            return { ok: false, code: 'referent_superseded' };
+            const pointed = found.find((candidate) => candidate.version === referent.entryVersion &&
+                candidate.kind === entry.kind &&
+                candidate.projectId === entry.projectId &&
+                candidate.buSlug === entry.buSlug &&
+                companyMapEntryKey(candidate) === companyMapEntryKey(entry));
+            if (pointed === undefined || referentContentKey(pointed) !== referentContentKey(entry)) {
+                return { ok: false, code: 'referent_superseded' };
+            }
         }
         return { ok: true, entry, level };
     }

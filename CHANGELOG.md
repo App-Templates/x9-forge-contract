@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.323.0 — referent comparison by content in the built package (tasks 8322–8323)
+
+- Reserve 1.323.0 after 1.322.0; versions 1.320.0 and 1.321.0 stay reserved for other work and existing entries are preserved.
+- `referentForUnit` (`organization` and `organization/company-map`, ESM and CJS) now reads the history passed by the caller: a plan pointing at an older version of a referent is accepted when the pointed entry has the same content as the current one. The five metadata fields `version`, `supersedes`, `digest`, `source` and `confirmedAt` are excluded from the comparison; the current entry is returned.
+- A pointed version absent from the history is still refused with `referent_superseded`, as is any change of name, role or email (case included). Lookups never cross tenant, organization, client, project, business unit or person.
+- Saved action plans and their canonical JSON and digests parse and reread identically; no schema, plan or digest changes.
+- The consumer adoption (az-r17) is still needed: services use this comparison only after they pin this package. `dist/` is generated only by `pnpm build`; nothing is published, tagged or released.
+- REGRESSIONE: s8323 ESM identical reconfirmation and s8323 CJS identical reconfirmation: built ESM and CJS accept v3/v4 entries identical in content at version 1.323.0. No production sample was used; live verification follows adoption.
+
 ## v1.322.0 — reference-only dossier requests in the built package (tasks 8316–8317)
 
 - Reserve 1.322.0 from the read base 1.319.0. Versions 1.320.0 and 1.321.0 are reserved for coordinatore-voce-referente and do not belong to this task; existing entries are preserved.
