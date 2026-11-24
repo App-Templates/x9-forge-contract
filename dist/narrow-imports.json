@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.318.0",
+  "versione": "1.319.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1900,6 +1900,11 @@
       "COACH_OPERATIONAL_AUTH_HEADER": "@x9-forge/contracts/http/endpoints/coach-operational-common",
       "COACH_OPERATIONAL_ERROR_STATUS": "@x9-forge/contracts/http/endpoints/coach-operational-common",
       "COACH_OPERATIONAL_PREFIX": "@x9-forge/contracts/http/endpoints/coach-operational-common",
+      "COLLOQUIO_LINK_CODE_PATTERN": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
+      "COLLOQUIO_LINK_REFUSALS": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
+      "COLLOQUIO_LINK_TTL_MS": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
+      "COLLOQUIO_TOPIC_EXCERPT_MAX": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
+      "COLLOQUIO_TOPIC_SUBJECT_MAX": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
       "COMPANY_CONTENT_SOURCES": "@x9-forge/contracts/http/endpoints/internal-memory-company-content",
       "COMPANY_RD_PARTS": "@x9-forge/contracts/http/endpoints/internal-company-rd",
       "COMPANY_SPEND_CAPABILITY_SOURCES": "@x9-forge/contracts/http/endpoints/internal-company-spend",
@@ -1938,6 +1943,9 @@
       "CoachProgramVersionReadResultSchema": "@x9-forge/contracts/http/endpoints/coach-operational-read",
       "CoachSessionRevisionsPageSchema": "@x9-forge/contracts/http/endpoints/coach-operational-read",
       "CoachSessionRevisionsReadRequestSchema": "@x9-forge/contracts/http/endpoints/coach-operational-read",
+      "ColloquioLinkRefusalSchema": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
+      "ColloquioLinkRequestSchema": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
+      "ColloquioLinkResponseSchema": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
       "CompanyContentReadRequestSchema": "@x9-forge/contracts/http/endpoints/internal-memory-company-content",
       "CompanyContentReadResponseSchema": "@x9-forge/contracts/http/endpoints/internal-memory-company-content",
       "CompanyMapEntriesQuerySchema": "@x9-forge/contracts/http/endpoints/internal-memory-company-map",
@@ -2450,6 +2458,7 @@
       "coachSessionRecordContract": "@x9-forge/contracts/http/endpoints/internal-capability-coach",
       "coachSessionRevisionsReadContract": "@x9-forge/contracts/http/endpoints/coach-operational-read",
       "coachUsageObserveContract": "@x9-forge/contracts/http/endpoints/coach-operational-write",
+      "colloquioLinkContract": "@x9-forge/contracts/http/endpoints/internal-colloquio-links",
       "completeDevGenericJobContract": "@x9-forge/contracts/http/endpoints/dev-generic-jobs",
       "connectReturnContract": "@x9-forge/contracts/http/endpoints/connect-public",
       "connectionCompletedContract": "@x9-forge/contracts/http/endpoints/internal-connection-completed",

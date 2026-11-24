@@ -115,4 +115,5 @@ export * from "./internal-dev-delivery-links.js";
 export * from "./paperclip-protocollo-turno.js";
 export * from "./officina-video.js";
 export * from "./internal-dev-regia.js";
+export * from "./internal-colloquio-links.js";
 //# sourceMappingURL=index.d.ts.map

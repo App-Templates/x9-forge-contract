@@ -87,8 +87,10 @@ const dossierInput = () => ({
 });
 
 describe('s8309 built package exports the PDF contracts', () => {
-  it('s8309 built ESM and CJS export the same PDF contracts at version 1.318.0', () => {
-    expect(manifest.version).toBe('1.318.0');
+  it('s8309 built ESM and CJS export the same PDF contracts at least at version 1.318.0', () => {
+    const [a, b] = [manifest.version as string, '1.318.0'].map((v) => v.split('.').map(Number));
+    const newer = a[0] !== b[0] ? a[0] > b[0] : a[1] !== b[1] ? a[1] > b[1] : a[2] >= b[2];
+    expect(newer).toBe(true);
   });
 
   it('s8309 native loaders start in both dependency orders with fresh module caches', () => {

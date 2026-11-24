@@ -142,4 +142,5 @@ __exportStar(require("./internal-dev-delivery-links.cjs"), exports);
 __exportStar(require("./paperclip-protocollo-turno.cjs"), exports);
 __exportStar(require("./officina-video.cjs"), exports);
 __exportStar(require("./internal-dev-regia.cjs"), exports); // v1.89.0 — regia of a video: cap-video -> cap-dev
+__exportStar(require("./internal-colloquio-links.cjs"), exports); // v1.319.0 — cap-email -> cap-colloquio
 //# sourceMappingURL=index.js.map

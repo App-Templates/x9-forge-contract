@@ -61,8 +61,8 @@ export declare const ProjectDirectorEnrollmentErrorCodeSchema: z.ZodEnum<{
     request_conflict: "request_conflict";
     seat_failed: "seat_failed";
     binding_write: "binding_write";
-    organization_unknown: "organization_unknown";
     project_taken: "project_taken";
+    organization_unknown: "organization_unknown";
 }>;
 export type ProjectDirectorEnrollmentErrorCode = z.infer<typeof ProjectDirectorEnrollmentErrorCodeSchema>;
 export declare const ProjectDirectorEnrollmentErrorResponseSchema: z.ZodObject<{
@@ -72,8 +72,8 @@ export declare const ProjectDirectorEnrollmentErrorResponseSchema: z.ZodObject<{
         request_conflict: "request_conflict";
         seat_failed: "seat_failed";
         binding_write: "binding_write";
-        organization_unknown: "organization_unknown";
         project_taken: "project_taken";
+        organization_unknown: "organization_unknown";
     }>;
 }, z.core.$strict>;
 export type ProjectDirectorEnrollmentErrorResponse = z.infer<typeof ProjectDirectorEnrollmentErrorResponseSchema>;
@@ -121,8 +121,8 @@ export declare const internalProjectDirectorEnrollmentContract: {
             request_conflict: "request_conflict";
             seat_failed: "seat_failed";
             binding_write: "binding_write";
-            organization_unknown: "organization_unknown";
             project_taken: "project_taken";
+            organization_unknown: "organization_unknown";
         }>;
     }, z.core.$strict>;
 };
