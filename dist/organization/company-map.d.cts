@@ -459,6 +459,42 @@ export declare function referentForUnit(input: {
         entryVersion?: number | undefined;
     };
 }): ReferentForUnitResult;
+declare const ConfirmedReferentScopeSchema: z.ZodObject<{
+    level: z.ZodEnum<{
+        client: "client";
+        project: "project";
+        business_unit: "business_unit";
+    }>;
+    projectId: z.ZodOptional<z.ZodString>;
+    buSlug: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type CompanyMapConfirmedReferentScope = z.infer<typeof ConfirmedReferentScopeSchema>;
+/**
+ * Where a NEW referent confirmation is written. A client-level source confirmed inside a project
+ * goes to that project; without a project it stays at client level. Project and business unit
+ * sources keep their scope and must belong to the confirmation project. Decides the write scope
+ * only: the source entry, its content and its digest are never touched.
+ */
+export declare function companyMapConfirmedReferentScope(scope: {
+    level: CompanyMapLevel;
+    projectId?: string | undefined;
+    buSlug?: string | undefined;
+}, confirmationProjectId?: string | undefined): CompanyMapConfirmedReferentScope;
+/**
+ * Referents of a project: per person the project entry of that project, else the client entry.
+ * The highest version is chosen only within the same level and key; a client version is never
+ * compared with a project version. Other tenants, organizations, clients, projects and business
+ * units are excluded. Returns the original entries sorted by personRef.
+ */
+export declare function companyMapReferentsForProject(input: {
+    entries: readonly CompanyMapEntry[];
+    scope: {
+        tenantId: string;
+        organizationId: string;
+        clientId: string;
+        projectId: string;
+    };
+}): CompanyMapEntry[];
 /** Refusal codes of the delivery referent lookup (one per cause). */
 export declare const DELIVERY_REFERENT_REFUSALS: readonly ["delivery_referent_missing", "delivery_referent_several_addresses", "delivery_referent_address_differs"];
 export type DeliveryReferentRefusal = (typeof DELIVERY_REFERENT_REFUSALS)[number];
@@ -487,4 +523,5 @@ export declare function deliveryReferentAddress(input: {
     }>;
     requestedAddress?: string | undefined;
 }): DeliveryReferentResult;
+export {};
 //# sourceMappingURL=company-map.d.ts.map

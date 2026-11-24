@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.324.0 — project referents in the built package (tasks 8399, 8700)
+
+- Reserve 1.324.0 after 1.323.0; versions 1.320.0 and 1.321.0 stay reserved for other work and existing entries are preserved.
+- New referent confirmations: the destination of a client-level source confirmed inside a project is now that project (client → project, `companyMapConfirmedReferentScope`); without a project it stays at client level. Project and business-unit sources keep their scope and a different confirmation project is refused.
+- Reading project referents (`companyMapReferentsForProject`): per person the project entry wins over the client entry; the highest version is chosen only within the same level and key. Other projects, business units and other tenants, organizations or clients are excluded; results are the original entries sorted by `personRef`.
+- Company fallback, isolation and saved data are unchanged: no schema, `referentForUnit`, plan or digest changes; saved v5 entries and action plans parse and reread identically.
+- Both functions are exported from `organization` and `organization/company-map`, ESM and CJS, with declarations. The consumer adoption (az-r17) is still needed: services use the new destination and selection only after they pin this package. `dist/` is generated only by `pnpm build`; nothing is published, tagged or released.
+- REGRESSIONE: s8700 ESM exports and s8700 CJS exports: the 1.323.0 build exported neither function. No production sample was used; live verification follows adoption.
+
 ## v1.323.0 — referent comparison by content in the built package (tasks 8322–8323)
 
 - Reserve 1.323.0 after 1.322.0; versions 1.320.0 and 1.321.0 stay reserved for other work and existing entries are preserved.

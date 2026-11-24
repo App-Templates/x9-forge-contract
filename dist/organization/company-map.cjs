@@ -6,6 +6,8 @@ exports.companyMapConfirmationSubject = companyMapConfirmationSubject;
 exports.companyMapConfirmationSetSubject = companyMapConfirmationSetSubject;
 exports.companyMapEntryKey = companyMapEntryKey;
 exports.referentForUnit = referentForUnit;
+exports.companyMapConfirmedReferentScope = companyMapConfirmedReferentScope;
+exports.companyMapReferentsForProject = companyMapReferentsForProject;
 exports.referentAddressKey = referentAddressKey;
 exports.deliveryReferentAddress = deliveryReferentAddress;
 const zod_1 = require("zod");
@@ -253,6 +255,62 @@ function referentForUnit(input) {
         return { ok: true, entry, level };
     }
     return { ok: false, code: 'referent_not_in_map' };
+}
+const ConfirmedReferentScopeSchema = zod_1.z
+    .strictObject({
+    level: exports.CompanyMapLevelSchema,
+    projectId: exports.CompanyMapScopeFieldsSchema.shape.projectId,
+    buSlug: exports.CompanyMapScopeFieldsSchema.shape.buSlug,
+})
+    .superRefine(checkCompanyMapLevelScope);
+/**
+ * Where a NEW referent confirmation is written. A client-level source confirmed inside a project
+ * goes to that project; without a project it stays at client level. Project and business unit
+ * sources keep their scope and must belong to the confirmation project. Decides the write scope
+ * only: the source entry, its content and its digest are never touched.
+ */
+function companyMapConfirmedReferentScope(scope, confirmationProjectId) {
+    const source = ConfirmedReferentScopeSchema.parse({
+        level: scope.level,
+        ...(scope.projectId !== undefined ? { projectId: scope.projectId } : {}),
+        ...(scope.buSlug !== undefined ? { buSlug: scope.buSlug } : {}),
+    });
+    if (confirmationProjectId === undefined)
+        return source;
+    const projectId = exports.CompanyMapScopeFieldsSchema.shape.projectId.unwrap().parse(confirmationProjectId);
+    if (source.level === 'client') {
+        return { level: 'project', projectId: confirmationProjectId };
+    }
+    if (source.projectId !== projectId) {
+        throw new Error('Confirmation project differs from the project of the source entry');
+    }
+    return source;
+}
+/**
+ * Referents of a project: per person the project entry of that project, else the client entry.
+ * The highest version is chosen only within the same level and key; a client version is never
+ * compared with a project version. Other tenants, organizations, clients, projects and business
+ * units are excluded. Returns the original entries sorted by personRef.
+ */
+function companyMapReferentsForProject(input) {
+    const { entries, scope } = input;
+    const priority = ['project', 'client'];
+    const inCompany = entries.filter((entry) => entry.tenantId === scope.tenantId &&
+        entry.organizationId === scope.organizationId &&
+        entry.clientId === scope.clientId &&
+        (entry.level === 'client' || (entry.level === 'project' && entry.projectId === scope.projectId)));
+    const personRefs = [...new Set(inCompany.map((entry) => entry.personRef))].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+    const result = [];
+    for (const personRef of personRefs) {
+        for (const level of priority) {
+            const found = inCompany.filter((entry) => entry.personRef === personRef && entry.level === level);
+            if (found.length === 0)
+                continue;
+            result.push(found.reduce((best, candidate) => (candidate.version > best.version ? candidate : best)));
+            break;
+        }
+    }
+    return result;
 }
 /** Refusal codes of the delivery referent lookup (one per cause). */
 exports.DELIVERY_REFERENT_REFUSALS = [

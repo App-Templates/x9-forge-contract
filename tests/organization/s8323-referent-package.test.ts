@@ -180,8 +180,8 @@ for (const mode of ['ESM', 'CJS'] as const) {
 }
 
 describe('s8323 package', () => {
-  it('s8323 reserves exactly version 1.323.0', () => {
-    expect(manifest.version).toBe('1.323.0');
+  it('s8323 reserves exactly version 1.324.0', () => {
+    expect(manifest.version).toBe('1.324.0');
   });
 
   it('s8323 built ESM and CJS agree on the referent result for the same input', async () => {
@@ -236,6 +236,195 @@ describe('s8323 package', () => {
           entries, JSON.stringify(scope), JSON.stringify(referent),
         ], { cwd: root, env: {}, encoding: 'utf8' })) as Record<string, boolean>;
         expect(result).toEqual({ organization: true, map: true });
+      }
+    }
+  }, 30_000);
+});
+
+// ---- s8700: project referents in the built package (data rebuilt from requests 591/8399; src is not imported) ----
+type Scope = { level: string; projectId?: string; buSlug?: string };
+type ScopeFn = (scope: Scope, projectId?: string) => Scope;
+type ReferentsFn = (input: { entries: readonly Entry[]; scope: Record<string, string> }) => Entry[];
+const GC2 = { tenantId: '1', organizationId: 'good-choice', clientId: 'gc2', projectId: 'gc2-project' };
+const person = (personRef: string, level: string, version: number, changes: Record<string, unknown> = {}) => ({
+  ...rawEntry(level, version, { clientId: GC2.clientId, personRef, name: `Name ${personRef}`, email: `${personRef}@example.invalid` }),
+  ...(level !== 'client' ? { projectId: GC2.projectId } : {}),
+  ...changes,
+});
+const freeze = <T>(value: T): T => {
+  if (value !== null && typeof value === 'object') {
+    Object.values(value as object).forEach(freeze);
+    Object.freeze(value);
+  }
+  return value;
+};
+const SCOPE_EXPORTS = ['companyMapConfirmedReferentScope', 'companyMapReferentsForProject'] as const;
+
+for (const mode of ['ESM', 'CJS'] as const) {
+  describe(`s8700 ${mode} project referents`, () => {
+    const mods = {} as Record<'organization' | 'map', Mod>;
+    beforeAll(async () => {
+      mods.organization = await load(mode, 'organization');
+      mods.map = await load(mode, 'map');
+    });
+    const both = <T>(name: string): T[] => [mods.organization, mods.map].map((m) => m[name] as T);
+    const parse = (raw: unknown) => (mods.map.CompanyMapEntrySchema as Schema).parse(raw) as Entry;
+
+    it(`s8700 ${mode} exports`, () => {
+      for (const name of SCOPE_EXPORTS) {
+        for (const fn of both<unknown>(name)) expect(typeof fn).toBe('function');
+      }
+    });
+
+    it(`s8700 ${mode} project write scope`, () => {
+      for (const confirmedScope of both<ScopeFn>('companyMapConfirmedReferentScope')) {
+        expect(confirmedScope({ level: 'client' }, GC2.projectId)).toEqual({ level: 'project', projectId: GC2.projectId });
+        expect(confirmedScope({ level: 'client' })).toEqual({ level: 'client' });
+        expect(confirmedScope({ level: 'project', projectId: GC2.projectId }, GC2.projectId))
+          .toEqual({ level: 'project', projectId: GC2.projectId });
+        expect(confirmedScope({ level: 'business_unit', projectId: GC2.projectId, buSlug: 'design' }, GC2.projectId))
+          .toEqual({ level: 'business_unit', projectId: GC2.projectId, buSlug: 'design' });
+        expect(() => confirmedScope({ level: 'project', projectId: 'other-project' }, GC2.projectId)).toThrow();
+        expect(() => confirmedScope({ level: 'business_unit', projectId: 'other-project', buSlug: 'design' }, GC2.projectId)).toThrow();
+        expect(() => confirmedScope({ level: 'project' }, GC2.projectId)).toThrow();
+      }
+    });
+
+    it(`s8700 ${mode} project beats client`, () => {
+      for (const referentsForProject of both<ReferentsFn>('companyMapReferentsForProject')) {
+        const client5 = parse(person('maria-verdi', 'client', 5));
+        const project2 = parse(person('maria-verdi', 'project', 2));
+        for (const entries of [[client5, project2], [project2, client5]]) {
+          const result = referentsForProject({ entries, scope: GC2 });
+          expect(result).toHaveLength(1);
+          expect(result[0]).toBe(project2);
+        }
+      }
+    });
+
+    it(`s8700 ${mode} selection rules`, () => {
+      for (const referentsForProject of both<ReferentsFn>('companyMapReferentsForProject')) {
+        const project2 = parse(person('maria-verdi', 'project', 2));
+        const project3 = parse(person('maria-verdi', 'project', 3));
+        const client5 = parse(person('maria-verdi', 'client', 5));
+        const fallback = parse(person('anna-neri', 'client', 4));
+        const otherProject = parse(person('luca-gialli', 'project', 7, { projectId: 'other-project' }));
+        const bu = parse(person('paolo-blu', 'business_unit', 3, { buSlug: 'design' }));
+        const strangers = [
+          parse(person('zeta', 'client', 9, { tenantId: '2' })),
+          parse(person('zeta', 'client', 9, { organizationId: 'other-org' })),
+          parse(person('zeta', 'client', 9, { clientId: 'other-client' })),
+        ];
+        const entries = freeze([strangers[0], bu, otherProject, client5, project2, fallback, project3, strangers[1], strangers[2]]);
+        const snapshot = JSON.stringify(entries);
+        const result = referentsForProject({ entries, scope: GC2 });
+        expect(result).toHaveLength(2);
+        expect(result[0]).toBe(fallback);
+        expect(result[1]).toBe(project3);
+        expect(JSON.stringify(entries)).toBe(snapshot);
+        const second = referentsForProject({ entries: [otherProject], scope: { ...GC2, projectId: 'other-project' } });
+        expect(second).toEqual([otherProject]);
+        expect(referentsForProject({ entries: [], scope: GC2 })).toEqual([]);
+        expect(referentsForProject({ entries: [bu, strangers[0]], scope: GC2 })).toEqual([]);
+      }
+    });
+
+    it(`s8700 ${mode} saved v5 rereads unchanged`, () => {
+      const raw = person('maria-verdi', 'client', 5);
+      const text = JSON.stringify(raw);
+      const parsed = parse(JSON.parse(text));
+      expect(JSON.stringify(parsed)).toBe(JSON.stringify(parse(JSON.parse(text))));
+      expect(parse(JSON.parse(JSON.stringify(parsed)))).toEqual(parsed);
+      expect(sha256(JSON.stringify(parsed))).toBe(sha256(JSON.stringify(parse(JSON.parse(text)))));
+      expect(JSON.stringify(raw)).toBe(text);
+    });
+  });
+}
+
+describe('s8700 package', () => {
+  it('s8700 reserves exactly version 1.324.0', () => {
+    expect(manifest.version).toBe('1.324.0');
+  });
+
+  it('s8700 built ESM and CJS agree on results and refusals for the same data', async () => {
+    const [e, c] = [await load('ESM', 'map'), await load('CJS', 'map')];
+    const run = (m: Mod) => {
+      const parse = (raw: unknown) => (m.CompanyMapEntrySchema as Schema).parse(raw) as Entry;
+      const entries = [parse(person('maria-verdi', 'client', 5)), parse(person('maria-verdi', 'project', 2)), parse(person('anna-neri', 'client', 4))];
+      const confirmedScope = m.companyMapConfirmedReferentScope as ScopeFn;
+      let refusal = '';
+      try { confirmedScope({ level: 'project', projectId: 'other-project' }, GC2.projectId); } catch (error) { refusal = String((error as Error).constructor.name); }
+      return {
+        write: confirmedScope({ level: 'client' }, GC2.projectId),
+        kept: confirmedScope({ level: 'client' }),
+        refusal,
+        read: (m.companyMapReferentsForProject as ReferentsFn)({ entries, scope: GC2 }),
+      };
+    };
+    expect(run(e)).toEqual(run(c));
+    expect(run(e).read.map((x) => `${x.personRef}:${x.level}:${x.version}`)).toEqual(['anna-neri:client:4', 'maria-verdi:project:2']);
+  });
+
+  it('s8700 declarations describe both functions in .d.ts and .d.cts', () => {
+    const manifestTarget = manifest.exports['./organization/*'].types.replace('*', 'company-map');
+    expect(resolve(root, manifestTarget)).toBe(resolve(root, 'dist/organization/company-map.d.cts'));
+    const texts = ['dist/organization/company-map.d.ts', 'dist/organization/company-map.d.cts'].map((file) => readFileSync(resolve(root, file), 'utf8'));
+    for (const text of texts) {
+      for (const name of SCOPE_EXPORTS) expect(text).toContain(name);
+      expect(text).toMatch(/companyMapConfirmedReferentScope\(scope: \{[^}]*\}, confirmationProjectId\?: string \| undefined\): CompanyMapConfirmedReferentScope/);
+      expect(text).toMatch(/companyMapReferentsForProject\(input: \{[\s\S]*?\}\): CompanyMapEntry\[\]/);
+      expect(text).toContain('CompanyMapConfirmedReferentScope');
+      expect(text).not.toMatch(/\/Users\/|\bsrc\//);
+    }
+    const strip = (text: string) => text.replace(/\s+/g, ' ');
+    const signature = (text: string, name: string) => text.match(new RegExp(`function ${name}\\([\\s\\S]*?\\) ?: ?[\\w\\[\\]]+;`))?.[0];
+    for (const name of SCOPE_EXPORTS) {
+      expect(signature(strip(texts[0]!), name)).toBeDefined();
+      expect(signature(strip(texts[0]!), name)).toBe(signature(strip(texts[1]!), name));
+    }
+    for (const file of ['dist/organization/index.d.ts', 'dist/organization/index.d.cts']) {
+      expect(readFileSync(resolve(root, file), 'utf8')).toContain('company-map');
+    }
+  });
+
+  it('s8700 native loaders expose and run both functions in both orders with fresh caches', () => {
+    const names = Object.keys(SUBPATHS) as Name[];
+    const orders = [names, [...names].reverse()];
+    const script = `
+      const { createRequire } = await import('node:module');
+      const require = createRequire(import.meta.url);
+      const [mode, orderJson, subpathsJson, entriesJson, projectId] = process.argv.slice(1);
+      const subpaths = JSON.parse(subpathsJson);
+      const loaded = {};
+      for (const name of JSON.parse(orderJson)) {
+        const path = '@x9-forge/contracts/' + subpaths[name];
+        loaded[name] = mode === 'esm' ? await import(path) : require(path);
+      }
+      const out = {};
+      for (const name of ['organization', 'map']) {
+        const m = loaded[name];
+        const entries = JSON.parse(entriesJson).map((e) => m.CompanyMapEntrySchema.parse(e));
+        const scope = { tenantId: '1', organizationId: 'good-choice', clientId: 'gc2', projectId };
+        out[name] = {
+          types: [typeof m.companyMapConfirmedReferentScope, typeof m.companyMapReferentsForProject],
+          write: m.companyMapConfirmedReferentScope({ level: 'client' }, projectId),
+          read: m.companyMapReferentsForProject({ entries, scope }).map((e) => e.level + ':' + e.version),
+        };
+      }
+      process.stdout.write(JSON.stringify(out));
+    `;
+    const entries = JSON.stringify([person('maria-verdi', 'client', 5), person('maria-verdi', 'project', 2)]);
+    const expected = {
+      types: ['function', 'function'],
+      write: { level: 'project', projectId: GC2.projectId },
+      read: ['project:2'],
+    };
+    for (const mode of ['esm', 'cjs']) {
+      for (const order of orders) {
+        const result = JSON.parse(execFileSync(process.execPath, [
+          '--input-type=module', '-e', script, mode, JSON.stringify(order), JSON.stringify(SUBPATHS), entries, GC2.projectId,
+        ], { cwd: root, env: {}, encoding: 'utf8' })) as Record<string, unknown>;
+        expect(result).toEqual({ organization: expected, map: expected });
       }
     }
   }, 30_000);

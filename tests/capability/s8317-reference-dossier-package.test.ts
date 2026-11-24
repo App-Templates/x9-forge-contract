@@ -47,8 +47,8 @@ const load = async (mode: Mode, entry: Entry): Promise<Mod> => {
   return nativeImport(pathToFileURL(file).href);
 };
 
-it('s8317 reserves exactly version 1.323.0', () => {
-  expect(manifest.version).toBe('1.323.0');
+it('s8317 reserves exactly version 1.324.0', () => {
+  expect(manifest.version).toBe('1.324.0');
 });
 
 for (const mode of ['ESM', 'CJS'] as const) {
