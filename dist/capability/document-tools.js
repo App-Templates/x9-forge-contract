@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { ActionPlanReferentRefSchema, ActionPlanSchema, actionPlanCanonicalJson } from "../organization/action-plan.js";
 import { DOCUMENT_DATA_MAX_BYTES, DocumentDataSchema } from "./document-render.js";
 import { DocumentPdfDeliveryContextSchema, DocumentPdfReceiptSchema } from "./document-receipt.js";
-import { LabDossierSnapshotSchema } from "./lab/dossier.js";
+import { LabDossierReferencesSchema, LabDossierSnapshotSchema } from "./lab/dossier.js";
 export const DOCUMENT_PDF_TOOL = 'document_pdf';
 /** Cumulative UTF-8 limit, including source, presentation and delivery metadata. */
 export const DOCUMENT_PDF_MAX_BYTES = DOCUMENT_DATA_MAX_BYTES;
@@ -82,6 +82,21 @@ export const DocumentPdfInputSchema = z.discriminatedUnion('kind', [
         }
     }
 });
+/**
+ * Dossier PDF requested by references only: the caller owns no photograph. It is a request still to be resolved,
+ * never a source the renderer can use: the delivery context and the dossier digest exist only after the Lab answers.
+ */
+export const DocumentPdfReferencesInputSchema = z.strictObject({
+    kind: z.literal('lab_dossier'),
+    language: LanguageSchema,
+    references: LabDossierReferencesSchema,
+}).superRefine((input, ctx) => {
+    if (new TextEncoder().encode(JSON.stringify(input)).byteLength > DOCUMENT_PDF_MAX_BYTES) {
+        ctx.addIssue({ code: 'custom', path: [], message: 'PDF input exceeds the cumulative UTF-8 byte limit' });
+    }
+});
+/** What the HTTP boundary and the client accept: a complete renderer input or a reference-only dossier request. */
+export const DocumentPdfRequestSchema = z.union([DocumentPdfInputSchema, DocumentPdfReferencesInputSchema]);
 /** Success is emitted only after the service persists and reads back the PDF asset.
  * This shape validates the receipt; storage/readability are enforced by the issuing service.
  */

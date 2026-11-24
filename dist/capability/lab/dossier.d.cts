@@ -145,6 +145,51 @@ export declare const LabDossierSnapshotInputSchema: z.ZodObject<{
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
 export type LabDossierSnapshotInput = z.infer<typeof LabDossierSnapshotInputSchema>;
+/**
+ * What a caller that owns no photograph can name: the project scope, the snapshot selector and the plan triple.
+ * The Lab builds a new cutoff and returns the complete snapshot; the plan triple is verified by QA on the saved plan.
+ * The schema attests no access and no stored data. It is never a response and never a renderer source.
+ */
+export declare const LabDossierReferencesSchema: z.ZodObject<{
+    tenantId: z.ZodString;
+    organizationId: z.ZodString;
+    clientId: z.ZodString;
+    projectId: z.ZodString;
+    snapshotId: z.ZodString;
+    scope: z.ZodObject<{
+        kind: z.ZodLiteral<"project">;
+        clientId: z.ZodString;
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    planId: z.ZodLazy<z.ZodString>;
+    planVersion: z.ZodNumber;
+    planDigest: z.ZodString;
+}, z.core.$strict>;
+export type LabDossierReferences = z.infer<typeof LabDossierReferencesSchema>;
+/** Reference-only request of the Lab dossier: same plan citations and limits as the historical input. */
+export declare const LabDossierReferenceRequestSchema: z.ZodObject<{
+    references: z.ZodObject<{
+        tenantId: z.ZodString;
+        organizationId: z.ZodString;
+        clientId: z.ZodString;
+        projectId: z.ZodString;
+        snapshotId: z.ZodString;
+        scope: z.ZodObject<{
+            kind: z.ZodLiteral<"project">;
+            clientId: z.ZodString;
+            projectId: z.ZodString;
+        }, z.core.$strict>;
+        planId: z.ZodLazy<z.ZodString>;
+        planVersion: z.ZodNumber;
+        planDigest: z.ZodString;
+    }, z.core.$strict>;
+    planCitations: z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+        notebookAgentId: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type LabDossierReferenceRequest = z.infer<typeof LabDossierReferenceRequestSchema>;
 /** The frozen content the manifest digest covers: identity, list, content and frozen metadata; no counters. */
 export type LabDossierDigestContent = {
     tenantId: string;

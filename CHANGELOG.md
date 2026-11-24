@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.322.0 — reference-only dossier requests in the built package (tasks 8316–8317)
+
+- Reserve 1.322.0 from the read base 1.319.0. Versions 1.320.0 and 1.321.0 are reserved for coordinatore-voce-referente and do not belong to this task; existing entries are preserved.
+- Add `LabDossierReferencesSchema` / `LabDossierReferences` and `LabDossierReferenceRequestSchema` / `LabDossierReferenceRequest` at `capability/lab/dossier`. Add `DocumentPdfReferencesInputSchema` / `DocumentPdfReferencesInput` and `DocumentPdfRequestSchema` / `DocumentPdfRequest` at `capability/document-tools`, also exported through `capability`.
+- The Lab HTTP request accepts references plus plan citations without a caller photograph. The PDF request accepts the same references; resolution and authorization remain with consumers. Lab responses and renderer sources still require the complete snapshot, verified counts and manifest digest.
+- R-37: historical PDF inputs with snapshot and delivery context, complete Lab requests, document/action_plan inputs, receipts and decisions retain their existing parse with no added keys or transformations. Existing enum alternatives remain unchanged.
+- `dist/` must be generated only by the existing `pnpm build`, including portability checks. Build, full ESM/CJS acceptance, mutations and the resulting local commit SHA belong to the gate; no publish, tag or release. Adoption 8318 and consumers 8319/8320 remain necessary before the email path can be verified.
+- REGRESSIONE: s8317 built ESM and CJS accept reference-only dossier requests at version 1.322.0. Tests exercise emitted package entrypoints and generated declarations; changing the version without rebuilding stays red. No production sample or live email/PDF verification was performed.
+
 ## v1.319.0 — cap-email asks cap-colloquio for the «parlane a voce» link (task 8610)
 
 - New `colloquioLinkContract` in `@x9-forge/contracts/http`: POST `/internal/capability/agents/:agentId/colloquio/links`, `authType: 'secret'`. New names: `ColloquioLinkRequestSchema`, `ColloquioLinkResponseSchema`, `ColloquioLinkRefusalSchema` (and their types), `COLLOQUIO_LINK_TTL_MS`, `COLLOQUIO_TOPIC_SUBJECT_MAX`, `COLLOQUIO_TOPIC_EXCERPT_MAX`, `COLLOQUIO_LINK_CODE_PATTERN`, `COLLOQUIO_LINK_REFUSALS`.

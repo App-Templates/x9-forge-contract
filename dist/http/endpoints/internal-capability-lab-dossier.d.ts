@@ -10,7 +10,10 @@ export declare const LabDossierSnapshotErrorCodeSchema: z.ZodEnum<{
     snapshot_unavailable: "snapshot_unavailable";
 }>;
 export type LabDossierSnapshotErrorCode = z.infer<typeof LabDossierSnapshotErrorCodeSchema>;
-/** The signed run context names the organization; the dossier input must name the same one. */
+/**
+ * The signed run context names the organization; the dossier input must name the same one.
+ * The input is either the historical complete one or, additively, references only: no photograph owned by the caller.
+ */
 export declare const InternalLabDossierSnapshotRequestSchema: z.ZodObject<{
     context: z.ZodObject<{
         schemaVersion: z.ZodLiteral<1>;
@@ -31,7 +34,7 @@ export declare const InternalLabDossierSnapshotRequestSchema: z.ZodObject<{
         issuedAt: z.ZodISODateTime;
         expiresAt: z.ZodISODateTime;
     }, z.core.$strict>;
-    input: z.ZodObject<{
+    input: z.ZodUnion<readonly [z.ZodObject<{
         pages: z.ZodArray<z.ZodObject<{
             notebookAgentId: z.ZodString;
             slug: z.ZodString;
@@ -92,7 +95,28 @@ export declare const InternalLabDossierSnapshotRequestSchema: z.ZodObject<{
             clientId: z.ZodString;
             projectId: z.ZodString;
         }, z.core.$strict>], "kind">;
-    }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        references: z.ZodObject<{
+            tenantId: z.ZodString;
+            organizationId: z.ZodString;
+            clientId: z.ZodString;
+            projectId: z.ZodString;
+            snapshotId: z.ZodString;
+            scope: z.ZodObject<{
+                kind: z.ZodLiteral<"project">;
+                clientId: z.ZodString;
+                projectId: z.ZodString;
+            }, z.core.$strict>;
+            planId: z.ZodLazy<z.ZodString>;
+            planVersion: z.ZodNumber;
+            planDigest: z.ZodString;
+        }, z.core.$strict>;
+        planCitations: z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+            notebookAgentId: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>]>;
 }, z.core.$strict>;
 export type InternalLabDossierSnapshotRequest = z.infer<typeof InternalLabDossierSnapshotRequestSchema>;
 /** The complete snapshot, or nothing: success never carries an error and never lists a part of the dossier. */
@@ -207,7 +231,7 @@ export declare const internalLabDossierSnapshotContract: {
             issuedAt: z.ZodISODateTime;
             expiresAt: z.ZodISODateTime;
         }, z.core.$strict>;
-        input: z.ZodObject<{
+        input: z.ZodUnion<readonly [z.ZodObject<{
             pages: z.ZodArray<z.ZodObject<{
                 notebookAgentId: z.ZodString;
                 slug: z.ZodString;
@@ -268,7 +292,28 @@ export declare const internalLabDossierSnapshotContract: {
                 clientId: z.ZodString;
                 projectId: z.ZodString;
             }, z.core.$strict>], "kind">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            references: z.ZodObject<{
+                tenantId: z.ZodString;
+                organizationId: z.ZodString;
+                clientId: z.ZodString;
+                projectId: z.ZodString;
+                snapshotId: z.ZodString;
+                scope: z.ZodObject<{
+                    kind: z.ZodLiteral<"project">;
+                    clientId: z.ZodString;
+                    projectId: z.ZodString;
+                }, z.core.$strict>;
+                planId: z.ZodLazy<z.ZodString>;
+                planVersion: z.ZodNumber;
+                planDigest: z.ZodString;
+            }, z.core.$strict>;
+            planCitations: z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+                notebookAgentId: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>]>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { LabDossierSnapshotInputSchema, LabDossierSnapshotSchema } from "../../capability/lab/dossier.js";
+import { LabDossierReferenceRequestSchema, LabDossierSnapshotInputSchema, LabDossierSnapshotSchema, } from "../../capability/lab/dossier.js";
 import { OrganizationRunContextSchema } from "../../organization/run-context.js";
 /** Named refusals of the dossier snapshot read. A refusal never carries a partial snapshot. */
 export const LAB_DOSSIER_SNAPSHOT_ERRORS = [
@@ -11,13 +11,22 @@ export const LAB_DOSSIER_SNAPSHOT_ERRORS = [
     'snapshot_unavailable',
 ];
 export const LabDossierSnapshotErrorCodeSchema = z.enum(LAB_DOSSIER_SNAPSHOT_ERRORS);
-/** The signed run context names the organization; the dossier input must name the same one. */
+/**
+ * The signed run context names the organization; the dossier input must name the same one.
+ * The input is either the historical complete one or, additively, references only: no photograph owned by the caller.
+ */
 export const InternalLabDossierSnapshotRequestSchema = z.strictObject({
     context: OrganizationRunContextSchema,
-    input: LabDossierSnapshotInputSchema,
+    input: z.union([LabDossierSnapshotInputSchema, LabDossierReferenceRequestSchema]),
 }).superRefine((request, ctx) => {
-    if (request.context.organizationId !== request.input.organizationId) {
-        ctx.addIssue({ code: 'custom', path: ['input', 'organizationId'], message: 'Dossier organization must match the run context' });
+    const byReferences = 'references' in request.input;
+    const references = 'references' in request.input ? request.input.references : request.input;
+    if (request.context.organizationId !== references['organizationId']) {
+        ctx.addIssue({
+            code: 'custom',
+            path: byReferences ? ['input', 'references', 'organizationId'] : ['input', 'organizationId'],
+            message: 'Dossier organization must match the run context',
+        });
     }
 });
 /** The complete snapshot, or nothing: success never carries an error and never lists a part of the dossier. */

@@ -5,6 +5,7 @@ import { canonicalJson } from "../../organization/action-plan.js";
 import { KnowledgeContradictionSchema } from "../../organization/knowledge-publication.js";
 import { CapabilityAgentIdSchema } from "../ricerca/agent-config.js";
 import { WebUrlSchema } from "../ricerca/research.js";
+import { DocumentPdfDeliveryContextSchema } from "../document-receipt.js";
 import { LabPublicationRecipientSchema } from "./tools.js";
 import { WikiOriginSchema, WikiPageSchema, WikiSourceIdSchema } from "./wiki.js";
 /**
@@ -98,6 +99,31 @@ export const LabDossierSnapshotInputSchema = z.strictObject({
 }).superRefine((input, ctx) => {
     scopeIssues(input, ctx);
     duplicateIssues(input.pages, input.sources, ctx);
+});
+/**
+ * What a caller that owns no photograph can name: the project scope, the snapshot selector and the plan triple.
+ * The Lab builds a new cutoff and returns the complete snapshot; the plan triple is verified by QA on the saved plan.
+ * The schema attests no access and no stored data. It is never a response and never a renderer source.
+ */
+export const LabDossierReferencesSchema = z.strictObject({
+    tenantId: frozenIdentityShape.tenantId,
+    organizationId: frozenIdentityShape.organizationId,
+    clientId: frozenIdentityShape.clientId,
+    projectId: frozenIdentityShape.projectId,
+    snapshotId: frozenIdentityShape.snapshotId,
+    scope: LabPublicationRecipientSchema.options[1],
+    planId: DocumentPdfDeliveryContextSchema.shape.planId,
+    planVersion: DocumentPdfDeliveryContextSchema.shape.planVersion,
+    planDigest: DocumentPdfDeliveryContextSchema.shape.planDigest,
+}).superRefine((references, ctx) => {
+    if (references['scope'].kind !== 'project' || references.scope.clientId !== references.clientId || references.scope.projectId !== references.projectId) {
+        ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Publication scope must name the snapshot client and project' });
+    }
+});
+/** Reference-only request of the Lab dossier: same plan citations and limits as the historical input. */
+export const LabDossierReferenceRequestSchema = z.strictObject({
+    references: LabDossierReferencesSchema,
+    planCitations: z.array(LabDossierPlanCitationSchema).max(LAB_DOSSIER_MAX_PAGES),
 });
 const ManifestDigestSchema = AssetSha256Schema;
 /** UTF-8 input for the manifest digest. Optional fields left undefined are omitted before keys are sorted. */

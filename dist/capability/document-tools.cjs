@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DocumentPdfOutputSchema = exports.DocumentPdfInputSchema = exports.DocumentPdfMarkdownSchema = exports.DOCUMENT_PDF_MAX_BYTES = exports.DOCUMENT_PDF_TOOL = void 0;
+exports.DocumentPdfOutputSchema = exports.DocumentPdfRequestSchema = exports.DocumentPdfReferencesInputSchema = exports.DocumentPdfInputSchema = exports.DocumentPdfMarkdownSchema = exports.DOCUMENT_PDF_MAX_BYTES = exports.DOCUMENT_PDF_TOOL = void 0;
 const node_crypto_1 = require("node:crypto");
 const zod_1 = require("zod");
 const action_plan_js_1 = require("../organization/action-plan.cjs");
@@ -85,6 +85,21 @@ exports.DocumentPdfInputSchema = zod_1.z.discriminatedUnion('kind', [
         }
     }
 });
+/**
+ * Dossier PDF requested by references only: the caller owns no photograph. It is a request still to be resolved,
+ * never a source the renderer can use: the delivery context and the dossier digest exist only after the Lab answers.
+ */
+exports.DocumentPdfReferencesInputSchema = zod_1.z.strictObject({
+    kind: zod_1.z.literal('lab_dossier'),
+    language: LanguageSchema,
+    references: dossier_js_1.LabDossierReferencesSchema,
+}).superRefine((input, ctx) => {
+    if (new TextEncoder().encode(JSON.stringify(input)).byteLength > exports.DOCUMENT_PDF_MAX_BYTES) {
+        ctx.addIssue({ code: 'custom', path: [], message: 'PDF input exceeds the cumulative UTF-8 byte limit' });
+    }
+});
+/** What the HTTP boundary and the client accept: a complete renderer input or a reference-only dossier request. */
+exports.DocumentPdfRequestSchema = zod_1.z.union([exports.DocumentPdfInputSchema, exports.DocumentPdfReferencesInputSchema]);
 /** Success is emitted only after the service persists and reads back the PDF asset.
  * This shape validates the receipt; storage/readability are enforced by the issuing service.
  */

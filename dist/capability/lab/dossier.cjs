@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LabDossierSnapshotSchema = exports.LabDossierSnapshotInputSchema = exports.LabDossierPlanCitationSchema = exports.LabDossierPageIdentitySchema = exports.LabDossierSourceSchema = exports.LabDossierPageSchema = exports.LabDossierPageRoleSchema = exports.LAB_DOSSIER_PAGE_ROLES = exports.LAB_DOSSIER_MAX_SOURCES = exports.LAB_DOSSIER_MAX_PAGES = void 0;
+exports.LabDossierSnapshotSchema = exports.LabDossierReferenceRequestSchema = exports.LabDossierReferencesSchema = exports.LabDossierSnapshotInputSchema = exports.LabDossierPlanCitationSchema = exports.LabDossierPageIdentitySchema = exports.LabDossierSourceSchema = exports.LabDossierPageSchema = exports.LabDossierPageRoleSchema = exports.LAB_DOSSIER_PAGE_ROLES = exports.LAB_DOSSIER_MAX_SOURCES = exports.LAB_DOSSIER_MAX_PAGES = void 0;
 exports.labDossierCanonicalJson = labDossierCanonicalJson;
 exports.labDossierManifestDigest = labDossierManifestDigest;
 exports.buildLabDossierSnapshot = buildLabDossierSnapshot;
@@ -11,6 +11,7 @@ const action_plan_js_1 = require("../../organization/action-plan.cjs");
 const knowledge_publication_js_1 = require("../../organization/knowledge-publication.cjs");
 const agent_config_js_1 = require("../ricerca/agent-config.cjs");
 const research_js_1 = require("../ricerca/research.cjs");
+const document_receipt_js_1 = require("../document-receipt.cjs");
 const tools_js_1 = require("./tools.cjs");
 const wiki_js_1 = require("./wiki.cjs");
 /**
@@ -104,6 +105,31 @@ exports.LabDossierSnapshotInputSchema = zod_1.z.strictObject({
 }).superRefine((input, ctx) => {
     scopeIssues(input, ctx);
     duplicateIssues(input.pages, input.sources, ctx);
+});
+/**
+ * What a caller that owns no photograph can name: the project scope, the snapshot selector and the plan triple.
+ * The Lab builds a new cutoff and returns the complete snapshot; the plan triple is verified by QA on the saved plan.
+ * The schema attests no access and no stored data. It is never a response and never a renderer source.
+ */
+exports.LabDossierReferencesSchema = zod_1.z.strictObject({
+    tenantId: frozenIdentityShape.tenantId,
+    organizationId: frozenIdentityShape.organizationId,
+    clientId: frozenIdentityShape.clientId,
+    projectId: frozenIdentityShape.projectId,
+    snapshotId: frozenIdentityShape.snapshotId,
+    scope: tools_js_1.LabPublicationRecipientSchema.options[1],
+    planId: document_receipt_js_1.DocumentPdfDeliveryContextSchema.shape.planId,
+    planVersion: document_receipt_js_1.DocumentPdfDeliveryContextSchema.shape.planVersion,
+    planDigest: document_receipt_js_1.DocumentPdfDeliveryContextSchema.shape.planDigest,
+}).superRefine((references, ctx) => {
+    if (references['scope'].kind !== 'project' || references.scope.clientId !== references.clientId || references.scope.projectId !== references.projectId) {
+        ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Publication scope must name the snapshot client and project' });
+    }
+});
+/** Reference-only request of the Lab dossier: same plan citations and limits as the historical input. */
+exports.LabDossierReferenceRequestSchema = zod_1.z.strictObject({
+    references: exports.LabDossierReferencesSchema,
+    planCitations: zod_1.z.array(exports.LabDossierPlanCitationSchema).max(exports.LAB_DOSSIER_MAX_PAGES),
 });
 const ManifestDigestSchema = asset_js_1.AssetSha256Schema;
 /** UTF-8 input for the manifest digest. Optional fields left undefined are omitted before keys are sorted. */

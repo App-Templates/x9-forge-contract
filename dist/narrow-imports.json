@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.319.0",
+  "versione": "1.322.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -740,6 +740,8 @@
       "DocumentPdfReceiptRoleSchema": "@x9-forge/contracts/capability/document-receipt",
       "DocumentPdfReceiptSchema": "@x9-forge/contracts/capability/document-receipt",
       "DocumentPdfReceiptSourceSchema": "@x9-forge/contracts/capability/document-receipt",
+      "DocumentPdfReferencesInputSchema": "@x9-forge/contracts/capability/document-tools",
+      "DocumentPdfRequestSchema": "@x9-forge/contracts/capability/document-tools",
       "DocumentSourceSchema": "@x9-forge/contracts/capability/document-render",
       "DocumentTableSchema": "@x9-forge/contracts/capability/document-render",
       "ElevenLabsAgentConfigSchema": "@x9-forge/contracts/capability/agent-elevenlabs/index",

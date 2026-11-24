@@ -14,13 +14,22 @@ exports.LAB_DOSSIER_SNAPSHOT_ERRORS = [
     'snapshot_unavailable',
 ];
 exports.LabDossierSnapshotErrorCodeSchema = zod_1.z.enum(exports.LAB_DOSSIER_SNAPSHOT_ERRORS);
-/** The signed run context names the organization; the dossier input must name the same one. */
+/**
+ * The signed run context names the organization; the dossier input must name the same one.
+ * The input is either the historical complete one or, additively, references only: no photograph owned by the caller.
+ */
 exports.InternalLabDossierSnapshotRequestSchema = zod_1.z.strictObject({
     context: run_context_js_1.OrganizationRunContextSchema,
-    input: dossier_js_1.LabDossierSnapshotInputSchema,
+    input: zod_1.z.union([dossier_js_1.LabDossierSnapshotInputSchema, dossier_js_1.LabDossierReferenceRequestSchema]),
 }).superRefine((request, ctx) => {
-    if (request.context.organizationId !== request.input.organizationId) {
-        ctx.addIssue({ code: 'custom', path: ['input', 'organizationId'], message: 'Dossier organization must match the run context' });
+    const byReferences = 'references' in request.input;
+    const references = 'references' in request.input ? request.input.references : request.input;
+    if (request.context.organizationId !== references['organizationId']) {
+        ctx.addIssue({
+            code: 'custom',
+            path: byReferences ? ['input', 'references', 'organizationId'] : ['input', 'organizationId'],
+            message: 'Dossier organization must match the run context',
+        });
     }
 });
 /** The complete snapshot, or nothing: success never carries an error and never lists a part of the dossier. */
