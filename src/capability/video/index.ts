@@ -660,3 +660,23 @@ export {
   type VideoCharacterImportToolResponse,
   type VideoCharacterOutfitStyleToolResponse,
 } from './personaggio-parallel-tool.js';
+export {
+  VIDEO_ENVIRONMENT_LIST_TOOL,
+  VIDEO_ENVIRONMENT_GET_TOOL,
+  VIDEO_ENVIRONMENT_CREATE_TOOL,
+  VIDEO_ENVIRONMENT_VERSION_CREATE_TOOL,
+  VIDEO_ENVIRONMENT_ANGLE_ADD_TOOL,
+  VIDEO_ENVIRONMENT_APPROVE_TOOL,
+  VideoEnvironmentListToolInputSchema,
+  VideoEnvironmentGetToolInputSchema,
+  VideoEnvironmentCreateToolInputSchema,
+  VideoEnvironmentVersionCreateToolInputSchema,
+  VideoEnvironmentAngleAddToolInputSchema,
+  VideoEnvironmentApproveToolInputSchema,
+  type VideoEnvironmentListToolInput,
+  type VideoEnvironmentGetToolInput,
+  type VideoEnvironmentCreateToolInput,
+  type VideoEnvironmentVersionCreateToolInput,
+  type VideoEnvironmentAngleAddToolInput,
+  type VideoEnvironmentApproveToolInput,
+} from './ambiente-tool.js';
