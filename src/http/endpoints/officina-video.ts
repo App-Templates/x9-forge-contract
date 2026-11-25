@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { VideoLongFramesDocumentSchema, VideoLongFramesSchema, VideoLongFramesApproveRequestSchema } from '../../capability/video/lungo-fotogrammi.js';
+import { VideoLongProductionSettingsSchema, VideoLongProductionSchema, VideoLongRunQuoteRequestSchema, VideoLongRunQuoteSchema, VideoLongRunRequestSchema, VideoLongChapterRunSchema, VideoLongChapterFramesSchema, VideoLongChapterFramesApproveRequestSchema, VideoLongJoinRequestSchema, VideoLongFinalVideoSchema, VideoLongFrameImageSchema } from '../../capability/video/lungo-produzione.js';
 import { VideoLongResearchStartRequestSchema, VideoLongResearchSchema, VideoLongDossierDocumentSchema, VideoLongDossierSchema, VideoLongChaptersDocumentSchema, VideoLongChaptersSchema, VideoLongChaptersApproveRequestSchema } from '../../capability/video/lungo-ricerca.js';
 import { VideoLongScopeQuerySchema, VideoLongProjectIdSchema, VideoLongCreateRequestSchema, VideoLongProjectSchema, VideoLongProjectListSchema } from '../../capability/video/lungo.js';
 import { VideoLongDraftDocumentSchema, VideoLongDraftSchema, VideoLongDraftApproveRequestSchema } from '../../capability/video/lungo-bozza.js';
@@ -617,5 +619,158 @@ export const officinaVideoLongChaptersApproveContract = {
   querySchema: VideoLongScopeQuerySchema,
   requestSchema: VideoLongChaptersApproveRequestSchema,
   responseSchema: VideoLongChaptersSchema,
+  responseStatus: 200,
+} as const;
+
+// Keep chapter parameters portable while rejecting indexes outside the production range.
+const LongChapterIndexParamSchema = z.string().regex(/^[1-9][0-9]?$/).regex(/^(?:[1-9]|1[0-9]|2[0-4])$/);
+
+/** cap-video -> engine: long project FramesPut. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongFramesPutContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'PUT',
+  path: '/api/lunghi/:projectId/fotogrammi',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongFramesDocumentSchema,
+  responseSchema: VideoLongFramesSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project FramesGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongFramesGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId/fotogrammi',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseSchema: VideoLongFramesSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project FramesApprove. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongFramesApproveContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/lunghi/:projectId/fotogrammi/approva',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongFramesApproveRequestSchema,
+  responseSchema: VideoLongFramesSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project ProductionSettingsPut. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongProductionSettingsPutContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'PUT',
+  path: '/api/lunghi/:projectId/produzione/impostazioni',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongProductionSettingsSchema,
+  responseSchema: VideoLongProductionSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project ProductionGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongProductionGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId/produzione',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseSchema: VideoLongProductionSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project RunQuote. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongRunQuoteContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/lunghi/:projectId/produzione/preventivo',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongRunQuoteRequestSchema,
+  responseSchema: VideoLongRunQuoteSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project RunStart. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongRunStartContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/lunghi/:projectId/produzione/avvia',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongRunRequestSchema,
+  responseSchema: VideoLongChapterRunSchema,
+  responseStatus: 202,
+} as const;
+
+/** cap-video -> engine: long project ChapterFramesGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongChapterFramesGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId/capitoli/:chapterIndex/fotogrammi',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema, chapterIndex: LongChapterIndexParamSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseSchema: VideoLongChapterFramesSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project ChapterFramesApprove. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongChapterFramesApproveContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/lunghi/:projectId/capitoli/:chapterIndex/fotogrammi/approva',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema, chapterIndex: LongChapterIndexParamSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongChapterFramesApproveRequestSchema,
+  responseSchema: VideoLongChapterFramesSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project ChapterFrameImageGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongChapterFrameImageGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId/capitoli/:chapterIndex/fotogrammi/:file',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema, chapterIndex: LongChapterIndexParamSchema, file: VideoLongFrameImageSchema.shape.imagePath }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseMediaTypes: VIDEO_MODEL_REF_MEDIA_TYPES,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project Join. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongJoinContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/lunghi/:projectId/unione',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongJoinRequestSchema,
+  responseSchema: VideoLongProductionSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project VideoGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongVideoGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId/video',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseSchema: VideoLongFinalVideoSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project VideoFileGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongVideoFileGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId/video/file',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseMediaTypes: ['video/mp4'] as const,
   responseStatus: 200,
 } as const;

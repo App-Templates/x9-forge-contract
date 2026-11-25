@@ -87,6 +87,19 @@ describe('long project routes', () => {
         'videoEngineLongChaptersPut',
         'videoEngineLongChaptersGet',
         'videoEngineLongChaptersApprove',
+        'videoEngineLongFramesPut',
+        'videoEngineLongFramesGet',
+        'videoEngineLongFramesApprove',
+        'videoEngineLongProductionSettingsPut',
+        'videoEngineLongProductionGet',
+        'videoEngineLongRunQuote',
+        'videoEngineLongRunStart',
+        'videoEngineLongChapterFramesGet',
+        'videoEngineLongChapterFramesApprove',
+        'videoEngineLongChapterFrameImageGet',
+        'videoEngineLongJoin',
+        'videoEngineLongVideoGet',
+        'videoEngineLongVideoFileGet',
       ].sort());
     for (const [name, contract, method, path, , requestContract, responseContract] of routes) {
       const transport = transports[name];
