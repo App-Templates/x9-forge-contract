@@ -522,10 +522,20 @@ export {
 
 export {
   VIDEO_LONG_RESEARCH_MAX_QUESTIONS,
+  VIDEO_LONG_MAX_SOURCES,
+  VIDEO_LONG_MAX_CLAIMS,
+  VideoLongSourceSchema,
+  VideoLongClaimSchema,
+  VideoLongDossierDocumentSchema,
+  VideoLongDossierSchema,
   VideoLongResearchStartRequestSchema,
   VideoLongResearchSchema,
   VideoLongResearchRefusalSchema,
   type VideoLongResearchStartRequest,
   type VideoLongResearch,
   type VideoLongResearchRefusal,
+  type VideoLongSource,
+  type VideoLongClaim,
+  type VideoLongDossierDocument,
+  type VideoLongDossier,
 } from './lungo-ricerca.js';
