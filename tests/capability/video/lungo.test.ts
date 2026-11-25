@@ -48,7 +48,30 @@ const project: VideoLongProject = {
 
 // SUMMARY: removing the duration maximum must fail the 1201 case;
 // removing modelId nullability must fail the "senza personaggio" case.
+// SUMMARY: removing environmentId.optional() must fail the saved-project compatibility case.
 describe('long video projects', () => {
+  it('reads a project saved today without environment or follow-up fields', () => {
+    expect(project).not.toHaveProperty('environmentId');
+    expect(project).not.toHaveProperty('environmentVersion');
+    expect(project).not.toHaveProperty('followsProjectId');
+    expect(VideoLongProjectSchema.parse(project)).toEqual(project);
+  });
+
+  it('accepts an environment pinned to a version and a preceding project', () => {
+    const fields = { environmentId: 'studio-podcast', environmentVersion: 1, followsProjectId: 'b'.repeat(32) };
+    expect(VideoLongProjectSchema.parse({ ...project, ...fields })).toEqual({ ...project, ...fields });
+    expect(VideoLongCreateRequestSchema.parse({ ...request, ...fields })).toEqual({ ...request, ...fields });
+  });
+
+  it.each([
+    { environmentVersion: 0 },
+    { environmentId: 'Studio' },
+    { followsProjectId: 'abc' },
+  ])('rejects invalid environment and follow-up fields %#', (fields) => {
+    expect(VideoLongProjectSchema.safeParse({ ...project, ...fields }).success).toBe(false);
+    expect(VideoLongCreateRequestSchema.safeParse({ ...request, ...fields }).success).toBe(false);
+  });
+
   it('accepts a real 600-second essay request and a project with five steps', () => {
     expect(VideoLongCreateRequestSchema.parse(request)).toEqual(request);
     expect(VideoLongProjectSchema.parse(project)).toEqual(project);
