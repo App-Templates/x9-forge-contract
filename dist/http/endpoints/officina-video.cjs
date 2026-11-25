@@ -1,7 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoUserPresetSaveContract = exports.officinaVideoUserPresetGetContract = exports.officinaVideoUserPresetListContract = exports.officinaVideoPresetFromVideoJobGetContract = exports.officinaVideoPresetFromVideoStartContract = exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoOutfitProductionCreateContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoLongCostGetContract = exports.officinaVideoLongDraftApproveContract = exports.officinaVideoLongDraftGetContract = exports.officinaVideoLongDraftPutContract = exports.officinaVideoLongGetContract = exports.officinaVideoLongListContract = exports.officinaVideoLongCreateContract = exports.officinaVideoUserPresetSaveContract = exports.officinaVideoUserPresetGetContract = exports.officinaVideoUserPresetListContract = exports.officinaVideoPresetFromVideoJobGetContract = exports.officinaVideoPresetFromVideoStartContract = exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoOutfitProductionCreateContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
 const zod_1 = require("zod");
+const lungo_js_1 = require("../../capability/video/lungo.cjs");
+const lungo_bozza_js_1 = require("../../capability/video/lungo-bozza.cjs");
+const costo_passi_js_1 = require("../../capability/video/costo-passi.cjs");
 const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
 const footage_js_1 = require("../../capability/video/footage.cjs");
@@ -325,6 +328,79 @@ exports.officinaVideoUserPresetSaveContract = {
     querySchema: preset_da_video_js_1.VideoPresetFromVideoStartQuerySchema,
     requestSchema: preset_da_video_js_1.VideoPresetSaveRequestSchema,
     responseSchema: preset_da_video_js_1.VideoUserPresetSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project Create. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoLongCreateContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/lunghi',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: lungo_js_1.VideoLongScopeQuerySchema,
+    requestSchema: lungo_js_1.VideoLongCreateRequestSchema,
+    responseSchema: lungo_js_1.VideoLongProjectSchema,
+    responseStatus: 201,
+};
+/** cap-video -> engine: long project List. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoLongListContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/lunghi',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: lungo_js_1.VideoLongScopeQuerySchema,
+    responseSchema: lungo_js_1.VideoLongProjectListSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project Get. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoLongGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/lunghi/:projectId',
+    paramsSchema: zod_1.z.object({ projectId: lungo_js_1.VideoLongProjectIdSchema }).strict(),
+    querySchema: lungo_js_1.VideoLongScopeQuerySchema,
+    responseSchema: lungo_js_1.VideoLongProjectSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project DraftPut. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoLongDraftPutContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'PUT',
+    path: '/api/lunghi/:projectId/bozza',
+    paramsSchema: zod_1.z.object({ projectId: lungo_js_1.VideoLongProjectIdSchema }).strict(),
+    querySchema: lungo_js_1.VideoLongScopeQuerySchema,
+    requestSchema: lungo_bozza_js_1.VideoLongDraftDocumentSchema,
+    responseSchema: lungo_bozza_js_1.VideoLongDraftSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project DraftGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoLongDraftGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/lunghi/:projectId/bozza',
+    paramsSchema: zod_1.z.object({ projectId: lungo_js_1.VideoLongProjectIdSchema }).strict(),
+    querySchema: lungo_js_1.VideoLongScopeQuerySchema,
+    responseSchema: lungo_bozza_js_1.VideoLongDraftSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project DraftApprove. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoLongDraftApproveContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/lunghi/:projectId/bozza/approva',
+    paramsSchema: zod_1.z.object({ projectId: lungo_js_1.VideoLongProjectIdSchema }).strict(),
+    querySchema: lungo_js_1.VideoLongScopeQuerySchema,
+    requestSchema: lungo_bozza_js_1.VideoLongDraftApproveRequestSchema,
+    responseSchema: lungo_bozza_js_1.VideoLongDraftSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project CostGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoLongCostGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/lunghi/:projectId/costi',
+    paramsSchema: zod_1.z.object({ projectId: lungo_js_1.VideoLongProjectIdSchema }).strict(),
+    querySchema: lungo_js_1.VideoLongScopeQuerySchema,
+    responseSchema: costo_passi_js_1.VideoCostByStepSchema,
     responseStatus: 200,
 };
 //# sourceMappingURL=officina-video.js.map

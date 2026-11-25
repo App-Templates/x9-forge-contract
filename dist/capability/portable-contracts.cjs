@@ -8,6 +8,10 @@ exports.parsePortableRagToolCall = parsePortableRagToolCall;
 exports.parsePortableLifecycleRequest = parsePortableLifecycleRequest;
 exports.parsePortableOrdinaryToolCall = parsePortableOrdinaryToolCall;
 const zod_1 = require("zod");
+const lungo_js_1 = require("./video/lungo.cjs");
+const lungo_bozza_js_1 = require("./video/lungo-bozza.cjs");
+const costo_passi_js_1 = require("./video/costo-passi.cjs");
+const officina_video_js_1 = require("../http/endpoints/officina-video.cjs");
 const ordinary_configuration_js_1 = require("./ordinary-configuration.cjs");
 const parameters_js_1 = require("./parameters.cjs");
 const tool_call_js_1 = require("./tool-call.cjs");
@@ -20,7 +24,7 @@ const ordinary_lifecycle_js_1 = require("./ordinary-lifecycle.cjs");
 const internal_agents_ordinary_authority_js_1 = require("../http/endpoints/internal-agents-ordinary-authority.cjs");
 const internal_capability_agent_js_1 = require("../http/endpoints/internal-capability-agent.cjs");
 const cap_tool_call_js_1 = require("../http/endpoints/cap-tool-call.cjs");
-const officina_video_js_1 = require("../http/endpoints/officina-video.cjs");
+const officina_video_js_2 = require("../http/endpoints/officina-video.cjs");
 const modella_js_1 = require("./video/modella.cjs");
 const abito_js_1 = require("./video/abito.cjs");
 const produzione_modella_js_1 = require("./video/produzione-modella.cjs");
@@ -185,6 +189,14 @@ function getPortableCapabilityContracts() {
     add('videoEngineModelProductionCreated', produzione_modella_js_1.VideoModelProductionCreatedSchema, [], 0);
     add('videoEngineOutfitProductionQuery', abito_js_1.VideoOutfitProductionQuerySchema, [], 0);
     add('videoEngineOutfitProductionCreated', abito_js_1.VideoOutfitProductionCreatedSchema, [], 0);
+    add('videoEngineLongQuery', lungo_js_1.VideoLongScopeQuerySchema, [], 0);
+    add('videoEngineLongCreateRequest', lungo_js_1.VideoLongCreateRequestSchema, [], 0);
+    add('videoEngineLongProject', lungo_js_1.VideoLongProjectSchema, [], 0);
+    add('videoEngineLongProjectList', lungo_js_1.VideoLongProjectListSchema, [], 0);
+    add('videoEngineLongDraftDocument', lungo_bozza_js_1.VideoLongDraftDocumentSchema, [], 0);
+    add('videoEngineLongDraft', lungo_bozza_js_1.VideoLongDraftSchema, [], 0);
+    add('videoEngineLongDraftApproveRequest', lungo_bozza_js_1.VideoLongDraftApproveRequestSchema, [], 0);
+    add('videoEngineLongCostByStep', costo_passi_js_1.VideoCostByStepSchema, [], 0);
     add('videoEnginePresetFromVideoQuery', preset_da_video_js_1.VideoPresetFromVideoStartQuerySchema, [], 0);
     add('videoEnginePresetFromVideoStartRequest', preset_da_video_js_1.VideoPresetFromVideoStartRequestSchema, [], 0);
     add('videoEnginePresetFromVideoJob', preset_da_video_js_1.VideoPresetFromVideoJobSchema, [], 0);
@@ -217,44 +229,51 @@ function getPortableCapabilityContracts() {
             authority: { ...transport(internal_agents_ordinary_authority_js_1.agentOrdinaryAuthorityContract), queryContract: 'authorityQuery' },
             ordinaryGet: { ...transport(internal_capability_agent_js_1.ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
             lifecycle: transport(internal_capability_agent_js_1.ordinaryCapabilityLifecyclePutContract), call: transport(cap_tool_call_js_1.capToolCallContract),
-            videoEngineJob: { ...transport(officina_video_js_1.officinaVideoJobContract), errorContract: 'videoEngineError' },
-            videoEngineHealth: { ...transport(officina_video_js_1.officinaVideoHealthContract), responseContract: 'videoEngineHealth', errorContract: 'videoEngineError' },
-            videoEngineStory: { ...transport(officina_video_js_1.officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest', errorContract: 'videoEngineError' },
-            videoEngineStoryEstimate: { ...transport(officina_video_js_1.officinaVideoStoryEstimateContract), requestContract: 'videoEngineStoryRequest', responseContract: 'videoEngineStoryEstimate', errorContract: 'videoEngineError' },
-            videoEngineProjectGet: { ...transport(officina_video_js_1.officinaVideoProjectGetContract), responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
-            videoEnginePlan: { ...transport(officina_video_js_1.officinaVideoPlanContract), requestContract: 'videoEnginePlanRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
-            videoEngineApprove: { ...transport(officina_video_js_1.officinaVideoApproveContract), requestContract: 'videoEngineApproveRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
-            videoEngineRun: { ...transport(officina_video_js_1.officinaVideoRunContract), requestContract: 'videoEngineRunRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEngineJob: { ...transport(officina_video_js_2.officinaVideoJobContract), errorContract: 'videoEngineError' },
+            videoEngineHealth: { ...transport(officina_video_js_2.officinaVideoHealthContract), responseContract: 'videoEngineHealth', errorContract: 'videoEngineError' },
+            videoEngineStory: { ...transport(officina_video_js_2.officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest', errorContract: 'videoEngineError' },
+            videoEngineStoryEstimate: { ...transport(officina_video_js_2.officinaVideoStoryEstimateContract), requestContract: 'videoEngineStoryRequest', responseContract: 'videoEngineStoryEstimate', errorContract: 'videoEngineError' },
+            videoEngineProjectGet: { ...transport(officina_video_js_2.officinaVideoProjectGetContract), responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEnginePlan: { ...transport(officina_video_js_2.officinaVideoPlanContract), requestContract: 'videoEnginePlanRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEngineApprove: { ...transport(officina_video_js_2.officinaVideoApproveContract), requestContract: 'videoEngineApproveRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEngineRun: { ...transport(officina_video_js_2.officinaVideoRunContract), requestContract: 'videoEngineRunRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
             videoEngineFootageAdd: {
-                ...transport(officina_video_js_1.officinaVideoFootageAddContract), queryContract: 'videoEngineFootageAddQuery', responseContract: 'videoEngineFootageJobAccepted', errorContract: 'videoEngineError',
-                bodyMediaTypes: officina_video_js_1.officinaVideoFootageAddContract.bodyMediaTypes, maxBodyBytes: officina_video_js_1.officinaVideoFootageAddContract.maxBodyBytes,
+                ...transport(officina_video_js_2.officinaVideoFootageAddContract), queryContract: 'videoEngineFootageAddQuery', responseContract: 'videoEngineFootageJobAccepted', errorContract: 'videoEngineError',
+                bodyMediaTypes: officina_video_js_2.officinaVideoFootageAddContract.bodyMediaTypes, maxBodyBytes: officina_video_js_2.officinaVideoFootageAddContract.maxBodyBytes,
             },
-            videoEngineFootageJobGet: { ...transport(officina_video_js_1.officinaVideoFootageJobGetContract), queryContract: 'videoEngineFootageJobQuery', responseContract: 'videoEngineFootageJob', errorContract: 'videoEngineError' },
-            videoEngineFootageList: { ...transport(officina_video_js_1.officinaVideoFootageListContract), queryContract: 'videoEngineFootageListQuery', responseContract: 'videoEngineFootageList', errorContract: 'videoEngineError' },
-            videoEngineModelCreate: { ...transport(officina_video_js_1.officinaVideoModelCreateContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelCreateRequest', responseContract: 'videoEngineModel', errorContract: 'videoEngineError' },
-            videoEngineModelList: { ...transport(officina_video_js_1.officinaVideoModelListContract), queryContract: 'videoEngineModelQuery', responseContract: 'videoEngineModelList', errorContract: 'videoEngineError' },
-            videoEngineModelGet: { ...transport(officina_video_js_1.officinaVideoModelGetContract), queryContract: 'videoEngineModelQuery', responseContract: 'videoEngineModel', errorContract: 'videoEngineError' },
-            videoEngineModelVersionCreate: { ...transport(officina_video_js_1.officinaVideoModelVersionCreateContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelVersionCreateRequest', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError' },
-            videoEngineModelRefAdd: { ...transport(officina_video_js_1.officinaVideoModelRefAddContract), queryContract: 'videoEngineModelRefAddQuery', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError', bodyMediaTypes: officina_video_js_1.officinaVideoModelRefAddContract.bodyMediaTypes, maxBodyBytes: officina_video_js_1.officinaVideoModelRefAddContract.maxBodyBytes },
-            videoEngineModelRefGet: { ...transport(officina_video_js_1.officinaVideoModelRefGetContract), queryContract: 'videoEngineModelQuery', errorContract: 'videoEngineError' },
-            videoEngineModelApprove: { ...transport(officina_video_js_1.officinaVideoModelApproveContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelApproveRequest', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError' },
+            videoEngineFootageJobGet: { ...transport(officina_video_js_2.officinaVideoFootageJobGetContract), queryContract: 'videoEngineFootageJobQuery', responseContract: 'videoEngineFootageJob', errorContract: 'videoEngineError' },
+            videoEngineFootageList: { ...transport(officina_video_js_2.officinaVideoFootageListContract), queryContract: 'videoEngineFootageListQuery', responseContract: 'videoEngineFootageList', errorContract: 'videoEngineError' },
+            videoEngineModelCreate: { ...transport(officina_video_js_2.officinaVideoModelCreateContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelCreateRequest', responseContract: 'videoEngineModel', errorContract: 'videoEngineError' },
+            videoEngineModelList: { ...transport(officina_video_js_2.officinaVideoModelListContract), queryContract: 'videoEngineModelQuery', responseContract: 'videoEngineModelList', errorContract: 'videoEngineError' },
+            videoEngineModelGet: { ...transport(officina_video_js_2.officinaVideoModelGetContract), queryContract: 'videoEngineModelQuery', responseContract: 'videoEngineModel', errorContract: 'videoEngineError' },
+            videoEngineModelVersionCreate: { ...transport(officina_video_js_2.officinaVideoModelVersionCreateContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelVersionCreateRequest', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError' },
+            videoEngineModelRefAdd: { ...transport(officina_video_js_2.officinaVideoModelRefAddContract), queryContract: 'videoEngineModelRefAddQuery', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError', bodyMediaTypes: officina_video_js_2.officinaVideoModelRefAddContract.bodyMediaTypes, maxBodyBytes: officina_video_js_2.officinaVideoModelRefAddContract.maxBodyBytes },
+            videoEngineModelRefGet: { ...transport(officina_video_js_2.officinaVideoModelRefGetContract), queryContract: 'videoEngineModelQuery', errorContract: 'videoEngineError' },
+            videoEngineModelApprove: { ...transport(officina_video_js_2.officinaVideoModelApproveContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineModelApproveRequest', responseContract: 'videoEngineModelVersion', errorContract: 'videoEngineError' },
             videoEngineModelProductionCreate: {
-                ...transport(officina_video_js_1.officinaVideoModelProductionCreateContract), queryContract: 'videoEngineModelProductionQuery', responseContract: 'videoEngineModelProductionCreated', errorContract: 'videoEngineError',
-                bodyMediaTypes: officina_video_js_1.officinaVideoModelProductionCreateContract.bodyMediaTypes, maxBodyBytes: officina_video_js_1.officinaVideoModelProductionCreateContract.maxBodyBytes,
+                ...transport(officina_video_js_2.officinaVideoModelProductionCreateContract), queryContract: 'videoEngineModelProductionQuery', responseContract: 'videoEngineModelProductionCreated', errorContract: 'videoEngineError',
+                bodyMediaTypes: officina_video_js_2.officinaVideoModelProductionCreateContract.bodyMediaTypes, maxBodyBytes: officina_video_js_2.officinaVideoModelProductionCreateContract.maxBodyBytes,
             },
             videoEngineOutfitProductionCreate: {
-                ...transport(officina_video_js_1.officinaVideoOutfitProductionCreateContract), queryContract: 'videoEngineOutfitProductionQuery', responseContract: 'videoEngineOutfitProductionCreated', errorContract: 'videoEngineError',
-                bodyMediaTypes: officina_video_js_1.officinaVideoOutfitProductionCreateContract.bodyMediaTypes, maxBodyBytes: officina_video_js_1.officinaVideoOutfitProductionCreateContract.maxBodyBytes,
+                ...transport(officina_video_js_2.officinaVideoOutfitProductionCreateContract), queryContract: 'videoEngineOutfitProductionQuery', responseContract: 'videoEngineOutfitProductionCreated', errorContract: 'videoEngineError',
+                bodyMediaTypes: officina_video_js_2.officinaVideoOutfitProductionCreateContract.bodyMediaTypes, maxBodyBytes: officina_video_js_2.officinaVideoOutfitProductionCreateContract.maxBodyBytes,
             },
-            videoEnginePresetFromVideoStart: { ...transport(officina_video_js_1.officinaVideoPresetFromVideoStartContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetFromVideoStartRequest', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
-            videoEnginePresetFromVideoJobGet: { ...transport(officina_video_js_1.officinaVideoPresetFromVideoJobGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
-            videoEngineUserPresetList: { ...transport(officina_video_js_1.officinaVideoUserPresetListContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPresetList', errorContract: 'videoEngineError' },
-            videoEngineUserPresetGet: { ...transport(officina_video_js_1.officinaVideoUserPresetGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
-            videoEngineUserPresetSave: { ...transport(officina_video_js_1.officinaVideoUserPresetSaveContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetSaveRequest', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
-            videoEngineModelRegiaApply: { ...transport(officina_video_js_1.officinaVideoModelRegiaApplyContract), requestContract: 'videoEngineModelRegia', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
-            videoEngineModelState: { ...transport(officina_video_js_1.officinaVideoModelStateContract), responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
-            videoEngineModelFrame: { ...transport(officina_video_js_1.officinaVideoModelFrameContract), requestContract: 'videoEngineModelFrameRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
-            videoEngineModelFrameApprove: { ...transport(officina_video_js_1.officinaVideoModelFrameApproveContract), requestContract: 'videoEngineModelFrameApproveRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
+            videoEngineLongCreate: { ...transport(officina_video_js_1.officinaVideoLongCreateContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongCreateRequest', responseContract: 'videoEngineLongProject', errorContract: 'videoEngineError' },
+            videoEngineLongList: { ...transport(officina_video_js_1.officinaVideoLongListContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongProjectList', errorContract: 'videoEngineError' },
+            videoEngineLongGet: { ...transport(officina_video_js_1.officinaVideoLongGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongProject', errorContract: 'videoEngineError' },
+            videoEngineLongDraftPut: { ...transport(officina_video_js_1.officinaVideoLongDraftPutContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongDraftDocument', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
+            videoEngineLongDraftGet: { ...transport(officina_video_js_1.officinaVideoLongDraftGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
+            videoEngineLongDraftApprove: { ...transport(officina_video_js_1.officinaVideoLongDraftApproveContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongDraftApproveRequest', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
+            videoEngineLongCostGet: { ...transport(officina_video_js_1.officinaVideoLongCostGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongCostByStep', errorContract: 'videoEngineError' },
+            videoEnginePresetFromVideoStart: { ...transport(officina_video_js_2.officinaVideoPresetFromVideoStartContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetFromVideoStartRequest', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
+            videoEnginePresetFromVideoJobGet: { ...transport(officina_video_js_2.officinaVideoPresetFromVideoJobGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
+            videoEngineUserPresetList: { ...transport(officina_video_js_2.officinaVideoUserPresetListContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPresetList', errorContract: 'videoEngineError' },
+            videoEngineUserPresetGet: { ...transport(officina_video_js_2.officinaVideoUserPresetGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
+            videoEngineUserPresetSave: { ...transport(officina_video_js_2.officinaVideoUserPresetSaveContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetSaveRequest', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
+            videoEngineModelRegiaApply: { ...transport(officina_video_js_2.officinaVideoModelRegiaApplyContract), requestContract: 'videoEngineModelRegia', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
+            videoEngineModelState: { ...transport(officina_video_js_2.officinaVideoModelStateContract), responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
+            videoEngineModelFrame: { ...transport(officina_video_js_2.officinaVideoModelFrameContract), requestContract: 'videoEngineModelFrameRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
+            videoEngineModelFrameApprove: { ...transport(officina_video_js_2.officinaVideoModelFrameApproveContract), requestContract: 'videoEngineModelFrameApproveRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineMedia: {
                 method: 'GET', path: '/media/:engineProjectId/:file', authHeader: auth_headers_js_1.INTERNAL_SECRET_HEADER, errorContract: 'videoEngineError',
                 paramsSchema: zod_1.z.toJSONSchema(zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineIdSchema, file: zod_1.z.string().regex(/^[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/) }).strict()),

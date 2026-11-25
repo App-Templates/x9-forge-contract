@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.313.0 — Officina video: progetto lungo con bozza a capitoli e costo per passo, additivo
+
+- Contratti del progetto lungo, bozza a capitoli approvabile e costo per passo (`VideoLong*` e `VideoCost*`), con i relativi tipi.
+- Sette trasporti nel catalogo portabile: `videoEngineLongCreate`, `videoEngineLongList`, `videoEngineLongGet`, `videoEngineLongDraftPut`, `videoEngineLongDraftGet`, `videoEngineLongDraftApprove` e `videoEngineLongCostGet`.
+- Consumer: motore Officina (ov-motore/9220) e cap-video (X9); `dist/` rigenerata con `pnpm build`, inclusi catalogo e modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: contratti e trasporti nuovi. Versione scelta confrontando `package.json` e `CHANGELOG.md` di `origin/main` e degli altri rami nei riferimenti locali: 1.313.0 è la prima minore libera dopo 1.312.0.
+
 ## v1.312.0 — Officina video: video d'esempio fino a 30 minuti (1800 s, 768 MiB) e totale del preset 120 s, additivo
 
 - `preset-da-video.ts`: il video d'esempio può durare fino a 30 minuti (1800 s) e pesare fino a 768 MiB; esportata `VIDEO_PRESET_TOTAL_MAX_SECONDS = 120` per il preset che ne nasce.
