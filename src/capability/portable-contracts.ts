@@ -1,4 +1,8 @@
 import { z } from 'zod';
+import { VideoLongScopeQuerySchema, VideoLongCreateRequestSchema, VideoLongProjectSchema, VideoLongProjectListSchema } from './video/lungo.js';
+import { VideoLongDraftDocumentSchema, VideoLongDraftSchema, VideoLongDraftApproveRequestSchema } from './video/lungo-bozza.js';
+import { VideoCostByStepSchema } from './video/costo-passi.js';
+import { officinaVideoLongCreateContract, officinaVideoLongListContract, officinaVideoLongGetContract, officinaVideoLongDraftPutContract, officinaVideoLongDraftGetContract, officinaVideoLongDraftApproveContract, officinaVideoLongCostGetContract } from '../http/endpoints/officina-video.js';
 import { CapabilityOrdinaryCallSnapshotSchema, CapabilityOrdinaryConfigurationSchema, CapabilityOrdinaryConfigStateSchema, CapabilityOrdinaryAppliedSchema, sameOrdinaryData } from './ordinary-configuration.js';
 import { CapabilityParameterKeySchema, CapabilityParameterValueSchema } from './parameters.js';
 import { ToolCallRequestSchema } from './tool-call.js';
@@ -202,6 +206,14 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   add('videoEngineModelProductionCreated', VideoModelProductionCreatedSchema, [], 0);
   add('videoEngineOutfitProductionQuery', VideoOutfitProductionQuerySchema, [], 0);
   add('videoEngineOutfitProductionCreated', VideoOutfitProductionCreatedSchema, [], 0);
+  add('videoEngineLongQuery', VideoLongScopeQuerySchema, [], 0);
+  add('videoEngineLongCreateRequest', VideoLongCreateRequestSchema, [], 0);
+  add('videoEngineLongProject', VideoLongProjectSchema, [], 0);
+  add('videoEngineLongProjectList', VideoLongProjectListSchema, [], 0);
+  add('videoEngineLongDraftDocument', VideoLongDraftDocumentSchema, [], 0);
+  add('videoEngineLongDraft', VideoLongDraftSchema, [], 0);
+  add('videoEngineLongDraftApproveRequest', VideoLongDraftApproveRequestSchema, [], 0);
+  add('videoEngineLongCostByStep', VideoCostByStepSchema, [], 0);
   add('videoEnginePresetFromVideoQuery', VideoPresetFromVideoStartQuerySchema, [], 0);
   add('videoEnginePresetFromVideoStartRequest', VideoPresetFromVideoStartRequestSchema, [], 0);
   add('videoEnginePresetFromVideoJob', VideoPresetFromVideoJobSchema, [], 0);
@@ -227,7 +239,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   for (const name of ['lifecycleRequest', 'lifecycleReceipt', 'lifecycleTransaction', 'lifecycleAuthority']) {
     contracts[name]!.limitations = ['Only null or frozen configurations with zero parameters; durable effects and reconciliation are consumer-owned'];
   }
-  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract | typeof officinaVideoStoryEstimateContract | typeof officinaVideoProjectGetContract | typeof officinaVideoPlanContract | typeof officinaVideoApproveContract | typeof officinaVideoRunContract | typeof officinaVideoFootageAddContract | typeof officinaVideoFootageJobGetContract | typeof officinaVideoFootageListContract | typeof officinaVideoModelCreateContract | typeof officinaVideoModelListContract | typeof officinaVideoModelGetContract | typeof officinaVideoModelVersionCreateContract | typeof officinaVideoModelRefAddContract | typeof officinaVideoModelRefGetContract | typeof officinaVideoModelApproveContract | typeof officinaVideoModelProductionCreateContract | typeof officinaVideoOutfitProductionCreateContract | typeof officinaVideoPresetFromVideoStartContract | typeof officinaVideoPresetFromVideoJobGetContract | typeof officinaVideoUserPresetListContract | typeof officinaVideoUserPresetGetContract | typeof officinaVideoUserPresetSaveContract | typeof officinaVideoModelRegiaApplyContract | typeof officinaVideoModelStateContract | typeof officinaVideoModelFrameContract | typeof officinaVideoModelFrameApproveContract) => ({
+  const transport = (contract: typeof officinaVideoLongCreateContract | typeof officinaVideoLongListContract | typeof officinaVideoLongGetContract | typeof officinaVideoLongDraftPutContract | typeof officinaVideoLongDraftGetContract | typeof officinaVideoLongDraftApproveContract | typeof officinaVideoLongCostGetContract | typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract | typeof officinaVideoStoryEstimateContract | typeof officinaVideoProjectGetContract | typeof officinaVideoPlanContract | typeof officinaVideoApproveContract | typeof officinaVideoRunContract | typeof officinaVideoFootageAddContract | typeof officinaVideoFootageJobGetContract | typeof officinaVideoFootageListContract | typeof officinaVideoModelCreateContract | typeof officinaVideoModelListContract | typeof officinaVideoModelGetContract | typeof officinaVideoModelVersionCreateContract | typeof officinaVideoModelRefAddContract | typeof officinaVideoModelRefGetContract | typeof officinaVideoModelApproveContract | typeof officinaVideoModelProductionCreateContract | typeof officinaVideoOutfitProductionCreateContract | typeof officinaVideoPresetFromVideoStartContract | typeof officinaVideoPresetFromVideoJobGetContract | typeof officinaVideoUserPresetListContract | typeof officinaVideoUserPresetGetContract | typeof officinaVideoUserPresetSaveContract | typeof officinaVideoModelRegiaApplyContract | typeof officinaVideoModelStateContract | typeof officinaVideoModelFrameContract | typeof officinaVideoModelFrameApproveContract) => ({
     method: contract.method, path: contract.path, authHeader: INTERNAL_SECRET_HEADER, paramsSchema: z.toJSONSchema(contract.paramsSchema),
   });
   return { format: 'x9-capability-portable-v1', contracts, transports: {
@@ -263,6 +275,13 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
       ...transport(officinaVideoOutfitProductionCreateContract), queryContract: 'videoEngineOutfitProductionQuery', responseContract: 'videoEngineOutfitProductionCreated', errorContract: 'videoEngineError',
       bodyMediaTypes: officinaVideoOutfitProductionCreateContract.bodyMediaTypes, maxBodyBytes: officinaVideoOutfitProductionCreateContract.maxBodyBytes,
     },
+    videoEngineLongCreate: { ...transport(officinaVideoLongCreateContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongCreateRequest', responseContract: 'videoEngineLongProject', errorContract: 'videoEngineError' },
+    videoEngineLongList: { ...transport(officinaVideoLongListContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongProjectList', errorContract: 'videoEngineError' },
+    videoEngineLongGet: { ...transport(officinaVideoLongGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongProject', errorContract: 'videoEngineError' },
+    videoEngineLongDraftPut: { ...transport(officinaVideoLongDraftPutContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongDraftDocument', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
+    videoEngineLongDraftGet: { ...transport(officinaVideoLongDraftGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
+    videoEngineLongDraftApprove: { ...transport(officinaVideoLongDraftApproveContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongDraftApproveRequest', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
+    videoEngineLongCostGet: { ...transport(officinaVideoLongCostGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongCostByStep', errorContract: 'videoEngineError' },
     videoEnginePresetFromVideoStart: { ...transport(officinaVideoPresetFromVideoStartContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetFromVideoStartRequest', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
     videoEnginePresetFromVideoJobGet: { ...transport(officinaVideoPresetFromVideoJobGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
     videoEngineUserPresetList: { ...transport(officinaVideoUserPresetListContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPresetList', errorContract: 'videoEngineError' },

@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { VideoLongScopeQuerySchema, VideoLongProjectIdSchema, VideoLongCreateRequestSchema, VideoLongProjectSchema, VideoLongProjectListSchema } from '../../capability/video/lungo.js';
+import { VideoLongDraftDocumentSchema, VideoLongDraftSchema, VideoLongDraftApproveRequestSchema } from '../../capability/video/lungo-bozza.js';
+import { VideoCostByStepSchema } from '../../capability/video/costo-passi.js';
 import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from '../../capability/video/story.js';
 import { VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema, VideoEngineRouteRunRequestSchema, VideoEngineMediaPathSchema } from '../../capability/video/engine.js';
 import { VIDEO_FOOTAGE_MAX_BYTES, VIDEO_FOOTAGE_MEDIA_TYPES, VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoFootageJobIdSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoEngineFootageRejectedSchema, VideoFootageListQuerySchema, VideoFootageListSchema } from '../../capability/video/footage.js';
@@ -353,5 +356,85 @@ export const officinaVideoUserPresetSaveContract = {
   querySchema: VideoPresetFromVideoStartQuerySchema,
   requestSchema: VideoPresetSaveRequestSchema,
   responseSchema: VideoUserPresetSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project Create. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongCreateContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/lunghi',
+  paramsSchema: z.object({}).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongCreateRequestSchema,
+  responseSchema: VideoLongProjectSchema,
+  responseStatus: 201,
+} as const;
+
+/** cap-video -> engine: long project List. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongListContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi',
+  paramsSchema: z.object({}).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseSchema: VideoLongProjectListSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project Get. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseSchema: VideoLongProjectSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project DraftPut. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongDraftPutContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'PUT',
+  path: '/api/lunghi/:projectId/bozza',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongDraftDocumentSchema,
+  responseSchema: VideoLongDraftSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project DraftGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongDraftGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId/bozza',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseSchema: VideoLongDraftSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project DraftApprove. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongDraftApproveContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/lunghi/:projectId/bozza/approva',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  requestSchema: VideoLongDraftApproveRequestSchema,
+  responseSchema: VideoLongDraftSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: long project CostGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongCostGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/lunghi/:projectId/costi',
+  paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+  querySchema: VideoLongScopeQuerySchema,
+  responseSchema: VideoCostByStepSchema,
   responseStatus: 200,
 } as const;
