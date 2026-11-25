@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.314.0 — Officina video: strumenti video_long_* per X9, additivo
+
+- Sette strumenti: `video_long_create`, `video_long_list`, `video_long_get`, `video_long_draft_put`, `video_long_draft_get`, `video_long_draft_approve` e `video_long_cost_get`.
+- Nomi `VIDEO_LONG_*_TOOL`, schemi `VideoLong*ToolInputSchema` e `VideoLong*ToolResponseSchema` e relativi tipi esportati da `@x9-forge/contracts/capability/video`; identità dalla busta dello strumento.
+- Consumer: cap-video e agent-core (X9); `dist/` rigenerata con `pnpm build`, incluso il modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: strumenti e schemi additivi della 9215. Versione scelta confrontando `package.json` e `CHANGELOG.md` nei riferimenti locali di `origin/main` e delle altre corsie del ponte: 1.313.0 è occupata; 1.314.0 è la prima minore libera dopo 1.312.0.
+
 ## v1.313.0 — Officina video: progetto lungo con bozza a capitoli e costo per passo, additivo
 
 - Contratti del progetto lungo, bozza a capitoli approvabile e costo per passo (`VideoLong*` e `VideoCost*`), con i relativi tipi.
