@@ -1,6 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
+  VIDEO_PRESET_VIDEO_MAX_BYTES,
+  VIDEO_PRESET_VIDEO_MAX_SECONDS,
+  VIDEO_PRESET_TOTAL_MAX_SECONDS,
   VideoPresetFromVideoJobSchema,
   VideoPresetFromVideoStartRequestSchema,
   VideoPresetSaveRequestSchema,
@@ -35,6 +38,25 @@ const preset = {
 const okPreset = (v: unknown) => VideoUserPresetSchema.safeParse(v).success;
 const okUrl = (url: string) => VideoPresetFromVideoStartRequestSchema.safeParse({ url, name: 'x' }).success;
 const job = { jobId: 'a'.repeat(32), status: 'queued', presetId: null, code: null, error: null };
+
+describe('video d esempio fino a 30 minuti', () => {
+  it('accepts an example video lasting 1800 seconds', () => {
+    expect(okPreset({ ...preset, source: { ...preset.source, durationSeconds: 1800 } })).toBe(true);
+  });
+
+  it('rejects an example video lasting 1800.5 seconds', () => {
+    expect(okPreset({ ...preset, source: { ...preset.source, durationSeconds: 1800.5 } })).toBe(false);
+  });
+
+  it('exports example video limits of 1800 seconds and 768 MiB', () => {
+    expect(VIDEO_PRESET_VIDEO_MAX_SECONDS).toBe(1800);
+    expect(VIDEO_PRESET_VIDEO_MAX_BYTES).toBe(768 * 1024 * 1024);
+  });
+
+  it('keeps the total preset duration limit at 120 seconds', () => {
+    expect(VIDEO_PRESET_TOTAL_MAX_SECONDS).toBe(120);
+  });
+});
 
 describe('preset da video', () => {
   it('accepts a real preset with estimated and corrected roles', () => {

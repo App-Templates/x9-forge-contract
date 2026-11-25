@@ -350,6 +350,7 @@ export {
 export {
   VIDEO_PRESET_VIDEO_MAX_BYTES,
   VIDEO_PRESET_VIDEO_MAX_SECONDS,
+  VIDEO_PRESET_TOTAL_MAX_SECONDS,
   VIDEO_PRESET_MAX_SCENES,
   VideoPresetVideoUrlSchema,
   VideoUserPresetIdSchema,

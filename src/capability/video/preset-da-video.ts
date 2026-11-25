@@ -4,9 +4,11 @@ import { VideoPresetIdSchema, VideoAspectRatioSchema } from './brief.js';
 import { VideoFootageFramingSchema } from './footage.js';
 
 /** Largest example video the engine downloads from a URL. */
-export const VIDEO_PRESET_VIDEO_MAX_BYTES = 128 * 1024 * 1024;
+export const VIDEO_PRESET_VIDEO_MAX_BYTES = 768 * 1024 * 1024;
 /** Longest example video the engine analyzes. */
-export const VIDEO_PRESET_VIDEO_MAX_SECONDS = 120;
+export const VIDEO_PRESET_VIDEO_MAX_SECONDS = 1800;
+/** Longest preset made from a video: the sum of its scenes. */
+export const VIDEO_PRESET_TOTAL_MAX_SECONDS = 120;
 /** Scenes of one preset, at most. */
 export const VIDEO_PRESET_MAX_SCENES = 12;
 
