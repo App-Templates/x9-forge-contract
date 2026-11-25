@@ -2,10 +2,14 @@ import { describe, expect, it } from 'vitest';
 import {
   VideoCostUnitSchema,
   VideoCostBasisSchema,
+  VideoCostModelSchema,
+  VideoCostChapterSchema,
   VideoCostEntrySchema,
   VideoCostStepSchema,
   VideoCostByStepSchema,
   type VideoCostEntry,
+  type VideoCostModel,
+  type VideoCostChapter,
   type VideoCostStep,
   type VideoCostByStep,
 } from '../../../src/capability/video/index.js';
@@ -36,8 +40,131 @@ const project: VideoCostByStep = {
   usdPerMinute: null,
 };
 
+const model: VideoCostModel = {
+  step: 'bozza',
+  provider: 'anthropic',
+  model: 'claude-sonnet-5-5',
+  quantity: 2000,
+  unit: 'token',
+  costUsd: 1.84,
+  basis: 'stimato',
+};
+
+const chapter: VideoCostChapter = {
+  chapterIndex: 1,
+  costUsd: 1.84,
+  seconds: 60,
+  usdPerMinute: 1.84,
+};
+
 // SUMMARY: adding 'zero' to VideoCostBasisSchema must make the "rejects basis: zero" case fail.
+// SUMMARY: removing .optional() from models must make "accepts today's response without new fields" fail.
 describe('costs by video step', () => {
+  it("accepts today's response without new fields", () => {
+    // R-37: the engine currently returns null duration and rate with no breakdown fields.
+    expect(VideoCostByStepSchema.parse(project)).toEqual(project);
+  });
+
+  it('accepts four models and three chapters with an estimated finished rate', () => {
+    const finished: VideoCostByStep = {
+      ...project,
+      steps: [{ ...step, estimatedUsd: 14.72, entries: [{ ...entry, basis: 'stimato', costUsd: 14.72, chapterIndex: 1 }] }],
+      totalUsd: 14.72,
+      finishedSeconds: 480,
+      usdPerMinute: 1.84,
+      models: [
+        model,
+        { ...model, model: 'claude-opus-5', costUsd: 1.84 },
+        { ...model, step: 'fotogrammi', provider: 'openai', model: 'gpt-image-1', unit: 'image', quantity: 4, costUsd: 3.68 },
+        { ...model, step: 'video', provider: 'google', model: 'veo-3', unit: 'second', quantity: 480, costUsd: 7.36 },
+      ],
+      chapters: [
+        { ...chapter, costUsd: 3.68, seconds: 120 },
+        { ...chapter, chapterIndex: 2, costUsd: 5.52, seconds: 180 },
+        { ...chapter, chapterIndex: 3, costUsd: 5.52, seconds: 180 },
+      ],
+      usdPerMinuteBasis: 'stimato',
+      unmeasuredEntries: 0,
+    };
+    expect(VideoCostByStepSchema.parse(finished)).toEqual(finished);
+  });
+
+  it('accepts a null rate with two unmeasured entries', () => {
+    const pending: VideoCostByStep = {
+      ...project,
+      steps: [{ ...step, entries: [entry, { ...entry, step: 'ricerca' }] }],
+      models: [{ ...model, costUsd: 0, basis: 'non-misurato' }],
+      chapters: [{ ...chapter, costUsd: 0, seconds: null, usdPerMinute: null }],
+      usdPerMinuteBasis: 'non-misurato',
+      unmeasuredEntries: 2,
+    };
+    expect(VideoCostByStepSchema.parse(pending)).toEqual(pending);
+    expect(VideoCostByStepSchema.safeParse({ ...pending, usdPerMinuteBasis: null }).success).toBe(true);
+  });
+
+  it('enforces chapter indices on entries and chapter totals', () => {
+    for (const chapterIndex of [1, 24]) {
+      expect(VideoCostEntrySchema.safeParse({ ...entry, chapterIndex }).success).toBe(true);
+      expect(VideoCostChapterSchema.safeParse({ ...chapter, chapterIndex }).success).toBe(true);
+    }
+    for (const chapterIndex of [0, 25, 1.5, null]) {
+      expect(VideoCostEntrySchema.safeParse({ ...entry, chapterIndex }).success).toBe(false);
+      expect(VideoCostChapterSchema.safeParse({ ...chapter, chapterIndex }).success).toBe(false);
+    }
+  });
+
+  it('accepts 60 models and rejects 61 models', () => {
+    expect(VideoCostByStepSchema.safeParse({ ...project, models: Array.from({ length: 60 }, () => model) }).success).toBe(true);
+    expect(VideoCostByStepSchema.safeParse({ ...project, models: Array.from({ length: 61 }, () => model) }).success).toBe(false);
+  });
+
+  it('accepts 24 chapters and rejects 25 chapters', () => {
+    expect(VideoCostByStepSchema.safeParse({ ...project, chapters: Array.from({ length: 24 }, (_, index) => ({ ...chapter, chapterIndex: index + 1 })) }).success).toBe(true);
+    expect(VideoCostByStepSchema.safeParse({ ...project, chapters: Array.from({ length: 25 }, () => chapter) }).success).toBe(false);
+  });
+
+  it('validates the finished rate basis and unmeasured count', () => {
+    for (const usdPerMinuteBasis of ['misurato', 'stimato', 'non-misurato', null]) {
+      expect(VideoCostByStepSchema.safeParse({ ...project, usdPerMinuteBasis }).success).toBe(true);
+    }
+    expect(VideoCostByStepSchema.safeParse({ ...project, usdPerMinuteBasis: 'boh' }).success).toBe(false);
+    for (const unmeasuredEntries of [-1, 1.5, null, Infinity, NaN]) {
+      expect(VideoCostByStepSchema.safeParse({ ...project, unmeasuredEntries }).success).toBe(false);
+    }
+  });
+
+  it('validates model fields and rejects extra fields', () => {
+    expect(VideoCostModelSchema.parse(model)).toEqual(model);
+    for (const [field, max] of [['provider', 64], ['model', 100]] as const) {
+      expect(VideoCostModelSchema.safeParse({ ...model, [field]: 'x'.repeat(max) }).success).toBe(true);
+      expect(VideoCostModelSchema.safeParse({ ...model, [field]: '' }).success).toBe(false);
+      expect(VideoCostModelSchema.safeParse({ ...model, [field]: 'x'.repeat(max + 1) }).success).toBe(false);
+    }
+    for (const field of ['quantity', 'costUsd']) {
+      for (const value of [-1, NaN, Infinity]) {
+        expect(VideoCostModelSchema.safeParse({ ...model, [field]: value }).success).toBe(false);
+      }
+      expect(VideoCostModelSchema.safeParse({ ...model, [field]: 0 }).success).toBe(true);
+    }
+    for (const invalid of [{ step: 'montaggio' }, { unit: 'euro' }, { basis: 'boh' }, { extra: true }]) {
+      expect(VideoCostModelSchema.safeParse({ ...model, ...invalid }).success).toBe(false);
+      expect(VideoCostByStepSchema.safeParse({ ...project, models: [{ ...model, ...invalid }] }).success).toBe(false);
+    }
+  });
+
+  it('validates chapter costs, duration and rate', () => {
+    expect(VideoCostChapterSchema.parse(chapter)).toEqual(chapter);
+    expect(VideoCostChapterSchema.safeParse({ ...chapter, costUsd: 0, seconds: 0, usdPerMinute: 0 }).success).toBe(true);
+    for (const field of ['costUsd', 'seconds', 'usdPerMinute']) {
+      for (const value of [-1, NaN, Infinity]) {
+        expect(VideoCostChapterSchema.safeParse({ ...chapter, [field]: value }).success).toBe(false);
+        expect(VideoCostByStepSchema.safeParse({ ...project, chapters: [{ ...chapter, [field]: value }] }).success).toBe(false);
+      }
+    }
+    expect(VideoCostChapterSchema.safeParse({ ...chapter, seconds: 1.5 }).success).toBe(false);
+    expect(VideoCostChapterSchema.safeParse({ ...chapter, extra: true }).success).toBe(false);
+  });
+
   it('accepts only bozza with an unmeasured zero cost', () => {
     expect(VideoCostByStepSchema.parse(project)).toEqual(project);
   });
