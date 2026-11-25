@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.329.0 — Officina video: strumenti della libreria degli ambienti, additivo
+
+- Sei strumenti della libreria degli ambienti: `video_environment_list`, `video_environment_get`, `video_environment_create`, `video_environment_version_create`, `video_environment_angle_add` e `video_environment_approve`, con schemi di ingresso e risposta e relativi tipi.
+- Le risposte rappresentano anche un rifiuto con ragione e messaggio.
+- `video_long_create` descrive ora `environmentId`, `environmentVersion` e `followsProjectId`, già opzionali dalla 1.327.0, per associare un ambiente e la sua versione e indicare il progetto di cui si realizza il seguito.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: strumenti e schemi delle 9304-9305 sono additivi; i tre campi del progetto restano opzionali. Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 600 riferimenti Git locali e remoti tracciati, inclusi `origin/main` e i rami delle altre corsie del ponte: 1.328.0 è l'ultima presa; 1.329.0 è la minore successiva libera.
+
 ## v1.328.0 — Officina video: strumenti della ricerca e dei capitoli, strumenti dei personaggi di Parallel e abito nello stile del personaggio, additivo
 
 - Sei strumenti della ricerca e dei capitoli: `video_long_research_start`, `video_long_research_get`, `video_long_dossier_get`, `video_long_chapters_put`, `video_long_chapters_get` e `video_long_chapters_approve`, con schemi di ingresso e risposta e relativi tipi.

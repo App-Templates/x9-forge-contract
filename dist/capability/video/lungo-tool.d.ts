@@ -8,9 +8,6 @@ export declare const VIDEO_LONG_DRAFT_APPROVE_TOOL = "video_long_draft_approve";
 export declare const VIDEO_LONG_COST_GET_TOOL = "video_long_cost_get";
 /** Identity comes only from the admitted tool envelope (R-33). */
 export declare const VideoLongCreateToolInputSchema: z.ZodObject<{
-    environmentId: z.ZodOptional<z.ZodString>;
-    environmentVersion: z.ZodOptional<z.ZodNumber>;
-    followsProjectId: z.ZodOptional<z.ZodString>;
     name: z.ZodString;
     family: z.ZodEnum<{
         essay: "essay";
@@ -28,6 +25,9 @@ export declare const VideoLongCreateToolInputSchema: z.ZodObject<{
     modelId: z.ZodNullable<z.ZodString>;
     brief: z.ZodString;
     budgetUsd: z.ZodNumber;
+    environmentId: z.ZodOptional<z.ZodString>;
+    environmentVersion: z.ZodOptional<z.ZodNumber>;
+    followsProjectId: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type VideoLongCreateToolInput = z.infer<typeof VideoLongCreateToolInputSchema>;
 export declare const VideoLongListToolInputSchema: z.ZodObject<{}, z.core.$strict>;

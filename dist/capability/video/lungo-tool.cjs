@@ -22,6 +22,9 @@ exports.VideoLongCreateToolInputSchema = lungo_js_1.VideoLongCreateRequestSchema
     modelId: lungo_js_1.VideoLongCreateRequestSchema.shape.modelId.describe('Identificativo del personaggio; null se assente.'),
     brief: lungo_js_1.VideoLongCreateRequestSchema.shape.brief.describe('Indicazioni per il contenuto del video lungo.'),
     budgetUsd: lungo_js_1.VideoLongCreateRequestSchema.shape.budgetUsd.describe('Budget del progetto in dollari.'),
+    environmentId: lungo_js_1.VideoLongCreateRequestSchema.shape.environmentId.describe("Identificativo dell'ambiente approvato in cui si gira (da video_environment_list); se manca, nessun ambiente."),
+    environmentVersion: lungo_js_1.VideoLongCreateRequestSchema.shape.environmentVersion.describe("Versione dell'ambiente da fissare nel progetto; se manca, la più recente approvata."),
+    followsProjectId: lungo_js_1.VideoLongCreateRequestSchema.shape.followsProjectId.describe('Identificativo del progetto lungo di cui questo è il seguito: ne eredita personaggio e ambiente.'),
 }).describe('Crea un progetto video lungo.');
 exports.VideoLongListToolInputSchema = zod_1.z.strictObject({}).describe('Elenca i progetti video lunghi accessibili.');
 exports.VideoLongGetToolInputSchema = zod_1.z.strictObject({
