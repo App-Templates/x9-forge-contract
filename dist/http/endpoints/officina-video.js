@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { VideoLongResearchStartRequestSchema, VideoLongResearchSchema, VideoLongDossierDocumentSchema, VideoLongDossierSchema, VideoLongChaptersDocumentSchema, VideoLongChaptersSchema, VideoLongChaptersApproveRequestSchema } from "../../capability/video/lungo-ricerca.js";
 import { VideoLongScopeQuerySchema, VideoLongProjectIdSchema, VideoLongCreateRequestSchema, VideoLongProjectSchema, VideoLongProjectListSchema } from "../../capability/video/lungo.js";
 import { VideoLongDraftDocumentSchema, VideoLongDraftSchema, VideoLongDraftApproveRequestSchema } from "../../capability/video/lungo-bozza.js";
 import { VideoCostByStepSchema } from "../../capability/video/costo-passi.js";
@@ -398,6 +399,80 @@ export const officinaVideoLongCostGetContract = {
     paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
     querySchema: VideoLongScopeQuerySchema,
     responseSchema: VideoCostByStepSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project ResearchStart. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongResearchStartContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/lunghi/:projectId/ricerca',
+    paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+    querySchema: VideoLongScopeQuerySchema,
+    requestSchema: VideoLongResearchStartRequestSchema,
+    responseSchema: VideoLongResearchSchema,
+    responseStatus: 202,
+};
+/** cap-video -> engine: long project ResearchGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongResearchGetContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/lunghi/:projectId/ricerca',
+    paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+    querySchema: VideoLongScopeQuerySchema,
+    responseSchema: VideoLongResearchSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project DossierPut. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongDossierPutContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'PUT',
+    path: '/api/lunghi/:projectId/dossier',
+    paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+    querySchema: VideoLongScopeQuerySchema,
+    requestSchema: VideoLongDossierDocumentSchema,
+    responseSchema: VideoLongDossierSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project DossierGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongDossierGetContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/lunghi/:projectId/dossier',
+    paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+    querySchema: VideoLongScopeQuerySchema,
+    responseSchema: VideoLongDossierSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project ChaptersPut. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongChaptersPutContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'PUT',
+    path: '/api/lunghi/:projectId/capitoli',
+    paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+    querySchema: VideoLongScopeQuerySchema,
+    requestSchema: VideoLongChaptersDocumentSchema,
+    responseSchema: VideoLongChaptersSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project ChaptersGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongChaptersGetContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/lunghi/:projectId/capitoli',
+    paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+    querySchema: VideoLongScopeQuerySchema,
+    responseSchema: VideoLongChaptersSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: long project ChaptersApprove. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoLongChaptersApproveContract = {
+    errorSchema: VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/lunghi/:projectId/capitoli/approva',
+    paramsSchema: z.object({ projectId: VideoLongProjectIdSchema }).strict(),
+    querySchema: VideoLongScopeQuerySchema,
+    requestSchema: VideoLongChaptersApproveRequestSchema,
+    responseSchema: VideoLongChaptersSchema,
     responseStatus: 200,
 };
 //# sourceMappingURL=officina-video.js.map

@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.326.0 — Officina video: ricerca a bozza approvata con fonti e capitoli con ipotesi di frame, additivo
+
+- Contratti della ricerca a bozza approvata, del dossier con fonti e affermazioni e dei capitoli con ipotesi di frame (`VideoLong*`), con i relativi tipi.
+- Sette trasporti HTTP di ricerca, dossier e capitoli nel catalogo portabile, inclusa l'approvazione dei capitoli (`videoEngineLongChaptersApprove`); identità esplicita in query.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: schemi e trasporti additivi delle 9210-9213. Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 600 riferimenti Git locali e remoti tracciati, inclusi `origin/main` e i rami delle altre corsie del ponte: 1.325.0 è l'ultima presa; 1.326.0 è la minore successiva libera.
+
 ## v1.325.0 — Officina video: personaggi di Parallel (contratto, importazione nella modella fissa), additivo
 
 - Contratto del personaggio di Parallel (`VideoParallel*`: personaggio, ritratti, attributi, esportazione) con obbligatori solo i campi che esistono.

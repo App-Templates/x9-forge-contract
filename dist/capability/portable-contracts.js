@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { VideoLongResearchStartRequestSchema, VideoLongResearchSchema, VideoLongDossierDocumentSchema, VideoLongDossierSchema, VideoLongChaptersDocumentSchema, VideoLongChaptersSchema, VideoLongChaptersApproveRequestSchema } from "./video/lungo-ricerca.js";
+import { officinaVideoLongResearchStartContract, officinaVideoLongResearchGetContract, officinaVideoLongDossierPutContract, officinaVideoLongDossierGetContract, officinaVideoLongChaptersPutContract, officinaVideoLongChaptersGetContract, officinaVideoLongChaptersApproveContract } from "../http/endpoints/officina-video.js";
 import { parallelCharacterExportContract, officinaVideoParallelImportContract } from "../http/endpoints/parallel-personaggi.js";
 import { VideoParallelExportQuerySchema, VideoParallelExportSchema, VideoParallelExportErrorSchema } from "./video/personaggio-parallel.js";
 import { VideoParallelImportRequestSchema, VideoParallelImportResultSchema } from "./video/personaggio-parallel-import.js";
@@ -189,6 +191,13 @@ export function getPortableCapabilityContracts() {
     add('videoEngineOutfitProductionQuery', VideoOutfitProductionQuerySchema, [], 0);
     add('videoEngineOutfitProductionCreated', VideoOutfitProductionCreatedSchema, [], 0);
     add('videoEngineLongQuery', VideoLongScopeQuerySchema, [], 0);
+    add('videoEngineLongResearchStartRequest', VideoLongResearchStartRequestSchema, [], 0);
+    add('videoEngineLongResearch', VideoLongResearchSchema, [], 0);
+    add('videoEngineLongDossierDocument', VideoLongDossierDocumentSchema, [], 0);
+    add('videoEngineLongDossier', VideoLongDossierSchema, [], 0);
+    add('videoEngineLongChaptersDocument', VideoLongChaptersDocumentSchema, [], 0);
+    add('videoEngineLongChapters', VideoLongChaptersSchema, [], 0);
+    add('videoEngineLongChaptersApproveRequest', VideoLongChaptersApproveRequestSchema, [], 0);
     add('videoEngineLongCreateRequest', VideoLongCreateRequestSchema, [], 0);
     add('videoEngineLongProject', VideoLongProjectSchema, [], 0);
     add('videoEngineLongProjectList', VideoLongProjectListSchema, [], 0);
@@ -257,6 +266,13 @@ export function getPortableCapabilityContracts() {
                 ...transport(officinaVideoOutfitProductionCreateContract), queryContract: 'videoEngineOutfitProductionQuery', responseContract: 'videoEngineOutfitProductionCreated', errorContract: 'videoEngineError',
                 bodyMediaTypes: officinaVideoOutfitProductionCreateContract.bodyMediaTypes, maxBodyBytes: officinaVideoOutfitProductionCreateContract.maxBodyBytes,
             },
+            videoEngineLongResearchStart: { ...transport(officinaVideoLongResearchStartContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongResearchStartRequest', responseContract: 'videoEngineLongResearch', errorContract: 'videoEngineError' },
+            videoEngineLongResearchGet: { ...transport(officinaVideoLongResearchGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongResearch', errorContract: 'videoEngineError' },
+            videoEngineLongDossierPut: { ...transport(officinaVideoLongDossierPutContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongDossierDocument', responseContract: 'videoEngineLongDossier', errorContract: 'videoEngineError' },
+            videoEngineLongDossierGet: { ...transport(officinaVideoLongDossierGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongDossier', errorContract: 'videoEngineError' },
+            videoEngineLongChaptersPut: { ...transport(officinaVideoLongChaptersPutContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongChaptersDocument', responseContract: 'videoEngineLongChapters', errorContract: 'videoEngineError' },
+            videoEngineLongChaptersGet: { ...transport(officinaVideoLongChaptersGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongChapters', errorContract: 'videoEngineError' },
+            videoEngineLongChaptersApprove: { ...transport(officinaVideoLongChaptersApproveContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongChaptersApproveRequest', responseContract: 'videoEngineLongChapters', errorContract: 'videoEngineError' },
             videoEngineLongCreate: { ...transport(officinaVideoLongCreateContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongCreateRequest', responseContract: 'videoEngineLongProject', errorContract: 'videoEngineError' },
             videoEngineLongList: { ...transport(officinaVideoLongListContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongProjectList', errorContract: 'videoEngineError' },
             videoEngineLongGet: { ...transport(officinaVideoLongGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongProject', errorContract: 'videoEngineError' },
