@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.328.0 — Officina video: strumenti della ricerca e dei capitoli, strumenti dei personaggi di Parallel e abito nello stile del personaggio, additivo
+
+- Sei strumenti della ricerca e dei capitoli: `video_long_research_start`, `video_long_research_get`, `video_long_dossier_get`, `video_long_chapters_put`, `video_long_chapters_get` e `video_long_chapters_approve`, con schemi di ingresso e risposta e relativi tipi.
+- Tre strumenti dei personaggi di Parallel: `video_character_list`, `video_character_import` e `video_character_outfit_style`, con schemi di ingresso e risposta e relativi tipi.
+- Abito nello stile del personaggio: schemi canonici `VideoOutfitStyleRequestSchema` e `VideoOutfitStyleResultSchema`, contratto `officinaVideoModelOutfitStyleContract`, nuovo percorso `POST /api/modelle/:modelId/abito-stile` e trasporto portabile `videoEngineOutfitStyle`.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: strumenti, schemi e trasporto delle 9300-9302 sono additivi. Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 600 riferimenti Git locali e remoti tracciati, inclusi `origin/main` e i rami delle altre corsie del ponte: 1.327.0 è l'ultima presa; 1.328.0 è la minore successiva libera.
+
 ## v1.327.0 — Officina video: libreria degli ambienti (versioni, angolazioni, richiesta di angolazione) e seguito di nel progetto lungo, additivo
 
 - Contratti della libreria degli ambienti (`VideoEnvironment*`): ambienti, versioni, angolazioni, richiesta di angolazione e approvazione, con i relativi tipi.

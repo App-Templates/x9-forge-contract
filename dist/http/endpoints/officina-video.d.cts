@@ -1090,6 +1090,45 @@ export declare const officinaVideoModelGetContract: {
     }, z.core.$strict>;
     readonly responseStatus: 200;
 };
+/**
+ * cap-video -> engine: compose an outfit in the imported character's style, without creating a resource.
+ * Errors use VideoEngineErrorSchema.code: non_da_parallel, richiesta_non_valida, modello_non_trovato.
+ * A model belonging to another tenant or agent is 404. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only.
+ */
+export declare const officinaVideoModelOutfitStyleContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/modelle/:modelId/abito-stile";
+    readonly paramsSchema: z.ZodObject<{
+        modelId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        request: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        description: z.ZodString;
+        constraints: z.ZodArray<z.ZodString>;
+        rules: z.ZodEnum<{
+            complete: "complete";
+            senza_regole: "senza_regole";
+            senza_stile: "senza_stile";
+        }>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
 /** cap-video -> engine: model VersionCreate. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
 export declare const officinaVideoModelVersionCreateContract: {
     readonly errorSchema: z.ZodObject<{
