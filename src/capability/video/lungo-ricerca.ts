@@ -4,8 +4,8 @@ import { LabQueryInputSchema } from '../lab/tools.js';
 import { WikiOriginSchema, WikiPageSlugSchema, WikiSourceIdSchema } from '../lab/wiki.js';
 import { LabGapsRefSchema, ResearchCostSchema, ResearchIdSchema, ResearchStateSchema } from '../ricerca/research.js';
 import { VideoEngineRevisionSchema } from './engine.js';
-import { VideoLongDraftSchema } from './lungo-bozza.js';
-import { VideoLongProjectIdSchema } from './lungo.js';
+import { VideoLongChapterSchema, VideoLongDraftSchema, VideoLongUsageSchema } from './lungo-bozza.js';
+import { VIDEO_LONG_MAX_CHAPTERS, VIDEO_LONG_MAX_SECONDS, VideoLongProjectIdSchema } from './lungo.js';
 
 export const VIDEO_LONG_RESEARCH_MAX_QUESTIONS = 12;
 export const VIDEO_LONG_MAX_SOURCES = 60;
@@ -79,3 +79,51 @@ export const VideoLongResearchRefusalSchema = z.enum([
   'motore_non_disponibile',
 ]);
 export type VideoLongResearchRefusal = z.infer<typeof VideoLongResearchRefusalSchema>;
+
+/**
+ * How a piece of a chapter is imagined: the person on the armchair, the footage
+ * that starts afterwards, the place, or a graphic.
+ */
+export const VideoLongFramingSchema = z.enum(['intervista', 'immagini', 'ambiente', 'grafica']);
+export type VideoLongFraming = z.infer<typeof VideoLongFramingSchema>;
+
+export const VideoLongFrameHypothesisSchema = z.strictObject({
+  description: z.string().min(1).max(400),
+  framing: VideoLongFramingSchema,
+  sourceId: WikiSourceIdSchema.nullable(),
+});
+export type VideoLongFrameHypothesis = z.infer<typeof VideoLongFrameHypothesisSchema>;
+
+/** The draft chapter, unchanged, extended with sources and frame hypotheses. */
+export const VideoLongResearchedChapterSchema = VideoLongChapterSchema.extend({
+  sourceIds: z.array(WikiSourceIdSchema).max(10),
+  frameHypotheses: z.array(VideoLongFrameHypothesisSchema).min(1).max(6),
+});
+export type VideoLongResearchedChapter = z.infer<typeof VideoLongResearchedChapterSchema>;
+
+/** The engine checks consecutive indexes, sources present in the dossier and the total. */
+export const VideoLongChaptersDocumentSchema = z.strictObject({
+  draftRevision: VideoEngineRevisionSchema,
+  dossierRevision: VideoEngineRevisionSchema,
+  chapters: z.array(VideoLongResearchedChapterSchema).min(1).max(VIDEO_LONG_MAX_CHAPTERS),
+  usage: VideoLongUsageSchema.nullable(),
+});
+export type VideoLongChaptersDocument = z.infer<typeof VideoLongChaptersDocumentSchema>;
+
+export const VideoLongChaptersStatusSchema = z.enum(['da-approvare', 'approvati']);
+export type VideoLongChaptersStatus = z.infer<typeof VideoLongChaptersStatusSchema>;
+
+export const VideoLongChaptersSchema = VideoLongChaptersDocumentSchema.extend({
+  revision: VideoEngineRevisionSchema,
+  status: VideoLongChaptersStatusSchema,
+  totalSeconds: z.number().int().min(10).max(VIDEO_LONG_MAX_SECONDS),
+  digest: VideoLongDraftSchema.shape.digest,
+  approvedAt: z.string().min(1).max(40).nullable(),
+});
+export type VideoLongChapters = z.infer<typeof VideoLongChaptersSchema>;
+
+export const VideoLongChaptersApproveRequestSchema = z.strictObject({
+  revision: VideoEngineRevisionSchema,
+  digest: VideoLongDraftSchema.shape.digest,
+});
+export type VideoLongChaptersApproveRequest = z.infer<typeof VideoLongChaptersApproveRequestSchema>;
