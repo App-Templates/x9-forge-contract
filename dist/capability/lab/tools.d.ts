@@ -194,8 +194,8 @@ export declare const LabQueryOutputSchema: z.ZodObject<{
         text: z.ZodString;
         sourceIds: z.ZodArray<z.ZodString>;
         status: z.ZodEnum<{
-            confermata: "confermata";
             aperta: "aperta";
+            confermata: "confermata";
             contraddetta: "contraddetta";
             scartata: "scartata";
         }>;
@@ -263,8 +263,8 @@ export declare const LabPublishInputSchema: z.ZodObject<{
             access: "access";
             referent: "referent";
             person: "person";
-            asset: "asset";
             responsibility: "responsibility";
+            asset: "asset";
         }>;
         key: z.ZodString;
         version: z.ZodNumber;
@@ -313,8 +313,8 @@ export declare const LabReadPublishedOutputSchema: z.ZodObject<{
                 access: "access";
                 referent: "referent";
                 person: "person";
-                asset: "asset";
                 responsibility: "responsibility";
+                asset: "asset";
             }>;
             key: z.ZodString;
             version: z.ZodNumber;

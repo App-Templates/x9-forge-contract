@@ -167,8 +167,8 @@ export declare const VideoLongResearchStartToolResponseSchema: z.ZodDiscriminate
         impronta_diversa: "impronta_diversa";
         ricerca_gia_avviata: "ricerca_gia_avviata";
         motore_non_disponibile: "motore_non_disponibile";
-        richiesta_non_valida: "richiesta_non_valida";
         progetto_sconosciuto: "progetto_sconosciuto";
+        richiesta_non_valida: "richiesta_non_valida";
         lab_non_collegato: "lab_non_collegato";
     }>;
     message: z.ZodString;

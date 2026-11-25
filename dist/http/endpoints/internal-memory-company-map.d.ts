@@ -305,8 +305,8 @@ export declare const CompanyMapEntriesQuerySchema: z.ZodObject<{
         access: "access";
         referent: "referent";
         person: "person";
-        asset: "asset";
         responsibility: "responsibility";
+        asset: "asset";
     }>>;
 }, z.core.$strict>;
 export type CompanyMapEntriesQuery = z.infer<typeof CompanyMapEntriesQuerySchema>;
@@ -455,8 +455,8 @@ export declare const CompanyMapHistoryQuerySchema: z.ZodObject<{
         access: "access";
         referent: "referent";
         person: "person";
-        asset: "asset";
         responsibility: "responsibility";
+        asset: "asset";
     }>;
     entryRef: z.ZodString;
     after: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
@@ -623,8 +623,8 @@ export declare const internalMemoryCompanyMapHistoryContract: {
             access: "access";
             referent: "referent";
             person: "person";
-            asset: "asset";
             responsibility: "responsibility";
+            asset: "asset";
         }>;
         entryRef: z.ZodString;
         after: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
@@ -1064,8 +1064,8 @@ export declare const internalMemoryCompanyMapListContract: {
             access: "access";
             referent: "referent";
             person: "person";
-            asset: "asset";
             responsibility: "responsibility";
+            asset: "asset";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{

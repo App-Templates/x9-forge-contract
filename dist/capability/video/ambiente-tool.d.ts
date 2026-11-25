@@ -256,8 +256,8 @@ export declare const VideoEnvironmentAngleAddToolResponseSchema: z.ZodDiscrimina
     status: z.ZodLiteral<"rifiutata">;
     reason: z.ZodEnum<{
         motore_non_disponibile: "motore_non_disponibile";
-        richiesta_non_valida: "richiesta_non_valida";
         progetto_sconosciuto: "progetto_sconosciuto";
+        richiesta_non_valida: "richiesta_non_valida";
         ambiente_non_trovato: "ambiente_non_trovato";
         versione_non_trovata: "versione_non_trovata";
         versione_approvata: "versione_approvata";

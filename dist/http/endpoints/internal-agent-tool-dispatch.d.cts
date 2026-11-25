@@ -344,8 +344,8 @@ export declare const INTERNAL_AGENT_EXECUTIONS: Readonly<{
 }>;
 export declare const InternalAgentExecutionSchema: z.ZodEnum<{
     news_digest: "news_digest";
-    research_execute: "research_execute";
     lab_execute: "lab_execute";
+    research_execute: "research_execute";
     scheduler_voice_call: "scheduler_voice_call";
     scheduler_telegram_text: "scheduler_telegram_text";
     scheduler_telegram_voice: "scheduler_telegram_voice";
@@ -379,8 +379,8 @@ export declare const InternalAgentToolDispatchRequestSchema: z.ZodObject<{
     }, z.core.$strict>;
     execution: z.ZodEnum<{
         news_digest: "news_digest";
-        research_execute: "research_execute";
         lab_execute: "lab_execute";
+        research_execute: "research_execute";
         scheduler_voice_call: "scheduler_voice_call";
         scheduler_telegram_text: "scheduler_telegram_text";
         scheduler_telegram_voice: "scheduler_telegram_voice";
@@ -549,8 +549,8 @@ export declare const internalAgentToolDispatchContract: {
         }, z.core.$strict>;
         execution: z.ZodEnum<{
             news_digest: "news_digest";
-            research_execute: "research_execute";
             lab_execute: "lab_execute";
+            research_execute: "research_execute";
             scheduler_voice_call: "scheduler_voice_call";
             scheduler_telegram_text: "scheduler_telegram_text";
             scheduler_telegram_voice: "scheduler_telegram_voice";

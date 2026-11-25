@@ -52,8 +52,8 @@ export declare const InternalRicercaResultErrorSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
         invalid_request: "invalid_request";
-        unknown_research: "unknown_research";
         not_ready: "not_ready";
+        unknown_research: "unknown_research";
         scope_foreign: "scope_foreign";
     }>;
 }, z.core.$strict>;
@@ -107,8 +107,8 @@ export declare const internalRicercaResultContract: {
         ok: z.ZodLiteral<false>;
         error: z.ZodEnum<{
             invalid_request: "invalid_request";
-            unknown_research: "unknown_research";
             not_ready: "not_ready";
+            unknown_research: "unknown_research";
             scope_foreign: "scope_foreign";
         }>;
     }, z.core.$strict>;

@@ -14,8 +14,8 @@ export declare const CompanyMapEntryKindSchema: z.ZodEnum<{
     access: "access";
     referent: "referent";
     person: "person";
-    asset: "asset";
     responsibility: "responsibility";
+    asset: "asset";
 }>;
 export type CompanyMapEntryKind = z.infer<typeof CompanyMapEntryKindSchema>;
 /** An entry comes only from a seed or from an approved decision, never from a model. */
@@ -73,8 +73,8 @@ export declare const CompanyMapConfirmTargetSchema: z.ZodObject<{
         access: "access";
         referent: "referent";
         person: "person";
-        asset: "asset";
         responsibility: "responsibility";
+        asset: "asset";
     }>;
     entryRef: z.ZodString;
 }, z.core.$strict>;

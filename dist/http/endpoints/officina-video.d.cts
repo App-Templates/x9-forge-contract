@@ -2878,10 +2878,10 @@ export declare const officinaVideoLongCostGetContract: {
                 quantity: z.ZodNumber;
                 unit: z.ZodEnum<{
                     token: "token";
+                    clip: "clip";
                     char: "char";
                     second: "second";
                     image: "image";
-                    clip: "clip";
                 }>;
                 costUsd: z.ZodNumber;
                 basis: z.ZodEnum<{
@@ -2889,12 +2889,50 @@ export declare const officinaVideoLongCostGetContract: {
                     stimato: "stimato";
                     "non-misurato": "non-misurato";
                 }>;
+                chapterIndex: z.ZodOptional<z.ZodNumber>;
                 at: z.ZodString;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
         totalUsd: z.ZodNumber;
         finishedSeconds: z.ZodNullable<z.ZodNumber>;
         usdPerMinute: z.ZodNullable<z.ZodNumber>;
+        models: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            step: z.ZodEnum<{
+                video: "video";
+                ricerca: "ricerca";
+                bozza: "bozza";
+                capitoli: "capitoli";
+                fotogrammi: "fotogrammi";
+            }>;
+            provider: z.ZodString;
+            model: z.ZodString;
+            quantity: z.ZodNumber;
+            unit: z.ZodEnum<{
+                token: "token";
+                clip: "clip";
+                char: "char";
+                second: "second";
+                image: "image";
+            }>;
+            costUsd: z.ZodNumber;
+            basis: z.ZodEnum<{
+                misurato: "misurato";
+                stimato: "stimato";
+                "non-misurato": "non-misurato";
+            }>;
+        }, z.core.$strict>>>;
+        chapters: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            chapterIndex: z.ZodNumber;
+            costUsd: z.ZodNumber;
+            seconds: z.ZodNullable<z.ZodNumber>;
+            usdPerMinute: z.ZodNullable<z.ZodNumber>;
+        }, z.core.$strict>>>;
+        usdPerMinuteBasis: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            misurato: "misurato";
+            stimato: "stimato";
+            "non-misurato": "non-misurato";
+        }>>>;
+        unmeasuredEntries: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
     readonly responseStatus: 200;
 };
@@ -3317,6 +3355,861 @@ export declare const officinaVideoLongChaptersApproveContract: {
         digest: z.ZodString;
         approvedAt: z.ZodNullable<z.ZodString>;
     }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project FramesPut. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongFramesPutContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "PUT";
+    readonly path: "/api/lunghi/:projectId/fotogrammi";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        chaptersRevision: z.ZodNumber;
+        chapters: z.ZodArray<z.ZodObject<{
+            chapterIndex: z.ZodNumber;
+            shots: z.ZodArray<z.ZodObject<{
+                index: z.ZodNumber;
+                framing: z.ZodEnum<{
+                    intervista: "intervista";
+                    immagini: "immagini";
+                    ambiente: "ambiente";
+                    grafica: "grafica";
+                }>;
+                description: z.ZodString;
+                motion: z.ZodString;
+                seconds: z.ZodNumber;
+                render: z.ZodEnum<{
+                    clip: "clip";
+                    fermo: "fermo";
+                }>;
+                narration: z.ZodString;
+                environmentAngle: z.ZodNullable<z.ZodString>;
+                withCharacter: z.ZodBoolean;
+                sourceId: z.ZodNullable<z.ZodString>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        usage: z.ZodNullable<z.ZodObject<{
+            provider: z.ZodString;
+            model: z.ZodString;
+            inputTokens: z.ZodNumber;
+            outputTokens: z.ZodNumber;
+            measured: z.ZodBoolean;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        chaptersRevision: z.ZodNumber;
+        chapters: z.ZodArray<z.ZodObject<{
+            chapterIndex: z.ZodNumber;
+            shots: z.ZodArray<z.ZodObject<{
+                index: z.ZodNumber;
+                framing: z.ZodEnum<{
+                    intervista: "intervista";
+                    immagini: "immagini";
+                    ambiente: "ambiente";
+                    grafica: "grafica";
+                }>;
+                description: z.ZodString;
+                motion: z.ZodString;
+                seconds: z.ZodNumber;
+                render: z.ZodEnum<{
+                    clip: "clip";
+                    fermo: "fermo";
+                }>;
+                narration: z.ZodString;
+                environmentAngle: z.ZodNullable<z.ZodString>;
+                withCharacter: z.ZodBoolean;
+                sourceId: z.ZodNullable<z.ZodString>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        usage: z.ZodNullable<z.ZodObject<{
+            provider: z.ZodString;
+            model: z.ZodString;
+            inputTokens: z.ZodNumber;
+            outputTokens: z.ZodNumber;
+            measured: z.ZodBoolean;
+        }, z.core.$strict>>;
+        revision: z.ZodNumber;
+        status: z.ZodEnum<{
+            "da-approvare": "da-approvare";
+            approvati: "approvati";
+        }>;
+        totalSeconds: z.ZodNumber;
+        shotCount: z.ZodNumber;
+        interviewShare: z.ZodNumber;
+        warnings: z.ZodArray<z.ZodString>;
+        digest: z.ZodString;
+        approvedAt: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project FramesGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongFramesGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/lunghi/:projectId/fotogrammi";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        chaptersRevision: z.ZodNumber;
+        chapters: z.ZodArray<z.ZodObject<{
+            chapterIndex: z.ZodNumber;
+            shots: z.ZodArray<z.ZodObject<{
+                index: z.ZodNumber;
+                framing: z.ZodEnum<{
+                    intervista: "intervista";
+                    immagini: "immagini";
+                    ambiente: "ambiente";
+                    grafica: "grafica";
+                }>;
+                description: z.ZodString;
+                motion: z.ZodString;
+                seconds: z.ZodNumber;
+                render: z.ZodEnum<{
+                    clip: "clip";
+                    fermo: "fermo";
+                }>;
+                narration: z.ZodString;
+                environmentAngle: z.ZodNullable<z.ZodString>;
+                withCharacter: z.ZodBoolean;
+                sourceId: z.ZodNullable<z.ZodString>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        usage: z.ZodNullable<z.ZodObject<{
+            provider: z.ZodString;
+            model: z.ZodString;
+            inputTokens: z.ZodNumber;
+            outputTokens: z.ZodNumber;
+            measured: z.ZodBoolean;
+        }, z.core.$strict>>;
+        revision: z.ZodNumber;
+        status: z.ZodEnum<{
+            "da-approvare": "da-approvare";
+            approvati: "approvati";
+        }>;
+        totalSeconds: z.ZodNumber;
+        shotCount: z.ZodNumber;
+        interviewShare: z.ZodNumber;
+        warnings: z.ZodArray<z.ZodString>;
+        digest: z.ZodString;
+        approvedAt: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project FramesApprove. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongFramesApproveContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/lunghi/:projectId/fotogrammi/approva";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        revision: z.ZodNumber;
+        digest: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        chaptersRevision: z.ZodNumber;
+        chapters: z.ZodArray<z.ZodObject<{
+            chapterIndex: z.ZodNumber;
+            shots: z.ZodArray<z.ZodObject<{
+                index: z.ZodNumber;
+                framing: z.ZodEnum<{
+                    intervista: "intervista";
+                    immagini: "immagini";
+                    ambiente: "ambiente";
+                    grafica: "grafica";
+                }>;
+                description: z.ZodString;
+                motion: z.ZodString;
+                seconds: z.ZodNumber;
+                render: z.ZodEnum<{
+                    clip: "clip";
+                    fermo: "fermo";
+                }>;
+                narration: z.ZodString;
+                environmentAngle: z.ZodNullable<z.ZodString>;
+                withCharacter: z.ZodBoolean;
+                sourceId: z.ZodNullable<z.ZodString>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        usage: z.ZodNullable<z.ZodObject<{
+            provider: z.ZodString;
+            model: z.ZodString;
+            inputTokens: z.ZodNumber;
+            outputTokens: z.ZodNumber;
+            measured: z.ZodBoolean;
+        }, z.core.$strict>>;
+        revision: z.ZodNumber;
+        status: z.ZodEnum<{
+            "da-approvare": "da-approvare";
+            approvati: "approvati";
+        }>;
+        totalSeconds: z.ZodNumber;
+        shotCount: z.ZodNumber;
+        interviewShare: z.ZodNumber;
+        warnings: z.ZodArray<z.ZodString>;
+        digest: z.ZodString;
+        approvedAt: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project ProductionSettingsPut. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongProductionSettingsPutContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "PUT";
+    readonly path: "/api/lunghi/:projectId/produzione/impostazioni";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        frameProvider: z.ZodEnum<{
+            minimax: "minimax";
+            fal: "fal";
+            byteplus: "byteplus";
+        }>;
+        frameModel: z.ZodNullable<z.ZodString>;
+        clipProvider: z.ZodEnum<{
+            minimax: "minimax";
+            fal: "fal";
+            byteplus: "byteplus";
+        }>;
+        clipModel: z.ZodString;
+        voice: z.ZodObject<{
+            provider: z.ZodEnum<{
+                openai: "openai";
+                elevenlabs: "elevenlabs";
+            }>;
+            model: z.ZodString;
+            voice: z.ZodString;
+        }, z.core.$strict>;
+        subtitles: z.ZodEnum<{
+            morbidi: "morbidi";
+            nessuno: "nessuno";
+        }>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        projectId: z.ZodString;
+        settings: z.ZodNullable<z.ZodObject<{
+            frameProvider: z.ZodEnum<{
+                minimax: "minimax";
+                fal: "fal";
+                byteplus: "byteplus";
+            }>;
+            frameModel: z.ZodNullable<z.ZodString>;
+            clipProvider: z.ZodEnum<{
+                minimax: "minimax";
+                fal: "fal";
+                byteplus: "byteplus";
+            }>;
+            clipModel: z.ZodString;
+            voice: z.ZodObject<{
+                provider: z.ZodEnum<{
+                    openai: "openai";
+                    elevenlabs: "elevenlabs";
+                }>;
+                model: z.ZodString;
+                voice: z.ZodString;
+            }, z.core.$strict>;
+            subtitles: z.ZodEnum<{
+                morbidi: "morbidi";
+                nessuno: "nessuno";
+            }>;
+        }, z.core.$strict>>;
+        chapters: z.ZodArray<z.ZodObject<{
+            chapterIndex: z.ZodNumber;
+            batches: z.ZodNumber;
+            stages: z.ZodArray<z.ZodObject<{
+                stage: z.ZodEnum<{
+                    fotogrammi: "fotogrammi";
+                    clip: "clip";
+                    voce: "voce";
+                    montaggio: "montaggio";
+                }>;
+                status: z.ZodEnum<{
+                    "da-fare": "da-fare";
+                    "in-corso": "in-corso";
+                    "da-approvare": "da-approvare";
+                    approvato: "approvato";
+                    fallito: "fallito";
+                    completo: "completo";
+                }>;
+                done: z.ZodNumber;
+                total: z.ZodNumber;
+                reused: z.ZodNumber;
+                estimatedUsd: z.ZodNumber;
+                confirmedUsd: z.ZodNullable<z.ZodNumber>;
+            }, z.core.$strict>>;
+            chapterVideo: z.ZodNullable<z.ZodObject<{
+                path: z.ZodString;
+                sha256: z.ZodString;
+                seconds: z.ZodNumber;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        finalVideo: z.ZodNullable<z.ZodObject<{
+            path: z.ZodString;
+            sha256: z.ZodString;
+            seconds: z.ZodNumber;
+            aspectRatio: z.ZodLiteral<"16:9">;
+            chapters: z.ZodArray<z.ZodObject<{
+                index: z.ZodNumber;
+                startSeconds: z.ZodNumber;
+                seconds: z.ZodNumber;
+            }, z.core.$strict>>;
+            subtitles: z.ZodBoolean;
+            createdAt: z.ZodString;
+        }, z.core.$strict>>;
+        updatedAt: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project ProductionGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongProductionGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/lunghi/:projectId/produzione";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        projectId: z.ZodString;
+        settings: z.ZodNullable<z.ZodObject<{
+            frameProvider: z.ZodEnum<{
+                minimax: "minimax";
+                fal: "fal";
+                byteplus: "byteplus";
+            }>;
+            frameModel: z.ZodNullable<z.ZodString>;
+            clipProvider: z.ZodEnum<{
+                minimax: "minimax";
+                fal: "fal";
+                byteplus: "byteplus";
+            }>;
+            clipModel: z.ZodString;
+            voice: z.ZodObject<{
+                provider: z.ZodEnum<{
+                    openai: "openai";
+                    elevenlabs: "elevenlabs";
+                }>;
+                model: z.ZodString;
+                voice: z.ZodString;
+            }, z.core.$strict>;
+            subtitles: z.ZodEnum<{
+                morbidi: "morbidi";
+                nessuno: "nessuno";
+            }>;
+        }, z.core.$strict>>;
+        chapters: z.ZodArray<z.ZodObject<{
+            chapterIndex: z.ZodNumber;
+            batches: z.ZodNumber;
+            stages: z.ZodArray<z.ZodObject<{
+                stage: z.ZodEnum<{
+                    fotogrammi: "fotogrammi";
+                    clip: "clip";
+                    voce: "voce";
+                    montaggio: "montaggio";
+                }>;
+                status: z.ZodEnum<{
+                    "da-fare": "da-fare";
+                    "in-corso": "in-corso";
+                    "da-approvare": "da-approvare";
+                    approvato: "approvato";
+                    fallito: "fallito";
+                    completo: "completo";
+                }>;
+                done: z.ZodNumber;
+                total: z.ZodNumber;
+                reused: z.ZodNumber;
+                estimatedUsd: z.ZodNumber;
+                confirmedUsd: z.ZodNullable<z.ZodNumber>;
+            }, z.core.$strict>>;
+            chapterVideo: z.ZodNullable<z.ZodObject<{
+                path: z.ZodString;
+                sha256: z.ZodString;
+                seconds: z.ZodNumber;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        finalVideo: z.ZodNullable<z.ZodObject<{
+            path: z.ZodString;
+            sha256: z.ZodString;
+            seconds: z.ZodNumber;
+            aspectRatio: z.ZodLiteral<"16:9">;
+            chapters: z.ZodArray<z.ZodObject<{
+                index: z.ZodNumber;
+                startSeconds: z.ZodNumber;
+                seconds: z.ZodNumber;
+            }, z.core.$strict>>;
+            subtitles: z.ZodBoolean;
+            createdAt: z.ZodString;
+        }, z.core.$strict>>;
+        updatedAt: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project RunQuote. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongRunQuoteContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/lunghi/:projectId/produzione/preventivo";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        chapterIndex: z.ZodNumber;
+        stage: z.ZodEnum<{
+            fotogrammi: "fotogrammi";
+            clip: "clip";
+            voce: "voce";
+            montaggio: "montaggio";
+        }>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        chapterIndex: z.ZodNumber;
+        stage: z.ZodEnum<{
+            fotogrammi: "fotogrammi";
+            clip: "clip";
+            voce: "voce";
+            montaggio: "montaggio";
+        }>;
+        units: z.ZodNumber;
+        unit: z.ZodEnum<{
+            token: "token";
+            clip: "clip";
+            char: "char";
+            second: "second";
+            image: "image";
+        }>;
+        estimatedUsd: z.ZodNullable<z.ZodNumber>;
+        reserveUsd: z.ZodNullable<z.ZodNumber>;
+        remainingBudgetUsd: z.ZodNumber;
+        tariffDate: z.ZodString;
+        tariffFresh: z.ZodBoolean;
+        expiresAt: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project RunStart. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongRunStartContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/lunghi/:projectId/produzione/avvia";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        chapterIndex: z.ZodNumber;
+        stage: z.ZodEnum<{
+            fotogrammi: "fotogrammi";
+            clip: "clip";
+            voce: "voce";
+            montaggio: "montaggio";
+        }>;
+        quoteId: z.ZodString;
+        framesRevision: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        chapterIndex: z.ZodNumber;
+        batches: z.ZodNumber;
+        stages: z.ZodArray<z.ZodObject<{
+            stage: z.ZodEnum<{
+                fotogrammi: "fotogrammi";
+                clip: "clip";
+                voce: "voce";
+                montaggio: "montaggio";
+            }>;
+            status: z.ZodEnum<{
+                "da-fare": "da-fare";
+                "in-corso": "in-corso";
+                "da-approvare": "da-approvare";
+                approvato: "approvato";
+                fallito: "fallito";
+                completo: "completo";
+            }>;
+            done: z.ZodNumber;
+            total: z.ZodNumber;
+            reused: z.ZodNumber;
+            estimatedUsd: z.ZodNumber;
+            confirmedUsd: z.ZodNullable<z.ZodNumber>;
+        }, z.core.$strict>>;
+        chapterVideo: z.ZodNullable<z.ZodObject<{
+            path: z.ZodString;
+            sha256: z.ZodString;
+            seconds: z.ZodNumber;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    readonly responseStatus: 202;
+};
+/** cap-video -> engine: long project ChapterFramesGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongChapterFramesGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/lunghi/:projectId/capitoli/:chapterIndex/fotogrammi";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+        chapterIndex: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        chapterIndex: z.ZodNumber;
+        revision: z.ZodNumber;
+        status: z.ZodEnum<{
+            "da-approvare": "da-approvare";
+            approvati: "approvati";
+        }>;
+        digest: z.ZodString;
+        frames: z.ZodArray<z.ZodObject<{
+            shotIndex: z.ZodNumber;
+            imagePath: z.ZodString;
+            sha256: z.ZodString;
+            similarity: z.ZodNullable<z.ZodNumber>;
+            status: z.ZodEnum<{
+                approvato: "approvato";
+                generato: "generato";
+                "da-rigenerare": "da-rigenerare";
+            }>;
+        }, z.core.$strict>>;
+        approvedAt: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project ChapterFramesApprove. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongChapterFramesApproveContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/lunghi/:projectId/capitoli/:chapterIndex/fotogrammi/approva";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+        chapterIndex: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        revision: z.ZodNumber;
+        digest: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        chapterIndex: z.ZodNumber;
+        revision: z.ZodNumber;
+        status: z.ZodEnum<{
+            "da-approvare": "da-approvare";
+            approvati: "approvati";
+        }>;
+        digest: z.ZodString;
+        frames: z.ZodArray<z.ZodObject<{
+            shotIndex: z.ZodNumber;
+            imagePath: z.ZodString;
+            sha256: z.ZodString;
+            similarity: z.ZodNullable<z.ZodNumber>;
+            status: z.ZodEnum<{
+                approvato: "approvato";
+                generato: "generato";
+                "da-rigenerare": "da-rigenerare";
+            }>;
+        }, z.core.$strict>>;
+        approvedAt: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project ChapterFrameImageGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongChapterFrameImageGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/lunghi/:projectId/capitoli/:chapterIndex/fotogrammi/:file";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+        chapterIndex: z.ZodString;
+        file: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseMediaTypes: readonly ["image/png", "image/jpeg"];
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project Join. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongJoinContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/lunghi/:projectId/unione";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        framesRevision: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        projectId: z.ZodString;
+        settings: z.ZodNullable<z.ZodObject<{
+            frameProvider: z.ZodEnum<{
+                minimax: "minimax";
+                fal: "fal";
+                byteplus: "byteplus";
+            }>;
+            frameModel: z.ZodNullable<z.ZodString>;
+            clipProvider: z.ZodEnum<{
+                minimax: "minimax";
+                fal: "fal";
+                byteplus: "byteplus";
+            }>;
+            clipModel: z.ZodString;
+            voice: z.ZodObject<{
+                provider: z.ZodEnum<{
+                    openai: "openai";
+                    elevenlabs: "elevenlabs";
+                }>;
+                model: z.ZodString;
+                voice: z.ZodString;
+            }, z.core.$strict>;
+            subtitles: z.ZodEnum<{
+                morbidi: "morbidi";
+                nessuno: "nessuno";
+            }>;
+        }, z.core.$strict>>;
+        chapters: z.ZodArray<z.ZodObject<{
+            chapterIndex: z.ZodNumber;
+            batches: z.ZodNumber;
+            stages: z.ZodArray<z.ZodObject<{
+                stage: z.ZodEnum<{
+                    fotogrammi: "fotogrammi";
+                    clip: "clip";
+                    voce: "voce";
+                    montaggio: "montaggio";
+                }>;
+                status: z.ZodEnum<{
+                    "da-fare": "da-fare";
+                    "in-corso": "in-corso";
+                    "da-approvare": "da-approvare";
+                    approvato: "approvato";
+                    fallito: "fallito";
+                    completo: "completo";
+                }>;
+                done: z.ZodNumber;
+                total: z.ZodNumber;
+                reused: z.ZodNumber;
+                estimatedUsd: z.ZodNumber;
+                confirmedUsd: z.ZodNullable<z.ZodNumber>;
+            }, z.core.$strict>>;
+            chapterVideo: z.ZodNullable<z.ZodObject<{
+                path: z.ZodString;
+                sha256: z.ZodString;
+                seconds: z.ZodNumber;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        finalVideo: z.ZodNullable<z.ZodObject<{
+            path: z.ZodString;
+            sha256: z.ZodString;
+            seconds: z.ZodNumber;
+            aspectRatio: z.ZodLiteral<"16:9">;
+            chapters: z.ZodArray<z.ZodObject<{
+                index: z.ZodNumber;
+                startSeconds: z.ZodNumber;
+                seconds: z.ZodNumber;
+            }, z.core.$strict>>;
+            subtitles: z.ZodBoolean;
+            createdAt: z.ZodString;
+        }, z.core.$strict>>;
+        updatedAt: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project VideoGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongVideoGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/lunghi/:projectId/video";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        path: z.ZodString;
+        sha256: z.ZodString;
+        seconds: z.ZodNumber;
+        aspectRatio: z.ZodLiteral<"16:9">;
+        chapters: z.ZodArray<z.ZodObject<{
+            index: z.ZodNumber;
+            startSeconds: z.ZodNumber;
+            seconds: z.ZodNumber;
+        }, z.core.$strict>>;
+        subtitles: z.ZodBoolean;
+        createdAt: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: long project VideoFileGet. Identity is in the query. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoLongVideoFileGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/lunghi/:projectId/video/file";
+    readonly paramsSchema: z.ZodObject<{
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseMediaTypes: readonly ["video/mp4"];
     readonly responseStatus: 200;
 };
 //# sourceMappingURL=officina-video.d.ts.map

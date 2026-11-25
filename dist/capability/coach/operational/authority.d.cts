@@ -15,8 +15,8 @@ export declare const CoachOperationalAuthorityOperationSchema: z.ZodEnum<{
     conversation: "conversation";
     close: "close";
     event: "event";
-    program: "program";
     usage: "usage";
+    program: "program";
     "end-guide": "end-guide";
 }>;
 export declare const CoachOperationalAuthorityRequestSchema: z.ZodUnion<readonly [z.ZodObject<{

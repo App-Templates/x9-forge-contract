@@ -18,10 +18,10 @@ export type RicercaToolName = (typeof RICERCA_TOOLS)[keyof typeof RICERCA_TOOLS]
 export declare const RicercaToolErrorSchema: z.ZodEnum<{
     invalid_request: "invalid_request";
     not_configured: "not_configured";
+    not_ready: "not_ready";
     max_usd_above_agent: "max_usd_above_agent";
     unknown_parent: "unknown_parent";
     unknown_research: "unknown_research";
-    not_ready: "not_ready";
     consulta_prima_il_quaderno: "consulta_prima_il_quaderno";
 }>;
 export type RicercaToolError = z.infer<typeof RicercaToolErrorSchema>;

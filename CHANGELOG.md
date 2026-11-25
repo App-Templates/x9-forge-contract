@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.330.0 — Officina video: dal capitolo approvato al video, piano delle inquadrature, produzione a capitoli, costo per modello e per minuto finito, additivo
+
+- Contratti del piano delle inquadrature e dei fotogrammi approvabili con revisione e impronta, impostazioni di produzione, preventivi, avvio e avanzamento della produzione a capitoli, unione e lettura del video finale, con i relativi tipi.
+- Costo per passo esteso con dettaglio per modello e capitolo e costo per minuto finito; i nuovi campi degli schemi esistenti sono opzionali.
+- Tredici contratti HTTP e trasporti portabili, inclusi i due trasporti binari per fotogrammi e video finale (`videoEngineLongVideoFileGet`), e undici strumenti `video_long_*` con schemi di ingresso e risposta.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Contratti e strumenti delle 9307-9311 additivi. Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 600 riferimenti Git locali e remoti tracciati, inclusi `origin/main` e i rami delle altre corsie del ponte: 1.329.0 è l'ultima presa; 1.330.0 è la minore successiva libera.
+
 ## v1.329.0 — Officina video: strumenti della libreria degli ambienti, additivo
 
 - Sei strumenti della libreria degli ambienti: `video_environment_list`, `video_environment_get`, `video_environment_create`, `video_environment_version_create`, `video_environment_angle_add` e `video_environment_approve`, con schemi di ingresso e risposta e relativi tipi.

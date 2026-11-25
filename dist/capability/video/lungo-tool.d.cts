@@ -256,10 +256,10 @@ export declare const VideoLongCostGetToolResponseSchema: z.ZodObject<{
             quantity: z.ZodNumber;
             unit: z.ZodEnum<{
                 token: "token";
+                clip: "clip";
                 char: "char";
                 second: "second";
                 image: "image";
-                clip: "clip";
             }>;
             costUsd: z.ZodNumber;
             basis: z.ZodEnum<{
@@ -267,12 +267,50 @@ export declare const VideoLongCostGetToolResponseSchema: z.ZodObject<{
                 stimato: "stimato";
                 "non-misurato": "non-misurato";
             }>;
+            chapterIndex: z.ZodOptional<z.ZodNumber>;
             at: z.ZodString;
         }, z.core.$strict>>;
     }, z.core.$strict>>;
     totalUsd: z.ZodNumber;
     finishedSeconds: z.ZodNullable<z.ZodNumber>;
     usdPerMinute: z.ZodNullable<z.ZodNumber>;
+    models: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        step: z.ZodEnum<{
+            video: "video";
+            ricerca: "ricerca";
+            bozza: "bozza";
+            capitoli: "capitoli";
+            fotogrammi: "fotogrammi";
+        }>;
+        provider: z.ZodString;
+        model: z.ZodString;
+        quantity: z.ZodNumber;
+        unit: z.ZodEnum<{
+            token: "token";
+            clip: "clip";
+            char: "char";
+            second: "second";
+            image: "image";
+        }>;
+        costUsd: z.ZodNumber;
+        basis: z.ZodEnum<{
+            misurato: "misurato";
+            stimato: "stimato";
+            "non-misurato": "non-misurato";
+        }>;
+    }, z.core.$strict>>>;
+    chapters: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        chapterIndex: z.ZodNumber;
+        costUsd: z.ZodNumber;
+        seconds: z.ZodNullable<z.ZodNumber>;
+        usdPerMinute: z.ZodNullable<z.ZodNumber>;
+    }, z.core.$strict>>>;
+    usdPerMinuteBasis: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+        misurato: "misurato";
+        stimato: "stimato";
+        "non-misurato": "non-misurato";
+    }>>>;
+    unmeasuredEntries: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type VideoLongCostGetToolResponse = z.infer<typeof VideoLongCostGetToolResponseSchema>;
 export declare const VideoLongDraftPutToolResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -307,10 +345,10 @@ export declare const VideoLongDraftPutToolResponseSchema: z.ZodDiscriminatedUnio
     status: z.ZodLiteral<"rifiutata">;
     reason: z.ZodEnum<{
         motore_non_disponibile: "motore_non_disponibile";
+        progetto_sconosciuto: "progetto_sconosciuto";
         somma_capitoli: "somma_capitoli";
         indici_non_consecutivi: "indici_non_consecutivi";
         gia_approvata: "gia_approvata";
-        progetto_sconosciuto: "progetto_sconosciuto";
     }>;
     message: z.ZodString;
 }, z.core.$strict>], "status">;
@@ -349,8 +387,8 @@ export declare const VideoLongDraftApproveToolResponseSchema: z.ZodDiscriminated
         revisione_cambiata: "revisione_cambiata";
         impronta_diversa: "impronta_diversa";
         motore_non_disponibile: "motore_non_disponibile";
-        gia_approvata: "gia_approvata";
         progetto_sconosciuto: "progetto_sconosciuto";
+        gia_approvata: "gia_approvata";
         bozza_mancante: "bozza_mancante";
     }>;
     message: z.ZodString;

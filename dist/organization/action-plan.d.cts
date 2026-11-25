@@ -267,12 +267,16 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         measure: z.ZodString;
     }, z.core.$strict>;
     projectId: z.ZodString;
+    clientId: z.ZodString;
+    questions: z.ZodArray<z.ZodObject<{
+        question: z.ZodString;
+        unlocks: z.ZodString;
+    }, z.core.$strict>>;
     strategy: z.ZodObject<{
         approach: z.ZodString;
         choices: z.ZodArray<z.ZodString>;
         discardedAlternatives: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
-    clientId: z.ZodString;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{
@@ -373,10 +377,6 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
             milestone: z.ZodNumber;
         }, z.core.$strict>>;
         neededBy: z.ZodOptional<z.ZodISODate>;
-    }, z.core.$strict>>;
-    questions: z.ZodArray<z.ZodObject<{
-        question: z.ZodString;
-        unlocks: z.ZodString;
     }, z.core.$strict>>;
     ifApproved: z.ZodObject<{
         startNow: z.ZodArray<z.ZodString>;

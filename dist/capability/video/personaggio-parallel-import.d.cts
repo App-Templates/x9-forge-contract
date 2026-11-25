@@ -32,11 +32,11 @@ export declare const VideoParallelImportResultSchema: z.ZodObject<{
 export type VideoParallelImportResult = z.infer<typeof VideoParallelImportResultSchema>;
 export declare const VideoParallelImportErrorSchema: z.ZodObject<{
     error: z.ZodEnum<{
+        motore_non_disponibile: "motore_non_disponibile";
         comunita_non_trovata: "comunita_non_trovata";
         personaggio_non_trovato: "personaggio_non_trovato";
         senza_consenso: "senza_consenso";
         ritratto_illeggibile: "ritratto_illeggibile";
-        motore_non_disponibile: "motore_non_disponibile";
     }>;
 }, z.core.$strict>;
 export type VideoParallelImportError = z.infer<typeof VideoParallelImportErrorSchema>;
