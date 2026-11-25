@@ -427,3 +427,16 @@ export {
   type VideoLongDraft,
   type VideoLongDraftApproveRequest,
 } from './lungo-bozza.js';
+
+export {
+  VideoCostUnitSchema,
+  VideoCostBasisSchema,
+  VideoCostEntrySchema,
+  VideoCostStepSchema,
+  VideoCostByStepSchema,
+  type VideoCostUnit,
+  type VideoCostBasis,
+  type VideoCostEntry,
+  type VideoCostStep,
+  type VideoCostByStep,
+} from './costo-passi.js';
