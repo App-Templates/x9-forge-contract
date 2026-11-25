@@ -511,3 +511,11 @@ export {
   type VideoParallelExport,
   type VideoParallelExportError,
 } from './personaggio-parallel.js';
+export {
+  VideoParallelImportRequestSchema,
+  VideoParallelImportResultSchema,
+  VideoParallelImportErrorSchema,
+  type VideoParallelImportRequest,
+  type VideoParallelImportResult,
+  type VideoParallelImportError,
+} from './personaggio-parallel-import.js';
