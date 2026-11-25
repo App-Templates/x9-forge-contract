@@ -519,3 +519,13 @@ export {
   type VideoParallelImportResult,
   type VideoParallelImportError,
 } from './personaggio-parallel-import.js';
+
+export {
+  VIDEO_LONG_RESEARCH_MAX_QUESTIONS,
+  VideoLongResearchStartRequestSchema,
+  VideoLongResearchSchema,
+  VideoLongResearchRefusalSchema,
+  type VideoLongResearchStartRequest,
+  type VideoLongResearch,
+  type VideoLongResearchRefusal,
+} from './lungo-ricerca.js';
