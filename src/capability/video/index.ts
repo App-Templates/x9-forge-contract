@@ -388,3 +388,27 @@ export {
   type VideoPresetFromVideoToolStatusInput,
   type VideoPresetFromVideoToolResponse,
 } from './preset-da-video-tool.js';
+
+export {
+  VIDEO_LONG_MIN_SECONDS,
+  VIDEO_LONG_MAX_SECONDS,
+  VIDEO_LONG_MAX_CHAPTERS,
+  VideoLongProjectIdSchema,
+  VideoLongFamilySchema,
+  VideoLongStepSchema,
+  VideoLongStepStatusSchema,
+  VideoLongStepStateSchema,
+  VideoLongScopeQuerySchema,
+  VideoLongCreateRequestSchema,
+  VideoLongProjectSchema,
+  VideoLongProjectListSchema,
+  type VideoLongProjectId,
+  type VideoLongFamily,
+  type VideoLongStep,
+  type VideoLongStepStatus,
+  type VideoLongStepState,
+  type VideoLongScopeQuery,
+  type VideoLongCreateRequest,
+  type VideoLongProject,
+  type VideoLongProjectList,
+} from './lungo.js';
