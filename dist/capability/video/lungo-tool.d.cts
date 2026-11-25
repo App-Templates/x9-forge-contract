@@ -8,6 +8,9 @@ export declare const VIDEO_LONG_DRAFT_APPROVE_TOOL = "video_long_draft_approve";
 export declare const VIDEO_LONG_COST_GET_TOOL = "video_long_cost_get";
 /** Identity comes only from the admitted tool envelope (R-33). */
 export declare const VideoLongCreateToolInputSchema: z.ZodObject<{
+    environmentId: z.ZodOptional<z.ZodString>;
+    environmentVersion: z.ZodOptional<z.ZodNumber>;
+    followsProjectId: z.ZodOptional<z.ZodString>;
     name: z.ZodString;
     family: z.ZodEnum<{
         essay: "essay";
@@ -96,6 +99,9 @@ export declare const VideoLongCreateToolResponseSchema: z.ZodObject<{
     modelId: z.ZodNullable<z.ZodString>;
     brief: z.ZodString;
     budgetUsd: z.ZodNumber;
+    environmentId: z.ZodOptional<z.ZodString>;
+    environmentVersion: z.ZodOptional<z.ZodNumber>;
+    followsProjectId: z.ZodOptional<z.ZodString>;
     id: z.ZodString;
     identity: z.ZodObject<{
         agentId: z.ZodString;
@@ -140,6 +146,9 @@ export declare const VideoLongListToolResponseSchema: z.ZodObject<{
         modelId: z.ZodNullable<z.ZodString>;
         brief: z.ZodString;
         budgetUsd: z.ZodNumber;
+        environmentId: z.ZodOptional<z.ZodString>;
+        environmentVersion: z.ZodOptional<z.ZodNumber>;
+        followsProjectId: z.ZodOptional<z.ZodString>;
         id: z.ZodString;
         identity: z.ZodObject<{
             agentId: z.ZodString;
@@ -184,6 +193,9 @@ export declare const VideoLongGetToolResponseSchema: z.ZodObject<{
     modelId: z.ZodNullable<z.ZodString>;
     brief: z.ZodString;
     budgetUsd: z.ZodNumber;
+    environmentId: z.ZodOptional<z.ZodString>;
+    environmentVersion: z.ZodOptional<z.ZodNumber>;
+    followsProjectId: z.ZodOptional<z.ZodString>;
     id: z.ZodString;
     identity: z.ZodObject<{
         agentId: z.ZodString;
@@ -334,12 +346,12 @@ export declare const VideoLongDraftApproveToolResponseSchema: z.ZodDiscriminated
 }, z.core.$strict>, z.ZodObject<{
     status: z.ZodLiteral<"rifiutata">;
     reason: z.ZodEnum<{
+        revisione_cambiata: "revisione_cambiata";
+        impronta_diversa: "impronta_diversa";
         motore_non_disponibile: "motore_non_disponibile";
         gia_approvata: "gia_approvata";
         progetto_sconosciuto: "progetto_sconosciuto";
         bozza_mancante: "bozza_mancante";
-        revisione_cambiata: "revisione_cambiata";
-        impronta_diversa: "impronta_diversa";
     }>;
     message: z.ZodString;
 }, z.core.$strict>], "status">;

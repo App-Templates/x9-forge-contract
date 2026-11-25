@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoLongChaptersApproveContract = exports.officinaVideoLongChaptersGetContract = exports.officinaVideoLongChaptersPutContract = exports.officinaVideoLongDossierGetContract = exports.officinaVideoLongDossierPutContract = exports.officinaVideoLongResearchGetContract = exports.officinaVideoLongResearchStartContract = exports.officinaVideoLongCostGetContract = exports.officinaVideoLongDraftApproveContract = exports.officinaVideoLongDraftGetContract = exports.officinaVideoLongDraftPutContract = exports.officinaVideoLongGetContract = exports.officinaVideoLongListContract = exports.officinaVideoLongCreateContract = exports.officinaVideoUserPresetSaveContract = exports.officinaVideoUserPresetGetContract = exports.officinaVideoUserPresetListContract = exports.officinaVideoPresetFromVideoJobGetContract = exports.officinaVideoPresetFromVideoStartContract = exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoOutfitProductionCreateContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoLongChaptersGetContract = exports.officinaVideoLongChaptersPutContract = exports.officinaVideoLongDossierGetContract = exports.officinaVideoLongDossierPutContract = exports.officinaVideoLongResearchGetContract = exports.officinaVideoLongResearchStartContract = exports.officinaVideoLongCostGetContract = exports.officinaVideoLongDraftApproveContract = exports.officinaVideoLongDraftGetContract = exports.officinaVideoLongDraftPutContract = exports.officinaVideoLongGetContract = exports.officinaVideoLongListContract = exports.officinaVideoLongCreateContract = exports.officinaVideoUserPresetSaveContract = exports.officinaVideoUserPresetGetContract = exports.officinaVideoUserPresetListContract = exports.officinaVideoPresetFromVideoJobGetContract = exports.officinaVideoPresetFromVideoStartContract = exports.officinaVideoModelFrameApproveContract = exports.officinaVideoModelFrameContract = exports.officinaVideoModelStateContract = exports.officinaVideoModelRegiaApplyContract = exports.officinaVideoOutfitProductionCreateContract = exports.officinaVideoModelProductionCreateContract = exports.officinaVideoEnvironmentApproveContract = exports.officinaVideoEnvironmentAngleGetContract = exports.officinaVideoEnvironmentAngleAddContract = exports.officinaVideoEnvironmentVersionCreateContract = exports.officinaVideoEnvironmentGetContract = exports.officinaVideoEnvironmentListContract = exports.officinaVideoEnvironmentCreateContract = exports.officinaVideoModelApproveContract = exports.officinaVideoModelRefGetContract = exports.officinaVideoModelRefAddContract = exports.officinaVideoModelVersionCreateContract = exports.officinaVideoModelGetContract = exports.officinaVideoModelListContract = exports.officinaVideoModelCreateContract = exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoLongChaptersApproveContract = void 0;
 const zod_1 = require("zod");
 const lungo_ricerca_js_1 = require("../../capability/video/lungo-ricerca.cjs");
 const lungo_js_1 = require("../../capability/video/lungo.cjs");
@@ -10,6 +11,7 @@ const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
 const footage_js_1 = require("../../capability/video/footage.cjs");
 const modella_js_1 = require("../../capability/video/modella.cjs");
+const ambiente_js_1 = require("../../capability/video/ambiente.cjs");
 const abito_js_1 = require("../../capability/video/abito.cjs");
 const produzione_modella_js_1 = require("../../capability/video/produzione-modella.cjs");
 const preset_da_video_js_1 = require("../../capability/video/preset-da-video.cjs");
@@ -214,6 +216,80 @@ exports.officinaVideoModelApproveContract = {
     querySchema: modella_js_1.VideoModelScopeQuerySchema,
     requestSchema: modella_js_1.VideoModelApproveRequestSchema,
     responseSchema: modella_js_1.VideoModelVersionSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: environment Create. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoEnvironmentCreateContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/ambienti',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: ambiente_js_1.VideoEnvironmentScopeQuerySchema,
+    requestSchema: ambiente_js_1.VideoEnvironmentCreateRequestSchema,
+    responseSchema: ambiente_js_1.VideoEnvironmentSchema,
+    responseStatus: 201,
+};
+/** cap-video -> engine: environment List. An empty scope returns environments: []. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoEnvironmentListContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/ambienti',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: ambiente_js_1.VideoEnvironmentScopeQuerySchema,
+    responseSchema: ambiente_js_1.VideoEnvironmentListSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: environment Get. An environment of another tenant or agent is 404. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoEnvironmentGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/ambienti/:environmentId',
+    paramsSchema: zod_1.z.object({ environmentId: ambiente_js_1.VideoEnvironmentIdSchema }).strict(),
+    querySchema: ambiente_js_1.VideoEnvironmentScopeQuerySchema,
+    responseSchema: ambiente_js_1.VideoEnvironmentSchema,
+    responseStatus: 200,
+};
+/** cap-video -> engine: environment VersionCreate. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoEnvironmentVersionCreateContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/ambienti/:environmentId/versioni',
+    paramsSchema: zod_1.z.object({ environmentId: ambiente_js_1.VideoEnvironmentIdSchema }).strict(),
+    querySchema: ambiente_js_1.VideoEnvironmentScopeQuerySchema,
+    requestSchema: ambiente_js_1.VideoEnvironmentVersionCreateRequestSchema,
+    responseSchema: ambiente_js_1.VideoEnvironmentVersionSchema,
+    responseStatus: 201,
+};
+/** cap-video -> engine: environment AngleAdd. The generation happens inside the call. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoEnvironmentAngleAddContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/ambienti/:environmentId/versioni/:version/angolazioni',
+    paramsSchema: zod_1.z.object({ environmentId: ambiente_js_1.VideoEnvironmentIdSchema, version: ambiente_js_1.VideoEnvironmentVersionParamSchema }).strict(),
+    querySchema: ambiente_js_1.VideoEnvironmentScopeQuerySchema,
+    requestSchema: ambiente_js_1.VideoEnvironmentAngleRequestSchema,
+    responseSchema: ambiente_js_1.VideoEnvironmentVersionSchema,
+    responseStatus: 201,
+};
+/** cap-video -> engine: environment AngleGet. The response is a binary image. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoEnvironmentAngleGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/ambienti/:environmentId/versioni/:version/angolazioni/:angle',
+    paramsSchema: zod_1.z.object({ environmentId: ambiente_js_1.VideoEnvironmentIdSchema, version: ambiente_js_1.VideoEnvironmentVersionParamSchema, angle: ambiente_js_1.VideoEnvironmentAngleNameSchema }).strict(),
+    querySchema: ambiente_js_1.VideoEnvironmentScopeQuerySchema,
+    responseMediaTypes: modella_js_1.VIDEO_MODEL_REF_MEDIA_TYPES,
+    responseStatus: 200,
+};
+/** cap-video -> engine: environment Approve. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+exports.officinaVideoEnvironmentApproveContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'POST',
+    path: '/api/ambienti/:environmentId/versioni/:version/approva',
+    paramsSchema: zod_1.z.object({ environmentId: ambiente_js_1.VideoEnvironmentIdSchema, version: ambiente_js_1.VideoEnvironmentVersionParamSchema }).strict(),
+    querySchema: ambiente_js_1.VideoEnvironmentScopeQuerySchema,
+    requestSchema: ambiente_js_1.VideoEnvironmentApproveRequestSchema,
+    responseSchema: ambiente_js_1.VideoEnvironmentVersionSchema,
     responseStatus: 200,
 };
 /** cap-video -> engine: create a production from the approved model and binary look image. */

@@ -3,6 +3,7 @@ import { CapabilityAgentScopeSchema } from "../capability-call-identity.js";
 import { VideoAspectRatioSchema, VideoPresetIdSchema } from "./brief.js";
 import { VideoEngineIdSchema } from "./engine.js";
 import { VideoModelIdSchema } from "./modella.js";
+import { VideoEnvironmentIdSchema, VideoEnvironmentVersionNumberSchema } from "./ambiente.js";
 export const VIDEO_LONG_MIN_SECONDS = 120;
 export const VIDEO_LONG_MAX_SECONDS = 1200;
 export const VIDEO_LONG_MAX_CHAPTERS = 24;
@@ -25,6 +26,10 @@ const projectFields = {
     modelId: VideoModelIdSchema.nullable(),
     brief: z.string().min(1).max(6000),
     budgetUsd: z.number().positive().finite(),
+    // The engine checks approved environments, pinned versions and consistent project follow-ups.
+    environmentId: VideoEnvironmentIdSchema.optional(),
+    environmentVersion: VideoEnvironmentVersionNumberSchema.optional(),
+    followsProjectId: VideoLongProjectIdSchema.optional(),
 };
 export const VideoLongCreateRequestSchema = z.strictObject({
     requestedBy: z.string().min(1).max(256),

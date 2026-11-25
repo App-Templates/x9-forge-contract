@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.327.0 — Officina video: libreria degli ambienti (versioni, angolazioni, richiesta di angolazione) e seguito di nel progetto lungo, additivo
+
+- Contratti della libreria degli ambienti (`VideoEnvironment*`): ambienti, versioni, angolazioni, richiesta di angolazione e approvazione, con i relativi tipi.
+- Sette trasporti HTTP nel catalogo portabile: `videoEngineEnvironmentCreate`, `videoEngineEnvironmentList`, `videoEngineEnvironmentGet`, `videoEngineEnvironmentVersionCreate`, `videoEngineEnvironmentAngleAdd`, `videoEngineEnvironmentAngleGet` e `videoEngineEnvironmentApprove`.
+- Progetto lungo: `environmentId`, `environmentVersion` e `followsProjectId` sono tutti opzionali, per associare un ambiente e la sua versione e indicare il progetto di cui si realizza il seguito.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: contratti e trasporti delle 9217-9218 additivi, con i tre nuovi campi del progetto opzionali. Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 600 riferimenti Git locali e remoti tracciati, inclusi `origin/main` e i rami delle altre corsie del ponte: 1.326.0 è l'ultima presa; 1.327.0 è la minore successiva libera.
+
 ## v1.326.0 — Officina video: ricerca a bozza approvata con fonti e capitoli con ipotesi di frame, additivo
 
 - Contratti della ricerca a bozza approvata, del dossier con fonti e affermazioni e dei capitoli con ipotesi di frame (`VideoLong*`), con i relativi tipi.

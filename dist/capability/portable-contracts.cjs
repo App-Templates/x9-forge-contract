@@ -30,7 +30,9 @@ const internal_agents_ordinary_authority_js_1 = require("../http/endpoints/inter
 const internal_capability_agent_js_1 = require("../http/endpoints/internal-capability-agent.cjs");
 const cap_tool_call_js_1 = require("../http/endpoints/cap-tool-call.cjs");
 const officina_video_js_3 = require("../http/endpoints/officina-video.cjs");
+const officina_video_js_4 = require("../http/endpoints/officina-video.cjs");
 const modella_js_1 = require("./video/modella.cjs");
+const ambiente_js_1 = require("./video/ambiente.cjs");
 const abito_js_1 = require("./video/abito.cjs");
 const produzione_modella_js_1 = require("./video/produzione-modella.cjs");
 const preset_da_video_js_1 = require("./video/preset-da-video.cjs");
@@ -220,6 +222,14 @@ function getPortableCapabilityContracts() {
     add('videoEngineUserPresetList', preset_da_video_js_1.VideoUserPresetListSchema, [], 0);
     add('videoEngineUserPreset', preset_da_video_js_1.VideoUserPresetSchema, [], 0);
     add('videoEnginePresetSaveRequest', preset_da_video_js_1.VideoPresetSaveRequestSchema, [], 0);
+    add('videoEngineEnvironmentQuery', ambiente_js_1.VideoEnvironmentScopeQuerySchema, [], 0);
+    add('videoEngineEnvironmentCreateRequest', ambiente_js_1.VideoEnvironmentCreateRequestSchema, [], 0);
+    add('videoEngineEnvironment', ambiente_js_1.VideoEnvironmentSchema, [], 0);
+    add('videoEngineEnvironmentList', ambiente_js_1.VideoEnvironmentListSchema, [], 0);
+    add('videoEngineEnvironmentVersionCreateRequest', ambiente_js_1.VideoEnvironmentVersionCreateRequestSchema, [], 0);
+    add('videoEngineEnvironmentVersion', ambiente_js_1.VideoEnvironmentVersionSchema, [], 0);
+    add('videoEngineEnvironmentAngleRequest', ambiente_js_1.VideoEnvironmentAngleRequestSchema, [], 0);
+    add('videoEngineEnvironmentApproveRequest', ambiente_js_1.VideoEnvironmentApproveRequestSchema, [], 0);
     add('videoEngineModelRegia', regia_js_1.VideoModelRegiaDocumentSchema, [], 0);
     add('videoEngineModelState', produzione_modella_js_1.VideoModelProductionStateSchema, [], 0);
     add('videoEngineModelFrameRequest', produzione_modella_js_1.VideoModelFrameRequestSchema, [], 0);
@@ -296,6 +306,13 @@ function getPortableCapabilityContracts() {
             videoEngineUserPresetList: { ...transport(officina_video_js_3.officinaVideoUserPresetListContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPresetList', errorContract: 'videoEngineError' },
             videoEngineUserPresetGet: { ...transport(officina_video_js_3.officinaVideoUserPresetGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
             videoEngineUserPresetSave: { ...transport(officina_video_js_3.officinaVideoUserPresetSaveContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetSaveRequest', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentCreate: { ...transport(officina_video_js_4.officinaVideoEnvironmentCreateContract), queryContract: 'videoEngineEnvironmentQuery', requestContract: 'videoEngineEnvironmentCreateRequest', responseContract: 'videoEngineEnvironment', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentList: { ...transport(officina_video_js_4.officinaVideoEnvironmentListContract), queryContract: 'videoEngineEnvironmentQuery', responseContract: 'videoEngineEnvironmentList', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentGet: { ...transport(officina_video_js_4.officinaVideoEnvironmentGetContract), queryContract: 'videoEngineEnvironmentQuery', responseContract: 'videoEngineEnvironment', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentVersionCreate: { ...transport(officina_video_js_4.officinaVideoEnvironmentVersionCreateContract), queryContract: 'videoEngineEnvironmentQuery', requestContract: 'videoEngineEnvironmentVersionCreateRequest', responseContract: 'videoEngineEnvironmentVersion', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentAngleAdd: { ...transport(officina_video_js_4.officinaVideoEnvironmentAngleAddContract), queryContract: 'videoEngineEnvironmentQuery', requestContract: 'videoEngineEnvironmentAngleRequest', responseContract: 'videoEngineEnvironmentVersion', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentAngleGet: { ...transport(officina_video_js_4.officinaVideoEnvironmentAngleGetContract), queryContract: 'videoEngineEnvironmentQuery', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentApprove: { ...transport(officina_video_js_4.officinaVideoEnvironmentApproveContract), queryContract: 'videoEngineEnvironmentQuery', requestContract: 'videoEngineEnvironmentApproveRequest', responseContract: 'videoEngineEnvironmentVersion', errorContract: 'videoEngineError' },
             videoEngineModelRegiaApply: { ...transport(officina_video_js_3.officinaVideoModelRegiaApplyContract), requestContract: 'videoEngineModelRegia', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineModelState: { ...transport(officina_video_js_3.officinaVideoModelStateContract), responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineModelFrame: { ...transport(officina_video_js_3.officinaVideoModelFrameContract), requestContract: 'videoEngineModelFrameRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },

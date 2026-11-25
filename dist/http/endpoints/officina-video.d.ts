@@ -1329,6 +1329,377 @@ export declare const officinaVideoModelApproveContract: {
     }, z.core.$strict>;
     readonly responseStatus: 200;
 };
+/** cap-video -> engine: environment Create. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export declare const officinaVideoEnvironmentCreateContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/ambienti";
+    readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        name: z.ZodString;
+        kind: z.ZodEnum<{
+            studio: "studio";
+            esterno: "esterno";
+            documentario: "documentario";
+        }>;
+        description: z.ZodObject<{
+            room: z.ZodString;
+            furniture: z.ZodString;
+            light: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        name: z.ZodString;
+        kind: z.ZodEnum<{
+            studio: "studio";
+            esterno: "esterno";
+            documentario: "documentario";
+        }>;
+        identity: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        versions: z.ZodArray<z.ZodObject<{
+            number: z.ZodNumber;
+            status: z.ZodEnum<{
+                bozza: "bozza";
+                approvata: "approvata";
+                sostituita: "sostituita";
+            }>;
+            description: z.ZodObject<{
+                room: z.ZodString;
+                furniture: z.ZodString;
+                light: z.ZodString;
+            }, z.core.$strict>;
+            angles: z.ZodArray<z.ZodObject<{
+                name: z.ZodString;
+                framing: z.ZodString;
+                imagePath: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>>;
+            createdAt: z.ZodString;
+            approvedAt: z.ZodNullable<z.ZodString>;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
+        currentVersion: z.ZodNullable<z.ZodNumber>;
+    }, z.core.$strict>;
+    readonly responseStatus: 201;
+};
+/** cap-video -> engine: environment List. An empty scope returns environments: []. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export declare const officinaVideoEnvironmentListContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/ambienti";
+    readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        environments: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            name: z.ZodString;
+            kind: z.ZodEnum<{
+                studio: "studio";
+                esterno: "esterno";
+                documentario: "documentario";
+            }>;
+            identity: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            versions: z.ZodArray<z.ZodObject<{
+                number: z.ZodNumber;
+                status: z.ZodEnum<{
+                    bozza: "bozza";
+                    approvata: "approvata";
+                    sostituita: "sostituita";
+                }>;
+                description: z.ZodObject<{
+                    room: z.ZodString;
+                    furniture: z.ZodString;
+                    light: z.ZodString;
+                }, z.core.$strict>;
+                angles: z.ZodArray<z.ZodObject<{
+                    name: z.ZodString;
+                    framing: z.ZodString;
+                    imagePath: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>>;
+                createdAt: z.ZodString;
+                approvedAt: z.ZodNullable<z.ZodString>;
+                digest: z.ZodString;
+            }, z.core.$strict>>;
+            currentVersion: z.ZodNullable<z.ZodNumber>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: environment Get. An environment of another tenant or agent is 404. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export declare const officinaVideoEnvironmentGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/ambienti/:environmentId";
+    readonly paramsSchema: z.ZodObject<{
+        environmentId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        name: z.ZodString;
+        kind: z.ZodEnum<{
+            studio: "studio";
+            esterno: "esterno";
+            documentario: "documentario";
+        }>;
+        identity: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        versions: z.ZodArray<z.ZodObject<{
+            number: z.ZodNumber;
+            status: z.ZodEnum<{
+                bozza: "bozza";
+                approvata: "approvata";
+                sostituita: "sostituita";
+            }>;
+            description: z.ZodObject<{
+                room: z.ZodString;
+                furniture: z.ZodString;
+                light: z.ZodString;
+            }, z.core.$strict>;
+            angles: z.ZodArray<z.ZodObject<{
+                name: z.ZodString;
+                framing: z.ZodString;
+                imagePath: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>>;
+            createdAt: z.ZodString;
+            approvedAt: z.ZodNullable<z.ZodString>;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
+        currentVersion: z.ZodNullable<z.ZodNumber>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: environment VersionCreate. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export declare const officinaVideoEnvironmentVersionCreateContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/ambienti/:environmentId/versioni";
+    readonly paramsSchema: z.ZodObject<{
+        environmentId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        description: z.ZodObject<{
+            room: z.ZodString;
+            furniture: z.ZodString;
+            light: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        number: z.ZodNumber;
+        status: z.ZodEnum<{
+            bozza: "bozza";
+            approvata: "approvata";
+            sostituita: "sostituita";
+        }>;
+        description: z.ZodObject<{
+            room: z.ZodString;
+            furniture: z.ZodString;
+            light: z.ZodString;
+        }, z.core.$strict>;
+        angles: z.ZodArray<z.ZodObject<{
+            name: z.ZodString;
+            framing: z.ZodString;
+            imagePath: z.ZodString;
+            sha256: z.ZodString;
+        }, z.core.$strict>>;
+        createdAt: z.ZodString;
+        approvedAt: z.ZodNullable<z.ZodString>;
+        digest: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 201;
+};
+/** cap-video -> engine: environment AngleAdd. The generation happens inside the call. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export declare const officinaVideoEnvironmentAngleAddContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/ambienti/:environmentId/versioni/:version/angolazioni";
+    readonly paramsSchema: z.ZodObject<{
+        environmentId: z.ZodString;
+        version: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        projectId: z.ZodString;
+        name: z.ZodString;
+        framing: z.ZodString;
+        modelId: z.ZodNullable<z.ZodString>;
+        maxCostUsd: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        number: z.ZodNumber;
+        status: z.ZodEnum<{
+            bozza: "bozza";
+            approvata: "approvata";
+            sostituita: "sostituita";
+        }>;
+        description: z.ZodObject<{
+            room: z.ZodString;
+            furniture: z.ZodString;
+            light: z.ZodString;
+        }, z.core.$strict>;
+        angles: z.ZodArray<z.ZodObject<{
+            name: z.ZodString;
+            framing: z.ZodString;
+            imagePath: z.ZodString;
+            sha256: z.ZodString;
+        }, z.core.$strict>>;
+        createdAt: z.ZodString;
+        approvedAt: z.ZodNullable<z.ZodString>;
+        digest: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 201;
+};
+/** cap-video -> engine: environment AngleGet. The response is a binary image. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export declare const officinaVideoEnvironmentAngleGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/ambienti/:environmentId/versioni/:version/angolazioni/:angle";
+    readonly paramsSchema: z.ZodObject<{
+        environmentId: z.ZodString;
+        version: z.ZodString;
+        angle: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseMediaTypes: readonly ["image/png", "image/jpeg"];
+    readonly responseStatus: 200;
+};
+/** cap-video -> engine: environment Approve. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export declare const officinaVideoEnvironmentApproveContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/ambienti/:environmentId/versioni/:version/approva";
+    readonly paramsSchema: z.ZodObject<{
+        environmentId: z.ZodString;
+        version: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        digest: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        number: z.ZodNumber;
+        status: z.ZodEnum<{
+            bozza: "bozza";
+            approvata: "approvata";
+            sostituita: "sostituita";
+        }>;
+        description: z.ZodObject<{
+            room: z.ZodString;
+            furniture: z.ZodString;
+            light: z.ZodString;
+        }, z.core.$strict>;
+        angles: z.ZodArray<z.ZodObject<{
+            name: z.ZodString;
+            framing: z.ZodString;
+            imagePath: z.ZodString;
+            sha256: z.ZodString;
+        }, z.core.$strict>>;
+        createdAt: z.ZodString;
+        approvedAt: z.ZodNullable<z.ZodString>;
+        digest: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
 /** cap-video -> engine: create a production from the approved model and binary look image. */
 export declare const officinaVideoModelProductionCreateContract: {
     readonly errorSchema: z.ZodObject<{
@@ -2065,6 +2436,9 @@ export declare const officinaVideoLongCreateContract: {
         modelId: z.ZodNullable<z.ZodString>;
         brief: z.ZodString;
         budgetUsd: z.ZodNumber;
+        environmentId: z.ZodOptional<z.ZodString>;
+        environmentVersion: z.ZodOptional<z.ZodNumber>;
+        followsProjectId: z.ZodOptional<z.ZodString>;
         requestedBy: z.ZodString;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -2102,6 +2476,9 @@ export declare const officinaVideoLongCreateContract: {
         modelId: z.ZodNullable<z.ZodString>;
         brief: z.ZodString;
         budgetUsd: z.ZodNumber;
+        environmentId: z.ZodOptional<z.ZodString>;
+        environmentVersion: z.ZodOptional<z.ZodNumber>;
+        followsProjectId: z.ZodOptional<z.ZodString>;
         id: z.ZodString;
         identity: z.ZodObject<{
             agentId: z.ZodString;
@@ -2166,6 +2543,9 @@ export declare const officinaVideoLongListContract: {
             modelId: z.ZodNullable<z.ZodString>;
             brief: z.ZodString;
             budgetUsd: z.ZodNumber;
+            environmentId: z.ZodOptional<z.ZodString>;
+            environmentVersion: z.ZodOptional<z.ZodNumber>;
+            followsProjectId: z.ZodOptional<z.ZodString>;
             id: z.ZodString;
             identity: z.ZodObject<{
                 agentId: z.ZodString;
@@ -2232,6 +2612,9 @@ export declare const officinaVideoLongGetContract: {
         modelId: z.ZodNullable<z.ZodString>;
         brief: z.ZodString;
         budgetUsd: z.ZodNumber;
+        environmentId: z.ZodOptional<z.ZodString>;
+        environmentVersion: z.ZodOptional<z.ZodNumber>;
+        followsProjectId: z.ZodOptional<z.ZodString>;
         id: z.ZodString;
         identity: z.ZodObject<{
             agentId: z.ZodString;

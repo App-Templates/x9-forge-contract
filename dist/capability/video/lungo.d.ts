@@ -69,6 +69,9 @@ export declare const VideoLongCreateRequestSchema: z.ZodObject<{
     modelId: z.ZodNullable<z.ZodString>;
     brief: z.ZodString;
     budgetUsd: z.ZodNumber;
+    environmentId: z.ZodOptional<z.ZodString>;
+    environmentVersion: z.ZodOptional<z.ZodNumber>;
+    followsProjectId: z.ZodOptional<z.ZodString>;
     requestedBy: z.ZodString;
 }, z.core.$strict>;
 export type VideoLongCreateRequest = z.infer<typeof VideoLongCreateRequestSchema>;
@@ -108,6 +111,9 @@ export declare const VideoLongProjectSchema: z.ZodObject<{
     modelId: z.ZodNullable<z.ZodString>;
     brief: z.ZodString;
     budgetUsd: z.ZodNumber;
+    environmentId: z.ZodOptional<z.ZodString>;
+    environmentVersion: z.ZodOptional<z.ZodNumber>;
+    followsProjectId: z.ZodOptional<z.ZodString>;
     id: z.ZodString;
     identity: z.ZodObject<{
         agentId: z.ZodString;
@@ -152,6 +158,9 @@ export declare const VideoLongProjectListSchema: z.ZodObject<{
         modelId: z.ZodNullable<z.ZodString>;
         brief: z.ZodString;
         budgetUsd: z.ZodNumber;
+        environmentId: z.ZodOptional<z.ZodString>;
+        environmentVersion: z.ZodOptional<z.ZodNumber>;
+        followsProjectId: z.ZodOptional<z.ZodString>;
         id: z.ZodString;
         identity: z.ZodObject<{
             agentId: z.ZodString;

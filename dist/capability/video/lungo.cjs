@@ -6,6 +6,7 @@ const capability_call_identity_js_1 = require("../capability-call-identity.cjs")
 const brief_js_1 = require("./brief.cjs");
 const engine_js_1 = require("./engine.cjs");
 const modella_js_1 = require("./modella.cjs");
+const ambiente_js_1 = require("./ambiente.cjs");
 exports.VIDEO_LONG_MIN_SECONDS = 120;
 exports.VIDEO_LONG_MAX_SECONDS = 1200;
 exports.VIDEO_LONG_MAX_CHAPTERS = 24;
@@ -28,6 +29,10 @@ const projectFields = {
     modelId: modella_js_1.VideoModelIdSchema.nullable(),
     brief: zod_1.z.string().min(1).max(6000),
     budgetUsd: zod_1.z.number().positive().finite(),
+    // The engine checks approved environments, pinned versions and consistent project follow-ups.
+    environmentId: ambiente_js_1.VideoEnvironmentIdSchema.optional(),
+    environmentVersion: ambiente_js_1.VideoEnvironmentVersionNumberSchema.optional(),
+    followsProjectId: exports.VideoLongProjectIdSchema.optional(),
 };
 exports.VideoLongCreateRequestSchema = zod_1.z.strictObject({
     requestedBy: zod_1.z.string().min(1).max(256),

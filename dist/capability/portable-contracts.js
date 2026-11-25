@@ -21,7 +21,9 @@ import { agentOrdinaryAuthorityContract } from "../http/endpoints/internal-agent
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from "../http/endpoints/internal-capability-agent.js";
 import { capToolCallContract } from "../http/endpoints/cap-tool-call.js";
 import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract, officinaVideoFootageListContract, officinaVideoModelCreateContract, officinaVideoModelListContract, officinaVideoModelGetContract, officinaVideoModelVersionCreateContract, officinaVideoModelRefAddContract, officinaVideoModelRefGetContract, officinaVideoModelApproveContract, officinaVideoModelProductionCreateContract, officinaVideoOutfitProductionCreateContract, officinaVideoModelRegiaApplyContract, officinaVideoModelStateContract, officinaVideoModelFrameContract, officinaVideoModelFrameApproveContract, officinaVideoPresetFromVideoStartContract, officinaVideoPresetFromVideoJobGetContract, officinaVideoUserPresetListContract, officinaVideoUserPresetGetContract, officinaVideoUserPresetSaveContract } from "../http/endpoints/officina-video.js";
+import { officinaVideoEnvironmentCreateContract, officinaVideoEnvironmentListContract, officinaVideoEnvironmentGetContract, officinaVideoEnvironmentVersionCreateContract, officinaVideoEnvironmentAngleAddContract, officinaVideoEnvironmentAngleGetContract, officinaVideoEnvironmentApproveContract } from "../http/endpoints/officina-video.js";
 import { VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema, VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelSchema, VideoModelListSchema, VideoModelVersionSchema } from "./video/modella.js";
+import { VideoEnvironmentScopeQuerySchema, VideoEnvironmentCreateRequestSchema, VideoEnvironmentSchema, VideoEnvironmentListSchema, VideoEnvironmentVersionSchema, VideoEnvironmentAngleRequestSchema, VideoEnvironmentApproveRequestSchema, VideoEnvironmentVersionCreateRequestSchema } from "./video/ambiente.js";
 import { VideoOutfitProductionQuerySchema, VideoOutfitProductionCreatedSchema } from "./video/abito.js";
 import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from "./video/produzione-modella.js";
 import { VideoPresetFromVideoStartQuerySchema, VideoPresetFromVideoStartRequestSchema, VideoPresetFromVideoJobSchema, VideoUserPresetListSchema, VideoUserPresetSchema, VideoPresetSaveRequestSchema } from "./video/preset-da-video.js";
@@ -211,6 +213,14 @@ export function getPortableCapabilityContracts() {
     add('videoEngineUserPresetList', VideoUserPresetListSchema, [], 0);
     add('videoEngineUserPreset', VideoUserPresetSchema, [], 0);
     add('videoEnginePresetSaveRequest', VideoPresetSaveRequestSchema, [], 0);
+    add('videoEngineEnvironmentQuery', VideoEnvironmentScopeQuerySchema, [], 0);
+    add('videoEngineEnvironmentCreateRequest', VideoEnvironmentCreateRequestSchema, [], 0);
+    add('videoEngineEnvironment', VideoEnvironmentSchema, [], 0);
+    add('videoEngineEnvironmentList', VideoEnvironmentListSchema, [], 0);
+    add('videoEngineEnvironmentVersionCreateRequest', VideoEnvironmentVersionCreateRequestSchema, [], 0);
+    add('videoEngineEnvironmentVersion', VideoEnvironmentVersionSchema, [], 0);
+    add('videoEngineEnvironmentAngleRequest', VideoEnvironmentAngleRequestSchema, [], 0);
+    add('videoEngineEnvironmentApproveRequest', VideoEnvironmentApproveRequestSchema, [], 0);
     add('videoEngineModelRegia', VideoModelRegiaDocumentSchema, [], 0);
     add('videoEngineModelState', VideoModelProductionStateSchema, [], 0);
     add('videoEngineModelFrameRequest', VideoModelFrameRequestSchema, [], 0);
@@ -287,6 +297,13 @@ export function getPortableCapabilityContracts() {
             videoEngineUserPresetList: { ...transport(officinaVideoUserPresetListContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPresetList', errorContract: 'videoEngineError' },
             videoEngineUserPresetGet: { ...transport(officinaVideoUserPresetGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
             videoEngineUserPresetSave: { ...transport(officinaVideoUserPresetSaveContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetSaveRequest', responseContract: 'videoEngineUserPreset', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentCreate: { ...transport(officinaVideoEnvironmentCreateContract), queryContract: 'videoEngineEnvironmentQuery', requestContract: 'videoEngineEnvironmentCreateRequest', responseContract: 'videoEngineEnvironment', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentList: { ...transport(officinaVideoEnvironmentListContract), queryContract: 'videoEngineEnvironmentQuery', responseContract: 'videoEngineEnvironmentList', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentGet: { ...transport(officinaVideoEnvironmentGetContract), queryContract: 'videoEngineEnvironmentQuery', responseContract: 'videoEngineEnvironment', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentVersionCreate: { ...transport(officinaVideoEnvironmentVersionCreateContract), queryContract: 'videoEngineEnvironmentQuery', requestContract: 'videoEngineEnvironmentVersionCreateRequest', responseContract: 'videoEngineEnvironmentVersion', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentAngleAdd: { ...transport(officinaVideoEnvironmentAngleAddContract), queryContract: 'videoEngineEnvironmentQuery', requestContract: 'videoEngineEnvironmentAngleRequest', responseContract: 'videoEngineEnvironmentVersion', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentAngleGet: { ...transport(officinaVideoEnvironmentAngleGetContract), queryContract: 'videoEngineEnvironmentQuery', errorContract: 'videoEngineError' },
+            videoEngineEnvironmentApprove: { ...transport(officinaVideoEnvironmentApproveContract), queryContract: 'videoEngineEnvironmentQuery', requestContract: 'videoEngineEnvironmentApproveRequest', responseContract: 'videoEngineEnvironmentVersion', errorContract: 'videoEngineError' },
             videoEngineModelRegiaApply: { ...transport(officinaVideoModelRegiaApplyContract), requestContract: 'videoEngineModelRegia', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineModelState: { ...transport(officinaVideoModelStateContract), responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
             videoEngineModelFrame: { ...transport(officinaVideoModelFrameContract), requestContract: 'videoEngineModelFrameRequest', responseContract: 'videoEngineModelState', errorContract: 'videoEngineError' },
