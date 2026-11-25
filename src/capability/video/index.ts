@@ -553,6 +553,30 @@ export {
   type VideoLongDossierDocument,
   type VideoLongDossier,
 } from './lungo-ricerca.js';
+export {
+  VIDEO_LONG_MAX_SHOTS_PER_CHAPTER,
+  VIDEO_LONG_MIN_SHOT_SECONDS,
+  VIDEO_LONG_MAX_SHOT_SECONDS,
+  VIDEO_LONG_BATCH_MAX_SCENES,
+  VIDEO_LONG_BATCH_MAX_SECONDS,
+  VIDEO_LONG_SPEECH_CHARS_PER_SECOND,
+  VIDEO_LONG_SHOT_SUM_TOLERANCE,
+  VIDEO_LONG_MAX_SECONDS_WITHOUT_INTERVIEW,
+  VideoLongShotRenderSchema,
+  VideoLongShotSchema,
+  VideoLongChapterShotsSchema,
+  VideoLongFramesDocumentSchema,
+  VideoLongFramesStatusSchema,
+  VideoLongFramesSchema,
+  VideoLongFramesApproveRequestSchema,
+  type VideoLongShotRender,
+  type VideoLongShot,
+  type VideoLongChapterShots,
+  type VideoLongFramesDocument,
+  type VideoLongFramesStatus,
+  type VideoLongFrames,
+  type VideoLongFramesApproveRequest,
+} from './lungo-fotogrammi.js';
 
 export {
   VIDEO_ENVIRONMENT_KINDS,
