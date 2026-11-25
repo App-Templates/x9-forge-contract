@@ -30,6 +30,15 @@ export const VideoLongCreateToolInputSchema = VideoLongCreateRequestSchema.omit(
   modelId: VideoLongCreateRequestSchema.shape.modelId.describe('Identificativo del personaggio; null se assente.'),
   brief: VideoLongCreateRequestSchema.shape.brief.describe('Indicazioni per il contenuto del video lungo.'),
   budgetUsd: VideoLongCreateRequestSchema.shape.budgetUsd.describe('Budget del progetto in dollari.'),
+  environmentId: VideoLongCreateRequestSchema.shape.environmentId.describe(
+    "Identificativo dell'ambiente approvato in cui si gira (da video_environment_list); se manca, nessun ambiente.",
+  ),
+  environmentVersion: VideoLongCreateRequestSchema.shape.environmentVersion.describe(
+    "Versione dell'ambiente da fissare nel progetto; se manca, la più recente approvata.",
+  ),
+  followsProjectId: VideoLongCreateRequestSchema.shape.followsProjectId.describe(
+    'Identificativo del progetto lungo di cui questo è il seguito: ne eredita personaggio e ambiente.',
+  ),
 }).describe('Crea un progetto video lungo.');
 export type VideoLongCreateToolInput = z.infer<typeof VideoLongCreateToolInputSchema>;
 

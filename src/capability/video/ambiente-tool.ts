@@ -5,7 +5,10 @@ import {
   VideoEnvironmentCreateRequestSchema,
   VideoEnvironmentDescriptionSchema,
   VideoEnvironmentIdSchema,
+  VideoEnvironmentListSchema,
+  VideoEnvironmentSchema,
   VideoEnvironmentVersionNumberSchema,
+  VideoEnvironmentVersionSchema,
 } from './ambiente.js';
 
 export const VIDEO_ENVIRONMENT_LIST_TOOL = 'video_environment_list';
@@ -73,3 +76,73 @@ export const VideoEnvironmentApproveToolInputSchema = z
   })
   .describe('Approva una versione dell\'ambiente, così il seguito la eredita.');
 export type VideoEnvironmentApproveToolInput = z.infer<typeof VideoEnvironmentApproveToolInputSchema>;
+
+export const VIDEO_ENVIRONMENT_GET_REASONS = ['ambiente_non_trovato', 'motore_non_disponibile'] as const;
+export const VIDEO_ENVIRONMENT_CREATE_REASONS = ['nome_esistente', 'richiesta_non_valida', 'motore_non_disponibile'] as const;
+export const VIDEO_ENVIRONMENT_VERSION_CREATE_REASONS = [
+  'ambiente_non_trovato',
+  'versioni_troppe',
+  'richiesta_non_valida',
+  'motore_non_disponibile',
+] as const;
+export const VIDEO_ENVIRONMENT_ANGLE_ADD_REASONS = [
+  'progetto_sconosciuto',
+  'ambiente_non_trovato',
+  'versione_non_trovata',
+  'versione_approvata',
+  'angolazione_esistente',
+  'angolazioni_troppe',
+  'modello_non_approvato',
+  'riferimento_alterato',
+  'costo_oltre_tetto',
+  'budget_insufficiente',
+  'generazione_fallita',
+  'generazione_non_disponibile',
+  'richiesta_non_valida',
+  'motore_non_disponibile',
+] as const;
+export const VIDEO_ENVIRONMENT_APPROVE_REASONS = [
+  'ambiente_non_trovato',
+  'versione_non_trovata',
+  'versione_approvata',
+  'digest_cambiato',
+  'senza_angolazioni',
+  'motore_non_disponibile',
+] as const;
+
+export const VideoEnvironmentListToolResponseSchema = VideoEnvironmentListSchema;
+export type VideoEnvironmentListToolResponse = z.infer<typeof VideoEnvironmentListToolResponseSchema>;
+
+export const VideoEnvironmentGetToolResponseSchema = z.discriminatedUnion('status', [
+  z.strictObject({ status: z.literal('trovato'), environment: VideoEnvironmentSchema }),
+  z.strictObject({ status: z.literal('rifiutata'), reason: z.enum(VIDEO_ENVIRONMENT_GET_REASONS), message: z.string() }),
+]);
+export type VideoEnvironmentGetToolResponse = z.infer<typeof VideoEnvironmentGetToolResponseSchema>;
+
+export const VideoEnvironmentCreateToolResponseSchema = z.discriminatedUnion('status', [
+  z.strictObject({ status: z.literal('creato'), environment: VideoEnvironmentSchema }),
+  z.strictObject({ status: z.literal('rifiutata'), reason: z.enum(VIDEO_ENVIRONMENT_CREATE_REASONS), message: z.string() }),
+]);
+export type VideoEnvironmentCreateToolResponse = z.infer<typeof VideoEnvironmentCreateToolResponseSchema>;
+
+export const VideoEnvironmentVersionCreateToolResponseSchema = z.discriminatedUnion('status', [
+  z.strictObject({ status: z.literal('versione_creata'), version: VideoEnvironmentVersionSchema }),
+  z.strictObject({
+    status: z.literal('rifiutata'),
+    reason: z.enum(VIDEO_ENVIRONMENT_VERSION_CREATE_REASONS),
+    message: z.string(),
+  }),
+]);
+export type VideoEnvironmentVersionCreateToolResponse = z.infer<typeof VideoEnvironmentVersionCreateToolResponseSchema>;
+
+export const VideoEnvironmentAngleAddToolResponseSchema = z.discriminatedUnion('status', [
+  z.strictObject({ status: z.literal('angolazione_aggiunta'), version: VideoEnvironmentVersionSchema }),
+  z.strictObject({ status: z.literal('rifiutata'), reason: z.enum(VIDEO_ENVIRONMENT_ANGLE_ADD_REASONS), message: z.string() }),
+]);
+export type VideoEnvironmentAngleAddToolResponse = z.infer<typeof VideoEnvironmentAngleAddToolResponseSchema>;
+
+export const VideoEnvironmentApproveToolResponseSchema = z.discriminatedUnion('status', [
+  z.strictObject({ status: z.literal('approvata'), version: VideoEnvironmentVersionSchema }),
+  z.strictObject({ status: z.literal('rifiutata'), reason: z.enum(VIDEO_ENVIRONMENT_APPROVE_REASONS), message: z.string() }),
+]);
+export type VideoEnvironmentApproveToolResponse = z.infer<typeof VideoEnvironmentApproveToolResponseSchema>;

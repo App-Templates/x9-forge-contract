@@ -19,6 +19,18 @@ import {
   VideoEnvironmentGetToolInputSchema,
   VideoEnvironmentListToolInputSchema,
   VideoEnvironmentVersionCreateToolInputSchema,
+  VIDEO_ENVIRONMENT_ANGLE_ADD_REASONS,
+  VIDEO_ENVIRONMENT_APPROVE_REASONS,
+  VIDEO_ENVIRONMENT_CREATE_REASONS,
+  VIDEO_ENVIRONMENT_GET_REASONS,
+  VIDEO_ENVIRONMENT_VERSION_CREATE_REASONS,
+  VideoEnvironmentAngleAddToolResponseSchema,
+  VideoEnvironmentApproveToolResponseSchema,
+  VideoEnvironmentCreateToolResponseSchema,
+  VideoEnvironmentGetToolResponseSchema,
+  VideoEnvironmentListToolResponseSchema,
+  VideoEnvironmentVersionCreateToolResponseSchema,
+  VideoLongCreateToolInputSchema,
 } from '../../../src/capability/video/index.js';
 
 const SHA = 'a'.repeat(64);
@@ -114,5 +126,98 @@ describe('video environment tools: names and inputs', () => {
       const json = z.toJSONSchema(schema);
       expect(json.type).toBe('object');
     }
+  });
+});
+
+const version = {
+  number: 1,
+  status: 'bozza',
+  description,
+  angles: [{ name: 'controcampo', framing: 'Campo medio', imagePath: 'img_1.png', sha256: SHA }],
+  createdAt: '2026-11-25T10:00:00Z',
+  approvedAt: null,
+  digest: SHA,
+};
+const environment = {
+  id: 'studio-podcast',
+  name: 'Studio podcast',
+  kind: 'studio',
+  identity: { tenantId: 'tenant-1', ownerId: 'owner-1', agentId: 'agent-1' },
+  versions: [version],
+  currentVersion: null,
+};
+
+const responses = [
+  ['get', VideoEnvironmentGetToolResponseSchema, { status: 'trovato', environment }, VIDEO_ENVIRONMENT_GET_REASONS],
+  ['create', VideoEnvironmentCreateToolResponseSchema, { status: 'creato', environment }, VIDEO_ENVIRONMENT_CREATE_REASONS],
+  [
+    'version_create',
+    VideoEnvironmentVersionCreateToolResponseSchema,
+    { status: 'versione_creata', version },
+    VIDEO_ENVIRONMENT_VERSION_CREATE_REASONS,
+  ],
+  [
+    'angle_add',
+    VideoEnvironmentAngleAddToolResponseSchema,
+    { status: 'angolazione_aggiunta', version },
+    VIDEO_ENVIRONMENT_ANGLE_ADD_REASONS,
+  ],
+  ['approve', VideoEnvironmentApproveToolResponseSchema, { status: 'approvata', version }, VIDEO_ENVIRONMENT_APPROVE_REASONS],
+] as const;
+
+// SUMMARY mutations: removing 'senza_angolazioni' from the approve reasons turns the approve rejection case red;
+// making environmentId required turns the "optional" case red.
+describe('environment tool responses', () => {
+  it.each(responses)('%s accepts its success state and rejects a bare status', (_n, schema, ok) => {
+    expect(schema.safeParse(ok).success).toBe(true);
+    expect(schema.safeParse({ status: ok.status }).success).toBe(false);
+  });
+
+  it.each(responses)('%s accepts every listed reason, requires message, rejects an invented reason', (_n, schema, _ok, reasons) => {
+    for (const reason of reasons) {
+      expect(schema.safeParse({ status: 'rifiutata', reason, message: 'No.' }).success).toBe(true);
+      expect(schema.safeParse({ status: 'rifiutata', reason }).success).toBe(false);
+    }
+    expect(schema.safeParse({ status: 'rifiutata', reason: 'inventato', message: 'No.' }).success).toBe(false);
+  });
+
+  it('approve can refuse an environment version without angles', () => {
+    expect(
+      VideoEnvironmentApproveToolResponseSchema.safeParse({ status: 'rifiutata', reason: 'senza_angolazioni', message: 'Mancano angolazioni.' })
+        .success,
+    ).toBe(true);
+  });
+
+  it('angle_add covers every engine code', () => {
+    for (const reason of [
+      'angolazione_esistente', 'angolazioni_troppe', 'modello_non_approvato', 'riferimento_alterato', 'costo_oltre_tetto',
+      'budget_insufficiente', 'generazione_fallita', 'generazione_non_disponibile', 'versione_approvata',
+    ]) {
+      expect(VIDEO_ENVIRONMENT_ANGLE_ADD_REASONS).toContain(reason);
+    }
+  });
+
+  it('list accepts an empty library', () => {
+    expect(VideoEnvironmentListToolResponseSchema.safeParse({ environments: [] }).success).toBe(true);
+  });
+});
+
+describe('video_long_create environment fields', () => {
+  const base = {
+    name: 'Podcast', family: 'essay', presetId: 'singola', aspectRatio: '16:9', durationSeconds: 600,
+    modelId: null, brief: 'Una puntata.', budgetUsd: 25,
+  };
+  it('keeps environmentId, environmentVersion and followsProjectId optional and described', () => {
+    const json = z.toJSONSchema(VideoLongCreateToolInputSchema) as {
+      required?: string[];
+      properties: Record<string, { description?: string }>;
+    };
+    for (const key of ['environmentId', 'environmentVersion', 'followsProjectId']) {
+      expect(json.required ?? []).not.toContain(key);
+      expect(json.properties[key]?.description).toBeTruthy();
+    }
+  });
+  it('still accepts a project saved today, without environment or follow-up', () => {
+    expect(VideoLongCreateToolInputSchema.safeParse(base).success).toBe(true);
   });
 });
