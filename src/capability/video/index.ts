@@ -412,3 +412,18 @@ export {
   type VideoLongProject,
   type VideoLongProjectList,
 } from './lungo.js';
+
+export {
+  VideoLongChapterSchema,
+  VideoLongUsageSchema,
+  VideoLongDraftDocumentSchema,
+  VideoLongDraftStatusSchema,
+  VideoLongDraftSchema,
+  VideoLongDraftApproveRequestSchema,
+  type VideoLongChapter,
+  type VideoLongUsage,
+  type VideoLongDraftDocument,
+  type VideoLongDraftStatus,
+  type VideoLongDraft,
+  type VideoLongDraftApproveRequest,
+} from './lungo-bozza.js';
