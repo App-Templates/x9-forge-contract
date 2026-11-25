@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.325.0 — Officina video: personaggi di Parallel (contratto, importazione nella modella fissa), additivo
+
+- Contratto del personaggio di Parallel (`VideoParallel*`: personaggio, ritratti, attributi, esportazione) con obbligatori solo i campi che esistono.
+- Richiesta, risultato ed errore di importazione di un personaggio (`VideoParallelImport*`); `origin` e `parallelRef` opzionali nella modella fissa.
+- Catalogo portabile: `parallelCharacterExportContract` (GET `/companion/export-characters`) e `officinaVideoParallelImportContract` (POST `/api/modelle/da-parallel`).
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche `dist/python`.
+
+Nessuno schema esistente si stringe: `origin` e `parallelRef` della modella sono opzionali. Versione scelta confrontando `package.json` e `CHANGELOG.md` di tutti i riferimenti locali e remoti: 1.318.0-1.324.0 sono occupate; 1.325.0 è la prima minore libera dopo l'ultima presa.
+
 ## v1.314.0 — Officina video: strumenti video_long_* per X9, additivo
 
 - Sette strumenti: `video_long_create`, `video_long_list`, `video_long_get`, `video_long_draft_put`, `video_long_draft_get`, `video_long_draft_approve` e `video_long_cost_get`.

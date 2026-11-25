@@ -58,6 +58,12 @@ exports.VideoModelSchema = zod_1.z.strictObject({
     identity: capability_call_identity_js_1.CapabilityAgentScopeSchema,
     versions: zod_1.z.array(exports.VideoModelVersionSchema).max(exports.VIDEO_MODEL_MAX_VERSIONS),
     currentVersion: exports.VideoModelVersionNumberSchema.nullable(),
+    origin: zod_1.z.enum(['manuale', 'parallel']).optional(),
+    parallelRef: zod_1.z.strictObject({
+        communityId: zod_1.z.string().regex(/^[0-9A-Z]{26}$/),
+        characterId: zod_1.z.string().regex(/^[A-Za-z0-9_-]{1,100}$/),
+        version: Sha256Schema.nullable(),
+    }).nullable().optional(),
 });
 exports.VideoModelListSchema = zod_1.z.strictObject({
     models: zod_1.z.array(exports.VideoModelSchema).max(exports.VIDEO_MODEL_MAX_PER_AGENT),

@@ -55,6 +55,12 @@ export const VideoModelSchema = z.strictObject({
     identity: CapabilityAgentScopeSchema,
     versions: z.array(VideoModelVersionSchema).max(VIDEO_MODEL_MAX_VERSIONS),
     currentVersion: VideoModelVersionNumberSchema.nullable(),
+    origin: z.enum(['manuale', 'parallel']).optional(),
+    parallelRef: z.strictObject({
+        communityId: z.string().regex(/^[0-9A-Z]{26}$/),
+        characterId: z.string().regex(/^[A-Za-z0-9_-]{1,100}$/),
+        version: Sha256Schema.nullable(),
+    }).nullable().optional(),
 });
 export const VideoModelListSchema = z.strictObject({
     models: z.array(VideoModelSchema).max(VIDEO_MODEL_MAX_PER_AGENT),

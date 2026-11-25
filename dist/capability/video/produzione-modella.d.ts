@@ -56,17 +56,17 @@ export declare const VideoModelSimilaritySchema: z.ZodObject<{
 export type VideoModelSimilarity = z.infer<typeof VideoModelSimilaritySchema>;
 export declare const VideoModelFrameStatusSchema: z.ZodEnum<{
     in_corso: "in_corso";
+    fallito: "fallito";
     assente: "assente";
     pronto: "pronto";
-    fallito: "fallito";
 }>;
 export type VideoModelFrameStatus = z.infer<typeof VideoModelFrameStatusSchema>;
 export declare const VideoModelFrameStateSchema: z.ZodObject<{
     status: z.ZodEnum<{
         in_corso: "in_corso";
+        fallito: "fallito";
         assente: "assente";
         pronto: "pronto";
-        fallito: "fallito";
     }>;
     frameUrl: z.ZodNullable<z.ZodString>;
     frameSha256: z.ZodNullable<z.ZodString>;
@@ -102,9 +102,9 @@ export declare const VideoModelProductionStateSchema: z.ZodObject<{
     frame: z.ZodObject<{
         status: z.ZodEnum<{
             in_corso: "in_corso";
+            fallito: "fallito";
             assente: "assente";
             pronto: "pronto";
-            fallito: "fallito";
         }>;
         frameUrl: z.ZodNullable<z.ZodString>;
         frameSha256: z.ZodNullable<z.ZodString>;

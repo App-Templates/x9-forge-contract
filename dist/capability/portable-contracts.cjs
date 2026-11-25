@@ -8,6 +8,9 @@ exports.parsePortableRagToolCall = parsePortableRagToolCall;
 exports.parsePortableLifecycleRequest = parsePortableLifecycleRequest;
 exports.parsePortableOrdinaryToolCall = parsePortableOrdinaryToolCall;
 const zod_1 = require("zod");
+const parallel_personaggi_js_1 = require("../http/endpoints/parallel-personaggi.cjs");
+const personaggio_parallel_js_1 = require("./video/personaggio-parallel.cjs");
+const personaggio_parallel_import_js_1 = require("./video/personaggio-parallel-import.cjs");
 const lungo_js_1 = require("./video/lungo.cjs");
 const lungo_bozza_js_1 = require("./video/lungo-bozza.cjs");
 const costo_passi_js_1 = require("./video/costo-passi.cjs");
@@ -178,6 +181,11 @@ function getPortableCapabilityContracts() {
     add('videoEngineFootageListQuery', footage_js_1.VideoFootageListQuerySchema, [], 0);
     add('videoEngineFootageList', footage_js_1.VideoFootageListSchema, [], 0);
     add('videoEngineModelQuery', modella_js_1.VideoModelScopeQuerySchema, [], 0);
+    add('parallelCharacterExportQuery', personaggio_parallel_js_1.VideoParallelExportQuerySchema, [], 0);
+    add('parallelCharacterExport', personaggio_parallel_js_1.VideoParallelExportSchema, [], 0);
+    add('parallelCharacterExportError', personaggio_parallel_js_1.VideoParallelExportErrorSchema, [], 0);
+    add('videoEngineParallelImportRequest', personaggio_parallel_import_js_1.VideoParallelImportRequestSchema, [], 0);
+    add('videoEngineParallelImportResult', personaggio_parallel_import_js_1.VideoParallelImportResultSchema, [], 0);
     add('videoEngineModelRefAddQuery', modella_js_1.VideoModelRefAddQuerySchema, [], 0);
     add('videoEngineModelCreateRequest', modella_js_1.VideoModelCreateRequestSchema, [], 0);
     add('videoEngineModelVersionCreateRequest', modella_js_1.VideoModelVersionCreateRequestSchema, [], 0);
@@ -265,6 +273,8 @@ function getPortableCapabilityContracts() {
             videoEngineLongDraftGet: { ...transport(officina_video_js_1.officinaVideoLongDraftGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
             videoEngineLongDraftApprove: { ...transport(officina_video_js_1.officinaVideoLongDraftApproveContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongDraftApproveRequest', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
             videoEngineLongCostGet: { ...transport(officina_video_js_1.officinaVideoLongCostGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongCostByStep', errorContract: 'videoEngineError' },
+            parallelCharacterExport: { ...transport(parallel_personaggi_js_1.parallelCharacterExportContract), queryContract: 'parallelCharacterExportQuery', responseContract: 'parallelCharacterExport', errorContract: 'parallelCharacterExportError' },
+            videoEngineParallelImport: { ...transport(parallel_personaggi_js_1.officinaVideoParallelImportContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineParallelImportRequest', responseContract: 'videoEngineParallelImportResult', errorContract: 'videoEngineError' },
             videoEnginePresetFromVideoStart: { ...transport(officina_video_js_2.officinaVideoPresetFromVideoStartContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetFromVideoStartRequest', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
             videoEnginePresetFromVideoJobGet: { ...transport(officina_video_js_2.officinaVideoPresetFromVideoJobGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
             videoEngineUserPresetList: { ...transport(officina_video_js_2.officinaVideoUserPresetListContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPresetList', errorContract: 'videoEngineError' },

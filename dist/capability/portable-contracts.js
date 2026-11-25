@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { parallelCharacterExportContract, officinaVideoParallelImportContract } from "../http/endpoints/parallel-personaggi.js";
+import { VideoParallelExportQuerySchema, VideoParallelExportSchema, VideoParallelExportErrorSchema } from "./video/personaggio-parallel.js";
+import { VideoParallelImportRequestSchema, VideoParallelImportResultSchema } from "./video/personaggio-parallel-import.js";
 import { VideoLongScopeQuerySchema, VideoLongCreateRequestSchema, VideoLongProjectSchema, VideoLongProjectListSchema } from "./video/lungo.js";
 import { VideoLongDraftDocumentSchema, VideoLongDraftSchema, VideoLongDraftApproveRequestSchema } from "./video/lungo-bozza.js";
 import { VideoCostByStepSchema } from "./video/costo-passi.js";
@@ -169,6 +172,11 @@ export function getPortableCapabilityContracts() {
     add('videoEngineFootageListQuery', VideoFootageListQuerySchema, [], 0);
     add('videoEngineFootageList', VideoFootageListSchema, [], 0);
     add('videoEngineModelQuery', VideoModelScopeQuerySchema, [], 0);
+    add('parallelCharacterExportQuery', VideoParallelExportQuerySchema, [], 0);
+    add('parallelCharacterExport', VideoParallelExportSchema, [], 0);
+    add('parallelCharacterExportError', VideoParallelExportErrorSchema, [], 0);
+    add('videoEngineParallelImportRequest', VideoParallelImportRequestSchema, [], 0);
+    add('videoEngineParallelImportResult', VideoParallelImportResultSchema, [], 0);
     add('videoEngineModelRefAddQuery', VideoModelRefAddQuerySchema, [], 0);
     add('videoEngineModelCreateRequest', VideoModelCreateRequestSchema, [], 0);
     add('videoEngineModelVersionCreateRequest', VideoModelVersionCreateRequestSchema, [], 0);
@@ -256,6 +264,8 @@ export function getPortableCapabilityContracts() {
             videoEngineLongDraftGet: { ...transport(officinaVideoLongDraftGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
             videoEngineLongDraftApprove: { ...transport(officinaVideoLongDraftApproveContract), queryContract: 'videoEngineLongQuery', requestContract: 'videoEngineLongDraftApproveRequest', responseContract: 'videoEngineLongDraft', errorContract: 'videoEngineError' },
             videoEngineLongCostGet: { ...transport(officinaVideoLongCostGetContract), queryContract: 'videoEngineLongQuery', responseContract: 'videoEngineLongCostByStep', errorContract: 'videoEngineError' },
+            parallelCharacterExport: { ...transport(parallelCharacterExportContract), queryContract: 'parallelCharacterExportQuery', responseContract: 'parallelCharacterExport', errorContract: 'parallelCharacterExportError' },
+            videoEngineParallelImport: { ...transport(officinaVideoParallelImportContract), queryContract: 'videoEngineModelQuery', requestContract: 'videoEngineParallelImportRequest', responseContract: 'videoEngineParallelImportResult', errorContract: 'videoEngineError' },
             videoEnginePresetFromVideoStart: { ...transport(officinaVideoPresetFromVideoStartContract), queryContract: 'videoEnginePresetFromVideoQuery', requestContract: 'videoEnginePresetFromVideoStartRequest', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
             videoEnginePresetFromVideoJobGet: { ...transport(officinaVideoPresetFromVideoJobGetContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEnginePresetFromVideoJob', errorContract: 'videoEngineError' },
             videoEngineUserPresetList: { ...transport(officinaVideoUserPresetListContract), queryContract: 'videoEnginePresetFromVideoQuery', responseContract: 'videoEngineUserPresetList', errorContract: 'videoEngineError' },

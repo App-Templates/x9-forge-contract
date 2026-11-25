@@ -110,5 +110,6 @@ export * from "./internal-dev-artifact-content.cjs";
 export * from "./internal-dev-session-asset-content.cjs";
 export * from "./paperclip-protocollo-turno.cjs";
 export * from "./officina-video.cjs";
+export * from "./parallel-personaggi.cjs";
 export * from "./internal-dev-regia.cjs";
 //# sourceMappingURL=index.d.ts.map

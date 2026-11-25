@@ -17,12 +17,12 @@ export declare const VideoPresetFromVideoToolResponseSchema: z.ZodDiscriminatedU
 }, z.core.$strict>, z.ZodObject<{
     status: z.ZodLiteral<"rifiutato">;
     reason: z.ZodEnum<{
+        motore_non_disponibile: "motore_non_disponibile";
         url_non_valida: "url_non_valida";
         video_troppo_lungo: "video_troppo_lungo";
         video_troppo_grande: "video_troppo_grande";
         rete_interna: "rete_interna";
         non_e_un_video: "non_e_un_video";
-        motore_non_disponibile: "motore_non_disponibile";
     }>;
     message: z.ZodString;
 }, z.core.$strict>, z.ZodObject<{

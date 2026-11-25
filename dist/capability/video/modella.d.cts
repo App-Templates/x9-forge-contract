@@ -143,6 +143,15 @@ export declare const VideoModelSchema: z.ZodObject<{
         digest: z.ZodString;
     }, z.core.$strict>>;
     currentVersion: z.ZodNullable<z.ZodNumber>;
+    origin: z.ZodOptional<z.ZodEnum<{
+        manuale: "manuale";
+        parallel: "parallel";
+    }>>;
+    parallelRef: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        communityId: z.ZodString;
+        characterId: z.ZodString;
+        version: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type VideoModel = z.infer<typeof VideoModelSchema>;
 export declare const VideoModelListSchema: z.ZodObject<{
@@ -192,6 +201,15 @@ export declare const VideoModelListSchema: z.ZodObject<{
             digest: z.ZodString;
         }, z.core.$strict>>;
         currentVersion: z.ZodNullable<z.ZodNumber>;
+        origin: z.ZodOptional<z.ZodEnum<{
+            manuale: "manuale";
+            parallel: "parallel";
+        }>>;
+        parallelRef: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            communityId: z.ZodString;
+            characterId: z.ZodString;
+            version: z.ZodNullable<z.ZodString>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type VideoModelList = z.infer<typeof VideoModelListSchema>;
