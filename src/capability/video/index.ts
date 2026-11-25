@@ -627,3 +627,36 @@ export {
   type VideoLongChaptersGetToolResponse,
   type VideoLongChaptersApproveToolResponse,
 } from './lungo-ricerca-tool.js';
+
+export {
+  VIDEO_OUTFIT_STYLE_MAX_REQUEST,
+  VIDEO_OUTFIT_STYLE_MAX_DESCRIPTION,
+  VideoOutfitStyleRequestSchema,
+  VideoOutfitStyleRulesSchema,
+  VideoOutfitStyleResultSchema,
+  type VideoOutfitStyleRequest,
+  type VideoOutfitStyleRules,
+  type VideoOutfitStyleResult,
+} from './abito-stile.js';
+export {
+  VIDEO_CHARACTER_LIST_TOOL,
+  VIDEO_CHARACTER_IMPORT_TOOL,
+  VIDEO_CHARACTER_OUTFIT_STYLE_TOOL,
+  VIDEO_CHARACTER_LIST_REASONS,
+  VIDEO_CHARACTER_IMPORT_REASONS,
+  VIDEO_CHARACTER_OUTFIT_STYLE_REASONS,
+  VideoCharacterListToolInputSchema,
+  VideoCharacterImportToolInputSchema,
+  VideoCharacterOutfitStyleToolInputSchema,
+  VideoCharacterListItemSchema,
+  VideoCharacterListToolResponseSchema,
+  VideoCharacterImportToolResponseSchema,
+  VideoCharacterOutfitStyleToolResponseSchema,
+  type VideoCharacterListToolInput,
+  type VideoCharacterImportToolInput,
+  type VideoCharacterOutfitStyleToolInput,
+  type VideoCharacterListItem,
+  type VideoCharacterListToolResponse,
+  type VideoCharacterImportToolResponse,
+  type VideoCharacterOutfitStyleToolResponse,
+} from './personaggio-parallel-tool.js';
