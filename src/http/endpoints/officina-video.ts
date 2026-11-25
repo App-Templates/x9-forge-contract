@@ -13,6 +13,7 @@ import { VIDEO_OUTFIT_MEDIA_TYPES, VIDEO_OUTFIT_MAX_BYTES, VideoOutfitProduction
 import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from '../../capability/video/produzione-modella.js';
 import { VideoPresetFromVideoStartQuerySchema, VideoPresetFromVideoStartRequestSchema, VideoPresetFromVideoJobSchema, VideoPresetSaveRequestSchema, VideoUserPresetSchema, VideoUserPresetListSchema, VideoUserPresetIdSchema } from '../../capability/video/preset-da-video.js';
 import { VideoModelRegiaDocumentSchema } from '../../capability/video/regia.js';
+import { VideoOutfitStyleRequestSchema, VideoOutfitStyleResultSchema } from '../../capability/video/abito-stile.js';
 
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
@@ -184,6 +185,22 @@ export const officinaVideoModelGetContract = {
   paramsSchema: z.object({ modelId: VideoModelIdSchema }).strict(),
   querySchema: VideoModelScopeQuerySchema,
   responseSchema: VideoModelSchema,
+  responseStatus: 200,
+} as const;
+
+/**
+ * cap-video -> engine: compose an outfit in the imported character's style, without creating a resource.
+ * Errors use VideoEngineErrorSchema.code: non_da_parallel, richiesta_non_valida, modello_non_trovato.
+ * A model belonging to another tenant or agent is 404. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only.
+ */
+export const officinaVideoModelOutfitStyleContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/modelle/:modelId/abito-stile',
+  paramsSchema: z.object({ modelId: VideoModelIdSchema }).strict(),
+  querySchema: VideoModelScopeQuerySchema,
+  requestSchema: VideoOutfitStyleRequestSchema,
+  responseSchema: VideoOutfitStyleResultSchema,
   responseStatus: 200,
 } as const;
 
