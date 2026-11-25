@@ -8,6 +8,7 @@ import { VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineJobSchema, 
 import { VIDEO_FOOTAGE_MAX_BYTES, VIDEO_FOOTAGE_MEDIA_TYPES, VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoFootageJobIdSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoEngineFootageRejectedSchema, VideoFootageListQuerySchema, VideoFootageListSchema } from '../../capability/video/footage.js';
 import { VIDEO_MODEL_REF_MEDIA_TYPES, VIDEO_MODEL_REF_MAX_BYTES, VideoModelScopeQuerySchema, VideoModelRefAddQuerySchema, VideoModelCreateRequestSchema, VideoModelVersionCreateRequestSchema, VideoModelApproveRequestSchema, VideoModelSchema, VideoModelListSchema, VideoModelVersionSchema, VideoModelIdSchema, VideoModelVersionParamSchema, VideoModelRefKindSchema } from '../../capability/video/modella.js';
 
+import { VideoEnvironmentIdSchema, VideoEnvironmentVersionParamSchema, VideoEnvironmentAngleNameSchema, VideoEnvironmentScopeQuerySchema, VideoEnvironmentCreateRequestSchema, VideoEnvironmentVersionCreateRequestSchema, VideoEnvironmentAngleRequestSchema, VideoEnvironmentApproveRequestSchema, VideoEnvironmentSchema, VideoEnvironmentListSchema, VideoEnvironmentVersionSchema } from '../../capability/video/ambiente.js';
 import { VIDEO_OUTFIT_MEDIA_TYPES, VIDEO_OUTFIT_MAX_BYTES, VideoOutfitProductionQuerySchema, VideoOutfitProductionCreatedSchema } from '../../capability/video/abito.js';
 import { VideoModelProductionQuerySchema, VideoModelProductionCreatedSchema, VideoModelProductionStateSchema, VideoModelFrameRequestSchema, VideoModelFrameApproveRequestSchema } from '../../capability/video/produzione-modella.js';
 import { VideoPresetFromVideoStartQuerySchema, VideoPresetFromVideoStartRequestSchema, VideoPresetFromVideoJobSchema, VideoPresetSaveRequestSchema, VideoUserPresetSchema, VideoUserPresetListSchema, VideoUserPresetIdSchema } from '../../capability/video/preset-da-video.js';
@@ -231,6 +232,87 @@ export const officinaVideoModelApproveContract = {
   querySchema: VideoModelScopeQuerySchema,
   requestSchema: VideoModelApproveRequestSchema,
   responseSchema: VideoModelVersionSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: environment Create. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export const officinaVideoEnvironmentCreateContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/ambienti',
+  paramsSchema: z.object({  }).strict(),
+  querySchema: VideoEnvironmentScopeQuerySchema,
+  requestSchema: VideoEnvironmentCreateRequestSchema,
+  responseSchema: VideoEnvironmentSchema,
+  responseStatus: 201,
+} as const;
+
+/** cap-video -> engine: environment List. An empty scope returns environments: []. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export const officinaVideoEnvironmentListContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/ambienti',
+  paramsSchema: z.object({  }).strict(),
+  querySchema: VideoEnvironmentScopeQuerySchema,
+  responseSchema: VideoEnvironmentListSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: environment Get. An environment of another tenant or agent is 404. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export const officinaVideoEnvironmentGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/ambienti/:environmentId',
+  paramsSchema: z.object({ environmentId: VideoEnvironmentIdSchema }).strict(),
+  querySchema: VideoEnvironmentScopeQuerySchema,
+  responseSchema: VideoEnvironmentSchema,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: environment VersionCreate. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export const officinaVideoEnvironmentVersionCreateContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/ambienti/:environmentId/versioni',
+  paramsSchema: z.object({ environmentId: VideoEnvironmentIdSchema }).strict(),
+  querySchema: VideoEnvironmentScopeQuerySchema,
+  requestSchema: VideoEnvironmentVersionCreateRequestSchema,
+  responseSchema: VideoEnvironmentVersionSchema,
+  responseStatus: 201,
+} as const;
+
+/** cap-video -> engine: environment AngleAdd. The generation happens inside the call. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export const officinaVideoEnvironmentAngleAddContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/ambienti/:environmentId/versioni/:version/angolazioni',
+  paramsSchema: z.object({ environmentId: VideoEnvironmentIdSchema, version: VideoEnvironmentVersionParamSchema }).strict(),
+  querySchema: VideoEnvironmentScopeQuerySchema,
+  requestSchema: VideoEnvironmentAngleRequestSchema,
+  responseSchema: VideoEnvironmentVersionSchema,
+  responseStatus: 201,
+} as const;
+
+/** cap-video -> engine: environment AngleGet. The response is a binary image. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export const officinaVideoEnvironmentAngleGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/ambienti/:environmentId/versioni/:version/angolazioni/:angle',
+  paramsSchema: z.object({ environmentId: VideoEnvironmentIdSchema, version: VideoEnvironmentVersionParamSchema , angle: VideoEnvironmentAngleNameSchema }).strict(),
+  querySchema: VideoEnvironmentScopeQuerySchema,
+  responseMediaTypes: VIDEO_MODEL_REF_MEDIA_TYPES,
+  responseStatus: 200,
+} as const;
+
+/** cap-video -> engine: environment Approve. Identity is in the query only. Internal, INTERNAL_SECRET_HEADER only. */
+export const officinaVideoEnvironmentApproveContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'POST',
+  path: '/api/ambienti/:environmentId/versioni/:version/approva',
+  paramsSchema: z.object({ environmentId: VideoEnvironmentIdSchema, version: VideoEnvironmentVersionParamSchema }).strict(),
+  querySchema: VideoEnvironmentScopeQuerySchema,
+  requestSchema: VideoEnvironmentApproveRequestSchema,
+  responseSchema: VideoEnvironmentVersionSchema,
   responseStatus: 200,
 } as const;
 
