@@ -79,7 +79,15 @@ describe('long project routes', () => {
   it('publishes all seven transports with supported query, body, response and error contracts', () => {
     const { contracts, transports } = getPortableCapabilityContracts();
     expect(Object.keys(transports).filter(name => name.startsWith('videoEngineLong')).sort())
-      .toEqual(routes.map(([name]) => name).sort());
+      .toEqual([...routes.map(([name]) => name),
+        'videoEngineLongResearchStart',
+        'videoEngineLongResearchGet',
+        'videoEngineLongDossierPut',
+        'videoEngineLongDossierGet',
+        'videoEngineLongChaptersPut',
+        'videoEngineLongChaptersGet',
+        'videoEngineLongChaptersApprove',
+      ].sort());
     for (const [name, contract, method, path, , requestContract, responseContract] of routes) {
       const transport = transports[name];
       expect(transport, name).toMatchObject({
