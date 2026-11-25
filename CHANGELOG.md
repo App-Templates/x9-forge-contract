@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.312.0 — Officina video: video d'esempio fino a 30 minuti (1800 s, 768 MiB) e totale del preset 120 s, additivo
+
+- `preset-da-video.ts`: il video d'esempio può durare fino a 30 minuti (1800 s) e pesare fino a 768 MiB; esportata `VIDEO_PRESET_TOTAL_MAX_SECONDS = 120` per il preset che ne nasce.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche `dist/python`.
+
+Nessuno schema esistente si stringe: i limiti del video d'esempio si allargano. Versione scelta confrontando `package.json` e `CHANGELOG.md` di tutti i riferimenti locali e remoti: 1.309.0-1.311.0 e 1.318.0-1.324.0 sono occupate; 1.312.0 è la prima minore libera dopo 1.308.0.
+
 ## v1.308.0 — Officina video: trasporti del preset da un video nel catalogo portabile, additivo
 
 - Catalogo portabile: sei schemi per identità, avvio, lavoro di analisi, elenco dei preset, preset salvato e richiesta di salvataggio.

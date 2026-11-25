@@ -2,7 +2,9 @@ import { z } from 'zod';
 /** Largest example video the engine downloads from a URL. */
 export declare const VIDEO_PRESET_VIDEO_MAX_BYTES: number;
 /** Longest example video the engine analyzes. */
-export declare const VIDEO_PRESET_VIDEO_MAX_SECONDS = 120;
+export declare const VIDEO_PRESET_VIDEO_MAX_SECONDS = 1800;
+/** Longest preset made from a video: the sum of its scenes. */
+export declare const VIDEO_PRESET_TOTAL_MAX_SECONDS = 120;
 /** Scenes of one preset, at most. */
 export declare const VIDEO_PRESET_MAX_SCENES = 12;
 /** URL of the example video: http or https only. */

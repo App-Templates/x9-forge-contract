@@ -1,14 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoPresetSaveRequestSchema = exports.VideoPresetFromVideoJobSchema = exports.VideoPresetFromVideoStartRequestSchema = exports.VideoPresetFromVideoStartQuerySchema = exports.VideoUserPresetListSchema = exports.VideoUserPresetSchema = exports.VideoPresetSceneSchema = exports.VideoPresetRoleSourceSchema = exports.VideoPresetRoleSchema = exports.VideoPresetMovementSchema = exports.VideoPresetTransitionSchema = exports.VideoUserPresetIdSchema = exports.VideoPresetVideoUrlSchema = exports.VIDEO_PRESET_MAX_SCENES = exports.VIDEO_PRESET_VIDEO_MAX_SECONDS = exports.VIDEO_PRESET_VIDEO_MAX_BYTES = void 0;
+exports.VideoPresetSaveRequestSchema = exports.VideoPresetFromVideoJobSchema = exports.VideoPresetFromVideoStartRequestSchema = exports.VideoPresetFromVideoStartQuerySchema = exports.VideoUserPresetListSchema = exports.VideoUserPresetSchema = exports.VideoPresetSceneSchema = exports.VideoPresetRoleSourceSchema = exports.VideoPresetRoleSchema = exports.VideoPresetMovementSchema = exports.VideoPresetTransitionSchema = exports.VideoUserPresetIdSchema = exports.VideoPresetVideoUrlSchema = exports.VIDEO_PRESET_MAX_SCENES = exports.VIDEO_PRESET_TOTAL_MAX_SECONDS = exports.VIDEO_PRESET_VIDEO_MAX_SECONDS = exports.VIDEO_PRESET_VIDEO_MAX_BYTES = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const brief_js_1 = require("./brief.cjs");
 const footage_js_1 = require("./footage.cjs");
 /** Largest example video the engine downloads from a URL. */
-exports.VIDEO_PRESET_VIDEO_MAX_BYTES = 128 * 1024 * 1024;
+exports.VIDEO_PRESET_VIDEO_MAX_BYTES = 768 * 1024 * 1024;
 /** Longest example video the engine analyzes. */
-exports.VIDEO_PRESET_VIDEO_MAX_SECONDS = 120;
+exports.VIDEO_PRESET_VIDEO_MAX_SECONDS = 1800;
+/** Longest preset made from a video: the sum of its scenes. */
+exports.VIDEO_PRESET_TOTAL_MAX_SECONDS = 120;
 /** Scenes of one preset, at most. */
 exports.VIDEO_PRESET_MAX_SCENES = 12;
 /** URL of the example video: http or https only. */
