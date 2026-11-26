@@ -146,6 +146,60 @@ const costStep = { step: 'bozza', estimatedUsd: 0.4, confirmedUsd: 0.35, entries
 const costChapter = { chapterIndex: 1, costUsd: 0.35, seconds: 60, usdPerMinute: 0.35 };
 const costMinimal = { projectId: ID, steps: [], totalUsd: 0, finishedSeconds: null, usdPerMinute: null };
 
+// SUMMARY 9425: copied the supplied constants and 23 long-production corpus entries.
+// Full engine-parity.test.ts run via qrun passed, including catalog coverage: 79/79 entries.
+// Acceptance, type checks and mutations remain with the gate.
+// Requested gate mutation (not run here): change shot.seconds from 6 to 1, then restore it.
+// Caveat: videoEngineLongFramesDocument still has an accepted still-image case with
+// seconds: 2, so its 'has enough accepted and refused examples' check will not turn red.
+// The supplied corpus is preserved; videoEngineLongFrames loses its accepted examples.
+const chapter = { index: 1, title: 'Le radici', summary: 'Come le piante sentono il suolo.', targetSeconds: 60 };
+const usage = { provider: 'anthropic', model: 'modello-1', inputTokens: 1000, outputTokens: 500, measured: true };
+const draftDoc = { logline: 'Le piante parlano.', thesis: 'Le piante comunicano.', paragraphs: ['Le radici si parlano.'], chapters: [chapter], usage: null };
+const draft = { ...draftDoc, revision: 1, status: 'bozza', totalSeconds: 60, digest: sha('d'), approvedAt: null };
+const approval = { revision: 1, digest: sha('d') };
+const source = {
+  id: 'src-1', title: 'Le radici', url: 'https://example.com/radici', publisher: null,
+  excerpt: 'Le radici scambiano segnali chimici.', origin: 'web', labPageSlug: 'piante-radici', retrievedAt: '2026-11-25T10:00:00Z',
+};
+const claim = { id: 'c-1', text: 'Le radici scambiano segnali.', sourceIds: ['src-1'], attributed: true };
+const dossierDoc = { draftRevision: 1, researchIds: ['r-1'], sources: [source], claims: [claim], costUsd: 0.42 };
+const dossier = { ...dossierDoc, revision: 1, digest: sha('e'), recordedAt: '2026-11-25T10:10:00Z' };
+const researchStart = { draftRevision: 1, draftDigest: sha('d'), questions: ['Come comunicano le piante?'], labClientId: 'studio', labProjectId: 'piante' };
+const research = {
+  projectId: ID, draftRevision: 1, draftDigest: sha('d'), state: 'running', gapsRef: null, researchIds: ['r-1'],
+  startedAt: '2026-11-25T10:00:00Z', finishedAt: null,
+};
+const researched = { ...chapter, sourceIds: ['src-1'], frameHypotheses: [{ description: 'Radici sotto terra', framing: 'immagini', sourceId: null }] };
+const chaptersDoc = { draftRevision: 1, dossierRevision: 1, chapters: [researched], usage: null };
+const chaptersRead = { ...chaptersDoc, revision: 1, status: 'da-approvare', totalSeconds: 60, digest: sha('f'), approvedAt: null };
+const shot = {
+  index: 1, framing: 'intervista', description: 'Ospite in poltrona', motion: 'Lenta spinta in avanti', seconds: 6, render: 'clip',
+  narration: 'Le radici ascoltano.', environmentAngle: 'frontale', withCharacter: true, sourceId: null,
+};
+const framesDoc = { chaptersRevision: 1, chapters: [{ chapterIndex: 1, shots: [shot] }], usage: null };
+const framesRead = { ...framesDoc, revision: 1, status: 'da-approvare', totalSeconds: 60, shotCount: 1, interviewShare: 0.1, warnings: [], digest: sha('a'), approvedAt: null };
+const prodSettings = {
+  frameProvider: 'fal', frameModel: null, clipProvider: 'minimax', clipModel: 'hailuo-02',
+  voice: { provider: 'elevenlabs', model: 'eleven-v3', voice: 'Lauren' }, subtitles: 'morbidi',
+};
+const runQuote = {
+  id: ID, chapterIndex: 1, stage: 'clip', units: 10, unit: 'clip', estimatedUsd: 3.5, reserveUsd: 0.875,
+  remainingBudgetUsd: 20, tariffDate: '2026-11-25', tariffFresh: true, expiresAt: '2026-11-25T10:15:00Z',
+};
+const runRequest = { chapterIndex: 1, stage: 'clip', quoteId: ID, framesRevision: 1 };
+const stageState = { stage: 'fotogrammi', status: 'completo', done: 3, total: 3, reused: 0, estimatedUsd: 1.2, confirmedUsd: 1.1 };
+const stages = ['fotogrammi', 'voce', 'clip', 'montaggio'].map(stage => ({ ...stageState, stage }));
+const chapterVideo = { path: 'capitolo-1.mp4', sha256: sha('b'), seconds: 60.5 };
+const chapterRun = { chapterIndex: 1, batches: 1, stages, chapterVideo: null };
+const frameImage = { shotIndex: 1, imagePath: 'foto-1.png', sha256: sha('b'), similarity: null, status: 'generato' };
+const chapterFrames = { chapterIndex: 1, revision: 1, status: 'da-approvare', digest: sha('a'), frames: [frameImage], approvedAt: null };
+const finalVideo = {
+  path: 'finale.mp4', sha256: sha('b'), seconds: 600, aspectRatio: '16:9',
+  chapters: [{ index: 1, startSeconds: 0, seconds: 600 }], subtitles: true, createdAt: '2026-11-25T10:20:00Z',
+};
+const production = { projectId: ID, settings: null, chapters: [], finalVideo: null, updatedAt: '2026-11-25T10:20:00Z' };
+
 const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; minimum?: number; accepted?: readonly string[] }> = {
   videoEngineProject: {
     schema: VideoEngineProjectSchema,
@@ -894,6 +948,247 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
       'six steps': { ...costMinimal, steps: Array.from({ length: 6 }, () => costStep) },
       'unknown basis': { ...costMinimal, usdPerMinuteBasis: 'indovinato' },
       'extra field': { ...costMinimal, extra: true },
+    },
+  },
+  videoEngineLongDraftDocument: {
+    schema: V.VideoLongDraftDocumentSchema, minimum: 1,
+    cases: {
+      'draft without usage': draftDoc,
+      'draft with usage': { ...draftDoc, usage },
+      'no paragraphs': { ...draftDoc, paragraphs: [] },
+      'chapter index zero': { ...draftDoc, chapters: [{ ...chapter, index: 0 }] },
+      'chapter too short': { ...draftDoc, chapters: [{ ...chapter, targetSeconds: 9 }] },
+      'negative tokens': { ...draftDoc, usage: { ...usage, inputTokens: -1 } },
+      'extra field': { ...draftDoc, extra: true },
+    },
+  },
+  videoEngineLongDraft: {
+    schema: V.VideoLongDraftSchema, minimum: 1,
+    cases: {
+      'new draft': draft,
+      'approved draft': { ...draft, status: 'approvata', approvedAt: '2026-11-25T10:05:00Z' },
+      'zero revision': { ...draft, revision: 0 },
+      'uppercase digest': { ...draft, digest: sha('D') },
+      'total too short': { ...draft, totalSeconds: 9 },
+      'extra field': { ...draft, extra: true },
+    },
+  },
+  videoEngineLongDraftApproveRequest: {
+    schema: V.VideoLongDraftApproveRequestSchema, minimum: 1,
+    cases: {
+      'approval': approval,
+      'zero revision': { ...approval, revision: 0 },
+      'short digest': { ...approval, digest: 'd'.repeat(63) },
+      'extra field': { ...approval, extra: true },
+    },
+  },
+  videoEngineLongResearchStartRequest: {
+    schema: V.VideoLongResearchStartRequestSchema, minimum: 1,
+    cases: {
+      'one question': researchStart,
+      'trimmed question': { ...researchStart, questions: ['  Come comunicano le piante?\n'] },
+      'no questions': { ...researchStart, questions: [] },
+      'thirteen questions': { ...researchStart, questions: Array.from({ length: 13 }, () => 'Come comunicano le piante?') },
+      'blank question': { ...researchStart, questions: ['  '] },
+      'missing digest': without(researchStart, 'draftDigest'),
+      'extra field': { ...researchStart, extra: true },
+    },
+  },
+  videoEngineLongResearch: {
+    schema: V.VideoLongResearchSchema, minimum: 1,
+    cases: {
+      'running research': research,
+      'finished research': { ...research, state: 'completed', gapsRef: 'lacune-01', finishedAt: '2026-11-25T10:09:00Z' },
+      'unknown state': { ...research, state: 'paused' },
+      'short gaps reference': { ...research, gapsRef: 'abc' },
+      'thirteen research ids': { ...research, researchIds: Array.from({ length: 13 }, (_, index) => `r-${index}`) },
+      'extra field': { ...research, extra: true },
+    },
+  },
+  videoEngineLongDossierDocument: {
+    schema: V.VideoLongDossierDocumentSchema, minimum: 1,
+    cases: {
+      'dossier with source': dossierDoc,
+      'empty dossier': { draftRevision: 1, researchIds: [], sources: [], claims: [], costUsd: null },
+      'source with unknown origin': { ...dossierDoc, sources: [{ ...source, origin: 'radio' }] },
+      'source with bad address': { ...dossierDoc, sources: [{ ...source, url: 'non un indirizzo' }] },
+      'claim without source': { ...dossierDoc, claims: [{ ...claim, sourceIds: [] }] },
+      'negative cost': { ...dossierDoc, costUsd: -1 },
+      'extra field': { ...dossierDoc, extra: true },
+    },
+  },
+  videoEngineLongDossier: {
+    schema: V.VideoLongDossierSchema, minimum: 1,
+    cases: {
+      'recorded dossier': dossier,
+      'zero revision': { ...dossier, revision: 0 },
+      'uppercase digest': { ...dossier, digest: sha('E') },
+      'missing record time': without(dossier, 'recordedAt'),
+      'extra field': { ...dossier, extra: true },
+    },
+  },
+  videoEngineLongChaptersDocument: {
+    schema: V.VideoLongChaptersDocumentSchema, minimum: 1,
+    cases: {
+      'researched chapter': chaptersDoc,
+      'with usage': { ...chaptersDoc, usage },
+      'no chapters': { ...chaptersDoc, chapters: [] },
+      'no frame hypotheses': { ...chaptersDoc, chapters: [{ ...researched, frameHypotheses: [] }] },
+      'unknown framing': { ...chaptersDoc, chapters: [{ ...researched, frameHypotheses: [{ description: 'Radici', framing: 'drone', sourceId: null }] }] },
+      'extra field': { ...chaptersDoc, extra: true },
+    },
+  },
+  videoEngineLongChapters: {
+    schema: V.VideoLongChaptersSchema, minimum: 1,
+    cases: {
+      'chapters to approve': chaptersRead,
+      'approved chapters': { ...chaptersRead, status: 'approvati', approvedAt: '2026-11-25T10:20:00Z' },
+      'unknown status': { ...chaptersRead, status: 'approvata' },
+      'total too short': { ...chaptersRead, totalSeconds: 9 },
+      'total too long': { ...chaptersRead, totalSeconds: 1201 },
+      'extra field': { ...chaptersRead, extra: true },
+    },
+  },
+  videoEngineLongChaptersApproveRequest: {
+    schema: V.VideoLongChaptersApproveRequestSchema, minimum: 1,
+    cases: {
+      'approval': approval,
+      'zero revision': { ...approval, revision: 0 },
+      'uppercase digest': { ...approval, digest: sha('D') },
+      'extra field': { ...approval, extra: true },
+    },
+  },
+  videoEngineLongFramesDocument: {
+    schema: V.VideoLongFramesDocumentSchema, minimum: 1,
+    cases: {
+      'one shot': framesDoc,
+      'still image and no angle': { ...framesDoc, chapters: [{ chapterIndex: 1, shots: [{ ...shot, render: 'fermo', seconds: 2, environmentAngle: null }] }] },
+      'no shots': { ...framesDoc, chapters: [{ chapterIndex: 1, shots: [] }] },
+      'shot too short': { ...framesDoc, chapters: [{ chapterIndex: 1, shots: [{ ...shot, seconds: 1 }] }] },
+      'shot too long': { ...framesDoc, chapters: [{ chapterIndex: 1, shots: [{ ...shot, seconds: 16 }] }] },
+      'unknown render': { ...framesDoc, chapters: [{ chapterIndex: 1, shots: [{ ...shot, render: 'video' }] }] },
+      'extra field': { ...framesDoc, extra: true },
+    },
+  },
+  videoEngineLongFrames: {
+    schema: V.VideoLongFramesSchema, minimum: 1,
+    cases: {
+      'frames to approve': framesRead,
+      'approved with warning': { ...framesRead, status: 'approvati', warnings: ['Troppi secondi senza intervista.'], approvedAt: '2026-11-25T10:30:00Z' },
+      'share above one': { ...framesRead, interviewShare: 1.1 },
+      'no shots counted': { ...framesRead, shotCount: 0 },
+      'twenty one warnings': { ...framesRead, warnings: Array.from({ length: 21 }, () => 'Avviso.') },
+      'extra field': { ...framesRead, extra: true },
+    },
+  },
+  videoEngineLongFramesApproveRequest: {
+    schema: V.VideoLongFramesApproveRequestSchema, minimum: 1,
+    cases: {
+      'approval': approval,
+      'zero revision': { ...approval, revision: 0 },
+      'short digest': { ...approval, digest: 'd'.repeat(63) },
+      'extra field': { ...approval, extra: true },
+    },
+  },
+  videoEngineLongProductionSettings: {
+    schema: V.VideoLongProductionSettingsSchema, minimum: 1,
+    cases: {
+      'settings': prodSettings,
+      'other voice and no subtitles': { ...prodSettings, frameModel: 'flux-1', voice: { provider: 'openai', model: 'tts-1', voice: 'alloy' }, subtitles: 'nessuno' },
+      'unknown frame provider': { ...prodSettings, frameProvider: 'locale' },
+      'unknown subtitles': { ...prodSettings, subtitles: 'duri' },
+      'voice without model': { ...prodSettings, voice: { provider: 'openai', voice: 'alloy' } },
+      'extra field': { ...prodSettings, extra: true },
+    },
+  },
+  videoEngineLongProduction: {
+    schema: V.VideoLongProductionSchema, minimum: 1,
+    cases: {
+      'not started': production,
+      'finished': { ...production, settings: prodSettings, chapters: [{ ...chapterRun, chapterVideo }], finalVideo },
+      'unknown chapter field': { ...production, chapters: [{ ...chapterRun, extra: true }] },
+      'missing update time': without(production, 'updatedAt'),
+      'extra field': { ...production, extra: true },
+    },
+  },
+  videoEngineLongRunQuoteRequest: {
+    schema: V.VideoLongRunQuoteRequestSchema, minimum: 1,
+    cases: {
+      'clip quote': { chapterIndex: 1, stage: 'clip' },
+      'unknown stage': { chapterIndex: 1, stage: 'colore' },
+      'chapter zero': { chapterIndex: 0, stage: 'clip' },
+      'extra field': { chapterIndex: 1, stage: 'clip', extra: true },
+    },
+  },
+  videoEngineLongRunQuote: {
+    schema: V.VideoLongRunQuoteSchema, minimum: 1,
+    cases: {
+      'fresh quote': runQuote,
+      'unknown tariff': { ...runQuote, estimatedUsd: null, reserveUsd: null, tariffFresh: false },
+      'negative estimate': { ...runQuote, estimatedUsd: -1 },
+      'unknown unit': { ...runQuote, unit: 'ora' },
+      'tariff date with time': { ...runQuote, tariffDate: '2026-11-25T10:00:00Z' },
+      'extra field': { ...runQuote, extra: true },
+    },
+  },
+  videoEngineLongRunRequest: {
+    schema: V.VideoLongRunRequestSchema, minimum: 1,
+    cases: {
+      'clip run': runRequest,
+      'short quote': { ...runRequest, quoteId: 'abc' },
+      'zero revision': { ...runRequest, framesRevision: 0 },
+      'extra field': { ...runRequest, extra: true },
+    },
+  },
+  videoEngineLongChapterRun: {
+    schema: V.VideoLongChapterRunSchema, minimum: 1,
+    cases: {
+      'not rendered': chapterRun,
+      'with chapter video': { ...chapterRun, chapterVideo },
+      'three stages': { ...chapterRun, stages: stages.slice(0, 3) },
+      'eleven batches': { ...chapterRun, batches: 11 },
+      'video path': { ...chapterRun, chapterVideo: { ...chapterVideo, path: '../capitolo.mp4' } },
+      'extra field': { ...chapterRun, extra: true },
+    },
+  },
+  videoEngineLongChapterFrames: {
+    schema: V.VideoLongChapterFramesSchema, minimum: 1,
+    cases: {
+      'generated frame': chapterFrames,
+      'approved frame with similarity': { ...chapterFrames, status: 'approvati', frames: [{ ...frameImage, similarity: 0.82, status: 'approvato' }], approvedAt: '2026-11-25T10:30:00Z' },
+      'similarity above one': { ...chapterFrames, frames: [{ ...frameImage, similarity: 1.2 }] },
+      'unknown frame status': { ...chapterFrames, frames: [{ ...frameImage, status: 'perso' }] },
+      'image path': { ...chapterFrames, frames: [{ ...frameImage, imagePath: '../foto.png' }] },
+      'extra field': { ...chapterFrames, extra: true },
+    },
+  },
+  videoEngineLongChapterFramesApproveRequest: {
+    schema: V.VideoLongChapterFramesApproveRequestSchema, minimum: 1,
+    cases: {
+      'approval': approval,
+      'zero revision': { ...approval, revision: 0 },
+      'uppercase digest': { ...approval, digest: sha('D') },
+      'extra field': { ...approval, extra: true },
+    },
+  },
+  videoEngineLongJoinRequest: {
+    schema: V.VideoLongJoinRequestSchema, minimum: 1,
+    cases: {
+      'join': { framesRevision: 1 },
+      'zero revision': { framesRevision: 0 },
+      'missing revision': {},
+      'extra field': { framesRevision: 1, extra: true },
+    },
+  },
+  videoEngineLongFinalVideo: {
+    schema: V.VideoLongFinalVideoSchema, minimum: 1,
+    cases: {
+      'final video': finalVideo,
+      'portrait video': { ...finalVideo, aspectRatio: '9:16' },
+      'no chapters': { ...finalVideo, chapters: [] },
+      'zero seconds': { ...finalVideo, seconds: 0 },
+      'video path': { ...finalVideo, path: '../finale.mp4' },
+      'extra field': { ...finalVideo, extra: true },
     },
   },
 };
