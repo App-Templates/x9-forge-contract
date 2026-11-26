@@ -69,13 +69,13 @@ const writes = [
   ['ProductionSettingsPut', video.VideoLongProductionSettingsPutToolResponseSchema, { status: 'salvate', production: production },
     ['impostazioni_non_valide', 'tappa_gia_in_corso', 'impostazioni_bloccate', 'fornitore_non_pronto', 'piano_non_approvato', 'progetto_sconosciuto', 'motore_non_disponibile']],
   ['RunQuote', video.VideoLongRunQuoteToolResponseSchema, { status: 'preventivo', quote: quote },
-    ['piano_non_approvato', 'fotogrammi_non_approvati', 'fornitore_non_pronto', 'tariffa_scaduta', 'progetto_sconosciuto', 'motore_non_disponibile']],
+    ['piano_non_approvato', 'fotogrammi_non_approvati', 'fornitore_non_pronto', 'tariffa_scaduta', 'progetto_sconosciuto', 'motore_non_disponibile', 'voce_mancante']],
   ['RunStart', video.VideoLongRunStartToolResponseSchema, { status: 'avviata', production: production },
-    ['piano_non_approvato', 'fotogrammi_non_approvati', 'preventivo_scaduto', 'preventivo_diverso', 'tetto_superato', 'tariffa_scaduta', 'fornitore_non_pronto', 'tappa_gia_in_corso', 'esito_incerto', 'progetto_sconosciuto', 'motore_non_disponibile']],
+    ['piano_non_approvato', 'fotogrammi_non_approvati', 'preventivo_scaduto', 'preventivo_diverso', 'tetto_superato', 'tariffa_scaduta', 'fornitore_non_pronto', 'tappa_gia_in_corso', 'esito_incerto', 'progetto_sconosciuto', 'motore_non_disponibile', 'voce_mancante']],
   ['ChapterFramesApprove', video.VideoLongChapterFramesApproveToolResponseSchema, { status: 'approvati', frames: chapterFrames },
-    ['revisione_superata', 'impronta_diversa', 'fotogrammi_non_trovati', 'piano_cambiato', 'progetto_sconosciuto', 'motore_non_disponibile']],
+    ['revisione_superata', 'impronta_diversa', 'fotogrammi_non_trovati', 'piano_cambiato', 'progetto_sconosciuto', 'motore_non_disponibile', 'fotogrammi_da_rigenerare', 'fotogrammi_incompleti', 'capitolo_non_trovato']],
   ['Join', video.VideoLongJoinToolResponseSchema, { status: 'unito', video: finalVideo },
-    ['capitoli_incompleti', 'piano_cambiato', 'progetto_sconosciuto', 'motore_non_disponibile']],
+    ['capitoli_incompleti', 'piano_cambiato', 'progetto_sconosciuto', 'motore_non_disponibile', 'fotogrammi_non_approvati']],
  ] as const;
 
 // SUMMARY mutation: assign VIDEO_LONG_VIDEO_GET_TOOL's value to VIDEO_LONG_JOIN_TOOL;
@@ -143,6 +143,31 @@ describe('long video production tools', () => {
       expect(schema.safeParse({ status: 'rifiutata', reason, message: 'Errore.' }).success, reason).toBe(true);
     }
     expect(schema.safeParse({ status: 'rifiutata', reason: 'codice_inventato', message: 'Errore.' }).success).toBe(false);
+  });
+
+  // SUMMARY mutation: removing fotogrammi_da_rigenerare from the chapter frames approval enum
+  // must make this test fail. Mutation execution belongs to the gate.
+  it('accepts the rifiuti veri del motore sulla produzione', () => {
+    const cases = [
+      ['RunQuote', video.VideoLongRunQuoteToolResponseSchema, ['voce_mancante']],
+      ['RunStart', video.VideoLongRunStartToolResponseSchema, ['voce_mancante']],
+      ['ChapterFramesApprove', video.VideoLongChapterFramesApproveToolResponseSchema,
+        ['fotogrammi_da_rigenerare', 'fotogrammi_incompleti', 'capitolo_non_trovato']],
+      ['Join', video.VideoLongJoinToolResponseSchema, ['fotogrammi_non_approvati']],
+    ] as const;
+    for (const [name, schema, reasons] of cases) {
+      for (const reason of reasons) {
+        const refusal = { status: 'rifiutata', reason, message: 'Il passo non può proseguire.' };
+        expect(schema.safeParse(refusal).success, `${name} ${reason}`).toBe(true);
+      }
+      expect(
+        schema.safeParse({ status: 'rifiutata', reason: 'codice_inventato', message: 'Errore.' }).success,
+        name,
+      ).toBe(false);
+    }
+    expect(video.VideoLongRunQuoteToolResponseSchema.safeParse({
+      status: 'rifiutata', reason: 'tappa_gia_in_corso', message: 'Errore.',
+    }).success).toBe(false);
   });
 
   it('reuses read responses and run refusals from the production contracts', () => {

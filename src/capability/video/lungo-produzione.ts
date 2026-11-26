@@ -79,6 +79,7 @@ export const VideoLongRunRefusalSchema = z.enum([
   'piano_non_approvato', 'fotogrammi_non_approvati', 'preventivo_scaduto',
   'preventivo_diverso', 'tetto_superato', 'tariffa_scaduta', 'fornitore_non_pronto',
   'tappa_gia_in_corso', 'esito_incerto', 'progetto_sconosciuto', 'motore_non_disponibile',
+  'voce_mancante',
 ]);
 export type VideoLongRunRefusal = z.infer<typeof VideoLongRunRefusalSchema>;
 
