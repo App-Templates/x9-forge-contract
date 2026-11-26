@@ -5,6 +5,7 @@ const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const engine_js_1 = require("./engine.cjs");
 const brief_js_1 = require("./brief.cjs");
+const ambiente_js_1 = require("./ambiente.cjs");
 const modella_js_1 = require("./modella.cjs");
 exports.VIDEO_MODEL_PRODUCTION_MIN_SECONDS = 18;
 exports.VIDEO_MODEL_PRODUCTION_MAX_SECONDS = 60;
@@ -22,6 +23,8 @@ exports.VideoModelProductionQuerySchema = zod_1.z.strictObject({
     budgetUsd: zod_1.z.string().regex(/^(0\.[0-9]{1,2}|[1-9][0-9]{0,2}(\.[0-9]{1,2})?)$/),
     fileName: zod_1.z.string().regex(/^[A-Za-z0-9][A-Za-z0-9 ()._-]{0,119}\.(png|jpg|jpeg|PNG|JPG|JPEG)$/),
     lookNote: zod_1.z.string().trim().min(1).max(300).optional(),
+    environmentId: ambiente_js_1.VideoEnvironmentIdSchema.optional(),
+    environmentVersion: ambiente_js_1.VideoEnvironmentVersionParamSchema.optional(),
 });
 exports.VideoModelProductionCreatedSchema = zod_1.z.strictObject({
     engineProjectId: zod_1.z.string().regex(/^[a-f0-9]{32}$/),

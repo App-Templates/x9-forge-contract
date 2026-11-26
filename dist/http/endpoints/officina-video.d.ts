@@ -1763,6 +1763,8 @@ export declare const officinaVideoModelProductionCreateContract: {
         budgetUsd: z.ZodString;
         fileName: z.ZodString;
         lookNote: z.ZodOptional<z.ZodString>;
+        environmentId: z.ZodOptional<z.ZodString>;
+        environmentVersion: z.ZodOptional<z.ZodString>;
         agentId: z.ZodString;
         ownerId: z.ZodString;
         tenantId: z.ZodString;

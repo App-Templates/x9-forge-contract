@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.333.0 — Officina video: ambiente nella produzione con la modella, additivo
+
+- `VideoModelProductionQuerySchema` accetta `environmentId` e `environmentVersion` facoltativi, usando gli schemi canonici degli ambienti, senza vincolo di coppia.
+- La richiesta senza i due campi resta valida; nessuno schema esistente si stringe.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 602 riferimenti Git locali e remoti tracciati, inclusi `origin/main` e i rami delle altre corsie del ponte: 1.332.0 è l'ultima presa; 1.333.0 è la minore successiva libera.
+
 ## v1.332.0 — Officina video: rifiuti veri del motore sulla produzione, additivo
 
 - Preventivo e avvio della produzione: `VideoLongRunRefusalSchema` include `voce_mancante`.
