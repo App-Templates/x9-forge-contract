@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
 import { VideoEngineMediaPathSchema, VideoEngineRevisionSchema } from './engine.js';
 import { VideoProjectIdSchema } from './brief.js';
+import { VideoEnvironmentIdSchema, VideoEnvironmentVersionParamSchema } from './ambiente.js';
 import { VideoModelIdSchema, VideoModelVersionNumberSchema, VideoModelVersionParamSchema } from './modella.js';
 
 export const VIDEO_MODEL_PRODUCTION_MIN_SECONDS = 18;
@@ -22,6 +23,8 @@ export const VideoModelProductionQuerySchema = z.strictObject({
   budgetUsd: z.string().regex(/^(0\.[0-9]{1,2}|[1-9][0-9]{0,2}(\.[0-9]{1,2})?)$/),
   fileName: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9 ()._-]{0,119}\.(png|jpg|jpeg|PNG|JPG|JPEG)$/),
   lookNote: z.string().trim().min(1).max(300).optional(),
+  environmentId: VideoEnvironmentIdSchema.optional(),
+  environmentVersion: VideoEnvironmentVersionParamSchema.optional(),
 });
 export type VideoModelProductionQuery = z.infer<typeof VideoModelProductionQuerySchema>;
 
