@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.334.0 — Officina video: fino a dieci viste per versione di ambiente, additivo
+
+- `VIDEO_ENVIRONMENT_MAX_ANGLES` passa da 8 a 10; gli ambienti con meno viste, inclusi quelli già salvati con 8 viste, restano validi.
+- Consumer: motore Officina e cap-video (X9); ordine di rilascio: prima cap-video, poi il motore.
+- `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 682 riferimenti Git locali e remoti tracciati e tag: 1.333.0 è l'ultima presa; 1.334.0 è la minore successiva libera.
+
 ## v1.333.0 — Officina video: ambiente nella produzione con la modella, additivo
 
 - `VideoModelProductionQuerySchema` accetta `environmentId` e `environmentVersion` facoltativi, usando gli schemi canonici degli ambienti, senza vincolo di coppia.

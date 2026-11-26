@@ -1,6 +1,6 @@
 import { z } from 'zod';
 export declare const VIDEO_ENVIRONMENT_KINDS: readonly ["studio", "esterno", "documentario"];
-export declare const VIDEO_ENVIRONMENT_MAX_ANGLES = 8;
+export declare const VIDEO_ENVIRONMENT_MAX_ANGLES = 10;
 export declare const VIDEO_ENVIRONMENT_MAX_VERSIONS = 50;
 export declare const VIDEO_ENVIRONMENT_MAX_PER_AGENT = 200;
 export declare const VideoEnvironmentIdSchema: z.ZodString;
