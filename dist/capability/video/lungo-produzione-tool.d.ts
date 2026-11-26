@@ -526,6 +526,7 @@ export declare const VideoLongRunQuoteToolResponseSchema: z.ZodDiscriminatedUnio
         tariffa_scaduta: "tariffa_scaduta";
         fornitore_non_pronto: "fornitore_non_pronto";
         progetto_sconosciuto: "progetto_sconosciuto";
+        voce_mancante: "voce_mancante";
     }>;
     message: z.ZodString;
 }, z.core.$strict>], "status">;
@@ -619,6 +620,7 @@ export declare const VideoLongRunStartToolResponseSchema: z.ZodDiscriminatedUnio
         tappa_gia_in_corso: "tappa_gia_in_corso";
         esito_incerto: "esito_incerto";
         progetto_sconosciuto: "progetto_sconosciuto";
+        voce_mancante: "voce_mancante";
     }>;
     message: z.ZodString;
 }, z.core.$strict>], "status">;
@@ -655,6 +657,9 @@ export declare const VideoLongChapterFramesApproveToolResponseSchema: z.ZodDiscr
         revisione_superata: "revisione_superata";
         fotogrammi_non_trovati: "fotogrammi_non_trovati";
         piano_cambiato: "piano_cambiato";
+        fotogrammi_da_rigenerare: "fotogrammi_da_rigenerare";
+        fotogrammi_incompleti: "fotogrammi_incompleti";
+        capitolo_non_trovato: "capitolo_non_trovato";
     }>;
     message: z.ZodString;
 }, z.core.$strict>], "status">;
@@ -678,6 +683,7 @@ export declare const VideoLongJoinToolResponseSchema: z.ZodDiscriminatedUnion<[z
     status: z.ZodLiteral<"rifiutata">;
     reason: z.ZodEnum<{
         motore_non_disponibile: "motore_non_disponibile";
+        fotogrammi_non_approvati: "fotogrammi_non_approvati";
         progetto_sconosciuto: "progetto_sconosciuto";
         piano_cambiato: "piano_cambiato";
         capitoli_incompleti: "capitoli_incompleti";

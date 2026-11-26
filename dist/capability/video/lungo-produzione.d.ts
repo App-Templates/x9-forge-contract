@@ -117,6 +117,7 @@ export declare const VideoLongRunRefusalSchema: z.ZodEnum<{
     tappa_gia_in_corso: "tappa_gia_in_corso";
     esito_incerto: "esito_incerto";
     progetto_sconosciuto: "progetto_sconosciuto";
+    voce_mancante: "voce_mancante";
 }>;
 export type VideoLongRunRefusal = z.infer<typeof VideoLongRunRefusalSchema>;
 /** The engine checks stage order, frame-only approvals and done == total on completion. */

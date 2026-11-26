@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.332.0 — Officina video: rifiuti veri del motore sulla produzione, additivo
+
+- Preventivo e avvio della produzione: `VideoLongRunRefusalSchema` include `voce_mancante`.
+- Approvazione dei fotogrammi del capitolo: aggiunti `fotogrammi_da_rigenerare`, `fotogrammi_incompleti` e `capitolo_non_trovato`.
+- Unione dei capitoli: aggiunto `fotogrammi_non_approvati`.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: i rifiuti della 9315 sono additivi e le firme restano invariate. Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 602 riferimenti Git locali e remoti tracciati, inclusi `origin/main` e i rami delle altre corsie del ponte: 1.331.0 è l'ultima presa; 1.332.0 è la minore successiva libera.
+
 ## v1.331.0 — Officina video: rifiuti delle impostazioni della produzione, additivo
 
 - `VideoLongProductionSettingsPutToolResponseSchema` include anche i rifiuti `impostazioni_bloccate`, `fornitore_non_pronto` e `piano_non_approvato`, aggiunti dalla 9313.
