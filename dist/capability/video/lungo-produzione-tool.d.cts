@@ -481,9 +481,12 @@ export declare const VideoLongProductionSettingsPutToolResponseSchema: z.ZodDisc
     status: z.ZodLiteral<"rifiutata">;
     reason: z.ZodEnum<{
         motore_non_disponibile: "motore_non_disponibile";
+        piano_non_approvato: "piano_non_approvato";
+        fornitore_non_pronto: "fornitore_non_pronto";
         tappa_gia_in_corso: "tappa_gia_in_corso";
         progetto_sconosciuto: "progetto_sconosciuto";
         impostazioni_non_valide: "impostazioni_non_valide";
+        impostazioni_bloccate: "impostazioni_bloccate";
     }>;
     message: z.ZodString;
 }, z.core.$strict>], "status">;

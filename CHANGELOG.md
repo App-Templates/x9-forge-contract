@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.331.0 — Officina video: rifiuti delle impostazioni della produzione, additivo
+
+- `VideoLongProductionSettingsPutToolResponseSchema` include anche i rifiuti `impostazioni_bloccate`, `fornitore_non_pronto` e `piano_non_approvato`, aggiunti dalla 9313.
+- Consumer: motore Officina e cap-video (X9); `dist/` rigenerata con `pnpm build`, anche catalogo e modulo Python in `dist/python`.
+
+Nessuno schema esistente si stringe: i rifiuti delle impostazioni della produzione sono additivi. Versione scelta confrontando `package.json` e `CHANGELOG.md` dei 602 riferimenti Git locali e remoti tracciati, inclusi `origin/main` e i rami delle altre corsie del ponte: 1.330.0 è l'ultima presa; 1.331.0 è la minore successiva libera.
+
 ## v1.330.0 — Officina video: dal capitolo approvato al video, piano delle inquadrature, produzione a capitoli, costo per modello e per minuto finito, additivo
 
 - Contratti del piano delle inquadrature e dei fotogrammi approvabili con revisione e impronta, impostazioni di produzione, preventivi, avvio e avanzamento della produzione a capitoli, unione e lettura del video finale, con i relativi tipi.

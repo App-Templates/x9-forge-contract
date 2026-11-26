@@ -112,6 +112,9 @@ export const VideoLongProductionSettingsPutToolResponseSchema = z.discriminatedU
         reason: z.enum([
             'impostazioni_non_valide',
             'tappa_gia_in_corso',
+            'impostazioni_bloccate',
+            'fornitore_non_pronto',
+            'piano_non_approvato',
             'progetto_sconosciuto',
             'motore_non_disponibile',
         ]),
