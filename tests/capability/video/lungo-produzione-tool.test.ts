@@ -67,7 +67,7 @@ const writes = [
   ['FramesApprove', video.VideoLongFramesApproveToolResponseSchema, { status: 'approvato', frames: frames },
     ['revisione_superata', 'capitoli_non_approvati', 'capitoli_cambiati', 'impronta_diversa', 'piano_non_trovato', 'progetto_sconosciuto', 'motore_non_disponibile']],
   ['ProductionSettingsPut', video.VideoLongProductionSettingsPutToolResponseSchema, { status: 'salvate', production: production },
-    ['impostazioni_non_valide', 'tappa_gia_in_corso', 'progetto_sconosciuto', 'motore_non_disponibile']],
+    ['impostazioni_non_valide', 'tappa_gia_in_corso', 'impostazioni_bloccate', 'fornitore_non_pronto', 'piano_non_approvato', 'progetto_sconosciuto', 'motore_non_disponibile']],
   ['RunQuote', video.VideoLongRunQuoteToolResponseSchema, { status: 'preventivo', quote: quote },
     ['piano_non_approvato', 'fotogrammi_non_approvati', 'fornitore_non_pronto', 'tariffa_scaduta', 'progetto_sconosciuto', 'motore_non_disponibile']],
   ['RunStart', video.VideoLongRunStartToolResponseSchema, { status: 'avviata', production: production },
@@ -125,6 +125,24 @@ describe('long video production tools', () => {
     }
     expect(schema.safeParse({ ...success, status: 'boh' }).success).toBe(false);
     expect(schema.safeParse({ status: 'rifiutata', reason: 'boh', message: 'Errore.' }).success).toBe(false);
+  });
+
+  // SUMMARY mutation: removing impostazioni_bloccate from the settings response enum
+  // must make this test fail. Mutation execution belongs to the gate.
+  it('accepts the rifiuti del motore sulle impostazioni', () => {
+    const schema = video.VideoLongProductionSettingsPutToolResponseSchema;
+    for (const reason of [
+      'impostazioni_non_valide',
+      'tappa_gia_in_corso',
+      'impostazioni_bloccate',
+      'fornitore_non_pronto',
+      'piano_non_approvato',
+      'progetto_sconosciuto',
+      'motore_non_disponibile',
+    ]) {
+      expect(schema.safeParse({ status: 'rifiutata', reason, message: 'Errore.' }).success, reason).toBe(true);
+    }
+    expect(schema.safeParse({ status: 'rifiutata', reason: 'codice_inventato', message: 'Errore.' }).success).toBe(false);
   });
 
   it('reuses read responses and run refusals from the production contracts', () => {
