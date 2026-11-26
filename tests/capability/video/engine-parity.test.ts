@@ -1,3 +1,4 @@
+import * as V from '../../../src/capability/video/index.js';
 import { VideoOutfitProductionQuerySchema, VideoOutfitProductionCreatedSchema } from '../../../src/capability/video/abito.js';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync } from 'node:fs';
@@ -108,6 +109,43 @@ const outfitQuery = {
   model: 'kling-4-edit', resolution: '720p', budgetUsd: '8', fileName: 'clip.mp4',
 };
 const outfitCreated = { engineProjectId: 'a'.repeat(32), sourceSha256: 'b'.repeat(64), durationSeconds: 12 };
+const without = (o: Record<string, unknown>, key: string) => Object.fromEntries(Object.entries(o).filter(([k]) => k !== key));
+const sha = (c: string) => c.repeat(64);
+const scope = job.identity;
+const communityId = '01HZX3K9M2Q7R5T8V4W6Y0B1CD';
+// SUMMARY 9424: adds the supplied corpus for 23 engine contracts without changing existing cases.
+// Gate mutation (not run here): set envDescription.room to ''. The 'has enough accepted
+// and refused examples' checks must fail for videoEngineEnvironmentCreateRequest,
+// videoEngineEnvironment, videoEngineEnvironmentVersionCreateRequest and
+// videoEngineEnvironmentVersion, even though Zod and Python still agree on rejection.
+// Restore the room description after the mutation. Acceptance and type checks run at the gate.
+const envDescription = { room: 'Studio con pareti bianche', furniture: 'Due poltrone e un tavolino', light: 'Luce morbida dalla finestra' };
+const envAngle = { name: 'frontale', framing: 'Inquadratura larga dalla porta', imagePath: 'angolo-1.png', sha256: sha('a') };
+const envVersion = {
+  number: 1, status: 'approvata', description: envDescription, angles: [envAngle],
+  createdAt: '2026-11-25T10:00:00Z', approvedAt: '2026-11-25T10:05:00.123Z', digest: sha('c'),
+};
+const environment = { id: 'studio-podcast', name: 'Studio podcast', kind: 'studio', identity: scope, versions: [envVersion], currentVersion: 1 };
+const presetScene = { index: 0, durationSeconds: 4, framing: 'largo', movement: 'fissa', transitionIn: 'taglio', role: 'gancio', roleSource: 'stimato' };
+const userPreset = {
+  id: 'utente-intervista-breve', name: 'Intervista breve', identity: scope, status: 'bozza', revision: 1, basedOn: 'singola',
+  source: { durationSeconds: 45, aspectRatio: '9:16', sceneCount: 2 },
+  scenes: [presetScene, { ...presetScene, index: 1, durationSeconds: 6.5, framing: 'stretto', role: 'conclusione', roleSource: 'corretto' }],
+  createdAt: '2026-11-23T10:00:00Z', updatedAt: '2026-11-23T10:30:00.000Z',
+};
+const presetSave = { revision: 1, name: 'Intervista breve', basedOn: 'singola', scenes: [presetScene] };
+const longFields = {
+  name: 'Le piante parlano', family: 'essay', presetId: 'singola', aspectRatio: '16:9', durationSeconds: 600,
+  modelId: null, brief: 'Un saggio sulle piante.', budgetUsd: 25,
+};
+const longCreate = { requestedBy: 'editor-3', ...longFields };
+const longSteps = ['bozza', 'ricerca', 'capitoli', 'fotogrammi', 'video'].map(step => ({ step, status: 'da-fare' }));
+const longProject = { id: ID, identity: scope, ...longFields, steps: longSteps, createdAt: '2026-11-25T10:00:00Z' };
+const costModel = { step: 'bozza', provider: 'anthropic', model: 'modello-1', quantity: 1200, unit: 'token', costUsd: 0.35, basis: 'misurato' };
+const costStep = { step: 'bozza', estimatedUsd: 0.4, confirmedUsd: 0.35, entries: [{ ...costModel, chapterIndex: 1, at: '2026-11-25T10:00:00Z' }] };
+const costChapter = { chapterIndex: 1, costUsd: 0.35, seconds: 60, usdPerMinute: 0.35 };
+const costMinimal = { projectId: ID, steps: [], totalUsd: 0, finishedSeconds: null, usdPerMinute: null };
+
 const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; minimum?: number; accepted?: readonly string[] }> = {
   videoEngineProject: {
     schema: VideoEngineProjectSchema,
@@ -584,6 +622,278 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
       'text confirmation': { ...frameApproval, confirmReview: 'si' },
       'zero revision': { ...frameApproval, revision: 0 },
       'extra field': { ...frameApproval, extra: true },
+    },
+  },
+  videoEngineParallelImportRequest: {
+    schema: V.VideoParallelImportRequestSchema, minimum: 1,
+    cases: {
+      'minimal import': { requestedBy: 'editor-3', communityId, characterId: 'giulia_01' },
+      'pinned version, name and model': { requestedBy: 'editor-3', communityId, characterId: 'giulia_01', version: sha('b'), name: 'Giulia', modelId: 'giulia-1' },
+      'lowercase community': { requestedBy: 'editor-3', communityId: communityId.toLowerCase(), characterId: 'giulia_01' },
+      'character path': { requestedBy: 'editor-3', communityId, characterId: '../giulia' },
+      'uppercase version': { requestedBy: 'editor-3', communityId, characterId: 'giulia_01', version: sha('B') },
+      'missing requester': { communityId, characterId: 'giulia_01' },
+      'extra field': { requestedBy: 'editor-3', communityId, characterId: 'giulia_01', extra: true },
+    },
+  },
+  videoEngineParallelImportResult: {
+    schema: V.VideoParallelImportResultSchema, minimum: 1,
+    cases: {
+      'partial import': {
+        modelId: 'giulia-1', characterId: 'giulia_01', sourceVersion: sha('b'), viewsPresent: ['frontale', 'profilo'],
+        viewsMissing: ['tre_quarti', 'figura_intera'], voiceAssigned: true, importedAt: '2026-11-25T10:00:00Z',
+      },
+      'no source version': {
+        modelId: 'giulia-1', characterId: 'giulia_01', sourceVersion: null, viewsPresent: [], viewsMissing: [],
+        voiceAssigned: false, importedAt: '2026-11-25T10:00:00Z',
+      },
+      'unknown view': {
+        modelId: 'giulia-1', characterId: 'giulia_01', sourceVersion: null, viewsPresent: ['retro'], viewsMissing: [],
+        voiceAssigned: false, importedAt: '2026-11-25T10:00:00Z',
+      },
+      'five views': {
+        modelId: 'giulia-1', characterId: 'giulia_01', sourceVersion: null,
+        viewsPresent: ['frontale', 'frontale', 'frontale', 'frontale', 'frontale'], viewsMissing: [],
+        voiceAssigned: false, importedAt: '2026-11-25T10:00:00Z',
+      },
+      'empty import time': {
+        modelId: 'giulia-1', characterId: 'giulia_01', sourceVersion: null, viewsPresent: [], viewsMissing: [],
+        voiceAssigned: false, importedAt: '',
+      },
+      'extra field': {
+        modelId: 'giulia-1', characterId: 'giulia_01', sourceVersion: null, viewsPresent: [], viewsMissing: [],
+        voiceAssigned: false, importedAt: '2026-11-25T10:00:00Z', extra: true,
+      },
+    },
+  },
+  videoEngineOutfitStyleRequest: {
+    schema: V.VideoOutfitStyleRequestSchema, minimum: 1,
+    cases: {
+      'style request': { request: 'Un look elegante per una cena' },
+      'trimmed request': { request: '  Un look sportivo\n' },
+      'blank request': { request: '   ' },
+      'long request': { request: 'x'.repeat(301) },
+      'extra field': { request: 'Un look elegante', extra: true },
+    },
+  },
+  videoEngineOutfitStyleResult: {
+    schema: V.VideoOutfitStyleResultSchema, minimum: 1,
+    cases: {
+      'complete rules': { description: 'Giacca blu e camicia bianca', constraints: ['niente cravatta'], rules: 'complete' },
+      'no style': { description: 'Giacca blu', constraints: [], rules: 'senza_stile' },
+      'unknown rules': { description: 'Giacca blu', constraints: [], rules: 'parziali' },
+      'missing constraints': { description: 'Giacca blu', rules: 'complete' },
+      'long description': { description: 'x'.repeat(501), constraints: [], rules: 'complete' },
+      'twenty one constraints': { description: 'Giacca blu', constraints: Array.from({ length: 21 }, () => 'niente cravatta'), rules: 'complete' },
+      'extra field': { description: 'Giacca blu', constraints: [], rules: 'complete', extra: true },
+    },
+  },
+  videoEnginePresetFromVideoQuery: {
+    schema: V.VideoPresetFromVideoStartQuerySchema, minimum: 1,
+    cases: {
+      'agent scope': scope,
+      'missing tenant': without(scope, 'tenantId'),
+      'user field': { ...scope, userId: 'user-1' },
+      'extra field': { ...scope, extra: true },
+    },
+  },
+  videoEnginePresetFromVideoStartRequest: {
+    schema: V.VideoPresetFromVideoStartRequestSchema, minimum: 1,
+    cases: {
+      'https address': { url: 'https://example.com/video.mp4', name: 'Intervista breve' },
+      'http address': { url: 'http://example.com/video.mp4', name: 'Intervista breve' },
+      'file address': { url: 'file:///tmp/video.mp4', name: 'Intervista breve' },
+      'address with space': { url: 'https://example.com/a b.mp4', name: 'Intervista breve' },
+      'empty name': { url: 'https://example.com/video.mp4', name: '' },
+      'extra field': { url: 'https://example.com/video.mp4', name: 'Intervista breve', extra: true },
+    },
+  },
+  videoEnginePresetFromVideoJob: {
+    schema: V.VideoPresetFromVideoJobSchema, minimum: 1,
+    cases: {
+      'analyzing': { jobId: ID, status: 'analyzing', presetId: null, code: null, error: null },
+      'done': { jobId: ID, status: 'done', presetId: 'utente-intervista-breve', code: null, error: null },
+      'failed': { jobId: ID, status: 'failed', presetId: null, code: 'video_illeggibile', error: 'Il video non si legge.' },
+      'unknown status': { jobId: ID, status: 'paused', presetId: null, code: null, error: null },
+      'preset without prefix': { jobId: ID, status: 'done', presetId: 'intervista-breve', code: null, error: null },
+      'short job id': { jobId: 'abc', status: 'queued', presetId: null, code: null, error: null },
+      'extra field': { jobId: ID, status: 'queued', presetId: null, code: null, error: null, extra: true },
+    },
+  },
+  videoEngineUserPresetList: {
+    schema: V.VideoUserPresetListSchema, minimum: 1,
+    cases: {
+      'one preset': { presets: [userPreset] },
+      'no presets': { presets: [] },
+      'not a list': { presets: userPreset },
+      'extra field': { presets: [], extra: true },
+    },
+  },
+  videoEngineUserPreset: {
+    schema: V.VideoUserPresetSchema, minimum: 1,
+    cases: {
+      'draft preset': userPreset,
+      'saved preset': { ...userPreset, status: 'salvato', revision: 2 },
+      'default base preset': without(userPreset, 'basedOn'),
+      'no scenes': { ...userPreset, scenes: [] },
+      'zero revision': { ...userPreset, revision: 0 },
+      'offset timestamp': { ...userPreset, createdAt: '2026-11-23T11:00:00+01:00' },
+      'source too long': { ...userPreset, source: { ...userPreset.source, durationSeconds: 1801 } },
+      'scene too short': { ...userPreset, scenes: [{ ...presetScene, durationSeconds: 0.5 }] },
+      'extra field': { ...userPreset, extra: true },
+    },
+  },
+  videoEnginePresetSaveRequest: {
+    schema: V.VideoPresetSaveRequestSchema, minimum: 1,
+    cases: {
+      'correction': presetSave,
+      'missing base preset': without(presetSave, 'basedOn'),
+      'no scenes': { ...presetSave, scenes: [] },
+      'thirteen scenes': { ...presetSave, scenes: Array.from({ length: 13 }, () => presetScene) },
+      'unknown movement': { ...presetSave, scenes: [{ ...presetScene, movement: 'volo' }] },
+      'extra field': { ...presetSave, extra: true },
+    },
+  },
+  videoEngineEnvironmentQuery: {
+    schema: V.VideoEnvironmentScopeQuerySchema, minimum: 1,
+    cases: {
+      'agent scope': scope,
+      'missing owner': without(scope, 'ownerId'),
+      'user field': { ...scope, userId: 'user-1' },
+      'extra field': { ...scope, extra: true },
+    },
+  },
+  videoEngineEnvironmentCreateRequest: {
+    schema: V.VideoEnvironmentCreateRequestSchema, minimum: 1,
+    cases: {
+      'studio': { name: 'Studio podcast', kind: 'studio', description: envDescription },
+      'trimmed name': { name: '  Giardino  ', kind: 'esterno', description: envDescription },
+      'unknown kind': { name: 'Studio podcast', kind: 'cantina', description: envDescription },
+      'blank name': { name: '   ', kind: 'studio', description: envDescription },
+      'long name': { name: 'x'.repeat(81), kind: 'studio', description: envDescription },
+      'missing light': { name: 'Studio podcast', kind: 'studio', description: without(envDescription, 'light') },
+      'extra field': { name: 'Studio podcast', kind: 'studio', description: envDescription, extra: true },
+    },
+  },
+  videoEngineEnvironment: {
+    schema: V.VideoEnvironmentSchema, minimum: 1,
+    cases: {
+      'approved environment': environment,
+      'new draft environment': { ...environment, versions: [{ ...envVersion, status: 'bozza', angles: [], approvedAt: null }], currentVersion: null },
+      'uppercase id': { ...environment, id: 'Studio-Podcast' },
+      'unknown kind': { ...environment, kind: 'cantina' },
+      'zero current version': { ...environment, currentVersion: 0 },
+      'eleven angles': { ...environment, versions: [{ ...envVersion, angles: Array.from({ length: 11 }, () => envAngle) }] },
+      'angle path': { ...environment, versions: [{ ...envVersion, angles: [{ ...envAngle, imagePath: '../angolo.png' }] }] },
+      'extra field': { ...environment, extra: true },
+    },
+  },
+  videoEngineEnvironmentList: {
+    schema: V.VideoEnvironmentListSchema, minimum: 1,
+    cases: {
+      'one environment': { environments: [environment] },
+      'no environments': { environments: [] },
+      'not a list': { environments: environment },
+      'extra field': { environments: [], extra: true },
+    },
+  },
+  videoEngineEnvironmentVersionCreateRequest: {
+    schema: V.VideoEnvironmentVersionCreateRequestSchema, minimum: 1,
+    cases: {
+      'new description': { description: envDescription },
+      'missing description': {},
+      'blank room': { description: { ...envDescription, room: '  ' } },
+      'extra field': { description: envDescription, extra: true },
+    },
+  },
+  videoEngineEnvironmentVersion: {
+    schema: V.VideoEnvironmentVersionSchema, minimum: 1,
+    cases: {
+      'approved version': envVersion,
+      'replaced version': { ...envVersion, status: 'sostituita' },
+      'unknown status': { ...envVersion, status: 'ritirata' },
+      'version fifty one': { ...envVersion, number: 51 },
+      'uppercase digest': { ...envVersion, digest: sha('C') },
+      'offset timestamp': { ...envVersion, createdAt: '2026-11-25T10:00:00+01:00' },
+      'extra field': { ...envVersion, extra: true },
+    },
+  },
+  videoEngineEnvironmentAngleRequest: {
+    schema: V.VideoEnvironmentAngleRequestSchema, minimum: 1,
+    cases: {
+      'with model': { projectId: ID, name: 'frontale', framing: 'Inquadratura larga dalla porta', modelId: 'giulia-1', maxCostUsd: 1.5 },
+      'empty background': { projectId: ID, name: 'frontale', framing: 'Inquadratura larga dalla porta', modelId: null, maxCostUsd: 0.5 },
+      'zero cost cap': { projectId: ID, name: 'frontale', framing: 'Inquadratura larga dalla porta', modelId: null, maxCostUsd: 0 },
+      'negative cost cap': { projectId: ID, name: 'frontale', framing: 'Inquadratura larga dalla porta', modelId: null, maxCostUsd: -1 },
+      'uppercase angle name': { projectId: ID, name: 'Frontale', framing: 'Inquadratura larga', modelId: null, maxCostUsd: 1 },
+      'missing project': { name: 'frontale', framing: 'Inquadratura larga', modelId: null, maxCostUsd: 1 },
+      'extra field': { projectId: ID, name: 'frontale', framing: 'Inquadratura larga', modelId: null, maxCostUsd: 1, extra: true },
+    },
+  },
+  videoEngineEnvironmentApproveRequest: {
+    schema: V.VideoEnvironmentApproveRequestSchema, minimum: 1,
+    cases: {
+      'digest': { digest: sha('c') },
+      'short digest': { digest: 'c'.repeat(63) },
+      'uppercase digest': { digest: sha('C') },
+      'extra field': { digest: sha('c'), extra: true },
+    },
+  },
+  videoEngineLongQuery: {
+    schema: V.VideoLongScopeQuerySchema, minimum: 1,
+    cases: {
+      'agent scope': scope,
+      'missing agent': without(scope, 'agentId'),
+      'user field': { ...scope, userId: 'user-1' },
+      'extra field': { ...scope, extra: true },
+    },
+  },
+  videoEngineLongCreateRequest: {
+    schema: V.VideoLongCreateRequestSchema, minimum: 1,
+    cases: {
+      'plain long project': longCreate,
+      'with environment and follow-up': { ...longCreate, modelId: 'giulia-1', environmentId: 'studio-podcast', environmentVersion: 1, followsProjectId: ID },
+      'too short': { ...longCreate, durationSeconds: 119 },
+      'too long': { ...longCreate, durationSeconds: 1201 },
+      'fractional duration': { ...longCreate, durationSeconds: 600.5 },
+      'unknown family': { ...longCreate, family: 'saga' },
+      'zero budget': { ...longCreate, budgetUsd: 0 },
+      'missing brief': without(longCreate, 'brief'),
+      'extra field': { ...longCreate, extra: true },
+    },
+  },
+  videoEngineLongProject: {
+    schema: V.VideoLongProjectSchema, minimum: 1,
+    cases: {
+      'new project': longProject,
+      'with environment': { ...longProject, environmentId: 'studio-podcast', environmentVersion: 2 },
+      'four steps': { ...longProject, steps: longSteps.slice(0, 4) },
+      'unknown step status': { ...longProject, steps: longSteps.map(item => ({ ...item, status: 'sospeso' })) },
+      'short id': { ...longProject, id: 'abc' },
+      'extra field': { ...longProject, extra: true },
+    },
+  },
+  videoEngineLongProjectList: {
+    schema: V.VideoLongProjectListSchema, minimum: 1,
+    cases: {
+      'one project': { projects: [longProject] },
+      'no projects': { projects: [] },
+      'not a list': { projects: longProject },
+      'extra field': { projects: [], extra: true },
+    },
+  },
+  videoEngineLongCostByStep: {
+    schema: V.VideoCostByStepSchema, minimum: 1,
+    cases: {
+      'no cost yet': costMinimal,
+      'full ledger': {
+        ...costMinimal, steps: [costStep], totalUsd: 0.35, finishedSeconds: 60, usdPerMinute: 0.35,
+        models: [costModel], chapters: [costChapter], usdPerMinuteBasis: 'misurato', unmeasuredEntries: 0,
+      },
+      'negative total': { ...costMinimal, totalUsd: -1 },
+      'six steps': { ...costMinimal, steps: Array.from({ length: 6 }, () => costStep) },
+      'unknown basis': { ...costMinimal, usdPerMinuteBasis: 'indovinato' },
+      'extra field': { ...costMinimal, extra: true },
     },
   },
 };
