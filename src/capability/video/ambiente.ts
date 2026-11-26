@@ -4,7 +4,7 @@ import { VideoEngineIdSchema } from './engine.js';
 import { VideoModelIdSchema } from './modella.js';
 
 export const VIDEO_ENVIRONMENT_KINDS = ['studio', 'esterno', 'documentario'] as const;
-export const VIDEO_ENVIRONMENT_MAX_ANGLES = 8;
+export const VIDEO_ENVIRONMENT_MAX_ANGLES = 10;
 export const VIDEO_ENVIRONMENT_MAX_VERSIONS = 50;
 export const VIDEO_ENVIRONMENT_MAX_PER_AGENT = 200;
 

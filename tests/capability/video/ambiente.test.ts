@@ -45,7 +45,7 @@ const angleRequest: VideoEnvironmentAngleRequest = {
   projectId: 'a'.repeat(32), name: 'tre-quarti', framing: 'Ottica 50 mm, tre quarti da sinistra.', modelId: 'marco', maxCostUsd: 0.5,
 };
 
-// SUMMARY: removing .max(VIDEO_ENVIRONMENT_MAX_ANGLES) must fail the nine-angle case.
+// SUMMARY: removing .max(VIDEO_ENVIRONMENT_MAX_ANGLES) must fail the eleven-angle case; putting 8 back must fail the nine and ten-angle cases.
 // Mutations and acceptance are run by the gate, not by this worker.
 describe('environment library', () => {
   it('accepts a production podcast studio approved with three angles', () => {
@@ -57,10 +57,12 @@ describe('environment library', () => {
     expect(VideoEnvironmentSchema.parse(draft)).toEqual(draft);
   });
 
-  it('accepts eight angles and rejects nine angles', () => {
+  it('accepts up to ten angles and rejects eleven angles', () => {
     const withAngles = (length: number) => ({ ...version, angles: Array.from({ length }, (_, i) => ({ ...angles[0], name: `angle-${i}`, imagePath: `angle-${i}.png` })) });
     expect(VideoEnvironmentVersionSchema.safeParse(withAngles(8)).success).toBe(true);
-    expect(VideoEnvironmentVersionSchema.safeParse(withAngles(9)).success).toBe(false);
+    expect(VideoEnvironmentVersionSchema.safeParse(withAngles(9)).success).toBe(true);
+    expect(VideoEnvironmentVersionSchema.safeParse(withAngles(10)).success).toBe(true);
+    expect(VideoEnvironmentVersionSchema.safeParse(withAngles(11)).success).toBe(false);
   });
 
   it.each(['../frontale.png', 'studio/frontale.png', '/frontale.png', 'frontale.gif'])('rejects image path %s', (imagePath) => {
@@ -136,7 +138,7 @@ describe('environment library', () => {
 
   it('exports limits, trims names and reuses the identity query', () => {
     expect(VIDEO_ENVIRONMENT_KINDS).toEqual(['studio', 'esterno', 'documentario']);
-    expect(VIDEO_ENVIRONMENT_MAX_ANGLES).toBe(8);
+    expect(VIDEO_ENVIRONMENT_MAX_ANGLES).toBe(10);
     expect(VIDEO_ENVIRONMENT_MAX_VERSIONS).toBe(50);
     expect(VIDEO_ENVIRONMENT_MAX_PER_AGENT).toBe(200);
     expect(VideoEnvironmentScopeQuerySchema).toBe(CapabilityAgentScopeSchema);
