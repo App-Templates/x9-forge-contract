@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.325.0 — approved-units retry ceiling in the built package (tasks 8705, 8706)
+
+- Reserve 1.325.0 after 1.324.0; versions 1.320.0 and 1.321.0 stay reserved for other work and existing entries are preserved.
+- New public constant `PAPERCLIP_APPROVED_UNITS_RETRY_HARD_CAP = 15`, exported from `http/endpoints/internal-paperclip-seats` and re-exported from `http`, ESM and CJS, with declarations.
+- Both `event.attempt` and `event.maxAttempts` of the `approved_units_failed` wake event use it: 12/15 and 15/15 are now valid; 12/16, 16/15 and attempt above maxAttempts are still refused with the original paths.
+- The finite lower limit, strictness, units and identity checks are unchanged; saved bodies (1/5, 5/5, 10/10) parse, serialize, canonicalize and digest identically. No schema field or default is added and nothing saved is rewritten.
+- The consumer adoption (az-r17) is still needed: the Director wake accepts 12/15 only after X9 pins this package; this packaging alone does not restart anything. `dist/` is generated only by `pnpm build`; nothing is published, tagged or released.
+- REGRESSIONE: s8706 ESM accepts production counters and s8706 CJS: the 1.324.0 build refused 12/15 (request dec_da4e8384). No production body was used; live verification follows adoption.
+
 ## v1.324.0 — project referents in the built package (tasks 8399, 8700)
 
 - Reserve 1.324.0 after 1.323.0; versions 1.320.0 and 1.321.0 stay reserved for other work and existing entries are preserved.

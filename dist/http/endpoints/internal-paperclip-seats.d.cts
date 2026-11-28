@@ -440,6 +440,7 @@ export declare const PaperclipSeatResearchDoneDossierEntrySchema: z.ZodObject<{
     }>;
 }, z.core.$strict>;
 export type PaperclipSeatResearchDoneDossierEntry = z.infer<typeof PaperclipSeatResearchDoneDossierEntrySchema>;
+export declare const PAPERCLIP_APPROVED_UNITS_RETRY_HARD_CAP = 15;
 export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"email">;
     messageId: z.ZodString;

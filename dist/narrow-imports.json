@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.324.0",
+  "versione": "1.325.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2303,6 +2303,7 @@
       "OpenConnectLinkParamsSchema": "@x9-forge/contracts/http/endpoints/connect-public",
       "OpenConnectLinkResponseSchema": "@x9-forge/contracts/http/endpoints/connect-public",
       "OrganizationAdmissionRefusalCodeSchema": "@x9-forge/contracts/http/endpoints/internal-agent-turn",
+      "PAPERCLIP_APPROVED_UNITS_RETRY_HARD_CAP": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PAPERCLIP_SEAT_REPLY_WAKE_RESULTS": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",

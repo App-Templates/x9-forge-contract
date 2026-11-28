@@ -180,8 +180,8 @@ for (const mode of ['ESM', 'CJS'] as const) {
 }
 
 describe('s8323 package', () => {
-  it('s8323 reserves exactly version 1.324.0', () => {
-    expect(manifest.version).toBe('1.324.0');
+  it('s8323 reserves exactly version 1.325.0', () => {
+    expect(manifest.version).toBe('1.325.0');
   });
 
   it('s8323 built ESM and CJS agree on the referent result for the same input', async () => {
@@ -342,8 +342,8 @@ for (const mode of ['ESM', 'CJS'] as const) {
 }
 
 describe('s8700 package', () => {
-  it('s8700 reserves exactly version 1.324.0', () => {
-    expect(manifest.version).toBe('1.324.0');
+  it('s8700 reserves exactly version 1.325.0', () => {
+    expect(manifest.version).toBe('1.325.0');
   });
 
   it('s8700 built ESM and CJS agree on results and refusals for the same data', async () => {
@@ -428,4 +428,149 @@ describe('s8700 package', () => {
       }
     }
   }, 30_000);
+});
+
+// s8706: the built package carries the 8705 retry ceiling. Entries are the real package subpaths, not src.
+const SEATS_SUBPATH = 'http/endpoints/internal-paperclip-seats';
+const HTTP_SUBPATHS = { http: 'http', seats: SEATS_SUBPATH } as const;
+type HttpName = keyof typeof HTTP_SUBPATHS;
+const loadHttp = async (mode: Mode, name: HttpName): Promise<Mod> => {
+  const subpath = HTTP_SUBPATHS[name];
+  const exported = manifest.exports[`./${subpath}`] ?? manifest.exports['./http/*'];
+  const target = (mode === 'ESM' ? exported.import : exported.require).replace('*', subpath.slice('http/'.length));
+  const file = resolve(root, target);
+  expect(file).toBe(resolve(root, `dist/${subpath === 'http' ? 'http/index' : subpath}.${mode === 'ESM' ? 'js' : 'cjs'}`));
+  if (mode === 'CJS') {
+    expect(require.resolve(`@x9-forge/contracts/${subpath}`)).toBe(file);
+    return require(`@x9-forge/contracts/${subpath}`) as Mod;
+  }
+  return nativeImport(pathToFileURL(file).href);
+};
+
+// Only requestId and counters are attested by 629 (dec_da4e8384, 12/15); the rest is rebuilt from the 5884 shape.
+const wakeBody = (attempt = 12, maxAttempts = 15) => ({
+  scope: { tenantId: 't1', ownerId: 'o1', agentId: 'director-a' },
+  eventId: `approved-units:dec_da4e8384:${attempt}`,
+  organizationId: 'org-a',
+  identity: { managementAgentId: 'director-a', runtimeAgentId: 'director-a', vaultAgentId: 7 },
+  event: {
+    kind: 'approved_units_failed',
+    requestId: 'dec_da4e8384',
+    directorIssueId: '11111111-1111-4111-8111-111111111111',
+    units: [{ unitId: 'area-1', reason: 'factory refused: 409' }],
+    attempt,
+    maxAttempts,
+  },
+});
+type Safe = { success: boolean; data?: unknown; error?: { issues: { path: unknown[] }[] } };
+type Bodied = { safeParse(value: unknown): Safe; parse(value: unknown): unknown };
+const wakeSchemas = (m: Mod): Bodied[] => [
+  m.InternalPaperclipSeatNativeWakeRequestSchema as Bodied,
+  (m.internalPaperclipSeatNativeWakeContract as { bodySchema: Bodied }).bodySchema,
+];
+const refusedPaths = (schema: Bodied, input: unknown) => {
+  const result = schema.safeParse(input);
+  expect(result.success).toBe(false);
+  return (result.error?.issues ?? []).map((issue) => issue.path);
+};
+
+for (const mode of ['ESM', 'CJS'] as const) {
+  describe(`s8706 ${mode} retry ceiling in the built package`, () => {
+    const mods = {} as Record<HttpName, Mod>;
+    beforeAll(async () => {
+      for (const name of Object.keys(HTTP_SUBPATHS) as HttpName[]) mods[name] = await loadHttp(mode, name);
+    });
+
+    it(`s8706 ${mode} accepts production counters`, () => {
+      for (const m of [mods.http, mods.seats]) {
+        expect(Reflect.get(m, 'PAPERCLIP_APPROVED_UNITS_RETRY_HARD_CAP')).toBe(15);
+        for (const schema of wakeSchemas(m)) {
+          for (const [attempt, maxAttempts] of [[12, 15], [15, 15], [1, 5], [5, 5], [10, 10]]) {
+            const input = wakeBody(attempt, maxAttempts);
+            const result = schema.safeParse(input);
+            expect(result.success, JSON.stringify(result.error?.issues)).toBe(true);
+            expect(schema.parse(input)).toStrictEqual(input);
+          }
+        }
+        const event = m.PaperclipSeatNativeWakeEventSchema as Bodied;
+        expect(event.parse(wakeBody().event)).toStrictEqual(wakeBody().event);
+      }
+    });
+
+    it(`s8706 ${mode} refuses counters above ceiling`, () => {
+      for (const m of [mods.http, mods.seats]) {
+        for (const schema of wakeSchemas(m)) {
+          expect(refusedPaths(schema, wakeBody(12, 16))).toContainEqual(['event', 'maxAttempts']);
+          expect(refusedPaths(schema, wakeBody(16, 15))).toContainEqual(['event', 'attempt']);
+          expect(refusedPaths(schema, wakeBody(13, 12))).toContainEqual(['event', 'attempt']);
+          for (const field of ['attempt', 'maxAttempts']) {
+            for (const value of [0, -1, 1.5, '12']) {
+              const input = wakeBody();
+              expect(refusedPaths(schema, { ...input, event: { ...input.event, [field]: value } })).toContainEqual(['event', field]);
+            }
+          }
+        }
+      }
+    });
+
+    it(`s8706 ${mode} keeps strictness and requirements`, () => {
+      for (const m of [mods.http, mods.seats]) {
+        for (const schema of wakeSchemas(m)) {
+          const input = wakeBody();
+          expect(refusedPaths(schema, { ...input, extra: true })).toContainEqual([]);
+          expect(refusedPaths(schema, { ...input, event: { ...input.event, extra: true } })).toContainEqual(['event']);
+          expect(refusedPaths(schema, { ...input, event: { ...input.event, units: [] } })).toContainEqual(['event', 'units']);
+          expect(refusedPaths(schema, { ...input, identity: { ...input.identity, runtimeAgentId: 'other-agent' } })).toContainEqual(['identity', 'runtimeAgentId']);
+          expect(refusedPaths(schema, { ...input, organizationId: undefined })).toContainEqual(['organizationId']);
+        }
+      }
+    });
+
+    it(`s8706 ${mode} saved body rereads identically`, async () => {
+      const plan = await load(mode, 'plan');
+      const canonicalJson = plan.canonicalJson as (value: unknown) => string;
+      for (const m of [mods.http, mods.seats]) {
+        for (const schema of wakeSchemas(m)) {
+          for (const [attempt, maxAttempts] of [[12, 15], [15, 15], [1, 5], [10, 10]]) {
+            const saved = JSON.stringify(wakeBody(attempt, maxAttempts));
+            const canonical = canonicalJson(JSON.parse(saved));
+            const parsed = schema.parse(JSON.parse(saved));
+            expect(JSON.stringify(parsed)).toBe(saved);
+            expect(canonicalJson(parsed)).toBe(canonical);
+            expect(sha256(canonicalJson(parsed))).toBe(sha256(canonical));
+          }
+        }
+      }
+    });
+  });
+}
+
+describe('s8706 package', () => {
+  it('s8706 reserves exactly version 1.325.0', () => {
+    expect(manifest.version).toBe('1.325.0');
+  });
+
+  it('s8706 ESM and CJS agree on results for the same bodies', async () => {
+    const run = async (mode: Mode) => {
+      const m = await loadHttp(mode, 'seats');
+      const schema = (m.InternalPaperclipSeatNativeWakeRequestSchema as Bodied);
+      return [[12, 15], [15, 15], [12, 16], [16, 15], [13, 12], [1, 5]].map(([a, b]) => schema.safeParse(wakeBody(a, b)).success);
+    };
+    expect(await run('ESM')).toEqual(await run('CJS'));
+    expect(await run('ESM')).toEqual([true, true, false, false, false, true]);
+  });
+
+  it('s8706 declarations export the literal ceiling and schemas in .d.ts and .d.cts', () => {
+    const target = manifest.exports['./http/*'].types.replace('*', SEATS_SUBPATH.slice('http/'.length));
+    expect(resolve(root, target)).toBe(resolve(root, `dist/${SEATS_SUBPATH}.d.cts`));
+    for (const ext of ['d.ts', 'd.cts']) {
+      const text = readFileSync(resolve(root, `dist/${SEATS_SUBPATH}.${ext}`), 'utf8');
+      expect(text).toMatch(/PAPERCLIP_APPROVED_UNITS_RETRY_HARD_CAP\s*[:=]\s*15\b/);
+      expect(text).toContain('InternalPaperclipSeatNativeWakeRequestSchema');
+      expect(text).toContain('internalPaperclipSeatNativeWakeContract');
+      expect(text).not.toMatch(/\/Users\/|\bsrc\//);
+      expect(readFileSync(resolve(root, `dist/http/index.${ext}`), 'utf8')).toMatch(/export \* from ['"]\.\/endpoints\/index\.c?js['"]/);
+      expect(readFileSync(resolve(root, `dist/http/endpoints/index.${ext}`), 'utf8')).toMatch(/export \* from ['"]\.\/internal-paperclip-seats\.c?js['"]/);
+    }
+  });
 });
