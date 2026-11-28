@@ -258,6 +258,10 @@ export const PaperclipSeatResearchDoneDossierEntrySchema = z.strictObject({
 });
 export type PaperclipSeatResearchDoneDossierEntry = z.infer<typeof PaperclipSeatResearchDoneDossierEntrySchema>;
 
+export const PAPERCLIP_APPROVED_UNITS_RETRY_HARD_CAP = 15;
+
+const PaperclipApprovedUnitsRetryCountSchema = z.int().min(1).max(PAPERCLIP_APPROVED_UNITS_RETRY_HARD_CAP).describe('approved_units_failed retry count');
+
 export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
   z.strictObject({
     kind: z.literal('email'),
@@ -329,8 +333,8 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
       unitId: z.string().min(1).max(200),
       reason: z.string().min(1).max(200),
     })).min(1).max(20),
-    attempt: z.int().min(1).max(10),
-    maxAttempts: z.int().min(1).max(10),
+    attempt: PaperclipApprovedUnitsRetryCountSchema,
+    maxAttempts: PaperclipApprovedUnitsRetryCountSchema,
   }).refine(e => e.attempt <= e.maxAttempts, { path: ['attempt'], message: 'attempt must not exceed maxAttempts' }),
   z.strictObject({ kind: z.literal('agent_request'), request: AgentRequestSchema }),
   // The final project delivery was sent and recorded (`ProjectDeliveryRecord` stage `sent`, kind `final`); `digest` is the
